@@ -1,0 +1,33 @@
+# Dart / Flutter
+.dart_tool/
+.packages
+build/
+pubspec_overrides.yaml
+*.g.dart.tmp
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Android
+**/android/.gradle/
+**/android/local.properties
+**/android/key.properties
+*.jks
+*.keystore
+
+# Node (viewer_web)
+node_modules/
+dist/
+
+# Yerel veri ve ortam
+data/
+*.db
+*.db-wal
+*.db-shm
+.env
+.env.*
+
+# Editör ve sistem
+.idea/
+.vscode/
+*.iml
+.DS_Store
