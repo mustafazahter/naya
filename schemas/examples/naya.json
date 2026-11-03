@@ -1,0 +1,36 @@
+{
+  "format": "naya",
+  "formatVersion": "1.0.0",
+  "id": "bisiklet",
+  "kind": "template",
+  "language": "tr",
+  "title": "Bisiklet",
+  "product": { "category": "bicycle" },
+  "s1000d": {
+    "issue": "5.0",
+    "modelIdentCode": "NAYABIKE",
+    "entry": "csdb/PMC-NAYABIKE-00001-00_TR-TR.XML"
+  },
+  "model": {
+    "main": "model/product.glb",
+    "units": "m",
+    "upAxis": "Y",
+    "compression": "meshopt"
+  },
+  "credits": [
+    {
+      "asset": "model/product.glb",
+      "author": "Örnek Yazar",
+      "source": "https://example.com/bisiklet",
+      "license": "CC-BY-4.0"
+    }
+  ],
+  "generator": "naya_cli 0.1.0",
+  "created": "2026-11-03T00:00:00Z",
+  "integrity": {
+    "algorithm": "sha256",
+    "files": {
+      "map/parts.json": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+    }
+  }
+}

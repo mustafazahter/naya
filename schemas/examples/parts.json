@@ -1,0 +1,38 @@
+{
+  "parts": [
+    {
+      "id": "drive",
+      "name": "Aktarma organları",
+      "sns": "41",
+      "zone": "z.middle"
+    },
+    {
+      "id": "drive.chain",
+      "name": "Zincir",
+      "parent": "drive",
+      "meshNodes": ["Chain"],
+      "zone": "z.middle",
+      "function": "Pedal dişlisindeki gücü arka tekerleğe aktarır.",
+      "procedures": {
+        "remove": "DMC-NAYABIKE-AAA-D00-00-00-00AA-520A-A",
+        "inspect": "DMC-NAYABIKE-AAA-D00-00-00-00AA-310A-A"
+      },
+      "media": ["media/zincir-1.webp"],
+      "explode": { "dir": [0, -1, 0], "dist": 0.15 }
+    },
+    {
+      "id": "brakes",
+      "name": "Frenler",
+      "zone": "z.front"
+    },
+    {
+      "id": "brakes.front.pad",
+      "name": "Ön fren balatası",
+      "parent": "brakes",
+      "meshNodes": ["BrakePad_Front_L", "BrakePad_Front_R"],
+      "zone": "z.front",
+      "ipd": { "dmc": "DMC-NAYABIKE-AAA-DA0-00-00-00AA-941A-A", "figure": "1", "item": "4" },
+      "explode": { "dir": [1, 0, 0], "dist": 0.05 }
+    }
+  ]
+}

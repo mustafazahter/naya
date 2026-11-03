@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "hotspots.schema.json",
+  "title": "Etiket noktaları (map/hotspots.json)",
+  "type": "object",
+  "required": ["hotspots"],
+  "additionalProperties": false,
+  "properties": {
+    "hotspots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "part", "position"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "part": { "type": "string" },
+          "position": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+          "label": { "type": "string" }
+        }
+      }
+    }
+  }
+}

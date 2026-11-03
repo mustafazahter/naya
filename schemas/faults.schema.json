@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "faults.schema.json",
+  "title": "Belirtiler ve arızalar (map/faults.json)",
+  "type": "object",
+  "required": ["symptoms", "faults"],
+  "additionalProperties": false,
+  "properties": {
+    "symptoms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "text"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^sym\\." },
+          "text": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "faults": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "part", "symptoms", "cause", "severity"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^f\\." },
+          "part": { "type": "string" },
+          "symptoms": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "cause": { "type": "string", "minLength": 1 },
+          "severity": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "isolation": { "type": "string", "pattern": "^DMC-" },
+          "repair": { "type": "string", "pattern": "^DMC-" }
+        }
+      }
+    }
+  }
+}

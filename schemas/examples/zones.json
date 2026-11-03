@@ -1,0 +1,7 @@
+{
+  "zones": [
+    { "id": "z.front", "name": "Ön" },
+    { "id": "z.middle", "name": "Orta" },
+    { "id": "z.rear", "name": "Arka" }
+  ]
+}
