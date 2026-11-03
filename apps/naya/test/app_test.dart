@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naya/app/app.dart';
+import 'package:naya/shared/ui/theme.dart';
 
 void main() {
   // Testte ağdan font indirilmesin.
-  GoogleFonts.config.allowRuntimeFetching = false;
+  NayaFonts.useGoogleFonts = false;
 
   testWidgets('kütüphane açılıyor', (tester) async {
     await tester.pumpWidget(const NayaApp());

@@ -3,48 +3,72 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'tokens.dart';
 
+/// Yazı aileleri: metin için Inter, teknik veriler için JetBrains Mono.
+abstract final class NayaFonts {
+  /// Testlerde kapatılır; ağdan font indirilmez, sistem fontu kullanılır.
+  static bool useGoogleFonts = true;
+
+  static TextStyle sans(TextStyle style) =>
+      useGoogleFonts ? GoogleFonts.inter(textStyle: style) : style;
+
+  static TextStyle mono(TextStyle style) => useGoogleFonts
+      ? GoogleFonts.jetBrainsMono(textStyle: style)
+      : style.copyWith(fontFamily: 'monospace');
+}
+
 /// Token'lardan kurulan yazı stilleri.
 class NayaText {
   NayaText(NayaColors c)
-    : display = GoogleFonts.inter(
-        fontSize: NayaTypeScale.display,
-        fontWeight: FontWeight.w600,
-        letterSpacing: -1.2,
-        height: 1.05,
-        color: c.text,
+    : display = NayaFonts.sans(
+        TextStyle(
+          fontSize: NayaTypeScale.display,
+          fontWeight: FontWeight.w600,
+          letterSpacing: -1.2,
+          height: 1.05,
+          color: c.text,
+        ),
       ),
-      title = GoogleFonts.inter(
-        fontSize: NayaTypeScale.title,
-        fontWeight: FontWeight.w600,
-        letterSpacing: -0.5,
-        height: 1.15,
-        color: c.text,
+      title = NayaFonts.sans(
+        TextStyle(
+          fontSize: NayaTypeScale.title,
+          fontWeight: FontWeight.w600,
+          letterSpacing: -0.5,
+          height: 1.15,
+          color: c.text,
+        ),
       ),
-      heading = GoogleFonts.inter(
-        fontSize: NayaTypeScale.heading,
-        fontWeight: FontWeight.w600,
-        letterSpacing: -0.2,
-        color: c.text,
+      heading = NayaFonts.sans(
+        TextStyle(
+          fontSize: NayaTypeScale.heading,
+          fontWeight: FontWeight.w600,
+          letterSpacing: -0.2,
+          color: c.text,
+        ),
       ),
-      body = GoogleFonts.inter(
-        fontSize: NayaTypeScale.body,
-        height: 1.5,
-        color: c.textSecondary,
+      body = NayaFonts.sans(
+        TextStyle(
+          fontSize: NayaTypeScale.body,
+          height: 1.5,
+          color: c.textSecondary,
+        ),
       ),
-      small = GoogleFonts.inter(
-        fontSize: NayaTypeScale.small,
-        height: 1.4,
-        color: c.textMuted,
+      small = NayaFonts.sans(
+        TextStyle(
+          fontSize: NayaTypeScale.small,
+          height: 1.4,
+          color: c.textMuted,
+        ),
       ),
-      label = GoogleFonts.jetBrainsMono(
-        fontSize: NayaTypeScale.label,
-        fontWeight: FontWeight.w500,
-        letterSpacing: NayaTypeScale.labelTracking,
-        color: c.textMuted,
+      label = NayaFonts.mono(
+        TextStyle(
+          fontSize: NayaTypeScale.label,
+          fontWeight: FontWeight.w500,
+          letterSpacing: NayaTypeScale.labelTracking,
+          color: c.textMuted,
+        ),
       ),
-      mono = GoogleFonts.jetBrainsMono(
-        fontSize: NayaTypeScale.small,
-        color: c.textSecondary,
+      mono = NayaFonts.mono(
+        TextStyle(fontSize: NayaTypeScale.small, color: c.textSecondary),
       );
 
   final TextStyle display;
@@ -62,22 +86,28 @@ class NayaText {
 
 /// Renkleri temaya bağlar; widget'lar `context.colors` ile okur.
 class NayaTheme extends ThemeExtension<NayaTheme> {
-  const NayaTheme(this.colors);
+  NayaTheme(this.colors) : text = NayaText(colors);
 
   final NayaColors colors;
+
+  /// Stiller tema kurulurken bir kez üretilir, her build'de değil.
+  final NayaText text;
 
   @override
   NayaTheme copyWith({NayaColors? colors}) => NayaTheme(colors ?? this.colors);
 
   @override
-  NayaTheme lerp(NayaTheme? other, double t) => other == null
-      ? this
-      : NayaTheme(NayaColors.lerp(colors, other.colors, t));
+  NayaTheme lerp(NayaTheme? other, double t) {
+    if (other == null || t == 0) return this;
+    if (t == 1) return other;
+    return NayaTheme(NayaColors.lerp(colors, other.colors, t));
+  }
 }
 
 ThemeData buildTheme(Brightness brightness) {
   final c = brightness == Brightness.dark ? NayaColors.dark : NayaColors.light;
-  final text = NayaText(c);
+  final naya = NayaTheme(c);
+  final text = naya.text;
   return ThemeData(
     brightness: brightness,
     scaffoldBackgroundColor: c.background,
@@ -108,11 +138,12 @@ ThemeData buildTheme(Brightness brightness) {
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {TargetPlatform.android: FadeForwardsPageTransitionsBuilder()},
     ),
-    extensions: [NayaTheme(c)],
+    extensions: [naya],
   );
 }
 
 extension NayaThemeContext on BuildContext {
-  NayaColors get colors => Theme.of(this).extension<NayaTheme>()!.colors;
-  NayaText get text => NayaText(colors);
+  NayaTheme get _naya => Theme.of(this).extension<NayaTheme>()!;
+  NayaColors get colors => _naya.colors;
+  NayaText get text => _naya.text;
 }
