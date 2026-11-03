@@ -137,6 +137,24 @@ export class NayaViewer {
     });
   }
 
+  /**
+   * Seçilen parçaya hafifçe yaklaşır: hedefi parçanın merkezine kaydırır,
+   * mesafeyi parçayı tam dolduracak mesafeye doğru yalnız bir miktar kısaltır.
+   */
+  async nudge(id: string): Promise<void> {
+    const part = this.parts.find((p) => p.id === id);
+    if (!part) return;
+    const box = new THREE.Box3().setFromObject(part.node);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    const fit = this.controls.getDistanceToFitBox(size.x, size.y, size.z);
+    const distance = THREE.MathUtils.lerp(this.controls.distance, Math.max(fit * 1.6, 0.4), 0.35);
+    await Promise.all([
+      this.controls.moveTo(center.x, center.y, center.z, true),
+      this.controls.dollyTo(Math.min(distance, this.controls.distance), true),
+    ]);
+  }
+
   async reset(): Promise<void> {
     this.select(null);
     this.explode(0);
@@ -298,6 +316,7 @@ export class NayaViewer {
       const hit = this.model ? this.raycaster.intersectObject(this.model, true)[0] : undefined;
       const part = hit ? this.parts.find((p) => isInside(hit.object, p.node)) : undefined;
       this.select(part?.id ?? null);
+      if (part) void this.nudge(part.id);
       this.options.onPartTap?.(part?.id ?? null);
     });
   }
