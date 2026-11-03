@@ -25,6 +25,9 @@ def classify(o):
 
     if m == 'App302':
         return 'drive.chain'
+    # Kadro boyası: baş borusunun önü çatal, gerisi kadro.
+    if m == 'App2E3':
+        return 'fork' if c[1] < -0.55 else 'frame'
     if m == 'App234' and c[2] > 0.4:
         return 'handlebar'
     if m == 'App234':
@@ -39,7 +42,7 @@ def classify(o):
     if m in ('AppAD2', 'AppBD3', 'AppFD') or (m == 'App4E' and -0.05 < c[1] < 0.1 and c[2] > 0.05):
         return 'seatpost'
     if m == 'App923':
-        return 'frame'  # kadro üstündeki kablolar
+        return None  # lastik yanağındaki yazılar; modelde gösterilmiyor
 
     for hub, name, d in ((FRONT, 'front', df), (REAR, 'rear', dr)):
         if d > 0.37 or (name == 'front' and df > dr) or (name == 'rear' and dr >= df):
@@ -82,12 +85,14 @@ def main():
     for o in islands:
         o['c'] = [(a + b) / 2 for a, b in zip(o['min'], o['max'])]
         o['s'] = [b - a for a, b in zip(o['min'], o['max'])]
-        out[o['n']] = classify(o).replace('.', '_')
+        group = classify(o)
+        if group is not None:
+            out[o['n']] = group.replace('.', '_')
     json.dump(out, open(sys.argv[2], 'w'))
     faces = Counter()
     for o in islands:
-        faces[out[o['n']]] += o['f']
-    for k, v in sorted(Counter(out.values()).items()):
-        print(f'{k:22} {v:5} ada  {faces[k]:7} yüz')
+        faces[out.get(o['n'], 'çıkarıldı')] += o['f']
+    for k, v in sorted(faces.items()):
+        print(f'{k:22} {v:7} yüz')
 
 main()

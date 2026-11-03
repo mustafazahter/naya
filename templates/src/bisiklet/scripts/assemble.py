@@ -13,9 +13,14 @@ from mathutils import Vector
 args = sys.argv[sys.argv.index('--') + 1:]
 groups = json.load(open(args[0]))
 by_group = defaultdict(list)
-for o in bpy.context.scene.objects:
-    if o.type == 'MESH' and o.name in groups:
+for o in list(bpy.context.scene.objects):
+    if o.type != 'MESH':
+        continue
+    if o.name in groups:
         by_group[groups[o.name]].append(o)
+    else:
+        # Hiçbir parçaya atanmayanlar (lastik yazıları gibi) modelden çıkar.
+        bpy.data.objects.remove(o)
 
 def join(objs, name):
     for o in bpy.context.selected_objects:
