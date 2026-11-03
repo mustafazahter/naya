@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "parts.schema.json",
+  "title": "Montaj ağacı (map/parts.json)",
+  "type": "object",
+  "required": ["parts"],
+  "additionalProperties": false,
+  "properties": {
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+)*$" },
+          "name": { "type": "string", "minLength": 1 },
+          "parent": { "type": "string" },
+          "sns": { "type": "string", "pattern": "^\\d{2}(-\\d{2}){0,2}$" },
+          "meshNodes": { "type": "array", "items": { "type": "string" } },
+          "zone": { "type": "string" },
+          "function": { "type": "string" },
+          "ipd": {
+            "type": "object",
+            "required": ["dmc", "figure", "item"],
+            "additionalProperties": false,
+            "properties": {
+              "dmc": { "type": "string", "pattern": "^DMC-" },
+              "figure": { "type": "string" },
+              "item": { "type": "string" }
+            }
+          },
+          "procedures": {
+            "type": "object",
+            "additionalProperties": { "type": "string", "pattern": "^DMC-" }
+          },
+          "media": { "type": "array", "items": { "type": "string", "pattern": "^media/" } },
+          "explode": {
+            "type": "object",
+            "required": ["dir", "dist"],
+            "additionalProperties": false,
+            "properties": {
+              "dir": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+              "dist": { "type": "number", "minimum": 0 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "naya.schema.json",
+  "title": ".naya manifesti (naya.json)",
+  "type": "object",
+  "required": ["format", "formatVersion", "id", "kind", "language", "title"],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "naya" },
+    "formatVersion": { "type": "string", "pattern": "^1\\.\\d+\\.\\d+$" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "kind": { "enum": ["template", "imported", "user"] },
+    "language": { "type": "string", "minLength": 2 },
+    "title": { "type": "string", "minLength": 1 },
+    "product": {
+      "type": "object",
+      "required": ["category"],
+      "additionalProperties": false,
+      "properties": {
+        "category": { "type": "string" },
+        "make": { "type": "string" },
+        "model": { "type": "string" },
+        "variant": { "type": "string" },
+        "year": { "type": "integer" }
+      }
+    },
+    "s1000d": {
+      "type": "object",
+      "required": ["issue", "modelIdentCode"],
+      "additionalProperties": false,
+      "properties": {
+        "issue": { "type": "string" },
+        "modelIdentCode": { "type": "string" },
+        "entry": { "type": "string", "pattern": "^csdb/" }
+      }
+    },
+    "model": {
+      "type": "object",
+      "required": ["main"],
+      "additionalProperties": false,
+      "properties": {
+        "main": { "type": "string", "pattern": "^model/.+\\.glb$" },
+        "details": {
+          "type": "object",
+          "additionalProperties": { "type": "string", "pattern": "^model/detail/.+\\.glb$" }
+        },
+        "units": { "enum": ["m", "cm", "mm"] },
+        "upAxis": { "enum": ["Y", "Z"] },
+        "compression": { "enum": ["meshopt", "draco", "none"] }
+      }
+    },
+    "credits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["asset", "author", "license"],
+        "additionalProperties": false,
+        "properties": {
+          "asset": { "type": "string" },
+          "author": { "type": "string" },
+          "source": { "type": "string" },
+          "license": { "type": "string" }
+        }
+      }
+    },
+    "generator": { "type": "string" },
+    "created": { "type": "string", "format": "date-time" },
+    "integrity": {
+      "type": "object",
+      "required": ["algorithm", "files"],
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": { "const": "sha256" },
+        "files": {
+          "type": "object",
+          "additionalProperties": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    }
+  }
+}

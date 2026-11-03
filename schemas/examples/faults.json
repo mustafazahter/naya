@@ -1,0 +1,24 @@
+{
+  "symptoms": [
+    { "id": "sym.chain_noise", "text": "Pedal çevirince tıkırtı geliyor" },
+    { "id": "sym.chain_slip", "text": "Zincir dişliden atlıyor" },
+    { "id": "sym.weak_brake", "text": "Ön fren tutmuyor" }
+  ],
+  "faults": [
+    {
+      "id": "f.chain.worn",
+      "part": "drive.chain",
+      "symptoms": ["sym.chain_noise", "sym.chain_slip"],
+      "cause": "Zincir baklaları aşınıp uzamış.",
+      "severity": 2,
+      "repair": "DMC-NAYABIKE-AAA-D00-00-00-00AA-520A-A"
+    },
+    {
+      "id": "f.brake.pad_worn",
+      "part": "brakes.front.pad",
+      "symptoms": ["sym.weak_brake"],
+      "cause": "Balata aşınmış, jant yüzeyine yeterince basmıyor.",
+      "severity": 4
+    }
+  ]
+}
