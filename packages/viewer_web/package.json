@@ -1,0 +1,14 @@
+{
+  "name": "viewer_web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NAYA 3D görüntüleyicisi (three.js). Flutter içinde iframe ya da WebView ile çalışır.",
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

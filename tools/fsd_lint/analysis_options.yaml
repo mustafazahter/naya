@@ -1,0 +1,2 @@
+# Eklenti workspace dışında, kendi bağımlılıklarıyla derlenir.
+include: package:lints/recommended.yaml

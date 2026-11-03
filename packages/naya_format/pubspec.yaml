@@ -1,0 +1,10 @@
+name: naya_format
+description: .naya dosyalarını okur, yazar ve doğrular.
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ^3.13.0
+
+dev_dependencies:
+  test: ^1.29.0

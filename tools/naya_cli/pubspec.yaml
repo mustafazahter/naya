@@ -1,0 +1,15 @@
+name: naya_cli
+description: .naya dosyalarını paketleyen, açan ve doğrulayan komut satırı aracı.
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ^3.13.0
+
+dependencies:
+  args: ^2.7.0
+  naya_format: any
+  naya_s1000d: any
+
+executables:
+  naya: naya
