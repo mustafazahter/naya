@@ -155,8 +155,9 @@ Koyu ve açık tema, cihaz ayarına göre. Vurgu renkleri platin ve çelik mavi.
 
 İki kişiyiz: Mustafa ve Enes. Sırayla çalışıyoruz. Her adımın görevleri iki kişiye bölünmüş durumda (1A, 1B, 1C...). Biri kendi kısmını bitirince sıra diğerine geçer.
 
-- `main` korumalı. Herkes kendi dalında çalışır (`mustafa/...`, `enes/...`).
-- Değişiklikler PR ile gelir, diğer kişi bakıp onaylar.
+- Her görev kendi dalında yapılır: `sahip/görev-id-kısa-ad`, örneğin `mustafa/1a-monorepo` veya `enes/2c-uygulama-iskeleti`.
+- Her görev için ayrı PR açılır. Kimse doğrudan `main`'e commit atmaz.
+- Hiçbir PR, Mustafa'nın review'u ve istenen düzeltmeler yapılmadan `main`'e alınmaz. Merge'i onaydan sonra Mustafa yapar.
 - PR'larda analiz ve testler otomatik çalışır. `main`'e giren her şey web ve APK olarak derlenir ve yayına alınır.
 - İsimler İngilizce, yorumlar ve dokümanlar Türkçe. Önce okunabilirlik.
 
