@@ -14,6 +14,7 @@ Genel plan için [PLAN.md](PLAN.md) dosyasına bakın.
 | `packages/naya_s1000d` | S1000D ayrıştırma |
 | `packages/naya_diagnosis` | Teşhis akışı |
 | `packages/viewer_web` | three.js görüntüleyici (TypeScript) |
+| `templates/src` | Şablon kaynakları: modeller ve onları hazırlayan betikler |
 | `tools/naya_cli` | `naya pack / unpack / validate / import` |
 | `tools/fsd_lint` | FSD katman kuralını denetleyen analyzer eklentisi |
 | `schemas` | JSON Schema dosyaları |
@@ -22,19 +23,21 @@ Dart paketleri tek bir pub workspace içinde; bağımlılıklar kökte bir kez �
 
 ## Yerelde çalıştırma
 
-Gerekenler: Flutter (stable), Chrome. Docker gerekmez.
+Gerekenler: Flutter (stable), Node.js 20+, Chrome. Docker gerekmez.
 
 ```bash
-flutter pub get          # kökte, tüm paketler için
-tools/dev.sh             # API + web uygulaması
+flutter pub get                              # kökte, tüm paketler için
+(cd packages/viewer_web && npm install)      # 3D viewer, bir kez
+tools/dev.sh                                 # API + viewer + web uygulaması
 ```
 
-API `http://localhost:8080` adresinde açılır (`/health` ile kontrol edilebilir). Veriler `data/` klasöründe tutulur, git'e girmez.
+Uygulama Chrome'da açılır. API `http://localhost:8080` (`/health` ile kontrol edilebilir), 3D viewer `http://localhost:5173` adresinde çalışır. Veriler `data/` klasöründe tutulur, git'e girmez.
 
 ## Kontroller
 
 ```bash
 dart analyze             # tüm workspace, FSD kuralı dahil
+(cd packages/viewer_web && npm run check)
 dart format .
 flutter test apps/naya
 dart test apps/naya_api

@@ -90,3 +90,28 @@ const sampleChain = PartDetail(
   ],
   ipd: 'DMC-NAYABIKE-AAA-D00-00-00-00AA-941A-A · Şekil 1 · No 12',
 );
+
+/// Bisiklet modelindeki düğüm adlarının Türkçe karşılıkları. Gerçek veride
+/// bunlar `map/parts.json` içindeki `name` alanından gelecek.
+const bicyclePartNames = {
+  'frame': 'Kadro',
+  'fork': 'Çatal',
+  'handlebar': 'Gidon',
+  'saddle': 'Sele',
+  'seatpost': 'Sele borusu',
+  'drive_chain': 'Zincir',
+  'drive_crankset': 'Aynakol',
+  'drive_pedals': 'Pedallar',
+  'drive_cassette': 'Arka dişli',
+  'drive_derailleur': 'Arka vites değiştirici',
+  'brakes_front': 'Ön fren',
+  'brakes_rear': 'Arka fren',
+  'wheel_front_tire': 'Ön lastik',
+  'wheel_front_rim': 'Ön jant',
+  'wheel_front_spokes': 'Ön teller',
+  'wheel_front_hub': 'Ön göbek',
+  'wheel_rear_tire': 'Arka lastik',
+  'wheel_rear_rim': 'Arka jant',
+  'wheel_rear_spokes': 'Arka teller',
+  'wheel_rear_hub': 'Arka göbek',
+};

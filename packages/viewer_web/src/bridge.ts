@@ -8,8 +8,9 @@ export type ViewerCommand =
   | { type: "explode"; amount: number }
   | { type: "focus"; part: string }
   | { type: "isolate"; part: string | null }
-  | { type: "xray"; enabled: boolean };
+  | { type: "xray"; enabled: boolean }
+  | { type: "reset" };
 
 export type ViewerEvent =
   | { type: "ready" }
-  | { type: "partTap"; part: string };
+  | { type: "partTap"; part: string | null };

@@ -12,6 +12,8 @@ class Product {
     required this.faultCount,
     required this.moduleCount,
     this.isTemplate = true,
+    this.modelFile,
+    this.thumbnail,
   });
 
   final String id;
@@ -24,6 +26,12 @@ class Product {
   /// S1000D veri modülü (DM) sayısı.
   final int moduleCount;
   final bool isTemplate;
+
+  /// Viewer'ın yükleyeceği model, viewer'a göre göreli yol.
+  final String? modelFile;
+
+  /// Gerçek modelin render'ı. Yoksa kartta teknik çizim gösterilir.
+  final String? thumbnail;
 }
 
 /// Taslak için örnek veriler. Gerçek liste sunucudan gelecek.
@@ -40,11 +48,13 @@ const sampleTemplates = [
   Product(
     id: 'bisiklet',
     title: 'Bisiklet',
-    subtitle: 'S1000D örnek verisi',
+    subtitle: 'Dağ bisikleti · 3D model',
     category: ProductCategory.bicycle,
-    partCount: 31,
+    partCount: 20,
     faultCount: 16,
     moduleCount: 24,
+    modelFile: './models/bicycle.glb',
+    thumbnail: 'assets/templates/bisiklet.webp',
   ),
   Product(
     id: 'tank',

@@ -8,6 +8,7 @@ import '../../shared/ui/components.dart';
 import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
 import 'bike_schematic.dart';
+import 'viewer_top_bar.dart';
 
 /// Çalışma alanının üst yarısı: model, tarama animasyonu ve kontroller.
 ///
@@ -143,7 +144,10 @@ class _ViewerPanelState extends State<ViewerPanel>
           top: NayaSpace.md,
           child: SafeArea(
             bottom: false,
-            child: _TopBar(title: widget.productTitle, onBack: widget.onBack),
+            child: ViewerTopBar(
+              title: widget.productTitle,
+              onBack: widget.onBack,
+            ),
           ),
         ),
         Positioned(
@@ -343,39 +347,6 @@ class _Callout extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _TopBar extends StatelessWidget {
-  const _TopBar({required this.title, this.onBack});
-
-  final String title;
-  final VoidCallback? onBack;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (onBack != null) ...[
-          RoundIconButton(
-            icon: Icons.arrow_back,
-            tooltip: 'Kütüphane',
-            onPressed: onBack,
-          ),
-          const SizedBox(width: NayaSpace.md),
-        ],
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TechLabel('Şablon · S1000D 5.0'),
-              const SizedBox(height: 2),
-              Text(title, style: context.text.heading),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

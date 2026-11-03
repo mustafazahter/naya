@@ -2,7 +2,7 @@
 # Yerelde API'yi ve web uygulamasını birlikte başlatır.
 # Kullanım: tools/dev.sh            (Chrome'da açar)
 #           tools/dev.sh web-server  (tarayıcı açmadan, http://localhost:5050)
-# Ctrl+C ikisini de kapatır.
+# 3D viewer de kuruluysa 5173'te açılır. Ctrl+C hepsini kapatır.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -16,8 +16,15 @@ mkdir -p "$STORAGE_DIR"
 flutter pub get >/dev/null
 
 (cd apps/naya_api && PORT="$port" exec dart run bin/server.dart) &
-api_pid=$!
-trap 'kill "$api_pid" 2>/dev/null || true' EXIT
+pids=($!)
+
+# 3D viewer (three.js). Bağımlılıklar kurulu değilse atlanır:
+# cd packages/viewer_web && npm install
+if [[ -d packages/viewer_web/node_modules ]]; then
+  (cd packages/viewer_web && exec npx vite --port 5173 --strictPort) &
+  pids+=($!)
+fi
+trap 'kill "${pids[@]}" 2>/dev/null || true' EXIT
 
 device="${1:-chrome}"
 extra=()

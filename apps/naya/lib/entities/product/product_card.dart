@@ -138,15 +138,24 @@ class _Drawing extends StatelessWidget {
           ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(28, 28, 28, 14),
+              padding: product.thumbnail == null
+                  ? const EdgeInsets.fromLTRB(28, 28, 28, 14)
+                  : const EdgeInsets.fromLTRB(8, 16, 8, 2),
               child: AnimatedScale(
                 duration: NayaMotion.slow,
                 curve: NayaMotion.decelerate,
                 scale: hovered ? 1.04 : 1,
-                child: ProductGlyph(
-                  category: product.category,
-                  color: hovered ? c.accent : c.platinum,
-                ),
+                child: product.thumbnail == null
+                    ? ProductGlyph(
+                        category: product.category,
+                        color: hovered ? c.accent : c.platinum,
+                      )
+                    : Image.asset(
+                        product.thumbnail!,
+                        fit: BoxFit.contain,
+                        filterQuality: FilterQuality.medium,
+                        semanticLabel: product.title,
+                      ),
               ),
             ),
           ),

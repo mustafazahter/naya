@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import '../../entities/diagnosis/diagnosis.dart';
 import '../../entities/part/part.dart';
 import '../../entities/product/product.dart';
+import '../../shared/config/env.dart';
 import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
 import '../../widgets/chat_panel/chat_panel.dart';
 import '../../widgets/part_sheet/part_sheet.dart';
+import '../../widgets/viewer_panel/model_frame.dart';
+import '../../widgets/viewer_panel/model_viewer_panel.dart';
 import '../../widgets/viewer_panel/viewer_panel.dart';
 
 /// Çalışma alanı: üstte model, altta sohbet. Geniş ekranda yan yana.
@@ -69,12 +72,23 @@ class WorkspacePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewer = ViewerPanel(
-      productTitle: product.title,
-      diagnosis: sampleDiagnosis,
-      onPartTap: (id) => _openPart(context, id),
-      onBack: () => Navigator.of(context).maybePop(),
-    );
+    // Şimdilik yalnız bisikletin gerçek modeli var; diğerleri şemayla.
+    final model = product.modelFile;
+    final Widget viewer = isModelFrameSupported && model != null
+        ? ModelViewerPanel(
+            productTitle: product.title,
+            modelUrl: '$viewerUrl/?embed&model=$model',
+            // Parça kimliği noktalı, modeldeki düğüm adı alt çizgili.
+            focusPart: sampleDiagnosis.top.partId.replaceAll('.', '_'),
+            onPartTap: (id) => _openPart(context, id),
+            onBack: () => Navigator.of(context).maybePop(),
+          )
+        : ViewerPanel(
+            productTitle: product.title,
+            diagnosis: sampleDiagnosis,
+            onPartTap: (id) => _openPart(context, id),
+            onBack: () => Navigator.of(context).maybePop(),
+          );
     final chat = ChatPanel(
       diagnosis: sampleDiagnosis,
       onCandidateTap: (id) => _openPart(context, id),
