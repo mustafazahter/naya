@@ -27,7 +27,7 @@ function ghostMaterial(): THREE.MeshStandardMaterial {
     metalness: 0,
     roughness: 0.9,
     transparent: true,
-    opacity: 0.16,
+    opacity: 0.07,
     depthWrite: false,
   });
 }
@@ -128,11 +128,12 @@ export class NayaViewer {
     if (!part) return;
     this.select(id);
     const box = new THREE.Box3().setFromObject(part.node);
+    // Parçanın etrafında biraz yer bırak; nerede olduğu belli olsun.
     await this.controls.fitToBox(box, true, {
-      paddingTop: 0.4,
-      paddingBottom: 0.4,
-      paddingLeft: 0.4,
-      paddingRight: 0.4,
+      paddingTop: 0.12,
+      paddingBottom: 0.12,
+      paddingLeft: 0.12,
+      paddingRight: 0.12,
     });
   }
 

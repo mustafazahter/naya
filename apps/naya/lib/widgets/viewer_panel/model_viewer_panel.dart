@@ -16,12 +16,17 @@ class ModelViewerPanel extends StatefulWidget {
     required this.productTitle,
     required this.modelUrl,
     required this.onPartTap,
+    this.focusPart,
     this.onBack,
   });
 
   final String productTitle;
   final String modelUrl;
   final ValueChanged<String> onPartTap;
+
+  /// Teşhiste bulunan parça (düğüm adı). Model yüklenince kamera ona
+  /// yaklaşır, diğer parçalar saydamlaşır.
+  final String? focusPart;
   final VoidCallback? onBack;
 
   @override
@@ -37,6 +42,16 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
   void _onPartTap(String? id) {
     setState(() => _selected = id);
     if (id != null) widget.onPartTap(id);
+  }
+
+  Future<void> _onReady() async {
+    final part = widget.focusPart;
+    if (part == null) return;
+    // Model önce bütün olarak görünsün, sonra bulunan parçaya yaklaşılsın.
+    await Future<void>.delayed(const Duration(milliseconds: 900));
+    if (!mounted) return;
+    setState(() => _selected = part);
+    _controller.focus(part);
   }
 
   void _reset() {
@@ -58,6 +73,7 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
             url: widget.modelUrl,
             controller: _controller,
             onPartTap: _onPartTap,
+            onReady: _onReady,
           ),
         ),
         Positioned(

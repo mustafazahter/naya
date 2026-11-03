@@ -78,6 +78,8 @@ class WorkspacePage extends StatelessWidget {
         ? ModelViewerPanel(
             productTitle: product.title,
             modelUrl: '$viewerUrl/?embed&model=$model',
+            // Parça kimliği noktalı, modeldeki düğüm adı alt çizgili.
+            focusPart: sampleDiagnosis.top.partId.replaceAll('.', '_'),
             onPartTap: (id) => _openPart(context, id),
             onBack: () => Navigator.of(context).maybePop(),
           )

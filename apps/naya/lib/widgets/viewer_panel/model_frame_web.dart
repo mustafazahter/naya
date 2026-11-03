@@ -16,11 +16,15 @@ class ModelFrame extends StatefulWidget {
     required this.url,
     required this.controller,
     required this.onPartTap,
+    this.onReady,
   });
 
   final String url;
   final ModelFrameController controller;
   final ValueChanged<String?> onPartTap;
+
+  /// Model yüklenip viewer komut almaya hazır olduğunda.
+  final VoidCallback? onReady;
 
   @override
   State<ModelFrame> createState() => _ModelFrameState();
@@ -62,8 +66,12 @@ class _ModelFrameState extends State<ModelFrame> {
     final message = event as web.MessageEvent;
     if (message.source != _frame.contentWindow) return;
     final data = message.data.dartify();
-    if (data is Map && data['type'] == 'partTap') {
-      widget.onPartTap(data['part'] as String?);
+    if (data is! Map) return;
+    switch (data['type']) {
+      case 'partTap':
+        widget.onPartTap(data['part'] as String?);
+      case 'ready':
+        widget.onReady?.call();
     }
   }
 
