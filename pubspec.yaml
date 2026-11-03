@@ -1,0 +1,16 @@
+name: naya_workspace
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+
+workspace:
+  - apps/naya
+  - apps/naya_api
+  - packages/naya_format
+  - packages/naya_s1000d
+  - packages/naya_diagnosis
+  - tools/naya_cli
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
