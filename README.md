@@ -4,7 +4,7 @@ S1000D teknik dokümanlarını 3D modellerle birleştiren bakım ve arıza teşh
 
 Genel plan için [PLAN.md](PLAN.md) dosyasına bakın.
 
-Proje yönetimi, görev listesi ve geliştirme notları Notion'daki NAYA sayfasında: https://www.notion.so/409fdba10c56814dbf19cd498f8d444b
+Proje yönetimi, görev listesi ve geliştirme notları Notion'daki NAYA sayfasında: https://www.notion.so/40d1e53ab93e8183add4f0284e2966eb
 
 ## Ekip
 
