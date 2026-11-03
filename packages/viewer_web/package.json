@@ -5,10 +5,18 @@
   "description": "NAYA 3D görüntüleyicisi (three.js). Flutter içinde iframe ya da WebView ile çalışır.",
   "type": "module",
   "scripts": {
-    "check": "tsc --noEmit",
-    "build": "tsc"
+    "postinstall": "node scripts/prepare.mjs",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "check": "tsc --noEmit"
   },
   "devDependencies": {
-    "typescript": "^5.6.0"
+    "@types/three": "^0.170.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  },
+  "dependencies": {
+    "camera-controls": "^2.9.0",
+    "three": "^0.170.0"
   }
 }

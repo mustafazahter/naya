@@ -12,6 +12,7 @@ class Product {
     required this.faultCount,
     required this.moduleCount,
     this.isTemplate = true,
+    this.modelFile,
   });
 
   final String id;
@@ -24,6 +25,9 @@ class Product {
   /// S1000D veri modülü (DM) sayısı.
   final int moduleCount;
   final bool isTemplate;
+
+  /// Viewer'ın yükleyeceği model, viewer'a göre göreli yol.
+  final String? modelFile;
 }
 
 /// Taslak için örnek veriler. Gerçek liste sunucudan gelecek.
@@ -45,6 +49,7 @@ const sampleTemplates = [
     partCount: 31,
     faultCount: 16,
     moduleCount: 24,
+    modelFile: './models/bicycle.glb',
   ),
   Product(
     id: 'tank',
