@@ -44,14 +44,19 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
     if (id != null) widget.onPartTap(id);
   }
 
-  Future<void> _onReady() async {
-    final part = widget.focusPart;
-    if (part == null) return;
-    // Model önce bütün olarak görünsün, sonra bulunan parçaya yaklaşılsın.
-    await Future<void>.delayed(const Duration(milliseconds: 900));
-    if (!mounted) return;
-    setState(() => _selected = part);
-    _controller.focus(part);
+  @override
+  void initState() {
+    super.initState();
+    _selected = widget.focusPart;
+  }
+
+  /// Odaklanılacak parça adreste gider; viewer model her yüklendiğinde
+  /// kendisi yaklaşır, mesajın zamanlamasına bağlı kalmaz.
+  String get _url {
+    final focus = widget.focusPart;
+    return focus == null
+        ? widget.modelUrl
+        : '${widget.modelUrl}&focus=${Uri.encodeQueryComponent(focus)}';
   }
 
   void _reset() {
@@ -70,10 +75,9 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
       children: [
         Positioned.fill(
           child: ModelFrame(
-            url: widget.modelUrl,
+            url: _url,
             controller: _controller,
             onPartTap: _onPartTap,
-            onReady: _onReady,
           ),
         ),
         Positioned(

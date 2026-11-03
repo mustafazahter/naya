@@ -100,9 +100,18 @@ if (params.has("embed")) document.body.classList.add("embed");
 const model = params.get("model") ?? "./models/bicycle.glb";
 viewer
   .load(model)
-  .then((parts) => {
+  .then(async (parts) => {
     status.textContent = `${parts.length} parça · sürükle: döndür · tekerlek/iki parmak: yakınlaş`;
     send({ type: "ready" });
+    // Teşhiste bulunan parça adreste gelir: önce bütün model görünsün,
+    // sonra kamera o parçaya yaklaşsın. Sayfa yeniden yüklense de tekrarlanır.
+    const focus = params.get("focus");
+    if (focus && parts.includes(focus)) {
+      await new Promise((resolve) => setTimeout(resolve, 900));
+      partBox.hidden = false;
+      partName.textContent = readable(focus);
+      await viewer.focus(focus);
+    }
   })
   .catch((error: unknown) => {
     status.textContent = "Model yüklenemedi";
