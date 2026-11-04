@@ -52,7 +52,14 @@ class _ProductCardState extends State<ProductCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _Drawing(product: p, number: number, hovered: _hovered),
+                // Çizim kalan alanı alır; yazı büyüyünce metin taşmaz.
+                Expanded(
+                  child: _Drawing(
+                    product: p,
+                    number: number,
+                    hovered: _hovered,
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(
                     NayaSpace.lg,
@@ -114,7 +121,6 @@ class _Drawing extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     return Container(
-      height: 148,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
