@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fontlar, API ve 3D viewer için. Flutter şablonu bu izni yalnız
+         debug ve profile derlemelerine koyuyor; release APK ağa çıkamıyordu. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="naya"
         android:name="${applicationName}"
