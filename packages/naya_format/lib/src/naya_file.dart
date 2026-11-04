@@ -89,6 +89,15 @@ class NayaFile {
   Uint8List encode() {
     final names = entries.keys.toList()..sort();
     names.forEach(_checkEntryName);
+    // Bu iki ad kabın kendisine ait; entries'te olurlarsa ZIP'te aynı adlı
+    // kaydı ezip okunamayan bir dosya çıkarırlar.
+    for (final reserved in [_mimetypeName, _manifestName]) {
+      if (entries.containsKey(reserved)) {
+        throw InvalidContainerException(
+          '"$reserved" kabın kendi dosyası; entries içine konamaz',
+        );
+      }
+    }
 
     final integrity = Integrity({
       for (final name in names) name: sha256.convert(entries[name]!).toString(),
@@ -142,9 +151,12 @@ class NayaFile {
       final nameEnd = headerSize + nameLength;
       final dataEnd = nameEnd + extraLength + expected.length;
       if (view.lengthInBytes < dataEnd) return false;
-      final name = utf8.decode(bytes.sublist(headerSize, nameEnd));
+      // Ad baytça karşılaştırılır; bozuk UTF-8 içeren bir ad da yalnızca
+      // "mimetype değil" demektir.
+      final name = bytes.sublist(headerSize, nameEnd);
       final data = bytes.sublist(nameEnd + extraLength, dataEnd);
-      return name == _mimetypeName && _sameBytes(data, expected);
+      return _sameBytes(name, utf8.encode(_mimetypeName)) &&
+          _sameBytes(data, expected);
     }
 
     if (!ok()) {
@@ -154,11 +166,14 @@ class NayaFile {
     }
   }
 
-  /// Arşiv dışına yazmaya çalışan yolları (`../`, `/etc/...`) reddeder.
+  /// Arşiv dışına yazmaya çalışan yolları (`../`, `/etc/...`, `C:/...`)
+  /// reddeder.
   static void _checkEntryName(String name) {
     final segments = name.split('/');
     if (name.startsWith('/') ||
         name.contains(r'\') ||
+        // Windows'ta "C:/..." mutlak yoldur; ':' zaten dosya adında geçemez.
+        name.contains(':') ||
         segments.any((s) => s.isEmpty || s == '.' || s == '..')) {
       throw InvalidContainerException('Geçersiz dosya yolu: $name');
     }

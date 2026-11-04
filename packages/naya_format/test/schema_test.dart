@@ -49,6 +49,33 @@ void main() {
     expect(schema('faults').validate(json).isValid, isFalse);
   });
 
+  const required = {
+    'naya': ['format', 'formatVersion', 'id', 'kind', 'language', 'title'],
+    'parts': ['parts'],
+    'faults': ['symptoms', 'faults'],
+    'zones': ['zones'],
+    'hotspots': ['hotspots'],
+  };
+  required.forEach((name, fields) {
+    for (final field in fields) {
+      test('$name şeması "$field" alanı olmayan dosyayı reddeder', () {
+        final json = readExample(examples[name]!)..remove(field);
+        expect(schema(name).validate(json).isValid, isFalse);
+      });
+    }
+  });
+
+  test('isteğe bağlı alanları olmayan manifest şemaya uyar', () {
+    final file = NayaFile(
+      manifest: const NayaManifest(
+        id: 'kucuk',
+        kind: NayaKind.user,
+        title: 'Küçük',
+      ),
+    );
+    expectValid('naya', NayaFile.decode(file.encode()).manifest.toJson());
+  });
+
   test('2.x manifest şemaya uymaz', () {
     final json = readExample('naya.json')..['formatVersion'] = '2.0.0';
     expect(schema('naya').validate(json).isValid, isFalse);
