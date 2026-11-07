@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/pm.xsd">
+  <identAndStatusSection>
+    <pmAddress>
+      <pmIdent>
+        <pmCode modelIdentCode="NAYABIKE" pmIssuer="C3002" pmNumber="00001" pmVolume="00"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </pmIdent>
+      <pmAddressItems><issueDate year="2026" month="11" day="07"/><pmTitle>Bisiklet bakım el kitabı</pmTitle></pmAddressItems>
+    </pmAddress>
+  </identAndStatusSection>
+  <content>
+    <pmEntry>
+      <pmEntryTitle>Tanım</pmEntryTitle>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Bisiklet</techName></dmTitle></dmRefAddressItems></dmRef>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA2" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Fren sistemi</techName></dmTitle></dmRefAddressItems></dmRef>
+    </pmEntry>
+    <pmEntry>
+      <pmEntryTitle>Bakım</pmEntryTitle>
+      <pmEntry>
+        <pmEntryTitle>Aktarma organları</pmEntryTitle>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="520" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef>
+      </pmEntry>
+      <pmEntry>
+        <pmEntryTitle>Frenler</pmEntryTitle>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA2" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef>
+      </pmEntry>
+    </pmEntry>
+    <pmEntry>
+      <pmEntryTitle>Parça kataloğu</pmEntryTitle>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="941" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef>
+    </pmEntry>
+  </content>
+</pm>
