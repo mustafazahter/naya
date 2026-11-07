@@ -200,13 +200,27 @@ class _Chunker {
         dmTitle: title,
         section: section,
         text: text,
-        partNumbers: attributeValues(
-          e.findAllElements('partRef'),
-          'partNumberValue',
-        ),
+        partNumbers: _partNumbers(e),
         icns: _icnRefs(e),
       ),
     );
+  }
+
+  /// Parçada geçen parça numaraları: katalog ve metin içindeki `partRef`
+  /// ile yedek parça listesindeki `identNumber` (5.0 şemasının istediği
+  /// biçim). Takım numaraları alınmaz.
+  List<String> _partNumbers(XmlElement e) {
+    final numbers = attributeValues(
+      e.findAllElements('partRef'),
+      'partNumberValue',
+    );
+    for (final spare in e.findAllElements('spareDescr')) {
+      for (final number in spare.findAllElements('partNumber')) {
+        final text = textOf(number);
+        if (text.isNotEmpty && !numbers.contains(text)) numbers.add(text);
+      }
+    }
+    return numbers;
   }
 
   String _titleOf(XmlElement e) {

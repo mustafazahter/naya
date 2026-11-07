@@ -31,7 +31,7 @@
         <reqCondGroup><noConds/></reqCondGroup>
         <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr><name>Zincir sökme aparatı</name></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr><name>Zincir</name><partRef manufacturerCodeValue="C3002" partNumberValue="NB-CH-116"/></spareDescr></spareDescrGroup></reqSpares>
+        <reqSpares><spareDescrGroup><spareDescr><name>Zincir</name><identNumber><manufacturerCode>C3002</manufacturerCode><partAndSerialNumber><partNumber>NB-CH-116</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><safetyRqmts><warning><warningAndCautionPara>Zincir kenarları keskin olabilir; eldiven takın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
