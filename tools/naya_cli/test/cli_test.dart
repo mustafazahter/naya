@@ -126,6 +126,30 @@ void main() {
     expect(report.errors, contains(contains('S1000D girişi')));
   });
 
+  test('pack bozuk bağda yığın izi yerine hata yazar', () async {
+    File('${dir.path}/map/faults.json').writeAsStringSync(
+      jsonEncode({
+        'symptoms': [
+          {'id': 'sym.x', 'text': 'x'},
+        ],
+        'faults': [
+          {
+            'id': 'f.x',
+            'part': 'olmayan.parca',
+            'symptoms': ['sym.x'],
+            'cause': 'x',
+            'severity': 1,
+          },
+        ],
+      }),
+    );
+    final out = '${dir.path}/cikti/bozuk.naya';
+    await buildRunner().run(['pack', dir.path, '-o', out]);
+    expect(exitCode, 1);
+    expect(File(out).existsSync(), isFalse);
+    exitCode = 0;
+  });
+
   test('pack, unpack ve validate komutları', () async {
     final out = '${dir.path}/cikti/deneme.naya';
     await buildRunner().run(['pack', dir.path, '-o', out]);

@@ -37,11 +37,27 @@ class PackCommand extends Command<void> {
   void run() {
     final args = argResults!;
     if (args.rest.length != 1) usageException('Tek bir klasör verin.');
-    final file = packFolder(Directory(args.rest.single));
-    file.validate();
+    final dir = Directory(args.rest.single);
+    if (!File('${dir.path}/naya.json').existsSync()) {
+      usageException('${dir.path}/naya.json bulunamadı.');
+    }
+
+    final NayaFile file;
+    final Uint8List bytes;
+    try {
+      file = packFolder(dir);
+      file.validate();
+      bytes = file.encode();
+    } on NayaFormatException catch (e) {
+      // Bozuk manifest, harita bağı ya da geçersiz dosya yolu: yığın izi
+      // yerine yalnız sorunu yaz.
+      stderr.writeln('${dir.path}: $e');
+      exitCode = 1;
+      return;
+    }
+
     final output = File(args.option('output')!);
     output.parent.createSync(recursive: true);
-    final bytes = file.encode();
     output.writeAsBytesSync(bytes);
     final mb = (bytes.length / 1024 / 1024).toStringAsFixed(1);
     stdout.writeln('${output.path}: ${file.entries.length + 2} kayıt, $mb MB');
@@ -51,10 +67,12 @@ class PackCommand extends Command<void> {
 /// [dir] klasörünü bellekte bir [NayaFile]'a çevirir.
 NayaFile packFolder(Directory dir) {
   final manifestFile = File('${dir.path}/naya.json');
-  if (!manifestFile.existsSync()) {
-    throw UsageException('${manifestFile.path} bulunamadı', '');
+  final Object? json;
+  try {
+    json = jsonDecode(manifestFile.readAsStringSync());
+  } on FormatException catch (e) {
+    throw InvalidJsonException('naya.json', 'JSON okunamadı: ${e.message}');
   }
-  final json = jsonDecode(manifestFile.readAsStringSync());
   final manifest = NayaManifest.fromJson(json);
 
   final entries = <String, Uint8List>{};
