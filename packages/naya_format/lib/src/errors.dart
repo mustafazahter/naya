@@ -42,3 +42,12 @@ class IntegrityException extends NayaFormatException {
 
   final List<String> problems;
 }
+
+/// Harita dosyaları kendi içinde geçerli ama birbirini tutmuyor: bir arıza
+/// olmayan parçayı, bir parça olmayan bölgeyi gösteriyor gibi.
+class InvalidReferencesException extends NayaFormatException {
+  InvalidReferencesException(this.problems)
+    : super('Dosyalar arası bağlar bozuk: ${problems.join('; ')}');
+
+  final List<String> problems;
+}

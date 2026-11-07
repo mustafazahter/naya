@@ -4,14 +4,12 @@
   "title": "Montaj ağacı (map/parts.json)",
   "type": "object",
   "required": ["parts"],
-  "additionalProperties": false,
   "properties": {
     "parts": {
       "type": "array",
       "items": {
         "type": "object",
         "required": ["id", "name"],
-        "additionalProperties": false,
         "properties": {
           "id": { "type": "string", "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+)*$" },
           "name": { "type": "string", "minLength": 1 },
@@ -23,7 +21,6 @@
           "ipd": {
             "type": "object",
             "required": ["dmc", "figure", "item"],
-            "additionalProperties": false,
             "properties": {
               "dmc": { "type": "string", "pattern": "^DMC-" },
               "figure": { "type": "string" },
@@ -38,7 +35,6 @@
           "explode": {
             "type": "object",
             "required": ["dir", "dist"],
-            "additionalProperties": false,
             "properties": {
               "dir": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
               "dist": { "type": "number", "minimum": 0 }
