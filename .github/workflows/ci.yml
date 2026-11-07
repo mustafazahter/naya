@@ -10,10 +10,15 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Aynı dala art arda push gelirse eski çalışma iptal edilir.
+# PR'a art arda push gelirse eski çalışma iptal edilir. main'deki çalışmalar
+# iptal edilmez; her birleşmenin web ve APK çıktısı kalsın.
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# İş akışı repoya yazmaz; yalnız okuma izni yeter.
+permissions:
+  contents: read
 
 env:
   # Yerelde kullandığımız sürümle aynı tutulur.
