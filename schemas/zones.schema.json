@@ -4,14 +4,12 @@
   "title": "Bölgeler (map/zones.json)",
   "type": "object",
   "required": ["zones"],
-  "additionalProperties": false,
   "properties": {
     "zones": {
       "type": "array",
       "items": {
         "type": "object",
         "required": ["id", "name"],
-        "additionalProperties": false,
         "properties": {
           "id": { "type": "string", "pattern": "^z\\." },
           "name": { "type": "string", "minLength": 1 },

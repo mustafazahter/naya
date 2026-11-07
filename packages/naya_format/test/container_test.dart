@@ -22,6 +22,28 @@ Uint8List localHeader({required List<int> name, required List<int> data}) {
       .toBytes();
 }
 
+/// [bytes] içinde [from] adını [to] ile değiştirir; ikisi aynı uzunlukta
+/// olmalı. [count] verilirse yalnız ilk o kadar geçiş değişir (önce yerel
+/// başlık, sonra merkez dizin gelir).
+Uint8List renameInZip(Uint8List bytes, String from, String to, {int? count}) {
+  final a = utf8.encode(from), b = utf8.encode(to);
+  assert(a.length == b.length);
+  final out = Uint8List.fromList(bytes);
+  var done = 0;
+  for (var i = 0; i + a.length <= out.length; i++) {
+    if (count != null && done == count) break;
+    var match = true;
+    for (var j = 0; j < a.length && match; j++) {
+      match = out[i + j] == a[j];
+    }
+    if (match) {
+      out.setRange(i, i + b.length, b);
+      done++;
+    }
+  }
+  return out;
+}
+
 Matcher get throwsContainer => throwsA(isA<InvalidContainerException>());
 
 void main() {
@@ -130,6 +152,67 @@ void main() {
         entries: Map.fromEntries(a.entries.entries.toList().reversed),
       );
       expect(b.encode(), a.encode());
+    });
+  });
+
+  group('aynı ad', () {
+    // archive paketi ZIP yazarken aynı adı tekilleştirdiği için çift kayıt
+    // önce iki farklı adla yazılıp sonra baytlarda yeniden adlandırılıyor.
+    Uint8List withTwo(String first, String second) {
+      return buildZip({
+        ...files,
+        first: utf8.encode('bir'),
+        second: utf8.encode('iki'),
+      });
+    }
+
+    test('aynı ad iki kez geçerse reddedilir', () {
+      final bytes = renameInZip(
+        withTwo('media/a.txt', 'media/b.txt'),
+        'media/b.txt',
+        'media/a.txt',
+      );
+      expect(
+        () => NayaFile.decode(bytes),
+        throwsA(
+          isA<InvalidContainerException>().having(
+            (e) => e.message,
+            'message',
+            contains('iki kez'),
+          ),
+        ),
+      );
+    });
+
+    test('yalnız büyük/küçük harfle ayrışan adlar reddedilir', () {
+      final bytes = withTwo('media/a.txt', 'media/A.txt');
+      expect(() => NayaFile.decode(bytes), throwsContainer);
+    });
+
+    test('yerel başlıktaki ad merkez dizinden farklıysa reddedilir', () {
+      final bytes = renameInZip(
+        withTwo('media/a.txt', 'media/b.txt'),
+        'media/b.txt',
+        'media/c.txt',
+        count: 1,
+      );
+      expect(
+        () => NayaFile.decode(bytes),
+        throwsA(
+          isA<InvalidContainerException>().having(
+            (e) => e.message,
+            'message',
+            contains('yerel başlıkta'),
+          ),
+        ),
+      );
+    });
+
+    test('yazarken büyük/küçük harf çakışması reddedilir', () {
+      final file = sampleFile()..entries['media/Zincir-1.webp'] = Uint8List(1);
+      expect(file.encode, throwsContainer);
+      final manifest = sampleFile()..entries['NAYA.json'] = Uint8List(1);
+      expect(manifest.encode, throwsContainer);
     });
   });
 }

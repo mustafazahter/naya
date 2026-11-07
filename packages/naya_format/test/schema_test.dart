@@ -65,6 +65,16 @@ void main() {
     }
   });
 
+  // 1.x içinde eklenecek yeni alanlar eski okuyucuda yok sayılır; Dart
+  // okuyucu da şema da bu yüzden bilinmeyen alanı kabul eder.
+  test('bilinmeyen alanlar şemadan geçer (ileri uyum)', () {
+    final manifest = readExample('naya.json')..['yeniAlan'] = 1;
+    expectValid('naya', manifest);
+    final parts = readExample('parts.json');
+    ((parts['parts']! as List).first as Map<String, Object?>)['yeni'] = 'x';
+    expectValid('parts', parts);
+  });
+
   test('isteğe bağlı alanları olmayan manifest şemaya uyar', () {
     final file = NayaFile(
       manifest: const NayaManifest(

@@ -11,6 +11,7 @@ import 'map/faults.dart';
 import 'map/hotspots.dart';
 import 'map/parts.dart';
 import 'map/zones.dart';
+import 'references.dart';
 
 const _mimetypeName = 'mimetype';
 const _manifestName = 'naya.json';
@@ -34,12 +35,14 @@ class NayaFile {
   factory NayaFile.decode(List<int> bytes) {
     _checkMimetypeHeader(bytes);
 
+    final decoder = ZipDecoder();
     final Archive archive;
     try {
-      archive = ZipDecoder().decodeBytes(bytes, verify: true);
+      archive = decoder.decodeBytes(bytes, verify: true);
     } on Object catch (e) {
       throw InvalidContainerException('ZIP okunamadı: $e');
     }
+    _checkCentralDirectory(bytes, decoder.directory);
 
     Uint8List? manifestBytes;
     final entries = <String, Uint8List>{};
@@ -52,9 +55,6 @@ class NayaFile {
         case _manifestName:
           manifestBytes = file.content;
         default:
-          if (entries.containsKey(file.name)) {
-            throw InvalidContainerException('"${file.name}" iki kez geçiyor');
-          }
           entries[file.name] = file.content;
       }
     }
@@ -79,6 +79,25 @@ class NayaFile {
   HotspotsFile? get hotspots =>
       _readMap('map/hotspots.json', HotspotsFile.fromJson);
 
+  /// Harita dosyalarını okur ve aralarındaki bağları kontrol eder: her
+  /// arıza ve etiket noktası var olan bir parçayı, her parça var olan bir
+  /// bölgeyi gösteriyor mu, parça görselleri dosyada var mı?
+  ///
+  /// [decode] bunu yapmaz; dosyayı açmak hızlı kalsın, bağları yarım bir
+  /// dosya da açılıp düzeltilebilsin. İçe aktarma ve `naya_cli validate`
+  /// bunu çağırır. Bütün sorunları tek [InvalidReferencesException]
+  /// içinde listeler.
+  void validate() {
+    final problems = findReferenceProblems(
+      parts: parts,
+      faults: faults,
+      zones: zones,
+      hotspots: hotspots,
+      entryNames: entries.keys.toSet(),
+    );
+    if (problems.isNotEmpty) throw InvalidReferencesException(problems);
+  }
+
   /// Bir JSON nesnesini girinti ile `entries` içine yazar.
   void putJson(String path, Map<String, Object?> json) {
     entries[path] = _encodeJson(json);
@@ -98,6 +117,7 @@ class NayaFile {
         );
       }
     }
+    _checkUniqueNames([_mimetypeName, _manifestName, ...names]);
 
     final integrity = Integrity({
       for (final name in names) name: sha256.convert(entries[name]!).toString(),
@@ -163,6 +183,58 @@ class NayaFile {
       throw const InvalidContainerException(
         'Bu bir .naya dosyası değil: ilk kayıt sıkıştırmasız "mimetype" olmalı',
       );
+    }
+  }
+
+  /// ZIP'in merkez dizinindeki her kaydı tek tek kontrol eder.
+  ///
+  /// `archive` paketi aynı adlı kayıtları okurken tekilleştiriyor, sonuncusu
+  /// kalıyor. Başka bir okuyucu ilkini alabilir; böylece aynı dosya iki
+  /// programda farklı içerik gösterir. Bu yüzden çift kaydı ve merkez
+  /// dizinle yerel başlıkta adı farklı olan kaydı reddediyoruz (uv ve
+  /// PyPI da 2025'te aynı nedenle bunu yaptı). Adlar UTF-8 yazılır;
+  /// `encode` de öyle yazıyor.
+  static void _checkCentralDirectory(List<int> bytes, ZipDirectory directory) {
+    final names = <String>[];
+    for (final header in directory.fileHeaders) {
+      // archive paketi yerel başlıktaki adı okumadan atlıyor; onu biz
+      // okuyoruz. Akış hâlinde okuyan programlar yalnız bu adı görür.
+      final local = _localName(bytes, header.localHeaderOffset);
+      if (local != null && !_sameBytes(local, utf8.encode(header.filename))) {
+        throw InvalidContainerException(
+          '"${header.filename}" kaydının adı yerel başlıkta farklı',
+        );
+      }
+      names.add(header.filename);
+    }
+    _checkUniqueNames(names);
+  }
+
+  /// [offset]'teki yerel başlığın ad baytları; başlık okunamıyorsa null
+  /// (o durumda ZIP zaten açılamamış olur).
+  static List<int>? _localName(List<int> bytes, int offset) {
+    const headerSize = 30;
+    if (offset < 0 || offset + headerSize > bytes.length) return null;
+    final length = bytes[offset + 26] | bytes[offset + 27] << 8;
+    final end = offset + headerSize + length;
+    return end > bytes.length ? null : bytes.sublist(offset + headerSize, end);
+  }
+
+  /// Aynı ad iki kez geçemez. Büyük/küçük harf farkı da sayılmaz: macOS ve
+  /// Windows'ta `Zincir.webp` ile `zincir.webp` aynı dosyadır (EPUB'daki
+  /// OCF kuralı da böyle).
+  static void _checkUniqueNames(Iterable<String> names) {
+    final seen = <String, String>{};
+    for (final name in names) {
+      final previous = seen[name.toLowerCase()];
+      if (previous != null) {
+        throw InvalidContainerException(
+          previous == name
+              ? '"$name" iki kez geçiyor'
+              : '"$previous" ve "$name" yalnız büyük/küçük harfle ayrışıyor',
+        );
+      }
+      seen[name.toLowerCase()] = name;
     }
   }
 

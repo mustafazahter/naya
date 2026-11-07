@@ -4,7 +4,6 @@
   "title": ".naya manifesti (naya.json)",
   "type": "object",
   "required": ["format", "formatVersion", "id", "kind", "language", "title"],
-  "additionalProperties": false,
   "properties": {
     "format": { "const": "naya" },
     "formatVersion": { "type": "string", "pattern": "^1\\.\\d+\\.\\d+$" },
@@ -15,7 +14,6 @@
     "product": {
       "type": "object",
       "required": ["category"],
-      "additionalProperties": false,
       "properties": {
         "category": { "type": "string" },
         "make": { "type": "string" },
@@ -27,7 +25,6 @@
     "s1000d": {
       "type": "object",
       "required": ["issue", "modelIdentCode"],
-      "additionalProperties": false,
       "properties": {
         "issue": { "type": "string" },
         "modelIdentCode": { "type": "string" },
@@ -37,7 +34,6 @@
     "model": {
       "type": "object",
       "required": ["main"],
-      "additionalProperties": false,
       "properties": {
         "main": { "type": "string", "pattern": "^model/.+\\.glb$" },
         "details": {
@@ -54,7 +50,6 @@
       "items": {
         "type": "object",
         "required": ["asset", "author", "license"],
-        "additionalProperties": false,
         "properties": {
           "asset": { "type": "string" },
           "author": { "type": "string" },
@@ -68,7 +63,6 @@
     "integrity": {
       "type": "object",
       "required": ["algorithm", "files"],
-      "additionalProperties": false,
       "properties": {
         "algorithm": { "const": "sha256" },
         "files": {
