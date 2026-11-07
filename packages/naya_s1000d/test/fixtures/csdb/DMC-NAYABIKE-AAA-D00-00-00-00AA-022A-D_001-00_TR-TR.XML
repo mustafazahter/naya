@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/brex.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="07"/>
+        <dmTitle><techName>Bisiklet</techName><infoName>İş kuralları</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="C3002"/>
+      <originator enterpriseCode="C3002"/>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <brex>
+      <snsRules>
+        <snsDescr>
+          <snsSystem><snsCode>D00</snsCode><snsTitle>Bisiklet</snsTitle></snsSystem>
+          <snsSystem><snsCode>DA1</snsCode><snsTitle>Aktarma organları</snsTitle>
+            <snsSubSystem><snsCode>1</snsCode><snsTitle>Zincir ve dişliler</snsTitle>
+              <snsSubSubSystem><snsCode>0</snsCode><snsTitle>Zincir ve dişliler</snsTitle>
+                <snsAssy><snsCode>00</snsCode><snsTitle>Zincir</snsTitle></snsAssy>
+              </snsSubSubSystem>
+            </snsSubSystem>
+          </snsSystem>
+          <snsSystem><snsCode>DA2</snsCode><snsTitle>Fren sistemi</snsTitle></snsSystem>
+        </snsDescr>
+      </snsRules>
+      <contextRules/>
+    </brex>
+  </content>
+</dmodule>

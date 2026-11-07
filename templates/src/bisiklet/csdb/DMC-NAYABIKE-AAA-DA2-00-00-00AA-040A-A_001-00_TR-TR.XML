@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYABIKE-AAA-D000000-0-NAYA0-00003-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-D000000-0-NAYA0-00003-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA2" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="07"/>
+        <dmTitle><techName>Fren sistemi</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Bisiklette iki adet telle çalışan (mekanik) disk fren vardır. Sol kol ön freni, sağ kol arka freni çalıştırır.</para>
+      </levelledPara>
+      <figure id="fig-0003"><title>Ön disk fren</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure>
+      <levelledPara>
+        <title>Çalışma</title>
+        <para>Kol çekilince fren teli kaliperdeki kolu döndürür. Dış balata diske doğru itilir, disk iç balataya bastırılır ve tekerlek yavaşlar.</para>
+        <para>Balatalar aşındıkça kol boşluğu artar; bu boşluk kaliperdeki iç balata ayar düğmesi ve fren kolundaki ayar vidasıyla alınır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Uyarı</title>
+        <para>Disk ve balatalara yağ, sprey ya da el yağı bulaşırsa fren gücü büyük ölçüde düşer. Diske çıplak elle dokunmayın.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

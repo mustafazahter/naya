@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYABIKE-AAA-D000000-0-NAYA0-00001-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-D000000-0-NAYA0-00001-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="07"/>
+        <dmTitle><techName>Bisiklet</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Bu el kitabı, önden süspansiyonlu bir dağ bisikletinin bakımını ve arıza bulmasını anlatır. Bisiklet alüminyum kadro, yaylı çatal, 3 × 8 = 24 vitesli aktarma organları ve iki tekerlekte telle çalışan disk frenlerden oluşur.</para>
+        <para>Sağ, sol, ön ve arka, bisiklete sürücü selesinde otururken bakılan yöne göre verilir. Zincir tarafı sağ taraftır.</para>
+      </levelledPara>
+      <figure id="fig-0001"><title>Bisiklet, sağdan görünüş</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure>
+      <levelledPara>
+        <title>Ana bölümler</title>
+        <para>Bisiklet dört ana sistemden oluşur.</para>
+        <levelledPara>
+          <title>Kadro, çatal ve kumanda</title>
+          <para>Kadro bütün parçaları taşır. Yaylı çatal ön tekerleği tutar ve yoldan gelen darbeyi sönümler. Gidonda elcikler, fren kolları ve tetik vites kolları vardır.</para>
+        </levelledPara>
+        <levelledPara>
+          <title>Aktarma organları</title>
+          <para>Pedallardan gelen güç, üç aynalı aynakol, zincir ve sekiz dişli kaset üzerinden arka tekerleğe aktarılır. Ön ve arka vites değiştiriciler zinciri dişliler arasında kaydırır.</para>
+        </levelledPara>
+        <levelledPara>
+          <title>Fren sistemi</title>
+          <para>Her iki tekerlekte 160 mm disk ve mekanik kaliper vardır. Fren kolu çekilince tel kaliperdeki balataları diske bastırır.</para>
+        </levelledPara>
+        <levelledPara>
+          <title>Tekerlekler</title>
+          <para>Tekerlekler jant, teller, çabuk sökme mandallı göbek, iç lastik ve dış lastikten oluşur.</para>
+        </levelledPara>
+      </levelledPara>
+      <levelledPara>
+        <title>Güvenlik</title>
+        <para>Her sürüşten önce fren kollarını sıkın ve lastik basıncına bakın. Frenler tutmuyorsa bisiklete binmeyin.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

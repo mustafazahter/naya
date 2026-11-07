@@ -13,3 +13,6 @@ dependencies:
 
 executables:
   naya: naya
+
+dev_dependencies:
+  test: ^1.29.0

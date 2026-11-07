@@ -41,7 +41,7 @@ class Diagnosis {
 }
 
 const sampleDiagnosis = Diagnosis(
-  symptom: 'Pedal çevirince tıkırtı geliyor, bazen zincir atlıyor.',
+  symptom: 'Pedala yüklenince zincir boşa atlıyor, cızırtı da geliyor.',
   candidates: [
     Candidate(
       partId: 'drive.chain',
@@ -50,19 +50,19 @@ const sampleDiagnosis = Diagnosis(
       probability: 0.62,
     ),
     Candidate(
-      partId: 'drive.derailleur',
+      partId: 'drive.rear_derailleur',
       name: 'Arka vites değiştirici',
       system: 'Aktarma organları',
       probability: 0.21,
     ),
     Candidate(
-      partId: 'drive.crank',
-      name: 'Pedal kolu ve yatağı',
+      partId: 'drive.cassette',
+      name: 'Kaset',
       system: 'Aktarma organları',
       probability: 0.09,
     ),
   ],
   systemsScanned: 4,
   safeToUse: 0.78,
-  source: 'DMC-NAYABIKE-AAA-D00-00-00-00AA-421A-A',
+  source: 'DMC-NAYABIKE-AAA-DA1-10-00-00AA-361A-A',
 );
