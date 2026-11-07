@@ -18,7 +18,13 @@ String textOf(XmlNode node, {Set<String> skip = const {}}) {
   }
 
   walk(node);
-  return buffer.toString().replaceAll(RegExp(r'\s+'), ' ').trim();
+  return buffer
+      .toString()
+      .replaceAll(RegExp(r'\s+'), ' ')
+      // Satır içi elemandan sonra eklenen boşluk noktalamadan önce kalmasın:
+      // "<emphasis>zincir</emphasis>." → "zincir ." değil "zincir."
+      .replaceAllMapped(RegExp(r' ([.,;:!?)])'), (m) => m[1]!)
+      .trim();
 }
 
 /// İlk [name] çocuğu ya da torunu.

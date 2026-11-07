@@ -44,6 +44,11 @@ void main() {
       expect(top.text, 'Ana bileşenler aşağıda anlatılmıştır.');
     });
 
+    test('satır içi elemandan sonra noktalamadan önce boşluk kalmaz', () {
+      final chain = d.chunks.firstWhere((c) => c.section.endsWith('Zincir'));
+      expect(chain.text, endsWith('Ayrıntı için.'));
+    });
+
     test('başvurulan DM listelenir', () {
       expect(d.dmRefs.single.toString(), endsWith('DA1-10-00-00AA-520A-A'));
     });
