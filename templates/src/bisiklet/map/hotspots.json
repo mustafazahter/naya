@@ -1,0 +1,64 @@
+{
+  "hotspots": [
+    {
+      "id": "h.chain",
+      "part": "drive.chain",
+      "position": [
+        -0.328,
+        0.29,
+        0.063
+      ],
+      "label": "Zincir"
+    },
+    {
+      "id": "h.rear_derailleur",
+      "part": "drive.rear_derailleur",
+      "position": [
+        -0.463,
+        0.253,
+        0.13
+      ],
+      "label": "Arka vites"
+    },
+    {
+      "id": "h.crankset",
+      "part": "drive.crankset",
+      "position": [
+        -0.103,
+        0.326,
+        -0.009
+      ],
+      "label": "Aynakol"
+    },
+    {
+      "id": "h.brake_front",
+      "part": "brakes.front",
+      "position": [
+        0.539,
+        0.411,
+        -0.052
+      ],
+      "label": "Ön fren"
+    },
+    {
+      "id": "h.brake_rear",
+      "part": "brakes.rear",
+      "position": [
+        -0.544,
+        0.366,
+        -0.042
+      ],
+      "label": "Arka fren"
+    },
+    {
+      "id": "h.fork",
+      "part": "fork",
+      "position": [
+        0.466,
+        0.633,
+        -0.046
+      ],
+      "label": "Çatal"
+    }
+  ]
+}

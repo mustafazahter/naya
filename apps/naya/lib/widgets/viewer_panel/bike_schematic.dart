@@ -44,10 +44,7 @@ final bikeParts = <SchematicPart>[
   SchematicPart('fork', const Offset(288, 132), const Offset(14, 0), (c, p) {
     c.drawLine(_headBottom, _front, p);
   }),
-  SchematicPart('handlebar', const Offset(268, 64), const Offset(0, -18), (
-    c,
-    p,
-  ) {
+  SchematicPart('cockpit', const Offset(268, 64), const Offset(0, -18), (c, p) {
     c.drawLine(_headTop, const Offset(266, 64), p);
     c.drawPath(
       Path()
@@ -56,7 +53,10 @@ final bikeParts = <SchematicPart>[
       p,
     );
   }),
-  SchematicPart('saddle', const Offset(158, 62), const Offset(0, -18), (c, p) {
+  SchematicPart('seat.saddle', const Offset(158, 62), const Offset(0, -18), (
+    c,
+    p,
+  ) {
     c.drawLine(_seat, const Offset(160, 64), p);
     c.drawPath(
       Path()
@@ -66,7 +66,7 @@ final bikeParts = <SchematicPart>[
     );
   }),
   SchematicPart(
-    'brakes.rear.pad',
+    'brakes.rear.pads',
     const Offset(110, 98),
     const Offset(0, -16),
     (c, p) {
@@ -77,7 +77,7 @@ final bikeParts = <SchematicPart>[
     },
   ),
   SchematicPart(
-    'brakes.front.pad',
+    'brakes.front.pads',
     const Offset(296, 98),
     const Offset(0, -16),
     (c, p) {
@@ -87,7 +87,7 @@ final bikeParts = <SchematicPart>[
       );
     },
   ),
-  SchematicPart('drive.crank', _crank, const Offset(0, 22), (c, p) {
+  SchematicPart('drive.crankset', _crank, const Offset(0, 22), (c, p) {
     c.drawCircle(_crank, 20, p);
     c.drawCircle(_crank, 4, p);
     c.drawLine(_crank, const Offset(198, 196), p);
@@ -101,7 +101,7 @@ final bikeParts = <SchematicPart>[
     c.drawLine(const Offset(182, 186), const Offset(104, 169), p);
   }),
   SchematicPart(
-    'drive.derailleur',
+    'drive.rear_derailleur',
     const Offset(110, 186),
     const Offset(0, 22),
     (c, p) {
