@@ -5,9 +5,8 @@ const apiUrl = String.fromEnvironment(
   defaultValue: 'http://localhost:8080',
 );
 
-/// three.js viewer'ın adresi. Yerelde `packages/viewer_web` içinde
-/// `npm run dev` ile 5173'te açılır.
-const viewerUrl = String.fromEnvironment(
-  'NAYA_VIEWER_URL',
-  defaultValue: 'http://localhost:5173',
-);
+/// three.js viewer'ın adresi. Boşsa uygulamaya gömülü viewer kullanılır
+/// (`assets/viewer`, `packages/viewer_web` içinde `npm run bundle` ile
+/// gelir). Viewer üzerinde çalışırken `npm run dev` ile açılan sunucu
+/// verilebilir: `--dart-define=NAYA_VIEWER_URL=http://localhost:5173`.
+const viewerUrl = String.fromEnvironment('NAYA_VIEWER_URL');

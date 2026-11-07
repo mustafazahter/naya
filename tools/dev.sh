@@ -20,9 +20,13 @@ pids=($!)
 
 # 3D viewer (three.js). Bağımlılıklar kurulu değilse atlanır:
 # cd packages/viewer_web && npm install
+# Çalışıyorsa uygulama gömülü viewer yerine bunu kullanır; viewer'da yapılan
+# değişiklik sayfa yenilenince görünür.
+defines=(--dart-define=NAYA_API_URL="http://localhost:$port")
 if [[ -d packages/viewer_web/node_modules ]]; then
   (cd packages/viewer_web && exec npx vite --port 5173 --strictPort) &
   pids+=($!)
+  defines+=(--dart-define=NAYA_VIEWER_URL=http://localhost:5173)
 fi
 trap 'kill "${pids[@]}" 2>/dev/null || true' EXIT
 
@@ -33,4 +37,4 @@ if [[ "$device" == "web-server" ]]; then
 fi
 
 cd apps/naya
-flutter run -d "$device" "${extra[@]}" --dart-define=NAYA_API_URL="http://localhost:$port"
+flutter run -d "$device" "${extra[@]}" "${defines[@]}"

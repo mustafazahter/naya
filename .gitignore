@@ -31,3 +31,8 @@ data/
 .vscode/
 *.iml
 .DS_Store
+
+# Uygulamaya gömülen viewer derlemesi (packages/viewer_web: npm run bundle)
+apps/naya/assets/viewer/**
+!apps/naya/assets/viewer/**/
+!apps/naya/assets/viewer/**/.gitkeep

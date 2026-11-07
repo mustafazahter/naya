@@ -101,6 +101,19 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           cache: true
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: packages/viewer_web/package-lock.json
+
+      # Viewer uygulamanın içine gömülür (web'de iframe, Android'de WebView).
+      - name: Viewer
+        working-directory: packages/viewer_web
+        run: |
+          npm ci
+          npm run bundle
+
       - run: flutter pub get
 
       - name: Web build

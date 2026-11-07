@@ -14,14 +14,16 @@ class ModelViewerPanel extends StatefulWidget {
   const ModelViewerPanel({
     super.key,
     required this.productTitle,
-    required this.modelUrl,
+    required this.viewerQuery,
     required this.onPartTap,
     this.focusPart,
     this.onBack,
   });
 
   final String productTitle;
-  final String modelUrl;
+
+  /// Viewer'a giden sorgu, örneğin `embed&model=./models/bicycle.glb`.
+  final String viewerQuery;
   final ValueChanged<String> onPartTap;
 
   /// Teşhiste bulunan parça (düğüm adı). Model yüklenince kamera ona
@@ -52,11 +54,11 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
 
   /// Odaklanılacak parça adreste gider; viewer model her yüklendiğinde
   /// kendisi yaklaşır, mesajın zamanlamasına bağlı kalmaz.
-  String get _url {
+  String get _query {
     final focus = widget.focusPart;
     return focus == null
-        ? widget.modelUrl
-        : '${widget.modelUrl}&focus=${Uri.encodeQueryComponent(focus)}';
+        ? widget.viewerQuery
+        : '${widget.viewerQuery}&focus=${Uri.encodeQueryComponent(focus)}';
   }
 
   void _reset() {
@@ -75,7 +77,7 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
       children: [
         Positioned.fill(
           child: ModelFrame(
-            url: _url,
+            query: _query,
             controller: _controller,
             onPartTap: _onPartTap,
           ),

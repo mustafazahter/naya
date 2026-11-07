@@ -7,13 +7,14 @@ const isModelFrameSupported = false;
 class ModelFrame extends StatelessWidget {
   const ModelFrame({
     super.key,
-    required this.url,
+    required this.query,
     required this.controller,
     required this.onPartTap,
     this.onReady,
   });
 
-  final String url;
+  /// Viewer adresine eklenecek sorgu: `embed&model=...&focus=...`.
+  final String query;
   final ModelFrameController controller;
   final ValueChanged<String?> onPartTap;
 
