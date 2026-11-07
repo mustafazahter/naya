@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/pm.xsd">
+  <identAndStatusSection>
+    <pmAddress>
+      <pmIdent>
+        <pmCode modelIdentCode="NAYABIKE" pmIssuer="NAYA0" pmNumber="00001" pmVolume="00"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </pmIdent>
+      <pmAddressItems>
+        <issueDate year="2026" month="11" day="07"/>
+        <pmTitle>Dağ bisikleti bakım el kitabı</pmTitle>
+      </pmAddressItems>
+    </pmAddress>
+    <pmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </pmStatus>
+  </identAndStatusSection>
+  <content>
+    <pmEntry>
+      <pmEntryTitle>Genel</pmEntryTitle>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Bisiklet</techName><infoName>Tanım</infoName></dmTitle></dmRefAddressItems></dmRef>
+    </pmEntry>
+    <pmEntry>
+      <pmEntryTitle>Aktarma organları</pmEntryTitle>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Aktarma organları</techName><infoName>Tanım</infoName></dmTitle></dmRefAddressItems></dmRef>
+      <pmEntry>
+        <pmEntryTitle>Zincir</pmEntryTitle>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="361" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Zincir</techName><infoName>Aşınma ölçümü</infoName></dmTitle></dmRefAddressItems></dmRef>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="241" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Zincir</techName><infoName>Temizlik ve yağlama</infoName></dmTitle></dmRefAddressItems></dmRef>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="520" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Zincir</techName><infoName>Sökme</infoName></dmTitle></dmRefAddressItems></dmRef>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="720" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Zincir</techName><infoName>Takma</infoName></dmTitle></dmRefAddressItems></dmRef>
+      </pmEntry>
+      <pmEntry>
+        <pmEntryTitle>Aynakol ve ön vites</pmEntryTitle>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Aynakol ve orta göbek</techName><infoName>Kontrol</infoName></dmTitle></dmRefAddressItems></dmRef>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Ön vites değiştirici</techName><infoName>Ayar</infoName></dmTitle></dmRefAddressItems></dmRef>
+      </pmEntry>
+      <pmEntry>
+        <pmEntryTitle>Kaset ve arka vites</pmEntryTitle>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Kaset</techName><infoName>Değiştirme</infoName></dmTitle></dmRefAddressItems></dmRef>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Arka vites değiştirici</techName><infoName>Ayar</infoName></dmTitle></dmRefAddressItems></dmRef>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Vites askısı</techName><infoName>Gözle kontrol</infoName></dmTitle></dmRefAddressItems></dmRef>
+      </pmEntry>
+      <pmEntry>
+        <pmEntryTitle>Pedallar</pmEntryTitle>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Pedallar</techName><infoName>Sökme ve takma</infoName></dmTitle></dmRefAddressItems></dmRef>
+      </pmEntry>
+    </pmEntry>
+    <pmEntry>
+      <pmEntryTitle>Fren sistemi</pmEntryTitle>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA2" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Fren sistemi</techName><infoName>Tanım</infoName></dmTitle></dmRefAddressItems></dmRef>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA2" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Fren sistemi</techName><infoName>Arıza bulma</infoName></dmTitle></dmRefAddressItems></dmRef>
+      <pmEntry>
+        <pmEntryTitle>Ayar ve balatalar</pmEntryTitle>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA2" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Disk fren</techName><infoName>Ayar</infoName></dmTitle></dmRefAddressItems></dmRef>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA2" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="921" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Fren balatası</techName><infoName>Değiştirme</infoName></dmTitle></dmRefAddressItems></dmRef>
+      </pmEntry>
+      <pmEntry>
+        <pmEntryTitle>Diskler</pmEntryTitle>
+        <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA2" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Fren diski</techName><infoName>Kontrol</infoName></dmTitle></dmRefAddressItems></dmRef>
+      </pmEntry>
+    </pmEntry>
+    <pmEntry>
+      <pmEntryTitle>Tekerlekler</pmEntryTitle>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA3" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Tekerlekler</techName><infoName>Kontrol</infoName></dmTitle></dmRefAddressItems></dmRef>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA3" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="520" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Tekerlek</techName><infoName>Sökme</infoName></dmTitle></dmRefAddressItems></dmRef>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA3" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="720" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Tekerlek</techName><infoName>Takma</infoName></dmTitle></dmRefAddressItems></dmRef>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA3" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>İç lastik</techName><infoName>Yama ve değiştirme</infoName></dmTitle></dmRefAddressItems></dmRef>
+    </pmEntry>
+    <pmEntry>
+      <pmEntryTitle>Kadro, çatal ve sele</pmEntryTitle>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Çatal ve furç</techName><infoName>Muayene</infoName></dmTitle></dmRefAddressItems></dmRef>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Furç</techName><infoName>Ayar</infoName></dmTitle></dmRefAddressItems></dmRef>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Sele</techName><infoName>Yükseklik ayarı</infoName></dmTitle></dmRefAddressItems></dmRef>
+    </pmEntry>
+    <pmEntry>
+      <pmEntryTitle>Parça kataloğu</pmEntryTitle>
+      <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="941" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent><dmRefAddressItems><dmTitle><techName>Bisiklet</techName><infoName>Resimli parça verisi</infoName></dmTitle></dmRefAddressItems></dmRef>
+    </pmEntry>
+  </content>
+</pm>

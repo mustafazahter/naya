@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/brex.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="07"/>
+        <dmTitle><techName>Bisiklet</techName><infoName>İş kuralları</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <brex>
+      <snsRules>
+        <snsDescr>
+          <snsSystem><snsCode>D00</snsCode><snsTitle>Bisiklet</snsTitle>
+          </snsSystem>
+          <snsSystem><snsCode>DA0</snsCode><snsTitle>Kadro, çatal ve kumanda</snsTitle>
+            <snsSubSystem><snsCode>1</snsCode><snsTitle>Kadro</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Kadro</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Kadro</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>2</snsCode><snsTitle>Çatal ve furç</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Çatal ve furç</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Çatal ve furç</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>3</snsCode><snsTitle>Gidon ve kumanda</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Gidon ve kumanda</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Gidon ve kumanda</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>4</snsCode><snsTitle>Sele</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Sele</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Sele</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+          </snsSystem>
+          <snsSystem><snsCode>DA1</snsCode><snsTitle>Aktarma organları</snsTitle>
+            <snsSubSystem><snsCode>1</snsCode><snsTitle>Zincir</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Zincir</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Zincir</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>2</snsCode><snsTitle>Aynakol, orta göbek ve ön vites</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Aynakol, orta göbek ve ön vites</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Aynakol, orta göbek ve ön vites</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>3</snsCode><snsTitle>Kaset</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Kaset</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Kaset</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>4</snsCode><snsTitle>Arka vites değiştirici</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Arka vites değiştirici</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Arka vites değiştirici</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>5</snsCode><snsTitle>Pedallar</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Pedallar</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Pedallar</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>6</snsCode><snsTitle>Vites kolları ve telleri</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Vites kolları ve telleri</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Vites kolları ve telleri</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+          </snsSystem>
+          <snsSystem><snsCode>DA2</snsCode><snsTitle>Fren sistemi</snsTitle>
+            <snsSubSystem><snsCode>1</snsCode><snsTitle>Balatalar ve kaliperler</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Balatalar ve kaliperler</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Balatalar ve kaliperler</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>2</snsCode><snsTitle>Fren diskleri</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Fren diskleri</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Fren diskleri</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>3</snsCode><snsTitle>Fren kolları ve telleri</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Fren kolları ve telleri</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Fren kolları ve telleri</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+          </snsSystem>
+          <snsSystem><snsCode>DA3</snsCode><snsTitle>Tekerlekler</snsTitle>
+            <snsSubSystem><snsCode>1</snsCode><snsTitle>Lastik ve iç lastik</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Lastik ve iç lastik</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Lastik ve iç lastik</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>2</snsCode><snsTitle>Jant ve teller</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Jant ve teller</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Jant ve teller</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+            <snsSubSystem><snsCode>3</snsCode><snsTitle>Göbekler</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Göbekler</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Göbekler</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>
+          </snsSystem>
+        </snsDescr>
+      </snsRules>
+      <contextRules/>
+    </brex>
+  </content>
+</dmodule>

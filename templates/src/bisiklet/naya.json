@@ -1,0 +1,33 @@
+{
+  "format": "naya",
+  "formatVersion": "1.0.0",
+  "id": "bisiklet-dag",
+  "kind": "template",
+  "language": "tr",
+  "title": "Dağ bisikleti",
+  "product": {
+    "category": "bicycle",
+    "variant": "Önden süspansiyonlu, 24 vites, mekanik disk fren"
+  },
+  "s1000d": {
+    "issue": "5.0",
+    "modelIdentCode": "NAYABIKE",
+    "entry": "csdb/PMC-NAYABIKE-NAYA0-00001-00_001-00_TR-TR.XML"
+  },
+  "model": {
+    "main": "model/product.glb",
+    "units": "m",
+    "upAxis": "Y",
+    "compression": "draco"
+  },
+  "credits": [
+    {
+      "asset": "model/product.glb",
+      "author": "T-FLEX CAD ST (Free)",
+      "source": "https://sketchfab.com/tflexcad",
+      "license": "CC-BY-4.0"
+    }
+  ],
+  "generator": "naya_cli 0.1.0",
+  "created": "2026-11-07T00:00:00Z"
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYABIKE-AAA-D000000-0-NAYA0-00002-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-D000000-0-NAYA0-00002-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="07"/>
+        <dmTitle><techName>Aktarma organları</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Aktarma organları aynakol ve orta göbek, zincir, kaset, ön ve arka vites değiştiriciler, vites kolları ve tellerinden oluşur.</para>
+      </levelledPara>
+      <figure id="fig-0002"><title>Aktarma organları</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure>
+      <levelledPara>
+        <title>Vitesler</title>
+        <para>Sol vites kolu ön vites değiştiriciyi, sağ kol arka vites değiştiriciyi yönetir. Önde 3, arkada 8 dişli vardır.</para>
+        <para>Zinciri aşırı çaprazlamayın: önde büyük aynada arkadaki en büyük dişli, önde küçük aynada arkadaki en küçük dişli kullanılmamalıdır. Bu durum zinciri ve dişlileri hızlı aşındırır, zincirin düşmesine yol açar.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Aşınma</title>
+        <para>Zincir kullanıldıkça uzar. Uzamış zincir dişlileri de aşındırır; zamanında değiştirilen zincir kaseti ve aynakolu korur.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

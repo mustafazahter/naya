@@ -1,0 +1,21 @@
+{
+  "zones": [
+    {
+      "id": "z.front",
+      "name": "Ön"
+    },
+    {
+      "id": "z.cockpit",
+      "name": "Gidon",
+      "parent": "z.front"
+    },
+    {
+      "id": "z.middle",
+      "name": "Orta"
+    },
+    {
+      "id": "z.rear",
+      "name": "Arka"
+    }
+  ]
+}
