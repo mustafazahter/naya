@@ -33,6 +33,15 @@ tools/dev.sh                                 # API + viewer + web uygulaması
 
 Uygulama Chrome'da açılır. API `http://localhost:8080` (`/health` ile kontrol edilebilir), 3D viewer `http://localhost:5173` adresinde çalışır. Veriler `data/` klasöründe tutulur, git'e girmez.
 
+Android'de ya da `tools/dev.sh` olmadan çalıştırırken uygulama içine gömülü viewer kullanılır; önce bir kez derlenip kopyalanmalı:
+
+```bash
+(cd packages/viewer_web && npm run bundle)
+cd apps/naya && flutter run -d <telefon>
+```
+
+Ayrıntılar ve köprü komutları: [packages/viewer_web/README.md](packages/viewer_web/README.md).
+
 ## Kontroller
 
 ```bash

@@ -4,6 +4,7 @@ import 'dart:ui_web' as ui_web;
 import 'package:flutter/widgets.dart';
 import 'package:web/web.dart' as web;
 
+import '../../shared/config/env.dart';
 import 'model_frame_controller.dart';
 
 const isModelFrameSupported = true;
@@ -13,13 +14,14 @@ const isModelFrameSupported = true;
 class ModelFrame extends StatefulWidget {
   const ModelFrame({
     super.key,
-    required this.url,
+    required this.query,
     required this.controller,
     required this.onPartTap,
     this.onReady,
   });
 
-  final String url;
+  /// Viewer adresine eklenecek sorgu: `embed&model=...&focus=...`.
+  final String query;
   final ModelFrameController controller;
   final ValueChanged<String?> onPartTap;
 
@@ -41,7 +43,7 @@ class _ModelFrameState extends State<ModelFrame> {
   void initState() {
     super.initState();
     _frame = web.HTMLIFrameElement()
-      ..src = widget.url
+      ..src = _url
       ..style.border = 'none'
       ..style.width = '100%'
       ..style.height = '100%'
@@ -50,6 +52,12 @@ class _ModelFrameState extends State<ModelFrame> {
     web.window.addEventListener('message', _onMessage);
     widget.controller.attach(_send);
   }
+
+  /// Gömülü viewer uygulamayla aynı sunucudan gelir; Flutter web asset'leri
+  /// `assets/` altında yayınlar.
+  String get _url => viewerUrl.isEmpty
+      ? 'assets/assets/viewer/index.html?${widget.query}'
+      : '$viewerUrl/?${widget.query}';
 
   @override
   void dispose() {

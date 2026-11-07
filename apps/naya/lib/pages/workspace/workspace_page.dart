@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../entities/diagnosis/diagnosis.dart';
 import '../../entities/part/part.dart';
 import '../../entities/product/product.dart';
-import '../../shared/config/env.dart';
 import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
 import '../../widgets/chat_panel/chat_panel.dart';
@@ -77,7 +76,7 @@ class WorkspacePage extends StatelessWidget {
     final Widget viewer = isModelFrameSupported && model != null
         ? ModelViewerPanel(
             productTitle: product.title,
-            modelUrl: '$viewerUrl/?embed&model=$model',
+            viewerQuery: 'embed&model=$model',
             // Parça kimliği noktalı, modeldeki düğüm adı alt çizgili.
             focusPart: sampleDiagnosis.top.partId.replaceAll('.', '_'),
             onPartTap: (id) => _openPart(context, id),

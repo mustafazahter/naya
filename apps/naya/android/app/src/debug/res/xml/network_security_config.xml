@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Yalnız debug derlemesi: telefon bilgisayardaki geliştirme sunucularına
+     (API, viewer) yerel ağ üzerinden şifresiz bağlanabilsin. Release
+     derlemesi main/res altındaki dosyayı kullanır. -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true"/>
+</network-security-config>
