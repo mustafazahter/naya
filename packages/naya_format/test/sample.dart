@@ -48,6 +48,17 @@ Uint8List buildZip(
   return ZipEncoder().encodeBytes(archive);
 }
 
+/// Örnek dosyanın manifestini [edit] ile değiştirip yeniden okur.
+/// Bütünlük özetleri değişmez; yalnız manifest elle bozulur.
+NayaFile decodeWithManifest(void Function(Map<String, Object?> json) edit) {
+  final files = unzip(sampleFile().encode());
+  final json =
+      jsonDecode(utf8.decode(files['naya.json']!)) as Map<String, Object?>;
+  edit(json);
+  files['naya.json'] = utf8.encode(jsonEncode(json));
+  return NayaFile.decode(buildZip(files));
+}
+
 /// Kodlanmış bir dosyayı açıp kayıtlarını ad → bayt olarak verir.
 Map<String, List<int>> unzip(List<int> bytes) => {
   for (final f in ZipDecoder().decodeBytes(bytes))

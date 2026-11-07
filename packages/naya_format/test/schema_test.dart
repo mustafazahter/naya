@@ -49,6 +49,43 @@ void main() {
     expect(schema('faults').validate(json).isValid, isFalse);
   });
 
+  const required = {
+    'naya': ['format', 'formatVersion', 'id', 'kind', 'language', 'title'],
+    'parts': ['parts'],
+    'faults': ['symptoms', 'faults'],
+    'zones': ['zones'],
+    'hotspots': ['hotspots'],
+  };
+  required.forEach((name, fields) {
+    for (final field in fields) {
+      test('$name şeması "$field" alanı olmayan dosyayı reddeder', () {
+        final json = readExample(examples[name]!)..remove(field);
+        expect(schema(name).validate(json).isValid, isFalse);
+      });
+    }
+  });
+
+  // 1.x içinde eklenecek yeni alanlar eski okuyucuda yok sayılır; Dart
+  // okuyucu da şema da bu yüzden bilinmeyen alanı kabul eder.
+  test('bilinmeyen alanlar şemadan geçer (ileri uyum)', () {
+    final manifest = readExample('naya.json')..['yeniAlan'] = 1;
+    expectValid('naya', manifest);
+    final parts = readExample('parts.json');
+    ((parts['parts']! as List).first as Map<String, Object?>)['yeni'] = 'x';
+    expectValid('parts', parts);
+  });
+
+  test('isteğe bağlı alanları olmayan manifest şemaya uyar', () {
+    final file = NayaFile(
+      manifest: const NayaManifest(
+        id: 'kucuk',
+        kind: NayaKind.user,
+        title: 'Küçük',
+      ),
+    );
+    expectValid('naya', NayaFile.decode(file.encode()).manifest.toJson());
+  });
+
   test('2.x manifest şemaya uymaz', () {
     final json = readExample('naya.json')..['formatVersion'] = '2.0.0';
     expect(schema('naya').validate(json).isValid, isFalse);
