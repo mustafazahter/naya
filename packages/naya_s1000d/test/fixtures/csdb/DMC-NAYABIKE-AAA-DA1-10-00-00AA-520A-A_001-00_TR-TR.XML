@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION PNG SYSTEM "PNG">
+<!ENTITY ICN-NAYABIKE-AAA-DA10000-0-C3002-00001-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-DA10000-0-C3002-00001-A-001-01.PNG" NDATA PNG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="520" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="07"/>
+        <dmTitle><techName>Zincir</techName><infoName>Sökme</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="C3002"/>
+      <originator enterpriseCode="C3002"/>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><noConds/></reqCondGroup>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr><name>Zincir sökme aparatı</name></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSpares><spareDescrGroup><spareDescr><name>Zincir</name><partRef manufacturerCodeValue="C3002" partNumberValue="NB-CH-116"/></spareDescr></spareDescrGroup></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Zincir kenarları keskin olabilir; eldiven takın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep>
+          <para>Vitesi en küçük dişliye alın.</para>
+        </proceduralStep>
+        <proceduralStep>
+          <title>Pimi çıkarın</title>
+          <para>Aparatı baklaya yerleştirin.</para>
+          <figure><title>Zincir aparatı</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-DA10000-0-C3002-00001-A-001-01"/></figure>
+          <proceduralStep><para>Kolu pim dışarı çıkana kadar çevirin.</para></proceduralStep>
+          <proceduralStep><para>Zinciri ayırın.</para></proceduralStep>
+        </proceduralStep>
+      </mainProcedure>
+      <closeRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Takma için <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="720" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef> prosedürüne bakın.</reqCond></reqCondNoRef></reqCondGroup>
+      </closeRqmts>
+    </procedure>
+  </content>
+</dmodule>
