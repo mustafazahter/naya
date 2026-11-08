@@ -21,21 +21,24 @@ class PublicationModule {
     }
     final title = firstDescendant(root, 'pmTitle');
     final content = root.getElement('content');
-    return PublicationModule(
-      code: [
-        'PMC',
-        pmCode.getAttribute('modelIdentCode'),
-        pmCode.getAttribute('pmIssuer'),
-        pmCode.getAttribute('pmNumber'),
-        pmCode.getAttribute('pmVolume'),
-      ].whereType<String>().join('-'),
-      title: optionalText(title) ?? '',
-      entries: content == null
-          ? const []
-          : [
-              for (final e in elementsNamed(content, 'pmEntry'))
-                PmEntry._read(e),
-            ],
+    return _namingFile(
+      file,
+      () => PublicationModule(
+        code: [
+          'PMC',
+          pmCode.getAttribute('modelIdentCode'),
+          pmCode.getAttribute('pmIssuer'),
+          pmCode.getAttribute('pmNumber'),
+          pmCode.getAttribute('pmVolume'),
+        ].whereType<String>().join('-'),
+        title: optionalText(title) ?? '',
+        entries: content == null
+            ? const []
+            : [
+                for (final e in elementsNamed(content, 'pmEntry'))
+                  PmEntry._read(e),
+              ],
+      ),
     );
   }
 
@@ -100,23 +103,26 @@ class DataModuleList {
     if (dmlCode == null) {
       throw S1000dException('dmlIdent/dmlCode bulunamadı', file: file);
     }
-    return DataModuleList(
-      code: [
-        'DML',
-        dmlCode.getAttribute('modelIdentCode'),
-        dmlCode.getAttribute('senderIdent'),
-        dmlCode.getAttribute('dmlType')?.toUpperCase(),
-        dmlCode.getAttribute('yearOfDataIssue'),
-        dmlCode.getAttribute('seqNumber'),
-      ].whereType<String>().join('-'),
-      entries: [
-        for (final entry in root.findAllElements('dmlEntry'))
-          for (final ref in elementsNamed(entry, 'dmRef'))
-            DmlEntry(
-              code: _codeOf(ref),
-              issueType: entry.getAttribute('issueType'),
-            ),
-      ],
+    return _namingFile(
+      file,
+      () => DataModuleList(
+        code: [
+          'DML',
+          dmlCode.getAttribute('modelIdentCode'),
+          dmlCode.getAttribute('senderIdent'),
+          dmlCode.getAttribute('dmlType')?.toUpperCase(),
+          dmlCode.getAttribute('yearOfDataIssue'),
+          dmlCode.getAttribute('seqNumber'),
+        ].whereType<String>().join('-'),
+        entries: [
+          for (final entry in root.findAllElements('dmlEntry'))
+            for (final ref in elementsNamed(entry, 'dmRef'))
+              DmlEntry(
+                code: _codeOf(ref),
+                issueType: entry.getAttribute('issueType'),
+              ),
+        ],
+      ),
     );
   }
 
@@ -131,6 +137,16 @@ class DmlEntry {
 
   /// `new`, `changed`, `deleted`...
   final String? issueType;
+}
+
+/// İçerikte çıkan hataya dosya adını ekler; içe aktarmada kullanıcı hangi
+/// dosyanın bozuk olduğunu görebilsin.
+T _namingFile<T>(String? file, T Function() read) {
+  try {
+    return read();
+  } on S1000dException catch (e) {
+    throw S1000dException(e.message, file: file);
+  }
 }
 
 /// Bir `dmRef` elemanının gösterdiği DM kodu.

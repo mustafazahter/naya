@@ -92,7 +92,9 @@ class DataModule {
     final code = DmCode.fromElement(dmCode);
     final lang = ident.getElement('language');
     final issueInfo = ident.getElement('issueInfo');
-    final title = firstDescendant(root, 'dmTitle');
+    // İçerikteki başvurular da dmTitle taşır; yalnız adres bölümüne bakılır.
+    final address = firstDescendant(root, 'dmAddress') ?? root;
+    final title = firstDescendant(address, 'dmTitle');
     final techName = title?.getElement('techName');
     if (techName == null) throw const S1000dException('dmTitle/techName yok');
     final infoName = title?.getElement('infoName');
@@ -125,7 +127,7 @@ class DataModule {
       inWork: issueInfo?.getAttribute('inWork') ?? '',
       techName: textOf(techName),
       infoName: infoName == null ? null : textOf(infoName),
-      issueDate: _date(firstDescendant(root, 'issueDate')),
+      issueDate: _date(firstDescendant(address, 'issueDate')),
       s1000dIssue: issue,
       contentType: contentType,
       dmRefs: content == null ? const [] : _dmRefs(content),

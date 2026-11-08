@@ -1,5 +1,6 @@
 import 'package:naya_s1000d/naya_s1000d.dart';
 import 'package:test/test.dart';
+import 'package:xml/xml.dart';
 
 void main() {
   group('DmCode.parse', () {
@@ -39,6 +40,62 @@ void main() {
       expect(DmCode.parse('dmc-${text.substring(4)}').toString(), text);
     });
 
+    test('baştaki ve sondaki boşluk yok sayılır', () {
+      expect(
+        DmCode.parse('  DMC-X-A-D00-00-00-00AA-040A-A\n').toString(),
+        'DMC-X-A-D00-00-00-00AA-040A-A',
+      );
+    });
+
+    test('küçük harf uzantı yok sayılır', () {
+      expect(
+        DmCode.parse('DMC-X-A-D00-00-00-00AA-040A-A.xml').itemLocationCode,
+        'A',
+      );
+    });
+
+    test('öğrenme kodu okunmaz, DMC aynı kalır', () {
+      expect(
+        DmCode.parse('DMC-X-A-D00-00-00-00AA-040A-A-H10A-A').toString(),
+        'DMC-X-A-D00-00-00-00AA-040A-A',
+      );
+    });
+
+    test('tek ve üç haneli varyant', () {
+      expect(DmCode.parse('X-A-D00-00-00-00A-040A-A').disassyCodeVariant, 'A');
+      expect(
+        DmCode.parse('X-A-D00-00-00-00ABC-040A-A').disassyCodeVariant,
+        'ABC',
+      );
+    });
+
+    test('fromElement ile parse aynı kodu verir', () {
+      final doc = XmlDocument.parse(
+        '<dmCode modelIdentCode="X" systemDiffCode="A" systemCode="D00" '
+        'subSystemCode="0" subSubSystemCode="0" assyCode="00" '
+        'disassyCode="00" disassyCodeVariant="AA" infoCode="040" '
+        'infoCodeVariant="A" itemLocationCode="A"/>',
+      );
+      expect(
+        DmCode.fromElement(doc.rootElement),
+        DmCode.parse('DMC-X-A-D00-00-00-00AA-040A-A'),
+      );
+    });
+
+    test('fromElement: boş öznitelik eksik sayılır', () {
+      final doc = XmlDocument.parse('<dmCode modelIdentCode=""/>');
+      expect(
+        () => DmCode.fromElement(doc.rootElement),
+        throwsA(
+          isA<S1000dException>().having(
+            (e) => e.message,
+            'message',
+            contains('modelIdentCode'),
+          ),
+        ),
+      );
+    });
+
     for (final bad in [
       '',
       'DMC-',
@@ -46,6 +103,12 @@ void main() {
       'DMC-S1000DBIKE-AAA-DA1-100-00-00AA-041A-A',
       'DMC-S1000DBIKE-AAA-DA1-10-00-0-041A-A',
       'DMC-S1000DBIKE-AAA-DA1-10-00-00AA-041-A',
+      'DMC--AAA-DA1-10-00-00AA-041A-A',
+      'DMC-S1000DBIKE--DA1-10-00-00AA-041A-A',
+      'DMC-S1000DBIKE-AAA--10-00-00AA-041A-A',
+      'DMC-S1000DBIKE-AAA-DA1-10--00AA-041A-A',
+      '   ',
+      '_001-00_TR-TR.XML',
     ]) {
       test('geçersiz: "$bad"', () {
         expect(() => DmCode.parse(bad), throwsA(isA<S1000dException>()));
@@ -61,6 +124,13 @@ void main() {
     expect(InfoKind.of('720'), InfoKind.installation);
     expect(InfoKind.of('941'), InfoKind.partsCatalog);
     expect(InfoKind.of('99X'), InfoKind.other);
+    expect(InfoKind.of('100'), InfoKind.operation);
+    expect(InfoKind.of('200'), InfoKind.servicing);
+    expect(InfoKind.of('660'), InfoKind.repair);
+    expect(InfoKind.of('800'), InfoKind.storage);
+    expect(InfoKind.of('942'), InfoKind.partsCatalog);
+    expect(InfoKind.of('920'), InfoKind.other);
+    expect(InfoKind.of(''), InfoKind.other);
   });
 
   test('eşitlik ve sıralama koda göre', () {
