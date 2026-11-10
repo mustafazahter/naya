@@ -11,6 +11,7 @@ class ModelFrame extends StatelessWidget {
     required this.controller,
     required this.onPartTap,
     this.onReady,
+    this.onScanDone,
     this.interactive = true,
   });
 
@@ -21,6 +22,9 @@ class ModelFrame extends StatelessWidget {
 
   /// Model yüklenip viewer komut almaya hazır olduğunda.
   final VoidCallback? onReady;
+
+  /// Tarama animasyonu bittiğinde.
+  final VoidCallback? onScanDone;
 
   /// false iken dokunuşlar viewer'a gitmez; üstte bir pencere ya da alt
   /// sayfa açıkken onların tıklamalarını yutmasın diye.

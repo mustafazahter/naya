@@ -10,3 +10,5 @@ cpSync("node_modules/three/examples/jsm/libs/draco/gltf", "public/draco", {
 
 mkdirSync("public/models", { recursive: true });
 cpSync("../../templates/src/bisiklet/model/product.glb", "public/models/bicycle.glb");
+// Montaj ağacı: parçalara ayırma gruplara göre yapılsın.
+cpSync("../../templates/src/bisiklet/map/parts.json", "public/models/bicycle.parts.json");
