@@ -53,11 +53,11 @@ Kullanılan bilgi kodları (S1000D Chap 8.4):
 
 ## Parça haritası
 
-`map/parts.json`'daki her parçanın `meshNodes` alanı modeldeki düğümleri gösterir. Modelde ayrı düğümü olmayan parçalar (balata, disk, furç, iç lastik, vites ve fren telleri, ön vites değiştirici) içinde bulundukları düğüme bağlı; seçilince o düğüm vurgulanır. `procedures` ve `ipd` alanları CSDB'deki DM'leri, `faults.json`'daki `isolation` ve `repair` alanları arıza bulma ve onarım DM'lerini gösterir.
+`map/parts.json`'daki her parçanın `meshNodes` alanı modeldeki düğümleri gösterir. Modelde ayrı düğümü olmayan parçalar (balata, disk, furç, iç lastik, vites ve fren telleri) içinde bulundukları düğüme bağlı; seçilince o düğüm vurgulanır. `procedures` ve `ipd` alanları CSDB'deki DM'leri, `faults.json`'daki `isolation` ve `repair` alanları arıza bulma ve onarım DM'lerini gösterir.
 
 ## Model
 
-`model/product.glb`: dağ bisikleti, 20 parça, Draco sıkıştırmalı (~8 MB, ~695 bin üçgen).
+`model/product.glb`: dağ bisikleti, 21 parça, Draco sıkıştırmalı (~8 MB, ~695 bin üçgen).
 
 Kaynak: "Bike", T-FLEX CAD ST (Free), [sketchfab.com/tflexcad](https://sketchfab.com/tflexcad), lisans **CC BY 4.0**. Uygulamada ve `.naya` manifestinin `credits` alanında bu atıf gösterilir.
 
@@ -69,12 +69,14 @@ blender -b --python split_islands.py -- kaynak.glb islands.json islands.blend
 python3 classify.py islands.json groups.json
 blender -b islands.blend --python assemble.py -- groups.json gruplu.glb
 blender -b --python optimize.py -- gruplu.glb ../model/product.glb
+blender -b --python regroup.py -- ../model/product.glb ../model/product.glb
 ```
 
 1. `split_islands.py`: her nesneyi kopuk parçalara böler (~14 bin adacık).
 2. `classify.py`: her adacığı konumuna göre bir parçaya atar. Referans noktaları tekerlek göbekleri ve orta göbek.
 3. `assemble.py`: aynı parçaya düşen adacıkları birleştirir, bisikleti zemine oturtur.
 4. `optimize.py`: 40 binden fazla yüzü olan parçaları sadeleştirir, Draco ile sıkıştırır.
+5. `regroup.py`: orta göbek çevresinde yanlış gruba düşen adacıkları düzeltir (sağ pedal, sağ pedal kolu, aynakol cıvataları) ve ön vites değiştiriciyi kendi düğümüne ayırır.
 
 ## Parçalar
 
@@ -92,5 +94,6 @@ Düğüm adlarında nokta yerine alt çizgi var, çünkü three.js düğüm adı
 | `drive_pedals` | Pedallar |
 | `drive_cassette` | Arka dişli (kaset) |
 | `drive_derailleur` | Arka vites değiştirici |
+| `drive_front_derailleur` | Ön vites değiştirici ve kelepçesi |
 | `brakes_front`, `brakes_rear` | Disk ve kaliper |
 | `wheel_front_*`, `wheel_rear_*` | Lastik, jant, teller, göbek |

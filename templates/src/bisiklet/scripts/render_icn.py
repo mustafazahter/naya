@@ -22,7 +22,8 @@ ORANGE = (0.85, 0.45, 0.12, 1)
 VIEWS = [
     ('00001', None, 3.2, (0, -1, 0.12), ()),
     ('00002', [(-0.3, -0.1, 0.33)], 1.15, (0.1, -1, 0.15),
-     ('drive_chain', 'drive_crankset', 'drive_cassette', 'drive_derailleur')),
+     ('drive_chain', 'drive_crankset', 'drive_cassette', 'drive_derailleur',
+      'drive_front_derailleur', 'drive_pedals')),
     ('00003', ['brakes_front'], 0.55, (0.15, 1, 0.15), ('brakes_front',)),
     ('00004', ['drive_derailleur'], 0.55, (0.2, -1, 0.1), ('drive_derailleur',)),
     ('00005', ['wheel_rear_tire'], 1.6, (0.05, -1, 0.1),

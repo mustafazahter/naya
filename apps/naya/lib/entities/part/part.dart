@@ -110,6 +110,7 @@ const bicyclePartNames = {
   'drive_pedals': 'Pedallar',
   'drive_cassette': 'Kaset',
   'drive_derailleur': 'Arka vites değiştirici',
+  'drive_front_derailleur': 'Ön vites değiştirici',
   'brakes_front': 'Ön fren',
   'brakes_rear': 'Arka fren',
   'wheel_front_tire': 'Ön lastik',
