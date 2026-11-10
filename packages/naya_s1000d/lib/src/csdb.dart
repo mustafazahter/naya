@@ -23,7 +23,7 @@ class Csdb {
     final csdb = Csdb._();
     final paths = files.keys.toList()..sort();
     for (final path in paths) {
-      final name = path.split('/').last.toUpperCase();
+      final name = fileNameOf(path).toUpperCase();
       if (name.startsWith('ICN-')) {
         final icn = Icn.fromPath(path)!;
         csdb.icns[icn.ident] = icn;

@@ -1,3 +1,6 @@
+/// Yolun dosya adı kısmı. Windows'ta hazırlanan bazı ZIP'ler ters bölü yazıyor.
+String fileNameOf(String path) => path.split(RegExp(r'[/\\]')).last;
+
 /// Bir görselin (çizim, fotoğraf, 3D) kimliği (ICN) ve dosyası.
 ///
 /// ICN iki biçimde yazılabiliyor (model kodlu ve CAGE kodlu); ikisinde de son
@@ -8,7 +11,7 @@ class Icn {
   /// Dosya yolundan okur: `csdb/ICN-...-01.CGM` → ident `ICN-...-01`.
   /// ICN dosyası değilse null.
   static Icn? fromPath(String path) {
-    final name = path.split('/').last;
+    final name = fileNameOf(path);
     if (!name.toUpperCase().startsWith('ICN-')) return null;
     final dot = name.lastIndexOf('.');
     return Icn(ident: dot < 0 ? name : name.substring(0, dot), path: path);

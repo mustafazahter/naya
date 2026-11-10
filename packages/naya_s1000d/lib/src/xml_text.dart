@@ -1,5 +1,8 @@
 import 'package:xml/xml.dart';
 
+/// Kelimenin ortasında durabilen elemanlar: "H2O", "zincir'in", "zinciri".
+const _inlineElements = {'emphasis', 'subScript', 'superScript'};
+
 /// Bir elemanın metni; boşluklar tek boşluğa indirilir.
 ///
 /// [skip] içindeki alt elemanların metni alınmaz (örneğin bir adımın metnini
@@ -13,7 +16,7 @@ String textOf(XmlNode node, {Set<String> skip = const {}}) {
       if (n != node && skip.contains(n.name.local)) return;
       n.children.forEach(walk);
       // Blok elemanlar arasına boşluk koy; "Adım 1" ile "Adım 2" yapışmasın.
-      buffer.write(' ');
+      if (!_inlineElements.contains(n.name.local)) buffer.write(' ');
     }
   }
 

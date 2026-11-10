@@ -32,6 +32,7 @@ class DmCode implements Comparable<DmCode> {
     final p = code.split('-');
     // MIC-SDC-SC-(SS)(SSS)-AC-DC(DCV)-IC(ICV)-ILC
     if (p.length < 8 ||
+        p.take(8).any((field) => field.isEmpty) ||
         p[3].length != 2 ||
         p[5].length < 3 ||
         p[6].length != 4 ||
