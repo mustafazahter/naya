@@ -1,4 +1,4 @@
-import type { ViewerCommand, ViewerEvent } from "./bridge";
+import type { ViewerCommand, ViewerEvent, WeightedPart } from "./bridge";
 import { NayaViewer } from "./viewer";
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
@@ -33,7 +33,7 @@ const names: Record<string, string> = {
   "drive_chain": "Zincir",
   "drive_crankset": "Aynakol",
   "drive_pedals": "Pedallar",
-  "drive_cassette": "Arka dişli",
+  "drive_cassette": "Kaset",
   "drive_derailleur": "Arka vites değiştirici",
   "drive_front_derailleur": "Ön vites değiştirici",
   "brakes_front": "Ön fren",
@@ -62,6 +62,17 @@ function toggle(button: HTMLButtonElement, apply: (on: boolean) => void): void {
 
 toggle($("explode"), (on) => viewer.explode(on ? 1 : 0));
 toggle($("xray"), (on) => viewer.setXray(on));
+// Önizleme sayfasında örnek bir teşhis taraması; uygulamada Flutter gönderir.
+$("scan").addEventListener("click", () => {
+  partBox.hidden = true;
+  void viewer.scan(
+    new Map([
+      ["drive_chain", 0.62],
+      ["drive_derailleur", 0.21],
+      ["drive_cassette", 0.09],
+    ]),
+  );
+});
 $("reset").addEventListener("click", () => {
   for (const id of ["explode", "xray"]) $(id).setAttribute("aria-pressed", "false");
   viewer.setXray(false);
@@ -69,11 +80,20 @@ $("reset").addEventListener("click", () => {
   void viewer.reset();
 });
 
+const weights = (parts: WeightedPart[]) => new Map(parts.map((p) => [p.id, p.weight]));
+
 window.addEventListener("message", (e: MessageEvent<ViewerCommand>) => {
   const command = e.data;
   switch (command?.type) {
     case "load":
-      void viewer.load(command.url);
+      void viewer.load(command.url, command.map);
+      break;
+    case "scan":
+      partBox.hidden = true;
+      void viewer.scan(weights(command.parts)).then(() => send({ type: "scanDone" }));
+      break;
+    case "highlight":
+      viewer.highlight(weights(command.parts));
       break;
     case "explode":
       viewer.explode(command.amount);
@@ -85,7 +105,7 @@ window.addEventListener("message", (e: MessageEvent<ViewerCommand>) => {
       viewer.setXray(command.enabled);
       break;
     case "isolate":
-      viewer.select(command.part);
+      void viewer.isolate(command.part);
       break;
     case "reset":
       partBox.hidden = true;
@@ -94,13 +114,16 @@ window.addEventListener("message", (e: MessageEvent<ViewerCommand>) => {
   }
 });
 
+// Geliştirirken tarayıcı konsolundan denemek için.
+if (import.meta.env.DEV) (window as unknown as { viewer: NayaViewer }).viewer = viewer;
+
 const params = new URLSearchParams(location.search);
 // Uygulamanın içinde düğmeleri ve etiketleri Flutter çiziyor.
 if (params.has("embed")) document.body.classList.add("embed");
 
 const model = params.get("model") ?? "./models/bicycle.glb";
 viewer
-  .load(model)
+  .load(model, params.get("map") ?? undefined)
   .then(async (parts) => {
     status.textContent = `${parts.length} parça · sürükle: döndür · tekerlek/iki parmak: yakınlaş`;
     send({ type: "ready" });

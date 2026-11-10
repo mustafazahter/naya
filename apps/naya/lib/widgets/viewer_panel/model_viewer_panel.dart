@@ -19,6 +19,7 @@ class ModelViewerPanel extends StatefulWidget {
     required this.onPartTap,
     this.focusPart,
     this.onBack,
+    this.controller,
   });
 
   final String productTitle;
@@ -32,19 +33,35 @@ class ModelViewerPanel extends StatefulWidget {
   final String? focusPart;
   final VoidCallback? onBack;
 
+  /// Dışarıdan komut göndermek için (teşhis taraması gibi). Verilmezse
+  /// panel kendi denetleyicisini kullanır.
+  final ModelFrameController? controller;
+
   @override
   State<ModelViewerPanel> createState() => _ModelViewerPanelState();
 }
 
 class _ModelViewerPanelState extends State<ModelViewerPanel> {
-  final _controller = ModelFrameController();
+  late final _controller = widget.controller ?? ModelFrameController();
   var _exploded = false;
   var _xray = false;
+  var _isolated = false;
   String? _selected;
 
   void _onPartTap(String? id) {
+    // İzole görünümde boşluğa dokunmak seçimi kaldırmasın; yoksa "bütün
+    // modeli göster" düğmesi de kaybolur.
+    if (id == null && _isolated) return;
     setState(() => _selected = id);
     if (id != null) widget.onPartTap(id);
+  }
+
+  /// Seçili parçayı tek başına gösterir ya da bütün modele döner.
+  void _toggleIsolate() {
+    final part = _selected;
+    if (part == null) return;
+    setState(() => _isolated = !_isolated);
+    _controller.isolate(_isolated ? part : null);
   }
 
   @override
@@ -66,6 +83,7 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
     setState(() {
       _exploded = false;
       _xray = false;
+      _isolated = false;
       _selected = null;
     });
     _controller.reset();
@@ -137,6 +155,18 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
                     tooltip: 'Görünümü sıfırla',
                     onPressed: _reset,
                   ),
+                  // Yalnız bir parça seçiliyken anlamlı.
+                  if (_selected != null) ...[
+                    const SizedBox(height: NayaSpace.sm),
+                    RoundIconButton(
+                      icon: Icons.filter_center_focus,
+                      tooltip: _isolated
+                          ? 'Bütün modeli göster'
+                          : 'Yalnız bunu göster',
+                      selected: _isolated,
+                      onPressed: _toggleIsolate,
+                    ),
+                  ],
                 ],
               ),
             ),

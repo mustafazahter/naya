@@ -5,6 +5,9 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 
+import { explodeOffsets, groupNodes, type PartsMap } from "./assembly";
+import { Glow, scanBand } from "./glow";
+
 CameraControls.install({ THREE });
 
 /** Modeldeki tek bir parça: seçilebilen, parçalara ayırmada hareket eden düğüm. */
@@ -14,8 +17,27 @@ interface Part {
   home: THREE.Vector3;
   /** Parçalara ayırırken gideceği yer, modelin yerel koordinatlarında. */
   away: THREE.Vector3;
-  meshes: { mesh: THREE.Mesh; original: THREE.Material | THREE.Material[] }[];
+  glow: Glow;
+  /** `normal`: kendi malzemesinin parlayabilen kopyası. */
+  meshes: { mesh: THREE.Mesh; normal: THREE.Material | THREE.Material[] }[];
 }
+
+/** Olasılık ağırlığı: düğüm adı → 0-1. */
+export type Weights = Map<string, number>;
+
+interface Scan {
+  start: number;
+  weights: Weights;
+  axis: "x" | "z";
+  from: number;
+  to: number;
+  centers: Map<Part, number>;
+  band: THREE.Mesh;
+  done: () => void;
+}
+
+/** Tarama süresi; uygulamadaki tarama animasyonuyla aynı (NayaMotion.scan). */
+const SCAN_SECONDS = 3.4;
 
 /**
  * Seçili parça dışındakiler bu "CAD" görünümüne geçer: açık gri, yarı saydam.
@@ -48,13 +70,20 @@ export class NayaViewer {
   private readonly controls: CameraControls;
   private readonly clock = new THREE.Clock();
   private readonly raycaster = new THREE.Raycaster();
-  private readonly accent = new THREE.Color("#8db8f2");
+  /** Parlama rengi: uygulamanın vurgu renginin (#8db8f2) daha doygun hâli;
+   * açık mavi sarı yüzeyde beyaza dönüyordu. */
+  private readonly glowColor = new THREE.Color("#3f86ff");
   private readonly ghost = ghostMaterial();
-  private readonly highlighted = new Map<THREE.Material, THREE.Material>();
 
   private model: THREE.Object3D | null = null;
   private parts: Part[] = [];
   private selected: Part | null = null;
+  private isolated: Part | null = null;
+  private weights: Weights = new Map();
+  private scanning: Scan | null = null;
+  /** Tarama bandı. Model yüklenirken kurulur ve sahnede saydam bekler; böylece
+   * shader'ı taramanın ilk karesinde derlenip takılma yapmaz. */
+  private band: THREE.Mesh | null = null;
   private explodeTarget = 0;
   private explodeValue = 0;
   private xray = false;
@@ -93,24 +122,54 @@ export class NayaViewer {
 
   private readonly sun: THREE.DirectionalLight;
 
-  async load(url: string): Promise<string[]> {
+  /**
+   * Modeli yükler. [mapUrl] verilirse ya da modelin yanında aynı adla
+   * `.parts.json` varsa montaj ağacı oradan okunur ve parçalara ayırma
+   * gruplara göre yapılır; yoksa her parça merkezden dışarı açılır.
+   */
+  async load(url: string, mapUrl?: string): Promise<string[]> {
     const draco = new DRACOLoader().setDecoderPath(new URL("./draco/", document.baseURI).href);
     const loader = new GLTFLoader().setDRACOLoader(draco).setMeshoptDecoder(MeshoptDecoder);
-    const gltf = await loader.loadAsync(url);
+    const [gltf, map] = await Promise.all([
+      loader.loadAsync(url),
+      loadMap(mapUrl ?? url.replace(/\.glb$/i, ".parts.json")),
+    ]);
     if (this.model) this.scene.remove(this.model);
     this.model = gltf.scene;
     this.scene.add(this.model);
 
     this.placeOnGround(this.model);
-    this.parts = this.collectParts(this.model);
+    this.parts = this.collectParts(this.model, map);
     this.addShadowCatcher(this.model);
+    this.prepareBand(this.model);
     await this.frameModel(false);
     return this.parts.map((p) => p.id);
   }
 
-  /** 0 = toplu, 1 = tamamen ayrılmış. */
+  /**
+   * 0 = toplu, 1 = tamamen ayrılmış. Kamera, parçaların varacağı yere göre
+   * geri çekilir ya da yaklaşır; açılan parçalar kadrajdan taşmaz.
+   */
   explode(amount: number): void {
-    this.explodeTarget = THREE.MathUtils.clamp(amount, 0, 1);
+    const target = THREE.MathUtils.clamp(amount, 0, 1);
+    if (Math.abs(target - this.explodeTarget) < 1e-3) return;
+    this.explodeTarget = target;
+    if (this.isolated || !this.model) return;
+    void this.controls.fitToBox(this.boxAt(target), true, {
+      paddingTop: 0.1,
+      paddingBottom: 0.1,
+      paddingLeft: 0.1,
+      paddingRight: 0.1,
+    });
+  }
+
+  /** Parçalar [amount] kadar açıkken modelin kapladığı kutu. */
+  private boxAt(amount: number): THREE.Box3 {
+    const now = this.parts.map((p) => p.node.position.clone());
+    for (const part of this.parts) part.node.position.lerpVectors(part.home, part.away, amount);
+    const box = new THREE.Box3().setFromObject(this.model!);
+    this.parts.forEach((part, i) => part.node.position.copy(now[i]));
+    return box;
   }
 
   setXray(enabled: boolean): void {
@@ -119,22 +178,90 @@ export class NayaViewer {
   }
 
   select(id: string | null): void {
-    this.selected = this.parts.find((p) => p.id === id) ?? null;
+    this.selected = this.find(id);
     this.refreshMaterials();
   }
 
-  async focus(id: string): Promise<void> {
-    const part = this.parts.find((p) => p.id === id);
-    if (!part) return;
-    this.select(id);
-    const box = new THREE.Box3().setFromObject(part.node);
-    // Parçanın etrafında biraz yer bırak; nerede olduğu belli olsun.
-    await this.controls.fitToBox(box, true, {
-      paddingTop: 0.12,
-      paddingBottom: 0.12,
-      paddingLeft: 0.12,
-      paddingRight: 0.12,
+  /**
+   * Parçaları olasılıklarına göre parlatır; ağırlığı olmayanlar CAD
+   * görünümüne geçer. Boş harita vurguyu kaldırır.
+   */
+  highlight(weights: Weights): void {
+    this.weights = new Map([...weights].filter(([id, w]) => w > 0 && this.find(id)));
+    this.refreshMaterials();
+  }
+
+  /**
+   * Yalnız [id] görünür, kamera ona uçar. null bütün modeli geri getirir.
+   */
+  async isolate(id: string | null): Promise<void> {
+    this.isolated = this.find(id);
+    this.refreshMaterials();
+    if (this.isolated) await this.focus(this.isolated.id);
+    else await this.frameModel(true);
+  }
+
+  /**
+   * Teşhis taraması: bir ışık bandı modelin boyunca geçer, geçtiği parçalar
+   * olasılıklarıyla orantılı parlar. Sonunda parlaklık [weights]'e oturur.
+   * Süre [SCAN_SECONDS]; Promise tarama bitince tamamlanır.
+   */
+  scan(weights: Weights): Promise<void> {
+    if (!this.model) return Promise.resolve();
+    this.finishScan();
+    this.selected = null;
+    this.weights = new Map();
+    this.refreshMaterials();
+
+    const box = new THREE.Box3().setFromObject(this.model);
+    const size = box.getSize(new THREE.Vector3());
+    const axis = size.x >= size.z ? "x" : "z";
+    const margin = Math.max(size.x, size.z) * 0.08;
+    const band = this.band!;
+    band.rotation.y = axis === "x" ? Math.PI / 2 : 0;
+    band.position.copy(box.getCenter(new THREE.Vector3()));
+
+    const centers = new Map<Part, number>();
+    for (const part of this.parts) {
+      const c = new THREE.Box3().setFromObject(part.node).getCenter(new THREE.Vector3());
+      centers.set(part, c[axis]);
+    }
+    return new Promise((done) => {
+      this.scanning = {
+        start: this.clock.elapsedTime,
+        weights,
+        axis,
+        from: box.min[axis] - margin,
+        to: box.max[axis] + margin,
+        centers,
+        band,
+        done,
+      };
     });
+  }
+
+  async focus(id: string): Promise<void> {
+    const part = this.find(id);
+    if (!part || !this.model) return;
+    this.select(id);
+    // Kamera uçuşu: önce parçanın bulunduğu tarafa döner, sonra parçaya
+    // yaklaşır. Ortadaki parçalarda (kadro, sele) açı korunur.
+    const box = new THREE.Box3().setFromObject(part.node);
+    const modelBox = new THREE.Box3().setFromObject(this.model);
+    const lateral = box.getCenter(new THREE.Vector3()).z - modelBox.getCenter(new THREE.Vector3()).z;
+    const width = modelBox.getSize(new THREE.Vector3()).z;
+    let azimuth = this.controls.azimuthAngle;
+    if (lateral > width * 0.08) azimuth = -Math.PI / 6;
+    else if (lateral < -width * 0.08) azimuth = Math.PI + Math.PI / 6;
+    this.controls.smoothTime = 0.5;
+    await this.controls.rotateTo(azimuth, Math.PI / 2.8, true);
+    await this.controls.fitToBox(box, true, {
+      paddingTop: 0.15,
+      paddingBottom: 0.15,
+      paddingLeft: 0.15,
+      paddingRight: 0.15,
+    });
+    this.controls.smoothTime = 0.35;
   }
 
   /**
@@ -156,9 +283,17 @@ export class NayaViewer {
   }
 
   async reset(): Promise<void> {
-    this.select(null);
+    this.finishScan();
+    this.selected = null;
+    this.isolated = null;
+    this.weights = new Map();
+    this.refreshMaterials();
     this.explode(0);
     await this.frameModel(true);
+  }
+
+  private find(id: string | null): Part | null {
+    return id === null ? null : (this.parts.find((p) => p.id === id) ?? null);
   }
 
   // ------------------------------------------------------------------ iç işler
@@ -175,7 +310,38 @@ export class NayaViewer {
         part.node.position.lerpVectors(part.home, part.away, this.explodeValue);
       }
     }
+    if (this.scanning) this.stepScan();
     this.renderer.render(this.scene, this.camera);
+  }
+
+  private stepScan(): void {
+    const scan = this.scanning!;
+    const t = Math.min((this.clock.elapsedTime - scan.start) / SCAN_SECONDS, 1);
+    // Bant hızlı başlar, sona doğru yavaşlar (NayaMotion.decelerate gibi).
+    const eased = 1 - Math.pow(1 - t, 2.2);
+    const at = THREE.MathUtils.lerp(scan.from, scan.to, eased);
+    scan.band.position[scan.axis] = at;
+    (scan.band.material as THREE.ShaderMaterial).uniforms.opacity.value = Math.sin(Math.PI * t);
+
+    const width = (scan.to - scan.from) * 0.08;
+    const settle = THREE.MathUtils.smoothstep(t, 0.7, 1);
+    for (const part of this.parts) {
+      const weight = scan.weights.get(part.id) ?? 0;
+      const d = (at - scan.centers.get(part)!) / width;
+      const pulse = Math.exp(-d * d) * (0.35 + 1.2 * weight);
+      part.glow.strength.value = pulse * (1 - settle) + settle * restingGlow(weight);
+    }
+    if (t >= 1) this.finishScan();
+  }
+
+  /** Taramayı bitirir: bandı kaldırır, son parlaklığı kalıcı yapar. */
+  private finishScan(): void {
+    const scan = this.scanning;
+    if (!scan) return;
+    this.scanning = null;
+    (scan.band.material as THREE.ShaderMaterial).uniforms.opacity.value = 0;
+    this.highlight(scan.weights);
+    scan.done();
   }
 
   private resize(): void {
@@ -201,7 +367,7 @@ export class NayaViewer {
    * dışa aktarımda olur) onun içine iner; ilk dallanan seviyedeki her düğüm
    * bir parçadır.
    */
-  private collectParts(model: THREE.Object3D): Part[] {
+  private collectParts(model: THREE.Object3D, map: PartsMap | null): Part[] {
     let level: THREE.Object3D = model;
     while (level.children.length === 1 && !(level.children[0] instanceof THREE.Mesh)) {
       level = level.children[0];
@@ -211,26 +377,61 @@ export class NayaViewer {
     const size = modelBox.getSize(new THREE.Vector3()).length();
     const center = level.worldToLocal(modelBox.getCenter(new THREE.Vector3()));
 
-    return level.children.map((node, i) => {
+    const nodes = level.children.map((node, i) => ({ id: node.name || `part-${i}`, node }));
+    const boxes = new Map<string, THREE.Box3>();
+    const placed = nodes.map(({ id, node }) => {
+      // Kutuyu modelin yerel koordinatlarına çevir. Üst düğüm döndürülmüş
+      // olabilir; sekiz köşeyi ayrı ayrı çevirip yeniden kutu kur.
+      const box = new THREE.Box3().setFromObject(node);
+      const corners = [0, 1, 2, 3, 4, 5, 6, 7].map((i) =>
+        level.worldToLocal(
+          new THREE.Vector3(
+            i & 1 ? box.max.x : box.min.x,
+            i & 2 ? box.max.y : box.min.y,
+            i & 4 ? box.max.z : box.min.z,
+          ),
+        ),
+      );
+      const local = new THREE.Box3().setFromPoints(corners);
+      boxes.set(id, local);
+      return { id, center: local.getCenter(new THREE.Vector3()) };
+    });
+    const offsets = explodeOffsets(
+      placed,
+      groupNodes(map, nodes.map((n) => n.id)),
+      center,
+      size,
+      boxes,
+    );
+
+    return nodes.map(({ id, node }) => {
+      const glow = new Glow(this.glowColor);
       const meshes: Part["meshes"] = [];
       node.traverse((child) => {
         if (!(child instanceof THREE.Mesh)) return;
         child.castShadow = true;
         child.receiveShadow = true;
-        meshes.push({ mesh: child, original: child.material });
+        const normal = Array.isArray(child.material)
+          ? child.material.map((m) => glow.apply(m))
+          : glow.apply(child.material);
+        child.material = normal;
+        meshes.push({ mesh: child, normal });
       });
-
-      const partCenter = level.worldToLocal(
-        new THREE.Box3().setFromObject(node).getCenter(new THREE.Vector3()),
-      );
-      const direction = partCenter.clone().sub(center);
-      if (direction.lengthSq() < 1e-8) direction.set(0, 1, 0);
-      // Merkezden uzak parça biraz daha uzağa gider; hepsi kadrajda kalır.
-      const distance = direction.length() * 0.55 + size * 0.04;
       const home = node.position.clone();
-      const away = home.clone().add(direction.normalize().multiplyScalar(distance));
-      return { id: node.name || `part-${i}`, node, home, away, meshes };
+      const away = home.clone().add(offsets.get(id)!);
+      return { id, node, home, away, glow, meshes };
     });
+  }
+
+  private prepareBand(model: THREE.Object3D): void {
+    if (this.band) {
+      this.scene.remove(this.band);
+      this.band.geometry.dispose();
+      (this.band.material as THREE.Material).dispose();
+    }
+    const size = new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3());
+    this.band = scanBand(size.y * 1.15, Math.min(size.x, size.z) * 1.6, this.glowColor);
+    this.scene.add(this.band);
   }
 
   private addShadowCatcher(model: THREE.Object3D): void {
@@ -267,38 +468,24 @@ export class NayaViewer {
   }
 
   /**
-   * Seçim ya da X-ışını değişince malzemeleri yeniler. Seçili parça kendi
-   * malzemesiyle ve hafif bir vurguyla kalır; diğerleri CAD görünümüne geçer.
+   * Seçim, vurgu, izole ya da X-ışını değişince görünümü yeniler. Öne
+   * çıkan parçalar kendi malzemesiyle parlar; diğerleri CAD görünümüne
+   * geçer, izole edilmişse hiç görünmez.
    */
   private refreshMaterials(): void {
-    const ghostOthers = this.xray || this.selected !== null;
+    const ghostOthers = this.xray || this.selected !== null || this.weights.size > 0;
     for (const part of this.parts) {
+      part.node.visible = this.isolated === null || part === this.isolated;
+      const weight = this.weights.get(part.id) ?? 0;
       const isSelected = part === this.selected;
-      for (const { mesh, original } of part.meshes) {
-        if (ghostOthers && !isSelected) {
-          mesh.material = this.ghost;
-          mesh.castShadow = false;
-        } else {
-          mesh.material = isSelected ? this.highlight(original) : original;
-          mesh.castShadow = true;
-        }
+      const stands = isSelected || weight > 0;
+      for (const { mesh, normal } of part.meshes) {
+        const ghosted = ghostOthers && !stands;
+        mesh.material = ghosted ? this.ghost : normal;
+        mesh.castShadow = !ghosted;
       }
+      part.glow.strength.value = isSelected ? 0.28 : restingGlow(weight);
     }
-  }
-
-  /** Malzemenin vurgulu kopyası; her malzeme için bir kez üretilir. */
-  private highlight(material: THREE.Material | THREE.Material[]): THREE.Material | THREE.Material[] {
-    if (Array.isArray(material)) return material.map((m) => this.highlight(m) as THREE.Material);
-    let copy = this.highlighted.get(material);
-    if (!copy) {
-      copy = material.clone();
-      if (copy instanceof THREE.MeshStandardMaterial) {
-        copy.emissive = this.accent.clone();
-        copy.emissiveIntensity = 0.18;
-      }
-      this.highlighted.set(material, copy);
-    }
-    return copy;
   }
 
   /** Sürükleme değil, kısa bir dokunuşsa parça seçilir. */
@@ -319,6 +506,23 @@ export class NayaViewer {
       if (part) void this.nudge(part.id);
       this.options.onPartTap?.(part?.id ?? null);
     });
+  }
+}
+
+/** Tarama bittikten sonra kalan parlaklık; olasılıkla orantılı. */
+function restingGlow(weight: number): number {
+  return weight > 0 ? 0.15 + 0.85 * weight : 0;
+}
+
+/** Montaj haritasını indirir; yoksa ya da bozuksa null. */
+async function loadMap(url: string): Promise<PartsMap | null> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) return null;
+    const json = (await response.json()) as PartsMap;
+    return Array.isArray(json?.parts) ? json : null;
+  } catch {
+    return null;
   }
 }
 

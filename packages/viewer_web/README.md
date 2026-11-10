@@ -28,6 +28,7 @@ Android'de `file://` kullanılmıyor, çünkü viewer ES modülü olarak derleni
 | --- | --- |
 | `embed` | Uygulama içi görünüm: düğmeler ve etiketler gizlenir, onları Flutter çizer. |
 | `model=<yol>` | Yüklenecek `.glb`. Varsayılan `./models/bicycle.glb`. |
+| `map=<yol>` | Montaj ağacı (`map/parts.json`). Verilmezse modelin yanında aynı adla `.parts.json` aranır (`bicycle.glb` → `bicycle.parts.json`); yoksa parçalar merkezden açılır. |
 | `focus=<düğüm>` | Model yüklenince kamera bu parçaya yaklaşır, diğerleri saydamlaşır. Teşhiste kullanılıyor. |
 
 ## Köprü
@@ -38,14 +39,14 @@ Mesajların tipleri `src/bridge.ts` dosyasında; Flutter tarafı `apps/naya/lib/
 
 | Komut | Alanlar | Ne yapar |
 | --- | --- | --- |
-| `load` | `url` | Başka bir modeli yükler. |
-| `explode` | `amount` (0-1) | Parçaları montaj merkezinden dışarı açar. |
+| `load` | `url`, isteğe bağlı `map` | Başka bir modeli yükler. |
+| `explode` | `amount` (0-1) | Parçaları montaj ağacına göre açar: önce gruplar (aktarma organları, tekerlekler...) modelin merkezinden, sonra grubun içindeki parçalar grubun merkezinden ayrılır. İç içe parçalar (lastik, jant, göbek) aks boyunca sıralanır. Kamera açılmış modele göre geri çekilir. |
 | `focus` | `part` | Kamerayı parçaya yaklaştırır, diğerlerini saydam gri yapar. |
-| `isolate` | `part` ya da `null` | Parçayı seçer; `null` seçimi kaldırır. |
+| `isolate` | `part` ya da `null` | Yalnız parçayı gösterir, kamera ona uçar; `null` bütün modeli geri getirir. |
 | `xray` | `enabled` | Bütün modeli yarı saydam yapar. |
 | `reset` | | Kamerayı, seçimi ve parçalamayı başa alır. |
-| `scan` | `parts` | Teşhis tarama animasyonu (3B'de gelecek). |
-| `highlight` | `parts: [{id, weight}]` | Olasılığa göre parlama (3B'de gelecek). |
+| `scan` | `parts: [{id, weight}]` | Teşhis taraması (3,4 sn): ışık bandı modelin boyunca geçer, geçtiği parçalar `weight` (0-1) ile orantılı parlar. Sonunda ağırlığı olanlar parlar, diğerleri CAD grisine geçer. Bitince `scanDone` gelir. |
+| `highlight` | `parts: [{id, weight}]` | Taramasız, doğrudan olasılığa göre parlama. Boş liste vurguyu kaldırır. |
 
 **Viewer → Flutter (olaylar).** Web'de `window.parent.postMessage(olay)`, Android'de `NayaBridge` JavaScript kanalına JSON metni.
 
@@ -53,5 +54,14 @@ Mesajların tipleri `src/bridge.ts` dosyasında; Flutter tarafı `apps/naya/lib/
 | --- | --- | --- |
 | `ready` | | Model yüklendi, komut alınabilir. |
 | `partTap` | `part` (düğüm adı ya da `null`) | Kullanıcı bir parçaya dokundu ya da boşluğa dokunup seçimi kaldırdı. |
+| `scanDone` | | Tarama animasyonu bitti. |
 
 Düğüm adlarında nokta yok (three.js siliyor); parça kimliğiyle eşleşme `map/parts.json`'daki `meshNodes` alanıyla yapılır.
+
+## Efektler nasıl çiziliyor
+
+- **Parlama:** her parçanın malzemesinin kopyasına küçük bir shader eki (`src/glow.ts`). Kenara yaklaştıkça artan mavi ışık; güç 0 iken görünüm değişmez. Tam ekran son işleme (bloom, outline pass) kullanılmadı: telefonda her karede fazladan geçiş olmasın. Bütün kopyalar aynı shader'ı paylaşıyor.
+- **Tarama bandı:** dört kenarı sönen, toplamalı (additive) karışımlı tek bir dörtgen. Model yüklenirken kurulur ve saydam bekler; böylece shader taramanın ilk karesinde derlenmez.
+- **CAD görünümü:** öne çıkmayan parçalar ortak, yarı saydam gri tek bir malzemeye geçer.
+
+Mac'te (Chrome, 2x ekran) tarama boyunca 60 fps ölçüldü. Önizleme sayfasındaki **Tara** düğmesi örnek bir teşhisle taramayı gösterir.
