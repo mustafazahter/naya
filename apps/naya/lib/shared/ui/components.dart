@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/turkish_text.dart';
 import 'theme.dart';
 import 'tokens.dart';
 
@@ -13,8 +14,105 @@ class TechLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text.toUpperCase(),
+      turkishUpperCase(text),
       style: context.text.label.copyWith(color: color),
+    );
+  }
+}
+
+/// İçerik gelene kadar yerini tutan soluk blok.
+class SkeletonBlock extends StatefulWidget {
+  const SkeletonBlock({super.key, this.height});
+
+  /// Verilmezse bulunduğu alanı doldurur.
+  final double? height;
+
+  @override
+  State<SkeletonBlock> createState() => _SkeletonBlockState();
+}
+
+class _SkeletonBlockState extends State<SkeletonBlock>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _pulse = AnimationController(
+    vsync: this,
+    duration: NayaMotion.slow * 2,
+    lowerBound: 0.45,
+  )..repeat(reverse: true);
+
+  @override
+  void dispose() {
+    _pulse.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      label: 'Yükleniyor',
+      child: FadeTransition(
+        opacity: _pulse,
+        child: Container(
+          height: widget.height,
+          decoration: BoxDecoration(
+            color: context.colors.surfaceRaised,
+            borderRadius: const BorderRadius.all(NayaRadius.md),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Listede gösterilecek bir şey olmadığında ya da yükleme başarısız olduğunda
+/// çıkan ortalanmış mesaj.
+class EmptyState extends StatelessWidget {
+  const EmptyState({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.message,
+    this.actionLabel,
+    this.onAction,
+  });
+
+  final IconData icon;
+  final String title;
+  final String message;
+  final String? actionLabel;
+  final VoidCallback? onAction;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 360),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: NayaSpace.xxl),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 28, color: c.textMuted),
+              const SizedBox(height: NayaSpace.md),
+              Text(
+                title,
+                style: context.text.heading,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: NayaSpace.xs),
+              Text(
+                message,
+                style: context.text.small,
+                textAlign: TextAlign.center,
+              ),
+              if (actionLabel != null) ...[
+                const SizedBox(height: NayaSpace.lg),
+                PrimaryButton(label: actionLabel!, onPressed: onAction),
+              ],
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../entities/product/product.dart';
 import '../../entities/product/product_card.dart';
+import '../../entities/product/product_library.dart';
+import '../../features/search_library/library_search.dart';
 import '../../shared/ui/components.dart';
 import '../../shared/ui/naya_emblem.dart';
 import '../../shared/ui/theme.dart';
@@ -11,13 +14,14 @@ import '../../shared/ui/tokens.dart';
 ///
 /// Ürün açılınca nereye gidileceğini sayfa bilmez; [onOpen] ile app
 /// katmanına bırakır (bir sayfa diğerini import edemez).
-class LibraryPage extends StatelessWidget {
+class LibraryPage extends ConsumerWidget {
   const LibraryPage({super.key, required this.onOpen});
 
   final ValueChanged<Product> onOpen;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final library = ref.watch(filteredLibraryProvider);
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, box) {
@@ -25,55 +29,39 @@ class LibraryPage extends StatelessWidget {
           final columns = box.maxWidth >= 1100 ? 4 : (wide ? 2 : 1);
           final gutter = wide ? NayaSpace.xxxl : NayaSpace.gutter;
           return CustomScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             slivers: [
               SliverPadding(
-                padding: EdgeInsets.fromLTRB(gutter, 0, gutter, 0),
+                padding: EdgeInsets.symmetric(horizontal: gutter),
                 sliver: SliverList.list(
                   children: [
                     const SafeArea(bottom: false, child: _Header()),
                     SizedBox(height: wide ? NayaSpace.xxxl : NayaSpace.xxl),
                     const _Hero(),
                     SizedBox(height: wide ? NayaSpace.xxxl : NayaSpace.xxl),
-                    SectionHeader(
-                      label: '${sampleTemplates.length} ürün',
-                      title: 'Hazır şablonlar',
-                    ),
-                    const SizedBox(height: NayaSpace.lg),
                   ],
                 ),
               ),
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: gutter),
-                sliver: SliverGrid.builder(
-                  itemCount: sampleTemplates.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: columns,
-                    mainAxisSpacing: NayaSpace.lg,
-                    crossAxisSpacing: NayaSpace.lg,
-                    mainAxisExtent: 260,
+                padding: EdgeInsets.fromLTRB(gutter, 0, gutter, NayaSpace.xxxl),
+                sliver: SliverMainAxisGroup(
+                  slivers: library.when(
+                    skipLoadingOnRefresh: false,
+                    loading: () => [_LoadingGrid.sliver(columns)],
+                    error: (_, _) => [
+                      SliverToBoxAdapter(
+                        child: EmptyState(
+                          icon: Icons.cloud_off_outlined,
+                          title: 'Kütüphane yüklenemedi',
+                          message: 'Bağlantını kontrol edip yeniden dene.',
+                          actionLabel: 'Yeniden dene',
+                          onAction: () =>
+                              ref.invalidate(productLibraryProvider),
+                        ),
+                      ),
+                    ],
+                    data: (data) => _contentSlivers(context, data, columns),
                   ),
-                  itemBuilder: (context, i) => ProductCard(
-                    product: sampleTemplates[i],
-                    index: i,
-                    onOpen: () => onOpen(sampleTemplates[i]),
-                  ),
-                ),
-              ),
-              SliverPadding(
-                padding: EdgeInsets.fromLTRB(
-                  gutter,
-                  NayaSpace.xxxl,
-                  gutter,
-                  NayaSpace.xxxl,
-                ),
-                sliver: SliverList.list(
-                  children: [
-                    const SectionHeader(label: 'Senin', title: 'Dosyalarım'),
-                    const SizedBox(height: NayaSpace.lg),
-                    for (final file in sampleUserFiles) _FileRow(file),
-                    const SizedBox(height: NayaSpace.md),
-                    const _ImportTile(),
-                  ],
                 ),
               ),
             ],
@@ -82,6 +70,77 @@ class LibraryPage extends StatelessWidget {
       ),
     );
   }
+
+  List<Widget> _contentSlivers(
+    BuildContext context,
+    ProductLibrary library,
+    int columns,
+  ) {
+    if (library.templates.isEmpty && library.userFiles.isEmpty) {
+      return const [
+        SliverToBoxAdapter(
+          child: EmptyState(
+            icon: Icons.search_off,
+            title: 'Sonuç bulunamadı',
+            message: 'Başka bir kelimeyle aramayı dene.',
+          ),
+        ),
+      ];
+    }
+    return [
+      if (library.templates.isNotEmpty) ...[
+        SliverToBoxAdapter(
+          child: SectionHeader(
+            label: '${library.templates.length} ürün',
+            title: 'Hazır şablonlar',
+          ),
+        ),
+        const SliverToBoxAdapter(child: SizedBox(height: NayaSpace.lg)),
+        SliverGrid.builder(
+          itemCount: library.templates.length,
+          gridDelegate: _gridDelegate(columns),
+          itemBuilder: (context, i) => ProductCard(
+            product: library.templates[i],
+            index: i,
+            onOpen: () => onOpen(library.templates[i]),
+          ),
+        ),
+        const SliverToBoxAdapter(child: SizedBox(height: NayaSpace.xxxl)),
+      ],
+      SliverList.list(
+        children: [
+          const SectionHeader(label: 'Senin', title: 'Dosyalarım'),
+          const SizedBox(height: NayaSpace.lg),
+          for (final file in library.userFiles) _FileRow(file),
+          const SizedBox(height: NayaSpace.md),
+          const _ImportTile(),
+        ],
+      ),
+    ];
+  }
+}
+
+SliverGridDelegate _gridDelegate(int columns) =>
+    SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: columns,
+      mainAxisSpacing: NayaSpace.lg,
+      crossAxisSpacing: NayaSpace.lg,
+      mainAxisExtent: 260,
+    );
+
+/// Kartların yerini tutan iskelet; yüklenince düzen zıplamasın diye aynı ızgara.
+abstract final class _LoadingGrid {
+  static Widget sliver(int columns) => SliverGrid.builder(
+    itemCount: 4,
+    gridDelegate: _gridDelegate(columns),
+    itemBuilder: (context, _) => const SkeletonBlock(),
+  );
+}
+
+void _showComingSoon(BuildContext context, String what) {
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(SnackBar(content: Text('$what yakında geliyor.')));
 }
 
 class _Header extends StatelessWidget {
@@ -100,16 +159,17 @@ class _Header extends StatelessWidget {
           const Spacer(),
           IconButton(
             tooltip: 'Ayarlar',
-            onPressed: () {},
+            onPressed: () => _showComingSoon(context, 'Ayarlar'),
             icon: Icon(Icons.tune, color: c.textSecondary),
           ),
           const SizedBox(width: NayaSpace.xs),
-          CircleAvatar(
-            radius: 16,
-            backgroundColor: c.surfaceRaised,
-            child: Text(
-              'MZ',
-              style: context.text.label.copyWith(color: c.text),
+          // Hesap sistemi gelene kadar (3C) herkes misafir.
+          Semantics(
+            label: 'Misafir',
+            child: CircleAvatar(
+              radius: 16,
+              backgroundColor: c.surfaceRaised,
+              child: Icon(Icons.person_outline, size: 18, color: c.text),
             ),
           ),
         ],
@@ -123,7 +183,6 @@ class _Hero extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -142,25 +201,7 @@ class _Hero extends StatelessWidget {
         const SizedBox(height: NayaSpace.xl),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 560),
-          child: TextField(
-            style: context.text.body.copyWith(color: c.text),
-            decoration: InputDecoration(
-              hintText: 'Ürün, parça ya da arıza ara',
-              hintStyle: context.text.body.copyWith(color: c.textMuted),
-              prefixIcon: Icon(Icons.search, color: c.textMuted),
-              filled: true,
-              fillColor: c.surface,
-              contentPadding: const EdgeInsets.symmetric(vertical: 18),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(NayaRadius.md),
-                borderSide: BorderSide(color: c.line),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(NayaRadius.md),
-                borderSide: BorderSide(color: c.accent),
-              ),
-            ),
-          ),
+          child: const LibrarySearchField(),
         ),
       ],
     );
@@ -224,7 +265,7 @@ class _ImportTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     return InkWell(
-      onTap: () {},
+      onTap: () => _showComingSoon(context, 'İçe aktarma'),
       borderRadius: const BorderRadius.all(NayaRadius.md),
       child: CustomPaint(
         painter: _DashedBorder(c.lineStrong),

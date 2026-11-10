@@ -1,3 +1,5 @@
+import '../../shared/utils/turkish_text.dart';
+
 /// Ürün kategorisi; kartlardaki çizimi ve varsayılan kamerayı belirler.
 enum ProductCategory { car, bicycle, tank, aircraft }
 
@@ -32,6 +34,12 @@ class Product {
 
   /// Gerçek modelin render'ı. Yoksa kartta teknik çizim gösterilir.
   final String? thumbnail;
+
+  /// Başlıkta ya da açıklamada [query] geçiyor mu; büyük/küçük harf önemsiz.
+  bool matches(String query) {
+    final needle = turkishLowerCase(query.trim());
+    return turkishLowerCase('$title $subtitle').contains(needle);
+  }
 }
 
 /// Taslak için örnek veriler. Gerçek liste sunucudan gelecek.
