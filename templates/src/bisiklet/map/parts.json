@@ -160,7 +160,8 @@
         "drive_crankset",
         "drive_pedals",
         "drive_cassette",
-        "drive_derailleur"
+        "drive_derailleur",
+        "drive_front_derailleur"
       ],
       "zone": "z.middle",
       "function": "Pedal gücünü arka tekerleğe aktarır; 3 × 8 = 24 vites."
@@ -231,7 +232,7 @@
       "parent": "drive",
       "sns": "DA1-20",
       "meshNodes": [
-        "frame"
+        "drive_front_derailleur"
       ],
       "zone": "z.middle",
       "function": "Zinciri üç ayna arasında kaydırır.",
