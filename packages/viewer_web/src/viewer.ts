@@ -84,6 +84,7 @@ export class NayaViewer {
   /** Tarama bandı. Model yüklenirken kurulur ve sahnede saydam bekler; böylece
    * shader'ı taramanın ilk karesinde derlenip takılma yapmaz. */
   private band: THREE.Mesh | null = null;
+  private ground: THREE.Mesh | null = null;
   private explodeTarget = 0;
   private explodeValue = 0;
   private xray = false;
@@ -134,7 +135,14 @@ export class NayaViewer {
       loader.loadAsync(url),
       loadMap(mapUrl ?? url.replace(/\.glb$/i, ".parts.json")),
     ]);
-    if (this.model) this.scene.remove(this.model);
+    if (this.model) {
+      this.scene.remove(this.model);
+      disposeModel(this.model, this.ghost);
+    }
+    this.finishScan();
+    this.selected = null;
+    this.isolated = null;
+    this.weights = new Map();
     this.model = gltf.scene;
     this.scene.add(this.model);
 
@@ -211,7 +219,6 @@ export class NayaViewer {
     this.finishScan();
     this.selected = null;
     this.weights = new Map();
-    this.refreshMaterials();
 
     const box = new THREE.Box3().setFromObject(this.model);
     const size = box.getSize(new THREE.Vector3());
@@ -226,7 +233,7 @@ export class NayaViewer {
       const c = new THREE.Box3().setFromObject(part.node).getCenter(new THREE.Vector3());
       centers.set(part, c[axis]);
     }
-    return new Promise((done) => {
+    const scanning = new Promise<void>((done) => {
       this.scanning = {
         start: this.clock.elapsedTime,
         weights,
@@ -238,6 +245,10 @@ export class NayaViewer {
         done,
       };
     });
+    // Tarama sürerken X-ışını açık olsa da parçalar kendi malzemesinde kalır;
+    // yoksa parlama görünmez.
+    this.refreshMaterials();
+    return scanning;
   }
 
   async focus(id: string): Promise<void> {
@@ -435,6 +446,12 @@ export class NayaViewer {
   }
 
   private addShadowCatcher(model: THREE.Object3D): void {
+    // Yeni model yüklenince eski zemin kalmasın.
+    if (this.ground) {
+      this.scene.remove(this.ground);
+      this.ground.geometry.dispose();
+      (this.ground.material as THREE.Material).dispose();
+    }
     const size = new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3());
     const ground = new THREE.Mesh(
       new THREE.PlaneGeometry(1, 1),
@@ -444,6 +461,7 @@ export class NayaViewer {
     ground.scale.setScalar(Math.max(size.x, size.z) * 4);
     ground.receiveShadow = true;
     this.scene.add(ground);
+    this.ground = ground;
 
     const span = Math.max(size.x, size.y, size.z);
     const cam = this.sun.shadow.camera;
@@ -473,7 +491,8 @@ export class NayaViewer {
    * geçer, izole edilmişse hiç görünmez.
    */
   private refreshMaterials(): void {
-    const ghostOthers = this.xray || this.selected !== null || this.weights.size > 0;
+    const ghostOthers =
+      this.scanning === null && (this.xray || this.selected !== null || this.weights.size > 0);
     for (const part of this.parts) {
       part.node.visible = this.isolated === null || part === this.isolated;
       const weight = this.weights.get(part.id) ?? 0;
@@ -500,7 +519,11 @@ export class NayaViewer {
         -((e.clientY - rect.top) / rect.height) * 2 + 1,
       );
       this.raycaster.setFromCamera(pointer, this.camera);
-      const hit = this.model ? this.raycaster.intersectObject(this.model, true)[0] : undefined;
+      // Raycaster gizli nesneleri de yakalar; izole görünümde gizli parçalar
+      // seçilmesin.
+      const hit = this.model
+        ? this.raycaster.intersectObject(this.model, true).find((h) => isShown(h.object))
+        : undefined;
       const part = hit ? this.parts.find((p) => isInside(hit.object, p.node)) : undefined;
       this.select(part?.id ?? null);
       if (part) void this.nudge(part.id);
@@ -524,6 +547,25 @@ async function loadMap(url: string): Promise<PartsMap | null> {
   } catch {
     return null;
   }
+}
+
+/** Nesne ve bütün üst düğümleri görünür mü? */
+function isShown(object: THREE.Object3D): boolean {
+  for (let o: THREE.Object3D | null = object; o; o = o.parent) {
+    if (!o.visible) return false;
+  }
+  return true;
+}
+
+/** Bir modelin geometri ve malzemelerini GPU'dan bırakır. */
+function disposeModel(model: THREE.Object3D, keep: THREE.Material): void {
+  model.traverse((o) => {
+    if (!(o instanceof THREE.Mesh)) return;
+    o.geometry.dispose();
+    for (const m of Array.isArray(o.material) ? o.material : [o.material]) {
+      if (m !== keep) m.dispose();
+    }
+  });
 }
 
 function isInside(object: THREE.Object3D, ancestor: THREE.Object3D): boolean {
