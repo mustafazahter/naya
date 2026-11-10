@@ -11,6 +11,7 @@ class ModelFrame extends StatelessWidget {
     required this.controller,
     required this.onPartTap,
     this.onReady,
+    this.interactive = true,
   });
 
   /// Viewer adresine eklenecek sorgu: `embed&model=...&focus=...`.
@@ -20,6 +21,10 @@ class ModelFrame extends StatelessWidget {
 
   /// Model yüklenip viewer komut almaya hazır olduğunda.
   final VoidCallback? onReady;
+
+  /// false iken dokunuşlar viewer'a gitmez; üstte bir pencere ya da alt
+  /// sayfa açıkken onların tıklamalarını yutmasın diye.
+  final bool interactive;
 
   @override
   Widget build(BuildContext context) => const SizedBox.expand();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 import '../../entities/part/part.dart';
 import '../../shared/ui/components.dart';
@@ -80,6 +81,9 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
             query: _query,
             controller: _controller,
             onPartTap: _onPartTap,
+            // Üstte parça kartı ya da başka bir pencere açıksa model dokunuşu
+            // almasın.
+            interactive: ModalRoute.isCurrentOf(context) ?? true,
           ),
         ),
         Positioned(
@@ -88,10 +92,14 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
           top: NayaSpace.md,
           child: SafeArea(
             bottom: false,
-            child: ViewerTopBar(
-              title: widget.productTitle,
-              subtitle: '3D · sürükle ve döndür',
-              onBack: widget.onBack,
+            // Web'de model bir iframe; üstündeki düğmeler PointerInterceptor
+            // olmadan tıklanamıyor, tıklama iframe'e gidiyor.
+            child: PointerInterceptor(
+              child: ViewerTopBar(
+                title: widget.productTitle,
+                subtitle: '3D · sürükle ve döndür',
+                onBack: widget.onBack,
+              ),
             ),
           ),
         ),
@@ -100,35 +108,37 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
           top: 0,
           bottom: 0,
           child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                RoundIconButton(
-                  icon: Icons.open_in_full,
-                  tooltip: 'Parçalarına ayır',
-                  selected: _exploded,
-                  onPressed: () {
-                    setState(() => _exploded = !_exploded);
-                    _controller.explode(_exploded ? 1 : 0);
-                  },
-                ),
-                const SizedBox(height: NayaSpace.sm),
-                RoundIconButton(
-                  icon: Icons.blur_on,
-                  tooltip: 'X-ışını',
-                  selected: _xray,
-                  onPressed: () {
-                    setState(() => _xray = !_xray);
-                    _controller.xray(_xray);
-                  },
-                ),
-                const SizedBox(height: NayaSpace.sm),
-                RoundIconButton(
-                  icon: Icons.center_focus_strong,
-                  tooltip: 'Görünümü sıfırla',
-                  onPressed: _reset,
-                ),
-              ],
+            child: PointerInterceptor(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RoundIconButton(
+                    icon: Icons.open_in_full,
+                    tooltip: 'Parçalarına ayır',
+                    selected: _exploded,
+                    onPressed: () {
+                      setState(() => _exploded = !_exploded);
+                      _controller.explode(_exploded ? 1 : 0);
+                    },
+                  ),
+                  const SizedBox(height: NayaSpace.sm),
+                  RoundIconButton(
+                    icon: Icons.blur_on,
+                    tooltip: 'X-ışını',
+                    selected: _xray,
+                    onPressed: () {
+                      setState(() => _xray = !_xray);
+                      _controller.xray(_xray);
+                    },
+                  ),
+                  const SizedBox(height: NayaSpace.sm),
+                  RoundIconButton(
+                    icon: Icons.center_focus_strong,
+                    tooltip: 'Görünümü sıfırla',
+                    onPressed: _reset,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
