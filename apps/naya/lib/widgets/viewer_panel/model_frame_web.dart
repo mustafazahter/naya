@@ -18,6 +18,7 @@ class ModelFrame extends StatefulWidget {
     required this.controller,
     required this.onPartTap,
     this.onReady,
+    this.interactive = true,
   });
 
   /// Viewer adresine eklenecek sorgu: `embed&model=...&focus=...`.
@@ -27,6 +28,10 @@ class ModelFrame extends StatefulWidget {
 
   /// Model yüklenip viewer komut almaya hazır olduğunda.
   final VoidCallback? onReady;
+
+  /// false iken dokunuşlar viewer'a gitmez; üstte bir pencere ya da alt
+  /// sayfa açıkken onların tıklamalarını yutmasın diye.
+  final bool interactive;
 
   @override
   State<ModelFrame> createState() => _ModelFrameState();
@@ -84,5 +89,10 @@ class _ModelFrameState extends State<ModelFrame> {
   }
 
   @override
-  Widget build(BuildContext context) => HtmlElementView(viewType: _viewType);
+  Widget build(BuildContext context) {
+    // Web'de iframe, Flutter'ın üstünde çizdiği her şeyin altından tıklamayı
+    // kendine alır. Üstte bir pencere açıkken iframe dokunuşa kapanır.
+    _frame.style.pointerEvents = widget.interactive ? 'auto' : 'none';
+    return HtmlElementView(viewType: _viewType);
+  }
 }
