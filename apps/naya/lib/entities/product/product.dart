@@ -1,7 +1,19 @@
 import '../../shared/utils/turkish_text.dart';
 
 /// Ürün kategorisi; kartlardaki çizimi ve varsayılan kamerayı belirler.
-enum ProductCategory { car, bicycle, tank, aircraft }
+enum ProductCategory {
+  car,
+  bicycle,
+  tank,
+  aircraft;
+
+  /// Manifestteki `product.category`. Tanınmayan kategori (içe aktarılan
+  /// dosyalar) şimdilik araba çizimiyle gösterilir; genel bir çizim 5C'de.
+  static ProductCategory fromName(String? name) => values.firstWhere(
+    (c) => c.name == name,
+    orElse: () => ProductCategory.car,
+  );
+}
 
 /// Kütüphanede görünen bir ürün (şablon ya da kullanıcı dosyası).
 class Product {
@@ -13,12 +25,40 @@ class Product {
     required this.partCount,
     required this.faultCount,
     required this.moduleCount,
+    this.key,
     this.isTemplate = true,
-    this.modelFile,
-    this.thumbnail,
+    this.modelPath,
+    this.credits = const [],
   });
 
+  /// `/api/library` cevabındaki bir öğe.
+  factory Product.fromJson(Map<String, Object?> json) {
+    final model = json['model'];
+    final hasModel = json['hasModel'] == true;
+    return Product(
+      id: json['id']! as String,
+      key: json['key'] as String?,
+      title: json['title']! as String,
+      subtitle: json['subtitle'] as String? ?? '',
+      category: ProductCategory.fromName(json['category'] as String?),
+      partCount: (json['partCount'] as num?)?.toInt() ?? 0,
+      faultCount: (json['faultCount'] as num?)?.toInt() ?? 0,
+      moduleCount: (json['moduleCount'] as num?)?.toInt() ?? 0,
+      isTemplate: json['isTemplate'] == true,
+      modelPath: hasModel && model is Map ? model['main'] as String? : null,
+      credits: [
+        for (final credit in json['credits'] as List<Object?>? ?? const [])
+          if (credit is Map<String, Object?>) Credit.fromJson(credit),
+      ],
+    );
+  }
+
+  /// Kütüphanedeki kimlik; adreste görünür (`/urun/<id>`).
   final String id;
+
+  /// Manifestteki kimlik (`bisiklet-dag`); şablonun sunucudaki kimliği
+  /// değişse de aynı kalır.
+  final String? key;
   final String title;
   final String subtitle;
   final ProductCategory category;
@@ -29,11 +69,16 @@ class Product {
   final int moduleCount;
   final bool isTemplate;
 
-  /// Viewer'ın yükleyeceği model, viewer'a göre göreli yol.
-  final String? modelFile;
+  /// `.naya` içindeki 3D model (`model/product.glb`); modeli yoksa null.
+  final String? modelPath;
+
+  /// Model ve görseller için atıflar (CC BY).
+  final List<Credit> credits;
 
   /// Gerçek modelin render'ı. Yoksa kartta teknik çizim gösterilir.
-  final String? thumbnail;
+  String? get thumbnail => _thumbnails[key];
+
+  static const _thumbnails = {'bisiklet-dag': 'assets/templates/bisiklet.webp'};
 
   /// Başlıkta ya da açıklamada [query] geçiyor mu; büyük/küçük harf önemsiz.
   bool matches(String query) {
@@ -42,57 +87,16 @@ class Product {
   }
 }
 
-/// Taslak için örnek veriler. Gerçek liste sunucudan gelecek.
-const sampleTemplates = [
-  Product(
-    id: 'araba',
-    title: 'Araba',
-    subtitle: 'Binek otomobil, benzinli',
-    category: ProductCategory.car,
-    partCount: 48,
-    faultCount: 22,
-    moduleCount: 36,
-  ),
-  Product(
-    id: 'bisiklet',
-    title: 'Bisiklet',
-    subtitle: 'Dağ bisikleti · 24 vites · disk fren',
-    category: ProductCategory.bicycle,
-    partCount: 39,
-    faultCount: 29,
-    moduleCount: 26,
-    modelFile: './models/bicycle.glb',
-    thumbnail: 'assets/templates/bisiklet.webp',
-  ),
-  Product(
-    id: 'tank',
-    title: 'Tank',
-    subtitle: 'Ana muharebe tankı, genel bakım',
-    category: ProductCategory.tank,
-    partCount: 54,
-    faultCount: 19,
-    moduleCount: 33,
-  ),
-  Product(
-    id: 'ucak',
-    title: 'Savaş uçağı',
-    subtitle: 'Tek motorlu, genel bakım',
-    category: ProductCategory.aircraft,
-    partCount: 58,
-    faultCount: 24,
-    moduleCount: 40,
-  ),
-];
+class Credit {
+  const Credit({required this.author, required this.license, this.source});
 
-const sampleUserFiles = [
-  Product(
-    id: 'jenerator',
-    title: 'Jeneratör 5 kVA',
-    subtitle: 'İçe aktarıldı · 2 gün önce',
-    category: ProductCategory.car,
-    partCount: 18,
-    faultCount: 0,
-    moduleCount: 12,
-    isTemplate: false,
-  ),
-];
+  factory Credit.fromJson(Map<String, Object?> json) => Credit(
+    author: json['author'] as String? ?? '',
+    license: json['license'] as String? ?? '',
+    source: json['source'] as String?,
+  );
+
+  final String author;
+  final String license;
+  final String? source;
+}

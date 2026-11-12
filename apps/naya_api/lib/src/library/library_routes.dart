@@ -122,6 +122,8 @@ class LibraryRoutes {
     final manifest = jsonDecode(item.manifestJson) as Map<String, Object?>;
     return {
       'id': item.id,
+      // Manifestteki kimlik; şablon güncellenince de aynı kalır.
+      'key': manifest['id'],
       'title': item.title,
       'subtitle': item.subtitle,
       'category': item.category,

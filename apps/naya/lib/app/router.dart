@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../entities/product/product_library.dart';
+import '../pages/data_module/data_module_page.dart';
 import '../pages/library/library_page.dart';
 import '../pages/not_found/not_found_page.dart';
 import '../pages/workspace/workspace_page.dart';
@@ -12,6 +13,8 @@ import '../shared/ui/routes.dart';
 abstract final class AppRoutes {
   static const library = '/';
   static String workspace(String productId) => '/urun/$productId';
+  static String module(String productId, String dmc) =>
+      '/urun/$productId/dm/${Uri.encodeComponent(dmc)}';
 }
 
 GoRouter buildRouter({String initialLocation = AppRoutes.library}) {
@@ -35,6 +38,25 @@ GoRouter buildRouter({String initialLocation = AppRoutes.library}) {
             path: 'urun/:id',
             pageBuilder: (context, state) =>
                 _page(state, _WorkspaceRoute(state.pathParameters['id']!)),
+            routes: [
+              // DM'ler push ile açılır: geri dönünce çalışma alanı ve 3D
+              // model yeniden yüklenmez.
+              GoRoute(
+                path: 'dm/:dmc',
+                pageBuilder: (context, state) {
+                  final id = state.pathParameters['id']!;
+                  return _page(
+                    state,
+                    DataModulePage(
+                      productId: id,
+                      dmc: state.pathParameters['dmc']!,
+                      onOpenModule: (dmc) =>
+                          context.push(AppRoutes.module(id, dmc)),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ],
       ),
@@ -67,7 +89,12 @@ class _WorkspaceRoute extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final product = ref.watch(productLibraryProvider).value?.byId(productId);
-    if (product != null) return WorkspacePage(product: product);
+    if (product != null) {
+      return WorkspacePage(
+        product: product,
+        onOpenModule: (dmc) => context.push(AppRoutes.module(productId, dmc)),
+      );
+    }
     final isLoading = ref.watch(productLibraryProvider).isLoading;
     if (isLoading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));

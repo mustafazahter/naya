@@ -9,16 +9,20 @@ import 'package:naya/app/router.dart';
 import 'package:naya/entities/product/product.dart';
 import 'package:naya/entities/product/product_library.dart';
 import 'package:naya/pages/workspace/workspace_page.dart';
+import 'package:naya/shared/api/api_client.dart';
 import 'package:naya/shared/ui/components.dart';
 import 'package:naya/shared/ui/theme.dart';
 import 'package:naya/shared/ui/tokens.dart';
 import 'package:naya/shared/utils/turkish_text.dart';
+
+import 'fake_api.dart';
 
 /// Uygulamayı verilen adresten başlatır, veriler gelene kadar bekler.
 Future<GoRouter> pumpApp(
   WidgetTester tester, {
   String location = '/',
   List<dynamic> overrides = const [],
+  ApiClient? api,
 }) async {
   final router = buildRouter(initialLocation: location);
   addTearDown(router.dispose);
@@ -26,6 +30,7 @@ Future<GoRouter> pumpApp(
     ProviderScope(
       overrides: [
         routerProvider.overrideWithValue(router),
+        apiClientProvider.overrideWithValue(api ?? fakeApi()),
         ...overrides.cast(),
       ],
       child: const NayaApp(),
@@ -75,20 +80,7 @@ void main() {
 
     testWidgets('hata mesajı ve yeniden deneme', (tester) async {
       useTallScreen(tester);
-      var calls = 0;
-      await pumpApp(
-        tester,
-        overrides: [
-          productLibraryProvider.overrideWith((ref) async {
-            calls++;
-            if (calls == 1) throw Exception('ağ yok');
-            return const ProductLibrary(
-              templates: sampleTemplates,
-              userFiles: [],
-            );
-          }),
-        ],
-      );
+      await pumpApp(tester, api: fakeApi(failLibraryTimes: 1));
       expect(find.text('Kütüphane yüklenemedi'), findsOneWidget);
       await tester.tap(find.text('Yeniden dene'));
       await tester.pump();

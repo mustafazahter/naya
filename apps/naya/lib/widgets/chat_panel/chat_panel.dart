@@ -6,19 +6,29 @@ import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
 
 /// Çalışma alanının alt yarısı: yapay zekâ ile sohbet ve teşhis sonucu.
+///
+/// Teşhis yokken (sohbet henüz başlamadı) ürünün kayıtlı belirtilerini
+/// öneri olarak gösterir.
 class ChatPanel extends StatelessWidget {
   const ChatPanel({
     super.key,
-    required this.diagnosis,
     required this.onCandidateTap,
+    required this.onSend,
+    this.diagnosis,
+    this.suggestions = const [],
   });
 
-  final Diagnosis diagnosis;
+  final Diagnosis? diagnosis;
   final ValueChanged<String> onCandidateTap;
+
+  /// Yazılan ya da seçilen öneri metni.
+  final ValueChanged<String> onSend;
+  final List<String> suggestions;
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
+    final diagnosis = this.diagnosis;
     return DecoratedBox(
       decoration: BoxDecoration(
         color: c.background,
@@ -34,29 +44,60 @@ class ChatPanel extends StatelessWidget {
                 NayaSpace.gutter,
                 NayaSpace.lg,
               ),
-              children: [
-                _UserMessage(diagnosis.symptom),
-                const SizedBox(height: NayaSpace.lg),
-                _AssistantMessage(
-                  diagnosis: diagnosis,
-                  onCandidateTap: onCandidateTap,
-                ),
-                const SizedBox(height: NayaSpace.lg),
-                const Wrap(
-                  spacing: NayaSpace.sm,
-                  runSpacing: NayaSpace.sm,
-                  children: [
-                    SuggestionChip('Zinciri nasıl değiştiririm?'),
-                    SuggestionChip('Hangi aletler gerekli?'),
-                    SuggestionChip('Başka ne olabilir?'),
-                  ],
-                ),
-              ],
+              children: diagnosis == null
+                  ? [_Intro(suggestions: suggestions, onSend: onSend)]
+                  : [
+                      _UserMessage(diagnosis.symptom),
+                      const SizedBox(height: NayaSpace.lg),
+                      _AssistantMessage(
+                        diagnosis: diagnosis,
+                        onCandidateTap: onCandidateTap,
+                      ),
+                    ],
             ),
           ),
-          const _Composer(),
+          _Composer(onSend: onSend),
         ],
       ),
+    );
+  }
+}
+
+/// Sohbet boşken: ne yapılabileceği ve ürünün kayıtlı belirtileri.
+class _Intro extends StatelessWidget {
+  const _Intro({required this.suggestions, required this.onSend});
+
+  final List<String> suggestions;
+  final ValueChanged<String> onSend;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const TechLabel('Yapay zekâ'),
+        const SizedBox(height: NayaSpace.sm),
+        Text('Ne sorun var?', style: context.text.title),
+        const SizedBox(height: NayaSpace.sm),
+        Text(
+          'Belirtiyi yaz; olası parçaları modelde tarayıp en olasısını '
+          'gösteririm. Parçaya dokunursan kartı ve tamir adımları açılır.',
+          style: context.text.body,
+        ),
+        if (suggestions.isNotEmpty) ...[
+          const SizedBox(height: NayaSpace.xl),
+          const TechLabel('Sık görülen belirtiler'),
+          const SizedBox(height: NayaSpace.md),
+          Wrap(
+            spacing: NayaSpace.sm,
+            runSpacing: NayaSpace.sm,
+            children: [
+              for (final text in suggestions)
+                SuggestionChip(text, onTap: () => onSend(text)),
+            ],
+          ),
+        ],
+      ],
     );
   }
 }
@@ -259,8 +300,30 @@ class _SafetyRow extends StatelessWidget {
   }
 }
 
-class _Composer extends StatelessWidget {
-  const _Composer();
+class _Composer extends StatefulWidget {
+  const _Composer({required this.onSend});
+
+  final ValueChanged<String> onSend;
+
+  @override
+  State<_Composer> createState() => _ComposerState();
+}
+
+class _ComposerState extends State<_Composer> {
+  final _text = TextEditingController();
+
+  @override
+  void dispose() {
+    _text.dispose();
+    super.dispose();
+  }
+
+  void _send() {
+    final text = _text.text.trim();
+    if (text.isEmpty) return;
+    widget.onSend(text);
+    _text.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -285,6 +348,9 @@ class _Composer extends StatelessWidget {
             children: [
               Expanded(
                 child: TextField(
+                  controller: _text,
+                  textInputAction: TextInputAction.send,
+                  onSubmitted: (_) => _send(),
                   style: context.text.body.copyWith(color: c.text),
                   decoration: InputDecoration(
                     hintText: 'Sorunu anlat ya da parça sor…',
@@ -298,7 +364,7 @@ class _Composer extends StatelessWidget {
                 shape: const CircleBorder(),
                 child: InkWell(
                   customBorder: const CircleBorder(),
-                  onTap: () {},
+                  onTap: _send,
                   child: SizedBox.square(
                     dimension: 40,
                     child: Icon(
