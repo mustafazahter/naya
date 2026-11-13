@@ -9,6 +9,7 @@ import 'package:naya/features/diagnose/request_diagnosis.dart';
 import 'package:naya/pages/data_module/data_module_page.dart';
 import 'package:naya/shared/api/api_client.dart';
 import 'package:naya/shared/ui/theme.dart';
+import 'package:naya/widgets/viewer_panel/model_frame_controller.dart';
 
 import 'fake_api.dart';
 
@@ -89,7 +90,7 @@ void main() {
     test('girişsiz istek açıklamalı hata verir', () async {
       final api = fakeApi();
       final content = await _content(api);
-      expect(
+      await expectLater(
         requestDiagnosis(api, content, message: 'x'),
         throwsA(isA<ApiException>().having((e) => e.statusCode, 'status', 401)),
       );
@@ -193,7 +194,9 @@ void main() {
       expect(find.text('SÖKME'), findsOneWidget);
       expect(find.text('Adım adım aç'), findsOneWidget);
       expect(find.text('Parça kartı'), findsOneWidget);
-      expect(find.textContaining('ADIM'), findsWidgets);
+      expect(find.text('3 ADIM'), findsOneWidget);
+      expect(find.textContaining('Zinciri en küçük aynaya'), findsOneWidget);
+      expect(find.text('Pimi çıkarın'), findsOneWidget);
       expect(find.text(_repair), findsOneWidget);
 
       await tester.tap(find.text('Adım adım aç'));
@@ -242,6 +245,76 @@ void main() {
         find.text('Teşhis için giriş yapmanız gerekiyor.'),
         findsOneWidget,
       );
+    });
+  });
+
+  testWidgets('beklenmedik cevapta da hata görünür, yeniden sorulabilir', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1400, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final router = buildRouter(initialLocation: '/urun/bisiklet');
+    addTearDown(router.dispose);
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          routerProvider.overrideWithValue(router),
+          apiClientProvider.overrideWithValue(
+            fakeApi(diagnose: (_) => jsonResponse({'id': 1})),
+          ),
+        ],
+        child: const NayaApp(),
+      ),
+    );
+    for (var i = 0; i < 6; i++) {
+      await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    await tester.enterText(find.byType(TextField), 'Zincir atlıyor.');
+    await tester.tap(find.byIcon(Icons.arrow_upward));
+    await tester.pump();
+    for (var i = 0; i < 4; i++) {
+      await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    expect(find.text('Sunucudan beklenmedik bir cevap geldi.'), findsOneWidget);
+    final field = tester.widget<TextField>(find.byType(TextField));
+    expect(field.enabled, isNot(false));
+  });
+
+  group('tarama', () {
+    late List<Map<String, Object?>> sent;
+    late ModelFrameController controller;
+
+    setUp(() {
+      sent = [];
+      controller = ModelFrameController()..attach(sent.add);
+    });
+    tearDown(() => controller.dispose());
+
+    test('yalnız son taramanın scanDone\'u sayılır', () async {
+      final first = controller.scan({'drive_chain': 1});
+      final second = controller.scan({'drive_chain': 0.5});
+      expect(await first, isFalse);
+      // Viewer önce yarıda kesilen ilk taramanın bittiğini söyler.
+      controller.scanFinished(sent.first['id']! as int);
+      controller.scanFinished(sent.last['id']! as int);
+      expect(await second, isTrue);
+    });
+
+    test('model sıfırlanırsa tarama yarıda sayılır', () async {
+      final scan = controller.scan({'drive_chain': 1});
+      controller.reset();
+      expect(await scan, isFalse);
+      expect(controller.exploded.value, isFalse);
+    });
+
+    test('viewer bağlı değilse parçalara ayırma durumu değişmez', () {
+      final detached = ModelFrameController();
+      addTearDown(detached.dispose);
+      detached.explode(1);
+      expect(detached.exploded.value, isFalse);
     });
   });
 

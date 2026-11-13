@@ -137,14 +137,15 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
     if (content == null || _pending != null) return;
 
     // Önceki cevap bir soruysa bu mesaj onun cevabı; yeni bir konu değil.
+    // Önceki deneme hata verdiyse soru hâlâ açık; konu yine aynı.
     final previous = _diagnosis;
     final followUp =
         previous != null &&
-        _error == null &&
         previous.decision != DiagnosisDecision.focus &&
         previous.decision != DiagnosisDecision.notDiagnosis;
-    if (!followUp) _thread.clear();
-    final earlier = _thread.length > 4
+    final earlier = !followUp
+        ? const <String>[]
+        : _thread.length > 4
         ? _thread.sublist(_thread.length - 4)
         : List.of(_thread);
 
@@ -161,19 +162,25 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
         earlier: earlier,
       );
       if (!mounted || run != _run) return;
+      if (!followUp) _thread.clear();
       _thread.add(text);
       setState(() {
         _diagnosis = diagnosis;
         _pending = null;
       });
       await _play(diagnosis, content, run);
-    } on ApiException catch (e) {
+    } on Object catch (e) {
+      // Ağ hatası da, sunucudan gelen beklenmedik cevap da sohbette bir
+      // mesaj olarak görünsün; yoksa "taranıyor" sonsuza dek kalır.
       if (!mounted || run != _run) return;
       setState(() {
         _pending = null;
-        _error = e.statusCode == 401
-            ? 'Teşhis için giriş yapmanız gerekiyor.'
-            : e.message;
+        _error = switch (e) {
+          ApiException(statusCode: 401) =>
+            'Teşhis için giriş yapmanız gerekiyor.',
+          ApiException(:final message) => message,
+          _ => 'Sunucudan beklenmedik bir cevap geldi.',
+        };
       });
     }
   }
@@ -193,8 +200,10 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
       _viewer.highlight(const {});
       return;
     }
-    await _viewer.scan(weights);
-    if (!mounted || run != _run || !diagnosis.isConfident) return;
+    final finished = await _viewer.scan(weights);
+    if (!finished || !mounted || run != _run || !diagnosis.isConfident) {
+      return;
+    }
     final nodes = content.part(diagnosis.top.partId)?.meshNodes ?? const [];
     if (nodes.isEmpty) return;
     _viewer.explode(1);
@@ -263,6 +272,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
         pending: _pending,
         error: _error,
         onSend: _onAsk,
+        canSend: data != null,
         onCandidateTap: _onCandidateTap,
         onOpenModule: widget.onOpenModule,
         productId: product.id,

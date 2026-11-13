@@ -21,6 +21,7 @@ class ChatPanel extends StatelessWidget {
     this.diagnosis,
     this.pending,
     this.error,
+    this.canSend = true,
     this.suggestions = const [],
   });
 
@@ -35,6 +36,9 @@ class ChatPanel extends StatelessWidget {
 
   /// Yazılan ya da seçilen öneri metni.
   final ValueChanged<String> onSend;
+
+  /// Ürünün içeriği yüklenmeden mesaj gönderilemez; yazılan kaybolmasın.
+  final bool canSend;
 
   /// Kaynak DM'e dokunuldu.
   final ValueChanged<String>? onOpenModule;
@@ -94,7 +98,7 @@ class ChatPanel extends StatelessWidget {
               children: children,
             ),
           ),
-          _Composer(onSend: onSend, enabled: pending == null),
+          _Composer(onSend: onSend, enabled: canSend && pending == null),
         ],
       ),
     );

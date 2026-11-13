@@ -39,7 +39,7 @@ class ModelFrame extends StatefulWidget {
   final VoidCallback? onReady;
 
   /// Tarama animasyonu bittiğinde.
-  final VoidCallback? onScanDone;
+  final ValueChanged<int>? onScanDone;
 
   /// false iken dokunuşlar viewer'a gitmez; üstte bir pencere ya da alt
   /// sayfa açıkken onların tıklamalarını yutmasın diye.
@@ -105,7 +105,8 @@ class _ModelFrameState extends State<ModelFrame> {
       case 'ready':
         widget.onReady?.call();
       case 'scanDone':
-        widget.onScanDone?.call();
+        final id = data['id'];
+        if (id is num) widget.onScanDone?.call(id.toInt());
     }
   }
 

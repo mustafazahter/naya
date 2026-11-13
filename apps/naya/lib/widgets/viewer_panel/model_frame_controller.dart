@@ -14,7 +14,9 @@ class ModelFrameController {
   /// durumu görsün diye burada.
   final exploded = ValueNotifier<bool>(false);
 
-  Completer<void>? _scan;
+  /// Süren taramanın numarası ve bitince tamamlanacak olan.
+  int _scanId = 0;
+  Completer<bool>? _scan;
 
   /// Viewer hiç cevap vermezse (model yüklenmedi) taramayı beklemeyi bırak.
   static const scanTimeout = Duration(seconds: 6);
@@ -23,12 +25,14 @@ class ModelFrameController {
 
   void detach() {
     _send = null;
-    scanFinished();
+    _endScan(false);
   }
 
   void explode(double amount) {
+    final send = _send;
+    if (send == null) return;
     exploded.value = amount > 0;
-    _send?.call({'type': 'explode', 'amount': amount});
+    send({'type': 'explode', 'amount': amount});
   }
 
   void xray(bool enabled) => _send?.call({'type': 'xray', 'enabled': enabled});
@@ -40,28 +44,40 @@ class ModelFrameController {
 
   /// Teşhis taraması: bant modelin boyunca geçer, parçalar [weights]
   /// (0-1) ile orantılı parlar. Viewer `scanDone` gönderince biter.
-  Future<void> scan(Map<String, double> weights) {
-    scanFinished();
+  ///
+  /// Tarama sonuna kadar sürdüyse `true`; yenisi başladıysa, model
+  /// sıfırlandıysa ya da viewer cevap vermediyse `false`. Böylece yarıda
+  /// kalan bir taramanın ardından kamera hareketi yapılmaz.
+  Future<bool> scan(Map<String, double> weights) {
+    _endScan(false);
     final send = _send;
-    if (send == null) return Future.value();
-    final done = Completer<void>();
+    if (send == null) return Future.value(false);
+    final done = Completer<bool>();
     _scan = done;
-    send({'type': 'scan', 'parts': _weighted(weights)});
-    return done.future.timeout(scanTimeout, onTimeout: () {});
+    send({'type': 'scan', 'id': ++_scanId, 'parts': _weighted(weights)});
+    return done.future.timeout(scanTimeout, onTimeout: () => false);
   }
 
-  /// Viewer'dan `scanDone` geldi.
-  void scanFinished() {
+  /// Viewer'dan `scanDone` geldi. Önceki, yarıda kesilen taramanın cevabı
+  /// da gelir; yalnız son taramanın numarası sayılır.
+  void scanFinished(int id) {
+    if (id == _scanId) _endScan(true);
+  }
+
+  void _endScan(bool finished) {
     final scan = _scan;
     _scan = null;
-    if (scan != null && !scan.isCompleted) scan.complete();
+    if (scan != null && !scan.isCompleted) scan.complete(finished);
   }
 
   /// Taramasız, doğrudan olasılığa göre parlatma. Boş harita vurguyu kaldırır.
-  void highlight(Map<String, double> weights) =>
-      _send?.call({'type': 'highlight', 'parts': _weighted(weights)});
+  void highlight(Map<String, double> weights) {
+    _endScan(false);
+    _send?.call({'type': 'highlight', 'parts': _weighted(weights)});
+  }
 
   void reset() {
+    _endScan(false);
     exploded.value = false;
     _send?.call({'type': 'reset'});
   }
