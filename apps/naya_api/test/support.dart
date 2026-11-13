@@ -17,7 +17,10 @@ class TestClock {
 class TestServer {
   TestServer._(this.api, this.clock, this.dir);
 
-  static Future<TestServer> start({Map<String, String> env = const {}}) async {
+  static Future<TestServer> start({
+    Map<String, String> env = const {},
+    AiProvider? ai,
+  }) async {
     final dir = await Directory.systemTemp.createTemp('naya_api_test');
     final clock = TestClock();
     final config = ApiConfig.fromEnvironment({
@@ -30,6 +33,7 @@ class TestServer {
       config: config,
       db: db,
       logRequests: false,
+      aiProvider: ai,
       auth: AuthService(
         db,
         hasher: const PasswordHasher.fast(),

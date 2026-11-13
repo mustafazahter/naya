@@ -7,6 +7,7 @@ import 'package:drift/drift.dart';
 import 'package:naya_format/naya_format.dart';
 import 'package:path/path.dart' as p;
 
+import '../ai/dm_search.dart';
 import '../auth/auth_service.dart';
 import '../database/database.dart';
 
@@ -44,8 +45,12 @@ class LibraryService {
     this._db,
     this.libraryDir, {
     this.maxBytesPerUser = 500 * 1024 * 1024,
+    this.search,
     DateTime Function()? clock,
   }) : _clock = clock ?? DateTime.now;
+
+  /// Verilirse eklenen dosyanın DM'leri arama dizinine yazılır.
+  final DmSearch? search;
 
   final NayaDatabase _db;
   final String libraryDir;
@@ -97,8 +102,9 @@ class LibraryService {
 
   File fileOf(LibraryItemRow item) => File(p.join(libraryDir, item.fileName));
 
-  /// `.naya` içindeki bir dosya; yoksa `null`.
-  Future<Uint8List?> readEntry(LibraryItemRow item, String path) async {
+  /// Öğenin `.naya` dosyası, açılmış hali. Son açılan birkaç dosya
+  /// bellekte tutulur.
+  Future<NayaFile> open(LibraryItemRow item) async {
     final cacheKey = '${item.id}:${item.sha256}';
     var file = _openFiles.remove(cacheKey);
     if (file == null) {
@@ -109,6 +115,26 @@ class LibraryService {
     }
     // Sona eklemek "en son kullanılan" demek; en eski baştan atılır.
     _openFiles[cacheKey] = file;
+    return file;
+  }
+
+  /// Arama dizininde hiç kaydı olmayan öğeleri dizine yazar. Dizin 4A'da
+  /// geldiği için ondan önce eklenmiş dosyalar böyle tamamlanır.
+  Future<int> indexMissing() async {
+    final search = this.search;
+    if (search == null) return 0;
+    var count = 0;
+    for (final item in await _db.select(_db.libraryItems).get()) {
+      if (await search.isIndexed(item.id)) continue;
+      await search.index(item.id, await open(item));
+      count++;
+    }
+    return count;
+  }
+
+  /// `.naya` içindeki bir dosya; yoksa `null`.
+  Future<Uint8List?> readEntry(LibraryItemRow item, String path) async {
+    final file = await open(item);
     if (path == 'naya.json') {
       return utf8.encode(jsonEncode(file.manifest.toJson()));
     }
@@ -144,6 +170,7 @@ class LibraryService {
       updatedAt: now,
     );
     await _db.into(_db.libraryItems).insert(row);
+    await search?.index(id, file);
     return row;
   }
 
@@ -175,6 +202,7 @@ class LibraryService {
     );
     await _db.into(_db.libraryItems).insertOnConflictUpdate(row);
     _openFiles.removeWhere((cacheKey, _) => cacheKey.startsWith('$id:'));
+    await search?.index(id, file);
     return row;
   }
 
@@ -183,6 +211,7 @@ class LibraryService {
       _db.libraryItems,
     )..where((i) => i.id.equals(item.id))).go();
     _openFiles.removeWhere((cacheKey, _) => cacheKey.startsWith('${item.id}:'));
+    await search?.remove(item.id);
     final file = fileOf(item);
     if (await file.exists()) await file.delete();
   }

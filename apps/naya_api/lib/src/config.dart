@@ -14,6 +14,7 @@ class ApiConfig {
     required this.templatesDir,
     this.adminEmail,
     this.adminPassword,
+    this.masterKey,
     this.secureCookies = false,
     this.allowedOrigins = const [],
   });
@@ -35,6 +36,7 @@ class ApiConfig {
           p.normalize(p.join(Directory.current.path, '../../templates/dist')),
       adminEmail: read('NAYA_ADMIN_EMAIL'),
       adminPassword: read('NAYA_ADMIN_PASSWORD'),
+      masterKey: read('NAYA_MASTER_KEY'),
       secureCookies: read('NAYA_SECURE_COOKIES') == '1',
       allowedOrigins: (read('CORS_ORIGINS') ?? '')
           .split(',')
@@ -56,6 +58,10 @@ class ApiConfig {
   /// İkisi de verilmişse açılışta bu e-postayla bir admin hesabı açılır.
   final String? adminEmail;
   final String? adminPassword;
+
+  /// Kullanıcıların OpenRouter anahtarlarını şifreleyen ana anahtar
+  /// (32 bayt, base64). Yoksa yapay zekâ kapalı; anahtar saklanamaz.
+  final String? masterKey;
 
   /// HTTPS arkasında (Komuta) çerezlere `Secure` eklenir. Yerelde HTTP
   /// kullanıldığı için kapalı.
