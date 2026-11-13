@@ -40,6 +40,23 @@ interface Scan {
 const SCAN_SECONDS = 3.4;
 
 /**
+ * Açılış: parçalar dağınık ve CAD görünümünde başlar, içten dışa sırayla
+ * yerine oturur, oturan parça kendi malzemesine geçip kısa bir an parlar.
+ * Kamera da uzaktan ve yandan gelir.
+ */
+const INTRO_FLIGHT = 1.15; // bir parçanın uçuşu (sn)
+const INTRO_STAGGER = 1.1; // ilk ve son parçanın kalkışı arası (sn)
+const INTRO_SPREAD = 2.2; // başlangıçta parçalara ayırmanın kaç katı dağınık
+
+interface Intro {
+  start: number;
+  delays: Map<Part, number>;
+  done: () => void;
+}
+
+const easeOutExpo = (t: number) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
+
+/**
  * Seçili parça dışındakiler bu "CAD" görünümüne geçer: açık gri, yarı saydam.
  * Böylece seçili parça yerini kaybetmeden öne çıkar.
  */
@@ -81,6 +98,7 @@ export class NayaViewer {
   private isolated: Part | null = null;
   private weights: Weights = new Map();
   private scanning: Scan | null = null;
+  private intro: Intro | null = null;
   /** Tarama bandı. Model yüklenirken kurulur ve sahnede saydam bekler; böylece
    * shader'ı taramanın ilk karesinde derlenip takılma yapmaz. */
   private band: THREE.Mesh | null = null;
@@ -128,13 +146,21 @@ export class NayaViewer {
    * `.parts.json` varsa montaj ağacı oradan okunur ve parçalara ayırma
    * gruplara göre yapılır; yoksa her parça merkezden dışarı açılır.
    */
-  async load(url: string, mapUrl?: string): Promise<string[]> {
+  async load(
+    url: string,
+    mapUrl?: string,
+    onProgress?: (fraction: number) => void,
+  ): Promise<string[]> {
     const draco = new DRACOLoader().setDecoderPath(new URL("./draco/", document.baseURI).href);
     const loader = new GLTFLoader().setDRACOLoader(draco).setMeshoptDecoder(MeshoptDecoder);
     const [gltf, map] = await Promise.all([
-      loader.loadAsync(url),
+      loader.loadAsync(url, (e) => {
+        // Sunucu boyut vermezse ilerleme bilinmez; çağıran tahmin eder.
+        if (e.lengthComputable && e.total > 0) onProgress?.(e.loaded / e.total);
+      }),
       loadMap(mapUrl ?? url.replace(/\.glb$/i, ".parts.json")),
     ]);
+    this.finishIntro();
     if (this.model) {
       this.scene.remove(this.model);
       disposeModel(this.model, this.ghost);
@@ -152,6 +178,42 @@ export class NayaViewer {
     this.prepareBand(this.model);
     await this.frameModel(false);
     return this.parts.map((p) => p.id);
+  }
+
+  /**
+   * Açılış animasyonu; bitince tamamlanır. Kullanıcı hareketi azaltmayı
+   * seçtiyse hiç oynamaz.
+   */
+  introduce(): Promise<void> {
+    this.finishIntro();
+    if (!this.model || this.parts.length === 0) return Promise.resolve();
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return Promise.resolve();
+
+    // Önce merkezdekiler (kadro), en son en dıştakiler (tekerlek parçaları).
+    const order = [...this.parts].sort(
+      (a, b) => a.away.distanceTo(a.home) - b.away.distanceTo(b.home),
+    );
+    const delays = new Map<Part, number>();
+    order.forEach((part, i) =>
+      delays.set(part, order.length === 1 ? 0 : (i / (order.length - 1)) * INTRO_STAGGER),
+    );
+
+    // Kamera son kadrajını load'da aldı; oradan geriye ve yana çekilip geri döner.
+    const azimuth = this.controls.azimuthAngle;
+    const polar = this.controls.polarAngle;
+    const distance = this.controls.distance;
+    void this.controls.rotateTo(azimuth - 1.1, polar - 0.3, false);
+    void this.controls.dollyTo(distance * 1.9, false);
+    this.controls.smoothTime = 0.9;
+    void Promise.all([
+      this.controls.rotateTo(azimuth, polar, true),
+      this.controls.dollyTo(distance, true),
+    ]).then(() => (this.controls.smoothTime = 0.35));
+
+    return new Promise((done) => {
+      this.intro = { start: this.clock.elapsedTime, delays, done };
+      this.stepIntro();
+    });
   }
 
   /**
@@ -216,6 +278,7 @@ export class NayaViewer {
    */
   scan(weights: Weights): Promise<void> {
     if (!this.model) return Promise.resolve();
+    this.finishIntro();
     this.finishScan();
     this.selected = null;
     this.weights = new Map();
@@ -294,6 +357,7 @@ export class NayaViewer {
   }
 
   async reset(): Promise<void> {
+    this.finishIntro();
     this.finishScan();
     this.selected = null;
     this.isolated = null;
@@ -313,9 +377,12 @@ export class NayaViewer {
     const delta = this.clock.getDelta();
     this.controls.update(delta);
 
-    // Parçalara ayırma yumuşakça hedefe yaklaşır.
+    // Parçalara ayırma yumuşakça hedefe yaklaşır; açılış sürerken parçaları
+    // o yönetir.
     const next = THREE.MathUtils.damp(this.explodeValue, this.explodeTarget, 6, delta);
-    if (Math.abs(next - this.explodeValue) > 1e-4) {
+    if (this.intro) {
+      this.stepIntro();
+    } else if (Math.abs(next - this.explodeValue) > 1e-4) {
       this.explodeValue = next;
       for (const part of this.parts) {
         part.node.position.lerpVectors(part.home, part.away, this.explodeValue);
@@ -323,6 +390,39 @@ export class NayaViewer {
     }
     if (this.scanning) this.stepScan();
     this.renderer.render(this.scene, this.camera);
+  }
+
+  private stepIntro(): void {
+    const intro = this.intro!;
+    const elapsed = this.clock.elapsedTime - intro.start;
+    const offset = new THREE.Vector3();
+    let landed = 0;
+    for (const part of this.parts) {
+      const t = THREE.MathUtils.clamp((elapsed - intro.delays.get(part)!) / INTRO_FLIGHT, 0, 1);
+      if (t >= 1) landed++;
+      offset.subVectors(part.away, part.home).multiplyScalar((1 - easeOutExpo(t)) * INTRO_SPREAD);
+      part.node.position.copy(part.home).add(offset);
+      // Yolun yarısından sonra kendi malzemesine geçer ve sönerek parlar.
+      const solid = t > 0.55;
+      for (const { mesh, normal } of part.meshes) {
+        mesh.material = solid ? normal : this.ghost;
+        mesh.castShadow = solid;
+      }
+      part.glow.strength.value = solid ? 0.45 * (1 - (t - 0.55) / 0.45) : 0;
+    }
+    if (landed === this.parts.length) this.finishIntro();
+  }
+
+  /** Süren açılışı hemen bitirir: parçalar yerinde, malzemeler normal. */
+  private finishIntro(): void {
+    const intro = this.intro;
+    if (!intro) return;
+    this.intro = null;
+    for (const part of this.parts) {
+      part.node.position.lerpVectors(part.home, part.away, this.explodeValue);
+    }
+    this.refreshMaterials();
+    intro.done();
   }
 
   private stepScan(): void {

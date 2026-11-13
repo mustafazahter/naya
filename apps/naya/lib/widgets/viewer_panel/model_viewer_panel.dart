@@ -7,6 +7,7 @@ import '../../shared/ui/tokens.dart';
 import '../../shared/utils/turkish_text.dart';
 import 'model_frame.dart';
 import 'model_frame_controller.dart';
+import 'model_loader.dart';
 import 'viewer_top_bar.dart';
 
 /// Gerçek 3D model: elle döndürülür, yakınlaşılır, parçalarına ayrılır.
@@ -21,6 +22,7 @@ class ModelViewerPanel extends StatefulWidget {
     this.onBack,
     this.controller,
     this.partLabel,
+    this.onOpenDetails,
     this.subtitle = '3D · sürükle ve döndür',
     this.credit,
   });
@@ -43,6 +45,10 @@ class ModelViewerPanel extends StatefulWidget {
   /// Seçili düğümün ekranda görünecek adı (`drive_chain` → "Zincir").
   final String Function(String node)? partLabel;
 
+  /// Seçili parçanın bütün ayrıntılarını açar (düğüm adıyla). Verilirse
+  /// parça seçiliyken altta "Ayrıntılar" düğmesi çıkar.
+  final ValueChanged<String>? onOpenDetails;
+
   /// Üst çubukta başlığın altındaki satır.
   final String subtitle;
 
@@ -58,6 +64,12 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
   var _xray = false;
   var _isolated = false;
   String? _selected;
+
+  /// Yükleme ekranının durumu. Ekran kapanış animasyonu bitince kalkar.
+  double _progress = 0;
+  var _ready = false;
+  var _failed = false;
+  var _loading = true;
 
   void _onPartTap(String? id) {
     // İzole görünümde boşluğa dokunmak seçimi kaldırmasın; yoksa "bütün
@@ -117,11 +129,26 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
             controller: _controller,
             onPartTap: _onPartTap,
             onScanDone: _controller.scanFinished,
+            onProgress: (value) => setState(() => _progress = value),
+            onReady: () => setState(() => _ready = true),
+            onLoadFailed: () => setState(() => _failed = true),
             // Üstte parça kartı ya da başka bir pencere açıksa model dokunuşu
             // almasın.
             interactive: ModalRoute.isCurrentOf(context) ?? true,
           ),
         ),
+        if (_loading)
+          Positioned.fill(
+            child: PointerInterceptor(
+              child: ModelLoader(
+                title: widget.productTitle,
+                progress: _progress,
+                ready: _ready,
+                failed: _failed,
+                onFinished: () => setState(() => _loading = false),
+              ),
+            ),
+          ),
         Positioned(
           left: NayaSpace.md,
           right: NayaSpace.md,
@@ -139,55 +166,60 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
             ),
           ),
         ),
+        // Düğmeler ve alt satır model hazır olunca belirir; yükleme
+        // ekranının sayacının üstüne binmesin.
         Positioned(
           right: NayaSpace.md,
           top: 0,
           bottom: 0,
-          child: Center(
-            child: PointerInterceptor(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Teşhis animasyonu da modeli ayırabildiği için durum
-                  // denetleyicide.
-                  ValueListenableBuilder(
-                    valueListenable: _controller.exploded,
-                    builder: (context, exploded, _) => RoundIconButton(
-                      icon: Icons.open_in_full,
-                      tooltip: 'Parçalarına ayır',
-                      selected: exploded,
-                      onPressed: () => _controller.explode(exploded ? 0 : 1),
+          child: _ShowWhen(
+            visible: _ready,
+            child: Center(
+              child: PointerInterceptor(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Teşhis animasyonu da modeli ayırabildiği için durum
+                    // denetleyicide.
+                    ValueListenableBuilder(
+                      valueListenable: _controller.exploded,
+                      builder: (context, exploded, _) => RoundIconButton(
+                        icon: Icons.open_in_full,
+                        tooltip: 'Parçalarına ayır',
+                        selected: exploded,
+                        onPressed: () => _controller.explode(exploded ? 0 : 1),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: NayaSpace.sm),
-                  RoundIconButton(
-                    icon: Icons.blur_on,
-                    tooltip: 'X-ışını',
-                    selected: _xray,
-                    onPressed: () {
-                      setState(() => _xray = !_xray);
-                      _controller.xray(_xray);
-                    },
-                  ),
-                  const SizedBox(height: NayaSpace.sm),
-                  RoundIconButton(
-                    icon: Icons.center_focus_strong,
-                    tooltip: 'Görünümü sıfırla',
-                    onPressed: _reset,
-                  ),
-                  // Yalnız bir parça seçiliyken anlamlı.
-                  if (_selected != null) ...[
                     const SizedBox(height: NayaSpace.sm),
                     RoundIconButton(
-                      icon: Icons.filter_center_focus,
-                      tooltip: _isolated
-                          ? 'Bütün modeli göster'
-                          : 'Yalnız bunu göster',
-                      selected: _isolated,
-                      onPressed: _toggleIsolate,
+                      icon: Icons.blur_on,
+                      tooltip: 'X-ışını',
+                      selected: _xray,
+                      onPressed: () {
+                        setState(() => _xray = !_xray);
+                        _controller.xray(_xray);
+                      },
                     ),
+                    const SizedBox(height: NayaSpace.sm),
+                    RoundIconButton(
+                      icon: Icons.center_focus_strong,
+                      tooltip: 'Görünümü sıfırla',
+                      onPressed: _reset,
+                    ),
+                    // Yalnız bir parça seçiliyken anlamlı.
+                    if (_selected != null) ...[
+                      const SizedBox(height: NayaSpace.sm),
+                      RoundIconButton(
+                        icon: Icons.filter_center_focus,
+                        tooltip: _isolated
+                            ? 'Bütün modeli göster'
+                            : 'Yalnız bunu göster',
+                        selected: _isolated,
+                        onPressed: _toggleIsolate,
+                      ),
+                    ],
                   ],
-                ],
+                ),
               ),
             ),
           ),
@@ -198,7 +230,8 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
           left: NayaSpace.lg,
           right: NayaSpace.lg,
           bottom: NayaSpace.lg,
-          child: IgnorePointer(
+          child: _ShowWhen(
+            visible: _ready,
             child: Row(
               children: [
                 Container(
@@ -222,6 +255,14 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
                     style: context.text.label.copyWith(color: c.textSecondary),
                   ),
                 ),
+                if (_selected != null && widget.onOpenDetails != null) ...[
+                  const SizedBox(width: NayaSpace.md),
+                  PointerInterceptor(
+                    child: _DetailsButton(
+                      onPressed: () => widget.onOpenDetails!(_selected!),
+                    ),
+                  ),
+                ],
                 if (widget.credit != null) ...[
                   const SizedBox(width: NayaSpace.md),
                   Text(
@@ -237,6 +278,67 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Hazır olana kadar gizli ve dokunulmaz; sonra yumuşakça belirir.
+class _ShowWhen extends StatelessWidget {
+  const _ShowWhen({required this.visible, required this.child});
+
+  final bool visible;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      ignoring: !visible,
+      child: AnimatedOpacity(
+        opacity: visible ? 1 : 0,
+        duration: NayaMotion.slow,
+        curve: NayaMotion.standard,
+        child: child,
+      ),
+    );
+  }
+}
+
+/// Seçili parçanın ayrıntı sayfasını açan küçük hap düğme.
+class _DetailsButton extends StatelessWidget {
+  const _DetailsButton({required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return Material(
+      color: c.accent,
+      shape: const StadiumBorder(),
+      child: InkWell(
+        onTap: onPressed,
+        customBorder: const StadiumBorder(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: NayaSpace.lg,
+            vertical: 10,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Ayrıntılar',
+                style: context.text.small.copyWith(
+                  color: c.onAccent,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(width: NayaSpace.xs),
+              Icon(Icons.arrow_forward, size: 16, color: c.onAccent),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

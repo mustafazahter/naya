@@ -27,6 +27,8 @@ class ModelFrame extends StatefulWidget {
     required this.onPartTap,
     this.onReady,
     this.onScanDone,
+    this.onProgress,
+    this.onLoadFailed,
     this.interactive = true,
   });
 
@@ -40,6 +42,12 @@ class ModelFrame extends StatefulWidget {
 
   /// Tarama animasyonu bittiğinde.
   final ValueChanged<int>? onScanDone;
+
+  /// Model inerken 0-1 arası ilerleme.
+  final ValueChanged<double>? onProgress;
+
+  /// Model yüklenemediğinde.
+  final VoidCallback? onLoadFailed;
 
   /// false iken dokunuşlar viewer'a gitmez; üstte bir pencere ya da alt
   /// sayfa açıkken onların tıklamalarını yutmasın diye.
@@ -104,6 +112,11 @@ class _ModelFrameState extends State<ModelFrame> {
         widget.onPartTap(data['part'] as String?);
       case 'ready':
         widget.onReady?.call();
+      case 'progress':
+        final value = data['value'];
+        if (value is num) widget.onProgress?.call(value.toDouble());
+      case 'loadFailed':
+        widget.onLoadFailed?.call();
       case 'scanDone':
         final id = data['id'];
         if (id is num) widget.onScanDone?.call(id.toInt());

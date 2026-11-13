@@ -19,6 +19,8 @@ class ModelFrame extends StatefulWidget {
     required this.onPartTap,
     this.onReady,
     this.onScanDone,
+    this.onProgress,
+    this.onLoadFailed,
     this.interactive = true,
   });
 
@@ -32,6 +34,12 @@ class ModelFrame extends StatefulWidget {
 
   /// Tarama animasyonu bittiğinde.
   final ValueChanged<int>? onScanDone;
+
+  /// Model inerken 0-1 arası ilerleme.
+  final ValueChanged<double>? onProgress;
+
+  /// Model yüklenemediğinde.
+  final VoidCallback? onLoadFailed;
 
   /// false iken dokunuşlar viewer'a gitmez; üstte bir pencere ya da alt
   /// sayfa açıkken onların tıklamalarını yutmasın diye.
@@ -81,7 +89,13 @@ class _ModelFrameState extends State<ModelFrame> {
 
   void _handleMessage(web.Event event) {
     final message = event as web.MessageEvent;
-    if (message.source != _frame.contentWindow) return;
+    // Yalnız kendi iframe'imizin mesajı. Dart'ın `!=`'i viewer başka bir
+    // adresten (geliştirmede Vite, 5173) açılınca pencereyi tanımıyor;
+    // JavaScript'in `===`'i kullanılır.
+    final source = message.source;
+    if (source == null || !source.strictEquals(_frame.contentWindow).toDart) {
+      return;
+    }
     final data = message.data.dartify();
     if (data is! Map) return;
     switch (data['type']) {
@@ -89,6 +103,11 @@ class _ModelFrameState extends State<ModelFrame> {
         widget.onPartTap(data['part'] as String?);
       case 'ready':
         widget.onReady?.call();
+      case 'progress':
+        final value = data['value'];
+        if (value is num) widget.onProgress?.call(value.toDouble());
+      case 'loadFailed':
+        widget.onLoadFailed?.call();
       case 'scanDone':
         final id = data['id'];
         if (id is num) widget.onScanDone?.call(id.toInt());

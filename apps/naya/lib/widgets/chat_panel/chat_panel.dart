@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../entities/diagnosis/diagnosis.dart';
+import '../../entities/product/procedure_preview.dart';
 import '../../shared/ui/components.dart';
 import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
-import 'procedure_preview.dart';
 
 /// Çalışma alanının alt yarısı: yapay zekâ ile sohbet ve teşhis sonucu.
 ///

@@ -19,6 +19,9 @@ export type ViewerCommand =
 
 export type ViewerEvent =
   | { type: "ready" }
+  /** Model inerken 0-1 arası ilerleme. */
+  | { type: "progress"; value: number }
+  | { type: "loadFailed" }
   | { type: "partTap"; part: string | null }
   /** Yarıda kesilen tarama da biter; [id] hangi taramanın bittiğini söyler. */
   | { type: "scanDone"; id: number };

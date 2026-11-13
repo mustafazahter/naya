@@ -6,6 +6,7 @@ import '../entities/product/product_library.dart';
 import '../pages/data_module/data_module_page.dart';
 import '../pages/library/library_page.dart';
 import '../pages/not_found/not_found_page.dart';
+import '../pages/part/part_page.dart';
 import '../pages/workspace/workspace_page.dart';
 import '../shared/ui/routes.dart';
 
@@ -15,6 +16,8 @@ abstract final class AppRoutes {
   static String workspace(String productId) => '/urun/$productId';
   static String module(String productId, String dmc) =>
       '/urun/$productId/dm/${Uri.encodeComponent(dmc)}';
+  static String part(String productId, String partId) =>
+      '/urun/$productId/parca/${Uri.encodeComponent(partId)}';
 }
 
 GoRouter buildRouter({String initialLocation = AppRoutes.library}) {
@@ -44,6 +47,24 @@ GoRouter buildRouter({String initialLocation = AppRoutes.library}) {
             routes: [
               // DM'ler push ile açılır: geri dönünce çalışma alanı ve 3D
               // model yeniden yüklenmez.
+              GoRoute(
+                path: 'parca/:part',
+                pageBuilder: (context, state) {
+                  final id = state.pathParameters['id']!;
+                  return _page(
+                    state,
+                    PartPage(
+                      productId: id,
+                      partId: state.pathParameters['part']!,
+                      onOpenModule: (dmc) =>
+                          context.push(AppRoutes.module(id, dmc)),
+                      // Alt parçaya geçiş yığını büyütmesin.
+                      onOpenPart: (part) =>
+                          context.pushReplacement(AppRoutes.part(id, part)),
+                    ),
+                  );
+                },
+              ),
               GoRoute(
                 path: 'dm/:dmc',
                 pageBuilder: (context, state) {
@@ -96,6 +117,7 @@ class _WorkspaceRoute extends ConsumerWidget {
       return WorkspacePage(
         product: product,
         onOpenModule: (dmc) => context.push(AppRoutes.module(productId, dmc)),
+        onOpenPart: (part) => context.push(AppRoutes.part(productId, part)),
       );
     }
     final isLoading = ref.watch(productLibraryProvider).isLoading;

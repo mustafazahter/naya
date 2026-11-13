@@ -25,12 +25,16 @@ class WorkspacePage extends ConsumerStatefulWidget {
     super.key,
     required this.product,
     required this.onOpenModule,
+    required this.onOpenPart,
   });
 
   final Product product;
 
   /// DM okuyucuyu açar. Sayfa diğer sayfaları bilmez; adres app'te.
   final ValueChanged<String> onOpenModule;
+
+  /// Parçanın ayrıntı sayfasını açar (parça kimliğiyle).
+  final ValueChanged<String> onOpenPart;
 
   @override
   ConsumerState<WorkspacePage> createState() => _WorkspacePageState();
@@ -76,6 +80,10 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
       node: node,
       controller: controller,
       onOpenModule: widget.onOpenModule,
+      onOpenDetails: (id) {
+        Navigator.of(context).pop();
+        widget.onOpenPart(id);
+      },
       // Kartta başka parçaya geçince modelde de o parçaya bakılır.
       onPartChanged: (part) {
         final nodes = content.part(part)?.meshNodes ?? const [];
@@ -244,6 +252,10 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
         controller: _viewer,
         onPartTap: _onNodeTap,
         partLabel: (node) => data?.nodeLabel(node) ?? node,
+        onOpenDetails: (node) {
+          final part = data?.partForNode(node);
+          if (part != null) widget.onOpenPart(part.id);
+        },
         credit: _creditLine(product),
         onBack: () => Navigator.of(context).maybePop(),
       );
@@ -323,6 +335,7 @@ class _PartSheetHost extends StatefulWidget {
     required this.content,
     required this.initialPart,
     required this.onOpenModule,
+    required this.onOpenDetails,
     required this.onPartChanged,
     this.node,
     this.controller,
@@ -333,6 +346,7 @@ class _PartSheetHost extends StatefulWidget {
   final String? node;
   final ScrollController? controller;
   final ValueChanged<String> onOpenModule;
+  final ValueChanged<String> onOpenDetails;
   final ValueChanged<String> onPartChanged;
 
   @override
@@ -377,6 +391,7 @@ class _PartSheetHostState extends State<_PartSheetHost> {
           controller: widget.controller,
           onOpenModule: widget.onOpenModule,
           onSelectPart: _select,
+          onOpenDetails: () => widget.onOpenDetails(_partId),
         ),
       ),
     );
