@@ -28,18 +28,20 @@ class DmDocument {
   factory DmDocument.parse(String xml, {String? file}) {
     final module = DataModule.parse(xml, file: file);
     final content = XmlDocument.parse(xml).rootElement.getElement('content');
-    final body = content?.childElements
-        .where((e) => e.name.local != 'refs')
-        .firstOrNull;
+    final body = DataModule.bodyOf(content);
+    // Issue 4.1+: uyarı ve dikkatler içeriğin başında ayrı bir listede
+    // durur; okuyucu onları en üstte gösterir.
+    final warnings = content?.getElement('warningsAndCautions');
+    final leading = warnings == null ? <DmBlock>[] : _Blocks().read(warnings);
     if (body == null) {
       return DmDocument._(
         module: module,
         requirements: null,
-        blocks: const [],
+        blocks: leading,
         closing: const [],
       );
     }
-    return switch (body.name.local) {
+    final doc = switch (body.name.local) {
       'procedure' => _procedure(module, body),
       'faultIsolation' => _faultIsolation(module, body),
       'illustratedPartsCatalog' => DmDocument._(
@@ -55,6 +57,13 @@ class DmDocument {
         closing: const [],
       ),
     };
+    if (leading.isEmpty) return doc;
+    return DmDocument._(
+      module: module,
+      requirements: doc.requirements,
+      blocks: [...leading, ...doc.blocks],
+      closing: doc.closing,
+    );
   }
 
   /// Kod, başlık, dil gibi bilgiler.
@@ -80,13 +89,24 @@ class DmDocument {
     return DmDocument._(
       module: module,
       requirements: _requirements(body.getElement('preliminaryRqmts')),
-      blocks: main == null ? const [] : _Blocks().read(main),
+      blocks: [..._commonInfo(body), if (main != null) ..._Blocks().read(main)],
       closing: close == null ? const [] : _conditions(close),
     );
   }
 
+  /// Prosedürün başındaki genel bilgi (`commonInfo`), başlıklı bir bölüm
+  /// olarak.
+  static List<DmBlock> _commonInfo(XmlElement body) {
+    final common = body.getElement('commonInfo');
+    if (common == null) return const [];
+    final blocks = _Blocks().read(common);
+    if (blocks.isEmpty) return const [];
+    final title = optionalText(common.getElement('title')) ?? 'Genel bilgi';
+    return [DmSection(title, blocks)];
+  }
+
   static DmDocument _faultIsolation(DataModule module, XmlElement body) {
-    final blocks = <DmBlock>[];
+    final blocks = <DmBlock>[..._commonInfo(body)];
     DmRequirements? requirements;
     final closing = <DmBlock>[];
     for (final procedure in body.findAllElements('faultIsolationProcedure')) {
@@ -101,7 +121,7 @@ class DmDocument {
       if (isolation == null) continue;
       requirements ??= _requirements(isolation.getElement('preliminaryRqmts'));
       final main = isolation.getElement('isolationMainProcedure');
-      if (main != null) blocks.addAll(_isolation(main));
+      if (main != null) blocks.add(DmIsolation(_isolation(main)));
       final close = isolation.getElement('closeRqmts');
       if (close != null) closing.addAll(_conditions(close));
     }
@@ -115,31 +135,57 @@ class DmDocument {
 
   /// Arıza bulma adımları sırayla numaralanır; sonuçlar numarasız.
   static List<DmBlock> _isolation(XmlElement main) {
+    final elements = [
+      for (final e in main.childElements)
+        if (e.name.local == 'isolationStep' ||
+            e.name.local == 'isolationProcedureEnd')
+          e,
+    ];
+    // Kimliği olmayan adıma sırasıyla kimlik verilir. Cevabı olmayan adımın
+    // tek seçeneği "devam": yapılınca bir sonrakine geçilir.
+    final ids = [
+      for (final (i, e) in elements.indexed)
+        e.getAttribute('id') ?? 'blok-${i + 1}',
+    ];
     final blocks = <DmBlock>[];
     var n = 0;
-    for (final e in main.childElements) {
-      switch (e.name.local) {
-        case 'isolationStep':
-          n++;
-          blocks.add(
-            DmIsolationStep(
-              id: e.getAttribute('id') ?? 'step-$n',
-              number: '$n',
-              action: _text(e.getElement('action')),
-              question: _text(e.getElement('isolationStepQuestion')),
-              choices: _choices(e.getElement('isolationStepAnswer')),
-            ),
-          );
-        case 'isolationProcedureEnd':
-          blocks.add(
-            DmIsolationEnd(
-              id: e.getAttribute('id') ?? 'end-${blocks.length}',
-              text: _text(e.getElement('action') ?? e),
-            ),
-          );
+    for (final (i, e) in elements.indexed) {
+      final actions = elementsNamed(e, 'action');
+      if (e.name.local == 'isolationProcedureEnd') {
+        blocks.add(
+          DmIsolationEnd(
+            id: ids[i],
+            text: actions.isEmpty ? _text(e) : _joined(actions),
+          ),
+        );
+        continue;
       }
+      n++;
+      var choices = _choices(e.getElement('isolationStepAnswer'));
+      if (choices.isEmpty && i + 1 < elements.length) {
+        choices = [DmChoice(DmAnswerKind.next, '', ids[i + 1])];
+      }
+      blocks.add(
+        DmIsolationStep(
+          id: ids[i],
+          number: '$n',
+          action: _joined(actions),
+          question: _text(e.getElement('isolationStepQuestion')),
+          choices: choices,
+          notes: _Blocks().read(e).whereType<DmAdmonition>().toList(),
+        ),
+      );
     }
     return blocks;
+  }
+
+  /// Birden çok `action`: metinler alt alta, başvurular birlikte.
+  static DmText _joined(Iterable<XmlElement> elements) {
+    final texts = [for (final e in elements) _text(e)];
+    return DmText(
+      texts.map((t) => t.text).where((t) => t.isNotEmpty).join('\n'),
+      refs: [for (final t in texts) ...t.refs],
+    );
   }
 
   /// Evet/hayır ya da çoktan seçmeli cevap (`listOfChoices`).
@@ -344,6 +390,15 @@ class DmStep extends DmBlock {
   final List<DmBlock> blocks;
 }
 
+/// Bir arıza bulma işlemi (`faultIsolationProcedure`). Bir DM'de birden
+/// çok olabilir; her biri kendi ilk adımından başlayan ayrı bir akıştır.
+class DmIsolation extends DmBlock {
+  const DmIsolation(this.blocks);
+
+  /// [DmIsolationStep] ve [DmIsolationEnd]'ler, dosyadaki sırayla.
+  final List<DmBlock> blocks;
+}
+
 /// Arıza bulmada bir soru: yap, bak, cevaba göre ilerle.
 class DmIsolationStep extends DmBlock {
   const DmIsolationStep({
@@ -352,6 +407,7 @@ class DmIsolationStep extends DmBlock {
     required this.action,
     required this.question,
     this.choices = const [],
+    this.notes = const [],
   });
 
   final String id;
@@ -359,9 +415,19 @@ class DmIsolationStep extends DmBlock {
   final DmText action;
   final DmText question;
   final List<DmChoice> choices;
+
+  /// Adımın içindeki uyarı, dikkat ve notlar.
+  final List<DmAdmonition> notes;
 }
 
-enum DmAnswerKind { yes, no, choice }
+enum DmAnswerKind {
+  yes,
+  no,
+  choice,
+
+  /// Sorusu olmayan adım: yapılınca sıradakine geçilir.
+  next,
+}
 
 /// Bir cevap ve götürdüğü yer: sonraki [DmIsolationStep]'in ya da
 /// [DmIsolationEnd]'in `id`'si.

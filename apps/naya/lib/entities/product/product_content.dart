@@ -16,16 +16,50 @@ class ProductContent {
     this.faults,
     Iterable<String> entryNames = const [],
   }) {
-    for (final path in entryNames) {
+    // Sıralı gezilince aynı DM'in sonraki sayısı (`_002-00`) sonra gelir
+    // ve öncekinin yerine geçer.
+    final sorted = entryNames.toList()..sort();
+    for (final path in sorted) {
       final name = path.split('/').last.toUpperCase();
       if (name.startsWith('DMC-')) {
-        // `DMC-..._001-00_TR-TR.XML`: aynı DM'in sonraki sayısı sıralamada
-        // sonra geldiği için en günceli kalır.
-        _dmPaths[name.split('_').first] = path;
+        _addDm(name, path);
       } else if (name.startsWith('ICN-')) {
-        _icnPaths[name.substring(0, name.lastIndexOf('.'))] = path;
+        _addIcn(name, path);
       }
     }
+  }
+
+  /// `DMC-..._001-00_TR-TR.XML`. Aynı DM birden çok dilde varsa Türkçesi
+  /// seçilir; dil aynıysa en yeni sayı kalır.
+  void _addDm(String name, String path) {
+    final code = name.split('_').first;
+    final existing = _dmPaths[code];
+    final isTurkish = name.contains('_TR-');
+    final existingTurkish =
+        existing != null && existing.toUpperCase().contains('_TR-');
+    if (existing == null || isTurkish || !existingTurkish) {
+      _dmPaths[code] = path;
+    }
+  }
+
+  /// `ICN-....JPG`. Aynı çizimin birden çok biçimi varsa `Image.network`'ün
+  /// açabildiği bir resim (PNG, JPG, WEBP) tercih edilir; SVG gibi diğerleri
+  /// yalnız başka seçenek yoksa kalır.
+  void _addIcn(String name, String path) {
+    final dot = name.lastIndexOf('.');
+    final key = dot < 0 ? name : name.substring(0, dot);
+    final existing = _icnPaths[key];
+    if (existing == null || _isRaster(path) || !_isRaster(existing)) {
+      _icnPaths[key] = path;
+    }
+  }
+
+  static bool _isRaster(String path) {
+    final lower = path.toLowerCase();
+    return lower.endsWith('.png') ||
+        lower.endsWith('.jpg') ||
+        lower.endsWith('.jpeg') ||
+        lower.endsWith('.webp');
   }
 
   final String productId;
@@ -139,7 +173,14 @@ class ProductContent {
 
 /// `.naya` içindeki bir kaydın sunucudaki adresi: çizimler, model.
 Uri productEntryUri(ApiClient api, String productId, String path) =>
-    api.uri('/api/library/$productId/entries/$path');
+    api.uri(productEntryPath(productId, path));
+
+/// Kayıt adresinin yolu. Dosya adındaki `#`, `?` gibi işaretler adresi
+/// bozmasın diye her parça ayrı kodlanır; sunucu bir kez çözer.
+String productEntryPath(String productId, String path) {
+  final encoded = path.split('/').map(Uri.encodeComponent).join('/');
+  return '/api/library/$productId/entries/$encoded';
+}
 
 /// Ürünün parça haritası ve arızaları. `naya.json`'daki bütünlük listesi
 /// dosyadaki bütün kayıtların adını verdiği için DM'ler ayrıca listelenmez.
@@ -179,7 +220,7 @@ final dataModuleProvider =
       }
       final xml = await ref
           .watch(apiClientProvider)
-          .getText('/api/library/${key.productId}/entries/$path');
+          .getText(productEntryPath(key.productId, path));
       return DmDocument.parse(xml, file: path);
     }, retry: (_, _) => null);
 

@@ -18,6 +18,9 @@ abstract final class AppRoutes {
 }
 
 GoRouter buildRouter({String initialLocation = AppRoutes.library}) {
+  // DM'ler push ile açılıyor. Web'de adres çubuğu da değişsin; sayfa
+  // yenilenince ve tarayıcının geri tuşunda doğru yer açılsın.
+  GoRouter.optionURLReflectsImperativeAPIs = true;
   return GoRouter(
     initialLocation: initialLocation,
     errorBuilder: (context, state) =>

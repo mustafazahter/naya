@@ -45,7 +45,14 @@ class DataModulePage extends ConsumerWidget {
                 ? error.message
                 : 'Dosya okunamadı ya da bozuk.',
             actionLabel: 'Yeniden dene',
-            onAction: () => ref.invalidate(dataModuleProvider(key)),
+            onAction: () {
+              // DM, ürünün içerik listesine bağlı; o da hata verdiyse
+              // yalnız DM'i yenilemek aynı hatayı tekrar okur.
+              if (ref.read(productContentProvider(productId)).hasError) {
+                ref.invalidate(productContentProvider(productId));
+              }
+              ref.invalidate(dataModuleProvider(key));
+            },
           ),
         ),
         _ => const _Message(child: CircularProgressIndicator()),
@@ -205,23 +212,23 @@ class _ReaderState extends State<_Reader> {
                       _Requirements(r, ctx: ctx),
                     ],
                     const SizedBox(height: NayaSpace.xxl),
-                    if (doc.contentType == 'faultIsolation')
-                      _IsolationFlow(blocks: doc.blocks, ctx: ctx)
-                    else
-                      for (final block in doc.blocks)
-                        block is DmStep
-                            ? _StepTile(
-                                step: block,
-                                done: _done.contains(block.number),
-                                isLast: block == steps.last,
-                                ctx: ctx,
-                                onToggle: () => setState(() {
-                                  if (!_done.remove(block.number)) {
-                                    _done.add(block.number);
-                                  }
-                                }),
-                              )
-                            : _Block(block, ctx: ctx),
+                    for (final block in doc.blocks)
+                      if (block is DmIsolation)
+                        _IsolationFlow(blocks: block.blocks, ctx: ctx)
+                      else if (block is DmStep)
+                        _StepTile(
+                          step: block,
+                          done: _done.contains(block.number),
+                          isLast: block == steps.last,
+                          ctx: ctx,
+                          onToggle: () => setState(() {
+                            if (!_done.remove(block.number)) {
+                              _done.add(block.number);
+                            }
+                          }),
+                        )
+                      else
+                        _Block(block, ctx: ctx),
                     if (doc.closing.isNotEmpty) ...[
                       const SizedBox(height: NayaSpace.xxl),
                       const SectionHeader(
@@ -544,7 +551,9 @@ class _Block extends StatelessWidget {
       ),
       final DmCatalog catalog => _CatalogTable(catalog),
       // Arıza bulma blokları _IsolationFlow'da çiziliyor.
-      DmIsolationStep() || DmIsolationEnd() => const SizedBox.shrink(),
+      DmIsolation() ||
+      DmIsolationStep() ||
+      DmIsolationEnd() => const SizedBox.shrink(),
     };
     return Padding(
       padding: const EdgeInsets.only(bottom: NayaSpace.md),
@@ -594,12 +603,17 @@ class _ModuleLink extends ConsumerWidget {
     final target = ref.watch(
       dataModuleProvider((productId: ctx.productId, dmc: dmc)),
     );
+    // Yalnız dosyada gerçekten yoksa bağlantı kapanır; ağ hatasında açılır,
+    // okuyucu sayfası "Yeniden dene" gösterir.
+    final error = target.error;
+    final missing = error is ApiException && error.isNotFound;
     final title = switch (target) {
       AsyncData(:final value) => [value.techName, ?value.infoName].join(' · '),
-      AsyncError() => 'Bu dosyada yok',
+      _ when missing => 'Bu dosyada yok',
+      AsyncError() => 'Yüklenemedi',
       _ => '…',
     };
-    final available = target is! AsyncError;
+    final available = !missing;
     return Panel(
       padding: EdgeInsets.zero,
       child: InkWell(
@@ -886,6 +900,7 @@ class _IsolationFlowState extends State<_IsolationFlow> {
     DmAnswerKind.yes => 'Evet',
     DmAnswerKind.no => 'Hayır',
     DmAnswerKind.choice => choice.label,
+    DmAnswerKind.next => 'Devam',
   };
 
   @override
@@ -895,8 +910,6 @@ class _IsolationFlowState extends State<_IsolationFlow> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final block in widget.blocks)
-          if (block is DmSection) _Block(block, ctx: widget.ctx),
         const SizedBox(height: NayaSpace.md),
         SectionHeader(
           label: 'Adım adım',
@@ -959,6 +972,11 @@ class _IsolationFlowState extends State<_IsolationFlow> {
               end: end,
               ctx: widget.ctx,
             ),
+            // Cevabın hedefi dosyada yoksa boş alan yerine söyle.
+            _ when _answers.isNotEmpty => _MissingTarget(
+              key: const ValueKey('missing'),
+              onRestart: () => setState(_answers.clear),
+            ),
             _ => const SizedBox.shrink(),
           },
         ),
@@ -992,6 +1010,8 @@ class _QuestionCard extends StatelessWidget {
         children: [
           TechLabel('Adım ${step.number.padLeft(2, '0')}'),
           const SizedBox(height: NayaSpace.md),
+          for (final note in step.notes) _AdmonitionBox(note),
+          if (step.notes.isNotEmpty) const SizedBox(height: NayaSpace.md),
           _RichText(step.action, ctx: ctx),
           const SizedBox(height: NayaSpace.lg),
           Text(
@@ -1014,6 +1034,35 @@ class _QuestionCard extends StatelessWidget {
                         child: Text(labelOf(choice)),
                       ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Cevabın götürdüğü adım dosyada bulunamadı.
+class _MissingTarget extends StatelessWidget {
+  const _MissingTarget({super.key, required this.onRestart});
+
+  final VoidCallback onRestart;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return Panel(
+      padding: const EdgeInsets.all(NayaSpace.xl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Bu cevabın götürdüğü adım dosyada bulunamadı.',
+            style: context.text.body.copyWith(color: c.text),
+          ),
+          const SizedBox(height: NayaSpace.md),
+          OutlinedButton(
+            onPressed: onRestart,
+            child: const Text('Baştan başla'),
           ),
         ],
       ),

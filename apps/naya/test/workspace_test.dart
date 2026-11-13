@@ -114,6 +114,36 @@ void main() {
       );
     });
 
+    test('aynı DM ve çizimin seçeneklerinden doğrusu seçilir', () async {
+      final content = ProductContent(
+        productId: 'p',
+        parts: (await _loadContent()).parts,
+        entryNames: const [
+          'csdb/DMC-X-A-00-00-00-00A-040A-A_002-00_EN-US.XML',
+          'csdb/DMC-X-A-00-00-00-00A-040A-A_001-00_TR-TR.XML',
+          'csdb/DMC-X-A-00-00-00-00A-520A-A_001-00_TR-TR.XML',
+          'csdb/DMC-X-A-00-00-00-00A-520A-A_002-00_TR-TR.XML',
+          'csdb/ICN-X-00001-A-001-01.PNG',
+          'csdb/ICN-X-00001-A-001-01.SVG',
+          'csdb/ICN-X-00002',
+        ],
+      );
+      expect(content.dmPath('DMC-X-A-00-00-00-00A-040A-A'), contains('_TR-TR'));
+      expect(
+        content.dmPath('DMC-X-A-00-00-00-00A-520A-A'),
+        contains('_002-00'),
+      );
+      expect(content.icnPath('ICN-X-00001-A-001-01'), endsWith('.PNG'));
+      expect(content.icnPath('ICN-X-00002'), 'csdb/ICN-X-00002');
+    });
+
+    test('kayıt adresinde # ve ? kodlanır', () {
+      expect(
+        productEntryPath('p1', 'media/a#b?c.png'),
+        '/api/library/p1/entries/media/a%23b%3Fc.png',
+      );
+    });
+
     test('parçanın yolu kökten başlar', () async {
       final content = await _loadContent();
       expect(content.pathTo('brakes.front.pads').map((p) => p.id), [

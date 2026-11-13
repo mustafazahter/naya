@@ -13,6 +13,12 @@ const _refTo720 =
 
 DmDocument _parse(String content) => DmDocument.parse(dmXml(content: content));
 
+/// Arıza bulma akışlarının blokları, sırayla.
+List<DmBlock> _isolationBlocks(DmDocument doc) => [
+  for (final isolation in doc.blocks.whereType<DmIsolation>())
+    ...isolation.blocks,
+];
+
 void main() {
   group('prosedür', () {
     final doc = _parse('''
@@ -153,7 +159,7 @@ void main() {
     });
 
     test('evet/hayır cevapları hedefleriyle okunur', () {
-      final step = doc.blocks.whereType<DmIsolationStep>().first;
+      final step = _isolationBlocks(doc).whereType<DmIsolationStep>().first;
       expect(step.number, '1');
       expect(step.action.text, 'Balatayı ölçün.');
       expect(step.question.text, "0,5 mm'den ince mi?");
@@ -164,7 +170,7 @@ void main() {
     });
 
     test('çoktan seçmeli cevaplar metinleriyle okunur', () {
-      final step = doc.blocks.whereType<DmIsolationStep>().last;
+      final step = _isolationBlocks(doc).whereType<DmIsolationStep>().last;
       expect(step.choices.map((c) => (c.kind, c.label, c.target)), [
         (DmAnswerKind.choice, '2700 hPa üstü', 'e1'),
         (DmAnswerKind.choice, '100 hPa altı', 'e2'),
@@ -172,11 +178,93 @@ void main() {
     });
 
     test('sonuçlar başvurularıyla gelir', () {
-      final ends = doc.blocks.whereType<DmIsolationEnd>().toList();
+      final ends = _isolationBlocks(doc).whereType<DmIsolationEnd>().toList();
       expect(ends.map((e) => e.id), ['e1', 'e2']);
       expect(ends.first.text.text, 'Balatayı değiştirin.');
       expect(ends.first.text.refs.single.infoCode, '720');
       expect(ends.last.text.refs, isEmpty);
+    });
+  });
+
+  group('zor içerikler', () {
+    const step = '<proceduralStep><para>Zinciri sökün.</para></proceduralStep>';
+
+    test('geçerlilik bilgisiyle başlayan içerikte gövde kaybolmaz', () {
+      final doc = _parse('''
+<referencedApplicGroup><applic><displayText><simplePara>Dağ bisikleti</simplePara></displayText></applic></referencedApplicGroup>
+<procedure><mainProcedure>$step</mainProcedure></procedure>''');
+      expect(doc.contentType, 'procedure');
+      expect(doc.blocks.whereType<DmStep>(), hasLength(1));
+      expect(doc.module.chunks, isNotEmpty);
+    });
+
+    test('Issue 4.1 uyarı listesi en üstte, prosedür arkasında', () {
+      final doc = _parse('''
+<warningsAndCautions><warning id="w1"><warningAndCautionPara>Eldiven giyin.</warningAndCautionPara></warning></warningsAndCautions>
+<procedure><mainProcedure>$step</mainProcedure></procedure>''');
+      expect(doc.contentType, 'procedure');
+      final first = doc.blocks.first as DmAdmonition;
+      expect(first.kind, DmAdmonitionKind.warning);
+      expect(first.paragraphs, ['Eldiven giyin.']);
+      expect(doc.blocks.whereType<DmStep>(), hasLength(1));
+    });
+
+    test('commonInfo bir bölüm olarak gelir', () {
+      final doc = _parse('''
+<procedure><commonInfo><para>Genel bilgi metni.</para></commonInfo>
+<mainProcedure>$step</mainProcedure></procedure>''');
+      final section = doc.blocks.first as DmSection;
+      expect(section.title, 'Genel bilgi');
+      expect(_flatten(doc), contains('genel bilgi metni.'));
+    });
+
+    group('arıza bulma', () {
+      final doc = _parse('''
+<faultIsolation>
+<faultIsolationProcedure><isolationProcedure><isolationMainProcedure>
+  <isolationStep>
+    <note><notePara>Bisiklet sehpada olmalı.</notePara></note>
+    <action>Birinci</action><action>İkinci</action>
+  </isolationStep>
+  <isolationStep>
+    <isolationStepQuestion>Ses var mı?</isolationStepQuestion>
+    <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="yok"/><noAnswer nextActionRefId="son"/></yesNoAnswer></isolationStepAnswer>
+  </isolationStep>
+  <isolationProcedureEnd id="son"><action>Bitir A</action><action>Bitir B</action></isolationProcedureEnd>
+</isolationMainProcedure></isolationProcedure></faultIsolationProcedure>
+<faultIsolationProcedure><isolationProcedure><isolationMainProcedure>
+  <isolationStep><action>Tekeri çevirin.</action>
+    <isolationStepQuestion>Sürtüyor mu?</isolationStepQuestion>
+    <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="e2"/><noAnswer nextActionRefId="e2"/></yesNoAnswer></isolationStepAnswer>
+  </isolationStep>
+  <isolationProcedureEnd id="e2"><action>Göbeği kontrol edin.</action></isolationProcedureEnd>
+</isolationMainProcedure></isolationProcedure></faultIsolationProcedure>
+</faultIsolation>''');
+
+      test('her işlem ayrı akış', () {
+        final flows = doc.blocks.whereType<DmIsolation>().toList();
+        expect(flows, hasLength(2));
+        final second = flows.last.blocks.first as DmIsolationStep;
+        expect(second.number, '1');
+        expect(second.action.text, 'Tekeri çevirin.');
+      });
+
+      test('birden çok action ve adımdaki not kaybolmaz', () {
+        final step = _isolationBlocks(doc).first as DmIsolationStep;
+        expect(step.action.text, 'Birinci\nİkinci');
+        expect(step.notes.single.paragraphs, ['Bisiklet sehpada olmalı.']);
+        final end = _isolationBlocks(doc).whereType<DmIsolationEnd>().first;
+        expect(end.text.text, 'Bitir A\nBitir B');
+      });
+
+      test('cevabı olmayan adım sıradakine götürür', () {
+        final flow = doc.blocks.whereType<DmIsolation>().first.blocks;
+        final first = flow[0] as DmIsolationStep;
+        final second = flow[1] as DmIsolationStep;
+        expect(first.choices.single.kind, DmAnswerKind.next);
+        expect(first.choices.single.target, second.id);
+        expect(second.id, isNot(first.id));
+      });
     });
   });
 
@@ -296,7 +384,10 @@ String _flatten(DmDocument doc) {
         case DmStep(:final title, blocks: final inner):
           buffer.write(' ${title ?? ''}');
           blocks(inner);
+        case DmIsolation(blocks: final inner):
+          blocks(inner);
         case final DmIsolationStep step:
+          blocks(step.notes);
           buffer.write(' ${step.action} ${step.question}');
           buffer.write(' ${step.choices.map((c) => c.label).join(' ')}');
         case DmIsolationEnd(:final text):
