@@ -6,6 +6,7 @@ import 'package:naya/app/router.dart';
 import 'package:naya/entities/diagnosis/diagnosis.dart';
 import 'package:naya/entities/product/product_content.dart';
 import 'package:naya/features/diagnose/request_diagnosis.dart';
+import 'package:naya/pages/data_module/data_module_page.dart';
 import 'package:naya/shared/api/api_client.dart';
 import 'package:naya/shared/ui/theme.dart';
 
@@ -182,8 +183,25 @@ void main() {
       expect(asked.single['message'], 'Zincir atlıyor.');
       expect(find.text('Zincir aşınmış, değiştirin.'), findsOneWidget);
       expect(find.text('%68'), findsOneWidget);
-      expect(find.text(_repair), findsWidgets);
       expect(find.text('TEŞHİS'), findsOneWidget);
+
+      // Önerilen DM koda basmadan sohbette açılmış görünür.
+      for (var i = 0; i < 3; i++) {
+        await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+        await tester.pump(const Duration(milliseconds: 300));
+      }
+      expect(find.text('SÖKME'), findsOneWidget);
+      expect(find.text('Adım adım aç'), findsOneWidget);
+      expect(find.text('Parça kartı'), findsOneWidget);
+      expect(find.textContaining('ADIM'), findsWidgets);
+      expect(find.text(_repair), findsOneWidget);
+
+      await tester.tap(find.text('Adım adım aç'));
+      for (var i = 0; i < 4; i++) {
+        await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+        await tester.pump(const Duration(milliseconds: 300));
+      }
+      expect(find.byType(DataModulePage), findsOneWidget);
     });
 
     testWidgets('soru sorulduysa cevap önceki mesajla gider', (tester) async {

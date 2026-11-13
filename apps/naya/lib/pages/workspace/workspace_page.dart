@@ -265,6 +265,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
         onSend: _onAsk,
         onCandidateTap: _onCandidateTap,
         onOpenModule: widget.onOpenModule,
+        productId: product.id,
       ),
     };
 

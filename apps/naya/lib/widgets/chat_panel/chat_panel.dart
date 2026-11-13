@@ -4,6 +4,7 @@ import '../../entities/diagnosis/diagnosis.dart';
 import '../../shared/ui/components.dart';
 import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
+import 'procedure_preview.dart';
 
 /// Çalışma alanının alt yarısı: yapay zekâ ile sohbet ve teşhis sonucu.
 ///
@@ -16,6 +17,7 @@ class ChatPanel extends StatelessWidget {
     required this.onCandidateTap,
     required this.onSend,
     this.onOpenModule,
+    this.productId,
     this.diagnosis,
     this.pending,
     this.error,
@@ -36,6 +38,9 @@ class ChatPanel extends StatelessWidget {
 
   /// Kaynak DM'e dokunuldu.
   final ValueChanged<String>? onOpenModule;
+
+  /// Verilirse önerilen DM sohbette açılmış haliyle görünür.
+  final String? productId;
   final List<String> suggestions;
 
   @override
@@ -57,6 +62,7 @@ class ChatPanel extends StatelessWidget {
         const SizedBox(height: NayaSpace.lg),
         _AssistantMessage(
           diagnosis: diagnosis,
+          productId: productId,
           onCandidateTap: onCandidateTap,
           onOpenModule: onOpenModule,
         ),
@@ -221,10 +227,12 @@ class _AssistantMessage extends StatelessWidget {
   const _AssistantMessage({
     required this.diagnosis,
     required this.onCandidateTap,
+    this.productId,
     this.onOpenModule,
   });
 
   final Diagnosis diagnosis;
+  final String? productId;
   final ValueChanged<String> onCandidateTap;
   final ValueChanged<String>? onOpenModule;
 
@@ -251,6 +259,49 @@ class _AssistantMessage extends StatelessWidget {
       'Sonuç kesin değil. Belirtiyi biraz daha anlatırsan adayları '
           'daraltabilirim.',
   };
+
+  /// Önerilen DM'in açılmış hali ve diğer kaynaklar. Ürün bilinmiyorsa
+  /// (örnek veri) yalnız kodlar.
+  List<Widget> _details() {
+    final productId = this.productId;
+    final open = onOpenModule;
+    final procedure = diagnosis.procedure;
+    final others = [
+      for (final dmc in diagnosis.sources)
+        if (dmc != procedure) dmc,
+    ];
+    if (productId == null || open == null) {
+      return [
+        if (diagnosis.sources.isNotEmpty) ...[
+          const SizedBox(height: NayaSpace.sm),
+          Wrap(
+            spacing: NayaSpace.xs,
+            runSpacing: NayaSpace.xs,
+            children: [for (final dmc in diagnosis.sources) _SourceTag(dmc)],
+          ),
+        ],
+      ];
+    }
+    final top = diagnosis.candidates.isEmpty ? null : diagnosis.top;
+    return [
+      if (procedure != null) ...[
+        const SizedBox(height: NayaSpace.md),
+        ProcedurePreview(
+          productId: productId,
+          dmc: procedure,
+          onOpen: () => open(procedure),
+          onOpenPart: top == null ? null : () => onCandidateTap(top.partId),
+        ),
+      ],
+      if (others.isNotEmpty) ...[
+        const SizedBox(height: NayaSpace.md),
+        const TechLabel('Kaynaklar'),
+        const SizedBox(height: NayaSpace.xs),
+        for (final dmc in others)
+          SourceLink(productId: productId, dmc: dmc, onTap: () => open(dmc)),
+      ],
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -307,58 +358,34 @@ class _AssistantMessage extends StatelessWidget {
             ),
           ),
         ],
-        if (diagnosis.sources.isNotEmpty) ...[
-          const SizedBox(height: NayaSpace.sm),
-          Wrap(
-            spacing: NayaSpace.xs,
-            runSpacing: NayaSpace.xs,
-            children: [
-              for (final dmc in diagnosis.sources)
-                _SourceTag(
-                  dmc,
-                  onTap: onOpenModule == null ? null : () => onOpenModule!(dmc),
-                ),
-            ],
-          ),
-        ],
+        ..._details(),
       ],
     );
   }
 }
 
-/// Cevabın dayandığı DM; dokununca okuyucuda açılır.
+/// Ürün bilinmediğinde kaynak DM'in kodu.
 class _SourceTag extends StatelessWidget {
-  const _SourceTag(this.dmc, {this.onTap});
+  const _SourceTag(this.dmc);
 
   final String dmc;
-  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    return InkWell(
-      onTap: onTap,
-      borderRadius: const BorderRadius.all(NayaRadius.sm),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.description_outlined, size: 14, color: c.textMuted),
-            const SizedBox(width: NayaSpace.xs),
-            Flexible(
-              child: Text(
-                dmc,
-                overflow: TextOverflow.ellipsis,
-                style: context.text.mono.copyWith(
-                  fontSize: 11,
-                  color: onTap == null ? c.textMuted : c.accent,
-                ),
-              ),
-            ),
-          ],
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.description_outlined, size: 14, color: c.textMuted),
+        const SizedBox(width: NayaSpace.xs),
+        Flexible(
+          child: Text(
+            dmc,
+            overflow: TextOverflow.ellipsis,
+            style: context.text.mono.copyWith(fontSize: 11, color: c.textMuted),
+          ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -435,6 +462,8 @@ class _CandidateRow extends StatelessWidget {
                     color: emphasized ? c.accent : c.textMuted,
                   ),
                 ),
+                // Satıra dokununca parçanın kartı açılır.
+                Icon(Icons.chevron_right, size: 16, color: c.textMuted),
               ],
             ),
             const SizedBox(height: NayaSpace.xs + 2),
