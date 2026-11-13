@@ -24,6 +24,9 @@ class FakeAi implements AiProvider {
 
   String chatText;
 
+  /// Verilirse sohbet cevabı yarıda bu hatayla kesilir.
+  Object? chatFailure;
+
   /// Geçerli sayılan anahtar.
   static const goodKey = 'sk-or-v1-dogru-anahtar-1234';
 
@@ -101,5 +104,7 @@ class FakeAi implements AiProvider {
     for (final word in chatText.split(' ')) {
       yield '$word ';
     }
+    final failure = chatFailure;
+    if (failure != null) throw failure;
   }
 }

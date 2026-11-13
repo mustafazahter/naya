@@ -263,18 +263,7 @@ class Assistant {
     passages.addAll(await _search.search(item.id, message));
     final context = _contextOf(passages);
 
-    final now = _clock();
-    await _db
-        .into(_db.messages)
-        .insert(
-          MessagesCompanion.insert(
-            conversationId: conversation.id,
-            role: 'user',
-            content: message,
-            createdAt: now,
-          ),
-        );
-
+    final askedAt = _clock();
     final answer = StringBuffer();
     await for (final delta in _provider.chat(
       apiKey: apiKey,
@@ -298,20 +287,35 @@ class Assistant {
 
     final text = answer.toString();
     final sources = _cited(text, context.dmcs, null);
-    final messageId = await _db
-        .into(_db.messages)
-        .insert(
-          MessagesCompanion.insert(
-            conversationId: conversation.id,
-            role: 'assistant',
-            content: text,
-            sourcesJson: Value(jsonEncode(sources)),
-            createdAt: _clock(),
-          ),
-        );
-    await (_db.update(_db.conversations)
-          ..where((c) => c.id.equals(conversation.id)))
-        .write(ConversationsCompanion(updatedAt: Value(_clock())));
+    // Soru ve cevap birlikte kaydedilir: model hata verirse sohbette
+    // cevapsız bir soru kalmaz, tekrar denenince geçmişe iki kez girmez.
+    final messageId = await _db.transaction(() async {
+      await _db
+          .into(_db.messages)
+          .insert(
+            MessagesCompanion.insert(
+              conversationId: conversation.id,
+              role: 'user',
+              content: message,
+              createdAt: askedAt,
+            ),
+          );
+      final id = await _db
+          .into(_db.messages)
+          .insert(
+            MessagesCompanion.insert(
+              conversationId: conversation.id,
+              role: 'assistant',
+              content: text,
+              sourcesJson: Value(jsonEncode(sources)),
+              createdAt: _clock(),
+            ),
+          );
+      await (_db.update(_db.conversations)
+            ..where((c) => c.id.equals(conversation.id)))
+          .write(ConversationsCompanion(updatedAt: Value(_clock())));
+      return id;
+    });
     yield ChatDone(
       conversationId: conversation.id,
       messageId: messageId,

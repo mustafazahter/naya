@@ -121,10 +121,15 @@ void main() {
       final bad = await server.send(
         'PUT',
         '/api/ai/roles',
-        json: {'vision': 'x'},
+        json: {'decision': 'baska/model', 'vision': 'x'},
         token: token,
       );
       expect(bad.statusCode, 400);
+      // Yanlış giriş varsa doğru olanı da kaydedilmez.
+      roles = await readJson(
+        await server.send('GET', '/api/ai/roles', token: token),
+      );
+      expect(roles['roles'], containsPair('decision', '~typesafe/jev-latest'));
     });
 
     test('model listesi 24 saat önbellekte', () async {
@@ -299,6 +304,78 @@ void main() {
       final context = ai.chats.single.map((m) => m.content).join('\n');
       expect(context, contains('Konuşulan parça: Zincir.'));
     });
+
+    test('başkasının sohbeti akış başlamadan 404', () async {
+      final first = await server.send(
+        'POST',
+        '/api/ai/chat',
+        json: {'item': item, 'message': 'Zincir nasıl sökülür?'},
+        token: token,
+      );
+      final text = await first.readAsString();
+      final done = jsonDecode(
+        text.trim().split('\n').last.substring('data: '.length),
+      ) as Map<String, Object?>;
+
+      final other = await server.register('mustafa@ornek.com');
+      final read = await server.send(
+        'GET',
+        '/api/ai/conversations/${done['conversation']}',
+        token: other,
+      );
+      expect(read.statusCode, 404);
+
+      // Şablon herkese açık ve anahtar da var; 404'ün sebebi sohbetin sahibi.
+      await server.send(
+        'PUT',
+        '/api/ai/key',
+        json: {'key': FakeAi.goodKey},
+        token: other,
+      );
+      final response = await server.send(
+        'POST',
+        '/api/ai/chat',
+        json: {
+          'item': item,
+          'message': 'Devam',
+          'conversation': done['conversation'],
+        },
+        token: other,
+      );
+      expect(response.statusCode, 404);
+    });
+
+    test(
+      'model yarıda hata verirse error olayı gelir, soru kaydedilmez',
+      () async {
+        ai.chatFailure = const AiException('unavailable', 'Sağlayıcı düştü');
+        final response = await server.send(
+          'POST',
+          '/api/ai/chat',
+          json: {'item': item, 'message': 'Zincir nasıl sökülür?'},
+          token: token,
+        );
+        expect(response.statusCode, 200);
+        final text = await response.readAsString();
+        expect(text, contains('event: error'));
+        expect(text, isNot(contains('event: done')));
+
+        final list = await readJson(
+          await server.send('GET', '/api/ai/conversations', token: token),
+        );
+        final conversations = list['conversations']! as List<Object?>;
+        for (final c in conversations) {
+          final one = await readJson(
+            await server.send(
+              'GET',
+              '/api/ai/conversations/${(c! as Map)['id']}',
+              token: token,
+            ),
+          );
+          expect(one['messages'], isEmpty);
+        }
+      },
+    );
 
     test('anahtar yoksa akış başlamadan JSON hatası', () async {
       await server.send('DELETE', '/api/ai/key', token: token);

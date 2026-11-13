@@ -147,11 +147,65 @@ void main() {
           ],
         })}\n\n',
       );
-      expect(
+      await expectLater(
         provider.chat(apiKey: 'k', model: 'm', messages: const []).toList(),
         throwsA(isA<AiException>()),
       );
     });
+
+    test('akış ortasında kopan bağlantı AiException olur', () async {
+      Stream<List<int>> cut() async* {
+        yield utf8.encode(chunk('Başla'));
+        throw http.ClientException('koptu');
+      }
+
+      final provider = OpenRouterProvider(
+        client: MockClient.streaming(
+          (request, _) async => http.StreamedResponse(cut(), 200),
+        ),
+      );
+      await expectLater(
+        provider.chat(apiKey: 'k', model: 'm', messages: const []).toList(),
+        throwsA(isA<AiException>()),
+      );
+    });
+  });
+
+  test('olasılıklar 0-1 arasına sıkıştırılır, sayı olmayan atlanır', () async {
+    final provider = OpenRouterProvider(
+      client: MockClient(
+        (_) async => http.Response(
+          jsonEncode({
+            'answers': {
+              'system': {
+                'type': 'choice',
+                'probabilities': {'drive': 1.4, 'brakes': -0.2, 'x': 'a'},
+              },
+              'danger': {'type': 'noul', 'noul': 2},
+            },
+          }),
+          200,
+        ),
+      ),
+    );
+    final answers = await provider.decide(
+      apiKey: 'k',
+      model: 'm',
+      state: 's',
+      questions: const {},
+    );
+    expect(answers.choices['system'], {'drive': 1.0, 'brakes': 0.0});
+    expect(answers.yes['danger'], 1.0);
+  });
+
+  test('JSON olmayan cevap 500 değil anlaşılır hata olur', () async {
+    final provider = OpenRouterProvider(
+      client: MockClient((_) async => http.Response('<html>', 200)),
+    );
+    await expectLater(
+      provider.listModels(),
+      throwsA(isA<AiException>().having((e) => e.status, 'status', 502)),
+    );
   });
 
   test('model listesi: Jev ayrı istenir, fiyat milyon token başına', () async {

@@ -27,6 +27,14 @@ class OpenRouterProvider implements AiProvider {
   static const _decisionTimeout = Duration(seconds: 30);
   static const _chatTimeout = Duration(seconds: 90);
 
+  /// Bir cevabın en uzun süresi; parça parça gelen yavaş bir akış
+  /// bağlantıyı sonsuza dek açık tutmasın.
+  static const _chatDeadline = Duration(minutes: 3);
+
+  /// Bir cevabın en fazla token'ı; geçmişte tekrar gönderildiği için
+  /// bağlam şişmesin.
+  static const maxAnswerTokens = 1500;
+
   @override
   Future<void> checkKey(String apiKey) async {
     final response = await _send(
@@ -55,7 +63,7 @@ class OpenRouterProvider implements AiProvider {
       () => _http.get(Uri.parse(url)).timeout(_decisionTimeout),
     );
     if (response.statusCode != 200) throw _errorOf(response);
-    final body = jsonDecode(utf8.decode(response.bodyBytes));
+    final body = _decode(response);
     final data = body is Map ? body['data'] : null;
     if (data is! List) return const [];
     final models = <AiModel>[];
@@ -76,12 +84,14 @@ class OpenRouterProvider implements AiProvider {
         continue;
       }
       final pricing = item['pricing'];
+      final name = item['name'];
+      final context = item['context_length'];
       models.add(
         AiModel(
           id: id,
-          name: item['name'] as String? ?? id,
+          name: name is String ? name : id,
           kind: kind,
-          contextLength: (item['context_length'] as num?)?.toInt(),
+          contextLength: context is num ? context.toInt() : null,
           inputPrice: _perMillion(pricing is Map ? pricing['prompt'] : null),
           outputPrice: _perMillion(
             pricing is Map ? pricing['completion'] : null,
@@ -115,7 +125,7 @@ class OpenRouterProvider implements AiProvider {
           .timeout(_decisionTimeout),
     );
     if (response.statusCode != 200) throw _errorOf(response);
-    final body = jsonDecode(utf8.decode(response.bodyBytes));
+    final body = _decode(response);
     if (body is! Map) throw _unexpected;
     final answers = body['answers'];
     if (answers is! Map) throw _unexpected;
@@ -132,20 +142,27 @@ class OpenRouterProvider implements AiProvider {
           if (probabilities is Map) {
             choices[key] = {
               for (final p in probabilities.entries)
-                if (p.key is String && p.value is num)
-                  p.key as String: (p.value as num).toDouble(),
+                if (p.key is String && _probability(p.value) != null)
+                  p.key as String: _probability(p.value)!,
             };
           }
         case 'noul':
-          final value = answer['noul'];
-          if (value is num) yes[key] = value.toDouble();
+          final value = _probability(answer['noul']);
+          if (value != null) yes[key] = value;
       }
     });
+    final answeredBy = body['model'];
     return DecisionAnswers(
       choices: choices,
       yes: yes,
-      model: body['model'] as String? ?? model,
+      model: answeredBy is String ? answeredBy : model,
     );
+  }
+
+  /// Olasılık 0-1 arasında bir sayı olmalı; değilse yok sayılır.
+  static double? _probability(Object? value) {
+    if (value is! num || !value.isFinite) return null;
+    return value.toDouble().clamp(0.0, 1.0);
   }
 
   static Map<String, Object?> _question(DecisionQuestion question) =>
@@ -176,6 +193,7 @@ class OpenRouterProvider implements AiProvider {
           ..body = jsonEncode({
             'model': model,
             'stream': true,
+            'max_tokens': maxAnswerTokens,
             'messages': [for (final m in messages) m.toJson()],
           });
     final http.StreamedResponse response;
@@ -196,32 +214,43 @@ class OpenRouterProvider implements AiProvider {
         .transform(utf8.decoder)
         .transform(const LineSplitter())
         .timeout(_chatTimeout);
-    await for (final line in lines) {
-      if (!line.startsWith('data:')) continue;
-      final data = line.substring(5).trim();
-      if (data == '[DONE]') break;
-      final Object? chunk;
-      try {
-        chunk = jsonDecode(data);
-      } on FormatException {
-        continue;
+    final started = DateTime.now();
+    try {
+      await for (final line in lines) {
+        if (DateTime.now().difference(started) > _chatDeadline) {
+          throw _timeout;
+        }
+        if (!line.startsWith('data:')) continue;
+        final data = line.substring(5).trim();
+        if (data == '[DONE]') break;
+        final Object? chunk;
+        try {
+          chunk = jsonDecode(data);
+        } on FormatException {
+          continue;
+        }
+        if (chunk is! Map) continue;
+        // Akış başladıktan sonraki hata da 200 ile ama `error` alanıyla gelir.
+        final error = chunk['error'];
+        if (error is Map) {
+          throw AiException(
+            'unavailable',
+            'Sohbet modeli cevap verirken hata oluştu: '
+                '${error['message'] ?? 'bilinmeyen hata'}',
+          );
+        }
+        final choices = chunk['choices'];
+        if (choices is! List || choices.isEmpty) continue;
+        final first = choices.first;
+        final delta = first is Map ? first['delta'] : null;
+        final content = delta is Map ? delta['content'] : null;
+        if (content is String && content.isNotEmpty) yield content;
       }
-      if (chunk is! Map) continue;
-      // Akış başladıktan sonraki hata da 200 ile ama `error` alanıyla gelir.
-      final error = chunk['error'];
-      if (error is Map) {
-        throw AiException(
-          'unavailable',
-          'Sohbet modeli cevap verirken hata oluştu: '
-              '${error['message'] ?? 'bilinmeyen hata'}',
-        );
-      }
-      final choices = chunk['choices'];
-      if (choices is! List || choices.isEmpty) continue;
-      final first = choices.first;
-      final delta = first is Map ? first['delta'] : null;
-      final content = delta is Map ? delta['content'] : null;
-      if (content is String && content.isNotEmpty) yield content;
+    } on TimeoutException {
+      throw _timeout;
+    } on http.ClientException {
+      // Akış ortasında bağlantı koptu.
+      throw _offline;
     }
   }
 
@@ -276,6 +305,7 @@ class OpenRouterProvider implements AiProvider {
       400 || 413 || 422 => AiException(
         'bad_request',
         'Yapay zekâ isteği reddedildi${detail.isEmpty ? '' : ': $detail'}',
+        status: 400,
       ),
       _ => AiException(
         'unavailable',
@@ -283,6 +313,15 @@ class OpenRouterProvider implements AiProvider {
             '(${response.statusCode}).',
       ),
     };
+  }
+
+  /// Gövde JSON değilse sağlayıcıdan beklenmedik cevap gelmiştir.
+  static Object? _decode(http.Response response) {
+    try {
+      return jsonDecode(utf8.decode(response.bodyBytes));
+    } on FormatException {
+      throw _unexpected;
+    }
   }
 
   static double? _perMillion(Object? perToken) {

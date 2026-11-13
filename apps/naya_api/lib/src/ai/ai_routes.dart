@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -90,12 +91,17 @@ class AiRoutes {
     if (body == null) {
       return jsonError(400, 'bad_request', 'Gövde bir JSON nesnesi olmalı.');
     }
+    // Önce hepsi denetlenir; biri yanlışsa hiçbiri kaydedilmez.
     for (final entry in body.entries) {
-      final model = entry.value;
-      if (model is! String) {
+      if (!AiRole.defaults.containsKey(entry.key)) {
+        return jsonError(400, 'bad_request', 'Bilinmeyen rol: ${entry.key}');
+      }
+      if (entry.value is! String) {
         return jsonError(400, 'bad_request', '"${entry.key}" metin olmalı.');
       }
-      await _settings.setRole(user.id, entry.key, model);
+    }
+    for (final entry in body.entries) {
+      await _settings.setRole(user.id, entry.key, entry.value! as String);
     }
     return _getRoles(request, user);
   }
@@ -147,8 +153,15 @@ class AiRoutes {
     final message = _message(body?['message']);
     final conversation = body?['conversation'];
     final part = body?['part'];
-    // Anahtar yoksa akış başlamadan JSON hatası dönsün.
+    // Anahtar yoksa ya da sohbet başkasınınsa akış başlamadan JSON hatası
+    // dönsün; akış başladıktan sonra durum kodu hep 200'dür.
     await _settings.apiKeyOf(user.id);
+    if (conversation is int) {
+      final found = await _assistant.conversation(user, conversation);
+      if (found == null || found.$1.libraryItemId != item.id) {
+        return notFound('Böyle bir sohbet yok.');
+      }
+    }
 
     final events = _assistant.chat(
       user,
@@ -190,6 +203,13 @@ class AiRoutes {
       }
     } on AiException catch (e) {
       yield event('error', {'code': e.code, 'message': e.message});
+    } on Object catch (e) {
+      // Beklenmedik hata da akışı sessizce kesmesin; ayrıntı günlükte.
+      stderr.writeln('Sohbet akışı hatası: $e');
+      yield event('error', {
+        'code': 'internal',
+        'message': 'Cevap üretilirken bir sorun oluştu.',
+      });
     }
   }
 
@@ -239,7 +259,14 @@ class AiRoutes {
   };
 
   Future<LibraryItemRow> _item(Object? id, AuthUser user) async {
-    final item = id is String ? await _library.find(id, user) : null;
+    if (id is! String) {
+      throw const AiException(
+        'bad_request',
+        'Gövdede "item" olmalı.',
+        status: 400,
+      );
+    }
+    final item = await _library.find(id, user);
     if (item == null) {
       throw const AiException(
         'not_found',

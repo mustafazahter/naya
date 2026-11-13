@@ -126,8 +126,14 @@ class LibraryService {
     var count = 0;
     for (final item in await _db.select(_db.libraryItems).get()) {
       if (await search.isIndexed(item.id)) continue;
-      await search.index(item.id, await open(item));
-      count++;
+      try {
+        await search.index(item.id, await open(item));
+        count++;
+      } on Object catch (e) {
+        // Diskte eksik ya da bozuk bir dosya sunucunun açılmasını
+        // engellemesin; o dosya aranmaz, sorun günlükte görünür.
+        stderr.writeln('Arama dizinine eklenemedi (${item.id}): $e');
+      }
     }
     return count;
   }
