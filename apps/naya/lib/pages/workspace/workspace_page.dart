@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../entities/diagnosis/diagnosis.dart';
 import '../../entities/product/product.dart';
 import '../../entities/product/product_content.dart';
+import '../../features/diagnose/request_diagnosis.dart';
 import '../../shared/api/api_client.dart';
 import '../../shared/ui/components.dart';
 import '../../shared/ui/theme.dart';
@@ -38,7 +39,25 @@ class WorkspacePage extends ConsumerStatefulWidget {
 class _WorkspacePageState extends ConsumerState<WorkspacePage> {
   final _viewer = ModelFrameController();
 
+  /// Son teşhis, sürmekte olan mesaj ve hata.
+  Diagnosis? _diagnosis;
+  String? _pending;
+  String? _error;
+
+  /// Aynı konu üzerine yazılanlar. Sistem bir soru sorduysa cevap önceki
+  /// belirtilerle birlikte gönderilir.
+  final _thread = <String>[];
+
+  /// Her teşhiste artar; eski teşhisin animasyonu yenisini bozmasın.
+  var _run = 0;
+
   Product get product => widget.product;
+
+  @override
+  void dispose() {
+    _viewer.dispose();
+    super.dispose();
+  }
 
   /// Modeldeki bir düğüme dokunuldu.
   void _onNodeTap(String node) {
@@ -111,16 +130,86 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
     );
   }
 
-  /// Sohbet 4C'de bağlanacak; o zamana kadar ne olacağı söyleniyor.
-  void _onAsk(String text) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        const SnackBar(
-          content: Text('Yapay zekâ ile sohbet yakında geliyor.'),
-          behavior: SnackBarBehavior.floating,
-        ),
+  /// Yazılan belirtiyi teşhis ettirir, sonucu sohbette gösterir ve modelde
+  /// canlandırır.
+  Future<void> _onAsk(String text) async {
+    final content = ref.read(productContentProvider(product.id)).value;
+    if (content == null || _pending != null) return;
+
+    // Önceki cevap bir soruysa bu mesaj onun cevabı; yeni bir konu değil.
+    final previous = _diagnosis;
+    final followUp =
+        previous != null &&
+        _error == null &&
+        previous.decision != DiagnosisDecision.focus &&
+        previous.decision != DiagnosisDecision.notDiagnosis;
+    if (!followUp) _thread.clear();
+    final earlier = _thread.length > 4
+        ? _thread.sublist(_thread.length - 4)
+        : List.of(_thread);
+
+    final run = ++_run;
+    setState(() {
+      _pending = text;
+      _error = null;
+    });
+    try {
+      final diagnosis = await requestDiagnosis(
+        ref.read(apiClientProvider),
+        content,
+        message: text,
+        earlier: earlier,
       );
+      if (!mounted || run != _run) return;
+      _thread.add(text);
+      setState(() {
+        _diagnosis = diagnosis;
+        _pending = null;
+      });
+      await _play(diagnosis, content, run);
+    } on ApiException catch (e) {
+      if (!mounted || run != _run) return;
+      setState(() {
+        _pending = null;
+        _error = e.statusCode == 401
+            ? 'Teşhis için giriş yapmanız gerekiyor.'
+            : e.message;
+      });
+    }
+  }
+
+  /// Teşhis animasyonu (3-4 sn): bant modeli tarar, adaylar olasılıkla
+  /// orantılı parlar. Sonuç netse model parçalarına ayrılır ve kamera
+  /// bulunan parçaya uçar; değilse adaylar parlak ya da soluk kalır, kamera
+  /// yerinde durur.
+  Future<void> _play(
+    Diagnosis diagnosis,
+    ProductContent content,
+    int run,
+  ) async {
+    final weights = scanWeights(diagnosis, content);
+    if (_viewer.exploded.value) _viewer.explode(0);
+    if (weights.isEmpty) {
+      _viewer.highlight(const {});
+      return;
+    }
+    await _viewer.scan(weights);
+    if (!mounted || run != _run || !diagnosis.isConfident) return;
+    final nodes = content.part(diagnosis.top.partId)?.meshNodes ?? const [];
+    if (nodes.isEmpty) return;
+    _viewer.explode(1);
+    await Future<void>.delayed(const Duration(milliseconds: 900));
+    if (!mounted || run != _run) return;
+    _viewer.focus(nodes.first);
+  }
+
+  /// Sohbetteki adaya dokunuldu: kartı açılır, modelde ona bakılır.
+  void _onCandidateTap(String partId) {
+    final content = ref.read(productContentProvider(product.id)).value;
+    if (content == null) return;
+    final nodes = content.part(partId)?.meshNodes ?? const [];
+    if (nodes.isNotEmpty) _viewer.focus(nodes.first);
+    _openPart(content, partId);
   }
 
   @override
@@ -170,8 +259,12 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
         suggestions: [
           for (final s in data?.symptoms.take(4) ?? const <Never>[]) s.text,
         ],
+        diagnosis: _diagnosis,
+        pending: _pending,
+        error: _error,
         onSend: _onAsk,
-        onCandidateTap: (_) {},
+        onCandidateTap: _onCandidateTap,
+        onOpenModule: widget.onOpenModule,
       ),
     };
 

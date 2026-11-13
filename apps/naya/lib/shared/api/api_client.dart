@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 import '../config/env.dart';
+import 'http_client.dart';
 
 /// Sunucudan gelen ya da sunucuya ulaşılamadığında oluşan hata.
 /// [message] doğrudan ekranda gösterilebilir.
@@ -26,12 +27,55 @@ class ApiException implements Exception {
 /// kullanan sağlayıcılar (kütüphane, ürün içeriği) bilir.
 class ApiClient {
   ApiClient({required this.baseUrl, http.Client? client})
-    : _http = client ?? http.Client();
+    : _http = client ?? createHttpClient();
 
   final String baseUrl;
   final http.Client _http;
 
+  /// Android'de girişten sonra sunucunun verdiği oturum token'ı. Web'de
+  /// oturum çerezde durur, bu boş kalır.
+  String? token;
+
   Uri uri(String path) => Uri.parse('$baseUrl$path');
+
+  /// Web'de ek başlık gönderilmez: oturum çerezde, token JavaScript'e hiç
+  /// gelmemeli. Android'de sunucu girişte token'ı gövdede yalnız
+  /// `x-naya-client: app` görürse verir.
+  Map<String, String> get _headers => kIsWeb
+      ? const {}
+      : {
+          'x-naya-client': 'app',
+          if (token != null) 'authorization': 'Bearer $token',
+        };
+
+  /// JSON gövdeli POST; cevap JSON nesnesi.
+  Future<Map<String, Object?>> postJson(
+    String path,
+    Map<String, Object?> body,
+  ) async {
+    final http.Response response;
+    try {
+      response = await _http.post(
+        uri(path),
+        headers: {..._headers, 'content-type': 'application/json'},
+        body: jsonEncode(body),
+      );
+    } on http.ClientException {
+      throw const ApiException(0, 'offline', 'Sunucuya ulaşılamadı.');
+    }
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw _errorFrom(response);
+    }
+    final decoded = jsonDecode(utf8.decode(response.bodyBytes));
+    if (decoded is! Map<String, Object?>) {
+      throw const ApiException(
+        200,
+        'bad_response',
+        'Sunucudan beklenmedik cevap.',
+      );
+    }
+    return decoded;
+  }
 
   Future<Map<String, Object?>> getJson(String path) async {
     final body = jsonDecode(utf8.decode(await getBytes(path)));
@@ -51,7 +95,7 @@ class ApiClient {
   Future<Uint8List> getBytes(String path) async {
     final http.Response response;
     try {
-      response = await _http.get(uri(path));
+      response = await _http.get(uri(path), headers: _headers);
     } on http.ClientException {
       throw const ApiException(0, 'offline', 'Sunucuya ulaşılamadı.');
     }
