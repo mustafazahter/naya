@@ -7,6 +7,8 @@
 | `naya-emblem-dark.svg` | Koyu zemin üzerinde amblem |
 | `naya-emblem-light.svg` | Açık zemin üzerinde amblem |
 | `naya-wordmark.svg` | NAYA yazısı, rengi `currentColor` ile gelir |
+| `naya-wordmark-dark.svg` | Koyu zemin üzerinde NAYA yazısı (README gibi `currentColor` çalışmayan yerler için) |
+| `naya-wordmark-light.svg` | Açık zemin üzerinde NAYA yazısı |
 
 Renkler: zemin `#0A0C0F`, açık yüz `#ECEFF3`, koyu yüz `#7C838D`, vurgu `#8DB8F2` (açık temada `#3D74C9`).
 
