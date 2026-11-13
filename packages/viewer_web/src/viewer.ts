@@ -223,6 +223,7 @@ export class NayaViewer {
   explode(amount: number): void {
     const target = THREE.MathUtils.clamp(amount, 0, 1);
     if (Math.abs(target - this.explodeTarget) < 1e-3) return;
+    this.finishIntro();
     this.explodeTarget = target;
     if (this.isolated || !this.model) return;
     void this.controls.fitToBox(this.boxAt(target), true, {
@@ -243,11 +244,13 @@ export class NayaViewer {
   }
 
   setXray(enabled: boolean): void {
+    this.finishIntro();
     this.xray = enabled;
     this.refreshMaterials();
   }
 
   select(id: string | null): void {
+    this.finishIntro();
     this.selected = this.find(id);
     this.refreshMaterials();
   }
@@ -257,6 +260,7 @@ export class NayaViewer {
    * görünümüne geçer. Boş harita vurguyu kaldırır.
    */
   highlight(weights: Weights): void {
+    this.finishIntro();
     this.weights = new Map([...weights].filter(([id, w]) => w > 0 && this.find(id)));
     this.refreshMaterials();
   }
@@ -265,6 +269,7 @@ export class NayaViewer {
    * Yalnız [id] görünür, kamera ona uçar. null bütün modeli geri getirir.
    */
   async isolate(id: string | null): Promise<void> {
+    this.finishIntro();
     this.isolated = this.find(id);
     this.refreshMaterials();
     if (this.isolated) await this.focus(this.isolated.id);
@@ -413,7 +418,11 @@ export class NayaViewer {
     if (landed === this.parts.length) this.finishIntro();
   }
 
-  /** Süren açılışı hemen bitirir: parçalar yerinde, malzemeler normal. */
+  /**
+   * Süren açılışı hemen bitirir: parçalar yerinde, malzemeler normal.
+   * Kullanıcı açılış sürerken bir şey yaparsa (dokunma, X-ışını, ayırma)
+   * açılış onu ezmesin diye her komut önce bunu çağırır.
+   */
   private finishIntro(): void {
     const intro = this.intro;
     if (!intro) return;

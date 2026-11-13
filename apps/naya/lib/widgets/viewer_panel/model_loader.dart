@@ -62,6 +62,10 @@ class _ModelLoaderState extends State<ModelLoader>
     vsync: this,
     duration: const Duration(milliseconds: 750),
   );
+  late final _exitCurve = CurvedAnimation(
+    parent: _exit,
+    curve: NayaMotion.standard,
+  );
 
   /// Sayaç gerçek ilerlemeye yumuşakça yaklaşır; boyut bilinmiyorsa
   /// yavaşça kendisi ilerler ama %90'ı geçmez.
@@ -112,6 +116,7 @@ class _ModelLoaderState extends State<ModelLoader>
     _ticker.dispose();
     _enter.dispose();
     _sweep.dispose();
+    _exitCurve.dispose();
     _exit.dispose();
     _shown.dispose();
     super.dispose();
@@ -121,7 +126,9 @@ class _ModelLoaderState extends State<ModelLoader>
   Widget build(BuildContext context) {
     final c = context.colors;
     final reduce = MediaQuery.of(context).disableAnimations;
-    final exit = CurvedAnimation(parent: _exit, curve: NayaMotion.standard);
+    // İlerleme her geldiğinde yeniden çizilir; eğri her seferinde
+    // kurulmasın diye alanda.
+    final exit = _exitCurve;
 
     return Semantics(
       label: widget.failed ? 'Model yüklenemedi' : 'Model yükleniyor',

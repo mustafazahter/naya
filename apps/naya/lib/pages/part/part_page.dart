@@ -477,12 +477,16 @@ class _FigureGallery extends ConsumerWidget {
       for (final dmc in modules)
         ref.watch(dataModuleProvider((productId: productId, dmc: dmc))),
     ];
+    // Çizimi `.naya` içinde bulunmayan şekiller boş kart bırakmasın.
+    final content = ref.watch(productContentProvider(productId)).value;
     final seen = <String>{};
     final figures = [
       for (final module in loaded)
         if (module.value case final doc?)
           for (final figure in _figuresIn(doc.blocks))
-            if (seen.add(figure.icns.join('|'))) figure,
+            if (figure.icns.any((icn) => content?.icnPath(icn) != null) &&
+                seen.add(figure.icns.join('|')))
+              figure,
     ];
     if (figures.isEmpty) {
       final waiting = loaded.any((m) => m.isLoading);

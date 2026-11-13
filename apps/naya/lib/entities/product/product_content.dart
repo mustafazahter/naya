@@ -101,15 +101,23 @@ class ProductContent {
       for (final code in _dmPaths.keys)
         if (_infoCode(code)?.startsWith('040') ?? false) code,
     ]..sort();
-    final system = sns?.split('-').first;
+    // SNS "DA1-10" gibi: sistem ve alt sistem. DMC'de aynı alanlarla
+    // karşılaştırılır; düz metin aramak başka sistemin DM'ini de bulurdu.
     final wanted = [
-      if (sns != null) '-$sns-',
-      if (system != null) '-$system-00-',
-      '-D00-00-',
+      if (sns?.toUpperCase().split('-') case [final system, final sub, ...])
+        (system, sub),
+      if (sns?.toUpperCase().split('-') case [final system, ...])
+        (system, '00'),
+      ('D00', '00'),
     ];
-    for (final part in wanted) {
+    for (final (system, sub) in wanted) {
       for (final code in descriptions) {
-        if (code.contains(part)) return code;
+        final parts = code.split('-');
+        // Sondan sayılır: ... SİSTEM-ALT-MONTAJ-SÖKME-BİLGİ-YER.
+        if (parts[parts.length - 6] == system &&
+            parts[parts.length - 5] == sub) {
+          return code;
+        }
       }
     }
     return null;
