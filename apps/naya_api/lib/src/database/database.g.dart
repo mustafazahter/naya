@@ -1815,12 +1815,2036 @@ class LibraryItemsCompanion extends UpdateCompanion<LibraryItemRow> {
   }
 }
 
+class $AiKeysTable extends AiKeys with TableInfo<$AiKeysTable, AiKeyRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AiKeysTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES users (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _secretMeta = const VerificationMeta('secret');
+  @override
+  late final GeneratedColumn<Uint8List> secret = GeneratedColumn<Uint8List>(
+    'secret',
+    aliasedName,
+    false,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _hintMeta = const VerificationMeta('hint');
+  @override
+  late final GeneratedColumn<String> hint = GeneratedColumn<String>(
+    'hint',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [userId, secret, hint, updatedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'ai_keys';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AiKeyRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    }
+    if (data.containsKey('secret')) {
+      context.handle(
+        _secretMeta,
+        secret.isAcceptableOrUnknown(data['secret']!, _secretMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_secretMeta);
+    }
+    if (data.containsKey('hint')) {
+      context.handle(
+        _hintMeta,
+        hint.isAcceptableOrUnknown(data['hint']!, _hintMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_hintMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId};
+  @override
+  AiKeyRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AiKeyRow(
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}user_id'],
+      )!,
+      secret: attachedDatabase.typeMapping.read(
+        DriftSqlType.blob,
+        data['${effectivePrefix}secret'],
+      )!,
+      hint: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}hint'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $AiKeysTable createAlias(String alias) {
+    return $AiKeysTable(attachedDatabase, alias);
+  }
+}
+
+class AiKeyRow extends DataClass implements Insertable<AiKeyRow> {
+  final int userId;
+
+  /// Nonce + şifreli metin + doğrulama kodu (`KeyVault`).
+  final Uint8List secret;
+
+  /// Ayarlarda "…a1b2" diye göstermek için son dört karakter.
+  final String hint;
+  final DateTime updatedAt;
+  const AiKeyRow({
+    required this.userId,
+    required this.secret,
+    required this.hint,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<int>(userId);
+    map['secret'] = Variable<Uint8List>(secret);
+    map['hint'] = Variable<String>(hint);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  AiKeysCompanion toCompanion(bool nullToAbsent) {
+    return AiKeysCompanion(
+      userId: Value(userId),
+      secret: Value(secret),
+      hint: Value(hint),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory AiKeyRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AiKeyRow(
+      userId: serializer.fromJson<int>(json['userId']),
+      secret: serializer.fromJson<Uint8List>(json['secret']),
+      hint: serializer.fromJson<String>(json['hint']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<int>(userId),
+      'secret': serializer.toJson<Uint8List>(secret),
+      'hint': serializer.toJson<String>(hint),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  AiKeyRow copyWith({
+    int? userId,
+    Uint8List? secret,
+    String? hint,
+    DateTime? updatedAt,
+  }) => AiKeyRow(
+    userId: userId ?? this.userId,
+    secret: secret ?? this.secret,
+    hint: hint ?? this.hint,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  AiKeyRow copyWithCompanion(AiKeysCompanion data) {
+    return AiKeyRow(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      secret: data.secret.present ? data.secret.value : this.secret,
+      hint: data.hint.present ? data.hint.value : this.hint,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AiKeyRow(')
+          ..write('userId: $userId, ')
+          ..write('secret: $secret, ')
+          ..write('hint: $hint, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(userId, $driftBlobEquality.hash(secret), hint, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AiKeyRow &&
+          other.userId == this.userId &&
+          $driftBlobEquality.equals(other.secret, this.secret) &&
+          other.hint == this.hint &&
+          other.updatedAt == this.updatedAt);
+}
+
+class AiKeysCompanion extends UpdateCompanion<AiKeyRow> {
+  final Value<int> userId;
+  final Value<Uint8List> secret;
+  final Value<String> hint;
+  final Value<DateTime> updatedAt;
+  const AiKeysCompanion({
+    this.userId = const Value.absent(),
+    this.secret = const Value.absent(),
+    this.hint = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  AiKeysCompanion.insert({
+    this.userId = const Value.absent(),
+    required Uint8List secret,
+    required String hint,
+    required DateTime updatedAt,
+  }) : secret = Value(secret),
+       hint = Value(hint),
+       updatedAt = Value(updatedAt);
+  static Insertable<AiKeyRow> custom({
+    Expression<int>? userId,
+    Expression<Uint8List>? secret,
+    Expression<String>? hint,
+    Expression<DateTime>? updatedAt,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (secret != null) 'secret': secret,
+      if (hint != null) 'hint': hint,
+      if (updatedAt != null) 'updated_at': updatedAt,
+    });
+  }
+
+  AiKeysCompanion copyWith({
+    Value<int>? userId,
+    Value<Uint8List>? secret,
+    Value<String>? hint,
+    Value<DateTime>? updatedAt,
+  }) {
+    return AiKeysCompanion(
+      userId: userId ?? this.userId,
+      secret: secret ?? this.secret,
+      hint: hint ?? this.hint,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<int>(userId.value);
+    }
+    if (secret.present) {
+      map['secret'] = Variable<Uint8List>(secret.value);
+    }
+    if (hint.present) {
+      map['hint'] = Variable<String>(hint.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AiKeysCompanion(')
+          ..write('userId: $userId, ')
+          ..write('secret: $secret, ')
+          ..write('hint: $hint, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AiRolesTable extends AiRoles with TableInfo<$AiRolesTable, AiRoleRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AiRolesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES users (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _roleMeta = const VerificationMeta('role');
+  @override
+  late final GeneratedColumn<String> role = GeneratedColumn<String>(
+    'role',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modelMeta = const VerificationMeta('model');
+  @override
+  late final GeneratedColumn<String> model = GeneratedColumn<String>(
+    'model',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [userId, role, model];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'ai_roles';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AiRoleRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('role')) {
+      context.handle(
+        _roleMeta,
+        role.isAcceptableOrUnknown(data['role']!, _roleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_roleMeta);
+    }
+    if (data.containsKey('model')) {
+      context.handle(
+        _modelMeta,
+        model.isAcceptableOrUnknown(data['model']!, _modelMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_modelMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId, role};
+  @override
+  AiRoleRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AiRoleRow(
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}user_id'],
+      )!,
+      role: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}role'],
+      )!,
+      model: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}model'],
+      )!,
+    );
+  }
+
+  @override
+  $AiRolesTable createAlias(String alias) {
+    return $AiRolesTable(attachedDatabase, alias);
+  }
+}
+
+class AiRoleRow extends DataClass implements Insertable<AiRoleRow> {
+  final int userId;
+  final String role;
+  final String model;
+  const AiRoleRow({
+    required this.userId,
+    required this.role,
+    required this.model,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<int>(userId);
+    map['role'] = Variable<String>(role);
+    map['model'] = Variable<String>(model);
+    return map;
+  }
+
+  AiRolesCompanion toCompanion(bool nullToAbsent) {
+    return AiRolesCompanion(
+      userId: Value(userId),
+      role: Value(role),
+      model: Value(model),
+    );
+  }
+
+  factory AiRoleRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AiRoleRow(
+      userId: serializer.fromJson<int>(json['userId']),
+      role: serializer.fromJson<String>(json['role']),
+      model: serializer.fromJson<String>(json['model']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<int>(userId),
+      'role': serializer.toJson<String>(role),
+      'model': serializer.toJson<String>(model),
+    };
+  }
+
+  AiRoleRow copyWith({int? userId, String? role, String? model}) => AiRoleRow(
+    userId: userId ?? this.userId,
+    role: role ?? this.role,
+    model: model ?? this.model,
+  );
+  AiRoleRow copyWithCompanion(AiRolesCompanion data) {
+    return AiRoleRow(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      role: data.role.present ? data.role.value : this.role,
+      model: data.model.present ? data.model.value : this.model,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AiRoleRow(')
+          ..write('userId: $userId, ')
+          ..write('role: $role, ')
+          ..write('model: $model')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(userId, role, model);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AiRoleRow &&
+          other.userId == this.userId &&
+          other.role == this.role &&
+          other.model == this.model);
+}
+
+class AiRolesCompanion extends UpdateCompanion<AiRoleRow> {
+  final Value<int> userId;
+  final Value<String> role;
+  final Value<String> model;
+  final Value<int> rowid;
+  const AiRolesCompanion({
+    this.userId = const Value.absent(),
+    this.role = const Value.absent(),
+    this.model = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AiRolesCompanion.insert({
+    required int userId,
+    required String role,
+    required String model,
+    this.rowid = const Value.absent(),
+  }) : userId = Value(userId),
+       role = Value(role),
+       model = Value(model);
+  static Insertable<AiRoleRow> custom({
+    Expression<int>? userId,
+    Expression<String>? role,
+    Expression<String>? model,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (role != null) 'role': role,
+      if (model != null) 'model': model,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AiRolesCompanion copyWith({
+    Value<int>? userId,
+    Value<String>? role,
+    Value<String>? model,
+    Value<int>? rowid,
+  }) {
+    return AiRolesCompanion(
+      userId: userId ?? this.userId,
+      role: role ?? this.role,
+      model: model ?? this.model,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<int>(userId.value);
+    }
+    if (role.present) {
+      map['role'] = Variable<String>(role.value);
+    }
+    if (model.present) {
+      map['model'] = Variable<String>(model.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AiRolesCompanion(')
+          ..write('userId: $userId, ')
+          ..write('role: $role, ')
+          ..write('model: $model, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DiagnosesTable extends Diagnoses
+    with TableInfo<$DiagnosesTable, DiagnosisRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DiagnosesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES users (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _libraryItemIdMeta = const VerificationMeta(
+    'libraryItemId',
+  );
+  @override
+  late final GeneratedColumn<String> libraryItemId = GeneratedColumn<String>(
+    'library_item_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES library_items (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _messageMeta = const VerificationMeta(
+    'message',
+  );
+  @override
+  late final GeneratedColumn<String> message = GeneratedColumn<String>(
+    'message',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _resultJsonMeta = const VerificationMeta(
+    'resultJson',
+  );
+  @override
+  late final GeneratedColumn<String> resultJson = GeneratedColumn<String>(
+    'result_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _explanationMeta = const VerificationMeta(
+    'explanation',
+  );
+  @override
+  late final GeneratedColumn<String> explanation = GeneratedColumn<String>(
+    'explanation',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _modelMeta = const VerificationMeta('model');
+  @override
+  late final GeneratedColumn<String> model = GeneratedColumn<String>(
+    'model',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    userId,
+    libraryItemId,
+    message,
+    resultJson,
+    explanation,
+    model,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'diagnoses';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<DiagnosisRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('library_item_id')) {
+      context.handle(
+        _libraryItemIdMeta,
+        libraryItemId.isAcceptableOrUnknown(
+          data['library_item_id']!,
+          _libraryItemIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_libraryItemIdMeta);
+    }
+    if (data.containsKey('message')) {
+      context.handle(
+        _messageMeta,
+        message.isAcceptableOrUnknown(data['message']!, _messageMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_messageMeta);
+    }
+    if (data.containsKey('result_json')) {
+      context.handle(
+        _resultJsonMeta,
+        resultJson.isAcceptableOrUnknown(data['result_json']!, _resultJsonMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_resultJsonMeta);
+    }
+    if (data.containsKey('explanation')) {
+      context.handle(
+        _explanationMeta,
+        explanation.isAcceptableOrUnknown(
+          data['explanation']!,
+          _explanationMeta,
+        ),
+      );
+    }
+    if (data.containsKey('model')) {
+      context.handle(
+        _modelMeta,
+        model.isAcceptableOrUnknown(data['model']!, _modelMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_modelMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DiagnosisRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DiagnosisRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}user_id'],
+      )!,
+      libraryItemId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}library_item_id'],
+      )!,
+      message: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}message'],
+      )!,
+      resultJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}result_json'],
+      )!,
+      explanation: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}explanation'],
+      )!,
+      model: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}model'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $DiagnosesTable createAlias(String alias) {
+    return $DiagnosesTable(attachedDatabase, alias);
+  }
+}
+
+class DiagnosisRow extends DataClass implements Insertable<DiagnosisRow> {
+  final int id;
+  final int userId;
+  final String libraryItemId;
+  final String message;
+
+  /// `DiagnosisResult.toJson()`.
+  final String resultJson;
+
+  /// Sohbet modelinin açıklaması; alınamadıysa boş.
+  final String explanation;
+
+  /// Karar modelinin sürümü (`jev-...`).
+  final String model;
+  final DateTime createdAt;
+  const DiagnosisRow({
+    required this.id,
+    required this.userId,
+    required this.libraryItemId,
+    required this.message,
+    required this.resultJson,
+    required this.explanation,
+    required this.model,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['user_id'] = Variable<int>(userId);
+    map['library_item_id'] = Variable<String>(libraryItemId);
+    map['message'] = Variable<String>(message);
+    map['result_json'] = Variable<String>(resultJson);
+    map['explanation'] = Variable<String>(explanation);
+    map['model'] = Variable<String>(model);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  DiagnosesCompanion toCompanion(bool nullToAbsent) {
+    return DiagnosesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      libraryItemId: Value(libraryItemId),
+      message: Value(message),
+      resultJson: Value(resultJson),
+      explanation: Value(explanation),
+      model: Value(model),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory DiagnosisRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DiagnosisRow(
+      id: serializer.fromJson<int>(json['id']),
+      userId: serializer.fromJson<int>(json['userId']),
+      libraryItemId: serializer.fromJson<String>(json['libraryItemId']),
+      message: serializer.fromJson<String>(json['message']),
+      resultJson: serializer.fromJson<String>(json['resultJson']),
+      explanation: serializer.fromJson<String>(json['explanation']),
+      model: serializer.fromJson<String>(json['model']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'userId': serializer.toJson<int>(userId),
+      'libraryItemId': serializer.toJson<String>(libraryItemId),
+      'message': serializer.toJson<String>(message),
+      'resultJson': serializer.toJson<String>(resultJson),
+      'explanation': serializer.toJson<String>(explanation),
+      'model': serializer.toJson<String>(model),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  DiagnosisRow copyWith({
+    int? id,
+    int? userId,
+    String? libraryItemId,
+    String? message,
+    String? resultJson,
+    String? explanation,
+    String? model,
+    DateTime? createdAt,
+  }) => DiagnosisRow(
+    id: id ?? this.id,
+    userId: userId ?? this.userId,
+    libraryItemId: libraryItemId ?? this.libraryItemId,
+    message: message ?? this.message,
+    resultJson: resultJson ?? this.resultJson,
+    explanation: explanation ?? this.explanation,
+    model: model ?? this.model,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  DiagnosisRow copyWithCompanion(DiagnosesCompanion data) {
+    return DiagnosisRow(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      libraryItemId: data.libraryItemId.present
+          ? data.libraryItemId.value
+          : this.libraryItemId,
+      message: data.message.present ? data.message.value : this.message,
+      resultJson: data.resultJson.present
+          ? data.resultJson.value
+          : this.resultJson,
+      explanation: data.explanation.present
+          ? data.explanation.value
+          : this.explanation,
+      model: data.model.present ? data.model.value : this.model,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DiagnosisRow(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('libraryItemId: $libraryItemId, ')
+          ..write('message: $message, ')
+          ..write('resultJson: $resultJson, ')
+          ..write('explanation: $explanation, ')
+          ..write('model: $model, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    userId,
+    libraryItemId,
+    message,
+    resultJson,
+    explanation,
+    model,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DiagnosisRow &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.libraryItemId == this.libraryItemId &&
+          other.message == this.message &&
+          other.resultJson == this.resultJson &&
+          other.explanation == this.explanation &&
+          other.model == this.model &&
+          other.createdAt == this.createdAt);
+}
+
+class DiagnosesCompanion extends UpdateCompanion<DiagnosisRow> {
+  final Value<int> id;
+  final Value<int> userId;
+  final Value<String> libraryItemId;
+  final Value<String> message;
+  final Value<String> resultJson;
+  final Value<String> explanation;
+  final Value<String> model;
+  final Value<DateTime> createdAt;
+  const DiagnosesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.libraryItemId = const Value.absent(),
+    this.message = const Value.absent(),
+    this.resultJson = const Value.absent(),
+    this.explanation = const Value.absent(),
+    this.model = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  DiagnosesCompanion.insert({
+    this.id = const Value.absent(),
+    required int userId,
+    required String libraryItemId,
+    required String message,
+    required String resultJson,
+    this.explanation = const Value.absent(),
+    required String model,
+    required DateTime createdAt,
+  }) : userId = Value(userId),
+       libraryItemId = Value(libraryItemId),
+       message = Value(message),
+       resultJson = Value(resultJson),
+       model = Value(model),
+       createdAt = Value(createdAt);
+  static Insertable<DiagnosisRow> custom({
+    Expression<int>? id,
+    Expression<int>? userId,
+    Expression<String>? libraryItemId,
+    Expression<String>? message,
+    Expression<String>? resultJson,
+    Expression<String>? explanation,
+    Expression<String>? model,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (libraryItemId != null) 'library_item_id': libraryItemId,
+      if (message != null) 'message': message,
+      if (resultJson != null) 'result_json': resultJson,
+      if (explanation != null) 'explanation': explanation,
+      if (model != null) 'model': model,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  DiagnosesCompanion copyWith({
+    Value<int>? id,
+    Value<int>? userId,
+    Value<String>? libraryItemId,
+    Value<String>? message,
+    Value<String>? resultJson,
+    Value<String>? explanation,
+    Value<String>? model,
+    Value<DateTime>? createdAt,
+  }) {
+    return DiagnosesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      libraryItemId: libraryItemId ?? this.libraryItemId,
+      message: message ?? this.message,
+      resultJson: resultJson ?? this.resultJson,
+      explanation: explanation ?? this.explanation,
+      model: model ?? this.model,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<int>(userId.value);
+    }
+    if (libraryItemId.present) {
+      map['library_item_id'] = Variable<String>(libraryItemId.value);
+    }
+    if (message.present) {
+      map['message'] = Variable<String>(message.value);
+    }
+    if (resultJson.present) {
+      map['result_json'] = Variable<String>(resultJson.value);
+    }
+    if (explanation.present) {
+      map['explanation'] = Variable<String>(explanation.value);
+    }
+    if (model.present) {
+      map['model'] = Variable<String>(model.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DiagnosesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('libraryItemId: $libraryItemId, ')
+          ..write('message: $message, ')
+          ..write('resultJson: $resultJson, ')
+          ..write('explanation: $explanation, ')
+          ..write('model: $model, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ConversationsTable extends Conversations
+    with TableInfo<$ConversationsTable, ConversationRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ConversationsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES users (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _libraryItemIdMeta = const VerificationMeta(
+    'libraryItemId',
+  );
+  @override
+  late final GeneratedColumn<String> libraryItemId = GeneratedColumn<String>(
+    'library_item_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES library_items (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _partIdMeta = const VerificationMeta('partId');
+  @override
+  late final GeneratedColumn<String> partId = GeneratedColumn<String>(
+    'part_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+    'title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    userId,
+    libraryItemId,
+    partId,
+    title,
+    createdAt,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'conversations';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ConversationRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('library_item_id')) {
+      context.handle(
+        _libraryItemIdMeta,
+        libraryItemId.isAcceptableOrUnknown(
+          data['library_item_id']!,
+          _libraryItemIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_libraryItemIdMeta);
+    }
+    if (data.containsKey('part_id')) {
+      context.handle(
+        _partIdMeta,
+        partId.isAcceptableOrUnknown(data['part_id']!, _partIdMeta),
+      );
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ConversationRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ConversationRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}user_id'],
+      )!,
+      libraryItemId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}library_item_id'],
+      )!,
+      partId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}part_id'],
+      ),
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ConversationsTable createAlias(String alias) {
+    return $ConversationsTable(attachedDatabase, alias);
+  }
+}
+
+class ConversationRow extends DataClass implements Insertable<ConversationRow> {
+  final int id;
+  final int userId;
+  final String libraryItemId;
+  final String? partId;
+  final String title;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const ConversationRow({
+    required this.id,
+    required this.userId,
+    required this.libraryItemId,
+    this.partId,
+    required this.title,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['user_id'] = Variable<int>(userId);
+    map['library_item_id'] = Variable<String>(libraryItemId);
+    if (!nullToAbsent || partId != null) {
+      map['part_id'] = Variable<String>(partId);
+    }
+    map['title'] = Variable<String>(title);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  ConversationsCompanion toCompanion(bool nullToAbsent) {
+    return ConversationsCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      libraryItemId: Value(libraryItemId),
+      partId: partId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(partId),
+      title: Value(title),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory ConversationRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ConversationRow(
+      id: serializer.fromJson<int>(json['id']),
+      userId: serializer.fromJson<int>(json['userId']),
+      libraryItemId: serializer.fromJson<String>(json['libraryItemId']),
+      partId: serializer.fromJson<String?>(json['partId']),
+      title: serializer.fromJson<String>(json['title']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'userId': serializer.toJson<int>(userId),
+      'libraryItemId': serializer.toJson<String>(libraryItemId),
+      'partId': serializer.toJson<String?>(partId),
+      'title': serializer.toJson<String>(title),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  ConversationRow copyWith({
+    int? id,
+    int? userId,
+    String? libraryItemId,
+    Value<String?> partId = const Value.absent(),
+    String? title,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => ConversationRow(
+    id: id ?? this.id,
+    userId: userId ?? this.userId,
+    libraryItemId: libraryItemId ?? this.libraryItemId,
+    partId: partId.present ? partId.value : this.partId,
+    title: title ?? this.title,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  ConversationRow copyWithCompanion(ConversationsCompanion data) {
+    return ConversationRow(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      libraryItemId: data.libraryItemId.present
+          ? data.libraryItemId.value
+          : this.libraryItemId,
+      partId: data.partId.present ? data.partId.value : this.partId,
+      title: data.title.present ? data.title.value : this.title,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ConversationRow(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('libraryItemId: $libraryItemId, ')
+          ..write('partId: $partId, ')
+          ..write('title: $title, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    userId,
+    libraryItemId,
+    partId,
+    title,
+    createdAt,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ConversationRow &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.libraryItemId == this.libraryItemId &&
+          other.partId == this.partId &&
+          other.title == this.title &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class ConversationsCompanion extends UpdateCompanion<ConversationRow> {
+  final Value<int> id;
+  final Value<int> userId;
+  final Value<String> libraryItemId;
+  final Value<String?> partId;
+  final Value<String> title;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  const ConversationsCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.libraryItemId = const Value.absent(),
+    this.partId = const Value.absent(),
+    this.title = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  ConversationsCompanion.insert({
+    this.id = const Value.absent(),
+    required int userId,
+    required String libraryItemId,
+    this.partId = const Value.absent(),
+    required String title,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+  }) : userId = Value(userId),
+       libraryItemId = Value(libraryItemId),
+       title = Value(title),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<ConversationRow> custom({
+    Expression<int>? id,
+    Expression<int>? userId,
+    Expression<String>? libraryItemId,
+    Expression<String>? partId,
+    Expression<String>? title,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (libraryItemId != null) 'library_item_id': libraryItemId,
+      if (partId != null) 'part_id': partId,
+      if (title != null) 'title': title,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+    });
+  }
+
+  ConversationsCompanion copyWith({
+    Value<int>? id,
+    Value<int>? userId,
+    Value<String>? libraryItemId,
+    Value<String?>? partId,
+    Value<String>? title,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+  }) {
+    return ConversationsCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      libraryItemId: libraryItemId ?? this.libraryItemId,
+      partId: partId ?? this.partId,
+      title: title ?? this.title,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<int>(userId.value);
+    }
+    if (libraryItemId.present) {
+      map['library_item_id'] = Variable<String>(libraryItemId.value);
+    }
+    if (partId.present) {
+      map['part_id'] = Variable<String>(partId.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ConversationsCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('libraryItemId: $libraryItemId, ')
+          ..write('partId: $partId, ')
+          ..write('title: $title, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $MessagesTable extends Messages
+    with TableInfo<$MessagesTable, MessageRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MessagesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _conversationIdMeta = const VerificationMeta(
+    'conversationId',
+  );
+  @override
+  late final GeneratedColumn<int> conversationId = GeneratedColumn<int>(
+    'conversation_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES conversations (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _roleMeta = const VerificationMeta('role');
+  @override
+  late final GeneratedColumn<String> role = GeneratedColumn<String>(
+    'role',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _contentMeta = const VerificationMeta(
+    'content',
+  );
+  @override
+  late final GeneratedColumn<String> content = GeneratedColumn<String>(
+    'content',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sourcesJsonMeta = const VerificationMeta(
+    'sourcesJson',
+  );
+  @override
+  late final GeneratedColumn<String> sourcesJson = GeneratedColumn<String>(
+    'sources_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('[]'),
+  );
+  static const VerificationMeta _diagnosisIdMeta = const VerificationMeta(
+    'diagnosisId',
+  );
+  @override
+  late final GeneratedColumn<int> diagnosisId = GeneratedColumn<int>(
+    'diagnosis_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES diagnoses (id) ON DELETE SET NULL',
+    ),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    conversationId,
+    role,
+    content,
+    sourcesJson,
+    diagnosisId,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'messages';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<MessageRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('conversation_id')) {
+      context.handle(
+        _conversationIdMeta,
+        conversationId.isAcceptableOrUnknown(
+          data['conversation_id']!,
+          _conversationIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_conversationIdMeta);
+    }
+    if (data.containsKey('role')) {
+      context.handle(
+        _roleMeta,
+        role.isAcceptableOrUnknown(data['role']!, _roleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_roleMeta);
+    }
+    if (data.containsKey('content')) {
+      context.handle(
+        _contentMeta,
+        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_contentMeta);
+    }
+    if (data.containsKey('sources_json')) {
+      context.handle(
+        _sourcesJsonMeta,
+        sourcesJson.isAcceptableOrUnknown(
+          data['sources_json']!,
+          _sourcesJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('diagnosis_id')) {
+      context.handle(
+        _diagnosisIdMeta,
+        diagnosisId.isAcceptableOrUnknown(
+          data['diagnosis_id']!,
+          _diagnosisIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MessageRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MessageRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      conversationId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}conversation_id'],
+      )!,
+      role: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}role'],
+      )!,
+      content: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      )!,
+      sourcesJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sources_json'],
+      )!,
+      diagnosisId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}diagnosis_id'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $MessagesTable createAlias(String alias) {
+    return $MessagesTable(attachedDatabase, alias);
+  }
+}
+
+class MessageRow extends DataClass implements Insertable<MessageRow> {
+  final int id;
+  final int conversationId;
+  final String role;
+  final String content;
+
+  /// Cevabın dayandığı DM'ler, JSON listesi.
+  final String sourcesJson;
+
+  /// Mesaj bir teşhisle geldiyse onun kaydı.
+  final int? diagnosisId;
+  final DateTime createdAt;
+  const MessageRow({
+    required this.id,
+    required this.conversationId,
+    required this.role,
+    required this.content,
+    required this.sourcesJson,
+    this.diagnosisId,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['conversation_id'] = Variable<int>(conversationId);
+    map['role'] = Variable<String>(role);
+    map['content'] = Variable<String>(content);
+    map['sources_json'] = Variable<String>(sourcesJson);
+    if (!nullToAbsent || diagnosisId != null) {
+      map['diagnosis_id'] = Variable<int>(diagnosisId);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  MessagesCompanion toCompanion(bool nullToAbsent) {
+    return MessagesCompanion(
+      id: Value(id),
+      conversationId: Value(conversationId),
+      role: Value(role),
+      content: Value(content),
+      sourcesJson: Value(sourcesJson),
+      diagnosisId: diagnosisId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(diagnosisId),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory MessageRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MessageRow(
+      id: serializer.fromJson<int>(json['id']),
+      conversationId: serializer.fromJson<int>(json['conversationId']),
+      role: serializer.fromJson<String>(json['role']),
+      content: serializer.fromJson<String>(json['content']),
+      sourcesJson: serializer.fromJson<String>(json['sourcesJson']),
+      diagnosisId: serializer.fromJson<int?>(json['diagnosisId']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'conversationId': serializer.toJson<int>(conversationId),
+      'role': serializer.toJson<String>(role),
+      'content': serializer.toJson<String>(content),
+      'sourcesJson': serializer.toJson<String>(sourcesJson),
+      'diagnosisId': serializer.toJson<int?>(diagnosisId),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  MessageRow copyWith({
+    int? id,
+    int? conversationId,
+    String? role,
+    String? content,
+    String? sourcesJson,
+    Value<int?> diagnosisId = const Value.absent(),
+    DateTime? createdAt,
+  }) => MessageRow(
+    id: id ?? this.id,
+    conversationId: conversationId ?? this.conversationId,
+    role: role ?? this.role,
+    content: content ?? this.content,
+    sourcesJson: sourcesJson ?? this.sourcesJson,
+    diagnosisId: diagnosisId.present ? diagnosisId.value : this.diagnosisId,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  MessageRow copyWithCompanion(MessagesCompanion data) {
+    return MessageRow(
+      id: data.id.present ? data.id.value : this.id,
+      conversationId: data.conversationId.present
+          ? data.conversationId.value
+          : this.conversationId,
+      role: data.role.present ? data.role.value : this.role,
+      content: data.content.present ? data.content.value : this.content,
+      sourcesJson: data.sourcesJson.present
+          ? data.sourcesJson.value
+          : this.sourcesJson,
+      diagnosisId: data.diagnosisId.present
+          ? data.diagnosisId.value
+          : this.diagnosisId,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MessageRow(')
+          ..write('id: $id, ')
+          ..write('conversationId: $conversationId, ')
+          ..write('role: $role, ')
+          ..write('content: $content, ')
+          ..write('sourcesJson: $sourcesJson, ')
+          ..write('diagnosisId: $diagnosisId, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    conversationId,
+    role,
+    content,
+    sourcesJson,
+    diagnosisId,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MessageRow &&
+          other.id == this.id &&
+          other.conversationId == this.conversationId &&
+          other.role == this.role &&
+          other.content == this.content &&
+          other.sourcesJson == this.sourcesJson &&
+          other.diagnosisId == this.diagnosisId &&
+          other.createdAt == this.createdAt);
+}
+
+class MessagesCompanion extends UpdateCompanion<MessageRow> {
+  final Value<int> id;
+  final Value<int> conversationId;
+  final Value<String> role;
+  final Value<String> content;
+  final Value<String> sourcesJson;
+  final Value<int?> diagnosisId;
+  final Value<DateTime> createdAt;
+  const MessagesCompanion({
+    this.id = const Value.absent(),
+    this.conversationId = const Value.absent(),
+    this.role = const Value.absent(),
+    this.content = const Value.absent(),
+    this.sourcesJson = const Value.absent(),
+    this.diagnosisId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  MessagesCompanion.insert({
+    this.id = const Value.absent(),
+    required int conversationId,
+    required String role,
+    required String content,
+    this.sourcesJson = const Value.absent(),
+    this.diagnosisId = const Value.absent(),
+    required DateTime createdAt,
+  }) : conversationId = Value(conversationId),
+       role = Value(role),
+       content = Value(content),
+       createdAt = Value(createdAt);
+  static Insertable<MessageRow> custom({
+    Expression<int>? id,
+    Expression<int>? conversationId,
+    Expression<String>? role,
+    Expression<String>? content,
+    Expression<String>? sourcesJson,
+    Expression<int>? diagnosisId,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (conversationId != null) 'conversation_id': conversationId,
+      if (role != null) 'role': role,
+      if (content != null) 'content': content,
+      if (sourcesJson != null) 'sources_json': sourcesJson,
+      if (diagnosisId != null) 'diagnosis_id': diagnosisId,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  MessagesCompanion copyWith({
+    Value<int>? id,
+    Value<int>? conversationId,
+    Value<String>? role,
+    Value<String>? content,
+    Value<String>? sourcesJson,
+    Value<int?>? diagnosisId,
+    Value<DateTime>? createdAt,
+  }) {
+    return MessagesCompanion(
+      id: id ?? this.id,
+      conversationId: conversationId ?? this.conversationId,
+      role: role ?? this.role,
+      content: content ?? this.content,
+      sourcesJson: sourcesJson ?? this.sourcesJson,
+      diagnosisId: diagnosisId ?? this.diagnosisId,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (conversationId.present) {
+      map['conversation_id'] = Variable<int>(conversationId.value);
+    }
+    if (role.present) {
+      map['role'] = Variable<String>(role.value);
+    }
+    if (content.present) {
+      map['content'] = Variable<String>(content.value);
+    }
+    if (sourcesJson.present) {
+      map['sources_json'] = Variable<String>(sourcesJson.value);
+    }
+    if (diagnosisId.present) {
+      map['diagnosis_id'] = Variable<int>(diagnosisId.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MessagesCompanion(')
+          ..write('id: $id, ')
+          ..write('conversationId: $conversationId, ')
+          ..write('role: $role, ')
+          ..write('content: $content, ')
+          ..write('sourcesJson: $sourcesJson, ')
+          ..write('diagnosisId: $diagnosisId, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$NayaDatabase extends GeneratedDatabase {
   _$NayaDatabase(QueryExecutor e) : super(e);
   $NayaDatabaseManager get managers => $NayaDatabaseManager(this);
   late final $UsersTable users = $UsersTable(this);
   late final $SessionsTable sessions = $SessionsTable(this);
   late final $LibraryItemsTable libraryItems = $LibraryItemsTable(this);
+  late final $AiKeysTable aiKeys = $AiKeysTable(this);
+  late final $AiRolesTable aiRoles = $AiRolesTable(this);
+  late final $DiagnosesTable diagnoses = $DiagnosesTable(this);
+  late final $ConversationsTable conversations = $ConversationsTable(this);
+  late final $MessagesTable messages = $MessagesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1829,6 +3853,11 @@ abstract class _$NayaDatabase extends GeneratedDatabase {
     users,
     sessions,
     libraryItems,
+    aiKeys,
+    aiRoles,
+    diagnoses,
+    conversations,
+    messages,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -1845,6 +3874,62 @@ abstract class _$NayaDatabase extends GeneratedDatabase {
         limitUpdateKind: UpdateKind.delete,
       ),
       result: [TableUpdate('library_items', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'users',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('ai_keys', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'users',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('ai_roles', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'users',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('diagnoses', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'library_items',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('diagnoses', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'users',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('conversations', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'library_items',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('conversations', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'conversations',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('messages', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'diagnoses',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('messages', kind: UpdateKind.update)],
     ),
   ]);
 }
@@ -1903,6 +3988,80 @@ final class $$UsersTableReferences
     ).filter((f) => f.ownerId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_libraryItemsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$AiKeysTable, List<AiKeyRow>> _aiKeysRefsTable(
+    _$NayaDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.aiKeys,
+    aliasName: 'users__id__ai_keys__user_id',
+  );
+
+  $$AiKeysTableProcessedTableManager get aiKeysRefs {
+    final manager = $$AiKeysTableTableManager(
+      $_db,
+      $_db.aiKeys,
+    ).filter((f) => f.userId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_aiKeysRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$AiRolesTable, List<AiRoleRow>> _aiRolesRefsTable(
+    _$NayaDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.aiRoles,
+    aliasName: 'users__id__ai_roles__user_id',
+  );
+
+  $$AiRolesTableProcessedTableManager get aiRolesRefs {
+    final manager = $$AiRolesTableTableManager(
+      $_db,
+      $_db.aiRoles,
+    ).filter((f) => f.userId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_aiRolesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$DiagnosesTable, List<DiagnosisRow>>
+  _diagnosesRefsTable(_$NayaDatabase db) => MultiTypedResultKey.fromTable(
+    db.diagnoses,
+    aliasName: 'users__id__diagnoses__user_id',
+  );
+
+  $$DiagnosesTableProcessedTableManager get diagnosesRefs {
+    final manager = $$DiagnosesTableTableManager(
+      $_db,
+      $_db.diagnoses,
+    ).filter((f) => f.userId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_diagnosesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$ConversationsTable, List<ConversationRow>>
+  _conversationsRefsTable(_$NayaDatabase db) => MultiTypedResultKey.fromTable(
+    db.conversations,
+    aliasName: 'users__id__conversations__user_id',
+  );
+
+  $$ConversationsTableProcessedTableManager get conversationsRefs {
+    final manager = $$ConversationsTableTableManager(
+      $_db,
+      $_db.conversations,
+    ).filter((f) => f.userId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_conversationsRefsTable($_db));
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -1994,6 +4153,106 @@ class $$UsersTableFilterComposer extends Composer<_$NayaDatabase, $UsersTable> {
           }) => $$LibraryItemsTableFilterComposer(
             $db: $db,
             $table: $db.libraryItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> aiKeysRefs(
+    Expression<bool> Function($$AiKeysTableFilterComposer f) f,
+  ) {
+    final $$AiKeysTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.aiKeys,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AiKeysTableFilterComposer(
+            $db: $db,
+            $table: $db.aiKeys,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> aiRolesRefs(
+    Expression<bool> Function($$AiRolesTableFilterComposer f) f,
+  ) {
+    final $$AiRolesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.aiRoles,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AiRolesTableFilterComposer(
+            $db: $db,
+            $table: $db.aiRoles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> diagnosesRefs(
+    Expression<bool> Function($$DiagnosesTableFilterComposer f) f,
+  ) {
+    final $$DiagnosesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.diagnoses,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DiagnosesTableFilterComposer(
+            $db: $db,
+            $table: $db.diagnoses,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> conversationsRefs(
+    Expression<bool> Function($$ConversationsTableFilterComposer f) f,
+  ) {
+    final $$ConversationsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.conversations,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ConversationsTableFilterComposer(
+            $db: $db,
+            $table: $db.conversations,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -2134,6 +4393,106 @@ class $$UsersTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> aiKeysRefs<T extends Object>(
+    Expression<T> Function($$AiKeysTableAnnotationComposer a) f,
+  ) {
+    final $$AiKeysTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.aiKeys,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AiKeysTableAnnotationComposer(
+            $db: $db,
+            $table: $db.aiKeys,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> aiRolesRefs<T extends Object>(
+    Expression<T> Function($$AiRolesTableAnnotationComposer a) f,
+  ) {
+    final $$AiRolesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.aiRoles,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AiRolesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.aiRoles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> diagnosesRefs<T extends Object>(
+    Expression<T> Function($$DiagnosesTableAnnotationComposer a) f,
+  ) {
+    final $$DiagnosesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.diagnoses,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DiagnosesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.diagnoses,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> conversationsRefs<T extends Object>(
+    Expression<T> Function($$ConversationsTableAnnotationComposer a) f,
+  ) {
+    final $$ConversationsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.conversations,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ConversationsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.conversations,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$UsersTableTableManager
@@ -2149,7 +4508,14 @@ class $$UsersTableTableManager
           $$UsersTableUpdateCompanionBuilder,
           (UserRow, $$UsersTableReferences),
           UserRow,
-          PrefetchHooks Function({bool sessionsRefs, bool libraryItemsRefs})
+          PrefetchHooks Function({
+            bool sessionsRefs,
+            bool libraryItemsRefs,
+            bool aiKeysRefs,
+            bool aiRolesRefs,
+            bool diagnosesRefs,
+            bool conversationsRefs,
+          })
         > {
   $$UsersTableTableManager(_$NayaDatabase db, $UsersTable table)
     : super(
@@ -2207,12 +4573,23 @@ class $$UsersTableTableManager
               )
               .toList(),
           prefetchHooksCallback:
-              ({sessionsRefs = false, libraryItemsRefs = false}) {
+              ({
+                sessionsRefs = false,
+                libraryItemsRefs = false,
+                aiKeysRefs = false,
+                aiRolesRefs = false,
+                diagnosesRefs = false,
+                conversationsRefs = false,
+              }) {
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
                     if (sessionsRefs) db.sessions,
                     if (libraryItemsRefs) db.libraryItems,
+                    if (aiKeysRefs) db.aiKeys,
+                    if (aiRolesRefs) db.aiRoles,
+                    if (diagnosesRefs) db.diagnoses,
+                    if (conversationsRefs) db.conversations,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -2257,6 +4634,78 @@ class $$UsersTableTableManager
                           referencedColumn: 'owner_id',
                           typedResults: items,
                         ),
+                      if (aiKeysRefs)
+                        await $_getPrefetchedDataByColumns<
+                          UserRow,
+                          $UsersTable,
+                          AiKeyRow,
+                          $AiKeysTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$UsersTableReferences
+                              ._aiKeysRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$UsersTableReferences(db, table, p0).aiKeysRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'user_id',
+                          typedResults: items,
+                        ),
+                      if (aiRolesRefs)
+                        await $_getPrefetchedDataByColumns<
+                          UserRow,
+                          $UsersTable,
+                          AiRoleRow,
+                          $AiRolesTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$UsersTableReferences
+                              ._aiRolesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$UsersTableReferences(db, table, p0).aiRolesRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'user_id',
+                          typedResults: items,
+                        ),
+                      if (diagnosesRefs)
+                        await $_getPrefetchedDataByColumns<
+                          UserRow,
+                          $UsersTable,
+                          DiagnosisRow,
+                          $DiagnosesTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$UsersTableReferences
+                              ._diagnosesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$UsersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).diagnosesRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'user_id',
+                          typedResults: items,
+                        ),
+                      if (conversationsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          UserRow,
+                          $UsersTable,
+                          ConversationRow,
+                          $ConversationsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$UsersTableReferences
+                              ._conversationsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$UsersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).conversationsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'user_id',
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -2277,7 +4726,14 @@ typedef $$UsersTableProcessedTableManager =
       $$UsersTableUpdateCompanionBuilder,
       (UserRow, $$UsersTableReferences),
       UserRow,
-      PrefetchHooks Function({bool sessionsRefs, bool libraryItemsRefs})
+      PrefetchHooks Function({
+        bool sessionsRefs,
+        bool libraryItemsRefs,
+        bool aiKeysRefs,
+        bool aiRolesRefs,
+        bool diagnosesRefs,
+        bool conversationsRefs,
+      })
     >;
 typedef $$SessionsTableCreateCompanionBuilder = SessionsCompanion Function({
   Value<int> id,
@@ -2669,6 +5125,42 @@ final class $$LibraryItemsTableReferences
       manager.$state.copyWith(prefetchedData: [item]),
     );
   }
+
+  static MultiTypedResultKey<$DiagnosesTable, List<DiagnosisRow>>
+  _diagnosesRefsTable(_$NayaDatabase db) => MultiTypedResultKey.fromTable(
+    db.diagnoses,
+    aliasName: 'library_items__id__diagnoses__library_item_id',
+  );
+
+  $$DiagnosesTableProcessedTableManager get diagnosesRefs {
+    final manager = $$DiagnosesTableTableManager(
+      $_db,
+      $_db.diagnoses,
+    ).filter((f) => f.libraryItemId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_diagnosesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$ConversationsTable, List<ConversationRow>>
+  _conversationsRefsTable(_$NayaDatabase db) => MultiTypedResultKey.fromTable(
+    db.conversations,
+    aliasName: 'library_items__id__conversations__library_item_id',
+  );
+
+  $$ConversationsTableProcessedTableManager get conversationsRefs {
+    final manager = $$ConversationsTableTableManager(
+      $_db,
+      $_db.conversations,
+    ).filter((f) => f.libraryItemId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_conversationsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$LibraryItemsTableFilterComposer
@@ -2776,6 +5268,56 @@ class $$LibraryItemsTableFilterComposer
           ),
     );
     return composer;
+  }
+
+  Expression<bool> diagnosesRefs(
+    Expression<bool> Function($$DiagnosesTableFilterComposer f) f,
+  ) {
+    final $$DiagnosesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.diagnoses,
+      getReferencedColumn: (t) => t.libraryItemId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DiagnosesTableFilterComposer(
+            $db: $db,
+            $table: $db.diagnoses,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> conversationsRefs(
+    Expression<bool> Function($$ConversationsTableFilterComposer f) f,
+  ) {
+    final $$ConversationsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.conversations,
+      getReferencedColumn: (t) => t.libraryItemId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ConversationsTableFilterComposer(
+            $db: $db,
+            $table: $db.conversations,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
   }
 }
 
@@ -2971,6 +5513,56 @@ class $$LibraryItemsTableAnnotationComposer
     );
     return composer;
   }
+
+  Expression<T> diagnosesRefs<T extends Object>(
+    Expression<T> Function($$DiagnosesTableAnnotationComposer a) f,
+  ) {
+    final $$DiagnosesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.diagnoses,
+      getReferencedColumn: (t) => t.libraryItemId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DiagnosesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.diagnoses,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> conversationsRefs<T extends Object>(
+    Expression<T> Function($$ConversationsTableAnnotationComposer a) f,
+  ) {
+    final $$ConversationsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.conversations,
+      getReferencedColumn: (t) => t.libraryItemId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ConversationsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.conversations,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$LibraryItemsTableTableManager
@@ -2986,7 +5578,11 @@ class $$LibraryItemsTableTableManager
           $$LibraryItemsTableUpdateCompanionBuilder,
           (LibraryItemRow, $$LibraryItemsTableReferences),
           LibraryItemRow,
-          PrefetchHooks Function({bool ownerId})
+          PrefetchHooks Function({
+            bool ownerId,
+            bool diagnosesRefs,
+            bool conversationsRefs,
+          })
         > {
   $$LibraryItemsTableTableManager(_$NayaDatabase db, $LibraryItemsTable table)
     : super(
@@ -3083,7 +5679,348 @@ class $$LibraryItemsTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({ownerId = false}) {
+          prefetchHooksCallback:
+              ({
+                ownerId = false,
+                diagnosesRefs = false,
+                conversationsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (diagnosesRefs) db.diagnoses,
+                    if (conversationsRefs) db.conversations,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (ownerId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.ownerId,
+                            referencedTable: $$LibraryItemsTableReferences
+                                ._ownerIdTable(db),
+                            referencedColumn: $$LibraryItemsTableReferences
+                                ._ownerIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (diagnosesRefs)
+                        await $_getPrefetchedDataByColumns<
+                          LibraryItemRow,
+                          $LibraryItemsTable,
+                          DiagnosisRow,
+                          $DiagnosesTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$LibraryItemsTableReferences
+                              ._diagnosesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$LibraryItemsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).diagnosesRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'library_item_id',
+                          typedResults: items,
+                        ),
+                      if (conversationsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          LibraryItemRow,
+                          $LibraryItemsTable,
+                          ConversationRow,
+                          $ConversationsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$LibraryItemsTableReferences
+                              ._conversationsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$LibraryItemsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).conversationsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'library_item_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$LibraryItemsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$NayaDatabase,
+      $LibraryItemsTable,
+      LibraryItemRow,
+      $$LibraryItemsTableFilterComposer,
+      $$LibraryItemsTableOrderingComposer,
+      $$LibraryItemsTableAnnotationComposer,
+      $$LibraryItemsTableCreateCompanionBuilder,
+      $$LibraryItemsTableUpdateCompanionBuilder,
+      (LibraryItemRow, $$LibraryItemsTableReferences),
+      LibraryItemRow,
+      PrefetchHooks Function({
+        bool ownerId,
+        bool diagnosesRefs,
+        bool conversationsRefs,
+      })
+    >;
+typedef $$AiKeysTableCreateCompanionBuilder = AiKeysCompanion Function({
+  Value<int> userId,
+  required Uint8List secret,
+  required String hint,
+  required DateTime updatedAt,
+});
+typedef $$AiKeysTableUpdateCompanionBuilder = AiKeysCompanion Function({
+  Value<int> userId,
+  Value<Uint8List> secret,
+  Value<String> hint,
+  Value<DateTime> updatedAt,
+});
+
+final class $$AiKeysTableReferences
+    extends BaseReferences<_$NayaDatabase, $AiKeysTable, AiKeyRow> {
+  $$AiKeysTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $UsersTable _userIdTable(_$NayaDatabase db) =>
+      db.users.createAlias('ai_keys__user_id__users__id');
+
+  $$UsersTableProcessedTableManager get userId {
+    final $_column = $_itemColumn<int>('user_id')!;
+
+    final manager = $$UsersTableTableManager(
+      $_db,
+      $_db.users,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$AiKeysTableFilterComposer
+    extends Composer<_$NayaDatabase, $AiKeysTable> {
+  $$AiKeysTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<Uint8List> get secret => $composableBuilder(
+    column: $table.secret,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get hint => $composableBuilder(
+    column: $table.hint,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$UsersTableFilterComposer get userId {
+    final $$UsersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableFilterComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AiKeysTableOrderingComposer
+    extends Composer<_$NayaDatabase, $AiKeysTable> {
+  $$AiKeysTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<Uint8List> get secret => $composableBuilder(
+    column: $table.secret,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get hint => $composableBuilder(
+    column: $table.hint,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$UsersTableOrderingComposer get userId {
+    final $$UsersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableOrderingComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AiKeysTableAnnotationComposer
+    extends Composer<_$NayaDatabase, $AiKeysTable> {
+  $$AiKeysTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<Uint8List> get secret =>
+      $composableBuilder(column: $table.secret, builder: (column) => column);
+
+  GeneratedColumn<String> get hint =>
+      $composableBuilder(column: $table.hint, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$UsersTableAnnotationComposer get userId {
+    final $$UsersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AiKeysTableTableManager
+    extends
+        RootTableManager<
+          _$NayaDatabase,
+          $AiKeysTable,
+          AiKeyRow,
+          $$AiKeysTableFilterComposer,
+          $$AiKeysTableOrderingComposer,
+          $$AiKeysTableAnnotationComposer,
+          $$AiKeysTableCreateCompanionBuilder,
+          $$AiKeysTableUpdateCompanionBuilder,
+          (AiKeyRow, $$AiKeysTableReferences),
+          AiKeyRow,
+          PrefetchHooks Function({bool userId})
+        > {
+  $$AiKeysTableTableManager(_$NayaDatabase db, $AiKeysTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AiKeysTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AiKeysTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AiKeysTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> userId = const Value.absent(),
+                Value<Uint8List> secret = const Value.absent(),
+                Value<String> hint = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => AiKeysCompanion(
+                userId: userId,
+                secret: secret,
+                hint: hint,
+                updatedAt: updatedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> userId = const Value.absent(),
+                required Uint8List secret,
+                required String hint,
+                required DateTime updatedAt,
+              }) => AiKeysCompanion.insert(
+                userId: userId,
+                secret: secret,
+                hint: hint,
+                updatedAt: updatedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$AiKeysTable, AiKeyRow>(table),
+                  $$AiKeysTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({userId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
@@ -3103,14 +6040,15 @@ class $$LibraryItemsTableTableManager
                       dynamic
                     >
                   >(state) {
-                    if (ownerId) {
+                    if (userId) {
                       state = state.withJoin(
                         currentTable: table,
-                        currentColumn: table.ownerId,
-                        referencedTable: $$LibraryItemsTableReferences
-                            ._ownerIdTable(db),
-                        referencedColumn: $$LibraryItemsTableReferences
-                            ._ownerIdTable(db)
+                        currentColumn: table.userId,
+                        referencedTable: $$AiKeysTableReferences._userIdTable(
+                          db,
+                        ),
+                        referencedColumn: $$AiKeysTableReferences
+                            ._userIdTable(db)
                             .id,
                       ) as T;
                     }
@@ -3126,19 +6064,1814 @@ class $$LibraryItemsTableTableManager
       );
 }
 
-typedef $$LibraryItemsTableProcessedTableManager =
+typedef $$AiKeysTableProcessedTableManager =
     ProcessedTableManager<
       _$NayaDatabase,
-      $LibraryItemsTable,
-      LibraryItemRow,
-      $$LibraryItemsTableFilterComposer,
-      $$LibraryItemsTableOrderingComposer,
-      $$LibraryItemsTableAnnotationComposer,
-      $$LibraryItemsTableCreateCompanionBuilder,
-      $$LibraryItemsTableUpdateCompanionBuilder,
-      (LibraryItemRow, $$LibraryItemsTableReferences),
-      LibraryItemRow,
-      PrefetchHooks Function({bool ownerId})
+      $AiKeysTable,
+      AiKeyRow,
+      $$AiKeysTableFilterComposer,
+      $$AiKeysTableOrderingComposer,
+      $$AiKeysTableAnnotationComposer,
+      $$AiKeysTableCreateCompanionBuilder,
+      $$AiKeysTableUpdateCompanionBuilder,
+      (AiKeyRow, $$AiKeysTableReferences),
+      AiKeyRow,
+      PrefetchHooks Function({bool userId})
+    >;
+typedef $$AiRolesTableCreateCompanionBuilder = AiRolesCompanion Function({
+  required int userId,
+  required String role,
+  required String model,
+  Value<int> rowid,
+});
+typedef $$AiRolesTableUpdateCompanionBuilder = AiRolesCompanion Function({
+  Value<int> userId,
+  Value<String> role,
+  Value<String> model,
+  Value<int> rowid,
+});
+
+final class $$AiRolesTableReferences
+    extends BaseReferences<_$NayaDatabase, $AiRolesTable, AiRoleRow> {
+  $$AiRolesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $UsersTable _userIdTable(_$NayaDatabase db) =>
+      db.users.createAlias('ai_roles__user_id__users__id');
+
+  $$UsersTableProcessedTableManager get userId {
+    final $_column = $_itemColumn<int>('user_id')!;
+
+    final manager = $$UsersTableTableManager(
+      $_db,
+      $_db.users,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$AiRolesTableFilterComposer
+    extends Composer<_$NayaDatabase, $AiRolesTable> {
+  $$AiRolesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get role => $composableBuilder(
+    column: $table.role,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get model => $composableBuilder(
+    column: $table.model,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$UsersTableFilterComposer get userId {
+    final $$UsersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableFilterComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AiRolesTableOrderingComposer
+    extends Composer<_$NayaDatabase, $AiRolesTable> {
+  $$AiRolesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get role => $composableBuilder(
+    column: $table.role,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get model => $composableBuilder(
+    column: $table.model,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$UsersTableOrderingComposer get userId {
+    final $$UsersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableOrderingComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AiRolesTableAnnotationComposer
+    extends Composer<_$NayaDatabase, $AiRolesTable> {
+  $$AiRolesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get role =>
+      $composableBuilder(column: $table.role, builder: (column) => column);
+
+  GeneratedColumn<String> get model =>
+      $composableBuilder(column: $table.model, builder: (column) => column);
+
+  $$UsersTableAnnotationComposer get userId {
+    final $$UsersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AiRolesTableTableManager
+    extends
+        RootTableManager<
+          _$NayaDatabase,
+          $AiRolesTable,
+          AiRoleRow,
+          $$AiRolesTableFilterComposer,
+          $$AiRolesTableOrderingComposer,
+          $$AiRolesTableAnnotationComposer,
+          $$AiRolesTableCreateCompanionBuilder,
+          $$AiRolesTableUpdateCompanionBuilder,
+          (AiRoleRow, $$AiRolesTableReferences),
+          AiRoleRow,
+          PrefetchHooks Function({bool userId})
+        > {
+  $$AiRolesTableTableManager(_$NayaDatabase db, $AiRolesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AiRolesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AiRolesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AiRolesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> userId = const Value.absent(),
+                Value<String> role = const Value.absent(),
+                Value<String> model = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AiRolesCompanion(
+                userId: userId,
+                role: role,
+                model: model,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required int userId,
+                required String role,
+                required String model,
+                Value<int> rowid = const Value.absent(),
+              }) => AiRolesCompanion.insert(
+                userId: userId,
+                role: role,
+                model: model,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$AiRolesTable, AiRoleRow>(table),
+                  $$AiRolesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({userId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (userId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.userId,
+                        referencedTable: $$AiRolesTableReferences._userIdTable(
+                          db,
+                        ),
+                        referencedColumn: $$AiRolesTableReferences
+                            ._userIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$AiRolesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$NayaDatabase,
+      $AiRolesTable,
+      AiRoleRow,
+      $$AiRolesTableFilterComposer,
+      $$AiRolesTableOrderingComposer,
+      $$AiRolesTableAnnotationComposer,
+      $$AiRolesTableCreateCompanionBuilder,
+      $$AiRolesTableUpdateCompanionBuilder,
+      (AiRoleRow, $$AiRolesTableReferences),
+      AiRoleRow,
+      PrefetchHooks Function({bool userId})
+    >;
+typedef $$DiagnosesTableCreateCompanionBuilder = DiagnosesCompanion Function({
+  Value<int> id,
+  required int userId,
+  required String libraryItemId,
+  required String message,
+  required String resultJson,
+  Value<String> explanation,
+  required String model,
+  required DateTime createdAt,
+});
+typedef $$DiagnosesTableUpdateCompanionBuilder = DiagnosesCompanion Function({
+  Value<int> id,
+  Value<int> userId,
+  Value<String> libraryItemId,
+  Value<String> message,
+  Value<String> resultJson,
+  Value<String> explanation,
+  Value<String> model,
+  Value<DateTime> createdAt,
+});
+
+final class $$DiagnosesTableReferences
+    extends BaseReferences<_$NayaDatabase, $DiagnosesTable, DiagnosisRow> {
+  $$DiagnosesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $UsersTable _userIdTable(_$NayaDatabase db) =>
+      db.users.createAlias('diagnoses__user_id__users__id');
+
+  $$UsersTableProcessedTableManager get userId {
+    final $_column = $_itemColumn<int>('user_id')!;
+
+    final manager = $$UsersTableTableManager(
+      $_db,
+      $_db.users,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $LibraryItemsTable _libraryItemIdTable(_$NayaDatabase db) => db
+      .libraryItems
+      .createAlias('diagnoses__library_item_id__library_items__id');
+
+  $$LibraryItemsTableProcessedTableManager get libraryItemId {
+    final $_column = $_itemColumn<String>('library_item_id')!;
+
+    final manager = $$LibraryItemsTableTableManager(
+      $_db,
+      $_db.libraryItems,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_libraryItemIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$MessagesTable, List<MessageRow>>
+  _messagesRefsTable(_$NayaDatabase db) => MultiTypedResultKey.fromTable(
+    db.messages,
+    aliasName: 'diagnoses__id__messages__diagnosis_id',
+  );
+
+  $$MessagesTableProcessedTableManager get messagesRefs {
+    final manager = $$MessagesTableTableManager(
+      $_db,
+      $_db.messages,
+    ).filter((f) => f.diagnosisId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_messagesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$DiagnosesTableFilterComposer
+    extends Composer<_$NayaDatabase, $DiagnosesTable> {
+  $$DiagnosesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get message => $composableBuilder(
+    column: $table.message,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get resultJson => $composableBuilder(
+    column: $table.resultJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get explanation => $composableBuilder(
+    column: $table.explanation,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get model => $composableBuilder(
+    column: $table.model,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$UsersTableFilterComposer get userId {
+    final $$UsersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableFilterComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$LibraryItemsTableFilterComposer get libraryItemId {
+    final $$LibraryItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.libraryItemId,
+      referencedTable: $db.libraryItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LibraryItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.libraryItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> messagesRefs(
+    Expression<bool> Function($$MessagesTableFilterComposer f) f,
+  ) {
+    final $$MessagesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.messages,
+      getReferencedColumn: (t) => t.diagnosisId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MessagesTableFilterComposer(
+            $db: $db,
+            $table: $db.messages,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$DiagnosesTableOrderingComposer
+    extends Composer<_$NayaDatabase, $DiagnosesTable> {
+  $$DiagnosesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get message => $composableBuilder(
+    column: $table.message,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get resultJson => $composableBuilder(
+    column: $table.resultJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get explanation => $composableBuilder(
+    column: $table.explanation,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get model => $composableBuilder(
+    column: $table.model,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$UsersTableOrderingComposer get userId {
+    final $$UsersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableOrderingComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$LibraryItemsTableOrderingComposer get libraryItemId {
+    final $$LibraryItemsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.libraryItemId,
+      referencedTable: $db.libraryItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LibraryItemsTableOrderingComposer(
+            $db: $db,
+            $table: $db.libraryItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$DiagnosesTableAnnotationComposer
+    extends Composer<_$NayaDatabase, $DiagnosesTable> {
+  $$DiagnosesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get message =>
+      $composableBuilder(column: $table.message, builder: (column) => column);
+
+  GeneratedColumn<String> get resultJson => $composableBuilder(
+    column: $table.resultJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get explanation => $composableBuilder(
+    column: $table.explanation,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get model =>
+      $composableBuilder(column: $table.model, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$UsersTableAnnotationComposer get userId {
+    final $$UsersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$LibraryItemsTableAnnotationComposer get libraryItemId {
+    final $$LibraryItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.libraryItemId,
+      referencedTable: $db.libraryItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LibraryItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.libraryItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> messagesRefs<T extends Object>(
+    Expression<T> Function($$MessagesTableAnnotationComposer a) f,
+  ) {
+    final $$MessagesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.messages,
+      getReferencedColumn: (t) => t.diagnosisId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MessagesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.messages,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$DiagnosesTableTableManager
+    extends
+        RootTableManager<
+          _$NayaDatabase,
+          $DiagnosesTable,
+          DiagnosisRow,
+          $$DiagnosesTableFilterComposer,
+          $$DiagnosesTableOrderingComposer,
+          $$DiagnosesTableAnnotationComposer,
+          $$DiagnosesTableCreateCompanionBuilder,
+          $$DiagnosesTableUpdateCompanionBuilder,
+          (DiagnosisRow, $$DiagnosesTableReferences),
+          DiagnosisRow,
+          PrefetchHooks Function({
+            bool userId,
+            bool libraryItemId,
+            bool messagesRefs,
+          })
+        > {
+  $$DiagnosesTableTableManager(_$NayaDatabase db, $DiagnosesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DiagnosesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$DiagnosesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$DiagnosesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> userId = const Value.absent(),
+                Value<String> libraryItemId = const Value.absent(),
+                Value<String> message = const Value.absent(),
+                Value<String> resultJson = const Value.absent(),
+                Value<String> explanation = const Value.absent(),
+                Value<String> model = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => DiagnosesCompanion(
+                id: id,
+                userId: userId,
+                libraryItemId: libraryItemId,
+                message: message,
+                resultJson: resultJson,
+                explanation: explanation,
+                model: model,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int userId,
+                required String libraryItemId,
+                required String message,
+                required String resultJson,
+                Value<String> explanation = const Value.absent(),
+                required String model,
+                required DateTime createdAt,
+              }) => DiagnosesCompanion.insert(
+                id: id,
+                userId: userId,
+                libraryItemId: libraryItemId,
+                message: message,
+                resultJson: resultJson,
+                explanation: explanation,
+                model: model,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$DiagnosesTable, DiagnosisRow>(table),
+                  $$DiagnosesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({userId = false, libraryItemId = false, messagesRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [if (messagesRefs) db.messages],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (userId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.userId,
+                            referencedTable: $$DiagnosesTableReferences
+                                ._userIdTable(db),
+                            referencedColumn: $$DiagnosesTableReferences
+                                ._userIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+                        if (libraryItemId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.libraryItemId,
+                            referencedTable: $$DiagnosesTableReferences
+                                ._libraryItemIdTable(db),
+                            referencedColumn: $$DiagnosesTableReferences
+                                ._libraryItemIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (messagesRefs)
+                        await $_getPrefetchedDataByColumns<
+                          DiagnosisRow,
+                          $DiagnosesTable,
+                          MessageRow,
+                          $MessagesTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$DiagnosesTableReferences
+                              ._messagesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$DiagnosesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).messagesRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'diagnosis_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$DiagnosesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$NayaDatabase,
+      $DiagnosesTable,
+      DiagnosisRow,
+      $$DiagnosesTableFilterComposer,
+      $$DiagnosesTableOrderingComposer,
+      $$DiagnosesTableAnnotationComposer,
+      $$DiagnosesTableCreateCompanionBuilder,
+      $$DiagnosesTableUpdateCompanionBuilder,
+      (DiagnosisRow, $$DiagnosesTableReferences),
+      DiagnosisRow,
+      PrefetchHooks Function({
+        bool userId,
+        bool libraryItemId,
+        bool messagesRefs,
+      })
+    >;
+typedef $$ConversationsTableCreateCompanionBuilder =
+    ConversationsCompanion Function({
+      Value<int> id,
+      required int userId,
+      required String libraryItemId,
+      Value<String?> partId,
+      required String title,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+    });
+typedef $$ConversationsTableUpdateCompanionBuilder =
+    ConversationsCompanion Function({
+      Value<int> id,
+      Value<int> userId,
+      Value<String> libraryItemId,
+      Value<String?> partId,
+      Value<String> title,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+    });
+
+final class $$ConversationsTableReferences
+    extends
+        BaseReferences<_$NayaDatabase, $ConversationsTable, ConversationRow> {
+  $$ConversationsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $UsersTable _userIdTable(_$NayaDatabase db) =>
+      db.users.createAlias('conversations__user_id__users__id');
+
+  $$UsersTableProcessedTableManager get userId {
+    final $_column = $_itemColumn<int>('user_id')!;
+
+    final manager = $$UsersTableTableManager(
+      $_db,
+      $_db.users,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $LibraryItemsTable _libraryItemIdTable(_$NayaDatabase db) => db
+      .libraryItems
+      .createAlias('conversations__library_item_id__library_items__id');
+
+  $$LibraryItemsTableProcessedTableManager get libraryItemId {
+    final $_column = $_itemColumn<String>('library_item_id')!;
+
+    final manager = $$LibraryItemsTableTableManager(
+      $_db,
+      $_db.libraryItems,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_libraryItemIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$MessagesTable, List<MessageRow>>
+  _messagesRefsTable(_$NayaDatabase db) => MultiTypedResultKey.fromTable(
+    db.messages,
+    aliasName: 'conversations__id__messages__conversation_id',
+  );
+
+  $$MessagesTableProcessedTableManager get messagesRefs {
+    final manager = $$MessagesTableTableManager(
+      $_db,
+      $_db.messages,
+    ).filter((f) => f.conversationId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_messagesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$ConversationsTableFilterComposer
+    extends Composer<_$NayaDatabase, $ConversationsTable> {
+  $$ConversationsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get partId => $composableBuilder(
+    column: $table.partId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$UsersTableFilterComposer get userId {
+    final $$UsersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableFilterComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$LibraryItemsTableFilterComposer get libraryItemId {
+    final $$LibraryItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.libraryItemId,
+      referencedTable: $db.libraryItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LibraryItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.libraryItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> messagesRefs(
+    Expression<bool> Function($$MessagesTableFilterComposer f) f,
+  ) {
+    final $$MessagesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.messages,
+      getReferencedColumn: (t) => t.conversationId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MessagesTableFilterComposer(
+            $db: $db,
+            $table: $db.messages,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$ConversationsTableOrderingComposer
+    extends Composer<_$NayaDatabase, $ConversationsTable> {
+  $$ConversationsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get partId => $composableBuilder(
+    column: $table.partId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$UsersTableOrderingComposer get userId {
+    final $$UsersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableOrderingComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$LibraryItemsTableOrderingComposer get libraryItemId {
+    final $$LibraryItemsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.libraryItemId,
+      referencedTable: $db.libraryItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LibraryItemsTableOrderingComposer(
+            $db: $db,
+            $table: $db.libraryItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ConversationsTableAnnotationComposer
+    extends Composer<_$NayaDatabase, $ConversationsTable> {
+  $$ConversationsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get partId =>
+      $composableBuilder(column: $table.partId, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$UsersTableAnnotationComposer get userId {
+    final $$UsersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$LibraryItemsTableAnnotationComposer get libraryItemId {
+    final $$LibraryItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.libraryItemId,
+      referencedTable: $db.libraryItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LibraryItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.libraryItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> messagesRefs<T extends Object>(
+    Expression<T> Function($$MessagesTableAnnotationComposer a) f,
+  ) {
+    final $$MessagesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.messages,
+      getReferencedColumn: (t) => t.conversationId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MessagesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.messages,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$ConversationsTableTableManager
+    extends
+        RootTableManager<
+          _$NayaDatabase,
+          $ConversationsTable,
+          ConversationRow,
+          $$ConversationsTableFilterComposer,
+          $$ConversationsTableOrderingComposer,
+          $$ConversationsTableAnnotationComposer,
+          $$ConversationsTableCreateCompanionBuilder,
+          $$ConversationsTableUpdateCompanionBuilder,
+          (ConversationRow, $$ConversationsTableReferences),
+          ConversationRow,
+          PrefetchHooks Function({
+            bool userId,
+            bool libraryItemId,
+            bool messagesRefs,
+          })
+        > {
+  $$ConversationsTableTableManager(_$NayaDatabase db, $ConversationsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ConversationsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ConversationsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ConversationsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> userId = const Value.absent(),
+                Value<String> libraryItemId = const Value.absent(),
+                Value<String?> partId = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => ConversationsCompanion(
+                id: id,
+                userId: userId,
+                libraryItemId: libraryItemId,
+                partId: partId,
+                title: title,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int userId,
+                required String libraryItemId,
+                Value<String?> partId = const Value.absent(),
+                required String title,
+                required DateTime createdAt,
+                required DateTime updatedAt,
+              }) => ConversationsCompanion.insert(
+                id: id,
+                userId: userId,
+                libraryItemId: libraryItemId,
+                partId: partId,
+                title: title,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$ConversationsTable, ConversationRow>(table),
+                  $$ConversationsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({userId = false, libraryItemId = false, messagesRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [if (messagesRefs) db.messages],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (userId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.userId,
+                            referencedTable: $$ConversationsTableReferences
+                                ._userIdTable(db),
+                            referencedColumn: $$ConversationsTableReferences
+                                ._userIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+                        if (libraryItemId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.libraryItemId,
+                            referencedTable: $$ConversationsTableReferences
+                                ._libraryItemIdTable(db),
+                            referencedColumn: $$ConversationsTableReferences
+                                ._libraryItemIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (messagesRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ConversationRow,
+                          $ConversationsTable,
+                          MessageRow,
+                          $MessagesTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ConversationsTableReferences
+                              ._messagesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ConversationsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).messagesRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'conversation_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$ConversationsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$NayaDatabase,
+      $ConversationsTable,
+      ConversationRow,
+      $$ConversationsTableFilterComposer,
+      $$ConversationsTableOrderingComposer,
+      $$ConversationsTableAnnotationComposer,
+      $$ConversationsTableCreateCompanionBuilder,
+      $$ConversationsTableUpdateCompanionBuilder,
+      (ConversationRow, $$ConversationsTableReferences),
+      ConversationRow,
+      PrefetchHooks Function({
+        bool userId,
+        bool libraryItemId,
+        bool messagesRefs,
+      })
+    >;
+typedef $$MessagesTableCreateCompanionBuilder = MessagesCompanion Function({
+  Value<int> id,
+  required int conversationId,
+  required String role,
+  required String content,
+  Value<String> sourcesJson,
+  Value<int?> diagnosisId,
+  required DateTime createdAt,
+});
+typedef $$MessagesTableUpdateCompanionBuilder = MessagesCompanion Function({
+  Value<int> id,
+  Value<int> conversationId,
+  Value<String> role,
+  Value<String> content,
+  Value<String> sourcesJson,
+  Value<int?> diagnosisId,
+  Value<DateTime> createdAt,
+});
+
+final class $$MessagesTableReferences
+    extends BaseReferences<_$NayaDatabase, $MessagesTable, MessageRow> {
+  $$MessagesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $ConversationsTable _conversationIdTable(_$NayaDatabase db) => db
+      .conversations
+      .createAlias('messages__conversation_id__conversations__id');
+
+  $$ConversationsTableProcessedTableManager get conversationId {
+    final $_column = $_itemColumn<int>('conversation_id')!;
+
+    final manager = $$ConversationsTableTableManager(
+      $_db,
+      $_db.conversations,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_conversationIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $DiagnosesTable _diagnosisIdTable(_$NayaDatabase db) =>
+      db.diagnoses.createAlias('messages__diagnosis_id__diagnoses__id');
+
+  $$DiagnosesTableProcessedTableManager? get diagnosisId {
+    final $_column = $_itemColumn<int>('diagnosis_id');
+    if ($_column == null) return null;
+    final manager = $$DiagnosesTableTableManager(
+      $_db,
+      $_db.diagnoses,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_diagnosisIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$MessagesTableFilterComposer
+    extends Composer<_$NayaDatabase, $MessagesTable> {
+  $$MessagesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get role => $composableBuilder(
+    column: $table.role,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sourcesJson => $composableBuilder(
+    column: $table.sourcesJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ConversationsTableFilterComposer get conversationId {
+    final $$ConversationsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.conversationId,
+      referencedTable: $db.conversations,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ConversationsTableFilterComposer(
+            $db: $db,
+            $table: $db.conversations,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$DiagnosesTableFilterComposer get diagnosisId {
+    final $$DiagnosesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.diagnosisId,
+      referencedTable: $db.diagnoses,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DiagnosesTableFilterComposer(
+            $db: $db,
+            $table: $db.diagnoses,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MessagesTableOrderingComposer
+    extends Composer<_$NayaDatabase, $MessagesTable> {
+  $$MessagesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get role => $composableBuilder(
+    column: $table.role,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sourcesJson => $composableBuilder(
+    column: $table.sourcesJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ConversationsTableOrderingComposer get conversationId {
+    final $$ConversationsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.conversationId,
+      referencedTable: $db.conversations,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ConversationsTableOrderingComposer(
+            $db: $db,
+            $table: $db.conversations,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$DiagnosesTableOrderingComposer get diagnosisId {
+    final $$DiagnosesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.diagnosisId,
+      referencedTable: $db.diagnoses,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DiagnosesTableOrderingComposer(
+            $db: $db,
+            $table: $db.diagnoses,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MessagesTableAnnotationComposer
+    extends Composer<_$NayaDatabase, $MessagesTable> {
+  $$MessagesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get role =>
+      $composableBuilder(column: $table.role, builder: (column) => column);
+
+  GeneratedColumn<String> get content =>
+      $composableBuilder(column: $table.content, builder: (column) => column);
+
+  GeneratedColumn<String> get sourcesJson => $composableBuilder(
+    column: $table.sourcesJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$ConversationsTableAnnotationComposer get conversationId {
+    final $$ConversationsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.conversationId,
+      referencedTable: $db.conversations,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ConversationsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.conversations,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$DiagnosesTableAnnotationComposer get diagnosisId {
+    final $$DiagnosesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.diagnosisId,
+      referencedTable: $db.diagnoses,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DiagnosesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.diagnoses,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MessagesTableTableManager
+    extends
+        RootTableManager<
+          _$NayaDatabase,
+          $MessagesTable,
+          MessageRow,
+          $$MessagesTableFilterComposer,
+          $$MessagesTableOrderingComposer,
+          $$MessagesTableAnnotationComposer,
+          $$MessagesTableCreateCompanionBuilder,
+          $$MessagesTableUpdateCompanionBuilder,
+          (MessageRow, $$MessagesTableReferences),
+          MessageRow,
+          PrefetchHooks Function({bool conversationId, bool diagnosisId})
+        > {
+  $$MessagesTableTableManager(_$NayaDatabase db, $MessagesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MessagesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MessagesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MessagesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> conversationId = const Value.absent(),
+                Value<String> role = const Value.absent(),
+                Value<String> content = const Value.absent(),
+                Value<String> sourcesJson = const Value.absent(),
+                Value<int?> diagnosisId = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => MessagesCompanion(
+                id: id,
+                conversationId: conversationId,
+                role: role,
+                content: content,
+                sourcesJson: sourcesJson,
+                diagnosisId: diagnosisId,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int conversationId,
+                required String role,
+                required String content,
+                Value<String> sourcesJson = const Value.absent(),
+                Value<int?> diagnosisId = const Value.absent(),
+                required DateTime createdAt,
+              }) => MessagesCompanion.insert(
+                id: id,
+                conversationId: conversationId,
+                role: role,
+                content: content,
+                sourcesJson: sourcesJson,
+                diagnosisId: diagnosisId,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$MessagesTable, MessageRow>(table),
+                  $$MessagesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({conversationId = false, diagnosisId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (conversationId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.conversationId,
+                            referencedTable: $$MessagesTableReferences
+                                ._conversationIdTable(db),
+                            referencedColumn: $$MessagesTableReferences
+                                ._conversationIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+                        if (diagnosisId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.diagnosisId,
+                            referencedTable: $$MessagesTableReferences
+                                ._diagnosisIdTable(db),
+                            referencedColumn: $$MessagesTableReferences
+                                ._diagnosisIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$MessagesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$NayaDatabase,
+      $MessagesTable,
+      MessageRow,
+      $$MessagesTableFilterComposer,
+      $$MessagesTableOrderingComposer,
+      $$MessagesTableAnnotationComposer,
+      $$MessagesTableCreateCompanionBuilder,
+      $$MessagesTableUpdateCompanionBuilder,
+      (MessageRow, $$MessagesTableReferences),
+      MessageRow,
+      PrefetchHooks Function({bool conversationId, bool diagnosisId})
     >;
 
 class $NayaDatabaseManager {
@@ -3150,4 +7883,14 @@ class $NayaDatabaseManager {
       $$SessionsTableTableManager(_db, _db.sessions);
   $$LibraryItemsTableTableManager get libraryItems =>
       $$LibraryItemsTableTableManager(_db, _db.libraryItems);
+  $$AiKeysTableTableManager get aiKeys =>
+      $$AiKeysTableTableManager(_db, _db.aiKeys);
+  $$AiRolesTableTableManager get aiRoles =>
+      $$AiRolesTableTableManager(_db, _db.aiRoles);
+  $$DiagnosesTableTableManager get diagnoses =>
+      $$DiagnosesTableTableManager(_db, _db.diagnoses);
+  $$ConversationsTableTableManager get conversations =>
+      $$ConversationsTableTableManager(_db, _db.conversations);
+  $$MessagesTableTableManager get messages =>
+      $$MessagesTableTableManager(_db, _db.messages);
 }

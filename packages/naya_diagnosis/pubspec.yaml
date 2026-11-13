@@ -6,5 +6,8 @@ resolution: workspace
 environment:
   sdk: ^3.13.0
 
+dependencies:
+  naya_format: any
+
 dev_dependencies:
   test: ^1.29.0

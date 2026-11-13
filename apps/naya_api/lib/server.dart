@@ -6,6 +6,13 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf.dart' as shelf show logRequests;
 import 'package:shelf_router/shelf_router.dart';
 
+import 'src/ai/ai_provider.dart';
+import 'src/ai/ai_routes.dart';
+import 'src/ai/ai_settings.dart';
+import 'src/ai/assistant.dart';
+import 'src/ai/dm_search.dart';
+import 'src/ai/key_vault.dart';
+import 'src/ai/open_router.dart';
 import 'src/auth/auth_middleware.dart';
 import 'src/auth/auth_routes.dart';
 import 'src/auth/auth_service.dart';
@@ -17,6 +24,12 @@ import 'src/http/json_response.dart';
 import 'src/library/library_routes.dart';
 import 'src/library/library_service.dart';
 
+export 'src/ai/ai_provider.dart';
+export 'src/ai/ai_settings.dart';
+export 'src/ai/assistant.dart';
+export 'src/ai/dm_search.dart';
+export 'src/ai/key_vault.dart';
+export 'src/ai/open_router.dart';
 export 'src/auth/auth_service.dart';
 export 'src/auth/password_hasher.dart';
 export 'src/backup_service.dart';
@@ -31,16 +44,43 @@ class NayaApi {
     required this.config,
     required this.db,
     AuthService? auth,
+    AiProvider? aiProvider,
     DateTime Function()? clock,
     this.logRequests = true,
   }) : auth = auth ?? AuthService(db, clock: clock),
-       library = LibraryService(db, config.libraryDir, clock: clock),
-       backups = BackupService(db, config.backupDir, clock: clock);
+       search = DmSearch(db),
+       aiProvider = aiProvider ?? OpenRouterProvider(),
+       backups = BackupService(db, config.backupDir, clock: clock) {
+    library = LibraryService(
+      db,
+      config.libraryDir,
+      search: search,
+      clock: clock,
+    );
+    aiSettings = AiSettings(
+      db,
+      this.aiProvider,
+      vault: KeyVault.fromBase64(config.masterKey),
+      clock: clock,
+    );
+    assistant = Assistant(
+      db: db,
+      provider: this.aiProvider,
+      settings: aiSettings,
+      library: library,
+      search: search,
+      clock: clock,
+    );
+  }
 
   final ApiConfig config;
   final NayaDatabase db;
   final AuthService auth;
-  final LibraryService library;
+  final DmSearch search;
+  final AiProvider aiProvider;
+  late final LibraryService library;
+  late final AiSettings aiSettings;
+  late final Assistant assistant;
   final BackupService backups;
 
   /// Her isteği konsola yazar; testlerde kapalı.
@@ -55,6 +95,14 @@ class NayaApi {
         AuthRoutes(auth, secureCookies: config.secureCookies).router.call,
       )
       ..mount('/library', LibraryRoutes(library).router.call)
+      ..mount(
+        '/ai',
+        AiRoutes(
+          settings: aiSettings,
+          assistant: assistant,
+          library: library,
+        ).router.call,
+      )
       ..all('/<_|.*>', (Request _) => notFound('Böyle bir API ucu yok.'));
 
     final router = Router()
@@ -83,6 +131,13 @@ class NayaApi {
       }
     }
     await importTemplates();
+    final indexed = await library.indexMissing();
+    if (indexed > 0) stdout.writeln('Arama dizinine eklendi: $indexed dosya');
+    if (!aiSettings.canStoreKeys) {
+      stderr.writeln(
+        'NAYA_MASTER_KEY yok ya da 32 bayt değil; yapay zekâ kapalı.',
+      );
+    }
     await _daily();
     _dailyTimer = Timer.periodic(const Duration(hours: 1), (_) => _daily());
   }

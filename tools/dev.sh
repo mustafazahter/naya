@@ -14,6 +14,18 @@ export STORAGE_DIR="${STORAGE_DIR:-$root/data/storage}"
 export TEMPLATES_DIR="${TEMPLATES_DIR:-$root/templates/dist}"
 mkdir -p "$STORAGE_DIR"
 
+# Yapay zekâ anahtarlarını şifreleyen ana anahtar. Yerelde bir kez üretilip
+# data/ altında tutulur (git'e girmez); Komuta'da gizli değişken olarak verilir.
+if [ -z "${NAYA_MASTER_KEY:-}" ]; then
+  key_file="$root/data/master.key"
+  if [ ! -s "$key_file" ]; then
+    # Önce geçici dosyaya: openssl yarıda kalırsa boş anahtar kalmasın.
+    (umask 077 && openssl rand -base64 32 > "$key_file.tmp" && mv "$key_file.tmp" "$key_file")
+  fi
+  NAYA_MASTER_KEY="$(cat "$key_file")"
+  export NAYA_MASTER_KEY
+fi
+
 flutter pub get >/dev/null
 
 # Şablonlar her açılışta yeniden paketlenir; API açılırken bunları
