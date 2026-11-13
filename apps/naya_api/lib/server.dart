@@ -75,7 +75,12 @@ class NayaApi {
     final email = config.adminEmail;
     final password = config.adminPassword;
     if (email != null && password != null) {
-      await auth.ensureAdmin(email, password);
+      try {
+        await auth.ensureAdmin(email, password);
+      } on AuthException catch (e) {
+        // Sunucu yine açılsın; sorun günlükte görünür.
+        stderr.writeln('Admin hesabı hazırlanamadı: ${e.message}');
+      }
     }
     await importTemplates();
     await _daily();

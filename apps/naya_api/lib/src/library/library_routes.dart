@@ -58,6 +58,7 @@ class LibraryRoutes {
         'content-length': '${item.sizeBytes}',
         'content-disposition': _attachment(item),
         ..._cacheHeaders(item),
+        ..._sandboxHeaders,
       },
     );
   }
@@ -75,6 +76,7 @@ class LibraryRoutes {
         'content-type': _contentTypeOf(entryPath),
         'content-length': '${bytes.length}',
         ..._cacheHeaders(item),
+        ..._sandboxHeaders,
       },
     );
   }
@@ -97,13 +99,16 @@ class LibraryRoutes {
       final item = await _library.addUserFile(user, bytes);
       return jsonOk(itemJson(item), status: 201);
     } on LibraryException catch (e) {
-      return jsonOk({
-        'error': {
-          'code': e.code,
-          'message': e.message,
-          if (e.problems.isNotEmpty) 'problems': e.problems,
+      return jsonOk(
+        {
+          'error': {
+            'code': e.code,
+            'message': e.message,
+            if (e.problems.isNotEmpty) 'problems': e.problems,
+          },
         },
-      }, status: e.code == 'too_large' ? 413 : 422);
+        status: e.code == 'too_large' || e.code == 'quota_exceeded' ? 413 : 422,
+      );
     }
   }
 
@@ -155,6 +160,15 @@ class LibraryRoutes {
     'cache-control': item.templateKey != null
         ? 'public, max-age=300'
         : 'private, max-age=300',
+  };
+
+  /// Kayıtlar kullanıcının yüklediği dosyadan geliyor. İçinde betikli bir
+  /// SVG ya da XML olabilir; adres doğrudan açılsa bile tarayıcı onu
+  /// uygulamanın adresinde çalıştırmasın diye sayfa kum havuzuna alınır ve
+  /// tür tahmini kapatılır. `<img>` ve `fetch` ile okumayı etkilemez.
+  static const _sandboxHeaders = {
+    'x-content-type-options': 'nosniff',
+    'content-security-policy': "default-src 'none'; sandbox",
   };
 
   static bool _notModified(Request request, LibraryItemRow item) =>

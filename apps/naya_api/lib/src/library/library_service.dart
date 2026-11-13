@@ -40,12 +40,20 @@ class LibraryListing {
 /// haritası, bir DM, çizim) `.naya` açılır ve son açılanlar bellekte
 /// tutulur.
 class LibraryService {
-  LibraryService(this._db, this.libraryDir, {DateTime Function()? clock})
-    : _clock = clock ?? DateTime.now;
+  LibraryService(
+    this._db,
+    this.libraryDir, {
+    this.maxBytesPerUser = 500 * 1024 * 1024,
+    DateTime Function()? clock,
+  }) : _clock = clock ?? DateTime.now;
 
   final NayaDatabase _db;
   final String libraryDir;
   final DateTime Function() _clock;
+
+  /// Bir kullanıcının yükleyebileceği toplam boyut. Kayıt herkese açık ve
+  /// disk 10 GB; tek kişi diski dolduramasın. Admin için sınır yok.
+  final int maxBytesPerUser;
 
   /// Mimari kararı: şablonlar 50 MB altında. Kullanıcı dosyalarına da aynı
   /// sınırı koyuyoruz; Komuta'daki disk 10 GB.
@@ -110,6 +118,17 @@ class LibraryService {
   /// Kullanıcının yüklediği dosyayı doğrular ve kaydeder.
   Future<LibraryItemRow> addUserFile(AuthUser owner, Uint8List bytes) async {
     final file = _decodeAndValidate(bytes);
+    if (!owner.isAdmin) {
+      final used = await _usedBytes(owner.id);
+      if (used + bytes.length > maxBytesPerUser) {
+        final limitMb = maxBytesPerUser ~/ (1024 * 1024);
+        throw LibraryException(
+          'quota_exceeded',
+          'Yükleme sınırına ulaştınız: kişi başına en fazla $limitMb MB. '
+              'Eski dosyalarınızdan birini silin.',
+        );
+      }
+    }
     final id = _newId();
     final fileName = '$id.naya';
     await _writeFile(fileName, bytes);
@@ -166,6 +185,16 @@ class LibraryService {
     _openFiles.removeWhere((cacheKey, _) => cacheKey.startsWith('${item.id}:'));
     final file = fileOf(item);
     if (await file.exists()) await file.delete();
+  }
+
+  /// Kullanıcının yüklediği dosyaların toplam boyutu.
+  Future<int> _usedBytes(int ownerId) async {
+    final total = _db.libraryItems.sizeBytes.sum();
+    final query = _db.selectOnly(_db.libraryItems)
+      ..addColumns([total])
+      ..where(_db.libraryItems.ownerId.equals(ownerId));
+    final row = await query.getSingle();
+    return row.read(total) ?? 0;
   }
 
   static NayaFile _decodeAndValidate(Uint8List bytes) {

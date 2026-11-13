@@ -24,7 +24,7 @@ Telefondan yerel sunucuya bağlanmak için: `adb reverse tcp:8080 tcp:8080`.
 | `DATABASE_PATH` | `data/naya.db` | |
 | `STORAGE_DIR` | `data/storage` | `.naya` dosyaları (`library/`) ve yedekler (`backups/`) |
 | `TEMPLATES_DIR` | `../../templates/dist` | Açılışta eklenen şablonlar |
-| `NAYA_ADMIN_EMAIL`, `NAYA_ADMIN_PASSWORD` | | İkisi de varsa admin hesabı açılır; hesap varsa yalnız rolü admin yapılır |
+| `NAYA_ADMIN_EMAIL`, `NAYA_ADMIN_PASSWORD` | | İkisi de varsa admin hesabı açılır. Bu e-postayla hesap zaten varsa yalnız şifre de tutuyorsa admin yapılır; tutmuyorsa günlüğe uyarı yazılır |
 | `NAYA_SECURE_COOKIES` | | `1` ise çerezde `Secure` (HTTPS arkasında) |
 | `CORS_ORIGINS` | | Virgülle ayrılmış ek web adresleri; `localhost` her zaman açık |
 
@@ -55,10 +55,10 @@ Web'de token httpOnly `naya_session` çerezinde durur, JavaScript göremez. Andr
 | `GET /<id>` | görebilen | Öğenin bilgisi |
 | `GET /<id>/file` | görebilen | `.naya` dosyasının kendisi |
 | `GET /<id>/entries/<yol>` | görebilen | Dosyanın içinden tek kayıt: `map/parts.json`, `csdb/DMC-….XML`, `model/product.glb`, `naya.json` |
-| `POST /` | kullanıcı | Gövde ham `.naya` (en fazla 50 MB). 201; doğrulamadan geçmezse 422 ve `problems` listesi |
+| `POST /` | kullanıcı | Gövde ham `.naya` (en fazla 50 MB, kişi başına toplam 500 MB). 201; doğrulamadan geçmezse 422 ve `problems` listesi, sınır aşılırsa 413 |
 | `DELETE /<id>` | sahibi, admin | 204. Şablonları yalnız admin siler |
 
-Şablonları herkes, kullanıcı dosyalarını yalnız sahibi ve admin görür. Başkasının dosyası 404 döner. Dosya ve içerik cevaplarında `ETag` var; `If-None-Match` eşleşirse 304 döner.
+Şablonları herkes, kullanıcı dosyalarını yalnız sahibi ve admin görür. Başkasının dosyası 404 döner. Dosya ve içerik cevaplarında `ETag` var; `If-None-Match` eşleşirse 304 döner. İçerik kullanıcıdan geldiği için bu cevaplar `Content-Security-Policy: sandbox` ve `nosniff` ile döner; adres doğrudan açılsa da içindeki betik çalışmaz.
 
 ## Yedek
 

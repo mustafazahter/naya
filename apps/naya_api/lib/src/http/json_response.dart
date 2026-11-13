@@ -38,11 +38,22 @@ Response forbidden() =>
 Response notFound([String message = 'Bulunamadı.']) =>
     jsonError(404, 'not_found', message);
 
-/// İstek gövdesini JSON nesnesi olarak okur. Gövde bozuksa ya da nesne
-/// değilse `null` döner; çağıran 400 verir.
+/// JSON uçlarına gelen gövde bundan büyük olamaz; giriş ve kayıt için
+/// fazlasıyla yeterli. Sınır olmasa çok büyük bir gövde belleği doldurabilir.
+const maxJsonBytes = 64 * 1024;
+
+/// İstek gövdesini JSON nesnesi olarak okur. Gövde bozuksa, nesne değilse
+/// ya da [maxJsonBytes]'tan büyükse `null` döner; çağıran 400 verir.
 Future<Map<String, Object?>?> readJsonObject(Request request) async {
+  final declared = request.contentLength;
+  if (declared != null && declared > maxJsonBytes) return null;
+  final bytes = <int>[];
+  await for (final chunk in request.read()) {
+    bytes.addAll(chunk);
+    if (bytes.length > maxJsonBytes) return null;
+  }
   try {
-    final body = jsonDecode(await request.readAsString());
+    final body = jsonDecode(utf8.decode(bytes));
     return body is Map<String, Object?> ? body : null;
   } on FormatException {
     return null;

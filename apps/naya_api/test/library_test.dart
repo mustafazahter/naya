@@ -230,6 +230,21 @@ void main() {
       expect(await readJson(response), containsPair('id', 'bisiklet'));
     });
 
+    test(
+      'içerik doğrudan açılsa da betik çalışmasın diye kum havuzunda',
+      () async {
+        final response = await server.send(
+          'GET',
+          '/api/library/$templateId/entries/media/zincir-1.webp',
+        );
+        expect(
+          response.headers['content-security-policy'],
+          contains('sandbox'),
+        );
+        expect(response.headers['x-content-type-options'], 'nosniff');
+      },
+    );
+
     test('olmayan kayıt 404 verir', () async {
       final response = await server.send(
         'GET',
