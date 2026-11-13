@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:naya_s1000d/naya_s1000d.dart';
 
-import '../../entities/product/product_content.dart';
 import '../../shared/ui/components.dart';
 import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
+import 'product_content.dart';
 
-/// Teşhisin önerdiği DM, sohbetin içinde açılmış haliyle: ne işlemi
+/// Bir prosedür DM'i açılmış haliyle (teşhiste sohbette, parça
+/// sayfasında arızanın altında): ne işlemi
 /// olduğu, kaç adım sürdüğü, gereken aletler, uyarılar ve ilk adımlar.
 /// Kullanıcı koda basmadan ne yapacağını görür; ayrıntı için okuyucuyu
 /// ya da parçanın kartını açar.

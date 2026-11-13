@@ -20,6 +20,7 @@ class PartSheet extends StatelessWidget {
     required this.onSelectPart,
     this.node,
     this.onAsk,
+    this.onOpenDetails,
     this.controller,
   });
 
@@ -35,6 +36,10 @@ class PartSheet extends StatelessWidget {
   /// Kartta başka bir parçaya geçer (alt parça, aynı düğümdeki parça).
   final ValueChanged<String> onSelectPart;
   final VoidCallback? onAsk;
+
+  /// Parçanın bütün ayrıntılarını (şemalar, onarım adımları) ayrı sayfada
+  /// açar.
+  final VoidCallback? onOpenDetails;
   final ScrollController? controller;
 
   /// Prosedürlerin karttaki sırası: önce bul ve bak, sonra ayarla, sonra
@@ -113,6 +118,17 @@ class PartSheet extends StatelessWidget {
         if (part.function != null) ...[
           const SizedBox(height: NayaSpace.sm),
           Text(part.function!, style: context.text.body),
+        ],
+        if (onOpenDetails != null) ...[
+          const SizedBox(height: NayaSpace.lg),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: FilledButton.icon(
+              onPressed: onOpenDetails,
+              icon: const Icon(Icons.open_in_new, size: 18),
+              label: const Text('Tüm ayrıntılar'),
+            ),
+          ),
         ],
         if (related.isNotEmpty) ...[
           const SizedBox(height: NayaSpace.lg),

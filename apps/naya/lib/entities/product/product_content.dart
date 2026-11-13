@@ -89,6 +89,62 @@ class ProductContent {
   /// `.naya` içindeki çizim dosyası (`ICN-...`).
   String? icnPath(String icn) => _icnPaths[icn.toUpperCase()];
 
+  /// Parçayı anlatan tanıtım DM'i (bilgi kodu 040). Önce parçanın kendi alt
+  /// sisteminin (`DA1-10`), yoksa sisteminin (`DA1-00`), yoksa ürünün genel
+  /// tanıtımı (`D00-00`). SNS'i olmayan parça atasınınkini kullanır.
+  String? descriptionFor(String partId) {
+    final sns = [
+      for (final p in pathTo(partId).reversed)
+        if (p.sns != null) p.sns!,
+    ].firstOrNull;
+    final descriptions = [
+      for (final code in _dmPaths.keys)
+        if (_infoCode(code)?.startsWith('040') ?? false) code,
+    ]..sort();
+    // SNS "DA1-10" gibi: sistem ve alt sistem. DMC'de aynı alanlarla
+    // karşılaştırılır; düz metin aramak başka sistemin DM'ini de bulurdu.
+    final wanted = [
+      if (sns?.toUpperCase().split('-') case [final system, final sub, ...])
+        (system, sub),
+      if (sns?.toUpperCase().split('-') case [final system, ...])
+        (system, '00'),
+      ('D00', '00'),
+    ];
+    for (final (system, sub) in wanted) {
+      for (final code in descriptions) {
+        final parts = code.split('-');
+        // Sondan sayılır: ... SİSTEM-ALT-MONTAJ-SÖKME-BİLGİ-YER.
+        if (parts[parts.length - 6] == system &&
+            parts[parts.length - 5] == sub) {
+          return code;
+        }
+      }
+    }
+    return null;
+  }
+
+  /// `DMC-MODEL-SDC-SYS-SUB-ASSY-DISASSY-INFO-LOC` içinden bilgi kodu.
+  static String? _infoCode(String dmc) {
+    final parts = dmc.split('-');
+    return parts.length >= 9 ? parts[parts.length - 2] : null;
+  }
+
+  /// Parçayla ilgili bütün DM'ler: prosedürleri, arızalarının bulma ve
+  /// onarım DM'leri ve tanıtımı. Şemalar bunlardan toplanır.
+  List<String> modulesAbout(String partId) {
+    final part = this.part(partId);
+    if (part == null) return const [];
+    final codes = <String>{
+      ?descriptionFor(partId),
+      ...part.procedures.values,
+      for (final f in faultsFor(partId)) ...[?f.isolation, ?f.repair],
+    };
+    return [
+      for (final c in codes)
+        if (dmPath(c) != null) c,
+    ];
+  }
+
   /// Modeldeki bir düğüme dokunulunca kartı açılacak parça.
   ///
   /// Bir düğüme birden çok parça bağlı olabilir: `drive_chain` hem

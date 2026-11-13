@@ -124,11 +124,22 @@ const params = new URLSearchParams(location.search);
 if (params.has("embed")) document.body.classList.add("embed");
 
 const model = params.get("model") ?? "./models/bicycle.glb";
+// İlerleme her kare değil, yüzde birlik adımlarla gider.
+let sent = -1;
+function progress(fraction: number): void {
+  const value = Math.round(fraction * 100) / 100;
+  if (value <= sent) return;
+  sent = value;
+  status.textContent = `Model yükleniyor · %${Math.round(value * 100)}`;
+  send({ type: "progress", value });
+}
+
 viewer
-  .load(model, params.get("map") ?? undefined)
+  .load(model, params.get("map") ?? undefined, progress)
   .then(async (parts) => {
     status.textContent = `${parts.length} parça · sürükle: döndür · tekerlek/iki parmak: yakınlaş`;
     send({ type: "ready" });
+    await viewer.introduce();
     // Teşhiste bulunan parça adreste gelir: önce bütün model görünsün,
     // sonra kamera o parçaya yaklaşsın. Sayfa yeniden yüklense de tekrarlanır.
     const focus = params.get("focus");
@@ -141,5 +152,6 @@ viewer
   })
   .catch((error: unknown) => {
     status.textContent = "Model yüklenemedi";
+    send({ type: "loadFailed" });
     console.error(error);
   });
