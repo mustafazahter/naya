@@ -100,9 +100,7 @@ class DataModule {
     final infoName = title?.getElement('infoName');
 
     final content = root.getElement('content');
-    final body = content?.childElements
-        .where((e) => e.name.local != 'refs')
-        .firstOrNull;
+    final body = bodyOf(content);
     final contentType = body?.name.local ?? '';
     final fullTitle = infoName == null
         ? textOf(techName)
@@ -138,6 +136,21 @@ class DataModule {
           : _Chunker(code, fullTitle).chunk(body, contentType),
     );
   }
+
+  /// `content` içindeki asıl gövde: `procedure`, `description`,
+  /// `faultIsolation` gibi. Önünde başvurular, geçerlilik bilgisi ve
+  /// (Issue 4.1+) uyarı listesi olabilir; bunlar atlanır.
+  static XmlElement? bodyOf(XmlElement? content) => content?.childElements
+      .where((e) => !_contentHeaders.contains(e.name.local))
+      .firstOrNull;
+
+  static const _contentHeaders = {
+    'refs',
+    'referencedApplicGroup',
+    'referencedApplicGroupRef',
+    'warningsAndCautions',
+    'warningsAndCautionsRef',
+  };
 
   static DateTime? _date(XmlElement? e) {
     final y = int.tryParse(e?.getAttribute('year') ?? '');

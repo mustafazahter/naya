@@ -34,6 +34,7 @@ void main() {
       final templates = body['templates']! as List<Object?>;
       expect(templates, hasLength(1));
       expect(templates.single, containsPair('title', 'Bisiklet'));
+      expect(templates.single, containsPair('key', 'bisiklet'));
       expect(templates.single, containsPair('isTemplate', true));
       expect(templates.single, containsPair('partCount', greaterThan(0)));
       expect(templates.single, containsPair('moduleCount', 1));

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 
-import '../../entities/part/part.dart';
 import '../../shared/ui/components.dart';
 import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
+import '../../shared/utils/turkish_text.dart';
 import 'model_frame.dart';
 import 'model_frame_controller.dart';
 import 'viewer_top_bar.dart';
@@ -20,6 +20,9 @@ class ModelViewerPanel extends StatefulWidget {
     this.focusPart,
     this.onBack,
     this.controller,
+    this.partLabel,
+    this.subtitle = '3D · sürükle ve döndür',
+    this.credit,
   });
 
   final String productTitle;
@@ -36,6 +39,15 @@ class ModelViewerPanel extends StatefulWidget {
   /// Dışarıdan komut göndermek için (teşhis taraması gibi). Verilmezse
   /// panel kendi denetleyicisini kullanır.
   final ModelFrameController? controller;
+
+  /// Seçili düğümün ekranda görünecek adı (`drive_chain` → "Zincir").
+  final String Function(String node)? partLabel;
+
+  /// Üst çubukta başlığın altındaki satır.
+  final String subtitle;
+
+  /// Modelin atfı (CC BY); sağ altta küçük yazılır.
+  final String? credit;
 
   @override
   State<ModelViewerPanel> createState() => _ModelViewerPanelState();
@@ -115,7 +127,7 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
             child: PointerInterceptor(
               child: ViewerTopBar(
                 title: widget.productTitle,
-                subtitle: '3D · sürükle ve döndür',
+                subtitle: widget.subtitle,
                 onBack: widget.onBack,
               ),
             ),
@@ -172,8 +184,11 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
             ),
           ),
         ),
+        // Seçili parça solda, atıf sağda; aynı satırda oldukları için uzun
+        // bir parça adı atfın üstüne binmez, kısalır.
         Positioned(
           left: NayaSpace.lg,
+          right: NayaSpace.lg,
           bottom: NayaSpace.lg,
           child: IgnorePointer(
             child: Row(
@@ -187,12 +202,28 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
                   ),
                 ),
                 const SizedBox(width: NayaSpace.sm),
-                TechLabel(
-                  _selected == null
-                      ? 'Parçaya dokun'
-                      : bicyclePartNames[_selected] ?? _selected!,
-                  color: c.textSecondary,
+                Expanded(
+                  child: Text(
+                    turkishUpperCase(
+                      _selected == null
+                          ? 'Parçaya dokun'
+                          : widget.partLabel?.call(_selected!) ?? _selected!,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: context.text.label.copyWith(color: c.textSecondary),
+                  ),
                 ),
+                if (widget.credit != null) ...[
+                  const SizedBox(width: NayaSpace.md),
+                  Text(
+                    widget.credit!,
+                    style: context.text.small.copyWith(
+                      fontSize: 10,
+                      color: c.textMuted,
+                    ),
+                  ),
+                ],
               ],
             ),
           ),

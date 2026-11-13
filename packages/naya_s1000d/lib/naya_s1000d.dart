@@ -12,6 +12,7 @@ export 'src/chunk.dart';
 export 'src/csdb.dart';
 export 'src/data_module.dart';
 export 'src/dm_code.dart';
+export 'src/dm_document.dart';
 export 'src/errors.dart';
 export 'src/icn.dart';
 export 'src/ipd.dart';
