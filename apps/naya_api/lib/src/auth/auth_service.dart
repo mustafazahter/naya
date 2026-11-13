@@ -150,8 +150,13 @@ class AuthService {
     )..where((s) => s.tokenHash.equals(hash))).go();
   }
 
-  /// Açılışta admin hesabını hazırlar. Hesap zaten varsa yalnız rolü admin
-  /// yapılır; şifresine dokunulmaz, uygulamadan değiştirilmiş olabilir.
+  /// Açılışta admin hesabını hazırlar. Hesap zaten admin ise şifresine
+  /// dokunulmaz, uygulamadan değiştirilmiş olabilir.
+  ///
+  /// Kayıt herkese açık olduğu için biri bu e-postayla önceden hesap açmış
+  /// olabilir. Bu yüzden var olan bir hesap yalnız şifresi de tutuyorsa admin
+  /// yapılır; tutmuyorsa `admin_password_mismatch` hatası atılır ve hesaba
+  /// dokunulmaz.
   Future<void> ensureAdmin(String email, String password) async {
     final normalized = _normalizeEmail(email);
     final existing = await _findUser(normalized);
@@ -160,10 +165,17 @@ class AuthService {
       await _insertUser(normalized, password, UserRole.admin);
       return;
     }
-    if (existing.role != UserRole.admin) {
-      await (_db.update(_db.users)..where((u) => u.id.equals(existing.id)))
-          .write(const UsersCompanion(role: Value(UserRole.admin)));
+    if (existing.role == UserRole.admin) return;
+    if (!await _hasher.verify(password, existing.passwordHash)) {
+      throw const AuthException(
+        'admin_password_mismatch',
+        'NAYA_ADMIN_EMAIL ile açılmış bir hesap var ama şifresi '
+            'NAYA_ADMIN_PASSWORD ile uyuşmuyor; admin yapılmadı.',
+      );
     }
+    await (_db.update(_db.users)..where((u) => u.id.equals(existing.id))).write(
+      const UsersCompanion(role: Value(UserRole.admin)),
+    );
   }
 
   /// Süresi dolmuş oturumları siler; yedekle birlikte günde bir çalışır.

@@ -1,4 +1,5 @@
 import 'package:naya_api/server.dart';
+import 'package:naya_api/src/http/json_response.dart' show maxJsonBytes;
 import 'package:shelf/shelf.dart';
 import 'package:test/test.dart';
 
@@ -96,6 +97,15 @@ void main() {
         bytes: '{bozuk'.codeUnits,
       );
       expect(broken.statusCode, 400);
+    });
+
+    test('64 KB üstü gövde okunmadan 400 verir', () async {
+      final huge = await server.send(
+        'POST',
+        '/api/auth/login',
+        bytes: List.filled(maxJsonBytes + 1, 0x20),
+      );
+      expect(huge.statusCode, 400);
     });
   });
 
@@ -216,12 +226,29 @@ void main() {
       expect((await readJson(me))['user'], containsPair('role', 'admin'));
     });
 
-    test('var olan hesap admin yapılır', () async {
+    test('var olan hesap şifresi tutarsa admin yapılır', () async {
       await server.register('mustafa@ornek.com');
-      await server.api.auth.ensureAdmin('mustafa@ornek.com', 'kullanilmaz');
+      await server.api.auth.ensureAdmin('mustafa@ornek.com', 'gizli-sifre');
       final token = await server.login('mustafa@ornek.com');
       final me = await server.send('GET', '/api/auth/me', token: token);
       expect((await readJson(me))['user'], containsPair('role', 'admin'));
+    });
+
+    test('admin adresiyle başkasının açtığı hesap admin olmaz', () async {
+      await server.register('admin@naya.app', 'saldirgan-sifre');
+      await expectLater(
+        server.api.auth.ensureAdmin('admin@naya.app', 'admin-sifre'),
+        throwsA(
+          isA<AuthException>().having(
+            (e) => e.code,
+            'code',
+            'admin_password_mismatch',
+          ),
+        ),
+      );
+      final token = await server.login('admin@naya.app', 'saldirgan-sifre');
+      final me = await server.send('GET', '/api/auth/me', token: token);
+      expect((await readJson(me))['user'], containsPair('role', 'user'));
     });
   });
 
