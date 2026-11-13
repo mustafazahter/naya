@@ -7,8 +7,17 @@ environment:
   sdk: ^3.13.0
 
 dependencies:
+  crypto: ^3.0.8
+  cryptography: ^2.9.0
+  drift: ^2.35.4
+  naya_format: any
+  naya_s1000d: any
+  path: ^1.9.1
   shelf: ^1.4.2
   shelf_router: ^1.1.4
+  sqlite3: ^3.9.1
 
 dev_dependencies:
+  build_runner: ^2.16.1
+  drift_dev: ^2.35.3
   test: ^1.29.0
