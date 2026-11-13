@@ -4,31 +4,82 @@ import '../../entities/diagnosis/diagnosis.dart';
 import '../../shared/ui/components.dart';
 import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
+import 'procedure_preview.dart';
 
 /// Çalışma alanının alt yarısı: yapay zekâ ile sohbet ve teşhis sonucu.
 ///
 /// Teşhis yokken (sohbet henüz başlamadı) ürünün kayıtlı belirtilerini
-/// öneri olarak gösterir.
+/// öneri olarak gösterir. Teşhis sürerken yazılan mesaj ve "taranıyor"
+/// görünür; hata olursa mesajı.
 class ChatPanel extends StatelessWidget {
   const ChatPanel({
     super.key,
     required this.onCandidateTap,
     required this.onSend,
+    this.onOpenModule,
+    this.productId,
     this.diagnosis,
+    this.pending,
+    this.error,
+    this.canSend = true,
     this.suggestions = const [],
   });
 
   final Diagnosis? diagnosis;
+
+  /// Teşhisi süren mesaj.
+  final String? pending;
+
+  /// Teşhis başarısız olduysa gösterilecek mesaj.
+  final String? error;
   final ValueChanged<String> onCandidateTap;
 
   /// Yazılan ya da seçilen öneri metni.
   final ValueChanged<String> onSend;
+
+  /// Ürünün içeriği yüklenmeden mesaj gönderilemez; yazılan kaybolmasın.
+  final bool canSend;
+
+  /// Kaynak DM'e dokunuldu.
+  final ValueChanged<String>? onOpenModule;
+
+  /// Verilirse önerilen DM sohbette açılmış haliyle görünür.
+  final String? productId;
   final List<String> suggestions;
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
     final diagnosis = this.diagnosis;
+    final pending = this.pending;
+    final error = this.error;
+    final List<Widget> children;
+    if (pending != null) {
+      children = [
+        _UserMessage(pending),
+        const SizedBox(height: NayaSpace.lg),
+        const _Thinking(),
+      ];
+    } else if (diagnosis != null) {
+      children = [
+        _UserMessage(diagnosis.symptom),
+        const SizedBox(height: NayaSpace.lg),
+        _AssistantMessage(
+          diagnosis: diagnosis,
+          productId: productId,
+          onCandidateTap: onCandidateTap,
+          onOpenModule: onOpenModule,
+        ),
+        if (error != null) ...[
+          const SizedBox(height: NayaSpace.lg),
+          _ErrorMessage(error),
+        ],
+      ];
+    } else if (error != null) {
+      children = [_ErrorMessage(error)];
+    } else {
+      children = [_Intro(suggestions: suggestions, onSend: onSend)];
+    }
     return DecoratedBox(
       decoration: BoxDecoration(
         color: c.background,
@@ -44,19 +95,60 @@ class ChatPanel extends StatelessWidget {
                 NayaSpace.gutter,
                 NayaSpace.lg,
               ),
-              children: diagnosis == null
-                  ? [_Intro(suggestions: suggestions, onSend: onSend)]
-                  : [
-                      _UserMessage(diagnosis.symptom),
-                      const SizedBox(height: NayaSpace.lg),
-                      _AssistantMessage(
-                        diagnosis: diagnosis,
-                        onCandidateTap: onCandidateTap,
-                      ),
-                    ],
+              children: children,
             ),
           ),
-          _Composer(onSend: onSend),
+          _Composer(onSend: onSend, enabled: canSend && pending == null),
+        ],
+      ),
+    );
+  }
+}
+
+/// Teşhis sürerken: model taranıyor.
+class _Thinking extends StatelessWidget {
+  const _Thinking();
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return Row(
+      children: [
+        SizedBox.square(
+          dimension: 16,
+          child: CircularProgressIndicator(strokeWidth: 2, color: c.accent),
+        ),
+        const SizedBox(width: NayaSpace.md),
+        Text(
+          'Sistemler taranıyor…',
+          style: context.text.body.copyWith(color: c.textSecondary),
+        ),
+      ],
+    );
+  }
+}
+
+class _ErrorMessage extends StatelessWidget {
+  const _ErrorMessage(this.text);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return Panel(
+      padding: const EdgeInsets.all(NayaSpace.md),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.info_outline, size: 18, color: c.textMuted),
+          const SizedBox(width: NayaSpace.sm),
+          Expanded(
+            child: Text(
+              text,
+              style: context.text.body.copyWith(color: c.textSecondary),
+            ),
+          ),
         ],
       ),
     );
@@ -139,80 +231,198 @@ class _AssistantMessage extends StatelessWidget {
   const _AssistantMessage({
     required this.diagnosis,
     required this.onCandidateTap,
+    this.productId,
+    this.onOpenModule,
   });
 
   final Diagnosis diagnosis;
+  final String? productId;
   final ValueChanged<String> onCandidateTap;
+  final ValueChanged<String>? onOpenModule;
+
+  /// Açıklamadaki `[DMC-…]` atıfları metinden çıkar; kaynaklar ayrıca
+  /// etiket olarak görünüyor.
+  static final _citation = RegExp(r'\s*\[DMC-[^\]]+\]');
+
+  String get _label => switch (diagnosis.decision) {
+    DiagnosisDecision.focus => 'Teşhis',
+    DiagnosisDecision.ambiguous => 'İki olasılık',
+    DiagnosisDecision.uncertain => 'Emin değilim',
+    DiagnosisDecision.needsInfo => 'Biraz daha anlat',
+    DiagnosisDecision.notDiagnosis => 'Cevap',
+  };
+
+  /// Açıklama gelmediyse karara göre kısa bir metin.
+  String get _fallback => switch (diagnosis.decision) {
+    DiagnosisDecision.focus when diagnosis.candidates.isNotEmpty =>
+      'En olası parça ${diagnosis.top.name.toLowerCase()}.',
+    DiagnosisDecision.needsInfo =>
+      'Teşhis için biraz daha bilgi lazım: ne zaman oluyor, ses nereden '
+          'geliyor?',
+    _ =>
+      'Sonuç kesin değil. Belirtiyi biraz daha anlatırsan adayları '
+          'daraltabilirim.',
+  };
+
+  /// Önerilen DM'in açılmış hali ve diğer kaynaklar. Ürün bilinmiyorsa
+  /// (örnek veri) yalnız kodlar.
+  List<Widget> _details() {
+    final productId = this.productId;
+    final open = onOpenModule;
+    final procedure = diagnosis.procedure;
+    final others = [
+      for (final dmc in diagnosis.sources)
+        if (dmc != procedure) dmc,
+    ];
+    if (productId == null || open == null) {
+      return [
+        if (diagnosis.sources.isNotEmpty) ...[
+          const SizedBox(height: NayaSpace.sm),
+          Wrap(
+            spacing: NayaSpace.xs,
+            runSpacing: NayaSpace.xs,
+            children: [for (final dmc in diagnosis.sources) _SourceTag(dmc)],
+          ),
+        ],
+      ];
+    }
+    final top = diagnosis.candidates.isEmpty ? null : diagnosis.top;
+    return [
+      if (procedure != null) ...[
+        const SizedBox(height: NayaSpace.md),
+        ProcedurePreview(
+          productId: productId,
+          dmc: procedure,
+          onOpen: () => open(procedure),
+          onOpenPart: top == null ? null : () => onCandidateTap(top.partId),
+        ),
+      ],
+      if (others.isNotEmpty) ...[
+        const SizedBox(height: NayaSpace.md),
+        const TechLabel('Kaynaklar'),
+        const SizedBox(height: NayaSpace.xs),
+        for (final dmc in others)
+          SourceLink(productId: productId, dmc: dmc, onTap: () => open(dmc)),
+      ],
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final top = diagnosis.top;
+    final text = diagnosis.explanation.replaceAll(_citation, '').trim();
+    final danger = diagnosis.danger;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TechLabel('Teşhis'),
+        TechLabel(_label),
         const SizedBox(height: NayaSpace.sm),
-        Text.rich(
-          TextSpan(
-            style: context.text.body.copyWith(color: c.text),
-            children: [
-              const TextSpan(text: 'En olası neden '),
-              TextSpan(
-                text: '${top.name.toLowerCase()} aşınması',
-                style: const TextStyle(fontWeight: FontWeight.w600),
-              ),
-              const TextSpan(
-                text:
-                    '. Tıkırtı ve atlama birlikte görülüyorsa zincir çoğu '
-                    'zaman uzamıştır. Ölçüm için zincir kontrol aleti yeterli.',
-              ),
-            ],
-          ),
+        if (diagnosis.isDangerous) ...[
+          _DangerBanner(danger: danger!),
+          const SizedBox(height: NayaSpace.md),
+        ],
+        Text(
+          text.isEmpty ? _fallback : text,
+          style: context.text.body.copyWith(color: c.text),
         ),
-        const SizedBox(height: NayaSpace.md),
-        Panel(
-          padding: const EdgeInsets.all(NayaSpace.md),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  TechLabel('${diagnosis.systemsScanned} sistem tarandı'),
-                  const Spacer(),
-                  const TechLabel('Olasılık'),
+        if (diagnosis.candidates.isNotEmpty) ...[
+          const SizedBox(height: NayaSpace.md),
+          Panel(
+            padding: const EdgeInsets.all(NayaSpace.md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    TechLabel('${diagnosis.systemsScanned} sistem tarandı'),
+                    const Spacer(),
+                    const TechLabel('Olasılık'),
+                  ],
+                ),
+                const SizedBox(height: NayaSpace.sm),
+                for (final (i, candidate)
+                    in diagnosis.candidates.take(3).indexed)
+                  _CandidateRow(
+                    candidate: candidate,
+                    emphasized: i == 0 && diagnosis.isConfident,
+                    onTap: () => onCandidateTap(candidate.partId),
+                  ),
+                if (diagnosis.faultCause != null) ...[
+                  Divider(height: NayaSpace.xl, color: c.line),
+                  Text(
+                    diagnosis.faultCause!,
+                    style: context.text.small.copyWith(color: c.textSecondary),
+                  ),
                 ],
-              ),
-              const SizedBox(height: NayaSpace.sm),
-              for (final (i, candidate) in diagnosis.candidates.indexed)
-                _CandidateRow(
-                  candidate: candidate,
-                  emphasized: i == 0,
-                  onTap: () => onCandidateTap(candidate.partId),
-                ),
-              Divider(height: NayaSpace.xl, color: c.line),
-              _SafetyRow(safeToUse: diagnosis.safeToUse),
-            ],
-          ),
-        ),
-        const SizedBox(height: NayaSpace.sm),
-        Row(
-          children: [
-            Icon(Icons.description_outlined, size: 14, color: c.textMuted),
-            const SizedBox(width: NayaSpace.xs),
-            Flexible(
-              child: Text(
-                diagnosis.source,
-                overflow: TextOverflow.ellipsis,
-                style: context.text.mono.copyWith(
-                  fontSize: 11,
-                  color: c.textMuted,
-                ),
-              ),
+                if (danger != null && !diagnosis.isDangerous) ...[
+                  Divider(height: NayaSpace.xl, color: c.line),
+                  _SafetyRow(danger: danger),
+                ],
+              ],
             ),
-          ],
+          ),
+        ],
+        ..._details(),
+      ],
+    );
+  }
+}
+
+/// Ürün bilinmediğinde kaynak DM'in kodu.
+class _SourceTag extends StatelessWidget {
+  const _SourceTag(this.dmc);
+
+  final String dmc;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.description_outlined, size: 14, color: c.textMuted),
+        const SizedBox(width: NayaSpace.xs),
+        Flexible(
+          child: Text(
+            dmc,
+            overflow: TextOverflow.ellipsis,
+            style: context.text.mono.copyWith(fontSize: 11, color: c.textMuted),
+          ),
         ),
       ],
+    );
+  }
+}
+
+/// Kullanmaya devam etmek tehlikeliyse en üstte.
+class _DangerBanner extends StatelessWidget {
+  const _DangerBanner({required this.danger});
+
+  final double danger;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return Container(
+      padding: const EdgeInsets.all(NayaSpace.md),
+      decoration: BoxDecoration(
+        color: c.danger.withValues(alpha: 0.1),
+        borderRadius: const BorderRadius.all(NayaRadius.md),
+        border: Border.all(color: c.danger.withValues(alpha: 0.5)),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.warning_amber_rounded, size: 18, color: c.danger),
+          const SizedBox(width: NayaSpace.sm),
+          Expanded(
+            child: Text(
+              'Onarmadan kullanmayın (tehlike olasılığı '
+              '%${(danger * 100).round()}).',
+              style: context.text.small.copyWith(color: c.text),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -256,6 +466,8 @@ class _CandidateRow extends StatelessWidget {
                     color: emphasized ? c.accent : c.textMuted,
                   ),
                 ),
+                // Satıra dokununca parçanın kartı açılır.
+                Icon(Icons.chevron_right, size: 16, color: c.textMuted),
               ],
             ),
             const SizedBox(height: NayaSpace.xs + 2),
@@ -271,27 +483,22 @@ class _CandidateRow extends StatelessWidget {
 }
 
 class _SafetyRow extends StatelessWidget {
-  const _SafetyRow({required this.safeToUse});
+  const _SafetyRow({required this.danger});
 
-  final double safeToUse;
+  /// "Kullanmak tehlikeli mi?" sorusunda "evet" olasılığı; burada yarının
+  /// altında, uyarı bandı gösterilmiyor.
+  final double danger;
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final safe = safeToUse >= 0.6;
     return Row(
       children: [
-        Icon(
-          safe ? Icons.check_circle_outline : Icons.warning_amber_rounded,
-          size: 18,
-          color: safe ? c.platinum : c.danger,
-        ),
+        Icon(Icons.check_circle_outline, size: 18, color: c.platinum),
         const SizedBox(width: NayaSpace.sm),
         Expanded(
           child: Text(
-            safe
-                ? 'Kısa mesafe sürülebilir, ilk fırsatta değiştirin.'
-                : 'Değiştirmeden kullanmayın.',
+            'Kısa süre kullanılabilir, ilk fırsatta onarın.',
             style: context.text.small.copyWith(color: c.textSecondary),
           ),
         ),
@@ -301,9 +508,12 @@ class _SafetyRow extends StatelessWidget {
 }
 
 class _Composer extends StatefulWidget {
-  const _Composer({required this.onSend});
+  const _Composer({required this.onSend, this.enabled = true});
 
   final ValueChanged<String> onSend;
+
+  /// Teşhis sürerken yeni mesaj gönderilmez.
+  final bool enabled;
 
   @override
   State<_Composer> createState() => _ComposerState();
@@ -320,7 +530,7 @@ class _ComposerState extends State<_Composer> {
 
   void _send() {
     final text = _text.text.trim();
-    if (text.isEmpty) return;
+    if (text.isEmpty || !widget.enabled) return;
     widget.onSend(text);
     _text.clear();
   }

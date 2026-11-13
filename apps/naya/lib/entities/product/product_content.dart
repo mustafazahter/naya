@@ -73,6 +73,13 @@ class ProductContent {
 
   Part? part(String id) => _byId[id];
 
+  Fault? fault(String id) {
+    for (final f in faults?.faults ?? const <Fault>[]) {
+      if (f.id == id) return f;
+    }
+    return null;
+  }
+
   /// `.naya` içindeki DM dosyası; `DMC-` ile ya da onsuz kod alır.
   String? dmPath(String dmc) {
     final code = dmc.toUpperCase().trim();

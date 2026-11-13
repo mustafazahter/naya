@@ -346,7 +346,8 @@ export class NayaViewer {
   }
 
   /** Taramayı bitirir: bandı kaldırır, son parlaklığı kalıcı yapar. */
-  private finishScan(): void {
+  /** Süren taramayı hemen bitirir; parlama taramanın ağırlıklarına oturur. */
+  finishScan(): void {
     const scan = this.scanning;
     if (!scan) return;
     this.scanning = null;

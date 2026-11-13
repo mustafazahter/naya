@@ -55,7 +55,6 @@ class ModelViewerPanel extends StatefulWidget {
 
 class _ModelViewerPanelState extends State<ModelViewerPanel> {
   late final _controller = widget.controller ?? ModelFrameController();
-  var _exploded = false;
   var _xray = false;
   var _isolated = false;
   String? _selected;
@@ -82,6 +81,13 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
     _selected = widget.focusPart;
   }
 
+  @override
+  void dispose() {
+    // Dışarıdan verilen denetleyiciyi sahibi kapatır.
+    if (widget.controller == null) _controller.dispose();
+    super.dispose();
+  }
+
   /// Odaklanılacak parça adreste gider; viewer model her yüklendiğinde
   /// kendisi yaklaşır, mesajın zamanlamasına bağlı kalmaz.
   String get _query {
@@ -93,7 +99,6 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
 
   void _reset() {
     setState(() {
-      _exploded = false;
       _xray = false;
       _isolated = false;
       _selected = null;
@@ -111,6 +116,7 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
             query: _query,
             controller: _controller,
             onPartTap: _onPartTap,
+            onScanDone: _controller.scanFinished,
             // Üstte parça kartı ya da başka bir pencere açıksa model dokunuşu
             // almasın.
             interactive: ModalRoute.isCurrentOf(context) ?? true,
@@ -142,14 +148,16 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  RoundIconButton(
-                    icon: Icons.open_in_full,
-                    tooltip: 'Parçalarına ayır',
-                    selected: _exploded,
-                    onPressed: () {
-                      setState(() => _exploded = !_exploded);
-                      _controller.explode(_exploded ? 1 : 0);
-                    },
+                  // Teşhis animasyonu da modeli ayırabildiği için durum
+                  // denetleyicide.
+                  ValueListenableBuilder(
+                    valueListenable: _controller.exploded,
+                    builder: (context, exploded, _) => RoundIconButton(
+                      icon: Icons.open_in_full,
+                      tooltip: 'Parçalarına ayır',
+                      selected: exploded,
+                      onPressed: () => _controller.explode(exploded ? 0 : 1),
+                    ),
                   ),
                   const SizedBox(height: NayaSpace.sm),
                   RoundIconButton(

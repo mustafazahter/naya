@@ -24,7 +24,7 @@ class ModelFrame extends StatelessWidget {
   final VoidCallback? onReady;
 
   /// Tarama animasyonu bittiğinde.
-  final VoidCallback? onScanDone;
+  final ValueChanged<int>? onScanDone;
 
   /// false iken dokunuşlar viewer'a gitmez; üstte bir pencere ya da alt
   /// sayfa açıkken onların tıklamalarını yutmasın diye.

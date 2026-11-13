@@ -9,7 +9,7 @@ export interface WeightedPart {
 
 export type ViewerCommand =
   | { type: "load"; url: string; map?: string }
-  | { type: "scan"; parts: WeightedPart[] }
+  | { type: "scan"; id: number; parts: WeightedPart[] }
   | { type: "highlight"; parts: WeightedPart[] }
   | { type: "explode"; amount: number }
   | { type: "focus"; part: string }
@@ -20,4 +20,5 @@ export type ViewerCommand =
 export type ViewerEvent =
   | { type: "ready" }
   | { type: "partTap"; part: string | null }
-  | { type: "scanDone" };
+  /** Yarıda kesilen tarama da biter; [id] hangi taramanın bittiğini söyler. */
+  | { type: "scanDone"; id: number };

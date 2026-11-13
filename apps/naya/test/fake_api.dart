@@ -8,12 +8,24 @@ import 'package:naya/shared/api/api_client.dart';
 /// Testlerde sunucunun yerine geçer. Kütüphanede taslaktaki ürünler var;
 /// bisikletin içeriği (parça haritası, arızalar, DM'ler) repodaki gerçek
 /// şablondan okunur.
-ApiClient fakeApi({int failLibraryTimes = 0}) {
+///
+/// [diagnose] verilirse `POST /api/ai/diagnose` gövdeyi alıp bu cevabı
+/// döner; verilmezse giriş yapılmamış gibi 401.
+ApiClient fakeApi({
+  int failLibraryTimes = 0,
+  http.Response Function(Map<String, Object?> body)? diagnose,
+}) {
   var libraryCalls = 0;
   return ApiClient(
     baseUrl: 'http://api.test',
     client: MockClient((request) async {
       final path = request.url.path;
+      if (path == '/api/ai/diagnose' && request.method == 'POST') {
+        if (diagnose == null) {
+          return _error(401, 'unauthorized', 'Bu işlem için giriş yapın.');
+        }
+        return diagnose(jsonDecode(request.body) as Map<String, Object?>);
+      }
       if (path == '/api/library') {
         if (libraryCalls++ < failLibraryTimes) {
           return _error(503, 'unavailable', 'Sunucu kapalı.');
@@ -50,6 +62,10 @@ Map<String, Object?> _manifest() {
     },
   };
 }
+
+/// Sunucunun teşhis cevabı biçiminde JSON.
+http.Response jsonResponse(Object body, {int status = 200}) =>
+    _json(body).withStatus(status);
 
 http.Response _json(Object body) => http.Response.bytes(
   utf8.encode(jsonEncode(body)),

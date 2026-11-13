@@ -90,9 +90,11 @@ window.addEventListener("message", (e: MessageEvent<ViewerCommand>) => {
       break;
     case "scan":
       partBox.hidden = true;
-      void viewer.scan(weights(command.parts)).then(() => send({ type: "scanDone" }));
+      void viewer.scan(weights(command.parts)).then(() => send({ type: "scanDone", id: command.id }));
       break;
     case "highlight":
+      // Süren tarama bitince kendi parlamasını geri yazmasın.
+      viewer.finishScan();
       viewer.highlight(weights(command.parts));
       break;
     case "explode":
