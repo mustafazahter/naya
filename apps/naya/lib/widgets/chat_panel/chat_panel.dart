@@ -6,32 +6,78 @@ import '../../shared/ui/components.dart';
 import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
 
+/// Sohbetteki bir adım: kullanıcının mesajı, teşhis ya da akan cevap.
+sealed class ChatTurn {
+  const ChatTurn();
+}
+
+class UserTurn extends ChatTurn {
+  const UserTurn(this.text);
+  final String text;
+}
+
+/// Teşhis sonucu: adaylar, olasılıklar, önerilen prosedür.
+class DiagnosisTurn extends ChatTurn {
+  const DiagnosisTurn(this.diagnosis);
+  final Diagnosis diagnosis;
+}
+
+/// Sohbet modelinin cevabı. [streaming] iken metin hâlâ akıyor; kaynaklar
+/// cevap bitince gelir.
+class AnswerTurn extends ChatTurn {
+  const AnswerTurn(
+    this.text, {
+    this.sources = const [],
+    this.streaming = false,
+  });
+  final String text;
+  final List<String> sources;
+  final bool streaming;
+}
+
+/// Sohbetin altında gösterilen uyarı (giriş yok, anahtar yok, ağ hatası)
+/// ve varsa çözümü.
+class ChatNotice {
+  const ChatNotice(this.message, {this.actionLabel, this.onAction});
+  final String message;
+  final String? actionLabel;
+  final VoidCallback? onAction;
+}
+
 /// Çalışma alanının alt yarısı: yapay zekâ ile sohbet ve teşhis sonucu.
 ///
-/// Teşhis yokken (sohbet henüz başlamadı) ürünün kayıtlı belirtilerini
-/// öneri olarak gösterir. Teşhis sürerken yazılan mesaj ve "taranıyor"
-/// görünür; hata olursa mesajı.
+/// Sohbet boşken ürünün kayıtlı belirtilerini öneri olarak gösterir.
+/// İlk mesaj teşhise gider; sonuç netse sonraki sorular bulunan parça
+/// hakkında sohbete döner ([topic]). En yeni mesaj hep altta görünür.
 class ChatPanel extends StatelessWidget {
   const ChatPanel({
     super.key,
     required this.onCandidateTap,
     required this.onSend,
+    this.turns = const [],
+    this.diagnosing = false,
+    this.notice,
+    this.topic,
+    this.onNewTopic,
+    this.onOpenHistory,
     this.onOpenModule,
     this.productId,
-    this.diagnosis,
-    this.pending,
-    this.error,
     this.canSend = true,
     this.suggestions = const [],
   });
 
-  final Diagnosis? diagnosis;
+  final List<ChatTurn> turns;
 
-  /// Teşhisi süren mesaj.
-  final String? pending;
+  /// Teşhis sürüyor: model taranıyor.
+  final bool diagnosing;
+  final ChatNotice? notice;
 
-  /// Teşhis başarısız olduysa gösterilecek mesaj.
-  final String? error;
+  /// Sohbet bir parça hakkındaysa adı ("Zincir").
+  final String? topic;
+
+  /// Sohbeti temizleyip yeni bir soruna başlar.
+  final VoidCallback? onNewTopic;
+  final VoidCallback? onOpenHistory;
   final ValueChanged<String> onCandidateTap;
 
   /// Yazılan ya da seçilen öneri metni.
@@ -47,39 +93,59 @@ class ChatPanel extends StatelessWidget {
   final String? productId;
   final List<String> suggestions;
 
+  bool get _busy =>
+      diagnosing || turns.any((t) => t is AnswerTurn && t.streaming);
+
+  /// Parça sohbetinde boşken önerilen sorular.
+  static const _partQuestions = [
+    'Nasıl bakım yapılır?',
+    'Ne zaman değiştirilmeli?',
+    'Hangi aletler gerekir?',
+  ];
+
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final diagnosis = this.diagnosis;
-    final pending = this.pending;
-    final error = this.error;
-    final List<Widget> children;
-    if (pending != null) {
-      children = [
-        _UserMessage(pending),
+    final topic = this.topic;
+    final notice = this.notice;
+    final children = <Widget>[
+      if (turns.isEmpty && !diagnosing)
+        topic == null
+            ? _Intro(suggestions: suggestions, onSend: onSend)
+            : _PartIntro(
+                part: topic,
+                suggestions: _partQuestions,
+                onSend: onSend,
+              ),
+      for (final (i, turn) in turns.indexed) ...[
+        if (i > 0) const SizedBox(height: NayaSpace.lg),
+        switch (turn) {
+          UserTurn(:final text) => _UserMessage(text),
+          DiagnosisTurn(:final diagnosis) => _AssistantMessage(
+            diagnosis: diagnosis,
+            productId: productId,
+            onCandidateTap: onCandidateTap,
+            onOpenModule: onOpenModule,
+          ),
+          AnswerTurn() => _Answer(
+            turn: turn,
+            productId: productId,
+            onOpenModule: onOpenModule,
+          ),
+        },
+      ],
+      if (diagnosing) ...[
         const SizedBox(height: NayaSpace.lg),
-        const _Thinking(),
-      ];
-    } else if (diagnosis != null) {
-      children = [
-        _UserMessage(diagnosis.symptom),
+        const _Thinking('Sistemler taranıyor…'),
+      ],
+      if (notice != null) ...[
         const SizedBox(height: NayaSpace.lg),
-        _AssistantMessage(
-          diagnosis: diagnosis,
-          productId: productId,
-          onCandidateTap: onCandidateTap,
-          onOpenModule: onOpenModule,
-        ),
-        if (error != null) ...[
-          const SizedBox(height: NayaSpace.lg),
-          _ErrorMessage(error),
-        ],
-      ];
-    } else if (error != null) {
-      children = [_ErrorMessage(error)];
-    } else {
-      children = [_Intro(suggestions: suggestions, onSend: onSend)];
-    }
+        _ErrorMessage(notice),
+      ],
+    ];
+    final hint = topic == null
+        ? 'Sorunu anlat ya da parça sor…'
+        : '${topic.trim()} hakkında sor…';
     return DecoratedBox(
       decoration: BoxDecoration(
         color: c.background,
@@ -87,27 +153,83 @@ class ChatPanel extends StatelessWidget {
       ),
       child: Column(
         children: [
+          if (turns.isNotEmpty || onOpenHistory != null)
+            _Toolbar(
+              title: topic == null ? 'Yapay zekâ' : '$topic hakkında',
+              onNewTopic: turns.isEmpty || _busy ? null : onNewTopic,
+              onOpenHistory: onOpenHistory,
+            ),
           Expanded(
+            // Ters liste: yeni mesaj ve akan cevap hep altta görünür;
+            // kullanıcı yukarı kaydırmadıkça ekran kendiliğinden takip eder.
+            // Sohbet boşken giriş metni baştan okunsun diye düz liste.
             child: ListView(
+              reverse: turns.isNotEmpty || diagnosing || notice != null,
               padding: const EdgeInsets.fromLTRB(
                 NayaSpace.gutter,
                 NayaSpace.lg,
                 NayaSpace.gutter,
                 NayaSpace.lg,
               ),
-              children: children,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: children,
+                ),
+              ],
             ),
           ),
-          _Composer(onSend: onSend, enabled: canSend && pending == null),
+          _Composer(onSend: onSend, hint: hint, enabled: canSend && !_busy),
         ],
       ),
     );
   }
 }
 
-/// Teşhis sürerken: model taranıyor.
+/// Sohbetin üstü: konu, geçmiş ve yeni konu.
+class _Toolbar extends StatelessWidget {
+  const _Toolbar({required this.title, this.onNewTopic, this.onOpenHistory});
+
+  final String title;
+  final VoidCallback? onNewTopic;
+  final VoidCallback? onOpenHistory;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        NayaSpace.gutter,
+        NayaSpace.sm,
+        NayaSpace.sm,
+        0,
+      ),
+      child: Row(
+        children: [
+          Expanded(child: TechLabel(title)),
+          if (onOpenHistory != null)
+            IconButton(
+              tooltip: 'Geçmiş',
+              onPressed: onOpenHistory,
+              icon: Icon(Icons.history, size: 20, color: c.textSecondary),
+            ),
+          if (onNewTopic != null)
+            IconButton(
+              tooltip: 'Yeni konu',
+              onPressed: onNewTopic,
+              icon: Icon(Icons.add_comment_outlined, size: 20, color: c.text),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Teşhis ya da cevap beklenirken.
 class _Thinking extends StatelessWidget {
-  const _Thinking();
+  const _Thinking(this.label);
+
+  final String label;
 
   @override
   Widget build(BuildContext context) {
@@ -119,23 +241,21 @@ class _Thinking extends StatelessWidget {
           child: CircularProgressIndicator(strokeWidth: 2, color: c.accent),
         ),
         const SizedBox(width: NayaSpace.md),
-        Text(
-          'Sistemler taranıyor…',
-          style: context.text.body.copyWith(color: c.textSecondary),
-        ),
+        Text(label, style: context.text.body.copyWith(color: c.textSecondary)),
       ],
     );
   }
 }
 
 class _ErrorMessage extends StatelessWidget {
-  const _ErrorMessage(this.text);
+  const _ErrorMessage(this.notice);
 
-  final String text;
+  final ChatNotice notice;
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
+    final action = notice.onAction;
     return Panel(
       padding: const EdgeInsets.all(NayaSpace.md),
       child: Row(
@@ -144,13 +264,128 @@ class _ErrorMessage extends StatelessWidget {
           Icon(Icons.info_outline, size: 18, color: c.textMuted),
           const SizedBox(width: NayaSpace.sm),
           Expanded(
-            child: Text(
-              text,
-              style: context.text.body.copyWith(color: c.textSecondary),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  notice.message,
+                  style: context.text.body.copyWith(color: c.textSecondary),
+                ),
+                if (action != null && notice.actionLabel != null) ...[
+                  const SizedBox(height: NayaSpace.sm),
+                  OutlinedButton(
+                    onPressed: action,
+                    child: Text(notice.actionLabel!),
+                  ),
+                ],
+              ],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Sohbet modelinin cevabı. Metindeki `[DMC-…]` atıfları ayıklanır;
+/// kaynaklar cevap bitince altta bağlantı olarak görünür.
+class _Answer extends StatelessWidget {
+  const _Answer({required this.turn, this.productId, this.onOpenModule});
+
+  final AnswerTurn turn;
+  final String? productId;
+  final ValueChanged<String>? onOpenModule;
+
+  static final _citation = RegExp(r'\s*\[DMC-[^\]]+\]');
+
+  /// Modeller ara sıra Markdown yazıyor; düz metinde yıldızlar ve başlık
+  /// işaretleri gürültü.
+  static final _markdown = RegExp(r'\*\*|__|^#{1,6}\s+', multiLine: true);
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    final text = turn.text
+        .replaceAll(_citation, '')
+        .replaceAll(_markdown, '')
+        .trim();
+    final productId = this.productId;
+    final open = onOpenModule;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const TechLabel('Cevap'),
+        const SizedBox(height: NayaSpace.sm),
+        if (text.isEmpty && turn.streaming)
+          const _Thinking('Yazıyor…')
+        else
+          Text.rich(
+            TextSpan(
+              text: text,
+              children: [
+                // Akış sürerken metnin sonunda yanıp sönmeyen ince imleç.
+                if (turn.streaming)
+                  TextSpan(
+                    text: ' ▍',
+                    style: TextStyle(color: c.accent),
+                  ),
+              ],
+            ),
+            style: context.text.body.copyWith(color: c.text),
+          ),
+        if (turn.sources.isNotEmpty) ...[
+          const SizedBox(height: NayaSpace.md),
+          const TechLabel('Kaynaklar'),
+          const SizedBox(height: NayaSpace.xs),
+          if (productId != null && open != null)
+            for (final dmc in turn.sources)
+              SourceLink(productId: productId, dmc: dmc, onTap: () => open(dmc))
+          else
+            Wrap(
+              spacing: NayaSpace.xs,
+              runSpacing: NayaSpace.xs,
+              children: [for (final dmc in turn.sources) _SourceTag(dmc)],
+            ),
+        ],
+      ],
+    );
+  }
+}
+
+/// Parça sohbeti boşken.
+class _PartIntro extends StatelessWidget {
+  const _PartIntro({
+    required this.part,
+    required this.suggestions,
+    required this.onSend,
+  });
+
+  final String part;
+  final List<String> suggestions;
+  final ValueChanged<String> onSend;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('$part hakkında ne bilmek istersin?', style: context.text.title),
+        const SizedBox(height: NayaSpace.sm),
+        Text(
+          'Cevaplar bu parçanın kartına ve bakım dokümanlarına dayanır; '
+          'kaynağa dokununca doküman açılır.',
+          style: context.text.body,
+        ),
+        const SizedBox(height: NayaSpace.xl),
+        Wrap(
+          spacing: NayaSpace.sm,
+          runSpacing: NayaSpace.sm,
+          children: [
+            for (final text in suggestions)
+              SuggestionChip(text, onTap: () => onSend(text)),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -167,8 +402,6 @@ class _Intro extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TechLabel('Yapay zekâ'),
-        const SizedBox(height: NayaSpace.sm),
         Text('Ne sorun var?', style: context.text.title),
         const SizedBox(height: NayaSpace.sm),
         Text(
@@ -508,7 +741,13 @@ class _SafetyRow extends StatelessWidget {
 }
 
 class _Composer extends StatefulWidget {
-  const _Composer({required this.onSend, this.enabled = true});
+  const _Composer({
+    required this.onSend,
+    required this.hint,
+    this.enabled = true,
+  });
+
+  final String hint;
 
   final ValueChanged<String> onSend;
 
@@ -563,7 +802,7 @@ class _ComposerState extends State<_Composer> {
                   onSubmitted: (_) => _send(),
                   style: context.text.body.copyWith(color: c.text),
                   decoration: InputDecoration(
-                    hintText: 'Sorunu anlat ya da parça sor…',
+                    hintText: widget.hint,
                     hintStyle: context.text.body.copyWith(color: c.textMuted),
                     border: InputBorder.none,
                   ),

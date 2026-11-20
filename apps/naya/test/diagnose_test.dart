@@ -242,9 +242,10 @@ void main() {
       await pump(tester, fakeApi());
       await ask(tester, 'Zincir atlıyor.');
       expect(
-        find.text('Teşhis için giriş yapmanız gerekiyor.'),
+        find.text('Yapay zekâyı kullanmak için giriş yapmalısın.'),
         findsOneWidget,
       );
+      expect(find.widgetWithText(OutlinedButton, 'Giriş yap'), findsOneWidget);
     });
   });
 
