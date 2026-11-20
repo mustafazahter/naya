@@ -11,15 +11,26 @@ import 'package:naya/shared/api/api_client.dart';
 ///
 /// [diagnose] verilirse `POST /api/ai/diagnose` gövdeyi alıp bu cevabı
 /// döner; verilmezse giriş yapılmamış gibi 401.
+///
+/// [routes] başka uçlar için: anahtar `"GET /api/ai/key"` gibi yöntem ve
+/// yol; cevap isteğe göre üretilir.
 ApiClient fakeApi({
   int failLibraryTimes = 0,
   http.Response Function(Map<String, Object?> body)? diagnose,
+  Map<String, http.Response Function(http.Request request)> routes = const {},
 }) {
   var libraryCalls = 0;
   return ApiClient(
     baseUrl: 'http://api.test',
     client: MockClient((request) async {
       final path = request.url.path;
+      final route = routes['${request.method} $path'];
+      if (route != null) return route(request);
+      if (path.startsWith('/api/ai/') || path.startsWith('/api/auth/')) {
+        if (path != '/api/ai/diagnose') {
+          return _error(401, 'unauthorized', 'Bu işlem için giriş yapın.');
+        }
+      }
       if (path == '/api/ai/diagnose' && request.method == 'POST') {
         if (diagnose == null) {
           return _error(401, 'unauthorized', 'Bu işlem için giriş yapın.');
@@ -66,6 +77,31 @@ Map<String, Object?> _manifest() {
 /// Sunucunun teşhis cevabı biçiminde JSON.
 http.Response jsonResponse(Object body, {int status = 200}) =>
     _json(body).withStatus(status);
+
+/// Sunucunun hata biçimi: `{"error": {"code", "message"}}`.
+http.Response errorResponse(int status, String code, String message) =>
+    _error(status, code, message);
+
+/// Sohbet ucunun SSE cevabı: her parça bir `delta`, sonda `done`.
+http.Response sseResponse(
+  List<String> deltas, {
+  int conversation = 1,
+  List<String> sources = const [],
+}) {
+  final body = StringBuffer();
+  for (final d in deltas) {
+    body.write('event: delta\ndata: ${jsonEncode({'text': d})}\n\n');
+  }
+  body.write(
+    'event: done\ndata: '
+    '${jsonEncode({'conversation': conversation, 'message': 2, 'sources': sources})}\n\n',
+  );
+  return http.Response.bytes(
+    utf8.encode('$body'),
+    200,
+    headers: {'content-type': 'text/event-stream'},
+  );
+}
 
 http.Response _json(Object body) => http.Response.bytes(
   utf8.encode(jsonEncode(body)),

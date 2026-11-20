@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../entities/product/product.dart';
 import '../../entities/product/product_card.dart';
 import '../../entities/product/product_library.dart';
+import '../../entities/session/session.dart';
 import '../../features/search_library/library_search.dart';
 import '../../shared/ui/components.dart';
 import '../../shared/ui/naya_emblem.dart';
@@ -15,9 +16,18 @@ import '../../shared/ui/tokens.dart';
 /// Ürün açılınca nereye gidileceğini sayfa bilmez; [onOpen] ile app
 /// katmanına bırakır (bir sayfa diğerini import edemez).
 class LibraryPage extends ConsumerWidget {
-  const LibraryPage({super.key, required this.onOpen});
+  const LibraryPage({
+    super.key,
+    required this.onOpen,
+    this.onOpenSettings,
+    this.onSignIn,
+  });
 
   final ValueChanged<Product> onOpen;
+  final VoidCallback? onOpenSettings;
+
+  /// Misafirken avatara dokunulunca.
+  final VoidCallback? onSignIn;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,7 +45,13 @@ class LibraryPage extends ConsumerWidget {
                 padding: EdgeInsets.symmetric(horizontal: gutter),
                 sliver: SliverList.list(
                   children: [
-                    const SafeArea(bottom: false, child: _Header()),
+                    SafeArea(
+                      bottom: false,
+                      child: _Header(
+                        onOpenSettings: onOpenSettings,
+                        onSignIn: onSignIn,
+                      ),
+                    ),
                     SizedBox(height: wide ? NayaSpace.xxxl : NayaSpace.xxl),
                     const _Hero(),
                     SizedBox(height: wide ? NayaSpace.xxxl : NayaSpace.xxl),
@@ -143,12 +159,16 @@ void _showComingSoon(BuildContext context, String what) {
     ..showSnackBar(SnackBar(content: Text('$what yakında geliyor.')));
 }
 
-class _Header extends StatelessWidget {
-  const _Header();
+class _Header extends ConsumerWidget {
+  const _Header({this.onOpenSettings, this.onSignIn});
+
+  final VoidCallback? onOpenSettings;
+  final VoidCallback? onSignIn;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final c = context.colors;
+    final account = ref.watch(sessionProvider).value;
     return Padding(
       padding: const EdgeInsets.only(top: NayaSpace.lg),
       child: Row(
@@ -159,17 +179,29 @@ class _Header extends StatelessWidget {
           const Spacer(),
           IconButton(
             tooltip: 'Ayarlar',
-            onPressed: () => _showComingSoon(context, 'Ayarlar'),
+            onPressed: onOpenSettings,
             icon: Icon(Icons.tune, color: c.textSecondary),
           ),
           const SizedBox(width: NayaSpace.xs),
-          // Hesap sistemi gelene kadar (3C) herkes misafir.
-          Semantics(
-            label: 'Misafir',
-            child: CircleAvatar(
-              radius: 16,
-              backgroundColor: c.surfaceRaised,
-              child: Icon(Icons.person_outline, size: 18, color: c.text),
+          // Misafirse giriş, giriş yapılmışsa hesap ayarları açılır.
+          Tooltip(
+            message: account?.email ?? 'Giriş yap',
+            child: InkWell(
+              customBorder: const CircleBorder(),
+              onTap: account == null ? onSignIn : onOpenSettings,
+              child: CircleAvatar(
+                radius: 16,
+                backgroundColor: account == null ? c.surfaceRaised : c.accent,
+                child: account == null
+                    ? Icon(Icons.person_outline, size: 18, color: c.text)
+                    : Text(
+                        account.initial,
+                        style: context.text.small.copyWith(
+                          color: c.onAccent,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+              ),
             ),
           ),
         ],
