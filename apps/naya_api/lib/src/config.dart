@@ -17,6 +17,7 @@ class ApiConfig {
     this.masterKey,
     this.secureCookies = false,
     this.allowedOrigins = const [],
+    this.webDir,
   });
 
   factory ApiConfig.fromEnvironment([Map<String, String>? environment]) {
@@ -43,6 +44,7 @@ class ApiConfig {
           .map((origin) => origin.trim())
           .where((origin) => origin.isNotEmpty)
           .toList(),
+      webDir: read('WEB_DIR'),
     );
   }
 
@@ -70,6 +72,10 @@ class ApiConfig {
   /// Çerezle istek atabilecek web adresleri. `localhost` her zaman açık;
   /// yerelde Flutter web başka bir portta çalışıyor.
   final List<String> allowedOrigins;
+
+  /// Flutter web derlemesinin klasörü (`build/web`). Verilirse sunucu
+  /// uygulamayı da sunar; yerelde boş, web `flutter run` ile açılır.
+  final String? webDir;
 
   String get libraryDir => p.join(storageDir, 'library');
   String get backupDir => p.join(storageDir, 'backups');

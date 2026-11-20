@@ -1,0 +1,26 @@
+# Derleme bağlamına girmeyecekler: yerel derlemeler, bağımlılıklar, veriler.
+.git
+.github
+**/.dart_tool
+**/build
+**/node_modules
+**/dist
+**/android/.gradle
+**/android/local.properties
+packages/viewer_web/public/draco
+packages/viewer_web/public/models
+# Viewer derlemesi imajda ayrı aşamada üretiliyor.
+apps/naya/assets/viewer
+templates/dist
+data
+*.db
+*.db-wal
+*.db-shm
+.env
+.env.*
+pubspec_overrides.yaml
+CLAUDE.md
+AGENTS.md
+.claude
+.idea
+.vscode
