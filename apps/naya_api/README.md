@@ -28,6 +28,24 @@ Telefondan yerel sunucuya bağlanmak için: `adb reverse tcp:8080 tcp:8080`.
 | `NAYA_MASTER_KEY` | | Kullanıcıların OpenRouter anahtarlarını şifreleyen 32 bayt, base64 (`openssl rand -base64 32`). Yoksa yapay zekâ kapalı. `tools/dev.sh` yerelde kendisi üretir. Değişirse kayıtlı anahtarlar çözülemez, kullanıcılar yeniden girer |
 | `NAYA_SECURE_COOKIES` | | `1` ise çerezde `Secure` (HTTPS arkasında) |
 | `CORS_ORIGINS` | | Virgülle ayrılmış ek web adresleri; `localhost` her zaman açık |
+| `WEB_DIR` | | Flutter web derlemesinin klasörü. Verilirse sunucu uygulamayı da sunar: `/api` ve `/health` dışındaki adresler önce dosyalara bakar, yoksa `index.html` döner (sayfa yenilenince Flutter adresi açılsın) |
+
+## Yayın (Komuta)
+
+Kökteki `Dockerfile` viewer'ı, Flutter web'i (`NAYA_API_URL` boş: uygulama açıldığı adresle konuşur), şablonları ve API'yi derler. `sqlite3` build hook kullandığı için API `dart compile exe` ile değil `dart build cli` ile derleniyor; çıktı `bin/server` ve `lib/libsqlite3.so`.
+
+İmajda `STORAGE_DIR=/data/storage`, `DATABASE_PATH=/data/naya.db`, `NAYA_SECURE_COOKIES=1`; kalıcı disk `/data`'ya bağlanır. `NAYA_MASTER_KEY`, `NAYA_ADMIN_EMAIL`, `NAYA_ADMIN_PASSWORD` Komuta'da gizli değişken olarak verilir.
+
+Aynı adımlar yerelde Docker olmadan denenebilir:
+
+```bash
+(cd packages/viewer_web && npm ci && npm run bundle)
+(cd apps/naya && flutter build web --release --dart-define=NAYA_API_URL=)
+(cd apps/naya_api && dart build cli -o ../../build/api)
+WEB_DIR=apps/naya/build/web PORT=8090 build/api/bundle/bin/server
+```
+
+Telefon uygulaması canlı API'ye `flutter build apk --dart-define=NAYA_API_URL=https://<servis adresi>` ile bağlanır.
 
 ## Uçlar
 

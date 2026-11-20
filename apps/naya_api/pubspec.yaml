@@ -17,6 +17,7 @@ dependencies:
   path: ^1.9.1
   shelf: ^1.4.2
   shelf_router: ^1.1.4
+  shelf_static: ^1.2.0
   sqlite3: ^3.9.1
 
 dev_dependencies:
