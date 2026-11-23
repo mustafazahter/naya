@@ -62,6 +62,12 @@ blender -b --python build_model.py -- corolla-e100.glb engine-1zz-fe.glb ../mode
 blender -b --python render_icn.py -- ../model/product.glb cikti/
 ```
 
+Kütüphane kartındaki resim (repo kökünden):
+
+```bash
+blender -b --python templates/scripts/render_thumbnail.py -- templates/src/corolla/model/product.glb apps/naya/assets/templates/corolla.webp -1,-0.55,0.42
+```
+
 `build_model.py` sırasıyla:
 
 1. Gövde modelindeki seçenekli parçalardan (tampon, ızgara, fren) fabrika çıkışı olanı alır.

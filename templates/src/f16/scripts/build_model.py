@@ -34,20 +34,28 @@ SCALE = 1.08
 
 # --- Malzemeler -----------------------------------------------------------
 
+# Renkler doğrusal (linear) değerler; viewer'ın ışığında açık görünür.
+# Boya iki tonlu: üst yüzeyler mavi-gri, alt yüzeyler açık gri (gölge
+# kamuflajı); kanopinin önünde koyu yansıma önleyici panel.
 PALETTE = {
-    'paint': ((0.33, 0.36, 0.40), 0.55, 0.0),
-    'paint_dark': ((0.22, 0.24, 0.27), 0.6, 0.0),
-    'radome': ((0.28, 0.30, 0.33), 0.5, 0.0),
-    'glass': ((0.55, 0.50, 0.25), 0.05, 0.0),
+    'paint': ((0.10, 0.135, 0.19), 0.55, 0.0),
+    'paint_belly': ((0.30, 0.33, 0.37), 0.55, 0.0),
+    'paint_dark': ((0.035, 0.045, 0.06), 0.6, 0.0),
+    'antiglare': ((0.012, 0.013, 0.015), 0.8, 0.0),
+    'radome': ((0.025, 0.028, 0.032), 0.45, 0.0),
+    'glass': ((0.75, 0.55, 0.15), 0.05, 0.3),
     'interior': ((0.10, 0.10, 0.11), 0.8, 0.0),
     'gear': ((0.85, 0.86, 0.87), 0.4, 0.2),
-    'rubber': ((0.03, 0.03, 0.03), 0.9, 0.0),
+    'rubber': ((0.025, 0.025, 0.027), 0.85, 0.0),
+    'rim': ((0.70, 0.71, 0.73), 0.3, 1.0),
+    'brake': ((0.18, 0.17, 0.16), 0.5, 1.0),
     'steel': ((0.45, 0.46, 0.48), 0.35, 1.0),
-    'titanium': ((0.38, 0.36, 0.33), 0.4, 1.0),
-    'hot': ((0.30, 0.25, 0.20), 0.5, 1.0),
+    'titanium': ((0.36, 0.30, 0.24), 0.35, 1.0),
+    'hot': ((0.45, 0.22, 0.10), 0.45, 1.0),
     'alu': ((0.66, 0.67, 0.69), 0.4, 1.0),
-    'blade': ((0.20, 0.21, 0.23), 0.35, 1.0),
-    'bronze': ((0.70, 0.55, 0.25), 0.35, 1.0),
+    'blade': ((0.55, 0.57, 0.60), 0.3, 1.0),
+    'bronze': ((0.70, 0.45, 0.18), 0.35, 1.0),
+    'compressor': ((0.25, 0.42, 0.60), 0.35, 1.0),
 }
 
 NODE_COLORS = {
@@ -55,9 +63,9 @@ NODE_COLORS = {
     'nose_gear': 'gear', 'main_gear_l': 'gear', 'main_gear_r': 'gear',
     'tail_hook': 'gear', 'engine_nozzle': 'titanium',
     'afterburner': 'hot', 'engine_casing': 'alu', 'engine_fan': 'blade',
-    'engine_lpc': 'steel', 'engine_hpc': 'steel',
+    'engine_lpc': 'compressor', 'engine_hpc': 'compressor',
     'engine_combustor': 'hot', 'engine_hpt': 'hot', 'engine_lpt': 'hot',
-    'engine_shafts': 'steel', 'engine_gearbox': 'alu',
+    'engine_shafts': 'bronze', 'engine_gearbox': 'alu',
     'speed_brakes': 'paint_dark', 'conformal_tanks': 'paint',
 }
 
@@ -85,10 +93,36 @@ def material(key, cache={}):
 def recolor(obj, default):
     for slot in obj.material_slots:
         name = slot.material.name if slot.material else ''
+        if name.startswith('naya_'):
+            continue
         slot.material = material(next(
             (k for p, k in SOURCE_MATERIALS if p in name), default))
     if not obj.material_slots:
         obj.data.materials.append(material(default))
+
+
+def two_tone(obj, antiglare=False):
+    """Gövde boyasını iki tona böler: aşağı bakan yüzler açık gri.
+    [antiglare] gövdede kanopinin önündeki üst şeridi koyulaştırır
+    (kaynak koordinatlarında, burun +Y)."""
+    names = [s.material.name for s in obj.material_slots]
+    if 'naya_paint' not in names:
+        return
+    paint = names.index('naya_paint')
+    for key in ('paint_belly', 'antiglare'):
+        if material(key).name not in names:
+            obj.data.materials.append(material(key))
+            names.append(material(key).name)
+    belly = names.index('naya_paint_belly')
+    dark = names.index('naya_antiglare')
+    for p in obj.data.polygons:
+        if p.material_index != paint:
+            continue
+        c, n = p.center, p.normal
+        if antiglare and 4.55 < c.y < 5.6 and abs(c.x) < 0.32 and n.z > 0.5:
+            p.material_index = dark
+        elif n.z < -0.25:
+            p.material_index = belly
 
 
 # --- Uçağın düğümleri ---------------------------------------------------------
@@ -123,6 +157,18 @@ AIRCRAFT_PARTS = {
 
 # Dış yükler ve boş nesneler atılır.
 DROP = ('extra1', 'extra2', 'extra3', 'extra4', 'extra5', 'wheel')
+
+# İniş takımı kapakları gövde parçası; alt gövde boyasını alır.
+DOORS = ('poly_10', 'poly_11', 'poly_12', 'poly_3', 'poly_13', 'poly_14')
+
+# Kaynaktaki tekerlekler 16 kenarlı, dikmeyle aynı renkte. Yerlerine lastik,
+# jant, göbek ve (ana tekerleklerde) fren diski yapılır. Kaynak
+# koordinatlarında (merkez, yarıçap, jant yarıçapı, genişlik, frenli mi).
+WHEELS = {
+    'main_gear_l': ((-1.23, -1.15, 0.35), 0.32, 0.19, 0.22, True),
+    'main_gear_r': ((1.19, -1.15, 0.32), 0.32, 0.19, 0.22, True),
+    'nose_gear': ((0.01, 2.62, 0.22), 0.225, 0.12, 0.13, False),
+}
 
 
 def body_face(c):
@@ -203,6 +249,71 @@ def take_faces(obj, faces, name):
     return copy
 
 
+def drop_wheel(obj, center, radius, width):
+    """Merkezi tekerlek ekseninde olan adacıkları (lastik, jant, göbek)
+    siler."""
+    center = Vector(center)
+    bm = bmesh.new()
+    bm.from_mesh(obj.data)
+    bm.faces.ensure_lookup_table()
+    seen, doomed = set(), []
+    for face in bm.faces:
+        if face.index in seen:
+            continue
+        stack, group = [face], []
+        seen.add(face.index)
+        while stack:
+            f = stack.pop()
+            group.append(f)
+            for edge in f.edges:
+                for other in edge.link_faces:
+                    if other.index not in seen:
+                        seen.add(other.index)
+                        stack.append(other)
+        points = [v.co for f in group for v in f.verts]
+        lo, hi = Vector(map(min, *points)), Vector(map(max, *points))
+        c = (lo + hi) / 2
+        if (abs(c.y - center.y) < 0.03 and abs(c.z - center.z) < 0.03
+                and abs(c.x - center.x) < width / 2 + 0.04
+                and (hi - lo).y < 2 * radius + 0.05):
+            doomed += group
+    bmesh.ops.delete(bm, geom=doomed, context='FACES')
+    bm.to_mesh(obj.data)
+    bm.free()
+
+
+def wheel(center, radius, rim, width, brake):
+    """Ekseni X olan tekerlek: lastik, jant, göbek, fren diski."""
+    tube = (radius - rim) / 2
+    pieces = []
+    bpy.ops.mesh.primitive_torus_add(
+        major_segments=64, minor_segments=16, major_radius=rim + tube,
+        minor_radius=tube, location=center, rotation=(0, math.pi / 2, 0))
+    tire = bpy.context.active_object
+    tire.scale = (1, 1, width / (2 * tube))
+    pieces.append((tire, 'rubber'))
+    bpy.ops.mesh.primitive_cylinder_add(
+        vertices=48, radius=rim * 1.02, depth=width * 0.82, location=center,
+        rotation=(0, math.pi / 2, 0))
+    pieces.append((bpy.context.active_object, 'rim'))
+    bpy.ops.mesh.primitive_cylinder_add(
+        vertices=24, radius=rim * 0.35, depth=width * 0.95, location=center,
+        rotation=(0, math.pi / 2, 0))
+    pieces.append((bpy.context.active_object, 'steel'))
+    if brake:
+        bpy.ops.mesh.primitive_cylinder_add(
+            vertices=48, radius=rim * 0.8, depth=width * 0.9,
+            location=center, rotation=(0, math.pi / 2, 0))
+        pieces.append((bpy.context.active_object, 'brake'))
+    bpy.context.view_layer.update()
+    objects = []
+    for obj, key in pieces:
+        bake(obj)
+        obj.data.materials.append(material(key))
+        objects.append(obj)
+    return objects
+
+
 def afterburner():
     """Motorun arkasından lüleye uzanan kanal, alev tutucu halkaları ve
     yakıt püskürtme halkası."""
@@ -248,10 +359,18 @@ def main():
                 groups.setdefault(node, []).append(take_faces(obj, f, node))
             bpy.data.objects.remove(obj)
             continue
+        if name in DOORS:
+            obj.data.materials.clear()
+            obj.data.materials.append(material('paint_belly'))
         groups.setdefault(AIRCRAFT_PARTS.get(name, 'fuselage'), []).append(obj)
     nodes = {node: join(objs, node) for node, objs in groups.items()}
+    for node, (center, radius, rim, width, brake) in WHEELS.items():
+        drop_wheel(nodes[node], center, radius, width)
+        nodes[node] = join([nodes[node], *wheel(center, radius, rim, width,
+                                                brake)], node)
     for node, obj in nodes.items():
         recolor(obj, NODE_COLORS.get(node, 'paint'))
+        two_tone(obj, antiglare=node == 'fuselage')
 
     # Motor.
     before = set(bpy.data.objects)

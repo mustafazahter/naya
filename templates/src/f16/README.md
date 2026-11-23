@@ -48,7 +48,7 @@ Sistem kodları ATA 100 bölüm numaralarına benzer:
 
 ## Model
 
-`model/product.glb`: 32 düğüm, Draco sıkıştırmalı (~3,6 MB, ~420 bin üçgen).
+`model/product.glb`: 32 düğüm, Draco sıkıştırmalı (~3,7 MB, ~420 bin üçgen).
 
 Kaynaklar, ikisi de **CC BY 4.0**. Uygulamada ve `.naya` manifestinin `credits` alanında bu atıflar gösterilir:
 
@@ -65,13 +65,21 @@ blender -b --python build_model.py -- "General Dynamics F-16D Block 60.obj" Turb
 blender -b --python render_icn.py -- ../model/product.glb cikti/
 ```
 
+Kütüphane kartındaki resim (repo kökünden):
+
+```bash
+blender -b --python templates/scripts/render_thumbnail.py -- templates/src/f16/model/product.glb apps/naya/assets/templates/f16.webp -1,-0.55,0.42
+```
+
 `build_model.py` sırasıyla:
 
 1. Uçağın ayrı nesne olan parçalarını (flaperonlar, yatay kuyruklar, dümen, hava frenleri, iniş takımları, kanopi) düğümlere toplar.
 2. Tek parça gövdeden kanatları, burun konisini ve hava alığını yüz yüz ayırır.
 3. Dış yükleri (füzeler, bombalar, dış tanklar, pilonlar) atar.
 4. Turbofanın gondolunu ve giriş dudağını atar; motoru 1,6 m'lik fan çapından gövdeye sığan 1,02 m'ye küçültüp motor bölmesine yerleştirir. Kaynakta art yakıcı yok; motorla lüle arasına basit bir art yakıcı kanalı yapar.
-5. Malzemeleri düğüme göre yeniden renklendirir, uçağı 15 m boya ölçekler ve burnunu -Y'ye çevirir.
+5. Kaynaktaki 16 kenarlı tekerlekleri siler; yerlerine lastik, jant, göbek ve ana tekerleklerde fren diski yapar.
+6. Malzemeleri düğüme göre yeniden renklendirir: üst yüzeyler mavi-gri, aşağı bakan yüzler açık gri, kanopinin önünde koyu yansıma önleyici şerit, koyu radom; iniş takımı kapakları alt gövde rengi.
+7. Uçağı 15 m boya ölçekler ve burnunu -Y'ye çevirir.
 
 ## Parçalar
 

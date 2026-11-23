@@ -56,6 +56,12 @@ blender -b --python build_model.py -- Leopard_2A6.blend ../model/product.glb
 blender -b --python render_icn.py -- ../model/product.glb cikti/
 ```
 
+Kütüphane kartındaki resim (repo kökünden):
+
+```bash
+blender -b --python templates/scripts/render_thumbnail.py -- templates/src/leopard2/model/product.glb apps/naya/assets/templates/leopard2.webp -1,-0.55,0.42
+```
+
 `build_model.py` sırasıyla:
 
 1. Paletleri, yol tekerleklerini ve avaraları çoğaltan modifier'ları (array, curve, mirror) uygular.

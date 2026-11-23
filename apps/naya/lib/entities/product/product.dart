@@ -78,7 +78,12 @@ class Product {
   /// Gerçek modelin render'ı. Yoksa kartta teknik çizim gösterilir.
   String? get thumbnail => _thumbnails[key];
 
-  static const _thumbnails = {'bisiklet-dag': 'assets/templates/bisiklet.webp'};
+  static const _thumbnails = {
+    'bisiklet-dag': 'assets/templates/bisiklet.webp',
+    'toyota-corolla-e100': 'assets/templates/corolla.webp',
+    'leopard-2a6': 'assets/templates/leopard2.webp',
+    'f-16d-block-60': 'assets/templates/f16.webp',
+  };
 
   /// Başlıkta ya da açıklamada [query] geçiyor mu; büyük/küçük harf önemsiz.
   bool matches(String query) {
