@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYACAR-AAA-D000000-0-NAYA0-00003-A-001-01 SYSTEM "ICN-NAYACAR-AAA-D000000-0-NAYA0-00003-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Silindir kapak contası</techName><infoName>Değiştirme</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><noConds/></reqCondGroup>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Tork anahtarı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-003</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Lokma takımı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-004</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0003"><name>Düz cetvel ve sentil</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-005</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Soğutma suyu</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-001</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="L">6</reqQuantity></supplyDescr><supplyDescr id="sp-0002"><name>Motor yağı, 5W-30</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-002</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="L">4</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Silindir kapak contası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-DA1-10-018</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr><spareDescr id="pt-0002"><name>Silindir kapak cıvatası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-001</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">10</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silindir kapağını motor soğumadan sökmeyin; alüminyum kapak eğilebilir.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Soğutma suyunu ve motor yağını boşaltın.</para><figure id="fig-0003"><title>1ZZ-FE motor</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Emme ve egzoz manifoldlarını, ateşleme bobinlerini ve supap kapağını sökün.</para></proceduralStep>
+        <proceduralStep><para>1. silindiri üst ölü noktaya (ÜÖN) getirip triger işaretlerini hizalayın. Zincir kapağını, gergiyi ve eksantrik millerini sökün; zinciri ve dişlileri işaretleyin.</para></proceduralStep>
+        <proceduralStep><title>Kapağı sökün</title><proceduralStep><para>Silindir kapak cıvatalarını dıştan içe doğru, birkaç turda gevşetin.</para></proceduralStep><proceduralStep><para>Kapağı kaldırın ve eski contayı çıkarın.</para></proceduralStep></proceduralStep>
+        <proceduralStep><para>Blok ve kapak yüzeylerini temizleyin. Düz cetvel ve sentille çarpıklığı ölçün; 0,05 mm'yi geçiyorsa kapak taşlanmalıdır.</para></proceduralStep>
+        <proceduralStep><title>Takın</title><proceduralStep><para>Yeni contayı blok üzerindeki pimlere oturtun.</para></proceduralStep><proceduralStep><para>Kapağı yerleştirin; yeni cıvataları içten dışa doğru üç aşamada sıkın: 49 N·m, sonra 90°, sonra yine 90°.</para></proceduralStep></proceduralStep>
+        <proceduralStep><para>Triger zincirini işaretlere göre takın, sökülen parçaları ters sırayla yerine takın, yağ ve soğutma suyunu doldurun.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/fault.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Motor</techName><infoName>Çalışmıyor: arıza bulma</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <faultIsolation>
+      <faultIsolationProcedure>
+        <fault faultCode="NAYACAR-DA1-001"/>
+        <faultDescr><descr>Motor çalışmıyor, marş basmıyor ya da marş basıyor ama motor ateş almıyor.</descr></faultDescr>
+        <isolationProcedure>
+          <preliminaryRqmts><reqCondGroup><noConds/></reqCondGroup><reqSupportEquips><noSupportEquips/></reqSupportEquips><reqSupplies><noSupplies/></reqSupplies><reqSpares><noSpares/></reqSpares><reqSafety><noSafety/></reqSafety></preliminaryRqmts>
+          <isolationMainProcedure>
+            <isolationStep id="stp-0001">
+              <action>Kontağı açın ve göstergeleri izleyin; sonra marşa basın.</action>
+              <isolationStepQuestion>Marş motoru dönüyor mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0003"/><noAnswer nextActionRefId="stp-0002"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0002">
+              <action>Akü gerilimini voltmetreyle ölçün.</action>
+              <isolationStepQuestion>Gerilim 12,2 V'un altında mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-battery"/><noAnswer nextActionRefId="end-starter"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0003">
+              <action>EFI sigortasını çıkarın. Bir bobini söküp bujisini takın; bujiyi yalıtımlı penseyle ya da kıvılcım test cihazıyla gövdeye dayayıp marşa basın.</action>
+              <isolationStepQuestion>Bujide kıvılcım var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0004"/><noAnswer nextActionRefId="end-ignition"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0004">
+              <action>EFI sigortasını takın. Marşa basarken yakıt pompasının sesini dinleyin ya da yakıt hattında basınç olup olmadığını kontrol edin.</action>
+              <isolationStepQuestion>Yakıt geliyor mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-compression"/><noAnswer nextActionRefId="end-fuel"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationProcedureEnd id="end-battery"><action>Aküyü şarj edin ya da değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA6" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-starter"><action>Akü dolu ama marş dönmüyor: marş motoru, marş rölesi ya da kablolar arızalı olabilir; yetkili servise başvurun.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-ignition"><action>Hiçbir silindirde kıvılcım yoksa EFI ya da IG sigortası, krank konum sensörü ya da motor beyni arızalı olabilir; yetkili servise başvurun.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-fuel"><action>Yakıt pompası sigortasını ve rölesini kontrol edin; sorun sürerse yakıt pompası arızalıdır.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-compression"><action>Kıvılcım ve yakıt var: kompresyonu ölçün. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="361" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+          </isolationMainProcedure>
+          <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+        </isolationProcedure>
+      </faultIsolationProcedure>
+    </faultIsolation>
+  </content>
+</dmodule>

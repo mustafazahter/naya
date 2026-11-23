@@ -1,0 +1,42 @@
+{
+  "format": "naya",
+  "formatVersion": "1.0.0",
+  "id": "toyota-corolla-e100",
+  "kind": "template",
+  "language": "tr",
+  "title": "Toyota Corolla 1996",
+  "product": {
+    "category": "car",
+    "make": "Toyota",
+    "model": "Corolla",
+    "variant": "E100 sedan, 1ZZ-FE motor",
+    "year": 1996
+  },
+  "s1000d": {
+    "issue": "5.0",
+    "modelIdentCode": "NAYACAR",
+    "entry": "csdb/PMC-NAYACAR-NAYA0-00001-00_001-00_TR-TR.XML"
+  },
+  "model": {
+    "main": "model/product.glb",
+    "units": "m",
+    "upAxis": "Y",
+    "compression": "draco"
+  },
+  "credits": [
+    {
+      "asset": "model/product.glb",
+      "author": "Merc_TV (szymonpasterczyk), gövde ve şasi",
+      "source": "https://sketchfab.com/3d-models/toyota-corolla-mk7-e100-1992-1997-c5ca8d403fbe40a1a438e1cb59d0469c",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "asset": "model/product.glb",
+      "author": "Zarrar Abbas (zarrarabbas73), 1ZZ-FE motor",
+      "source": "https://sketchfab.com/3d-models/car-engine-4-cylinder-toyota-1zz-fe-3442d69b82b6416389eff8e961dfe333",
+      "license": "CC-BY-4.0"
+    }
+  ],
+  "generator": "naya_cli 0.1.0",
+  "created": "2026-11-23T00:00:00Z"
+}

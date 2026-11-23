@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="361" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Silindirler</techName><infoName>Kompresyon ölçümü</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Motor çalışma sıcaklığında.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Akü tam dolu.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Kompresyon ölçer</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-001</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Buji anahtarı, 16 mm</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-002</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSpares><noSpares/></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Motor sıcakken egzoz manifolduna dokunmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Yakıt pompası sigortasını çıkarın; motor ölçüm sırasında çalışmasın.</para></proceduralStep>
+        <proceduralStep><para>Ateşleme bobinlerini ve bütün bujileri sökün.</para></proceduralStep>
+        <proceduralStep><title>Ölçün</title><proceduralStep><para>Kompresyon ölçeri 1. silindirin buji yuvasına takın.</para></proceduralStep><proceduralStep><para>Gaz pedalını sonuna kadar basılı tutun ve marşa 5 saniye basın.</para></proceduralStep><proceduralStep><para>Göstergedeki en yüksek değeri yazın. Diğer silindirleri aynı şekilde ölçün.</para></proceduralStep></proceduralStep>
+        <proceduralStep><para>Standart değer 1,5 MPa, en düşük değer 1,0 MPa'dır. Silindirler arasındaki fark 0,1 MPa'yı geçmemelidir.</para></proceduralStep>
+        <proceduralStep><para>Değer düşükse buji yuvasından bir çay kaşığı motor yağı koyup yeniden ölçün. Değer yükselirse segmanlar, yükselmezse supaplar ya da silindir kapak contası sızdırıyordur.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

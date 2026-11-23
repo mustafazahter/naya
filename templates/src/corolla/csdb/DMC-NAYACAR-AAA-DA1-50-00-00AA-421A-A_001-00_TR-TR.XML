@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/fault.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Ateşleme sistemi</techName><infoName>Tekleme: arıza bulma</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <faultIsolation>
+      <faultIsolationProcedure>
+        <fault faultCode="NAYACAR-DA1-003"/>
+        <faultDescr><descr>Motor tekliyor, rölantide titriyor ya da hızlanırken çekmiyor; motor arıza lambası yanıp sönüyor.</descr></faultDescr>
+        <isolationProcedure>
+          <preliminaryRqmts><reqCondGroup><noConds/></reqCondGroup><reqSupportEquips><noSupportEquips/></reqSupportEquips><reqSupplies><noSupplies/></reqSupplies><reqSpares><noSpares/></reqSpares><reqSafety><noSafety/></reqSafety></preliminaryRqmts>
+          <isolationMainProcedure>
+            <isolationStep id="stp-0001">
+              <action>Motor rölantideyken bobin soketlerini birer birer çıkarın.</action>
+              <isolationStepQuestion>Soketi çıkarınca devri değişmeyen bir silindir var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0002"/><noAnswer nextActionRefId="stp-0003"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0002">
+              <action>Devri değiştirmeyen silindirin bobinini başka bir silindirinkiyle yer değiştirin.</action>
+              <isolationStepQuestion>Tekleme bobinle birlikte yer değiştirdi mi?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-coil"/><noAnswer nextActionRefId="end-plug"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0003">
+              <action>Hava filtresini çıkarın ve kontrol edin.</action>
+              <isolationStepQuestion>Filtre çok kirli mi?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-filter"/><noAnswer nextActionRefId="end-shop"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationProcedureEnd id="end-coil"><action>Ateşleme bobini arızalı; bobini değiştirin.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-plug"><action>Bujiyi değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-filter"><action>Hava filtresini değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="6" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-shop"><action>Enjektör, yakıt basıncı ya da sensör arızası olabilir; arıza kodlarını okutmak için yetkili servise başvurun.</action></isolationProcedureEnd>
+          </isolationMainProcedure>
+          <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+        </isolationProcedure>
+      </faultIsolationProcedure>
+    </faultIsolation>
+  </content>
+</dmodule>

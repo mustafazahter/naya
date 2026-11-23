@@ -1,0 +1,25 @@
+{
+  "zones": [
+    {
+      "id": "z.front",
+      "name": "Ön"
+    },
+    {
+      "id": "z.engine",
+      "name": "Motor bölmesi",
+      "parent": "z.front"
+    },
+    {
+      "id": "z.cabin",
+      "name": "Kabin"
+    },
+    {
+      "id": "z.rear",
+      "name": "Arka"
+    },
+    {
+      "id": "z.under",
+      "name": "Araç altı"
+    }
+  ]
+}

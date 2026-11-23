@@ -5,17 +5,19 @@ import 'package:naya_diagnosis/naya_diagnosis.dart';
 import 'package:naya_format/naya_format.dart';
 import 'package:test/test.dart';
 
-/// Repodaki gerçek bisiklet şablonunun parça ve arıza dosyaları.
-DiagnosisCatalog _bicycle() {
+/// Repodaki gerçek bir şablonun parça ve arıza dosyaları.
+DiagnosisCatalog _template(String folder, String title) {
   Map<String, Object?> read(String name) => jsonDecode(
-    File('../../templates/src/bisiklet/map/$name').readAsStringSync(),
+    File('../../templates/src/$folder/map/$name').readAsStringSync(),
   ) as Map<String, Object?>;
   return DiagnosisCatalog(
-    productTitle: 'Dağ bisikleti',
+    productTitle: title,
     parts: PartsFile.fromJson(read('parts.json')),
     faults: FaultsFile.fromJson(read('faults.json')),
   );
 }
+
+DiagnosisCatalog _bicycle() => _template('bisiklet', 'Dağ bisikleti');
 
 /// Sorulara sırayla verilecek cevaplar; sorulanları da saklar.
 class _ScriptedDecider implements Decider {
@@ -247,5 +249,78 @@ void main() {
       jsonDecode(jsonEncode(result.toJson())) as Map<String, Object?>,
     );
     expect(copy.toJson(), result.toJson());
+  });
+
+  group('Corolla kataloğu', () {
+    final corolla = _template('corolla', 'Toyota Corolla 1996');
+
+    test('sistemler', () {
+      expect(corolla.systems.map((s) => s.id), [
+        'body',
+        'engine',
+        'cooling',
+        'battery',
+        'drivetrain',
+        'brakes',
+        'chassis',
+        'exhaust',
+        'wheels',
+      ]);
+    });
+
+    // Parça turunda modele yalnız seçilen sistemin parçaları sunulur; her
+    // arızanın parçası o listede olmalı, yoksa teşhis onu hiç bulamaz.
+    test('her arızanın parçası teşhiste seçilebilir', () {
+      final file = jsonDecode(
+        File('../../templates/src/corolla/map/faults.json').readAsStringSync(),
+      ) as Map<String, Object?>;
+      for (final fault in FaultsFile.fromJson(file).faults) {
+        final system = corolla.systemOf(fault.part);
+        expect(
+          corolla.partsOf(system).map((p) => p.id),
+          contains(fault.part),
+          reason: fault.id,
+        );
+        expect(
+          corolla.faultsOf(fault.part).map((f) => f.id),
+          contains(fault.id),
+          reason: fault.id,
+        );
+      }
+    });
+
+    test('fren tutmuyor: balatalar ve değişim prosedürü', () async {
+      final result = await DiagnosisFlow(
+        catalog: corolla,
+        decider: _ScriptedDecider([
+          _diagnose,
+          const DecisionAnswers(
+            choices: {
+              'system': {'brakes': 0.8, 'chassis': 0.1, 'none': 0.1},
+            },
+          ),
+          const DecisionAnswers(
+            choices: {
+              'part:brakes': {
+                'brakes.front.pads': 0.7,
+                'brakes.booster': 0.2,
+                'none': 0.1,
+              },
+            },
+          ),
+          const DecisionAnswers(
+            choices: {
+              'fault': {'f.pads.worn': 0.8, 'none': 0.2},
+            },
+            yes: {'danger': 0.6},
+          ),
+        ]),
+      ).run('Frene basınca araç geç duruyor, önden ciyaklama geliyor.');
+
+      expect(result.decision, DiagnosisDecision.focus);
+      expect(result.top!.partId, 'brakes.front.pads');
+      expect(result.fault!.id, 'f.pads.worn');
+      expect(result.procedure, 'DMC-NAYACAR-AAA-DA3-10-00-00AA-921A-A');
+    });
   });
 }

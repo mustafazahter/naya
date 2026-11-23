@@ -1,0 +1,1153 @@
+{
+  "parts": [
+    {
+      "id": "body",
+      "name": "Gövde",
+      "sns": "DA0-00",
+      "meshNodes": [
+        "body",
+        "hood",
+        "trunk",
+        "door_fl",
+        "door_fr",
+        "door_rl",
+        "door_rr",
+        "fender_l",
+        "fender_r",
+        "bumper_front",
+        "bumper_rear",
+        "grille",
+        "mirror_l",
+        "mirror_r",
+        "headlight_l",
+        "headlight_r",
+        "taillight_l",
+        "taillight_r"
+      ],
+      "zone": "z.cabin",
+      "function": "Bütün parçaları taşıyan çelik monokok kasa.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "001"
+      }
+    },
+    {
+      "id": "body.hood",
+      "name": "Kaput",
+      "parent": "body",
+      "sns": "DA0-20",
+      "meshNodes": [
+        "hood"
+      ],
+      "zone": "z.front",
+      "function": "Motor bölmesini örter.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "002"
+      }
+    },
+    {
+      "id": "body.trunk",
+      "name": "Bagaj kapağı",
+      "parent": "body",
+      "sns": "DA0-20",
+      "meshNodes": [
+        "trunk"
+      ],
+      "zone": "z.rear",
+      "function": "Bagaj bölmesini kapatır.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "003"
+      }
+    },
+    {
+      "id": "body.door_fl",
+      "name": "Sol ön kapı",
+      "parent": "body",
+      "sns": "DA0-10",
+      "meshNodes": [
+        "door_fl"
+      ],
+      "zone": "z.cabin",
+      "function": "Ön yolcu kapısı; camı, kilidi ve iç döşemesiyle.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "004"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA0-10-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "body.door_fr",
+      "name": "Sağ ön kapı",
+      "parent": "body",
+      "sns": "DA0-10",
+      "meshNodes": [
+        "door_fr"
+      ],
+      "zone": "z.cabin",
+      "function": "Sürücü kapısı. Modeldeki araç sağdan direksiyonlu (Japonya modeli).",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "005"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA0-10-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "body.door_rl",
+      "name": "Sol arka kapı",
+      "parent": "body",
+      "sns": "DA0-10",
+      "meshNodes": [
+        "door_rl"
+      ],
+      "zone": "z.cabin",
+      "function": "Arka yolcu kapısı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "006"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA0-10-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "body.door_rr",
+      "name": "Sağ arka kapı",
+      "parent": "body",
+      "sns": "DA0-10",
+      "meshNodes": [
+        "door_rr"
+      ],
+      "zone": "z.cabin",
+      "function": "Arka yolcu kapısı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "007"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA0-10-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "body.fender_l",
+      "name": "Sol ön çamurluk",
+      "parent": "body",
+      "sns": "DA0-00",
+      "meshNodes": [
+        "fender_l"
+      ],
+      "zone": "z.front",
+      "function": "Ön tekerleğin üstünü örten sökülebilir panel.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "008"
+      }
+    },
+    {
+      "id": "body.fender_r",
+      "name": "Sağ ön çamurluk",
+      "parent": "body",
+      "sns": "DA0-00",
+      "meshNodes": [
+        "fender_r"
+      ],
+      "zone": "z.front",
+      "function": "Ön tekerleğin üstünü örten sökülebilir panel.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "009"
+      }
+    },
+    {
+      "id": "body.bumper_front",
+      "name": "Ön tampon",
+      "parent": "body",
+      "sns": "DA0-30",
+      "meshNodes": [
+        "bumper_front"
+      ],
+      "zone": "z.front",
+      "function": "Küçük çarpmalarda darbeyi emer.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "010"
+      }
+    },
+    {
+      "id": "body.bumper_rear",
+      "name": "Arka tampon",
+      "parent": "body",
+      "sns": "DA0-30",
+      "meshNodes": [
+        "bumper_rear"
+      ],
+      "zone": "z.rear",
+      "function": "Küçük çarpmalarda darbeyi emer.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "011"
+      }
+    },
+    {
+      "id": "body.wipers",
+      "name": "Silecekler",
+      "parent": "body",
+      "sns": "DA0-40",
+      "meshNodes": [
+        "body"
+      ],
+      "zone": "z.cabin",
+      "function": "Ön camı yağmurda temiz tutar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "012"
+      },
+      "procedures": {
+        "replace": "DMC-NAYACAR-AAA-DA0-40-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "body.headlights",
+      "name": "Farlar",
+      "parent": "body",
+      "sns": "DA6-20",
+      "meshNodes": [
+        "headlight_l",
+        "headlight_r"
+      ],
+      "zone": "z.front",
+      "function": "Kısa ve uzun far, ön sinyal.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "013"
+      },
+      "procedures": {
+        "replace": "DMC-NAYACAR-AAA-DA6-20-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "body.taillights",
+      "name": "Stop lambaları",
+      "parent": "body",
+      "sns": "DA6-20",
+      "meshNodes": [
+        "taillight_l",
+        "taillight_r"
+      ],
+      "zone": "z.rear",
+      "function": "Stop, park, sinyal ve geri vites lambası.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "014"
+      }
+    },
+    {
+      "id": "engine",
+      "name": "Motor",
+      "sns": "DA1-00",
+      "meshNodes": [
+        "engine_block",
+        "engine_head",
+        "engine_head_gasket",
+        "engine_head_cover",
+        "engine_camshafts",
+        "engine_timing_chain",
+        "engine_timing_cover",
+        "engine_crankshaft",
+        "engine_pistons",
+        "engine_rods",
+        "engine_oil_pan",
+        "engine_oil_pump",
+        "engine_oil_filter",
+        "engine_water_pump",
+        "engine_crank_pulley",
+        "engine_intake",
+        "engine_exhaust_manifold",
+        "engine_coils",
+        "engine_spark_plugs",
+        "air_filter"
+      ],
+      "zone": "z.engine",
+      "function": "1,8 litre, dört silindirli 1ZZ-FE benzinli motor.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "015"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYACAR-AAA-DA1-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "engine.block",
+      "name": "Silindir bloğu",
+      "parent": "engine",
+      "sns": "DA1-10",
+      "meshNodes": [
+        "engine_block"
+      ],
+      "zone": "z.engine",
+      "function": "Silindirleri ve krank milini taşıyan alüminyum gövde.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "016"
+      },
+      "procedures": {
+        "measure": "DMC-NAYACAR-AAA-DA1-10-00-00AA-361A-A"
+      }
+    },
+    {
+      "id": "engine.head",
+      "name": "Silindir kapağı",
+      "parent": "engine",
+      "sns": "DA1-10",
+      "meshNodes": [
+        "engine_head"
+      ],
+      "zone": "z.engine",
+      "function": "Supapları, eksantrikleri ve yanma odalarını taşır.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "017"
+      },
+      "procedures": {
+        "measure": "DMC-NAYACAR-AAA-DA1-10-00-00AA-361A-A"
+      }
+    },
+    {
+      "id": "engine.head_gasket",
+      "name": "Silindir kapak contası",
+      "parent": "engine.head",
+      "sns": "DA1-10",
+      "meshNodes": [
+        "engine_head_gasket"
+      ],
+      "zone": "z.engine",
+      "function": "Blok ile kapak arasını sızdırmaz yapar; yağ, su ve yanma gazını birbirinden ayırır.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "018"
+      },
+      "procedures": {
+        "replace": "DMC-NAYACAR-AAA-DA1-10-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "engine.head_cover",
+      "name": "Supap kapağı",
+      "parent": "engine",
+      "sns": "DA1-10",
+      "meshNodes": [
+        "engine_head_cover"
+      ],
+      "zone": "z.engine",
+      "function": "Eksantrikleri örter; yağ doldurma kapağı üstündedir.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "019"
+      }
+    },
+    {
+      "id": "engine.camshafts",
+      "name": "Eksantrik milleri",
+      "parent": "engine",
+      "sns": "DA1-10",
+      "meshNodes": [
+        "engine_camshafts"
+      ],
+      "zone": "z.engine",
+      "function": "Emme ve egzoz supaplarını zamanında açıp kapatır.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "020"
+      }
+    },
+    {
+      "id": "engine.pistons",
+      "name": "Pistonlar",
+      "parent": "engine",
+      "sns": "DA1-10",
+      "meshNodes": [
+        "engine_pistons"
+      ],
+      "zone": "z.engine",
+      "function": "Yanma basıncını biyellere aktarır.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "021"
+      },
+      "procedures": {
+        "measure": "DMC-NAYACAR-AAA-DA1-10-00-00AA-361A-A"
+      }
+    },
+    {
+      "id": "engine.rods",
+      "name": "Biyeller",
+      "parent": "engine",
+      "sns": "DA1-10",
+      "meshNodes": [
+        "engine_rods"
+      ],
+      "zone": "z.engine",
+      "function": "Pistonları krank miline bağlar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "022"
+      }
+    },
+    {
+      "id": "engine.crankshaft",
+      "name": "Krank mili",
+      "parent": "engine",
+      "sns": "DA1-10",
+      "meshNodes": [
+        "engine_crankshaft"
+      ],
+      "zone": "z.engine",
+      "function": "Pistonların doğrusal hareketini dönme hareketine çevirir.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "023"
+      }
+    },
+    {
+      "id": "engine.timing_chain",
+      "name": "Triger zinciri",
+      "parent": "engine",
+      "sns": "DA1-20",
+      "meshNodes": [
+        "engine_timing_chain",
+        "engine_timing_cover"
+      ],
+      "zone": "z.engine",
+      "function": "Eksantrik millerini krank miline senkron döndürür.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "024"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA1-20-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "engine.oil_pan",
+      "name": "Karter",
+      "parent": "engine",
+      "sns": "DA1-30",
+      "meshNodes": [
+        "engine_oil_pan"
+      ],
+      "zone": "z.engine",
+      "function": "Motor yağını toplar; boşaltma tapası altındadır.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "025"
+      },
+      "procedures": {
+        "lubricate": "DMC-NAYACAR-AAA-DA1-30-00-00AA-241A-A",
+        "inspect": "DMC-NAYACAR-AAA-DA1-30-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "engine.oil_pump",
+      "name": "Yağ pompası",
+      "parent": "engine",
+      "sns": "DA1-30",
+      "meshNodes": [
+        "engine_oil_pump"
+      ],
+      "zone": "z.engine",
+      "function": "Yağı karterden emip yataklara basınçla gönderir.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "026"
+      }
+    },
+    {
+      "id": "engine.oil_filter",
+      "name": "Yağ filtresi",
+      "parent": "engine",
+      "sns": "DA1-30",
+      "meshNodes": [
+        "engine_oil_filter"
+      ],
+      "zone": "z.engine",
+      "function": "Yağdaki metal ve is parçalarını tutar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "027"
+      },
+      "procedures": {
+        "replace": "DMC-NAYACAR-AAA-DA1-30-00-00AA-241A-A"
+      }
+    },
+    {
+      "id": "engine.water_pump",
+      "name": "Su pompası",
+      "parent": "engine",
+      "sns": "DA1-40",
+      "meshNodes": [
+        "engine_water_pump"
+      ],
+      "zone": "z.engine",
+      "function": "Soğutma suyunu motor ile radyatör arasında dolaştırır.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "028"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA1-40-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA1-40-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "engine.coils",
+      "name": "Ateşleme bobinleri",
+      "parent": "engine",
+      "sns": "DA1-50",
+      "meshNodes": [
+        "engine_coils"
+      ],
+      "zone": "z.engine",
+      "function": "Bujiye kıvılcım için gereken yüksek gerilimi üretir.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "029"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYACAR-AAA-DA1-50-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "engine.spark_plugs",
+      "name": "Bujiler",
+      "parent": "engine",
+      "sns": "DA1-50",
+      "meshNodes": [
+        "engine_spark_plugs"
+      ],
+      "zone": "z.engine",
+      "function": "Silindirdeki yakıt-hava karışımını ateşler.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "030"
+      },
+      "procedures": {
+        "replace": "DMC-NAYACAR-AAA-DA1-50-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "engine.intake",
+      "name": "Emme manifoldu",
+      "parent": "engine",
+      "sns": "DA1-60",
+      "meshNodes": [
+        "engine_intake"
+      ],
+      "zone": "z.engine",
+      "function": "Havayı silindirlere dağıtır.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "031"
+      }
+    },
+    {
+      "id": "engine.exhaust_manifold",
+      "name": "Egzoz manifoldu",
+      "parent": "engine",
+      "sns": "DA1-60",
+      "meshNodes": [
+        "engine_exhaust_manifold"
+      ],
+      "zone": "z.engine",
+      "function": "Silindirlerden çıkan gazları egzoz borusuna toplar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "032"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA1-60-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "engine.air_filter",
+      "name": "Hava filtresi",
+      "parent": "engine",
+      "sns": "DA1-60",
+      "meshNodes": [
+        "air_filter"
+      ],
+      "zone": "z.engine",
+      "function": "Motora giren havadaki tozu tutar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "033"
+      },
+      "procedures": {
+        "replace": "DMC-NAYACAR-AAA-DA1-60-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "cooling",
+      "name": "Soğutma sistemi",
+      "sns": "DA1-40",
+      "meshNodes": [
+        "radiator",
+        "coolant_tank"
+      ],
+      "zone": "z.front",
+      "function": "Motorun ısısını radyatörden havaya atar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "034"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYACAR-AAA-DA1-40-00-00AA-421A-A",
+        "inspect": "DMC-NAYACAR-AAA-DA1-40-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "cooling.radiator",
+      "name": "Radyatör",
+      "parent": "cooling",
+      "sns": "DA1-40",
+      "meshNodes": [
+        "radiator"
+      ],
+      "zone": "z.front",
+      "function": "Soğutma suyunu geçen havayla soğutur; fan arkasındadır.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "035"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA1-40-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "cooling.tank",
+      "name": "Genleşme kabı",
+      "parent": "cooling",
+      "sns": "DA1-40",
+      "meshNodes": [
+        "coolant_tank"
+      ],
+      "zone": "z.engine",
+      "function": "Isınan soğutma suyunun fazlasını toplar; seviye buradan okunur.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "036"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA1-40-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "battery",
+      "name": "Akü",
+      "sns": "DA6-10",
+      "meshNodes": [
+        "battery"
+      ],
+      "zone": "z.engine",
+      "function": "Marş için gereken akımı ve motor dururken elektriği sağlar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "037"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA6-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA6-10-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "drivetrain",
+      "name": "Güç aktarma",
+      "sns": "DA2-00",
+      "meshNodes": [
+        "transaxle",
+        "driveshaft_front"
+      ],
+      "zone": "z.engine",
+      "function": "Motorun gücünü ön tekerleklere iletir.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "038"
+      }
+    },
+    {
+      "id": "drivetrain.transaxle",
+      "name": "Şanzıman",
+      "parent": "drivetrain",
+      "sns": "DA2-10",
+      "meshNodes": [
+        "transaxle"
+      ],
+      "zone": "z.engine",
+      "function": "Beş ileri manuel şanzıman ve diferansiyel tek gövdede.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "039"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA2-10-00-00AA-300A-A",
+        "isolate": "DMC-NAYACAR-AAA-DA2-10-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "drivetrain.clutch",
+      "name": "Debriyaj",
+      "parent": "drivetrain.transaxle",
+      "sns": "DA2-10",
+      "meshNodes": [
+        "transaxle"
+      ],
+      "zone": "z.engine",
+      "function": "Vites değiştirirken motoru şanzımandan ayırır.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "040"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYACAR-AAA-DA2-10-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "drivetrain.driveshafts",
+      "name": "Aks milleri",
+      "parent": "drivetrain",
+      "sns": "DA2-20",
+      "meshNodes": [
+        "driveshaft_front"
+      ],
+      "zone": "z.front",
+      "function": "Diferansiyelden ön tekerleklere gücü aks kafalarıyla (homokinetik mafsal) iletir.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "041"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA2-20-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "brakes",
+      "name": "Fren sistemi",
+      "sns": "DA3-00",
+      "meshNodes": [
+        "brake_front",
+        "brake_rear",
+        "brake_booster"
+      ],
+      "zone": "z.front",
+      "function": "Aracı yavaşlatır ve durdurur.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "042"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYACAR-AAA-DA3-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "brakes.front",
+      "name": "Ön frenler",
+      "parent": "brakes",
+      "sns": "DA3-10",
+      "meshNodes": [
+        "brake_front"
+      ],
+      "zone": "z.front",
+      "function": "Disk, kaliper ve balatalar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "043"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYACAR-AAA-DA3-00-00-00AA-421A-A",
+        "measure": "DMC-NAYACAR-AAA-DA3-10-00-00AA-361A-A"
+      }
+    },
+    {
+      "id": "brakes.front.pads",
+      "name": "Ön balatalar",
+      "parent": "brakes.front",
+      "sns": "DA3-10",
+      "meshNodes": [
+        "brake_front"
+      ],
+      "zone": "z.front",
+      "function": "Diske sürtünerek frenleme yapar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "044"
+      },
+      "procedures": {
+        "replace": "DMC-NAYACAR-AAA-DA3-10-00-00AA-921A-A"
+      }
+    },
+    {
+      "id": "brakes.front.discs",
+      "name": "Ön fren diskleri",
+      "parent": "brakes.front",
+      "sns": "DA3-10",
+      "meshNodes": [
+        "brake_front"
+      ],
+      "zone": "z.front",
+      "function": "Tekerlekle dönen, havalandırmalı disk.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "045"
+      },
+      "procedures": {
+        "measure": "DMC-NAYACAR-AAA-DA3-10-00-00AA-361A-A"
+      }
+    },
+    {
+      "id": "brakes.rear",
+      "name": "Arka frenler",
+      "parent": "brakes",
+      "sns": "DA3-20",
+      "meshNodes": [
+        "brake_rear"
+      ],
+      "zone": "z.rear",
+      "function": "Arka disk frenler ve el freni.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "046"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA3-20-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "brakes.booster",
+      "name": "Fren servosu",
+      "parent": "brakes",
+      "sns": "DA3-30",
+      "meshNodes": [
+        "brake_booster"
+      ],
+      "zone": "z.engine",
+      "function": "Motor vakumuyla pedal kuvvetini artırır; ana merkez önündedir.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "047"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA3-30-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "chassis",
+      "name": "Süspansiyon ve direksiyon",
+      "sns": "DA4-00",
+      "meshNodes": [
+        "subframe_front",
+        "strut_front",
+        "control_arm_front",
+        "suspension_rear",
+        "steering_rack",
+        "steering_wheel"
+      ],
+      "zone": "z.front",
+      "function": "Tekerlekleri gövdeye bağlar, yoldan gelen darbeleri sönümler ve aracı yönlendirir.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "048"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYACAR-AAA-DA4-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "chassis.strut_front",
+      "name": "Ön amortisörler",
+      "parent": "chassis",
+      "sns": "DA4-10",
+      "meshNodes": [
+        "strut_front"
+      ],
+      "zone": "z.front",
+      "function": "MacPherson amortisör ve helezon yay; tekerleği taşır ve sönümler.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "049"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA4-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA4-10-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "chassis.control_arm",
+      "name": "Ön salıncaklar",
+      "parent": "chassis",
+      "sns": "DA4-10",
+      "meshNodes": [
+        "control_arm_front"
+      ],
+      "zone": "z.front",
+      "function": "Aks taşıyıcısını travers ile bağlar; ucundaki rotil döner.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "050"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA4-10-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "chassis.suspension_rear",
+      "name": "Arka süspansiyon",
+      "parent": "chassis",
+      "sns": "DA4-20",
+      "meshNodes": [
+        "suspension_rear"
+      ],
+      "zone": "z.rear",
+      "function": "Arka amortisörler, salıncaklar ve viraj demiri.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "051"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA4-20-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "chassis.steering_rack",
+      "name": "Direksiyon kutusu",
+      "parent": "chassis",
+      "sns": "DA4-30",
+      "meshNodes": [
+        "steering_rack"
+      ],
+      "zone": "z.front",
+      "function": "Kremayer dişliyle direksiyon dönüşünü tekerleklere iletir.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "052"
+      },
+      "procedures": {
+        "adjust": "DMC-NAYACAR-AAA-DA4-30-00-00AA-271A-A"
+      }
+    },
+    {
+      "id": "chassis.steering_wheel",
+      "name": "Direksiyon simidi",
+      "parent": "chassis",
+      "sns": "DA4-30",
+      "meshNodes": [
+        "steering_wheel"
+      ],
+      "zone": "z.cabin",
+      "function": "Sürücünün aracı yönlendirdiği simit.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "053"
+      }
+    },
+    {
+      "id": "exhaust",
+      "name": "Egzoz sistemi",
+      "sns": "DA1-60",
+      "meshNodes": [
+        "exhaust"
+      ],
+      "zone": "z.under",
+      "function": "Egzoz gazını aracın arkasına taşır; susturucu sesi azaltır.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "054"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA1-60-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "wheels",
+      "name": "Tekerlekler",
+      "sns": "DA5-00",
+      "meshNodes": [
+        "wheel_fl",
+        "wheel_fr",
+        "wheel_rl",
+        "wheel_rr"
+      ],
+      "zone": "z.under",
+      "function": "Dört tekerlek: 175/65 R14 lastik, çelik jant ve göbek kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "055"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA5-00-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "wheels.tires",
+      "name": "Lastikler",
+      "parent": "wheels",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "wheel_fl",
+        "wheel_fr",
+        "wheel_rl",
+        "wheel_rr"
+      ],
+      "zone": "z.under",
+      "function": "175/65 R14 lastikler; basınç ön ve arka 2,2 bar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "056"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "wheel.fl",
+      "name": "Sol ön tekerlek",
+      "parent": "wheels",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "wheel_fl"
+      ],
+      "zone": "z.front",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "057"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA5-00-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "wheel.fr",
+      "name": "Sağ ön tekerlek",
+      "parent": "wheels",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "wheel_fr"
+      ],
+      "zone": "z.front",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "058"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA5-00-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "wheel.rl",
+      "name": "Sol arka tekerlek",
+      "parent": "wheels",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "wheel_rl"
+      ],
+      "zone": "z.rear",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "059"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA5-00-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "wheel.rr",
+      "name": "Sağ arka tekerlek",
+      "parent": "wheels",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "wheel_rr"
+      ],
+      "zone": "z.rear",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "060"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA5-00-00-00AA-920A-A"
+      }
+    }
+  ]
+}
