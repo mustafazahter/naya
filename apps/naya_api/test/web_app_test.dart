@@ -43,12 +43,14 @@ void main() {
     }
   });
 
-  test('dosyalar sunulur; kökteki dosyalar önbellekte eskimez', () async {
+  test('dosyalar sunulur; hiçbiri önbellekte eskimez', () async {
     final script = await server.send('GET', '/main.dart.js');
     expect(script.statusCode, 200);
     expect(script.headers['cache-control'], 'no-cache');
+    // Viewer'ın index.html'i ve manifest'ler de assets/ altında; adları
+    // değişmeden yenilenir.
     final logo = await server.send('GET', '/assets/logo.svg');
-    expect(logo.headers['cache-control'], contains('max-age'));
+    expect(logo.headers['cache-control'], 'no-cache');
     expect(await logo.readAsString(), '<svg/>');
   });
 

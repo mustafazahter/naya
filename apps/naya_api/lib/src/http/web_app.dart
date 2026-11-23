@@ -19,7 +19,7 @@ Handler withWebApp(Handler api, String webDir) {
     if (isApi || !isRead) return api(request);
 
     final response = await files(request);
-    if (response.statusCode != 404) return _withCaching(path, response);
+    if (response.statusCode != 404) return _withCaching(response);
     // Uzantısı olan bir dosya gerçekten yoksa 404 kalsın; yoksa eksik bir
     // betik HTML olarak gelir ve hata anlaşılmaz olur.
     if (p.url.extension(path).isNotEmpty) return response;
@@ -33,13 +33,11 @@ Handler withWebApp(Handler api, String webDir) {
   };
 }
 
-/// Yeni sürüm yayınlanınca tarayıcı eski uygulamada kalmasın: kökteki
-/// dosyalar (`index.html`, `flutter_bootstrap.js`, `main.dart.js`,
-/// `version.json`) her açılışta yeniden doğrulanır. Font ve resimler bir
-/// gün önbellekte kalabilir.
-Response _withCaching(String path, Response response) {
-  final atRoot = !path.contains('/');
-  return response.change(
-    headers: {'cache-control': atRoot ? 'no-cache' : 'public, max-age=86400'},
-  );
-}
+/// Yeni sürüm yayınlanınca tarayıcı eski uygulamada kalmasın: her dosya
+/// her açılışta yeniden doğrulanır (değişmediyse sunucu 304 döner, dosya
+/// yeniden inmez). Uzun önbellek tehlikeli: `assets/` altındaki
+/// `AssetManifest`, `FontManifest` ve viewer'ın `index.html`'i adı
+/// değişmeden yenilenir; eskisi bir gün kalırsa yeni sürümün dosyalarını
+/// bulamaz.
+Response _withCaching(Response response) =>
+    response.change(headers: {'cache-control': 'no-cache'});

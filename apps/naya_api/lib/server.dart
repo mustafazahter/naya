@@ -110,17 +110,18 @@ class NayaApi {
       ..get('/health', _health)
       ..mount('/api', api.call);
 
+    final apiHandler = const Pipeline()
+        .addMiddleware(cors(config.allowedOrigins))
+        .addMiddleware(authenticate(auth))
+        .addHandler(router.call);
+    // Web dosyaları oturum ve CORS'tan geçmez: çerez her istekte gelir,
+    // yoksa sayfanın her dosyası için veritabanına oturum sorulurdu.
     final webDir = config.webDir;
-    final Handler app = webDir == null
-        ? router.call
-        : withWebApp(router.call, webDir);
+    final app = webDir == null ? apiHandler : withWebApp(apiHandler, webDir);
 
     var pipeline = const Pipeline();
     if (logRequests) pipeline = pipeline.addMiddleware(shelf.logRequests());
-    return pipeline
-        .addMiddleware(cors(config.allowedOrigins))
-        .addMiddleware(authenticate(auth))
-        .addHandler(app);
+    return pipeline.addHandler(app);
   }
 
   /// Açılış işleri: admin hesabı, şablonlar, ilk yedek ve günlük
