@@ -134,6 +134,8 @@ VEHICLE = dm(
             '1,8 litrelik 1ZZ-FE benzinli motorla gösterilir.',
             'Motor ön tarafta enine durur; gücü sol taraftaki şanzıman '
             'üzerinden ön tekerleklere iletilir.',
+            'Modeldeki araç sağdan direksiyonlu Japonya modelidir; sürücü '
+            'kapısı sağ ön kapıdır.',
         ]),
         ('Sistemler', [
             'Gövde: kapılar, kaput, bagaj kapağı, tamponlar, camlar.',
@@ -908,9 +910,10 @@ part('body.hood', 'Kaput', 'body', 'DA0-20', ['hood'], 'z.front',
 part('body.trunk', 'Bagaj kapağı', 'body', 'DA0-20', ['trunk'], 'z.rear',
      'Bagaj bölmesini kapatır.')
 part('body.door_fl', 'Sol ön kapı', 'body', 'DA0-10', ['door_fl'], 'z.cabin',
-     'Sürücü kapısı; camı, kilidi ve iç döşemesiyle.', {'inspect': DOORS})
+     'Ön yolcu kapısı; camı, kilidi ve iç döşemesiyle.', {'inspect': DOORS})
 part('body.door_fr', 'Sağ ön kapı', 'body', 'DA0-10', ['door_fr'], 'z.cabin',
-     'Ön yolcu kapısı.', {'inspect': DOORS})
+     'Sürücü kapısı. Modeldeki araç sağdan direksiyonlu (Japonya modeli).',
+     {'inspect': DOORS})
 part('body.door_rl', 'Sol arka kapı', 'body', 'DA0-10', ['door_rl'],
      'z.cabin', 'Arka yolcu kapısı.', {'inspect': DOORS})
 part('body.door_rr', 'Sağ arka kapı', 'body', 'DA0-10', ['door_rr'],

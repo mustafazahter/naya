@@ -73,7 +73,7 @@
         "door_fl"
       ],
       "zone": "z.cabin",
-      "function": "Sürücü kapısı; camı, kilidi ve iç döşemesiyle.",
+      "function": "Ön yolcu kapısı; camı, kilidi ve iç döşemesiyle.",
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
@@ -92,7 +92,7 @@
         "door_fr"
       ],
       "zone": "z.cabin",
-      "function": "Ön yolcu kapısı.",
+      "function": "Sürücü kapısı. Modeldeki araç sağdan direksiyonlu (Japonya modeli).",
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
