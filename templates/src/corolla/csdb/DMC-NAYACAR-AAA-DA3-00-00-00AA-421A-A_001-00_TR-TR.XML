@@ -30,7 +30,7 @@
           <preliminaryRqmts><reqCondGroup><noConds/></reqCondGroup><reqSupportEquips><noSupportEquips/></reqSupportEquips><reqSupplies><noSupplies/></reqSupplies><reqSpares><noSpares/></reqSpares><reqSafety><noSafety/></reqSafety></preliminaryRqmts>
           <isolationMainProcedure>
             <isolationStep id="stp-0001">
-              <action>Motor kapalıyken pedala birkaç kez basın, sonra pedala basılı tutarak motoru çalıştırın.</action>
+              <action>Motor kapalıyken pedala birkaç kez basın, sonra pedalı basılı tutarak motoru çalıştırın.</action>
               <isolationStepQuestion>Pedal hafifçe aşağı iniyor mu?</isolationStepQuestion>
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0002"/><noAnswer nextActionRefId="end-booster"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>

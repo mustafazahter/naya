@@ -428,7 +428,7 @@ def main():
     shift = Matrix.Translation((0, 0, -ground))
 
     # 6. Sadeleştirme yok: motorun ince parçalarında (kafa, karter)
-    # sadeleştirme sivri üçgenler bırakıyor. Toplam ~600 bin üçgen,
+    # sadeleştirme sivri üçgenler bırakıyor. Toplam ~530 bin üçgen,
     # bisikletle aynı düzeyde; Draco dosyayı küçültüyor.
     root = bpy.data.objects.new('Corolla', None)
     bpy.context.scene.collection.objects.link(root)
@@ -438,7 +438,9 @@ def main():
         total += len(o.data.polygons)
         # Parçalara ayırma düğümün merkezinden çalışsın: orijini kutunun
         # ortasına al.
-        center = sum((Vector(c) for c in o.bound_box), Vector()) / 8
+        # bound_box önbellekte; yukarıdaki kaydırmayı görmez. Köşelerden.
+        points = [v.co for v in o.data.vertices]
+        center = (Vector(map(min, *points)) + Vector(map(max, *points))) / 2
         o.data.transform(Matrix.Translation(-center))
         o.location = center
         o.parent = root

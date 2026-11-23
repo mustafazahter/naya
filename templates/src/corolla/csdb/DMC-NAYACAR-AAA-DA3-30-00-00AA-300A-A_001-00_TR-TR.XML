@@ -36,7 +36,7 @@
       </preliminaryRqmts>
       <mainProcedure>
         <proceduralStep><para>Motor kapalıyken fren pedalına birkaç kez basarak servodaki vakumu boşaltın.</para><figure id="fig-0002"><title>Motor bölmesi</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure></proceduralStep>
-        <proceduralStep><para>Pedala basılı tutarken motoru çalıştırın; pedal hafifçe aşağı inmelidir. İnmiyorsa servo ya da vakum hortumu arızalıdır.</para></proceduralStep>
+        <proceduralStep><para>Pedalı basılı tutarken motoru çalıştırın; pedal hafifçe aşağı inmelidir. İnmiyorsa servo ya da vakum hortumu arızalıdır.</para></proceduralStep>
         <proceduralStep><para>Motoru 1-2 dakika çalıştırıp durdurun ve pedala birkaç kez basın. Her basışta pedal biraz yükselmelidir; servo vakumu tutuyordur.</para></proceduralStep>
         <proceduralStep><para>Fren hidroliği deposunda seviyenin MIN ve MAX arasında olduğunu ve hidroliğin koyulaşmadığını kontrol edin.</para></proceduralStep>
       </mainProcedure>

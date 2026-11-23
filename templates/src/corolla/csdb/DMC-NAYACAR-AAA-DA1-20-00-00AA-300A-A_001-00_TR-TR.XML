@@ -38,7 +38,7 @@
         <proceduralStep><para>Motoru soğukken çalıştırın ve ilk saniyelerdeki sesi dinleyin.</para><figure id="fig-0003"><title>1ZZ-FE motor</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Triger kapağı tarafından gelen metalik şıkırtı birkaç saniyede kesilmiyorsa zincir gergisi yağ basıncını tutamıyor olabilir.</para></proceduralStep>
         <proceduralStep><para>Motor yağı seviyesini ve yağın rengini kontrol edin. Koyu ve tortulu yağ zincirin ve gerginin erken aşınmasına yol açar.</para></proceduralStep>
-        <proceduralStep><para>Silindir kapağı kapağını sökün; zincirin eksantrik dişlilerindeki boşluğunu ve kızak üzerindeki aşınma izlerini kontrol edin.</para></proceduralStep>
+        <proceduralStep><para>Supap kapağını sökün; zincirin eksantrik dişlilerindeki boşluğunu ve kızak üzerindeki aşınma izlerini kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Zincir uzamışsa ya da kızakta derin izler varsa zinciri, gergiyi ve kızakları birlikte değiştirin (yetkili servis işi).</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

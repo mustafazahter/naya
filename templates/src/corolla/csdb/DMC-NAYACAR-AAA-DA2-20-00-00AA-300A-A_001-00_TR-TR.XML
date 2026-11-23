@@ -37,7 +37,7 @@
       <mainProcedure>
         <proceduralStep><para>Direksiyonu tam sola çevirin; sağ aks milinin tekerlek tarafındaki körüğü görünür olur.</para><figure id="fig-0004"><title>Ön fren ve süspansiyon</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00004-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Körükte yırtık, çatlak ya da gres sızıntısı olup olmadığına bakın. Sonra direksiyonu tam sağa çevirip diğer tarafı kontrol edin.</para></proceduralStep>
-        <proceduralStep><para>Direksiyon tam kırıkken aracı yavaşça sürün. Tıkırtı sesi dış homojen kafanın aşındığını gösterir.</para></proceduralStep>
+        <proceduralStep><para>Direksiyon tam kırıkken aracı yavaşça sürün. Tıkırtı sesi dış aks kafasının (homokinetik mafsal) aşındığını gösterir.</para></proceduralStep>
         <proceduralStep><para>Yırtık körük hemen değiştirilmelidir; içine giren toz ve su mafsalı kısa sürede bozar.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

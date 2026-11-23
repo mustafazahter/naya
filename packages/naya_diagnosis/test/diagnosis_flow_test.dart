@@ -264,10 +264,7 @@ void main() {
         'brakes',
         'chassis',
         'exhaust',
-        'wheel.fl',
-        'wheel.fr',
-        'wheel.rl',
-        'wheel.rr',
+        'wheels',
       ]);
     });
 

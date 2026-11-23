@@ -26,7 +26,7 @@
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
-        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Beyaz gres</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-001</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
+        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Beyaz gres</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-004</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>

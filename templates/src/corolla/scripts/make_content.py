@@ -7,7 +7,7 @@ faults ve zones dosyaları buradan yazılır. Elle düzenlemek yerine buradaki
 tabloları değiştirip betiği yeniden çalıştırın; böylece DMC'ler, parça
 haritası ve arızalar birbiriyle tutarlı kalır.
 
-Bisiklet şablonunda DM'ler elle yazıldı. Corolla'da 40 DM ve 59 parça
+Bisiklet şablonunda DM'ler elle yazıldı. Corolla'da 40 DM ve 60 parça
 olduğu için aynı biçim bir tablodan üretiliyor.
 """
 import json
@@ -130,8 +130,9 @@ VEHICLE = dm(
     description=[
         ('Genel', [
             'Toyota Corolla E100, 1991-1997 yılları arasında üretilen '
-            'önden çekişli, dört kapılı bir sedandır. Bu şablonda araç '
-            '1,8 litrelik 1ZZ-FE benzinli motorla gösterilir.',
+            'önden çekişli, dört kapılı bir sedandır. Orijinalinde 4A-FE ya '
+            'da 7A-FE motor bulunur; bu şablonda araç, sonraki nesil '
+            'Corolla\'nın 1,8 litrelik 1ZZ-FE motoruyla gösterilir.',
             'Motor ön tarafta enine durur; gücü sol taraftaki şanzıman '
             'üzerinden ön tekerleklere iletilir.',
             'Modeldeki araç sağdan direksiyonlu Japonya modelidir; sürücü '
@@ -142,8 +143,9 @@ VEHICLE = dm(
             'Motor: blok ve silindir kapağı, triger zinciri, yağlama, '
             'soğutma, ateşleme, emme ve egzoz.',
             'Güç aktarma: şanzıman, debriyaj ve iki ön aks mili.',
-            'Fren sistemi: önde disk, arkada disk fren; vakumlu fren '
-            'servosu.',
+            'Fren sistemi: önde disk fren; bu modelde arkada da disk var '
+            '(E100 sedanların çoğunda arkada kampana fren bulunur). Vakumlu '
+            'fren servosu.',
             'Süspansiyon: önde ve arkada MacPherson tipi amortisörler, '
             'kremayer dişli direksiyon.',
             'Elektrik: 12 V akü, farlar ve arka lambalar.',
@@ -209,11 +211,13 @@ ENGINE_ISOLATE = dm(
              'basın.', 'Marş motoru dönüyor mu?', 'stp-0003', 'stp-0002'),
             ('stp-0002', 'Akü gerilimini voltmetreyle ölçün.',
              'Gerilim 12,2 V\'un altında mı?', 'end-battery', 'end-starter'),
-            ('stp-0003', 'Bir bujiyi söküp bobinine takın, gövdeye '
-             'dokundurarak marşa basın.', 'Bujide kıvılcım var mı?',
-             'stp-0004', 'end-ignition'),
-            ('stp-0004', 'Kontağı açınca yakıt pompasının kısa süre '
-             'çalıştığını dinleyin.', 'Pompanın sesi geliyor mu?',
+            ('stp-0003', 'EFI sigortasını çıkarın. Bir bobini söküp '
+             'bujisini takın; bujiyi yalıtımlı penseyle ya da kıvılcım test '
+             'cihazıyla gövdeye dayayıp marşa basın.',
+             'Bujide kıvılcım var mı?', 'stp-0004', 'end-ignition'),
+            ('stp-0004', 'EFI sigortasını takın. Marşa basarken yakıt '
+             'pompasının sesini dinleyin ya da yakıt hattında basınç olup '
+             'olmadığını kontrol edin.', 'Yakıt geliyor mu?',
              'end-compression', 'end-fuel'),
         ],
         'ends': [
@@ -222,8 +226,9 @@ ENGINE_ISOLATE = dm(
             ('end-starter', 'Akü dolu ama marş dönmüyor: marş motoru, '
              'marş rölesi ya da kablolar arızalı olabilir; yetkili servise '
              'başvurun.', None),
-            ('end-ignition', 'Ateşleme sistemini kontrol edin.',
-             code('DA1', '5', '421')),
+            ('end-ignition', 'Hiçbir silindirde kıvılcım yoksa EFI ya da IG '
+             'sigortası, krank konum sensörü ya da motor beyni arızalı '
+             'olabilir; yetkili servise başvurun.', None),
             ('end-fuel', 'Yakıt pompası sigortasını ve rölesini kontrol '
              'edin; sorun sürerse yakıt pompası arızalıdır.', None),
             ('end-compression', 'Kıvılcım ve yakıt var: kompresyonu ölçün.',
@@ -266,10 +271,11 @@ HEAD_GASKET = dm(
               'eğilebilir.'],
     steps=[
         'Soğutma suyunu ve motor yağını boşaltın.',
-        'Emme ve egzoz manifoldlarını, ateşleme bobinlerini ve silindir '
-        'kapağı kapağını sökün.',
-        'Triger zincirini eksantrik dişlilerinden ayırın; dişlileri ve '
-        'zinciri işaretleyin.',
+        'Emme ve egzoz manifoldlarını, ateşleme bobinlerini ve supap '
+        'kapağını sökün.',
+        '1. silindiri üst ölü noktaya (ÜÖN) getirip triger işaretlerini '
+        'hizalayın. Zincir kapağını, gergiyi ve eksantrik millerini sökün; '
+        'zinciri ve dişlileri işaretleyin.',
         ('Kapağı sökün', [
             'Silindir kapak cıvatalarını dıştan içe doğru, birkaç turda '
             'gevşetin.',
@@ -295,7 +301,7 @@ TIMING_CHECK = dm(
         'kesilmiyorsa zincir gergisi yağ basıncını tutamıyor olabilir.',
         'Motor yağı seviyesini ve yağın rengini kontrol edin. Koyu ve '
         'tortulu yağ zincirin ve gerginin erken aşınmasına yol açar.',
-        'Silindir kapağı kapağını sökün; zincirin eksantrik dişlilerindeki '
+        'Supap kapağını sökün; zincirin eksantrik dişlilerindeki '
         'boşluğunu ve kızak üzerindeki aşınma izlerini kontrol edin.',
         'Zincir uzamışsa ya da kızakta derin izler varsa zinciri, gergiyi '
         've kızakları birlikte değiştirin (yetkili servis işi).',
@@ -383,8 +389,9 @@ OVERHEAT = dm(
             ('end-gasket', 'Yanma gazı soğutma suyuna karışıyor: silindir '
              'kapak contası yanmış olabilir. Önce kompresyonu ölçün.',
              code('DA1', '1', '361')),
-            ('end-thermostat', 'Termostat kapalı kalmış olabilir; '
-             'termostatı değiştirin ve sistemin havasını alın.', None),
+            ('end-thermostat', 'Termostat kapalı kalmış ya da radyatör '
+             'tıkanmış olabilir; ikisini de kontrol edin, sonra sistemin '
+             'havasını alın.', None),
         ],
     })
 
@@ -414,7 +421,7 @@ PLUGS = dm(
     spares=[('Buji, iridyum', 4)],
     conditions=['Motor soğuk.'],
     steps=[
-        'Silindir kapağı kapağının üstündeki dört ateşleme bobininin '
+        'Supap kapağının üstündeki dört ateşleme bobininin '
         'soketlerini çıkarın.',
         'Bobinlerin cıvatalarını sökün ve bobinleri yukarı çekin.',
         'Bujileri buji anahtarıyla sökün. Elektrot rengine bakın: açık '
@@ -434,7 +441,8 @@ IGNITION = dm(
                  'çekmiyor; motor arıza lambası yanıp sönüyor.',
         'steps': [
             ('stp-0001', 'Motor rölantideyken bobin soketlerini birer birer '
-             'çıkarın.', 'Bir soket çıkarılınca devir değişmiyor mu?',
+             'çıkarın.', 'Soketi çıkarınca devri değişmeyen bir silindir '
+             'var mı?',
              'stp-0002', 'stp-0003'),
             ('stp-0002', 'Devri değiştirmeyen silindirin bobinini başka bir '
              'silindirinkiyle yer değiştirin.', 'Tekleme bobinle birlikte '
@@ -534,7 +542,7 @@ DRIVESHAFT = dm(
         'Körükte yırtık, çatlak ya da gres sızıntısı olup olmadığına bakın. '
         'Sonra direksiyonu tam sağa çevirip diğer tarafı kontrol edin.',
         'Direksiyon tam kırıkken aracı yavaşça sürün. Tıkırtı sesi dış '
-        'homojen kafanın aşındığını gösterir.',
+        'aks kafasının (homokinetik mafsal) aşındığını gösterir.',
         'Yırtık körük hemen değiştirilmelidir; içine giren toz ve su mafsalı '
         'kısa sürede bozar.',
     ])
@@ -545,13 +553,13 @@ BRAKES = dm(
     description=[
         ('Genel', [
             'Fren pedalına basılınca fren servosu kuvveti artırır, ana '
-            'merkez hidroliği dört tekerlekteki kaliperlere iletir.',
+            'merkez hidroliği dört tekerleğin frenlerine iletir.',
             'Kaliperdeki piston balataları diske bastırır; sürtünme aracı '
             'yavaşlatır.',
         ]),
         ('Aşınma', [
-            'Balatalar ve diskler kullanıldıkça incelir. Ön frenler aracın '
-            'ağırlığı fren sırasında öne geçtiği için daha hızlı aşınır.',
+            'Balatalar ve diskler kullanıldıkça incelir. Frenleme sırasında '
+            'ağırlık öne aktarıldığı için ön frenler daha hızlı aşınır.',
             'Fren hidroliği zamanla nem çeker; iki yılda bir '
             'değiştirilmelidir.',
         ]),
@@ -565,7 +573,7 @@ BRAKE_ISOLATE = dm(
                  'ses geliyor ya da araç bir yana çekiyor.',
         'steps': [
             ('stp-0001', 'Motor kapalıyken pedala birkaç kez basın, sonra '
-             'pedala basılı tutarak motoru çalıştırın.', 'Pedal hafifçe '
+             'pedalı basılı tutarak motoru çalıştırın.', 'Pedal hafifçe '
              'aşağı iniyor mu?', 'stp-0002', 'end-booster'),
             ('stp-0002', 'Fren hidroliği deposunun seviyesine bakın.',
              'Seviye MIN çizgisinin altında mı?', 'stp-0003', 'stp-0004'),
@@ -604,13 +612,13 @@ PADS = dm(
         'tekerleği sökün.',
         'Kaliperin alt kılavuz cıvatasını sökün ve kaliperi yukarı '
         'kaldırın.',
-        'Eski balataları ve aşınma sacını çıkarın.',
+        'Eski balataları ve ses önleyici sacları (şim) çıkarın.',
         'Fren hidroliği deposunun kapağını açın; pistonu aparatla yavaşça '
         'geri itin. Depodan taşan hidroliği silin.',
-        'Yeni balataları ve aşınma sacını yerleştirin, kaliperi indirip '
+        'Yeni balataları ve şimleri yerleştirin, kaliperi indirip '
         'kılavuz cıvatasını 27 N·m\'de sıkın.',
-        'Tekerleği takın, bijonları 103 N·m\'de sıkın. Diğer tarafta '
-        'aynısını yapın.',
+        'Tekerleği takın, aracı indirin ve bijonları çapraz sırayla '
+        '103 N·m\'de sıkın. Diğer tarafta aynısını yapın.',
         'Motoru çalıştırmadan önce pedala birkaç kez basarak pistonları '
         'balatalara oturtun.',
     ])
@@ -647,7 +655,7 @@ BOOSTER = dm(
     steps=[
         'Motor kapalıyken fren pedalına birkaç kez basarak servodaki '
         'vakumu boşaltın.',
-        'Pedala basılı tutarken motoru çalıştırın; pedal hafifçe aşağı '
+        'Pedalı basılı tutarken motoru çalıştırın; pedal hafifçe aşağı '
         'inmelidir. İnmiyorsa servo ya da vakum hortumu arızalıdır.',
         'Motoru 1-2 dakika çalıştırıp durdurun ve pedala birkaç kez basın. '
         'Her basışta pedal biraz yükselmelidir; servo vakumu tutuyordur.',
@@ -718,7 +726,8 @@ SUSPENSION_ISOLATE = dm(
              code('DA5', '1', '300')),
             ('end-alignment', 'Ön düzen ayarı yaptırın.',
              code('DA4', '3', '271')),
-            ('end-strut', 'Amortisörü ve takozunu kontrol edin.',
+            ('end-strut', 'Amortisörü, takozunu, salıncak burcunu ve rotili '
+             'kontrol edin.',
              code('DA4', '1', '300')),
             ('end-balance', 'Tekerlek balansı bozulmuş olabilir; balans '
              'yaptırın.', None),
@@ -746,7 +755,7 @@ ALIGNMENT = dm(
     steps=[
         'Direksiyonu düz konuma getirin ve ölçüm cihazını tekerleklere '
         'bağlayın.',
-        'Toe değerini ölçün. Toplam toe 0 ± 2 mm olmalıdır.',
+        'Toplama değerini (toe) ölçün; toplam 0 ± 2 mm olmalıdır.',
         'Rot başı kontra somunlarını gevşetin; rot millerini çevirerek '
         'iki tarafı eşit ayarlayın.',
         'Kontra somunlarını 74 N·m\'de sıkın ve rot körüklerinin '
@@ -794,7 +803,8 @@ BATTERY_CHECK = dm(
               'çıkarmayın, sigara içmeyin.'],
     steps=[
         'Motor kapalıyken akü kutup başları arasındaki gerilimi ölçün. '
-        '12,4 V ve üstü dolu, 12,2 V\'un altı boş aküyü gösterir.',
+        '12,6 V ve üstü tam dolu, 12,4 V yaklaşık %75 dolu aküyü gösterir; '
+        '12,2 V\'un altındaysa akü şarj edilmelidir.',
         'Motoru çalıştırın ve gerilimi yeniden ölçün. 13,8-14,4 V arası '
         'şarj sisteminin çalıştığını gösterir.',
         'Gerilim 13,5 V\'un altındaysa alternatör kayışını ve alternatörü '
@@ -926,9 +936,6 @@ part('body.bumper_front', 'Ön tampon', 'body', 'DA0-30', ['bumper_front'],
      'z.front', 'Küçük çarpmalarda darbeyi emer.')
 part('body.bumper_rear', 'Arka tampon', 'body', 'DA0-30', ['bumper_rear'],
      'z.rear', 'Küçük çarpmalarda darbeyi emer.')
-part('body.mirrors', 'Yan aynalar', 'body', 'DA0-40',
-     ['mirror_l', 'mirror_r'], 'z.cabin', 'Arka ve yanları görmeyi sağlar.',
-     quantity=2)
 part('body.wipers', 'Silecekler', 'body', 'DA0-40', ['body'], 'z.cabin',
      'Ön camı yağmurda temiz tutar.', {'replace': WIPERS}, quantity=2)
 part('body.headlights', 'Farlar', 'body', 'DA6-20',
@@ -952,7 +959,7 @@ part('engine.head_gasket', 'Silindir kapak contası', 'engine.head',
      'DA1-10', ['engine_head_gasket'], 'z.engine',
      'Blok ile kapak arasını sızdırmaz yapar; yağ, su ve yanma gazını '
      'birbirinden ayırır.', {'replace': HEAD_GASKET})
-part('engine.head_cover', 'Külbütör kapağı', 'engine', 'DA1-10',
+part('engine.head_cover', 'Supap kapağı', 'engine', 'DA1-10',
      ['engine_head_cover'], 'z.engine',
      'Eksantrikleri örter; yağ doldurma kapağı üstündedir.')
 part('engine.camshafts', 'Eksantrik milleri', 'engine', 'DA1-10',
@@ -1028,7 +1035,8 @@ part('drivetrain.clutch', 'Debriyaj', 'drivetrain.transaxle', 'DA2-10',
      'Vites değiştirirken motoru şanzımandan ayırır.', {'isolate': CLUTCH})
 part('drivetrain.driveshafts', 'Aks milleri', 'drivetrain', 'DA2-20',
      ['driveshaft_front'], 'z.front',
-     'Diferansiyelden ön tekerleklere gücü homojen kafalarla iletir.',
+     'Diferansiyelden ön tekerleklere gücü aks kafalarıyla (homokinetik '
+     'mafsal) iletir.',
      {'inspect': DRIVESHAFT}, quantity=2)
 
 part('brakes', 'Fren sistemi', None, 'DA3-00',
@@ -1039,10 +1047,10 @@ part('brakes.front', 'Ön frenler', 'brakes', 'DA3-10', ['brake_front'],
      {'isolate': BRAKE_ISOLATE, 'measure': DISCS}, quantity=2)
 part('brakes.front.pads', 'Ön balatalar', 'brakes.front', 'DA3-10',
      ['brake_front'], 'z.front', 'Diske sürtünerek frenleme yapar.',
-     {'replace': PADS}, quantity=4)
+     {'replace': PADS}, quantity=2)
 part('brakes.front.discs', 'Ön fren diskleri', 'brakes.front', 'DA3-10',
      ['brake_front'], 'z.front', 'Tekerlekle dönen, havalandırmalı disk.',
-     {'measure': DISCS}, quantity=2)
+     {'measure': DISCS})
 part('brakes.rear', 'Arka frenler', 'brakes', 'DA3-20', ['brake_rear'],
      'z.rear', 'Arka disk frenler ve el freni.', {'inspect': REAR_BRAKES},
      quantity=2)
@@ -1079,13 +1087,22 @@ part('exhaust', 'Egzoz sistemi', None, 'DA1-60', ['exhaust'], 'z.under',
      'Egzoz gazını aracın arkasına taşır; susturucu sesi azaltır.',
      {'inspect': EXHAUST})
 
+# Lastik arızaları dört tekerleğin hepsinde olabilir; tek bir tekerleğe değil
+# "Lastikler" parçasına bağlı.
+WHEEL_NODES = ['wheel_fl', 'wheel_fr', 'wheel_rl', 'wheel_rr']
+part('wheels', 'Tekerlekler', None, 'DA5-00', WHEEL_NODES, 'z.under',
+     'Dört tekerlek: 175/65 R14 lastik, çelik jant ve göbek kapağı.',
+     {'inspect': TIRES, 'replace': WHEEL}, quantity=4)
+part('wheels.tires', 'Lastikler', 'wheels', 'DA5-10', WHEEL_NODES,
+     'z.under', '175/65 R14 lastikler; basınç ön ve arka 2,2 bar.',
+     {'inspect': TIRES}, quantity=4)
 for wid, wname, wnode, wzone in [
         ('wheel.fl', 'Sol ön tekerlek', 'wheel_fl', 'z.front'),
         ('wheel.fr', 'Sağ ön tekerlek', 'wheel_fr', 'z.front'),
         ('wheel.rl', 'Sol arka tekerlek', 'wheel_rl', 'z.rear'),
         ('wheel.rr', 'Sağ arka tekerlek', 'wheel_rr', 'z.rear')]:
-    part(wid, wname, None, 'DA5-10', [wnode], wzone,
-         '175/65 R14 lastik, çelik jant ve göbek kapağı.',
+    part(wid, wname, 'wheels', 'DA5-10', [wnode], wzone,
+         'Lastik, çelik jant ve göbek kapağı.',
          {'inspect': TIRES, 'replace': WHEEL})
 
 ZONES = [
@@ -1104,6 +1121,7 @@ SYMPTOMS = [
     ('sym.overheat', 'Hararet göstergesi yükseliyor'),
     ('sym.coolant_loss', 'Soğutma suyu eksiliyor'),
     ('sym.white_smoke', 'Egzozdan beyaz duman çıkıyor'),
+    ('sym.blue_smoke', 'Egzozdan mavi duman çıkıyor, motor yağ eksiltiyor'),
     ('sym.oil_light', 'Yağ lambası yanıyor'),
     ('sym.oil_leak', 'Aracın altına yağ damlıyor'),
     ('sym.engine_rattle', 'Soğuk çalıştırmada motordan şıkırtı geliyor'),
@@ -1134,7 +1152,7 @@ FAULTS = [
     ('f.plugs.worn', 'engine.spark_plugs', ['sym.misfire', 'sym.power_loss'],
      'Bujilerin elektrotları aşınmış ya da islenmiş; kıvılcım zayıf.', 1,
      IGNITION, PLUGS),
-    ('f.coils.failed', 'engine.coils', ['sym.misfire', 'sym.no_start'],
+    ('f.coils.failed', 'engine.coils', ['sym.misfire', 'sym.power_loss'],
      'Bir ateşleme bobini arızalı; o silindir çalışmıyor.', 2, IGNITION,
      None),
     ('f.air_filter.clogged', 'engine.air_filter', ['sym.power_loss',
@@ -1146,7 +1164,7 @@ FAULTS = [
      'Silindir kapak contası yanmış; soğutma suyu yanma odasına giriyor.',
      3, COMPRESSION, HEAD_GASKET),
     ('f.pistons.rings_worn', 'engine.pistons', ['sym.power_loss',
-                                                'sym.white_smoke'],
+                                                'sym.blue_smoke'],
      'Segmanlar aşınmış; kompresyon düşük, motor yağ yakıyor.', 2,
      COMPRESSION, None),
     ('f.water_pump.leak', 'engine.water_pump', ['sym.coolant_loss',
@@ -1157,25 +1175,23 @@ FAULTS = [
      COOLING_CHECK),
     ('f.oil.low', 'engine.oil_pan', ['sym.oil_light', 'sym.oil_leak',
                                      'sym.engine_rattle'],
-     'Motor yağı eksik; karter tapasından ya da contasından sızıntı.', 3,
+     'Motor yağı eksik ya da yağ değişimi gecikmiş; karter tapasından ya '
+     'da contasından sızıntı olabilir.', 3,
      OIL_CHECK, OIL_CHANGE),
-    ('f.oil_filter.clogged', 'engine.oil_filter', ['sym.oil_light'],
-     'Yağ filtresi tıkanmış; yağ değişimi gecikmiş.', 2, OIL_CHECK,
-     OIL_CHANGE),
     ('f.timing_chain.stretched', 'engine.timing_chain',
      ['sym.engine_rattle', 'sym.power_loss'],
-     'Triger zinciri uzamış ya da gergisi yağ basıncını tutamıyor.', 2,
+     'Triger zinciri uzamış ya da gergisi yağ basıncını tutamıyor. '
+     'Zincir atlarsa supaplar pistonlara çarpar.', 3,
      TIMING_CHECK, None),
     ('f.exhaust.leak', 'exhaust', ['sym.exhaust_noise'],
      'Egzoz borusu delinmiş ya da susturucu askısı kopmuş.', 1, EXHAUST,
      None),
-    ('f.clutch.worn', 'drivetrain.clutch', ['sym.clutch_slip',
-                                            'sym.hard_shift'],
+    ('f.clutch.worn', 'drivetrain.clutch', ['sym.clutch_slip'],
      'Debriyaj balatası aşınmış.', 2, CLUTCH, None),
     ('f.transaxle.oil_low', 'drivetrain.transaxle', ['sym.hard_shift'],
      'Şanzıman yağı eksik.', 2, CLUTCH, GEARBOX),
     ('f.driveshaft.boot', 'drivetrain.driveshafts', ['sym.turn_click'],
-     'Aks mili körüğü yırtılmış; homojen kafa aşınmış.', 2, DRIVESHAFT,
+     'Aks mili körüğü yırtılmış; aks kafası aşınmış.', 2, DRIVESHAFT,
      None),
     ('f.pads.worn', 'brakes.front.pads', ['sym.brake_weak',
                                           'sym.brake_noise'],
@@ -1196,9 +1212,9 @@ FAULTS = [
      'Salıncak burcu ya da rotil aşınmış.', 2, SUSPENSION_ISOLATE, None),
     ('f.alignment', 'chassis.steering_rack', ['sym.pull', 'sym.tire_wear'],
      'Ön düzen bozulmuş.', 1, SUSPENSION_ISOLATE, ALIGNMENT),
-    ('f.tire.puncture', 'wheel.fl', ['sym.flat', 'sym.pull'],
+    ('f.tire.puncture', 'wheels.tires', ['sym.flat', 'sym.pull'],
      'Lastik delinmiş ya da sibop kaçırıyor.', 2, TIRES, WHEEL),
-    ('f.tire.balance', 'wheel.fr', ['sym.vibration'],
+    ('f.tire.balance', 'wheels.tires', ['sym.vibration'],
      'Tekerlek balansı bozulmuş.', 1, SUSPENSION_ISOLATE, None),
     ('f.headlight.bulb', 'body.headlights', ['sym.headlight_out'],
      'Far ampulü yanmış.', 1, None, HEADLIGHT),
@@ -1285,7 +1301,8 @@ def items(kind, entries, prefix, unit):
     rows = []
     for i, (name, quantity) in enumerate(entries, 1):
         ident = (f'<identNumber><manufacturerCode>{COMPANY}</manufacturerCode>'
-                 f'<partAndSerialNumber><partNumber>NC-{prefix}-{i:03d}'
+                 f'<partAndSerialNumber><partNumber>'
+                 f'{item_number(prefix, name)}'
                  '</partNumber></partAndSerialNumber></identNumber>')
         # Sıvılar litreyle, gerisi adetle.
         liquid = any(w in name for w in ('yağı', 'suyu', 'hidroliği'))
@@ -1294,6 +1311,44 @@ def items(kind, entries, prefix, unit):
                     f'</name>{ident}<{req} unitOfMeasure="{unit_of}">'
                     f'{quantity}</{req}></{descr}>')
     return f'<{group}>{"".join(rows)}</{group}>'
+
+
+# Yedek parçalar IPD'deki parçanın numarasını taşır; böylece prosedürdeki
+# parça katalogda bulunur.
+SPARE_PARTS = {
+    'Silindir kapak contası': 'engine.head_gasket',
+    'Yağ filtresi': 'engine.oil_filter',
+    'Su pompası, contasıyla': 'engine.water_pump',
+    'Buji, iridyum': 'engine.spark_plugs',
+    'Hava filtresi elemanı': 'engine.air_filter',
+    'Ön balata takımı': 'brakes.front.pads',
+    'Ön amortisör': 'chassis.strut_front',
+    'Akü, 12 V 45 Ah': 'battery',
+    'Silecek süpürgesi, sürücü tarafı 550 mm': 'body.wipers',
+    'Silecek süpürgesi, yolcu tarafı 400 mm': 'body.wipers',
+}
+
+_numbers = {}
+
+
+def part_number(part_id):
+    """Parçanın IPD'deki numarası."""
+    for i, p in enumerate(P, 1):
+        if p['id'] == part_id:
+            return p['part_number'] or f'NC-{p["sns"]}-{i:03d}'
+    raise KeyError(part_id)
+
+
+def item_number(prefix, name):
+    """Alet, sarf ve yedek parçaların numarası; aynı ad her DM'de aynı
+    numarayı alır."""
+    if prefix == 'PT' and name in SPARE_PARTS:
+        return part_number(SPARE_PARTS[name])
+    key = (prefix, name)
+    if key not in _numbers:
+        count = sum(1 for k in _numbers if k[0] == prefix) + 1
+        _numbers[key] = f'NC-{prefix}-{count:03d}'
+    return _numbers[key]
 
 
 def safety(d):
@@ -1396,7 +1451,7 @@ def ipd_body():
     depth = {}
     for i, p in enumerate(P, 1):
         depth[p['id']] = 1 if p['parent'] is None else depth[p['parent']] + 1
-        number = p['part_number'] or f'NC-{p["sns"]}-{i:03d}'
+        number = part_number(p['id'])
         rows.append(
             f'      <catalogSeqNumber figureNumber="01" item="{i:03d}" '
             f'indenture="{min(depth[p["id"]], 9)}">\n'

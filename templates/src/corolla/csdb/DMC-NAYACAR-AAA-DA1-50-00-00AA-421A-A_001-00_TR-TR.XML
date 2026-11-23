@@ -31,7 +31,7 @@
           <isolationMainProcedure>
             <isolationStep id="stp-0001">
               <action>Motor rölantideyken bobin soketlerini birer birer çıkarın.</action>
-              <isolationStepQuestion>Bir soket çıkarılınca devir değişmiyor mu?</isolationStepQuestion>
+              <isolationStepQuestion>Soketi çıkarınca devri değişmeyen bir silindir var mı?</isolationStepQuestion>
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0002"/><noAnswer nextActionRefId="stp-0003"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0002">

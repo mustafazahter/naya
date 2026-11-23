@@ -29,6 +29,10 @@
       "text": "Egzozdan beyaz duman çıkıyor"
     },
     {
+      "id": "sym.blue_smoke",
+      "text": "Egzozdan mavi duman çıkıyor, motor yağ eksiltiyor"
+    },
+    {
       "id": "sym.oil_light",
       "text": "Yağ lambası yanıyor"
     },
@@ -140,7 +144,7 @@
       "part": "engine.coils",
       "symptoms": [
         "sym.misfire",
-        "sym.no_start"
+        "sym.power_loss"
       ],
       "cause": "Bir ateşleme bobini arızalı; o silindir çalışmıyor.",
       "severity": 2,
@@ -176,7 +180,7 @@
       "part": "engine.pistons",
       "symptoms": [
         "sym.power_loss",
-        "sym.white_smoke"
+        "sym.blue_smoke"
       ],
       "cause": "Segmanlar aşınmış; kompresyon düşük, motor yağ yakıyor.",
       "severity": 2,
@@ -213,19 +217,8 @@
         "sym.oil_leak",
         "sym.engine_rattle"
       ],
-      "cause": "Motor yağı eksik; karter tapasından ya da contasından sızıntı.",
+      "cause": "Motor yağı eksik ya da yağ değişimi gecikmiş; karter tapasından ya da contasından sızıntı olabilir.",
       "severity": 3,
-      "isolation": "DMC-NAYACAR-AAA-DA1-30-00-00AA-300A-A",
-      "repair": "DMC-NAYACAR-AAA-DA1-30-00-00AA-241A-A"
-    },
-    {
-      "id": "f.oil_filter.clogged",
-      "part": "engine.oil_filter",
-      "symptoms": [
-        "sym.oil_light"
-      ],
-      "cause": "Yağ filtresi tıkanmış; yağ değişimi gecikmiş.",
-      "severity": 2,
       "isolation": "DMC-NAYACAR-AAA-DA1-30-00-00AA-300A-A",
       "repair": "DMC-NAYACAR-AAA-DA1-30-00-00AA-241A-A"
     },
@@ -236,8 +229,8 @@
         "sym.engine_rattle",
         "sym.power_loss"
       ],
-      "cause": "Triger zinciri uzamış ya da gergisi yağ basıncını tutamıyor.",
-      "severity": 2,
+      "cause": "Triger zinciri uzamış ya da gergisi yağ basıncını tutamıyor. Zincir atlarsa supaplar pistonlara çarpar.",
+      "severity": 3,
       "isolation": "DMC-NAYACAR-AAA-DA1-20-00-00AA-300A-A"
     },
     {
@@ -254,8 +247,7 @@
       "id": "f.clutch.worn",
       "part": "drivetrain.clutch",
       "symptoms": [
-        "sym.clutch_slip",
-        "sym.hard_shift"
+        "sym.clutch_slip"
       ],
       "cause": "Debriyaj balatası aşınmış.",
       "severity": 2,
@@ -278,7 +270,7 @@
       "symptoms": [
         "sym.turn_click"
       ],
-      "cause": "Aks mili körüğü yırtılmış; homojen kafa aşınmış.",
+      "cause": "Aks mili körüğü yırtılmış; aks kafası aşınmış.",
       "severity": 2,
       "isolation": "DMC-NAYACAR-AAA-DA2-20-00-00AA-300A-A"
     },
@@ -354,7 +346,7 @@
     },
     {
       "id": "f.tire.puncture",
-      "part": "wheel.fl",
+      "part": "wheels.tires",
       "symptoms": [
         "sym.flat",
         "sym.pull"
@@ -366,7 +358,7 @@
     },
     {
       "id": "f.tire.balance",
-      "part": "wheel.fr",
+      "part": "wheels.tires",
       "symptoms": [
         "sym.vibration"
       ],

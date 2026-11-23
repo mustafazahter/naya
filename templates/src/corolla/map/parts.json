@@ -205,23 +205,6 @@
       }
     },
     {
-      "id": "body.mirrors",
-      "name": "Yan aynalar",
-      "parent": "body",
-      "sns": "DA0-40",
-      "meshNodes": [
-        "mirror_l",
-        "mirror_r"
-      ],
-      "zone": "z.cabin",
-      "function": "Arka ve yanları görmeyi sağlar.",
-      "ipd": {
-        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
-        "figure": "01",
-        "item": "012"
-      }
-    },
-    {
       "id": "body.wipers",
       "name": "Silecekler",
       "parent": "body",
@@ -234,7 +217,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "013"
+        "item": "012"
       },
       "procedures": {
         "replace": "DMC-NAYACAR-AAA-DA0-40-00-00AA-920A-A"
@@ -254,7 +237,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "014"
+        "item": "013"
       },
       "procedures": {
         "replace": "DMC-NAYACAR-AAA-DA6-20-00-00AA-920A-A"
@@ -274,7 +257,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "015"
+        "item": "014"
       }
     },
     {
@@ -308,7 +291,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "016"
+        "item": "015"
       },
       "procedures": {
         "isolate": "DMC-NAYACAR-AAA-DA1-00-00-00AA-421A-A"
@@ -327,7 +310,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "017"
+        "item": "016"
       },
       "procedures": {
         "measure": "DMC-NAYACAR-AAA-DA1-10-00-00AA-361A-A"
@@ -346,7 +329,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "018"
+        "item": "017"
       },
       "procedures": {
         "measure": "DMC-NAYACAR-AAA-DA1-10-00-00AA-361A-A"
@@ -365,7 +348,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "019"
+        "item": "018"
       },
       "procedures": {
         "replace": "DMC-NAYACAR-AAA-DA1-10-00-00AA-920A-A"
@@ -373,7 +356,7 @@
     },
     {
       "id": "engine.head_cover",
-      "name": "Külbütör kapağı",
+      "name": "Supap kapağı",
       "parent": "engine",
       "sns": "DA1-10",
       "meshNodes": [
@@ -384,7 +367,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "020"
+        "item": "019"
       }
     },
     {
@@ -400,7 +383,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "021"
+        "item": "020"
       }
     },
     {
@@ -416,7 +399,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "022"
+        "item": "021"
       },
       "procedures": {
         "measure": "DMC-NAYACAR-AAA-DA1-10-00-00AA-361A-A"
@@ -435,7 +418,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "023"
+        "item": "022"
       }
     },
     {
@@ -451,7 +434,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "024"
+        "item": "023"
       }
     },
     {
@@ -468,7 +451,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "025"
+        "item": "024"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA1-20-00-00AA-300A-A"
@@ -487,7 +470,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "026"
+        "item": "025"
       },
       "procedures": {
         "lubricate": "DMC-NAYACAR-AAA-DA1-30-00-00AA-241A-A",
@@ -507,7 +490,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "027"
+        "item": "026"
       }
     },
     {
@@ -523,7 +506,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "028"
+        "item": "027"
       },
       "procedures": {
         "replace": "DMC-NAYACAR-AAA-DA1-30-00-00AA-241A-A"
@@ -542,7 +525,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "029"
+        "item": "028"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA1-40-00-00AA-300A-A",
@@ -562,7 +545,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "030"
+        "item": "029"
       },
       "procedures": {
         "isolate": "DMC-NAYACAR-AAA-DA1-50-00-00AA-421A-A"
@@ -581,7 +564,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "031"
+        "item": "030"
       },
       "procedures": {
         "replace": "DMC-NAYACAR-AAA-DA1-50-00-00AA-920A-A"
@@ -600,7 +583,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "032"
+        "item": "031"
       }
     },
     {
@@ -616,7 +599,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "033"
+        "item": "032"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA1-60-00-00AA-300A-A"
@@ -635,7 +618,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "034"
+        "item": "033"
       },
       "procedures": {
         "replace": "DMC-NAYACAR-AAA-DA1-60-00-00AA-920A-A"
@@ -654,7 +637,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "035"
+        "item": "034"
       },
       "procedures": {
         "isolate": "DMC-NAYACAR-AAA-DA1-40-00-00AA-421A-A",
@@ -674,7 +657,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "036"
+        "item": "035"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA1-40-00-00AA-300A-A"
@@ -693,7 +676,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "037"
+        "item": "036"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA1-40-00-00AA-300A-A"
@@ -711,7 +694,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "038"
+        "item": "037"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA6-10-00-00AA-300A-A",
@@ -731,7 +714,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "039"
+        "item": "038"
       }
     },
     {
@@ -747,7 +730,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "040"
+        "item": "039"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA2-10-00-00AA-300A-A",
@@ -767,7 +750,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "041"
+        "item": "040"
       },
       "procedures": {
         "isolate": "DMC-NAYACAR-AAA-DA2-10-00-00AA-421A-A"
@@ -782,11 +765,11 @@
         "driveshaft_front"
       ],
       "zone": "z.front",
-      "function": "Diferansiyelden ön tekerleklere gücü homojen kafalarla iletir.",
+      "function": "Diferansiyelden ön tekerleklere gücü aks kafalarıyla (homokinetik mafsal) iletir.",
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "042"
+        "item": "041"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA2-20-00-00AA-300A-A"
@@ -806,7 +789,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "043"
+        "item": "042"
       },
       "procedures": {
         "isolate": "DMC-NAYACAR-AAA-DA3-00-00-00AA-421A-A"
@@ -825,7 +808,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "044"
+        "item": "043"
       },
       "procedures": {
         "isolate": "DMC-NAYACAR-AAA-DA3-00-00-00AA-421A-A",
@@ -845,7 +828,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "045"
+        "item": "044"
       },
       "procedures": {
         "replace": "DMC-NAYACAR-AAA-DA3-10-00-00AA-921A-A"
@@ -864,7 +847,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "046"
+        "item": "045"
       },
       "procedures": {
         "measure": "DMC-NAYACAR-AAA-DA3-10-00-00AA-361A-A"
@@ -883,7 +866,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "047"
+        "item": "046"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA3-20-00-00AA-300A-A"
@@ -902,7 +885,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "048"
+        "item": "047"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA3-30-00-00AA-300A-A"
@@ -925,7 +908,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "049"
+        "item": "048"
       },
       "procedures": {
         "isolate": "DMC-NAYACAR-AAA-DA4-00-00-00AA-421A-A"
@@ -944,7 +927,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "050"
+        "item": "049"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA4-10-00-00AA-300A-A",
@@ -964,7 +947,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "051"
+        "item": "050"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA4-10-00-00AA-300A-A"
@@ -983,7 +966,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "052"
+        "item": "051"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA4-20-00-00AA-300A-A"
@@ -1002,7 +985,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "053"
+        "item": "052"
       },
       "procedures": {
         "adjust": "DMC-NAYACAR-AAA-DA4-30-00-00AA-271A-A"
@@ -1021,7 +1004,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "054"
+        "item": "053"
       }
     },
     {
@@ -1036,25 +1019,28 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "055"
+        "item": "054"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA1-60-00-00AA-300A-A"
       }
     },
     {
-      "id": "wheel.fl",
-      "name": "Sol ön tekerlek",
-      "sns": "DA5-10",
+      "id": "wheels",
+      "name": "Tekerlekler",
+      "sns": "DA5-00",
       "meshNodes": [
-        "wheel_fl"
+        "wheel_fl",
+        "wheel_fr",
+        "wheel_rl",
+        "wheel_rr"
       ],
-      "zone": "z.front",
-      "function": "175/65 R14 lastik, çelik jant ve göbek kapağı.",
+      "zone": "z.under",
+      "function": "Dört tekerlek: 175/65 R14 lastik, çelik jant ve göbek kapağı.",
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "056"
+        "item": "055"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
@@ -1062,14 +1048,37 @@
       }
     },
     {
-      "id": "wheel.fr",
-      "name": "Sağ ön tekerlek",
+      "id": "wheels.tires",
+      "name": "Lastikler",
+      "parent": "wheels",
       "sns": "DA5-10",
       "meshNodes": [
-        "wheel_fr"
+        "wheel_fl",
+        "wheel_fr",
+        "wheel_rl",
+        "wheel_rr"
+      ],
+      "zone": "z.under",
+      "function": "175/65 R14 lastikler; basınç ön ve arka 2,2 bar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "056"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "wheel.fl",
+      "name": "Sol ön tekerlek",
+      "parent": "wheels",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "wheel_fl"
       ],
       "zone": "z.front",
-      "function": "175/65 R14 lastik, çelik jant ve göbek kapağı.",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
@@ -1081,14 +1090,15 @@
       }
     },
     {
-      "id": "wheel.rl",
-      "name": "Sol arka tekerlek",
+      "id": "wheel.fr",
+      "name": "Sağ ön tekerlek",
+      "parent": "wheels",
       "sns": "DA5-10",
       "meshNodes": [
-        "wheel_rl"
+        "wheel_fr"
       ],
-      "zone": "z.rear",
-      "function": "175/65 R14 lastik, çelik jant ve göbek kapağı.",
+      "zone": "z.front",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
@@ -1100,18 +1110,39 @@
       }
     },
     {
+      "id": "wheel.rl",
+      "name": "Sol arka tekerlek",
+      "parent": "wheels",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "wheel_rl"
+      ],
+      "zone": "z.rear",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "059"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA5-00-00-00AA-920A-A"
+      }
+    },
+    {
       "id": "wheel.rr",
       "name": "Sağ arka tekerlek",
+      "parent": "wheels",
       "sns": "DA5-10",
       "meshNodes": [
         "wheel_rr"
       ],
       "zone": "z.rear",
-      "function": "175/65 R14 lastik, çelik jant ve göbek kapağı.",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "059"
+        "item": "060"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",

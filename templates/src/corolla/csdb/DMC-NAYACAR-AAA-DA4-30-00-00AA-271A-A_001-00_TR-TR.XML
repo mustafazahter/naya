@@ -29,14 +29,14 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><reqCondNoRef><reqCond>Lastik basınçları doğru, araç boş ve düz zeminde.</reqCond></reqCondNoRef></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Ön düzen ölçüm cihazı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-001</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Rot ayar anahtarı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-002</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Ön düzen ölçüm cihazı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-017</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Rot ayar anahtarı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-018</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
         <proceduralStep><para>Direksiyonu düz konuma getirin ve ölçüm cihazını tekerleklere bağlayın.</para><figure id="fig-0004"><title>Ön fren ve süspansiyon</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00004-A-001-01"/></figure></proceduralStep>
-        <proceduralStep><para>Toe değerini ölçün. Toplam toe 0 ± 2 mm olmalıdır.</para></proceduralStep>
+        <proceduralStep><para>Toplama değerini (toe) ölçün; toplam 0 ± 2 mm olmalıdır.</para></proceduralStep>
         <proceduralStep><para>Rot başı kontra somunlarını gevşetin; rot millerini çevirerek iki tarafı eşit ayarlayın.</para></proceduralStep>
         <proceduralStep><para>Kontra somunlarını 74 N·m'de sıkın ve rot körüklerinin kıvrılmadığını kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Aracı kısa bir yol sürüşüyle deneyin; direksiyon düz durmalı ve araç çekmemelidir.</para></proceduralStep>

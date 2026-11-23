@@ -6,7 +6,7 @@ Toyota Corolla E100 (1991-1997) dört kapılı sedan. Gövde ve şasi E100 kasay
 corolla/
 ├── naya.json      manifest (bütünlük özetleri paketlerken eklenir)
 ├── csdb/          S1000D Issue 5.0: 40 DM, PM, DML, 6 çizim
-├── map/           parts.json (59 parça), faults.json (25 arıza), zones.json
+├── map/           parts.json (60 parça), faults.json (24 arıza), zones.json
 ├── model/         product.glb
 └── scripts/       modeli kuran, içeriği ve çizimleri üreten betikler
 ```

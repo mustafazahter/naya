@@ -52,7 +52,7 @@
             <isolationProcedureEnd id="end-leak"><action>Kaçağı giderin; su pompasından sızıyorsa pompayı değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-fan"><action>Fan sigortasını, rölesini ve fan motorunu kontrol edin.</action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-gasket"><action>Yanma gazı soğutma suyuna karışıyor: silindir kapak contası yanmış olabilir. Önce kompresyonu ölçün. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="361" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-thermostat"><action>Termostat kapalı kalmış olabilir; termostatı değiştirin ve sistemin havasını alın.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-thermostat"><action>Termostat kapalı kalmış ya da radyatör tıkanmış olabilir; ikisini de kontrol edin, sonra sistemin havasını alın.</action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
         </isolationProcedure>

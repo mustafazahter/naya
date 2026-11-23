@@ -29,7 +29,7 @@
     <description>
       <levelledPara>
         <title>Genel</title>
-        <para>Toyota Corolla E100, 1991-1997 yılları arasında üretilen önden çekişli, dört kapılı bir sedandır. Bu şablonda araç 1,8 litrelik 1ZZ-FE benzinli motorla gösterilir.</para>
+        <para>Toyota Corolla E100, 1991-1997 yılları arasında üretilen önden çekişli, dört kapılı bir sedandır. Orijinalinde 4A-FE ya da 7A-FE motor bulunur; bu şablonda araç, sonraki nesil Corolla'nın 1,8 litrelik 1ZZ-FE motoruyla gösterilir.</para>
         <para>Motor ön tarafta enine durur; gücü sol taraftaki şanzıman üzerinden ön tekerleklere iletilir.</para>
         <para>Modeldeki araç sağdan direksiyonlu Japonya modelidir; sürücü kapısı sağ ön kapıdır.</para>
       </levelledPara>
@@ -39,7 +39,7 @@
         <para>Gövde: kapılar, kaput, bagaj kapağı, tamponlar, camlar.</para>
         <para>Motor: blok ve silindir kapağı, triger zinciri, yağlama, soğutma, ateşleme, emme ve egzoz.</para>
         <para>Güç aktarma: şanzıman, debriyaj ve iki ön aks mili.</para>
-        <para>Fren sistemi: önde disk, arkada disk fren; vakumlu fren servosu.</para>
+        <para>Fren sistemi: önde disk fren; bu modelde arkada da disk var (E100 sedanların çoğunda arkada kampana fren bulunur). Vakumlu fren servosu.</para>
         <para>Süspansiyon: önde ve arkada MacPherson tipi amortisörler, kremayer dişli direksiyon.</para>
         <para>Elektrik: 12 V akü, farlar ve arka lambalar.</para>
       </levelledPara>
