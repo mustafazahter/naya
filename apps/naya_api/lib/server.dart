@@ -21,6 +21,7 @@ import 'src/config.dart';
 import 'src/database/database.dart';
 import 'src/http/cors.dart';
 import 'src/http/json_response.dart';
+import 'src/http/web_app.dart';
 import 'src/library/library_routes.dart';
 import 'src/library/library_service.dart';
 
@@ -109,12 +110,18 @@ class NayaApi {
       ..get('/health', _health)
       ..mount('/api', api.call);
 
-    var pipeline = const Pipeline();
-    if (logRequests) pipeline = pipeline.addMiddleware(shelf.logRequests());
-    return pipeline
+    final apiHandler = const Pipeline()
         .addMiddleware(cors(config.allowedOrigins))
         .addMiddleware(authenticate(auth))
         .addHandler(router.call);
+    // Web dosyaları oturum ve CORS'tan geçmez: çerez her istekte gelir,
+    // yoksa sayfanın her dosyası için veritabanına oturum sorulurdu.
+    final webDir = config.webDir;
+    final app = webDir == null ? apiHandler : withWebApp(apiHandler, webDir);
+
+    var pipeline = const Pipeline();
+    if (logRequests) pipeline = pipeline.addMiddleware(shelf.logRequests());
+    return pipeline.addHandler(app);
   }
 
   /// Açılış işleri: admin hesabı, şablonlar, ilk yedek ve günlük

@@ -171,7 +171,7 @@ class ApiClient {
 }
 
 final apiClientProvider = Provider<ApiClient>((ref) {
-  final client = ApiClient(baseUrl: apiUrl);
+  final client = ApiClient(baseUrl: resolveApiUrl(apiUrl, Uri.base));
   ref.onDispose(client.close);
   return client;
 });
