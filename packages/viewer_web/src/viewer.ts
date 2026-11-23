@@ -95,6 +95,8 @@ export class NayaViewer {
   private model: THREE.Object3D | null = null;
   private parts: Part[] = [];
   private selected: Part | null = null;
+  /** Farenin üstünde durduğu parça (yalnız fareli cihazlarda). */
+  private hovered: Part | null = null;
   private isolated: Part | null = null;
   private weights: Weights = new Map();
   private scanning: Scan | null = null;
@@ -134,6 +136,7 @@ export class NayaViewer {
     this.controls.maxPolarAngle = Math.PI / 2 - 0.04;
 
     this.listenForTaps(canvas);
+    this.listenForHover(canvas);
     new ResizeObserver(() => this.resize()).observe(canvas);
     this.resize();
     this.renderer.setAnimationLoop(() => this.frame());
@@ -167,6 +170,7 @@ export class NayaViewer {
     }
     this.finishScan();
     this.selected = null;
+    this.hovered = null;
     this.isolated = null;
     this.weights = new Map();
     this.model = gltf.scene;
@@ -607,13 +611,16 @@ export class NayaViewer {
       part.node.visible = this.isolated === null || part === this.isolated;
       const weight = this.weights.get(part.id) ?? 0;
       const isSelected = part === this.selected;
+      const isHovered = part === this.hovered && !isSelected;
       const stands = isSelected || weight > 0;
       for (const { mesh, normal } of part.meshes) {
         const ghosted = ghostOthers && !stands;
         mesh.material = ghosted ? this.ghost : normal;
         mesh.castShadow = !ghosted;
       }
-      part.glow.strength.value = isSelected ? 0.28 : restingGlow(weight);
+      part.glow.strength.value = isSelected
+        ? 0.28
+        : Math.max(restingGlow(weight), isHovered ? HOVER_GLOW : 0);
     }
   }
 
@@ -628,19 +635,69 @@ export class NayaViewer {
         ((e.clientX - rect.left) / rect.width) * 2 - 1,
         -((e.clientY - rect.top) / rect.height) * 2 + 1,
       );
-      this.raycaster.setFromCamera(pointer, this.camera);
-      // Raycaster gizli nesneleri de yakalar; izole görünümde gizli parçalar
-      // seçilmesin.
-      const hit = this.model
-        ? this.raycaster.intersectObject(this.model, true).find((h) => isShown(h.object))
-        : undefined;
-      const part = hit ? this.parts.find((p) => isInside(hit.object, p.node)) : undefined;
+      const part = this.pick(pointer);
       this.select(part?.id ?? null);
       if (part) void this.nudge(part.id);
       this.options.onPartTap?.(part?.id ?? null);
     });
   }
+
+  /** Ekrandaki noktanın (-1..1) altındaki görünür parça. */
+  private pick(pointer: THREE.Vector2): Part | undefined {
+    if (!this.model) return undefined;
+    this.raycaster.setFromCamera(pointer, this.camera);
+    // Raycaster gizli nesneleri de yakalar; izole görünümde gizli parçalar
+    // seçilmesin.
+    const hit = this.raycaster.intersectObject(this.model, true).find((h) => isShown(h.object));
+    return hit ? this.parts.find((p) => isInside(hit.object, p.node)) : undefined;
+  }
+
+  /**
+   * Web'de fare parçanın üstüne gelince parça hafifçe parlar ve imleç el
+   * olur. Dokunmatik ekranda hover yok; telefonda hiç çalışmaz. Büyük
+   * modellerde ışın izleme pahalı olduğu için en çok 20 kez/sn bakılır;
+   * sürüklerken, tarama ve açılış sırasında bakılmaz.
+   */
+  private listenForHover(canvas: HTMLCanvasElement): void {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    let last = 0;
+    let pending: number | null = null;
+    const update = (part: Part | null) => {
+      if (part === this.hovered) return;
+      this.hovered = part;
+      canvas.style.cursor = part ? "pointer" : "";
+      this.refreshMaterials();
+    };
+    canvas.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      if (e.buttons !== 0 || this.scanning || this.intro) {
+        update(null);
+        return;
+      }
+      const run = () => {
+        pending = null;
+        last = performance.now();
+        const rect = canvas.getBoundingClientRect();
+        const pointer = new THREE.Vector2(
+          ((e.clientX - rect.left) / rect.width) * 2 - 1,
+          -((e.clientY - rect.top) / rect.height) * 2 + 1,
+        );
+        update(this.pick(pointer) ?? null);
+      };
+      if (pending !== null) clearTimeout(pending);
+      const wait = Math.max(0, 50 - (performance.now() - last));
+      pending = window.setTimeout(run, wait);
+    });
+    canvas.addEventListener("pointerleave", () => {
+      if (pending !== null) clearTimeout(pending);
+      pending = null;
+      update(null);
+    });
+  }
 }
+
+/** Fareyle üstüne gelinen parçanın hafif parlaması; seçiminkinden zayıf. */
+const HOVER_GLOW = 0.16;
 
 /** Tarama bittikten sonra kalan parlaklık; olasılıkla orantılı. */
 function restingGlow(weight: number): number {
