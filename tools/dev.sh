@@ -57,4 +57,6 @@ if [[ "$device" == "web-server" ]]; then
 fi
 
 cd apps/naya
-flutter run -d "$device" "${extra[@]}" "${defines[@]}"
+# macOS'taki bash 3.2 `set -u` altında boş diziyi tanımsız sayar;
+# `${dizi[@]+...}` dizi boşsa hiçbir şey yazmaz.
+flutter run -d "$device" ${extra[@]+"${extra[@]}"} "${defines[@]}"
