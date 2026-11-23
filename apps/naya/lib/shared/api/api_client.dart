@@ -52,21 +52,90 @@ class ApiClient {
   Future<Map<String, Object?>> postJson(
     String path,
     Map<String, Object?> body,
+  ) => _sendJson('POST', path, body);
+
+  Future<Map<String, Object?>> putJson(
+    String path,
+    Map<String, Object?> body,
+  ) => _sendJson('PUT', path, body);
+
+  /// Gövdesiz DELETE; sunucu 204 döner.
+  Future<void> delete(String path) async {
+    await _check(() => _http.delete(uri(path), headers: _headers));
+  }
+
+  Future<Map<String, Object?>> getJson(String path) async =>
+      _decodeObject(await getBytes(path));
+
+  Future<String> getText(String path) async =>
+      utf8.decode(await getBytes(path));
+
+  Future<Uint8List> getBytes(String path) async =>
+      (await _check(() => _http.get(uri(path), headers: _headers))).bodyBytes;
+
+  /// Cevabı beklemeden akış olarak okunan JSON POST (sohbet, SSE).
+  /// Akış başlamadan gelen hata (giriş yok, anahtar yok) [ApiException]
+  /// olarak fırlar.
+  Future<Stream<List<int>>> postStream(
+    String path,
+    Map<String, Object?> body,
   ) async {
+    final request = http.Request('POST', uri(path))
+      ..headers.addAll({
+        ..._headers,
+        'content-type': 'application/json',
+        'accept': 'text/event-stream',
+      })
+      ..body = jsonEncode(body);
+    final http.StreamedResponse response;
+    try {
+      response = await _http.send(request);
+    } on http.ClientException {
+      throw _offline;
+    }
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw _errorFrom(await http.Response.fromStream(response));
+    }
+    return response.stream;
+  }
+
+  void close() => _http.close();
+
+  Future<Map<String, Object?>> _sendJson(
+    String method,
+    String path,
+    Map<String, Object?> body,
+  ) async {
+    final request = http.Request(method, uri(path))
+      ..headers.addAll({..._headers, 'content-type': 'application/json'})
+      ..body = jsonEncode(body);
+    final response = await _check(
+      () async => http.Response.fromStream(await _http.send(request)),
+    );
+    return _decodeObject(response.bodyBytes);
+  }
+
+  /// İsteği gönderir; ağ hatasını ve 2xx dışı cevabı [ApiException]'a
+  /// çevirir.
+  Future<http.Response> _check(Future<http.Response> Function() send) async {
     final http.Response response;
     try {
-      response = await _http.post(
-        uri(path),
-        headers: {..._headers, 'content-type': 'application/json'},
-        body: jsonEncode(body),
-      );
+      response = await send();
     } on http.ClientException {
-      throw const ApiException(0, 'offline', 'Sunucuya ulaşılamadı.');
+      throw _offline;
     }
     if (response.statusCode < 200 || response.statusCode >= 300) {
       throw _errorFrom(response);
     }
-    final decoded = jsonDecode(utf8.decode(response.bodyBytes));
+    return response;
+  }
+
+  static const _offline = ApiException(0, 'offline', 'Sunucuya ulaşılamadı.');
+
+  /// 204 gibi gövdesiz cevaplar boş nesne sayılır (çıkış).
+  static Map<String, Object?> _decodeObject(List<int> bytes) {
+    if (bytes.isEmpty) return const {};
+    final decoded = jsonDecode(utf8.decode(bytes));
     if (decoded is! Map<String, Object?>) {
       throw const ApiException(
         200,
@@ -76,36 +145,6 @@ class ApiClient {
     }
     return decoded;
   }
-
-  Future<Map<String, Object?>> getJson(String path) async {
-    final body = jsonDecode(utf8.decode(await getBytes(path)));
-    if (body is! Map<String, Object?>) {
-      throw const ApiException(
-        200,
-        'bad_response',
-        'Sunucudan beklenmedik cevap.',
-      );
-    }
-    return body;
-  }
-
-  Future<String> getText(String path) async =>
-      utf8.decode(await getBytes(path));
-
-  Future<Uint8List> getBytes(String path) async {
-    final http.Response response;
-    try {
-      response = await _http.get(uri(path), headers: _headers);
-    } on http.ClientException {
-      throw const ApiException(0, 'offline', 'Sunucuya ulaşılamadı.');
-    }
-    if (response.statusCode >= 200 && response.statusCode < 300) {
-      return response.bodyBytes;
-    }
-    throw _errorFrom(response);
-  }
-
-  void close() => _http.close();
 
   /// Sunucu hataları `{"error": {"code", "message"}}` biçiminde döner;
   /// başka bir şey gelirse (vekil sunucu sayfası gibi) genel bir mesaj.

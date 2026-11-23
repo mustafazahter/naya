@@ -24,6 +24,7 @@ class PartPage extends ConsumerWidget {
     required this.partId,
     required this.onOpenModule,
     required this.onOpenPart,
+    this.onAsk,
   });
 
   final String productId;
@@ -34,6 +35,9 @@ class PartPage extends ConsumerWidget {
 
   /// Başka bir parçanın sayfasına geçer (alt parça).
   final ValueChanged<String> onOpenPart;
+
+  /// Yapay zekâya bu parçayı sorar (parça kimliğiyle).
+  final ValueChanged<String>? onAsk;
 
   /// İçerik bu genişliği geçmez; geniş ekranda satırlar okunur kalır.
   static const maxWidth = 880.0;
@@ -49,6 +53,7 @@ class PartPage extends ConsumerWidget {
             part: part,
             onOpenModule: onOpenModule,
             onOpenPart: onOpenPart,
+            onAsk: onAsk == null ? null : () => onAsk!(part.id),
           ),
           null => EmptyState(
             icon: Icons.search_off,
@@ -73,12 +78,14 @@ class _PartView extends StatelessWidget {
     required this.part,
     required this.onOpenModule,
     required this.onOpenPart,
+    this.onAsk,
   });
 
   final ProductContent content;
   final Part part;
   final ValueChanged<String> onOpenModule;
   final ValueChanged<String> onOpenPart;
+  final VoidCallback? onAsk;
 
   @override
   Widget build(BuildContext context) {
@@ -159,6 +166,7 @@ class _PartView extends StatelessWidget {
             part: part,
             faultCount: faults.length,
             procedureCount: procedures.length,
+            onAsk: onAsk,
           ),
         ),
         for (final (i, (label, title, body)) in sections.indexed)
@@ -230,12 +238,14 @@ class _Hero extends StatelessWidget {
     required this.part,
     required this.faultCount,
     required this.procedureCount,
+    this.onAsk,
   });
 
   final ProductContent content;
   final Part part;
   final int faultCount;
   final int procedureCount;
+  final VoidCallback? onAsk;
 
   @override
   Widget build(BuildContext context) {
@@ -320,6 +330,14 @@ class _Hero extends StatelessWidget {
                   ),
                 ],
               ),
+              if (onAsk != null) ...[
+                const SizedBox(height: NayaSpace.xl),
+                FilledButton.icon(
+                  onPressed: onAsk,
+                  icon: const Icon(Icons.chat_bubble_outline, size: 18),
+                  label: Text('${part.name} hakkında sor'),
+                ),
+              ],
               const SizedBox(height: NayaSpace.xl),
             ],
           ),

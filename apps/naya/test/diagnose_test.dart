@@ -242,9 +242,10 @@ void main() {
       await pump(tester, fakeApi());
       await ask(tester, 'Zincir atlıyor.');
       expect(
-        find.text('Teşhis için giriş yapmanız gerekiyor.'),
+        find.text('Yapay zekâyı kullanmak için giriş yapmalısın.'),
         findsOneWidget,
       );
+      expect(find.widgetWithText(OutlinedButton, 'Giriş yap'), findsOneWidget);
     });
   });
 
@@ -308,6 +309,20 @@ void main() {
       controller.reset();
       expect(await scan, isFalse);
       expect(controller.exploded.value, isFalse);
+    });
+
+    test('komutlar model hazır olana kadar bekler', () async {
+      var waited = false;
+      final wait = controller.whenReady().then((_) => waited = true);
+      await Future<void>.delayed(Duration.zero);
+      expect(waited, isFalse);
+      controller.markReady();
+      await wait;
+      expect(waited, isTrue);
+      // Bağlı olmayan viewer beklemez.
+      final detached = ModelFrameController();
+      addTearDown(detached.dispose);
+      await detached.whenReady();
     });
 
     test('viewer bağlı değilse parçalara ayırma durumu değişmez', () {

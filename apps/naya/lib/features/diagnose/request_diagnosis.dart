@@ -1,5 +1,8 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../entities/diagnosis/diagnosis.dart';
 import '../../entities/product/product_content.dart';
+import '../../entities/session/session.dart';
 import '../../shared/api/api_client.dart';
 
 /// Yazılan belirtiyi sunucuya teşhis ettirir (`POST /api/ai/diagnose`).
@@ -18,12 +21,54 @@ Future<Diagnosis> requestDiagnosis(
     'message': message,
     if (earlier.isNotEmpty) 'earlier': earlier,
   });
-  return Diagnosis.fromJson(
-    json,
-    nameOf: (id) => content.part(id)?.name ?? id,
-    faultCauseOf: (id) => content.fault(id)?.cause,
-  );
+  return _fromJson(json, content);
 }
+
+/// Geçmişteki bir teşhisi aynen açar (`GET /api/ai/diagnoses/<id>`).
+Future<Diagnosis> loadDiagnosis(
+  ApiClient api,
+  ProductContent content,
+  int id,
+) async => _fromJson(await api.getJson('/api/ai/diagnoses/$id'), content);
+
+/// Geçmiş listesindeki bir satır.
+class DiagnosisEntry {
+  const DiagnosisEntry({required this.diagnosis, required this.createdAt});
+  final Diagnosis diagnosis;
+  final DateTime createdAt;
+}
+
+/// Ürünün teşhis geçmişi, en yeni önce. Parça adları ürünün içeriğinden
+/// geldiği için içerik yüklenmeden liste istenmez.
+final diagnosisHistoryProvider = FutureProvider.autoDispose
+    .family<List<DiagnosisEntry>, ProductContent>((ref, content) async {
+      // Giriş, çıkış ya da hesap değişince yeniden sorulur.
+      ref.watch(sessionProvider.select((s) => s.value?.id));
+      final json = await ref
+          .watch(apiClientProvider)
+          .getJson(
+            '/api/ai/diagnoses?item='
+            '${Uri.encodeQueryComponent(content.productId)}',
+          );
+      return [
+        for (final d in json['diagnoses'] as List<Object?>? ?? const [])
+          if (d is Map<String, Object?>)
+            DiagnosisEntry(
+              diagnosis: _fromJson(d, content),
+              createdAt:
+                  DateTime.tryParse(d['createdAt'] as String? ?? '')
+                      ?.toLocal() ??
+                  DateTime.now(),
+            ),
+      ];
+    }, retry: (_, _) => null);
+
+Diagnosis _fromJson(Map<String, Object?> json, ProductContent content) =>
+    Diagnosis.fromJson(
+      json,
+      nameOf: (id) => content.part(id)?.name ?? id,
+      faultCauseOf: (id) => content.fault(id)?.cause,
+    );
 
 /// Teşhiste hangi model düğümünün ne kadar parlayacağı. Parçanın bütün
 /// düğümleri aynı ağırlığı alır; bir düğüm birden çok adayda varsa
