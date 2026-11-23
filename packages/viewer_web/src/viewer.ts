@@ -90,6 +90,8 @@ export class NayaViewer {
   /** Parlama rengi: uygulamanın vurgu renginin (#8db8f2) daha doygun hâli;
    * açık mavi sarı yüzeyde beyaza dönüyordu. */
   private readonly glowColor = new THREE.Color("#3f86ff");
+  /** Fareyle üstüne gelinen parçanın rengi: soluk, grimsi bir ışık. */
+  private readonly hoverColor = new THREE.Color("#aeb6c2");
   private readonly ghost = ghostMaterial();
 
   private model: THREE.Object3D | null = null;
@@ -618,6 +620,8 @@ export class NayaViewer {
         mesh.material = ghosted ? this.ghost : normal;
         mesh.castShadow = !ghosted;
       }
+      const hoverOnly = isHovered && weight === 0;
+      part.glow.color.value = hoverOnly ? this.hoverColor : this.glowColor;
       part.glow.strength.value = isSelected
         ? 0.28
         : Math.max(restingGlow(weight), isHovered ? HOVER_GLOW : 0);
@@ -696,9 +700,8 @@ export class NayaViewer {
   }
 }
 
-/** Fareyle üstüne gelinen parçanın belli belirsiz parlaması; seçiminkinin
- * dörtte biri kadar. */
-const HOVER_GLOW = 0.07;
+/** Fareyle üstüne gelinen parçanın belli belirsiz, grimsi parlaması. */
+const HOVER_GLOW = 0.05;
 
 /** Tarama bittikten sonra kalan parlaklık; olasılıkla orantılı. */
 function restingGlow(weight: number): number {
