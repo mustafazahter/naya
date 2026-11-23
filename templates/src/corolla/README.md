@@ -24,7 +24,7 @@ dart run tools/naya_cli/bin/naya.dart validate templates/dist/corolla.naya
 
 Model kodu `NAYACAR`, sorumlu firma kodu `NAYA0`, dil `tr-TR`. Bütün dosyalar resmi S1000D 5.0 XML şemalarından geçiyor.
 
-DM'ler, PM, DML ve `map/` altındaki dosyalar `scripts/make_content.py` ile tek bir tablodan üretilir; DMC'ler, parça haritası ve arızalar böylece birbiriyle tutarlı kalır. İçeriği değiştirmek için XML'leri değil betiği düzenleyip yeniden çalıştırın:
+DM'ler, PM, DML ve `map/` altındaki dosyalar `scripts/make_content.py` ile tek bir tablodan üretilir; DMC'ler, parça haritası ve arızalar böylece birbiriyle tutarlı kalır. XML'i yazan kod tank ve uçak şablonlarıyla ortak: `templates/scripts/s1000d_content.py`. İçeriği değiştirmek için XML'leri değil betiği düzenleyip yeniden çalıştırın:
 
 ```bash
 cd templates/src/corolla/scripts && python3 make_content.py
@@ -60,6 +60,12 @@ Kaynak dosyalar repoya girmiyor; Sketchfab'dan GLB olarak indirilip şu komutla 
 cd templates/src/corolla/scripts
 blender -b --python build_model.py -- corolla-e100.glb engine-1zz-fe.glb ../model/product.glb
 blender -b --python render_icn.py -- ../model/product.glb cikti/
+```
+
+Kütüphane kartındaki resim (repo kökünden):
+
+```bash
+blender -b --python templates/scripts/render_thumbnail.py -- templates/src/corolla/model/product.glb apps/naya/assets/templates/corolla.webp -1,-0.55,0.42
 ```
 
 `build_model.py` sırasıyla:

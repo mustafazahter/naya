@@ -14,6 +14,9 @@ pubspec_overrides.yaml
 *.jks
 *.keystore
 
+# Python (şablon betikleri)
+__pycache__/
+
 # Node (viewer_web)
 node_modules/
 dist/

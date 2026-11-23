@@ -1,0 +1,33 @@
+{
+  "zones": [
+    {
+      "id": "z.nose",
+      "name": "Burun"
+    },
+    {
+      "id": "z.cockpit",
+      "name": "Kokpit"
+    },
+    {
+      "id": "z.fuselage",
+      "name": "Gövde"
+    },
+    {
+      "id": "z.engine",
+      "name": "Motor bölmesi",
+      "parent": "z.fuselage"
+    },
+    {
+      "id": "z.wings",
+      "name": "Kanatlar"
+    },
+    {
+      "id": "z.tail",
+      "name": "Kuyruk"
+    },
+    {
+      "id": "z.gear",
+      "name": "İniş takımı"
+    }
+  ]
+}

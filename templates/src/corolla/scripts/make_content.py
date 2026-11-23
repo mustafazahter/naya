@@ -10,18 +10,13 @@ haritası ve arızalar birbiriyle tutarlı kalır.
 Bisiklet şablonunda DM'ler elle yazıldı. Corolla'da 40 DM ve 60 parça
 olduğu için aynı biçim bir tablodan üretiliyor.
 """
-import json
+import sys
 from pathlib import Path
-from xml.sax.saxutils import escape, quoteattr
 
 HERE = Path(__file__).resolve().parent.parent
-CSDB = HERE / 'csdb'
-MAP = HERE / 'map'
+sys.path.insert(0, str(HERE.parent.parent / 'scripts'))
 
-MODEL = 'NAYACAR'
-COMPANY = 'NAYA0'
-DATE = ('2026', '11', '23')
-APPLIC = 'Toyota Corolla E100, 1ZZ-FE motorlu'
+from s1000d_content import Content  # noqa: E402
 
 # --- SNS ------------------------------------------------------------------
 
@@ -45,47 +40,6 @@ SNS = {
     'DA6': ('Elektrik ve aydınlatma', {'1': 'Akü', '2': 'Farlar ve lambalar'}),
 }
 
-INFO_NAMES = {
-    '022': 'İş kuralları', '040': 'Tanım', '241': 'Yağ değişimi',
-    '271': 'Ayar', '300': 'Kontrol', '310': 'Gözle muayene',
-    '361': 'Ölçüm', '421': 'Arıza bulma', '920': 'Değiştirme',
-    '921': 'Yenisiyle değiştirme', '941': 'Resimli parça kataloğu',
-}
-
-
-def code(system, sub='0', info='040', disassy='00', item='A'):
-    """DMC'nin parçaları. `str(code)` haritada kullanılan yazımı verir."""
-    return Dmc(system, sub, info, disassy, item)
-
-
-class Dmc:
-    def __init__(self, system, sub, info, disassy, item):
-        self.system, self.sub, self.info = system, sub, info
-        self.disassy, self.item = disassy, item
-
-    def __str__(self):
-        return (f'DMC-{MODEL}-AAA-{self.system}-{self.sub}0-00-'
-                f'{self.disassy}AA-{self.info}A-{self.item}')
-
-    def file(self):
-        return (f'DMC-{MODEL}-AAA-{self.system}-{self.sub}0-00-'
-                f'{self.disassy}AA-{self.info}A-{self.item}_001-00_TR-TR.XML')
-
-    def xml(self):
-        return (f'<dmCode modelIdentCode="{MODEL}" systemDiffCode="AAA" '
-                f'systemCode="{self.system}" subSystemCode="{self.sub}" '
-                f'subSubSystemCode="0" assyCode="00" '
-                f'disassyCode="{self.disassy}" disassyCodeVariant="AA" '
-                f'infoCode="{self.info}" infoCodeVariant="A" '
-                f'itemLocationCode="{self.item}"/>')
-
-    def ref(self):
-        return f'<dmRef><dmRefIdent>{self.xml()}</dmRefIdent></dmRef>'
-
-
-BREX = code('D00', info='022', item='D')
-IPD = code('D00', info='941', disassy='01')
-
 # --- Çizimler ---------------------------------------------------------------
 
 # Numara → başlık. Dosyalar `render_icn.py` ile modelden üretilir.
@@ -98,31 +52,18 @@ FIGURES = {
     6: 'Tekerlek ve lastik',
 }
 
-
-def icn(number):
-    return f'ICN-{MODEL}-AAA-D000000-0-{COMPANY}-{number:05d}-A-001-01'
+C = Content(
+    HERE, model='NAYACAR',
+    applic='Toyota Corolla E100, 1ZZ-FE motorlu',
+    product='Toyota Corolla E100',
+    manual='Toyota Corolla E100 bakım el kitabı',
+    sns=SNS, figures=FIGURES)
+code, dm, part = C.code, C.dm, C.part
 
 
 # --- DM içerikleri ---------------------------------------------------------
 #
-# Her DM bir sözlük:
-#   code, tech (konu), info (bilgi adı; yoksa bilgi koduna göre)
-#   description: [(başlık, [paragraf...])]   → tanım DM'i
-#   steps: [adım | (başlık, [alt adım...])]   → prosedür DM'i
-#   isolation: {...}                          → arıza bulma DM'i
-#   figure: çizim numarası
-#   tools, supplies, spares: [(ad, adet)]
-#   warnings, cautions: [metin]
-#   conditions: [metin]
-#   next: sonraki işlemin DMC'si
-
-DMS = []
-
-
-def dm(**kwargs):
-    DMS.append(kwargs)
-    return kwargs['code']
-
+# Alanlar `templates/scripts/s1000d_content.py` başında anlatılıyor.
 
 # Genel
 VEHICLE = dm(
@@ -887,18 +828,7 @@ BODY = dm(
 
 # --- Parça haritası --------------------------------------------------------
 
-# (id, ad, üst parça, sns, düğümler, bölge, işlev, prosedürler, IPD adet)
 # Düğümü olmayan parçalar içinde bulundukları düğüme bağlı.
-P = []
-
-
-def part(id, name, parent, sns, nodes, zone, function, procedures=None,
-         quantity=1, part_number=None):
-    P.append(dict(id=id, name=name, parent=parent, sns=sns, nodes=nodes,
-                  zone=zone, function=function,
-                  procedures=procedures or {}, quantity=quantity,
-                  part_number=part_number))
-
 
 ENGINE_NODES = [
     'engine_block', 'engine_head', 'engine_head_gasket', 'engine_head_cover',
@@ -1223,98 +1153,6 @@ FAULTS = [
 ]
 
 
-# --- XML yazımı ---------------------------------------------------------------
-
-def t(text):
-    return escape(text)
-
-
-def dm_status(applic=APPLIC):
-    return f'''    <dmStatus issueType="new">
-      <security securityClassification="01"/>
-      <responsiblePartnerCompany enterpriseCode="{COMPANY}"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
-      <originator enterpriseCode="{COMPANY}"><enterpriseName>NAYA</enterpriseName></originator>
-      <applic><displayText><simplePara>{t(applic)}</simplePara></displayText></applic>
-      <brexDmRef>{BREX.ref()}</brexDmRef>
-      <qualityAssurance><unverified/></qualityAssurance>
-    </dmStatus>'''
-
-
-def dm_xml(dmc, tech, info, schema, body, figures=()):
-    entities = ''.join(
-        f'<!ENTITY {icn(n)} SYSTEM "{icn(n)}.JPG" NDATA JPEG>\n'
-        for n in sorted(set(figures)))
-    doctype = ('<!DOCTYPE dmodule [\n<!NOTATION JPEG SYSTEM "JPEG">\n'
-               f'{entities}]>\n') if figures else ''
-    year, month, day = DATE
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-{doctype}<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/{schema}.xsd">
-  <identAndStatusSection>
-    <dmAddress>
-      <dmIdent>
-        {dmc.xml()}
-        <language languageIsoCode="tr" countryIsoCode="TR"/>
-        <issueInfo issueNumber="001" inWork="00"/>
-      </dmIdent>
-      <dmAddressItems>
-        <issueDate year="{year}" month="{month}" day="{day}"/>
-        <dmTitle><techName>{t(tech)}</techName><infoName>{t(info)}</infoName></dmTitle>
-      </dmAddressItems>
-    </dmAddress>
-{dm_status()}
-  </identAndStatusSection>
-  <content>
-{body}
-  </content>
-</dmodule>
-'''
-
-
-def figure_xml(number, indent):
-    return (f'{indent}<figure id="fig-{number:04d}"><title>{t(FIGURES[number])}'
-            f'</title><graphic infoEntityIdent="{icn(number)}"/></figure>')
-
-
-def description_body(d):
-    lines = ['    <description>']
-    for i, (title, paras) in enumerate(d['description']):
-        lines.append('      <levelledPara>')
-        lines.append(f'        <title>{t(title)}</title>')
-        lines += [f'        <para>{t(p)}</para>' for p in paras]
-        lines.append('      </levelledPara>')
-        if i == 0 and d.get('figure'):
-            lines.append(figure_xml(d['figure'], '      '))
-    lines.append('    </description>')
-    return '\n'.join(lines)
-
-
-def items(kind, entries, prefix, unit):
-    """Aletler, sarf malzemeleri ve yedek parçalar."""
-    if not entries:
-        return f'<no{kind[0].upper()}{kind[1:]}/>'
-    group, descr, req = {
-        'supportEquips': ('supportEquipDescrGroup', 'supportEquipDescr',
-                          'reqQuantity'),
-        'supplies': ('supplyDescrGroup', 'supplyDescr', 'reqQuantity'),
-        'spares': ('spareDescrGroup', 'spareDescr', 'reqQuantity'),
-    }[kind]
-    rows = []
-    for i, (name, quantity) in enumerate(entries, 1):
-        ident = (f'<identNumber><manufacturerCode>{COMPANY}</manufacturerCode>'
-                 f'<partAndSerialNumber><partNumber>'
-                 f'{item_number(prefix, name)}'
-                 '</partNumber></partAndSerialNumber></identNumber>')
-        # Sıvılar litreyle, gerisi adetle.
-        liquid = any(w in name for w in ('yağı', 'suyu', 'hidroliği'))
-        unit_of = 'L' if unit == 'L' and liquid else 'EA'
-        rows.append(f'<{descr} id="{prefix.lower()}-{i:04d}"><name>{t(name)}'
-                    f'</name>{ident}<{req} unitOfMeasure="{unit_of}">'
-                    f'{quantity}</{req}></{descr}>')
-    return f'<{group}>{"".join(rows)}</{group}>'
-
-
-# Yedek parçalar IPD'deki parçanın numarasını taşır; böylece prosedürdeki
-# parça katalogda bulunur.
 SPARE_PARTS = {
     'Silindir kapak contası': 'engine.head_gasket',
     'Yağ filtresi': 'engine.oil_filter',
@@ -1328,325 +1166,7 @@ SPARE_PARTS = {
     'Silecek süpürgesi, yolcu tarafı 400 mm': 'body.wipers',
 }
 
-_numbers = {}
 
-
-def part_number(part_id):
-    """Parçanın IPD'deki numarası."""
-    for i, p in enumerate(P, 1):
-        if p['id'] == part_id:
-            return p['part_number'] or f'NC-{p["sns"]}-{i:03d}'
-    raise KeyError(part_id)
-
-
-def item_number(prefix, name):
-    """Alet, sarf ve yedek parçaların numarası; aynı ad her DM'de aynı
-    numarayı alır."""
-    if prefix == 'PT' and name in SPARE_PARTS:
-        return part_number(SPARE_PARTS[name])
-    key = (prefix, name)
-    if key not in _numbers:
-        count = sum(1 for k in _numbers if k[0] == prefix) + 1
-        _numbers[key] = f'NC-{prefix}-{count:03d}'
-    return _numbers[key]
-
-
-def safety(d):
-    warnings = ''.join(
-        f'<warning><warningAndCautionPara>{t(w)}</warningAndCautionPara>'
-        '</warning>' for w in d.get('warnings', []))
-    cautions = ''.join(
-        f'<caution><warningAndCautionPara>{t(c)}</warningAndCautionPara>'
-        '</caution>' for c in d.get('cautions', []))
-    if not warnings and not cautions:
-        return '<noSafety/>'
-    return f'<safetyRqmts>{warnings}{cautions}</safetyRqmts>'
-
-
-def conditions(d):
-    conds = d.get('conditions', [])
-    if not conds:
-        return '<noConds/>'
-    return ''.join(f'<reqCondNoRef><reqCond>{t(c)}</reqCond></reqCondNoRef>'
-                   for c in conds)
-
-
-def prelim(d):
-    return ('      <preliminaryRqmts>\n'
-            f'        <reqCondGroup>{conditions(d)}</reqCondGroup>\n'
-            '        <reqSupportEquips>'
-            f'{items("supportEquips", d.get("tools"), "TL", "EA")}'
-            '</reqSupportEquips>\n'
-            f'        <reqSupplies>{items("supplies", d.get("supplies"), "SP", "L")}'
-            '</reqSupplies>\n'
-            f'        <reqSpares>{items("spares", d.get("spares"), "PT", "EA")}'
-            '</reqSpares>\n'
-            f'        <reqSafety>{safety(d)}</reqSafety>\n'
-            '      </preliminaryRqmts>')
-
-
-def procedure_body(d):
-    steps = []
-    for i, step in enumerate(d['steps']):
-        figure = figure_xml(d['figure'], '') if i == 0 and d.get(
-            'figure') else ''
-        if isinstance(step, tuple):
-            title, subs = step
-            inner = ''.join(f'<proceduralStep><para>{t(s)}</para>'
-                            '</proceduralStep>' for s in subs)
-            steps.append(f'        <proceduralStep><title>{t(title)}</title>'
-                         f'{figure}{inner}</proceduralStep>')
-        else:
-            steps.append(f'        <proceduralStep><para>{t(step)}</para>'
-                         f'{figure}</proceduralStep>')
-    nxt = d.get('next')
-    close = ('<reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond>'
-             f'{nxt.ref()}</reqCondDm></reqCondGroup>') if nxt else (
-        '<reqCondGroup><noConds/></reqCondGroup>')
-    return ('    <procedure>\n' + prelim(d) + '\n      <mainProcedure>\n'
-            + '\n'.join(steps) + '\n      </mainProcedure>\n'
-            f'      <closeRqmts>{close}</closeRqmts>\n    </procedure>')
-
-
-def isolation_body(d):
-    iso = d['isolation']
-    rows = []
-    for sid, action, question, yes, no in iso['steps']:
-        rows.append(
-            f'            <isolationStep id="{sid}">\n'
-            f'              <action>{t(action)}</action>\n'
-            f'              <isolationStepQuestion>{t(question)}'
-            '</isolationStepQuestion>\n'
-            '              <isolationStepAnswer><yesNoAnswer>'
-            f'<yesAnswer nextActionRefId="{yes}"/>'
-            f'<noAnswer nextActionRefId="{no}"/></yesNoAnswer>'
-            '</isolationStepAnswer>\n'
-            '            </isolationStep>')
-    for eid, action, target in iso['ends']:
-        ref = f' {target.ref()}' if target else ''
-        rows.append(f'            <isolationProcedureEnd id="{eid}"><action>'
-                    f'{t(action)}{ref}</action></isolationProcedureEnd>')
-    empty = ('<preliminaryRqmts><reqCondGroup><noConds/></reqCondGroup>'
-             '<reqSupportEquips><noSupportEquips/></reqSupportEquips>'
-             '<reqSupplies><noSupplies/></reqSupplies><reqSpares><noSpares/>'
-             '</reqSpares><reqSafety><noSafety/></reqSafety>'
-             '</preliminaryRqmts>')
-    return f'''    <faultIsolation>
-      <faultIsolationProcedure>
-        <fault faultCode="{iso['fault']}"/>
-        <faultDescr><descr>{t(iso['descr'])}</descr></faultDescr>
-        <isolationProcedure>
-          {empty}
-          <isolationMainProcedure>
-{chr(10).join(rows)}
-          </isolationMainProcedure>
-          <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
-        </isolationProcedure>
-      </faultIsolationProcedure>
-    </faultIsolation>'''
-
-
-def ipd_body():
-    rows = [figure_xml(1, '      ')]
-    depth = {}
-    for i, p in enumerate(P, 1):
-        depth[p['id']] = 1 if p['parent'] is None else depth[p['parent']] + 1
-        number = part_number(p['id'])
-        rows.append(
-            f'      <catalogSeqNumber figureNumber="01" item="{i:03d}" '
-            f'indenture="{min(depth[p["id"]], 9)}">\n'
-            '        <itemSeqNumber itemSeqNumberValue="00A">\n'
-            '          <quantityPerNextHigherAssy>'
-            f'{p["quantity"]}</quantityPerNextHigherAssy>\n'
-            f'          <partRef manufacturerCodeValue="{COMPANY}" '
-            f'partNumberValue={quoteattr(number)}/>\n'
-            '          <partSegment><itemIdentData><descrForPart>'
-            f'{t(p["name"])}</descrForPart></itemIdentData></partSegment>\n'
-            '        </itemSeqNumber>\n'
-            '      </catalogSeqNumber>')
-        p['item'] = f'{i:03d}'
-    return ('    <illustratedPartsCatalog>\n' + '\n'.join(rows)
-            + '\n    </illustratedPartsCatalog>')
-
-
-def brex_body():
-    systems = []
-    for system, (title, subs) in SNS.items():
-        inner = ''.join(
-            f'<snsSubSystem><snsCode>{sub}</snsCode><snsTitle>{t(name)}'
-            f'</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>'
-            f'{t(name)}</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>'
-            f'{t(name)}</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem>'
-            for sub, name in subs.items())
-        systems.append(f'          <snsSystem><snsCode>{system}</snsCode>'
-                       f'<snsTitle>{t(title)}</snsTitle>{inner}</snsSystem>')
-    return ('    <brex>\n      <snsRules>\n        <snsDescr>\n'
-            + '\n'.join(systems)
-            + '\n        </snsDescr>\n      </snsRules>\n'
-              '      <contextRules/>\n    </brex>')
-
-
-def info_name(d):
-    return d.get('info') or INFO_NAMES[d['code'].info]
-
-
-def write_dms():
-    CSDB.mkdir(exist_ok=True)
-    for old in CSDB.glob('*.XML'):
-        old.unlink()
-    written = []
-    for d in DMS:
-        if 'description' in d:
-            body, schema = description_body(d), 'descript'
-        elif 'isolation' in d:
-            body, schema = isolation_body(d), 'fault'
-        else:
-            body, schema = procedure_body(d), 'proced'
-        figures = [d['figure']] if d.get('figure') else []
-        (CSDB / d['code'].file()).write_text(
-            dm_xml(d['code'], d['tech'], info_name(d), schema, body,
-                   figures), encoding='utf-8')
-        written.append((d['code'], d['tech'], info_name(d)))
-    (CSDB / IPD.file()).write_text(
-        dm_xml(IPD, 'Toyota Corolla E100', INFO_NAMES['941'], 'ipd',
-               ipd_body(), [1]), encoding='utf-8')
-    written.append((IPD, 'Toyota Corolla E100', INFO_NAMES['941']))
-    (CSDB / BREX.file()).write_text(
-        dm_xml(BREX, 'Toyota Corolla E100', INFO_NAMES['022'], 'brex',
-               brex_body()), encoding='utf-8')
-    written.append((BREX, 'Toyota Corolla E100', INFO_NAMES['022']))
-    return written
-
-
-def write_pm(written):
-    year, month, day = DATE
-    by_system = {}
-    for dmc, tech, info in written:
-        if dmc.info == '022':
-            continue
-        by_system.setdefault(dmc.system, []).append((dmc, tech, info))
-    entries = []
-    for system, (title, _) in SNS.items():
-        refs = ''.join(
-            f'<dmRef><dmRefIdent>{dmc.xml()}</dmRefIdent><dmRefAddressItems>'
-            f'<dmTitle><techName>{t(tech)}</techName><infoName>{t(info)}'
-            '</infoName></dmTitle></dmRefAddressItems></dmRef>'
-            for dmc, tech, info in sorted(
-                by_system.get(system, []),
-                key=lambda r: (r[0].sub, r[0].info)))
-        if refs:
-            entries.append(f'    <pmEntry>\n      <pmEntryTitle>{t(title)}'
-                           f'</pmEntryTitle>\n      {refs}\n    </pmEntry>')
-    xml = f'''<?xml version="1.0" encoding="UTF-8"?>
-<pm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/pm.xsd">
-  <identAndStatusSection>
-    <pmAddress>
-      <pmIdent>
-        <pmCode modelIdentCode="{MODEL}" pmIssuer="{COMPANY}" pmNumber="00001" pmVolume="00"/>
-        <language languageIsoCode="tr" countryIsoCode="TR"/>
-        <issueInfo issueNumber="001" inWork="00"/>
-      </pmIdent>
-      <pmAddressItems>
-        <issueDate year="{year}" month="{month}" day="{day}"/>
-        <pmTitle>Toyota Corolla E100 bakım el kitabı</pmTitle>
-      </pmAddressItems>
-    </pmAddress>
-    <pmStatus issueType="new">
-      <security securityClassification="01"/>
-      <responsiblePartnerCompany enterpriseCode="{COMPANY}"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
-      <applic><displayText><simplePara>{t(APPLIC)}</simplePara></displayText></applic>
-      <brexDmRef>{BREX.ref()}</brexDmRef>
-      <qualityAssurance><unverified/></qualityAssurance>
-    </pmStatus>
-  </identAndStatusSection>
-  <content>
-{chr(10).join(entries)}
-  </content>
-</pm>
-'''
-    (CSDB / PM_FILE).write_text(xml, encoding='utf-8')
-
-
-PM_FILE = f'PMC-{MODEL}-{COMPANY}-00001-00_001-00_TR-TR.XML'
-
-
-def write_dml(written):
-    year, month, day = DATE
-    rows = ''.join(
-        f'\n    <dmlEntry issueType="new">{dmc.ref()}<responsiblePartnerCompany '
-        f'enterpriseCode="{COMPANY}"><enterpriseName>NAYA</enterpriseName>'
-        '</responsiblePartnerCompany></dmlEntry>'
-        for dmc, _, _ in sorted(written, key=lambda r: str(r[0])))
-    xml = f'''<?xml version="1.0" encoding="UTF-8"?>
-<dml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/dml.xsd">
-  <identAndStatusSection>
-    <dmlAddress>
-      <dmlIdent>
-        <dmlCode modelIdentCode="{MODEL}" senderIdent="{COMPANY}" dmlType="s" yearOfDataIssue="{year}" seqNumber="00001"/>
-        <issueInfo issueNumber="001" inWork="00"/>
-      </dmlIdent>
-      <dmlAddressItems><issueDate year="{year}" month="{month}" day="{day}"/></dmlAddressItems>
-    </dmlAddress>
-    <dmlStatus issueType="new"><security securityClassification="01"/><brexDmRef>{BREX.ref()}</brexDmRef></dmlStatus>
-  </identAndStatusSection>
-  <dmlContent>{rows}
-  </dmlContent>
-</dml>
-'''
-    (CSDB / f'DML-{MODEL}-{COMPANY}-S-{year}-00001_001-00.XML').write_text(
-        xml, encoding='utf-8')
-
-
-def write_maps():
-    MAP.mkdir(exist_ok=True)
-    parts = []
-    for p in P:
-        entry = {'id': p['id'], 'name': p['name']}
-        if p['parent']:
-            entry['parent'] = p['parent']
-        entry.update({
-            'sns': p['sns'], 'meshNodes': p['nodes'], 'zone': p['zone'],
-            'function': p['function'],
-            'ipd': {'dmc': str(IPD), 'figure': '01', 'item': p['item']},
-        })
-        if p['procedures']:
-            entry['procedures'] = {k: str(v)
-                                   for k, v in p['procedures'].items()}
-        parts.append(entry)
-    dump(MAP / 'parts.json', {'parts': parts})
-
-    faults = []
-    for fid, pid, symptoms, cause, severity, isolation, repair in FAULTS:
-        f = {'id': fid, 'part': pid, 'symptoms': symptoms, 'cause': cause,
-             'severity': severity}
-        if isolation:
-            f['isolation'] = str(isolation)
-        if repair:
-            f['repair'] = str(repair)
-        faults.append(f)
-    dump(MAP / 'faults.json', {
-        'symptoms': [{'id': i, 'text': text} for i, text in SYMPTOMS],
-        'faults': faults,
-    })
-    dump(MAP / 'zones.json', {'zones': [
-        {'id': i, 'name': n, **({'parent': p} if p else {})}
-        for i, n, p in ZONES]})
-
-
-def dump(path, data):
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n',
-                    encoding='utf-8')
-
-
-def main():
-    ids = [p['id'] for p in P]
-    assert len(ids) == len(set(ids)), 'aynı kimlikli iki parça var'
-    written = write_dms()
-    write_pm(written)
-    write_dml(written)
-    write_maps()
-    print(f'{len(written)} DM, {len(P)} parça, {len(FAULTS)} arıza, '
-          f'{len(SYMPTOMS)} belirti')
-
-
-main()
+C.zones, C.symptoms, C.faults = ZONES, SYMPTOMS, FAULTS
+C.spare_parts = SPARE_PARTS
+C.write()

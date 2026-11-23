@@ -1,0 +1,973 @@
+{
+  "parts": [
+    {
+      "id": "airframe",
+      "name": "Gövde",
+      "sns": "53-10",
+      "meshNodes": [
+        "fuselage",
+        "radome",
+        "intake",
+        "canopy",
+        "conformal_tanks"
+      ],
+      "zone": "z.fuselage",
+      "function": "Kanatlarla tek parça birleşen alüminyum gövde yapısı.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "001"
+      }
+    },
+    {
+      "id": "airframe.radome",
+      "name": "Radom",
+      "parent": "airframe",
+      "sns": "53-20",
+      "meshNodes": [
+        "radome"
+      ],
+      "zone": "z.nose",
+      "function": "Burundaki, radar dalgalarını geçiren kompozit koni.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "002"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-53-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "airframe.intake",
+      "name": "Hava alığı",
+      "parent": "airframe",
+      "sns": "53-30",
+      "meshNodes": [
+        "intake"
+      ],
+      "zone": "z.fuselage",
+      "function": "Gövdenin altındaki alık; havayı motora taşır.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "003"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-53-30-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "airframe.canopy",
+      "name": "Kanopi",
+      "parent": "airframe",
+      "sns": "56-10",
+      "meshNodes": [
+        "canopy"
+      ],
+      "zone": "z.cockpit",
+      "function": "İki kokpiti örten tek parça kabarcık kanopi ve çerçevesi.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "004"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-56-10-00-00AA-310A-A",
+        "clean": "DMC-NAYAJET-AAA-56-10-00-00AA-250A-A"
+      }
+    },
+    {
+      "id": "airframe.panels",
+      "name": "Erişim panelleri",
+      "parent": "airframe",
+      "sns": "53-10",
+      "meshNodes": [
+        "fuselage"
+      ],
+      "zone": "z.fuselage",
+      "function": "Sistemlere erişim için sökülebilen gövde panelleri.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "005"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-00-00-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "cockpit",
+      "name": "Kokpit",
+      "sns": "25-00",
+      "meshNodes": [
+        "cockpit"
+      ],
+      "zone": "z.cockpit",
+      "function": "Ön ve arka kokpit: koltuklar, gösterge panelleri, kumandalar.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "006"
+      }
+    },
+    {
+      "id": "cockpit.seats",
+      "name": "Fırlatma koltukları",
+      "parent": "cockpit",
+      "sns": "25-10",
+      "meshNodes": [
+        "cockpit"
+      ],
+      "zone": "z.cockpit",
+      "function": "Acil durumda pilotu uçaktan çıkaran koltuklar.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "007"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-25-10-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "cockpit.panels",
+      "name": "Gösterge panelleri",
+      "parent": "cockpit",
+      "sns": "25-00",
+      "meshNodes": [
+        "cockpit"
+      ],
+      "zone": "z.cockpit",
+      "function": "Ön ve arka kokpitteki göstergeler ve ekranlar.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "008"
+      }
+    },
+    {
+      "id": "wings",
+      "name": "Kanatlar",
+      "sns": "57-10",
+      "meshNodes": [
+        "wing_l",
+        "wing_r",
+        "lef_l",
+        "lef_r",
+        "flaperon_l",
+        "flaperon_r"
+      ],
+      "zone": "z.wings",
+      "function": "Gövdeyle birleşik, kesik delta biçimli kanatlar.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "009"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-57-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "wing_l",
+      "name": "Sol kanat",
+      "parent": "wings",
+      "sns": "57-10",
+      "meshNodes": [
+        "wing_l"
+      ],
+      "zone": "z.wings",
+      "function": "Sol kanat yapısı; içinde yakıt tankı bölümleri.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "010"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-57-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "wing_r",
+      "name": "Sağ kanat",
+      "parent": "wings",
+      "sns": "57-10",
+      "meshNodes": [
+        "wing_r"
+      ],
+      "zone": "z.wings",
+      "function": "Sağ kanat yapısı; içinde yakıt tankı bölümleri.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "011"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-57-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "lef_l",
+      "name": "Sol hücum kenarı flapı",
+      "parent": "wings",
+      "sns": "27-40",
+      "meshNodes": [
+        "lef_l"
+      ],
+      "zone": "z.wings",
+      "function": "Hıza ve hücum açısına göre kendiliğinden hareket eder.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "012"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-27-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "lef_r",
+      "name": "Sağ hücum kenarı flapı",
+      "parent": "wings",
+      "sns": "27-40",
+      "meshNodes": [
+        "lef_r"
+      ],
+      "zone": "z.wings",
+      "function": "Hıza ve hücum açısına göre kendiliğinden hareket eder.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "013"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-27-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "flaperon_l",
+      "name": "Sol flaperon",
+      "parent": "wings",
+      "sns": "27-10",
+      "meshNodes": [
+        "flaperon_l"
+      ],
+      "zone": "z.wings",
+      "function": "Kanatçık ve flap görevini birlikte yapan firar kenarı yüzeyi.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "014"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-27-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "flaperon_r",
+      "name": "Sağ flaperon",
+      "parent": "wings",
+      "sns": "27-10",
+      "meshNodes": [
+        "flaperon_r"
+      ],
+      "zone": "z.wings",
+      "function": "Kanatçık ve flap görevini birlikte yapan firar kenarı yüzeyi.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "015"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-27-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "empennage",
+      "name": "Kuyruk",
+      "sns": "57-20",
+      "meshNodes": [
+        "vertical_tail",
+        "rudder",
+        "horizontal_tail_l",
+        "horizontal_tail_r",
+        "speed_brakes"
+      ],
+      "zone": "z.tail",
+      "function": "Dikey kuyruk, dümen, yatay kuyruklar ve hava frenleri.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "016"
+      }
+    },
+    {
+      "id": "vertical_tail",
+      "name": "Dikey kuyruk",
+      "parent": "empennage",
+      "sns": "57-20",
+      "meshNodes": [
+        "vertical_tail"
+      ],
+      "zone": "z.tail",
+      "function": "Yön kararlılığını sağlar.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "017"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-57-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "rudder",
+      "name": "Dümen",
+      "parent": "empennage",
+      "sns": "27-20",
+      "meshNodes": [
+        "rudder"
+      ],
+      "zone": "z.tail",
+      "function": "Dikey kuyruğun firar kenarındaki yön kumanda yüzeyi.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "018"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-27-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "horizontal_tail_l",
+      "name": "Sol yatay kuyruk",
+      "parent": "empennage",
+      "sns": "27-30",
+      "meshNodes": [
+        "horizontal_tail_l"
+      ],
+      "zone": "z.tail",
+      "function": "Tek parça dönen stabilatör; yunuslama ve yatış kumandası.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "019"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-27-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "horizontal_tail_r",
+      "name": "Sağ yatay kuyruk",
+      "parent": "empennage",
+      "sns": "27-30",
+      "meshNodes": [
+        "horizontal_tail_r"
+      ],
+      "zone": "z.tail",
+      "function": "Tek parça dönen stabilatör; yunuslama ve yatış kumandası.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "020"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-27-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "speed_brakes",
+      "name": "Hava frenleri",
+      "parent": "empennage",
+      "sns": "27-50",
+      "meshNodes": [
+        "speed_brakes"
+      ],
+      "zone": "z.tail",
+      "function": "Lülenin iki yanında açılan, uçağı yavaşlatan paneller.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "021"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-27-50-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "flight_controls",
+      "name": "Uçuş kumanda sistemi",
+      "sns": "27-00",
+      "meshNodes": [
+        "lef_l",
+        "lef_r",
+        "flaperon_l",
+        "flaperon_r",
+        "horizontal_tail_l",
+        "horizontal_tail_r",
+        "rudder",
+        "speed_brakes"
+      ],
+      "zone": "z.fuselage",
+      "function": "Elektrikli (fly-by-wire) kumanda: bilgisayar ve hidrolik eyleyiciler.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "022"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-27-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "flight_controls.actuators",
+      "name": "Kumanda eyleyicileri",
+      "parent": "flight_controls",
+      "sns": "27-00",
+      "meshNodes": [
+        "lef_l",
+        "lef_r",
+        "flaperon_l",
+        "flaperon_r",
+        "horizontal_tail_l",
+        "horizontal_tail_r",
+        "rudder",
+        "speed_brakes"
+      ],
+      "zone": "z.wings",
+      "function": "Kumanda yüzeylerini hareket ettiren hidrolik silindirler.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "023"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-27-00-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "fuel",
+      "name": "Yakıt sistemi",
+      "sns": "28-00",
+      "meshNodes": [
+        "conformal_tanks",
+        "fuselage"
+      ],
+      "zone": "z.fuselage",
+      "function": "Gövde ve kanat içi tanklar, konformal tanklar, pompalar ve hatlar.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "024"
+      },
+      "procedures": {
+        "refill": "DMC-NAYAJET-AAA-28-10-00-00AA-210A-A"
+      }
+    },
+    {
+      "id": "fuel.internal",
+      "name": "Gövde içi tanklar",
+      "parent": "fuel",
+      "sns": "28-10",
+      "meshNodes": [
+        "fuselage"
+      ],
+      "zone": "z.fuselage",
+      "function": "Gövdedeki ve kanatlardaki yakıt tankları.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "025"
+      },
+      "procedures": {
+        "refill": "DMC-NAYAJET-AAA-28-10-00-00AA-210A-A",
+        "inspect": "DMC-NAYAJET-AAA-28-10-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "fuel.cft",
+      "name": "Konformal yakıt tankları",
+      "parent": "fuel",
+      "sns": "28-20",
+      "meshNodes": [
+        "conformal_tanks"
+      ],
+      "zone": "z.fuselage",
+      "function": "Gövdenin üstüne iki yandan oturan, sökülebilir ek tanklar.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "026"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-28-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "hydraulics",
+      "name": "Hidrolik sistem",
+      "sns": "29-10",
+      "meshNodes": [
+        "fuselage"
+      ],
+      "zone": "z.fuselage",
+      "function": "İki ayrı sistem (A ve B); kumanda yüzeylerini, iniş takımını ve frenleri çalıştırır.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "027"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-29-10-00-00AA-300A-A",
+        "isolate": "DMC-NAYAJET-AAA-29-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "landing_gear",
+      "name": "İniş takımı",
+      "sns": "32-00",
+      "meshNodes": [
+        "nose_gear",
+        "main_gear_l",
+        "main_gear_r"
+      ],
+      "zone": "z.gear",
+      "function": "Burun ve iki ana iniş takımı; hidrolikle açılır ve kapanır.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "028"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYAJET-AAA-32-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "nose_gear",
+      "name": "Burun iniş takımı",
+      "parent": "landing_gear",
+      "sns": "32-20",
+      "meshNodes": [
+        "nose_gear"
+      ],
+      "zone": "z.gear",
+      "function": "Yönlendirilebilir burun tekerleği ve dikmesi.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "029"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-32-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "main_gear_l",
+      "name": "Sol ana iniş takımı",
+      "parent": "landing_gear",
+      "sns": "32-10",
+      "meshNodes": [
+        "main_gear_l"
+      ],
+      "zone": "z.gear",
+      "function": "Sol dikme, tekerlek, fren ve kapaklar.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "030"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-32-10-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "main_gear_r",
+      "name": "Sağ ana iniş takımı",
+      "parent": "landing_gear",
+      "sns": "32-10",
+      "meshNodes": [
+        "main_gear_r"
+      ],
+      "zone": "z.gear",
+      "function": "Sağ dikme, tekerlek, fren ve kapaklar.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "031"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-32-10-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "gear.struts",
+      "name": "Amortisör dikmeleri",
+      "parent": "landing_gear",
+      "sns": "32-10",
+      "meshNodes": [
+        "nose_gear",
+        "main_gear_l",
+        "main_gear_r"
+      ],
+      "zone": "z.gear",
+      "function": "Yağ ve azot dolu, iniş darbesini sönümleyen dikmeler.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "032"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-32-10-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "gear.wheels",
+      "name": "Tekerlekler ve lastikler",
+      "parent": "landing_gear",
+      "sns": "32-40",
+      "meshNodes": [
+        "nose_gear",
+        "main_gear_l",
+        "main_gear_r"
+      ],
+      "zone": "z.gear",
+      "function": "Azotla şişirilen lastikler ve jantlar.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "033"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-32-40-00-00AA-300A-A",
+        "replace": "DMC-NAYAJET-AAA-32-40-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "gear.brakes",
+      "name": "Tekerlek frenleri",
+      "parent": "landing_gear",
+      "sns": "32-40",
+      "meshNodes": [
+        "main_gear_l",
+        "main_gear_r"
+      ],
+      "zone": "z.gear",
+      "function": "Ana tekerleklerdeki çok diskli frenler; aşınma pimiyle izlenir.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "034"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-32-40-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "tail_hook",
+      "name": "Kuyruk kancası",
+      "sns": "32-50",
+      "meshNodes": [
+        "tail_hook"
+      ],
+      "zone": "z.tail",
+      "function": "Acil durumda pistteki durdurucu kabloyu yakalayan kanca.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "035"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-32-50-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "engine",
+      "name": "Motor",
+      "sns": "72-00",
+      "meshNodes": [
+        "engine_fan",
+        "engine_casing",
+        "engine_lpc",
+        "engine_hpc",
+        "engine_combustor",
+        "engine_hpt",
+        "engine_lpt",
+        "engine_shafts",
+        "engine_gearbox",
+        "afterburner",
+        "engine_nozzle"
+      ],
+      "zone": "z.engine",
+      "function": "Art yakıcılı çift milli turbofan motor.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "036"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYAJET-AAA-72-00-00-00AA-421A-A",
+        "inspect": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "engine.fan",
+      "name": "Fan",
+      "parent": "engine",
+      "sns": "72-10",
+      "meshNodes": [
+        "engine_fan"
+      ],
+      "zone": "z.engine",
+      "function": "Havayı emen ön kanat katı; bir kısmını baypas kanalına gönderir.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "037"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-72-10-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "engine.casing",
+      "name": "Motor gövdesi ve baypas kanalı",
+      "parent": "engine",
+      "sns": "72-00",
+      "meshNodes": [
+        "engine_casing"
+      ],
+      "zone": "z.engine",
+      "function": "Fan kasası ve çekirdeği saran dış gövde.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "038"
+      }
+    },
+    {
+      "id": "engine.lpc",
+      "name": "Alçak basınç kompresörü",
+      "parent": "engine",
+      "sns": "72-10",
+      "meshNodes": [
+        "engine_lpc"
+      ],
+      "zone": "z.engine",
+      "function": "Havayı çekirdeğe girerken ilk kez sıkıştırır; fanla aynı milde döner.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "039"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "engine.hpc",
+      "name": "Yüksek basınç kompresörü",
+      "parent": "engine",
+      "sns": "72-10",
+      "meshNodes": [
+        "engine_hpc"
+      ],
+      "zone": "z.engine",
+      "function": "Havayı yanma odasına girmeden önce son kez sıkıştırır.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "040"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "engine.combustor",
+      "name": "Yanma odası",
+      "parent": "engine",
+      "sns": "72-20",
+      "meshNodes": [
+        "engine_combustor"
+      ],
+      "zone": "z.engine",
+      "function": "Sıkıştırılmış havayla yakıtın yandığı halka biçimli oda.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "041"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "engine.fuel_nozzles",
+      "name": "Yakıt enjektörleri",
+      "parent": "engine.combustor",
+      "sns": "72-20",
+      "meshNodes": [
+        "engine_combustor"
+      ],
+      "zone": "z.engine",
+      "function": "Yakıtı yanma odasına ince damlacıklar halinde püskürtür.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "042"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "engine.igniters",
+      "name": "Ateşleyiciler",
+      "parent": "engine.combustor",
+      "sns": "72-20",
+      "meshNodes": [
+        "engine_combustor"
+      ],
+      "zone": "z.engine",
+      "function": "Çalıştırmada yakıt-hava karışımını kıvılcımla tutuşturur.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "043"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYAJET-AAA-72-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "engine.hpt",
+      "name": "Yüksek basınç türbini",
+      "parent": "engine",
+      "sns": "72-30",
+      "meshNodes": [
+        "engine_hpt"
+      ],
+      "zone": "z.engine",
+      "function": "Yanma odasından çıkan gazla döner ve yüksek basınç kompresörünü çevirir.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "044"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "engine.lpt",
+      "name": "Alçak basınç türbini",
+      "parent": "engine",
+      "sns": "72-30",
+      "meshNodes": [
+        "engine_lpt"
+      ],
+      "zone": "z.engine",
+      "function": "Fanı ve alçak basınç kompresörünü çevirir.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "045"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "engine.shafts",
+      "name": "Miller ve yataklar",
+      "parent": "engine",
+      "sns": "72-00",
+      "meshNodes": [
+        "engine_shafts"
+      ],
+      "zone": "z.engine",
+      "function": "İç içe iki mil: alçak basınç mili ve yüksek basınç mili.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "046"
+      }
+    },
+    {
+      "id": "engine.gearbox",
+      "name": "Aksesuar dişli kutusu",
+      "parent": "engine",
+      "sns": "72-00",
+      "meshNodes": [
+        "engine_gearbox"
+      ],
+      "zone": "z.engine",
+      "function": "Yakıt ve yağ pompalarını, jeneratörü çalıştırır.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "047"
+      }
+    },
+    {
+      "id": "engine.oil",
+      "name": "Motor yağ sistemi",
+      "parent": "engine",
+      "sns": "79-10",
+      "meshNodes": [
+        "engine_gearbox"
+      ],
+      "zone": "z.engine",
+      "function": "Yatakları ve dişlileri yağlayan depo, pompa ve filtre.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "048"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-79-10-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "engine.afterburner",
+      "name": "Art yakıcı",
+      "parent": "engine",
+      "sns": "72-50",
+      "meshNodes": [
+        "afterburner"
+      ],
+      "zone": "z.engine",
+      "function": "Türbin çıkışındaki gaza yeniden yakıt püskürterek ek itki sağlar.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "049"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-72-50-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "engine.nozzle",
+      "name": "Egzoz lülesi",
+      "parent": "engine",
+      "sns": "72-50",
+      "meshNodes": [
+        "engine_nozzle"
+      ],
+      "zone": "z.tail",
+      "function": "Çıkış alanını itki ihtiyacına göre değiştiren yapraklı lüle.",
+      "ipd": {
+        "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "050"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYAJET-AAA-72-50-00-00AA-310A-A"
+      }
+    }
+  ]
+}

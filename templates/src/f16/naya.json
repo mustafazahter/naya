@@ -1,0 +1,41 @@
+{
+  "format": "naya",
+  "formatVersion": "1.0.0",
+  "id": "f-16d-block-60",
+  "kind": "template",
+  "language": "tr",
+  "title": "F-16F Block 60",
+  "product": {
+    "category": "aircraft",
+    "make": "General Dynamics / Lockheed Martin",
+    "model": "F-16 Fighting Falcon",
+    "variant": "Block 60, iki kişilik, konformal yakıt tanklı"
+  },
+  "s1000d": {
+    "issue": "5.0",
+    "modelIdentCode": "NAYAJET",
+    "entry": "csdb/PMC-NAYAJET-NAYA0-00001-00_001-00_TR-TR.XML"
+  },
+  "model": {
+    "main": "model/product.glb",
+    "units": "m",
+    "upAxis": "Y",
+    "compression": "draco"
+  },
+  "credits": [
+    {
+      "asset": "model/product.glb",
+      "author": "Muhamad Mirza Arrafi (MirzaArrafiERV_45), uçak modeli",
+      "source": "https://sketchfab.com/3d-models/general-dynamics-f-16d-block-60-ea8edb08d79e4eafa9c794c581f88cf3",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "asset": "model/product.glb",
+      "author": "bagsantanu1109, turbofan motor modeli",
+      "source": "https://sketchfab.com/3d-models/turbofan-engine-cutaway-aerospace-3d-model-2bfdca9d3d144969883543287039a1d5",
+      "license": "CC-BY-4.0"
+    }
+  ],
+  "generator": "naya_cli 0.1.0",
+  "created": "2026-11-23T00:00:00Z"
+}

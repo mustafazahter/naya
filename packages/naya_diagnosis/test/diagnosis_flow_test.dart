@@ -268,26 +268,7 @@ void main() {
       ]);
     });
 
-    // Parça turunda modele yalnız seçilen sistemin parçaları sunulur; her
-    // arızanın parçası o listede olmalı, yoksa teşhis onu hiç bulamaz.
-    test('her arızanın parçası teşhiste seçilebilir', () {
-      final file = jsonDecode(
-        File('../../templates/src/corolla/map/faults.json').readAsStringSync(),
-      ) as Map<String, Object?>;
-      for (final fault in FaultsFile.fromJson(file).faults) {
-        final system = corolla.systemOf(fault.part);
-        expect(
-          corolla.partsOf(system).map((p) => p.id),
-          contains(fault.part),
-          reason: fault.id,
-        );
-        expect(
-          corolla.faultsOf(fault.part).map((f) => f.id),
-          contains(fault.id),
-          reason: fault.id,
-        );
-      }
-    });
+    _faultPartsSelectable(corolla, 'corolla');
 
     test('fren tutmuyor: balatalar ve değişim prosedürü', () async {
       final result = await DiagnosisFlow(
@@ -322,5 +303,133 @@ void main() {
       expect(result.fault!.id, 'f.pads.worn');
       expect(result.procedure, 'DMC-NAYACAR-AAA-DA3-10-00-00AA-921A-A');
     });
+  });
+  group('Leopard 2A6 kataloğu', () {
+    final tank = _template('leopard2', 'Leopard 2A6');
+
+    test('sistemler', () {
+      expect(tank.systems.map((s) => s.id), [
+        'hull',
+        'turret',
+        'powerpack',
+        'fuel',
+        'running_gear',
+        'electrical',
+      ]);
+    });
+
+    _faultPartsSelectable(tank, 'leopard2');
+
+    test('motor ısınıyor: radyatör temizliği', () async {
+      final result = await DiagnosisFlow(
+        catalog: tank,
+        decider: _ScriptedDecider([
+          _diagnose,
+          const DecisionAnswers(
+            choices: {
+              'system': {'powerpack': 0.8, 'hull': 0.1, 'none': 0.1},
+            },
+          ),
+          const DecisionAnswers(
+            choices: {
+              'part:powerpack': {
+                'cooling.radiators': 0.7,
+                'cooling.fans': 0.2,
+                'none': 0.1,
+              },
+            },
+          ),
+          const DecisionAnswers(
+            choices: {
+              'fault': {'f.radiator.dirty': 0.8, 'none': 0.2},
+            },
+            yes: {'danger': 0.3},
+          ),
+        ]),
+      ).run('Tozlu arazide motor sıcaklığı sürekli yükseliyor.');
+
+      expect(result.decision, DiagnosisDecision.focus);
+      expect(result.top!.partId, 'cooling.radiators');
+      expect(result.fault!.id, 'f.radiator.dirty');
+      expect(result.procedure, 'DMC-NAYATANK-AAA-DA1-30-00-00AA-250A-A');
+    });
+  });
+
+  group('F-16F kataloğu', () {
+    final jet = _template('f16', 'F-16F Block 60');
+
+    test('sistemler', () {
+      expect(jet.systems.map((s) => s.id), [
+        'airframe',
+        'cockpit',
+        'wings',
+        'empennage',
+        'flight_controls',
+        'fuel',
+        'hydraulics',
+        'landing_gear',
+        'tail_hook',
+        'engine',
+      ]);
+    });
+
+    _faultPartsSelectable(jet, 'f16');
+
+    test('frenler zayıf: aşınma pimi muayenesi', () async {
+      final result = await DiagnosisFlow(
+        catalog: jet,
+        decider: _ScriptedDecider([
+          _diagnose,
+          const DecisionAnswers(
+            choices: {
+              'system': {'landing_gear': 0.8, 'hydraulics': 0.1, 'none': 0.1},
+            },
+          ),
+          const DecisionAnswers(
+            choices: {
+              'part:landing_gear': {
+                'gear.brakes': 0.7,
+                'gear.wheels': 0.2,
+                'none': 0.1,
+              },
+            },
+          ),
+          const DecisionAnswers(
+            choices: {
+              'fault': {'f.brakes.worn': 0.8, 'none': 0.2},
+            },
+            yes: {'danger': 0.7},
+          ),
+        ]),
+      ).run('Taksi sırasında frenler zayıf tutuyor, aşınma pimi görünmüyor.');
+
+      expect(result.decision, DiagnosisDecision.focus);
+      expect(result.top!.partId, 'gear.brakes');
+      expect(result.fault!.id, 'f.brakes.worn');
+      expect(result.procedure, 'DMC-NAYAJET-AAA-32-40-00-00AA-310A-A');
+    });
+  });
+}
+
+/// Parça turunda modele yalnız seçilen sistemin parçaları sunulur; her
+/// arızanın parçası o listede olmalı, yoksa teşhis onu hiç bulamaz.
+void _faultPartsSelectable(DiagnosisCatalog catalog, String folder) {
+  test('her arızanın parçası teşhiste seçilebilir', () {
+    final file = jsonDecode(
+      File('../../templates/src/$folder/map/faults.json').readAsStringSync(),
+    ) as Map<String, Object?>;
+    for (final fault in FaultsFile.fromJson(file).faults) {
+      final system = catalog.systemOf(fault.part);
+      expect(
+        catalog.partsOf(system).map((p) => p.id),
+        contains(fault.part),
+        reason: fault.id,
+      );
+      expect(
+        catalog.faultsOf(fault.part).map((f) => f.id),
+        contains(fault.id),
+        reason: fault.id,
+      );
+    }
   });
 }

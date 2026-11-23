@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYAJET-AAA-D000000-0-NAYA0-00001-A-001-01 SYSTEM "ICN-NAYAJET-AAA-D000000-0-NAYA0-00001-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>F-16F Block 60</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>F-16, General Dynamics (bugün Lockheed Martin) tarafından geliştirilen tek motorlu, çok rollü bir savaş uçağıdır. Block 60 sürümünün tek kişilik olanı E, iki kişilik olanı F adını taşır; F'de ön ve arka kokpit art arda dizilidir.</para>
+        <para>Block 60 sürümünde gövdenin üstünde iki yanda konformal yakıt tankları bulunur; bu tanklar menzili artırır ve dış yük istasyonlarını boş bırakır.</para>
+      </levelledPara>
+      <figure id="fig-0001"><title>Uçak, soldan görünüş</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure>
+      <levelledPara>
+        <title>Sistemler</title>
+        <para>Gövde: tek parça kanat-gövde birleşimi, burunda radom, gövdenin altında hava alığı, üstte kabarcık biçimli kanopi.</para>
+        <para>Uçuş kumandaları: elektrikli (fly-by-wire) kumanda; flaperonlar, hücum kenarı flapları, tek parça hareket eden yatay kuyruklar, dümen ve kuyruk yanlarındaki hava frenleri.</para>
+        <para>İniş takımı: gövdenin içine katlanan ana iniş takımları ve geriye katlanan burun iniş takımı; ana tekerleklerde disk frenler.</para>
+        <para>Güç: tek bir art yakıcılı turbofan motor; iki ayrı hidrolik sistem kumanda yüzeylerini ve iniş takımını çalıştırır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Bu el kitabı hakkında</title>
+        <para>Bu şablon eğitim amaçlıdır ve yalnız genel bakım bilgisi içerir. Ölçü, basınç ve tork değerleri bu şablonda verilmez; uçağın kendi teknik el kitabındaki değerleri kullanın.</para>
+        <para>Dış yükler (füzeler, bombalar, dış yakıt tankları ve pilonlar) modelde gösterilmez.</para>
+        <para>Modeldeki motor genel bir çift milli turbofan modelidir; Block 60'ın gerçek motoru (General Electric F110-GE-132) değildir. Ana bölümleri aynıdır: fan, kompresörler, yanma odası, türbinler. Art yakıcı kanalı temsilidir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

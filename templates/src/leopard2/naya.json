@@ -1,0 +1,35 @@
+{
+  "format": "naya",
+  "formatVersion": "1.0.0",
+  "id": "leopard-2a6",
+  "kind": "template",
+  "language": "tr",
+  "title": "Leopard 2A6",
+  "product": {
+    "category": "tank",
+    "make": "Krauss-Maffei Wegmann",
+    "model": "Leopard 2",
+    "variant": "2A6 ana muharebe tankı"
+  },
+  "s1000d": {
+    "issue": "5.0",
+    "modelIdentCode": "NAYATANK",
+    "entry": "csdb/PMC-NAYATANK-NAYA0-00001-00_001-00_TR-TR.XML"
+  },
+  "model": {
+    "main": "model/product.glb",
+    "units": "m",
+    "upAxis": "Y",
+    "compression": "draco"
+  },
+  "credits": [
+    {
+      "asset": "model/product.glb",
+      "author": "Quasar (mansoorsajidp), tank modeli",
+      "source": "https://sketchfab.com/3d-models/leopard-2a6-free-b62ba39ae5584b768b53d58803c3cc4b",
+      "license": "CC-BY-4.0"
+    }
+  ],
+  "generator": "naya_cli 0.1.0",
+  "created": "2026-11-23T00:00:00Z"
+}

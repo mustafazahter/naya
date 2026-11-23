@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYAJET-AAA-D000000-0-NAYA0-00006-A-001-01 SYSTEM "ICN-NAYAJET-AAA-D000000-0-NAYA0-00006-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="72" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Motor</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Turbofan motorda hava önce fandan geçer. Havanın bir kısmı çekirdeğe girer, bir kısmı çekirdeğin çevresinden dolaşan baypas kanalından geçer.</para>
+        <para>Çekirdekte alçak ve yüksek basınç kompresörleri havayı sıkıştırır. Yanma odasında yakıt yakılır; sıcak gaz yüksek ve alçak basınç türbinlerini döndürür. Türbinler miller üzerinden kompresörleri ve fanı çevirir.</para>
+        <para>Art yakıcı, türbinden çıkan gaza yeniden yakıt püskürterek kısa süreli ek itki sağlar. Lüle çıkış alanını itki ihtiyacına göre açar ve kapatır.</para>
+      </levelledPara>
+      <figure id="fig-0006"><title>Turbofan motor</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00006-A-001-01"/></figure>
+      <levelledPara>
+        <title>Aksesuar dişli kutusu</title>
+        <para>Motorun altındaki aksesuar dişli kutusu, yüksek basınç milinden bir dikey milde aldığı hareketle yakıt pompası, yağ pompası ve jeneratör gibi yardımcıları çalıştırır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Bu modeldeki motor</title>
+        <para>Modeldeki motor genel bir çift milli turbofan modelidir; F110 motorunun birebir modeli değildir. Art yakıcı kanalı temsilidir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

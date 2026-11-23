@@ -1,0 +1,26 @@
+{
+  "zones": [
+    {
+      "id": "z.hull",
+      "name": "Gövde"
+    },
+    {
+      "id": "z.driver",
+      "name": "Sürücü bölmesi",
+      "parent": "z.hull"
+    },
+    {
+      "id": "z.engine",
+      "name": "Motor bölmesi",
+      "parent": "z.hull"
+    },
+    {
+      "id": "z.turret",
+      "name": "Kule"
+    },
+    {
+      "id": "z.running",
+      "name": "Yürüyen takım"
+    }
+  ]
+}
