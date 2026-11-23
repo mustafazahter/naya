@@ -696,8 +696,9 @@ export class NayaViewer {
   }
 }
 
-/** Fareyle üstüne gelinen parçanın hafif parlaması; seçiminkinden zayıf. */
-const HOVER_GLOW = 0.16;
+/** Fareyle üstüne gelinen parçanın belli belirsiz parlaması; seçiminkinin
+ * dörtte biri kadar. */
+const HOVER_GLOW = 0.07;
 
 /** Tarama bittikten sonra kalan parlaklık; olasılıkla orantılı. */
 function restingGlow(weight: number): number {
