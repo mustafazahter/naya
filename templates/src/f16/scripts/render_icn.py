@@ -21,6 +21,8 @@ SURFACES = ['lef_l', 'lef_r', 'flaperon_l', 'flaperon_r',
             'horizontal_tail_l', 'horizontal_tail_r', 'rudder',
             'speed_brakes']
 LEFT = ['wing_l', 'lef_l', 'flaperon_l', 'horizontal_tail_l']
+CORE = ['engine_lpc', 'engine_hpc', 'engine_combustor', 'engine_hpt',
+        'engine_lpt']
 
 # Blender'da uçağın burnu -Y, solu +X yönünde.
 VIEWS = [
@@ -33,7 +35,10 @@ VIEWS = [
     ('00004', None, 37, (0.35, 0.45, 1), SURFACES, None, ()),
     ('00005', ['canopy'], 9.5, (1, -0.7, 0.8), ('canopy', 'cockpit'), None,
      ()),
-    ('00006', ENGINE, 5.5, (1, -0.6, 0.45), ('engine_combustor',),
+    ('00006', ENGINE, 5.5, (1, -0.6, 0.45), CORE,
+     [e for e in ENGINE if e != 'engine_casing'], ()),
+    ('00007', ['intake'], 7.5, (0.45, -1, 0.1), ('intake',), None, ()),
+    ('00008', ['engine_fan'], 3.2, (0.5, -1, 0.35), ('engine_fan',),
      [e for e in ENGINE if e != 'engine_casing'], ()),
 ]
 

@@ -1,11 +1,11 @@
-# F-16D Block 60 şablonu
+# F-16F Block 60 şablonu
 
-İki kişilik F-16D Block 60, konformal yakıt tanklarıyla. İçerik yalnız genel bakım bilgisidir: uçuş öncesi ve sonrası kontroller, ikmal, seviye kontrolleri, gözle muayene, teker değişimi ve arıza bulma. Silah, aviyonik, elektronik harp ve performans bilgisi yok. Ölçü, basınç ve tork değerleri de verilmiyor; DM'ler değer gereken yerde uçağın kendi teknik el kitabına yönlendiriyor.
+İki kişilik F-16F Block 60, konformal yakıt tanklarıyla. Kaynak modelin adı "F-16D Block 60"; Block 60'ın iki kişilik sürümünün adı F-16F (tek kişilik E), şablon bu adı kullanıyor. Manifest kimliği (`f-16d-block-60`) kütüphanede aynı kayıt kalsın diye değişmedi. İçerik yalnız genel bakım bilgisidir: uçuş öncesi ve sonrası kontroller, ikmal, seviye kontrolleri, gözle muayene, teker değişimi ve arıza bulma. Silah, aviyonik, elektronik harp ve performans bilgisi yok. Ölçü, basınç ve tork değerleri de verilmiyor; DM'ler değer gereken yerde uçağın kendi teknik el kitabına yönlendiriyor.
 
 ```
 f16/
 ├── naya.json      manifest (bütünlük özetleri paketlerken eklenir)
-├── csdb/          S1000D Issue 5.0: 33 DM, PM, DML, 6 çizim
+├── csdb/          S1000D Issue 5.0: 33 DM, PM, DML, 8 çizim
 ├── map/           parts.json (50 parça), faults.json (22 arıza), zones.json
 ├── model/         product.glb
 └── scripts/       modeli kuran, içeriği ve çizimleri üreten betikler

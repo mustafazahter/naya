@@ -4,12 +4,12 @@
   "id": "f-16d-block-60",
   "kind": "template",
   "language": "tr",
-  "title": "F-16D Block 60",
+  "title": "F-16F Block 60",
   "product": {
     "category": "aircraft",
     "make": "General Dynamics / Lockheed Martin",
     "model": "F-16 Fighting Falcon",
-    "variant": "D Block 60, iki kişilik, konformal yakıt tanklı"
+    "variant": "Block 60, iki kişilik, konformal yakıt tanklı"
   },
   "s1000d": {
     "issue": "5.0",

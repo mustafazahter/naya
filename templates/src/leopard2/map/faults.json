@@ -244,9 +244,10 @@
       "id": "f.brakes.worn",
       "part": "transmission.brakes",
       "symptoms": [
-        "sym.brake_weak"
+        "sym.brake_weak",
+        "sym.pull"
       ],
-      "cause": "Servis frenleri aşınmış.",
+      "cause": "Servis frenleri aşınmış ya da bir yandaki fren sürtüyor.",
       "severity": 3
     },
     {
@@ -267,7 +268,7 @@
         "sym.track_slack",
         "sym.track_noise"
       ],
-      "cause": "Palet gerginliği azalmış; gerdirme silindiri gres kaçırıyor olabilir.",
+      "cause": "Palet gerginliği azalmış; gerdirme tertibatı ayarını kaybetmiş olabilir.",
       "severity": 3,
       "isolation": "DMC-NAYATANK-AAA-DA3-00-00-00AA-421A-A",
       "repair": "DMC-NAYATANK-AAA-DA3-10-00-00AA-271A-A"
@@ -286,7 +287,7 @@
     },
     {
       "id": "f.wheel.bearing",
-      "part": "road_wheels_l",
+      "part": "road_wheels",
       "symptoms": [
         "sym.hot_hub",
         "sym.track_noise"
@@ -297,7 +298,7 @@
     },
     {
       "id": "f.wheel.tyre",
-      "part": "road_wheels_r",
+      "part": "road_wheels",
       "symptoms": [
         "sym.rubber_loss",
         "sym.vibration"
@@ -310,8 +311,7 @@
       "id": "f.damper.leak",
       "part": "suspension.dampers",
       "symptoms": [
-        "sym.pitching",
-        "sym.pull"
+        "sym.pitching"
       ],
       "cause": "Amortisör yağını kaçırmış; sönümleme yok.",
       "severity": 2,

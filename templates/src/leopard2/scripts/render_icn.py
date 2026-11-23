@@ -34,6 +34,8 @@ VIEWS = [
      ('optics', 'machine_gun', 'smoke_dischargers'), None, ()),
     ('00006', ['idler_l'], 4.5, (1, -0.7, 0.35), ('idler_l', 'track_l'),
      None, ('side_skirt_l',)),
+    ('00007', ['engine_deck'], 7, (0.5, 0.75, 1), ('engine_deck',), None,
+     TURRET),
 ]
 
 argv = sys.argv[sys.argv.index('--') + 1:]

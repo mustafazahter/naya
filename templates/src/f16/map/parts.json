@@ -132,14 +132,14 @@
     },
     {
       "id": "cockpit.panels",
-      "name": "Gösterge panelleri ve HUD",
+      "name": "Gösterge panelleri",
       "parent": "cockpit",
       "sns": "25-00",
       "meshNodes": [
         "cockpit"
       ],
       "zone": "z.cockpit",
-      "function": "Çok işlevli ekranlar ve ön kokpitteki baş üstü gösterge.",
+      "function": "Ön ve arka kokpitteki göstergeler ve ekranlar.",
       "ipd": {
         "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
         "figure": "01",

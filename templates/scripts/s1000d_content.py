@@ -12,7 +12,7 @@ DM sözlüğünün alanları:
   steps: [adım | (başlık, [alt adım...])]   → prosedür DM'i
   isolation: {...}                          → arıza bulma DM'i
   figure: çizim numarası
-  tools, supplies, spares: [(ad, adet)]
+  tools, supplies, spares: [(ad, adet)]; adet None ise "Gerektiği kadar"
   warnings, cautions: [metin]
   conditions: [metin]
   next: sonraki işlemin DMC'si
@@ -102,7 +102,8 @@ class Content:
         self.parts.append(dict(id=id, name=name, parent=parent, sns=sns,
                                nodes=nodes, zone=zone, function=function,
                                procedures=procedures or {},
-                               quantity=quantity, part_number=part_number))
+                               quantity=quantity, part_number=part_number,
+                               item=f'{len(self.parts) + 1:03d}'))
 
     def icn(self, number):
         return (f'ICN-{self.model}-AAA-D000000-0-{self.company}-'
@@ -202,12 +203,16 @@ class Content:
                      '</manufacturerCode><partAndSerialNumber><partNumber>'
                      f'{self.item_number(prefix, name)}'
                      '</partNumber></partAndSerialNumber></identNumber>')
-            # Sıvılar litreyle, gerisi adetle.
-            liquid = any(w in name for w in self.liquids)
-            unit_of = 'L' if unit == 'L' and liquid else 'EA'
+            if quantity is None:
+                # Miktar el kitabına bağlı (yakıt, yağ); sayı uydurulmaz.
+                amount = f'<{req}>Gerektiği kadar</{req}>'
+            else:
+                # Sıvılar litreyle, gerisi adetle.
+                liquid = any(w in name for w in self.liquids)
+                unit_of = 'L' if unit == 'L' and liquid else 'EA'
+                amount = f'<{req} unitOfMeasure="{unit_of}">{quantity}</{req}>'
             rows.append(f'<{descr} id="{prefix.lower()}-{i:04d}"><name>'
-                        f'{t(name)}</name>{ident}<{req} unitOfMeasure='
-                        f'"{unit_of}">{quantity}</{req}></{descr}>')
+                        f'{t(name)}</name>{ident}{amount}</{descr}>')
         return f'<{group}>{"".join(rows)}</{group}>'
 
     @staticmethod
@@ -326,7 +331,6 @@ class Content:
                 f'{t(p["name"])}</descrForPart></itemIdentData></partSegment>\n'
                 '        </itemSeqNumber>\n'
                 '      </catalogSeqNumber>')
-            p['item'] = f'{i:03d}'
         return ('    <illustratedPartsCatalog>\n' + '\n'.join(rows)
                 + '\n    </illustratedPartsCatalog>')
 
@@ -513,6 +517,24 @@ class Content:
             assert set(syms) <= symptoms, f'{fid}: belirti yok'
             used |= set(syms)
         assert used == symptoms, f'kullanılmayan belirti: {symptoms - used}'
+        # Her DMC başvurusu tanımlı bir DM'e, her arıza bulma adımı tanımlı
+        # bir adıma gitmeli.
+        defined = {str(d['code']) for d in self.dms} | {str(self.ipd)}
+        refs = [(p['id'], v) for p in self.parts
+                for v in p['procedures'].values()]
+        refs += [(f[0], dmc) for f in self.faults for dmc in f[5:7] if dmc]
+        for d in self.dms:
+            if d.get('next'):
+                refs.append((str(d['code']), d['next']))
+            iso = d.get('isolation')
+            if not iso:
+                continue
+            ids = {st[0] for st in iso['steps']} | {e[0] for e in iso['ends']}
+            for sid, _, _, yes, no in iso['steps']:
+                assert {yes, no} <= ids, f'{d["code"]} {sid}: adım yok'
+            refs += [(str(d['code']), e[2]) for e in iso['ends'] if e[2]]
+        for where, dmc in refs:
+            assert str(dmc) in defined, f'{where}: {dmc} tanımlı değil'
 
     def write(self):
         self.check()

@@ -1,4 +1,4 @@
-"""F-16D Block 60 şablonunun S1000D içeriğini ve parça haritasını üretir.
+"""F-16F Block 60 şablonunun S1000D içeriğini ve parça haritasını üretir.
 
     python3 make_content.py
 
@@ -9,6 +9,9 @@ ve tork değerleri verilmez; DM'ler değer gereken yerde uçağın kendi teknik
 el kitabına yönlendirir.
 
 Sistem kodları ATA 100 bölüm numaralarına benzer (32 iniş takımı, 72 motor).
+
+Kaynak modelin adı "F-16D Block 60"; iki kişilik Block 60'ın adı F-16F
+(tek kişilik E). Şablon ve içerik F-16F adını kullanır.
 """
 import sys
 from pathlib import Path
@@ -51,13 +54,15 @@ FIGURES = {
     4: 'Uçuş kumanda yüzeyleri',
     5: 'Kanopi ve kokpit',
     6: 'Turbofan motor',
+    7: 'Hava alığı',
+    8: 'Fan',
 }
 
 C = Content(
     HERE, model='NAYAJET',
-    applic='F-16D Block 60, iki kişilik',
-    product='F-16D Block 60',
-    manual='F-16D Block 60 genel bakım el kitabı',
+    applic='F-16F Block 60, iki kişilik',
+    product='F-16F Block 60',
+    manual='F-16F Block 60 genel bakım el kitabı',
     sns=SNS, figures=FIGURES, general='00',
     liquids=('yağı', 'sıvısı', 'yakıt'))
 code, dm, part = C.code, C.dm, C.part
@@ -80,12 +85,13 @@ NO_VALUES = ('Ölçü, basınç ve tork değerleri bu şablonda verilmez; uçağ
 
 # Genel
 AIRCRAFT = dm(
-    code=code('00'), tech='F-16D Block 60', figure=1,
+    code=code('00'), tech='F-16F Block 60', figure=1,
     description=[
         ('Genel', [
             'F-16, General Dynamics (bugün Lockheed Martin) tarafından '
-            'geliştirilen tek motorlu, çok rollü bir savaş uçağıdır. D '
-            'sürümü iki kişiliktir: ön ve arka kokpit art arda dizilidir.',
+            'geliştirilen tek motorlu, çok rollü bir savaş uçağıdır. Block 60 '
+            'sürümünün tek kişilik olanı E, iki kişilik olanı F adını taşır; '
+            'F\'de ön ve arka kokpit art arda dizilidir.',
             'Block 60 sürümünde gövdenin üstünde iki yanda konformal yakıt '
             'tankları bulunur; bu tanklar menzili artırır ve dış yük '
             'istasyonlarını boş bırakır.',
@@ -96,8 +102,9 @@ AIRCRAFT = dm(
             'Uçuş kumandaları: elektrikli (fly-by-wire) kumanda; flaperonlar, '
             'hücum kenarı flapları, tek parça hareket eden yatay kuyruklar, '
             'dümen ve kuyruk yanlarındaki hava frenleri.',
-            'İniş takımı: içe katlanan ana iniş takımları ve öne katlanan '
-            'burun iniş takımı; ana tekerleklerde disk frenler.',
+            'İniş takımı: gövdenin içine katlanan ana iniş takımları ve '
+            'geriye katlanan burun iniş takımı; ana tekerleklerde disk '
+            'frenler.',
             'Güç: tek bir art yakıcılı turbofan motor; iki ayrı hidrolik '
             'sistem kumanda yüzeylerini ve iniş takımını çalıştırır.',
         ]),
@@ -144,7 +151,7 @@ PREFLIGHT = dm(
 
 POSTFLIGHT = dm(
     code=code('00', info='310'), tech='Uçak', info='Uçuş sonrası gözle muayene',
-    figure=1, conditions=[SAFE, ENGINE_OFF],
+    figure=1, conditions=[ENGINE_OFF],
     warnings=[HOT],
     steps=[
         'İniş takımı ve koltuk emniyet pimlerini takın; takozları koyun.',
@@ -230,7 +237,7 @@ SPEED_BRAKES = dm(
 # Yakıt
 REFUEL = dm(
     code=code('28', '1', '210'), tech='Yakıt', info='Yerde ikmal',
-    figure=1, supplies=[('Jet yakıtı', 1)],
+    figure=1, supplies=[('Jet yakıtı', None)],
     conditions=[SAFE, ENGINE_OFF, 'Yangın söndürücü hazır.'],
     warnings=['Yakıt buharı yanıcıdır. İkmal sırasında uçağın çevresinde '
               'sigara içmeyin, telsiz ve cep telefonu kullanmayın.',
@@ -316,12 +323,12 @@ GEAR = dm(
     description=[
         ('Genel', [
             'Üç tekerlekli iniş takımı hidrolikle açılıp kapanır. Ana iniş '
-            'takımları gövdenin altına içe doğru, burun iniş takımı hava '
+            'takımları gövdenin içine, burun iniş takımı geriye, hava '
             'alığının arkasına katlanır.',
             'Her dikmede yağ ve azot dolu bir amortisör iniş darbesini '
             'sönümler.',
-            'Ana tekerleklerde kilitlenmeyi önleyen sistemli disk frenler '
-            'vardır. Burun tekerleği yerde yönlendirme için döner.',
+            'Ana tekerleklerde kilitlenme önleyici (anti-skid) sistemli disk '
+            'frenler vardır. Burun tekerleği yerde yönlendirme için döner.',
         ]),
     ])
 
@@ -385,7 +392,7 @@ TIRES = dm(
     code=code('32', '4', '300'), tech='Lastikler',
     info='Basınç ve aşınma kontrolü', figure=3,
     tools=[('Lastik basınç ölçer', 1), ('Diş derinliği ölçer', 1)],
-    supplies=[('Azot', 1)],
+    supplies=[('Azot', None)],
     conditions=[SAFE, ENGINE_OFF, 'Lastikler soğuk.'],
     warnings=['Sıcak frenli tekerleğe yaklaşmayın; lastik patlayabilir. '
               'Tekerleğe yan taraftan yaklaşın.'],
@@ -398,10 +405,10 @@ TIRES = dm(
     ])
 
 WHEEL_CHANGE = dm(
-    code=code('32', '4', '920'), tech='Ana tekerlek', figure=3,
+    code=code('32', '4', '920'), tech='Tekerlek', figure=3,
     tools=[('Aks krikosu', 1), ('Tekerlek somunu anahtarı', 1),
            ('Tork anahtarı', 1)],
-    spares=[('Ana tekerlek, lastiğiyle', 1)],
+    spares=[('Tekerlek, lastiğiyle', 1)],
     conditions=[SAFE, ENGINE_OFF, 'Frenler ve tekerlek soğuk.'],
     warnings=['Lastik sökülmeden önce havası (azotu) boşaltılmalıdır; '
               'basınçlı tekerleği sökmeyin.'],
@@ -457,7 +464,7 @@ RADOME = dm(
 
 INTAKE_CHECK = dm(
     code=code('53', '3', '310'), tech='Hava alığı',
-    info='Yabancı cisim (FOD) muayenesi', figure=2,
+    info='Yabancı cisim (FOD) muayenesi', figure=7,
     tools=[('El feneri', 1)],
     conditions=[SAFE, ENGINE_OFF],
     warnings=[INTAKE],
@@ -568,7 +575,7 @@ ENGINE_ISOLATE = dm(
     })
 
 FAN_CHECK = dm(
-    code=code('72', '1', '310'), tech='Fan ve kompresör girişi', figure=6,
+    code=code('72', '1', '310'), tech='Fan ve kompresör girişi', figure=8,
     tools=[('El feneri', 1)],
     conditions=[SAFE, ENGINE_OFF],
     warnings=[INTAKE],
@@ -618,7 +625,7 @@ NOZZLE = dm(
 
 OIL_CHECK = dm(
     code=code('79', '1', '300'), tech='Motor yağı', info='Seviye kontrolü',
-    figure=2, supplies=[('Motor yağı, sentetik türbin yağı', 1)],
+    figure=2, supplies=[('Motor yağı, sentetik türbin yağı', None)],
     conditions=[SAFE, ENGINE_OFF,
                 'Motor durdurulduktan sonra el kitabındaki süre içinde.'],
     warnings=['Sıcak yağ ve sentetik türbin yağı cilde zararlıdır; eldiven '
@@ -669,9 +676,9 @@ part('cockpit.seats', 'Fırlatma koltukları', 'cockpit', '25-10',
      ['cockpit'], 'z.cockpit',
      'Acil durumda pilotu uçaktan çıkaran koltuklar.',
      {'inspect': code('25', '1', '300')}, quantity=2)
-part('cockpit.panels', 'Gösterge panelleri ve HUD', 'cockpit', '25-00',
+part('cockpit.panels', 'Gösterge panelleri', 'cockpit', '25-00',
      ['cockpit'], 'z.cockpit',
-     'Çok işlevli ekranlar ve ön kokpitteki baş üstü gösterge.')
+     'Ön ve arka kokpitteki göstergeler ve ekranlar.')
 
 part('wings', 'Kanatlar', None, '57-10',
      ['wing_l', 'wing_r', 'lef_l', 'lef_r', 'flaperon_l', 'flaperon_r'],
@@ -910,7 +917,7 @@ FAULTS = [
      'Lastik aşınma sınırına gelmiş.', 2, TIRES, WHEEL_CHANGE),
     ('f.tire.pressure', 'gear.wheels', ['sym.tire_low', 'sym.pull'],
      'Lastik basıncı düşük; supap ya da jant contası kaçırıyor olabilir.',
-     2, TIRES, None),
+     2, TIRES, TIRES),
     ('f.brakes.worn', 'gear.brakes', ['sym.brake_pin', 'sym.brake_weak'],
      'Fren diskleri aşınma sınırına gelmiş.', 3, BRAKES, None),
     ('f.strut.service', 'gear.struts', ['sym.strut_low', 'sym.hyd_leak'],
@@ -932,7 +939,7 @@ FAULTS = [
 
 # Yedek parça adı → IPD'deki parça.
 SPARE_PARTS = {
-    'Ana tekerlek, lastiğiyle': 'gear.wheels',
+    'Tekerlek, lastiğiyle': 'gear.wheels',
 }
 
 C.zones, C.symptoms, C.faults = ZONES, SYMPTOMS, FAULTS

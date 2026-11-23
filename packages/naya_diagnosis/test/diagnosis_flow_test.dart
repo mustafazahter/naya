@@ -355,8 +355,8 @@ void main() {
     });
   });
 
-  group('F-16D kataloğu', () {
-    final jet = _template('f16', 'F-16D Block 60');
+  group('F-16F kataloğu', () {
+    final jet = _template('f16', 'F-16F Block 60');
 
     test('sistemler', () {
       expect(jet.systems.map((s) => s.id), [

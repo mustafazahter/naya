@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dmodule [
 <!NOTATION JPEG SYSTEM "JPEG">
-<!ENTITY ICN-NAYAJET-AAA-D000000-0-NAYA0-00006-A-001-01 SYSTEM "ICN-NAYAJET-AAA-D000000-0-NAYA0-00006-A-001-01.JPG" NDATA JPEG>
+<!ENTITY ICN-NAYAJET-AAA-D000000-0-NAYA0-00008-A-001-01 SYSTEM "ICN-NAYAJET-AAA-D000000-0-NAYA0-00008-A-001-01.JPG" NDATA JPEG>
 ]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
@@ -20,7 +20,7 @@
       <security securityClassification="01"/>
       <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
       <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
-      <applic><displayText><simplePara>F-16D Block 60, iki kişilik</simplePara></displayText></applic>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
       <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
       <qualityAssurance><unverified/></qualityAssurance>
     </dmStatus>
@@ -35,7 +35,7 @@
         <reqSafety><safetyRqmts><warning><warningAndCautionPara>Motor çalışırken hava alığının önündeki tehlike bölgesine girmeyin; emme insanı ve gevşek eşyayı içine çeker.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Hava alığından fan yüzüne bakın.</para><figure id="fig-0006"><title>Turbofan motor</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00006-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Hava alığından fan yüzüne bakın.</para><figure id="fig-0008"><title>Fan</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00008-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Fan kanatlarının hücum kenarlarında çentik, eğilme ya da çatlak olup olmadığını kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Fanı yavaşça elle çevirin (yetkili personel); sürtünme ya da takılma sesi olmamalıdır.</para></proceduralStep>
         <proceduralStep><para>Hasar bulursanız motorun çalıştırılmasını durdurun ve motor personeline bildirin.</para></proceduralStep>

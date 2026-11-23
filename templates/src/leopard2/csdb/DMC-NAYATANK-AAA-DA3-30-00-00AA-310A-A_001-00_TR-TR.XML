@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dmodule [
 <!NOTATION JPEG SYSTEM "JPEG">
-<!ENTITY ICN-NAYATANK-AAA-D000000-0-NAYA0-00006-A-001-01 SYSTEM "ICN-NAYATANK-AAA-D000000-0-NAYA0-00006-A-001-01.JPG" NDATA JPEG>
+<!ENTITY ICN-NAYATANK-AAA-D000000-0-NAYA0-00003-A-001-01 SYSTEM "ICN-NAYATANK-AAA-D000000-0-NAYA0-00003-A-001-01.JPG" NDATA JPEG>
 ]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
@@ -35,10 +35,10 @@
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Yürütücü dişli dişlerinin profilini kontrol edin; dişler sivrilmiş ya da kancalaşmışsa palet atlamaya başlar.</para><figure id="fig-0006"><title>Ön avara ve palet</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00006-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Yürütücü dişli dişlerinin profilini kontrol edin; dişler sivrilmiş ya da kancalaşmışsa palet atlamaya başlar.</para><figure id="fig-0003"><title>Sol yürüyen takım</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Dişli çemberlerinin bağlantı cıvatalarını kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Avara tekerleğinin bandajını ve göbeğini kontrol edin.</para></proceduralStep>
-        <proceduralStep><para>Avara gerdirme silindirinde gres sızıntısı olup olmadığına bakın.</para></proceduralStep>
+        <proceduralStep><para>Avara gerdirme tertibatında sızıntı ya da hasar olup olmadığına bakın.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
     </procedure>

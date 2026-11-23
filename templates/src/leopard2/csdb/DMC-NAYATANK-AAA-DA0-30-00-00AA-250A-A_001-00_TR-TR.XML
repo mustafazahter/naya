@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dmodule [
 <!NOTATION JPEG SYSTEM "JPEG">
-<!ENTITY ICN-NAYATANK-AAA-D000000-0-NAYA0-00004-A-001-01 SYSTEM "ICN-NAYATANK-AAA-D000000-0-NAYA0-00004-A-001-01.JPG" NDATA JPEG>
+<!ENTITY ICN-NAYATANK-AAA-D000000-0-NAYA0-00007-A-001-01 SYSTEM "ICN-NAYATANK-AAA-D000000-0-NAYA0-00007-A-001-01.JPG" NDATA JPEG>
 ]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
@@ -35,7 +35,7 @@
         <reqSafety><safetyRqmts><warning><warningAndCautionPara>Motor durduktan sonra güç paketi, egzoz ve radyatörler uzun süre sıcak kalır; soğumasını bekleyin.</warningAndCautionPara></warning><caution><warningAndCautionPara>Izgaraları sivri bir aletle kazımayın; petek ve kanatçıklar kolayca ezilir.</warningAndCautionPara></caution></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Izgaraların üstündeki yaprak, dal ve çamuru elle ve fırçayla temizleyin.</para><figure id="fig-0004"><title>Motor güvertesi altında soğutma</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00004-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Izgaraların üstündeki yaprak, dal ve çamuru elle ve fırçayla temizleyin.</para><figure id="fig-0007"><title>Motor güvertesi</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00007-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Izgara gözlerini içeriden dışarıya basınçlı havayla temizleyin.</para></proceduralStep>
         <proceduralStep><para>Izgaraların bağlantılarını ve kilitlerini kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Tıkanmış ızgara motorun ısınmasına yol açar; arazide sık sık kontrol edin.</para></proceduralStep>

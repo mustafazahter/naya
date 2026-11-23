@@ -41,6 +41,7 @@ FIGURES = {
     4: 'Motor güvertesi altında soğutma',
     5: 'Kule üstü donanımı',
     6: 'Ön avara ve palet',
+    7: 'Motor güvertesi',
 }
 
 C = Content(
@@ -71,8 +72,8 @@ VEHICLE = dm(
     description=[
         ('Genel', [
             'Leopard 2, Almanya\'da geliştirilen ve birçok ülkenin '
-            'kullandığı bir ana muharebe tankıdır. 2A6 sürümü, 2000\'li '
-            'yıllarda daha uzun namlulu topla güncellenmiş sürümdür.',
+            'kullandığı bir ana muharebe tankıdır. 2A6, 2000\'li yıllarda '
+            'daha uzun namlulu topla güncellenen sürümdür.',
             'Mürettebat dört kişidir: komutan, nişancı, yükleyici ve '
             'sürücü. Sürücü gövdenin önünde sağda; komutan, nişancı ve '
             'yükleyici kulededir.',
@@ -89,8 +90,9 @@ VEHICLE = dm(
             'Elektrik: 24 V doğru akım sistemi, aküler, farlar ve arka '
             'lambalar.',
             'Silah ve optikler: kulede ana top, makineli tüfek, sis bombası '
-            'atıcıları ve nişan ile gözetleme optikleri. Bu şablon silah '
-            'sistemlerinin yalnız dış muayenesini ve temizliğini kapsar.',
+            'atıcıları ve nişan ile gözetleme optikleri. Bu şablon '
+            'silahların yalnız dış muayenesini, optiklerin de temizliğini '
+            'kapsar.',
         ]),
         ('Bu el kitabı hakkında', [
             'Bu şablon eğitim amaçlıdır ve yalnız genel bakım bilgisi içerir. '
@@ -191,7 +193,7 @@ TURRET_CHECK = dm(
 
 DECK_CLEAN = dm(
     code=code('DA0', '3', '250'), tech='Motor güvertesi ızgaraları',
-    figure=4, conditions=[PARKED, 'Motor soğumuş.'],
+    figure=7, conditions=[PARKED, 'Motor soğumuş.'],
     tools=[('Yumuşak kıllı fırça', 1), ('Basınçlı hava tabancası', 1)],
     warnings=[HOT],
     cautions=['Izgaraları sivri bir aletle kazımayın; petek ve kanatçıklar '
@@ -325,7 +327,7 @@ OIL_CHANGE = dm(
     code=code('DA1', '2', '241'), tech='Motor yağı ve yağ filtreleri',
     info='Değişim', figure=2,
     tools=[('Lokma takımı', 1), ('Yağ toplama kabı', 1)],
-    supplies=[('Motor yağı', 1)],
+    supplies=[('Motor yağı', None)],
     spares=[('Motor yağ filtresi elemanı', 1)],
     conditions=[PARKED, 'Motor çalışma sıcaklığında durdurulmuş.'],
     warnings=['Sıcak yağ yakar. Koruyucu eldiven ve gözlük takın.'],
@@ -442,7 +444,7 @@ EXHAUST_CHECK = dm(
 
 REFUEL = dm(
     code=code('DA1', '5', '210'), tech='Yakıt', info='İkmal',
-    supplies=[('Dizel yakıt', 1)],
+    supplies=[('Dizel yakıt', None)],
     conditions=[PARKED, 'Yangın söndürücü hazır.'],
     warnings=['İkmal sırasında sigara içmeyin ve açık alev bulundurmayın.',
               'İkmal aracını ve tankı topraklayın.'],
@@ -474,8 +476,8 @@ TRANSMISSION = dm(
     description=[
         ('Genel', [
             'Otomatik şanzıman motorun gücünü iki yandaki son dişlilere '
-            'iletir. Tankın dönüşü de şanzımandan yönetilir: bir yandaki '
-            'paleti yavaşlatarak tank yön değiştirir.',
+            'iletir. Tankın dönüşü de şanzımandan yönetilir: iki paletin '
+            'hızını farklılaştırarak tank yön değiştirir.',
             'Servis frenleri şanzımanın içindedir. Son dişliler, şanzımanın '
             'çıkışını yürütücü dişlilere aktaran redüktörlerdir.',
         ]),
@@ -528,7 +530,7 @@ RUNNING_ISOLATE = dm(
     isolation={
         'fault': 'NAYATANK-DA3-001',
         'descr': 'Palet atıyor ya da gevşek, yürüyen takımdan vuruntu sesi '
-                 'geliyor ya da tank bir yana çekiyor.',
+                 'geliyor ya da tank engebede aşırı yalpalıyor.',
         'steps': [
             ('stp-0001', 'Tankı durdurun ve paletin üst kolundaki sarkmaya '
              'bakın.', 'Palet belirgin şekilde sarkık mı?', 'end-tension',
@@ -561,27 +563,25 @@ RUNNING_ISOLATE = dm(
 
 TRACK_TENSION = dm(
     code=code('DA3', '1', '271'), tech='Palet gerginliği', figure=6,
-    tools=[('Palet gerdirme anahtarı', 1), ('Gres pompası', 1),
-           ('Cetvel', 1)],
-    supplies=[('Gres', 1)],
+    tools=[('Palet gerdirme anahtarı', 1), ('Cetvel', 1)],
     conditions=[PARKED, 'Tank düz ve sert zeminde; palet üst kolu '
                 'çekilmiş (tank kısa bir mesafe ileri sürülüp durdurulmuş).'],
-    warnings=['Gerdirme silindirindeki gres yüksek basınç altındadır. '
-              'Boşaltma valfini yavaşça açın ve önünde durmayın.'],
+    warnings=['Palet ve gerdirme tertibatı gerilim altındadır. Ayar '
+              'sırasında paletin önünde ve avaranın yanında durmayın.'],
     steps=[
         'Paletin üst kolundaki sarkmayı iki tekerlek arasında cetvelle '
         'ölçün. ' + NO_VALUES,
         ('Gerginlik azsa', [
-            'Avaranın gerdirme silindirine gres pompasıyla gres basın.',
-            'Avara öne doğru ilerler ve palet gerilir.',
+            'Gerdirme anahtarıyla avara gerdirme tertibatını ayarlayıp '
+            'avarayı öne alın; palet gerilir.',
         ]),
         ('Gerginlik fazlaysa', [
-            'Boşaltma valfini yavaşça açıp bir miktar gres boşaltın.',
-            'Valfi kapatın.',
+            'Gerdirme tertibatını ters yönde ayarlayıp avarayı geri alın.',
         ]),
         'Tankı kısa bir mesafe sürüp yeniden ölçün. İki paleti de kontrol '
         'edin.',
-        'Gerginlik sık sık azalıyorsa gerdirme silindiri sızdırıyordur.',
+        'Gerginlik sık sık azalıyorsa gerdirme tertibatını yetkili bakım '
+        'birimine kontrol ettirin.',
     ])
 
 TRACK_CHECK = dm(
@@ -629,13 +629,14 @@ ROAD_WHEELS = dm(
 
 SPROCKET = dm(
     code=code('DA3', '3', '310'), tech='Avara ve yürütücü dişliler',
-    figure=6, conditions=[PARKED],
+    figure=3, conditions=[PARKED],
     steps=[
         'Yürütücü dişli dişlerinin profilini kontrol edin; dişler sivrilmiş '
         'ya da kancalaşmışsa palet atlamaya başlar.',
         'Dişli çemberlerinin bağlantı cıvatalarını kontrol edin.',
         'Avara tekerleğinin bandajını ve göbeğini kontrol edin.',
-        'Avara gerdirme silindirinde gres sızıntısı olup olmadığına bakın.',
+        'Avara gerdirme tertibatında sızıntı ya da hasar olup olmadığına '
+        'bakın.',
     ])
 
 # Elektrik
@@ -719,7 +720,7 @@ dm(code=code('DA5', '1', '310'), tech='Ana top', info='Dış muayene',
 
 OPTICS_CLEAN = dm(
     code=code('DA5', '2', '250'), tech='Optik camları', figure=5,
-    tools=[('Yumuşak kıllı optik fırçası', 1)],
+    tools=[('Yumuşak kıllı optik fırçası', 1), ('Optik hava pompası', 1)],
     supplies=[('Optik temizleme bezi', 2), ('Optik temizleme sıvısı', 1)],
     conditions=[PARKED],
     cautions=['Optik camlarını kuru bezle ovmayın; toz taneleri camı ve '
@@ -770,7 +771,8 @@ part('hull.towing', 'Çeki kancaları ve halatı', 'hull', 'DA0-10', ['hull'],
 
 part('turret', 'Kule', None, 'DA0-20',
      ['turret', 'main_gun', 'optics', 'machine_gun', 'smoke_dischargers'],
-     'z.turret', 'Dönen kule; silahları, optikleri ve üç mürettebatı taşır.',
+     'z.turret',
+     'Dönen kule; silahları, optikleri ve mürettebattan üç kişiyi taşır.',
      {'inspect': TURRET_CHECK})
 part('turret.hatches', 'Komutan ve yükleyici kapakları', 'turret', 'DA0-20',
      ['turret'], 'z.turret', 'Kule üstündeki iki mürettebat kapağı.',
@@ -782,7 +784,7 @@ part('turret.optics', 'Nişan ve gözetleme optikleri', 'turret', 'DA5-20',
      ['optics'], 'z.turret',
      'Nişancının ve komutanın kule üstündeki optikleri.',
      {'clean': OPTICS_CLEAN})
-part('turret.machine_gun', 'Makineli tüfek', 'turret', 'DA5-10',
+part('turret.machine_gun', 'Makineli tüfek', 'turret', 'DA0-20',
      ['machine_gun'], 'z.turret', 'Yükleyici kapağındaki kundağa takılı.',
      {'inspect': TURRET_CHECK})
 part('turret.smoke_dischargers', 'Sis bombası atıcıları', 'turret', 'DA0-20',
@@ -806,7 +808,7 @@ part('engine.oil', 'Motor yağı ve yağ filtreleri', 'engine', 'DA1-20',
 part('engine.starter', 'Marş motoru', 'engine', 'DA1-10', ['engine'],
      'z.engine', 'Motoru ilk çalıştırmada döndürür.',
      {'isolate': ENGINE_ISOLATE})
-part('engine.generator', 'Jeneratör', 'engine', 'DA4-10', ['engine'],
+part('engine.generator', 'Jeneratör', 'engine', 'DA1-10', ['engine'],
      'z.engine', 'Motor çalışırken aküleri şarj eder ve elektrik sağlar.',
      {'inspect': BATTERY_CHECK})
 part('cooling', 'Soğutma sistemi', 'powerpack', 'DA1-30',
@@ -862,11 +864,14 @@ part('track_r', 'Sağ palet', 'running_gear', 'DA3-10', ['track_r'],
 part('tracks.pads', 'Palet tabanları', 'running_gear', 'DA3-10', TRACKS,
      'z.running', 'Baklaların altındaki lastik tabanlar; yolu korur.',
      {'replace': TRACK_PADS})
-part('road_wheels_l', 'Sol yol tekerlekleri', 'running_gear', 'DA3-20',
+part('road_wheels', 'Yol tekerlekleri', 'running_gear', 'DA3-20', WHEELS,
+     'z.running', 'Her yanda yedi çift lastik bandajlı tekerlek.',
+     {'inspect': ROAD_WHEELS}, quantity=14)
+part('road_wheels_l', 'Sol yol tekerlekleri', 'road_wheels', 'DA3-20',
      ['road_wheels_l'], 'z.running',
      'Yedi çift lastik bandajlı tekerlek; tankın ağırlığını paletlere '
      'aktarır.', {'inspect': ROAD_WHEELS}, quantity=7)
-part('road_wheels_r', 'Sağ yol tekerlekleri', 'running_gear', 'DA3-20',
+part('road_wheels_r', 'Sağ yol tekerlekleri', 'road_wheels', 'DA3-20',
      ['road_wheels_r'], 'z.running',
      'Yedi çift lastik bandajlı tekerlek; tankın ağırlığını paletlere '
      'aktarır.', {'inspect': ROAD_WHEELS}, quantity=7)
@@ -880,9 +885,9 @@ part('suspension.dampers', 'Amortisörler', 'suspension', 'DA3-20',
 part('idlers', 'Avara tekerlekleri', 'running_gear', 'DA3-30', IDLERS,
      'z.running', 'Önde paleti döndürür ve gerginliğini ayarlar.',
      {'inspect': SPROCKET, 'adjust': TRACK_TENSION}, quantity=2)
-part('idlers.tensioner', 'Palet gerdirme silindirleri', 'idlers', 'DA3-30',
+part('idlers.tensioner', 'Palet gerdirme tertibatları', 'idlers', 'DA3-30',
      IDLERS, 'z.running',
-     'Gres basılarak avarayı öne iten ve paleti geren silindir.',
+     'Avarayı öne ya da geri alarak paletin gerginliğini ayarlar.',
      {'adjust': TRACK_TENSION}, quantity=2)
 part('sprockets', 'Yürütücü dişliler', 'running_gear', 'DA3-30', SPROCKETS,
      'z.running', 'Arkada son dişliden güç alıp paleti döndürür.',
@@ -979,23 +984,24 @@ FAULTS = [
      COOLANT_CHECK),
     ('f.transmission.oil', 'transmission', ['sym.shift'],
      'Şanzıman yağı eksik ya da eskimiş.', 2, code('DA2', '1', '300'), None),
-    ('f.brakes.worn', 'transmission.brakes', ['sym.brake_weak'],
-     'Servis frenleri aşınmış.', 3, None, None),
+    ('f.brakes.worn', 'transmission.brakes', ['sym.brake_weak', 'sym.pull'],
+     'Servis frenleri aşınmış ya da bir yandaki fren sürtüyor.', 3, None,
+     None),
     ('f.final_drive.seal', 'transmission.final_drives',
      ['sym.sprocket_leak', 'sym.track_noise'],
      'Son dişli keçesi sızdırıyor; yağ eksilirse dişliler aşınır.', 2,
      code('DA2', '2', '300'), None),
     ('f.track.slack', 'idlers.tensioner', ['sym.track_slack', 'sym.track_noise'],
-     'Palet gerginliği azalmış; gerdirme silindiri gres kaçırıyor '
+     'Palet gerginliği azalmış; gerdirme tertibatı ayarını kaybetmiş '
      'olabilir.', 3, RUNNING_ISOLATE, TRACK_TENSION),
     ('f.pads.worn', 'tracks.pads', ['sym.vibration', 'sym.track_noise'],
      'Palet tabanları aşınmış ya da kopmuş.', 1, RUNNING_ISOLATE, TRACK_PADS),
-    ('f.wheel.bearing', 'road_wheels_l', ['sym.hot_hub', 'sym.track_noise'],
+    ('f.wheel.bearing', 'road_wheels', ['sym.hot_hub', 'sym.track_noise'],
      'Yol tekerleği rulmanı aşınmış ya da göbekte yağ kalmamış.', 2,
      ROAD_WHEELS, None),
-    ('f.wheel.tyre', 'road_wheels_r', ['sym.rubber_loss', 'sym.vibration'],
+    ('f.wheel.tyre', 'road_wheels', ['sym.rubber_loss', 'sym.vibration'],
      'Yol tekerleğinin lastik bandajı parçalanıyor.', 2, ROAD_WHEELS, None),
-    ('f.damper.leak', 'suspension.dampers', ['sym.pitching', 'sym.pull'],
+    ('f.damper.leak', 'suspension.dampers', ['sym.pitching'],
      'Amortisör yağını kaçırmış; sönümleme yok.', 2, ROAD_WHEELS, None),
     ('f.sprocket.worn', 'sprockets', ['sym.track_slack', 'sym.track_noise'],
      'Yürütücü dişli dişleri aşınmış; palet atlıyor.', 2, SPROCKET, None),

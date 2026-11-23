@@ -90,7 +90,7 @@ void main() {
   );
 
   _vehicleTemplate(
-    name: 'F-16D',
+    name: 'F-16F',
     folder: 'f16',
     credits: 2,
     systems: [

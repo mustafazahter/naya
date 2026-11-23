@@ -354,6 +354,9 @@ class _ItemLine extends StatelessWidget {
     final c = context.colors;
     final qty = item.quantity == null
         ? null
+        // "Gerektiği kadar" gibi sayı olmayan miktar olduğu gibi yazılır.
+        : num.tryParse(item.quantity!) == null
+        ? item.quantity
         : '${item.quantity}${item.unit == null || item.unit == 'EA' ? ' adet' : ' ${item.unit}'}';
     return Padding(
       padding: const EdgeInsets.only(bottom: NayaSpace.xs),
@@ -766,7 +769,9 @@ class _CatalogTable extends StatelessWidget {
                   ),
                   if (item.quantity != null)
                     Text(
-                      '× ${item.quantity}',
+                      num.tryParse(item.quantity!) == null
+                          ? item.quantity!
+                          : '× ${item.quantity}',
                       style: context.text.mono.copyWith(
                         fontSize: 12,
                         color: c.textSecondary,

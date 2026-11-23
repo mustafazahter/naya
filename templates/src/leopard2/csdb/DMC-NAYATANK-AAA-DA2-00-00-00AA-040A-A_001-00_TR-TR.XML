@@ -29,7 +29,7 @@
     <description>
       <levelledPara>
         <title>Genel</title>
-        <para>Otomatik şanzıman motorun gücünü iki yandaki son dişlilere iletir. Tankın dönüşü de şanzımandan yönetilir: bir yandaki paleti yavaşlatarak tank yön değiştirir.</para>
+        <para>Otomatik şanzıman motorun gücünü iki yandaki son dişlilere iletir. Tankın dönüşü de şanzımandan yönetilir: iki paletin hızını farklılaştırarak tank yön değiştirir.</para>
         <para>Servis frenleri şanzımanın içindedir. Son dişliler, şanzımanın çıkışını yürütücü dişlilere aktaran redüktörlerdir.</para>
       </levelledPara>
       <figure id="fig-0002"><title>Güç paketi</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure>

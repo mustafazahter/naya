@@ -1,4 +1,4 @@
-"""F-16D Block 60 modelini iki kaynak modelden kurar.
+"""F-16F Block 60 modelini iki kaynak modelden kurar.
 
 Uçak bir uçuş simülatörü modelinden geliyor: hareketli yüzeylerin çoğu
 (flaperonlar, hücum kenarı flapları, yatay kuyruklar, dümen, hava frenleri,
@@ -17,7 +17,8 @@ içinde motor yok. Motor ayrı bir model: her parçası ayrı adlı, genel bir
 5. Malzemeleri düğüme göre yeniden renklendirir, gerçek ölçeğe getirir,
    uçağın önünü -Y'ye çevirir ve Draco ile sıkıştırıp yazar.
 
-    blender -b --python build_model.py -- f16d.obj turbofan.obj ../model/product.glb
+    blender -b --python build_model.py -- "General Dynamics F-16D Block 60.obj" \
+        Turbofan_Engine.obj ../model/product.glb
 
 Uçak kaynağında Z yukarı, burun +Y, uçağın solu -X yönünde. Motor
 kaynağında birim milimetre, eksen +X (önden arkaya).

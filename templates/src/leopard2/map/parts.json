@@ -128,7 +128,7 @@
         "smoke_dischargers"
       ],
       "zone": "z.turret",
-      "function": "Dönen kule; silahları, optikleri ve üç mürettebatı taşır.",
+      "function": "Dönen kule; silahları, optikleri ve mürettebattan üç kişiyi taşır.",
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
@@ -199,7 +199,7 @@
       "id": "turret.machine_gun",
       "name": "Makineli tüfek",
       "parent": "turret",
-      "sns": "DA5-10",
+      "sns": "DA0-20",
       "meshNodes": [
         "machine_gun"
       ],
@@ -339,7 +339,7 @@
       "id": "engine.generator",
       "name": "Jeneratör",
       "parent": "engine",
-      "sns": "DA4-10",
+      "sns": "DA1-10",
       "meshNodes": [
         "engine"
       ],
@@ -650,15 +650,16 @@
       }
     },
     {
-      "id": "road_wheels_l",
-      "name": "Sol yol tekerlekleri",
+      "id": "road_wheels",
+      "name": "Yol tekerlekleri",
       "parent": "running_gear",
       "sns": "DA3-20",
       "meshNodes": [
-        "road_wheels_l"
+        "road_wheels_l",
+        "road_wheels_r"
       ],
       "zone": "z.running",
-      "function": "Yedi çift lastik bandajlı tekerlek; tankın ağırlığını paletlere aktarır.",
+      "function": "Her yanda yedi çift lastik bandajlı tekerlek.",
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
@@ -669,9 +670,28 @@
       }
     },
     {
+      "id": "road_wheels_l",
+      "name": "Sol yol tekerlekleri",
+      "parent": "road_wheels",
+      "sns": "DA3-20",
+      "meshNodes": [
+        "road_wheels_l"
+      ],
+      "zone": "z.running",
+      "function": "Yedi çift lastik bandajlı tekerlek; tankın ağırlığını paletlere aktarır.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "035"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
+      }
+    },
+    {
       "id": "road_wheels_r",
       "name": "Sağ yol tekerlekleri",
-      "parent": "running_gear",
+      "parent": "road_wheels",
       "sns": "DA3-20",
       "meshNodes": [
         "road_wheels_r"
@@ -681,7 +701,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "035"
+        "item": "036"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
@@ -701,7 +721,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "036"
+        "item": "037"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
@@ -721,7 +741,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "037"
+        "item": "038"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
@@ -741,7 +761,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "038"
+        "item": "039"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA3-30-00-00AA-310A-A",
@@ -750,7 +770,7 @@
     },
     {
       "id": "idlers.tensioner",
-      "name": "Palet gerdirme silindirleri",
+      "name": "Palet gerdirme tertibatları",
       "parent": "idlers",
       "sns": "DA3-30",
       "meshNodes": [
@@ -758,11 +778,11 @@
         "idler_r"
       ],
       "zone": "z.running",
-      "function": "Gres basılarak avarayı öne iten ve paleti geren silindir.",
+      "function": "Avarayı öne ya da geri alarak paletin gerginliğini ayarlar.",
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "039"
+        "item": "040"
       },
       "procedures": {
         "adjust": "DMC-NAYATANK-AAA-DA3-10-00-00AA-271A-A"
@@ -782,7 +802,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "040"
+        "item": "041"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA3-30-00-00AA-310A-A"
@@ -802,7 +822,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "041"
+        "item": "042"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA4-10-00-00AA-300A-A"
@@ -821,7 +841,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "042"
+        "item": "043"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA4-10-00-00AA-300A-A",
@@ -841,7 +861,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "043"
+        "item": "044"
       },
       "procedures": {
         "replace": "DMC-NAYATANK-AAA-DA4-20-00-00AA-920A-A"
@@ -860,7 +880,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "044"
+        "item": "045"
       },
       "procedures": {
         "replace": "DMC-NAYATANK-AAA-DA4-20-00-00AA-920A-A"

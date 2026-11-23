@@ -29,17 +29,17 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><reqCondNoRef><reqCond>Tank düz zeminde, motor durdurulmuş, park freni çekili.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Tank düz ve sert zeminde; palet üst kolu çekilmiş (tank kısa bir mesafe ileri sürülüp durdurulmuş).</reqCond></reqCondNoRef></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Palet gerdirme anahtarı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-008</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Gres pompası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-009</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0003"><name>Cetvel</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-010</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
-        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Gres</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-003</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Palet gerdirme anahtarı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-008</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Cetvel</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-009</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
-        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Gerdirme silindirindeki gres yüksek basınç altındadır. Boşaltma valfini yavaşça açın ve önünde durmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Palet ve gerdirme tertibatı gerilim altındadır. Ayar sırasında paletin önünde ve avaranın yanında durmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
         <proceduralStep><para>Paletin üst kolundaki sarkmayı iki tekerlek arasında cetvelle ölçün. Ölçü ve ayar değerleri bu şablonda verilmez; aracın kendi teknik el kitabındaki değerleri kullanın.</para><figure id="fig-0006"><title>Ön avara ve palet</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00006-A-001-01"/></figure></proceduralStep>
-        <proceduralStep><title>Gerginlik azsa</title><proceduralStep><para>Avaranın gerdirme silindirine gres pompasıyla gres basın.</para></proceduralStep><proceduralStep><para>Avara öne doğru ilerler ve palet gerilir.</para></proceduralStep></proceduralStep>
-        <proceduralStep><title>Gerginlik fazlaysa</title><proceduralStep><para>Boşaltma valfini yavaşça açıp bir miktar gres boşaltın.</para></proceduralStep><proceduralStep><para>Valfi kapatın.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Gerginlik azsa</title><proceduralStep><para>Gerdirme anahtarıyla avara gerdirme tertibatını ayarlayıp avarayı öne alın; palet gerilir.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Gerginlik fazlaysa</title><proceduralStep><para>Gerdirme tertibatını ters yönde ayarlayıp avarayı geri alın.</para></proceduralStep></proceduralStep>
         <proceduralStep><para>Tankı kısa bir mesafe sürüp yeniden ölçün. İki paleti de kontrol edin.</para></proceduralStep>
-        <proceduralStep><para>Gerginlik sık sık azalıyorsa gerdirme silindiri sızdırıyordur.</para></proceduralStep>
+        <proceduralStep><para>Gerginlik sık sık azalıyorsa gerdirme tertibatını yetkili bakım birimine kontrol ettirin.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
     </procedure>

@@ -20,7 +20,7 @@
       <security securityClassification="01"/>
       <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
       <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
-      <applic><displayText><simplePara>F-16D Block 60, iki kişilik</simplePara></displayText></applic>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
       <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
       <qualityAssurance><unverified/></qualityAssurance>
     </dmStatus>
@@ -28,7 +28,7 @@
   <content>
     <procedure>
       <preliminaryRqmts>
-        <reqCondGroup><reqCondNoRef><reqCond>Uçak takozlu ve topraklı; iniş takımı emniyet pimleri ve fırlatma koltuğu emniyet pimleri takılı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Motor durdurulmuş, ana şalter kapalı.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqCondGroup><reqCondNoRef><reqCond>Motor durdurulmuş, ana şalter kapalı.</reqCond></reqCondNoRef></reqCondGroup>
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>

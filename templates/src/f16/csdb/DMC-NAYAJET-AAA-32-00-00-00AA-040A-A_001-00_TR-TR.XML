@@ -20,7 +20,7 @@
       <security securityClassification="01"/>
       <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
       <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
-      <applic><displayText><simplePara>F-16D Block 60, iki kişilik</simplePara></displayText></applic>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
       <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
       <qualityAssurance><unverified/></qualityAssurance>
     </dmStatus>
@@ -29,9 +29,9 @@
     <description>
       <levelledPara>
         <title>Genel</title>
-        <para>Üç tekerlekli iniş takımı hidrolikle açılıp kapanır. Ana iniş takımları gövdenin altına içe doğru, burun iniş takımı hava alığının arkasına katlanır.</para>
+        <para>Üç tekerlekli iniş takımı hidrolikle açılıp kapanır. Ana iniş takımları gövdenin içine, burun iniş takımı geriye, hava alığının arkasına katlanır.</para>
         <para>Her dikmede yağ ve azot dolu bir amortisör iniş darbesini sönümler.</para>
-        <para>Ana tekerleklerde kilitlenmeyi önleyen sistemli disk frenler vardır. Burun tekerleği yerde yönlendirme için döner.</para>
+        <para>Ana tekerleklerde kilitlenme önleyici (anti-skid) sistemli disk frenler vardır. Burun tekerleği yerde yönlendirme için döner.</para>
       </levelledPara>
       <figure id="fig-0003"><title>Ana iniş takımı</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure>
     </description>

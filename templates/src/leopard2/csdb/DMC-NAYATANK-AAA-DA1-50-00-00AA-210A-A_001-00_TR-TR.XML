@@ -26,7 +26,7 @@
       <preliminaryRqmts>
         <reqCondGroup><reqCondNoRef><reqCond>Tank düz zeminde, motor durdurulmuş, park freni çekili.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Yangın söndürücü hazır.</reqCond></reqCondNoRef></reqCondGroup>
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
-        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Dizel yakıt</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-002</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="L">1</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
+        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Dizel yakıt</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-002</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
         <reqSafety><safetyRqmts><warning><warningAndCautionPara>İkmal sırasında sigara içmeyin ve açık alev bulundurmayın.</warningAndCautionPara></warning><warning><warningAndCautionPara>İkmal aracını ve tankı topraklayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>

@@ -20,7 +20,7 @@
       <security securityClassification="01"/>
       <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
       <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
-      <applic><displayText><simplePara>F-16D Block 60, iki kişilik</simplePara></displayText></applic>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
       <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
       <qualityAssurance><unverified/></qualityAssurance>
     </dmStatus>
@@ -30,7 +30,7 @@
       <preliminaryRqmts>
         <reqCondGroup><reqCondNoRef><reqCond>Uçak takozlu ve topraklı; iniş takımı emniyet pimleri ve fırlatma koltuğu emniyet pimleri takılı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Motor durdurulmuş, ana şalter kapalı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Motor durdurulduktan sonra el kitabındaki süre içinde.</reqCond></reqCondNoRef></reqCondGroup>
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
-        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Motor yağı, sentetik türbin yağı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-005</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="L">1</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
+        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Motor yağı, sentetik türbin yağı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-005</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
         <reqSafety><safetyRqmts><warning><warningAndCautionPara>Sıcak yağ ve sentetik türbin yağı cilde zararlıdır; eldiven takın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>

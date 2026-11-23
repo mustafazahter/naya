@@ -266,7 +266,8 @@
       ],
       "cause": "Lastik basıncı düşük; supap ya da jant contası kaçırıyor olabilir.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-32-40-00-00AA-300A-A"
+      "isolation": "DMC-NAYAJET-AAA-32-40-00-00AA-300A-A",
+      "repair": "DMC-NAYAJET-AAA-32-40-00-00AA-300A-A"
     },
     {
       "id": "f.brakes.worn",

@@ -25,7 +25,7 @@
     <faultIsolation>
       <faultIsolationProcedure>
         <fault faultCode="NAYATANK-DA3-001"/>
-        <faultDescr><descr>Palet atıyor ya da gevşek, yürüyen takımdan vuruntu sesi geliyor ya da tank bir yana çekiyor.</descr></faultDescr>
+        <faultDescr><descr>Palet atıyor ya da gevşek, yürüyen takımdan vuruntu sesi geliyor ya da tank engebede aşırı yalpalıyor.</descr></faultDescr>
         <isolationProcedure>
           <preliminaryRqmts><reqCondGroup><noConds/></reqCondGroup><reqSupportEquips><noSupportEquips/></reqSupportEquips><reqSupplies><noSupplies/></reqSupplies><reqSpares><noSpares/></reqSpares><reqSafety><noSafety/></reqSafety></preliminaryRqmts>
           <isolationMainProcedure>

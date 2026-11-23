@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dmodule [
 <!NOTATION JPEG SYSTEM "JPEG">
-<!ENTITY ICN-NAYAJET-AAA-D000000-0-NAYA0-00002-A-001-01 SYSTEM "ICN-NAYAJET-AAA-D000000-0-NAYA0-00002-A-001-01.JPG" NDATA JPEG>
+<!ENTITY ICN-NAYAJET-AAA-D000000-0-NAYA0-00007-A-001-01 SYSTEM "ICN-NAYAJET-AAA-D000000-0-NAYA0-00007-A-001-01.JPG" NDATA JPEG>
 ]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
@@ -20,7 +20,7 @@
       <security securityClassification="01"/>
       <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
       <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
-      <applic><displayText><simplePara>F-16D Block 60, iki kişilik</simplePara></displayText></applic>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
       <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
       <qualityAssurance><unverified/></qualityAssurance>
     </dmStatus>
@@ -35,7 +35,7 @@
         <reqSafety><safetyRqmts><warning><warningAndCautionPara>Motor çalışırken hava alığının önündeki tehlike bölgesine girmeyin; emme insanı ve gevşek eşyayı içine çeker.</warningAndCautionPara></warning><caution><warningAndCautionPara>Alığa girmeden önce ceplerinizi boşaltın ve aletlerinizi sayın; içeride bırakılan her eşya motora zarar verir.</warningAndCautionPara></caution></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Alık kapağını çıkarın.</para><figure id="fig-0002"><title>Motorun uçaktaki yeri</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Alık kapağını çıkarın.</para><figure id="fig-0007"><title>Hava alığı</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00007-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Alık kanalını el feneriyle girişten fan yüzüne kadar kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Kanal kaplamasında gevşek perçin, çatlak ya da eksik parça olup olmadığına bakın.</para></proceduralStep>
         <proceduralStep><para>Bulunan yabancı cismi çıkarın ve kayda geçirin; fan kanatlarını da muayene edin.</para></proceduralStep>
