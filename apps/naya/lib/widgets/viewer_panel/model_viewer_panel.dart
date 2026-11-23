@@ -130,7 +130,10 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
             onPartTap: _onPartTap,
             onScanDone: _controller.scanFinished,
             onProgress: (value) => setState(() => _progress = value),
-            onReady: () => setState(() => _ready = true),
+            onReady: () {
+              _controller.markReady();
+              setState(() => _ready = true);
+            },
             onLoadFailed: () => setState(() => _failed = true),
             // Üstte parça kartı ya da başka bir pencere açıksa model dokunuşu
             // almasın.

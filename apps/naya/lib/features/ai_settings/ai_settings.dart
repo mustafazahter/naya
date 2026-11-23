@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../entities/session/session.dart';
 import '../../shared/api/api_client.dart';
 
 /// Kullanıcının OpenRouter anahtarının durumu. Anahtarın kendisi sunucudan
@@ -77,12 +78,13 @@ enum AiRole {
   bool fits(AiModel model) => model.kind == key;
 }
 
-final keyStatusProvider = FutureProvider.autoDispose<KeyStatus>(
-  (ref) async => KeyStatus.fromJson(
+final keyStatusProvider = FutureProvider.autoDispose<KeyStatus>((ref) async {
+  // Giriş, çıkış ya da hesap değişince yeniden sorulur.
+  ref.watch(sessionProvider.select((s) => s.value?.id));
+  return KeyStatus.fromJson(
     await ref.watch(apiClientProvider).getJson('/api/ai/key'),
-  ),
-  retry: (_, _) => null,
-);
+  );
+}, retry: (_, _) => null);
 
 /// Liste sunucuda 24 saat önbellekte; anahtar yokken de gelir.
 final aiModelsProvider = FutureProvider.autoDispose<List<AiModel>>((ref) async {
@@ -97,26 +99,35 @@ final aiModelsProvider = FutureProvider.autoDispose<List<AiModel>>((ref) async {
 final aiRolesProvider = FutureProvider.autoDispose<Map<String, String>>((
   ref,
 ) async {
+  ref.watch(sessionProvider.select((s) => s.value?.id));
   final json = await ref.watch(apiClientProvider).getJson('/api/ai/roles');
   return _rolesOf(json);
 }, retry: (_, _) => null);
 
+// Aşağıdakiler istekten önce [ProviderScope]'u alır: kullanıcı beklerken
+// sayfadan çıkarsa [WidgetRef] artık kullanılamaz.
+
 /// Anahtarı sunucuya gönderir; sunucu OpenRouter'a sorup doğrular.
 Future<void> saveApiKey(WidgetRef ref, String key) async {
-  await ref.read(apiClientProvider).putJson('/api/ai/key', {'key': key.trim()});
-  ref.invalidate(keyStatusProvider);
+  final container = ProviderScope.containerOf(ref.context, listen: false);
+  await container.read(apiClientProvider).putJson('/api/ai/key', {
+    'key': key.trim(),
+  });
+  container.invalidate(keyStatusProvider);
 }
 
 Future<void> deleteApiKey(WidgetRef ref) async {
-  await ref.read(apiClientProvider).delete('/api/ai/key');
-  ref.invalidate(keyStatusProvider);
+  final container = ProviderScope.containerOf(ref.context, listen: false);
+  await container.read(apiClientProvider).delete('/api/ai/key');
+  container.invalidate(keyStatusProvider);
 }
 
 Future<void> setRoleModel(WidgetRef ref, AiRole role, String modelId) async {
-  await ref.read(apiClientProvider).putJson('/api/ai/roles', {
+  final container = ProviderScope.containerOf(ref.context, listen: false);
+  await container.read(apiClientProvider).putJson('/api/ai/roles', {
     role.key: modelId,
   });
-  ref.invalidate(aiRolesProvider);
+  container.invalidate(aiRolesProvider);
 }
 
 Map<String, String> _rolesOf(Map<String, Object?> json) {

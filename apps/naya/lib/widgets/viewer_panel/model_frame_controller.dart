@@ -21,6 +21,25 @@ class ModelFrameController {
   /// Viewer hiç cevap vermezse (model yüklenmedi) taramayı beklemeyi bırak.
   static const scanTimeout = Duration(seconds: 6);
 
+  /// Model yüklenip viewer komut almaya hazır olunca tamamlanır.
+  final _ready = Completer<void>();
+
+  /// Viewer `ready` gönderdi.
+  void markReady() {
+    if (!_ready.isCompleted) _ready.complete();
+  }
+
+  /// Model yüklenene kadar bekler. Adresten açılan bir teşhiste tarama
+  /// komutu, iframe ya da WebView daha açılmadan gönderilip kaybolmasın.
+  /// Viewer yoksa (bağlanmadıysa) ya da [readyTimeout] içinde hazır
+  /// olmazsa beklemez; komutlar o zaman zaten bir şey yapmaz.
+  Future<void> whenReady() async {
+    if (_send == null || _ready.isCompleted) return;
+    await _ready.future.timeout(readyTimeout, onTimeout: () {});
+  }
+
+  static const readyTimeout = Duration(seconds: 30);
+
   void attach(void Function(Map<String, Object?> command) send) => _send = send;
 
   void detach() {

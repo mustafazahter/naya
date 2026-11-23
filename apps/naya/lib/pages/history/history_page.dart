@@ -79,6 +79,9 @@ class HistoryPage extends ConsumerWidget {
               ),
             ),
             AsyncError(:final error) => _Empty(_message(error)),
+            // İçerik inmediyse teşhis listesi hiç istenmez; iskelet sonsuza
+            // dek dönmesin.
+            _ when content.hasError => _Empty(_message(content.error!)),
             _ => const SkeletonBlock(height: 160),
           },
           const SizedBox(height: NayaSpace.xxl),

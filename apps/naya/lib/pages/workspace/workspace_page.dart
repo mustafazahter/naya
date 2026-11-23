@@ -68,6 +68,7 @@ class WorkspacePage extends ConsumerStatefulWidget {
     required this.onOpenModule,
     required this.onOpenPart,
     this.request,
+    this.onRequestHandled,
     this.onOpenHistory,
     this.onSignIn,
     this.onOpenSettings,
@@ -81,6 +82,10 @@ class WorkspacePage extends ConsumerStatefulWidget {
   /// Parçanın ayrıntı sayfasını açar (parça kimliğiyle).
   final ValueChanged<String> onOpenPart;
   final WorkspaceRequest? request;
+
+  /// İstek alındı; adresteki sorgu temizlenir. Böylece "Yeni konu"dan sonra
+  /// aynı teşhis ya da parça yeniden açılınca istek yine gelir.
+  final VoidCallback? onRequestHandled;
   final VoidCallback? onOpenHistory;
 
   /// Yapay zekâ giriş ya da anahtar isterse sohbetteki düğmeler.
@@ -150,7 +155,11 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
       return; // İçerik hatası sohbet yerine zaten gösteriliyor.
     }
     if (!mounted) return;
+    widget.onRequestHandled?.call();
     _reset();
+    // Yükleme sürerken kullanıcı yeni bir şey başlatırsa (mesaj, "Yeni
+    // konu", "hakkında sor") [_run] değişir; eski istek sohbete yazmaz.
+    final run = _run;
     final api = ref.read(apiClientProvider);
     try {
       switch (request) {
@@ -161,12 +170,13 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
             _part = partId;
           });
           final nodes = content.part(partId)!.meshNodes;
+          await _viewer.whenReady();
+          if (!mounted || run != _run) return;
           if (nodes.isNotEmpty) _viewer.focus(nodes.first);
         case OpenDiagnosis(:final id):
           setState(() => _diagnosing = true);
           final diagnosis = await loadDiagnosis(api, content, id);
-          if (!mounted) return;
-          final run = ++_run;
+          if (!mounted || run != _run) return;
           setState(() {
             _diagnosing = false;
             _turns.add(UserTurn(diagnosis.symptom));
@@ -175,7 +185,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
           await _play(diagnosis, content, run);
         case OpenConversation(:final id):
           final (summary, messages) = await loadConversation(api, id);
-          if (!mounted) return;
+          if (!mounted || run != _run) return;
           setState(() {
             _chatting = true;
             _conversation = summary.id;
@@ -190,7 +200,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
           });
       }
     } on Object catch (e) {
-      if (!mounted) return;
+      if (!mounted || run != _run) return;
       setState(() {
         _diagnosing = false;
         _notice = _noticeFor(e);
@@ -471,6 +481,8 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
     int run,
   ) async {
     final weights = scanWeights(diagnosis, content);
+    await _viewer.whenReady();
+    if (!mounted || run != _run) return;
     if (_viewer.exploded.value) _viewer.explode(0);
     if (weights.isEmpty) {
       _viewer.highlight(const {});

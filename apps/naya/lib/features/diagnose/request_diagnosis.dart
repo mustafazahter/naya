@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../entities/diagnosis/diagnosis.dart';
 import '../../entities/product/product_content.dart';
+import '../../entities/session/session.dart';
 import '../../shared/api/api_client.dart';
 
 /// Yazılan belirtiyi sunucuya teşhis ettirir (`POST /api/ai/diagnose`).
@@ -41,6 +42,8 @@ class DiagnosisEntry {
 /// geldiği için içerik yüklenmeden liste istenmez.
 final diagnosisHistoryProvider = FutureProvider.autoDispose
     .family<List<DiagnosisEntry>, ProductContent>((ref, content) async {
+      // Giriş, çıkış ya da hesap değişince yeniden sorulur.
+      ref.watch(sessionProvider.select((s) => s.value?.id));
       final json = await ref
           .watch(apiClientProvider)
           .getJson(

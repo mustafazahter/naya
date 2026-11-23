@@ -311,6 +311,20 @@ void main() {
       expect(controller.exploded.value, isFalse);
     });
 
+    test('komutlar model hazır olana kadar bekler', () async {
+      var waited = false;
+      final wait = controller.whenReady().then((_) => waited = true);
+      await Future<void>.delayed(Duration.zero);
+      expect(waited, isFalse);
+      controller.markReady();
+      await wait;
+      expect(waited, isTrue);
+      // Bağlı olmayan viewer beklemez.
+      final detached = ModelFrameController();
+      addTearDown(detached.dispose);
+      await detached.whenReady();
+    });
+
     test('viewer bağlı değilse parçalara ayırma durumu değişmez', () {
       final detached = ModelFrameController();
       addTearDown(detached.dispose);

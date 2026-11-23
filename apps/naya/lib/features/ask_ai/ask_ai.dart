@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../entities/session/session.dart';
 import '../../shared/api/api_client.dart';
 import '../../shared/api/sse.dart';
 
@@ -36,12 +37,18 @@ Stream<AnswerEvent> askAi(
   int? conversation,
   String? part,
 }) async* {
-  final bytes = await api.postStream('/api/ai/chat', {
+  final response = await api.postStream('/api/ai/chat', {
     'item': item,
     'message': message,
     'conversation': ?conversation,
     'part': ?part,
   });
+  // Akış ortasında kopan bağlantı platforma göre farklı hatalarla gelir
+  // (SocketException, ClientException); kullanıcıya hepsi aynı.
+  final bytes = response.handleError(
+    (Object _) => throw _cutOff,
+    test: (error) => error is! ApiException,
+  );
   await for (final event in parseSse(bytes)) {
     final json = event.json;
     switch (event.name) {
@@ -63,8 +70,14 @@ Stream<AnswerEvent> askAi(
     }
   }
   // `done` gelmeden bağlantı koptu.
-  throw const ApiException(0, 'offline', 'Bağlantı koptu, cevap yarım kaldı.');
+  throw _cutOff;
 }
+
+const _cutOff = ApiException(
+  0,
+  'offline',
+  'Bağlantı koptu, cevap yarım kaldı.',
+);
 
 /// Kayıtlı bir sohbet: başlığı ve hangi parça hakkında olduğu.
 class ConversationSummary {
@@ -107,6 +120,8 @@ class ConversationMessage {
 /// Ürünün sohbetleri, en yeni önce.
 final conversationsProvider = FutureProvider.autoDispose
     .family<List<ConversationSummary>, String>((ref, item) async {
+      // Giriş, çıkış ya da hesap değişince yeniden sorulur.
+      ref.watch(sessionProvider.select((s) => s.value?.id));
       final json = await ref
           .watch(apiClientProvider)
           .getJson(

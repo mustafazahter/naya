@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../shared/api/api_client.dart';
@@ -38,14 +40,19 @@ class SessionNotifier extends AsyncNotifier<Account?> {
       return Account.fromJson(json['user']! as Map<String, Object?>);
     } on ApiException catch (e) {
       // Süresi dolmuş token'ı tutmanın anlamı yok. Sunucuya ulaşılamadıysa
-      // token kalır; bağlantı gelince yeniden denenir.
+      // token kalır ve biraz sonra yeniden sorulur; o arada misafir görünür.
       if (e.statusCode == 401) {
         api.token = null;
         await store.clear();
+      } else {
+        final retry = Timer(_retryAfter, ref.invalidateSelf);
+        ref.onDispose(retry.cancel);
       }
       return null;
     }
   }
+
+  static const _retryAfter = Duration(seconds: 15);
 
   /// Giriş ya da kayıt cevabıyla oturumu başlatır. Android'de sunucu
   /// token'ı gövdede verir; web'de çerez zaten yazıldı.

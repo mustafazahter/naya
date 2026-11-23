@@ -202,6 +202,9 @@ class _WorkspaceRoute extends ConsumerWidget {
       return WorkspacePage(
         product: product,
         request: request,
+        // Sorgu kalırsa aynı teşhis/parça yeniden açıldığında adres
+        // değişmez ve istek gelmez.
+        onRequestHandled: () => context.go(AppRoutes.workspace(productId)),
         onOpenModule: (dmc) => context.push(AppRoutes.module(productId, dmc)),
         onOpenPart: (part) => context.push(AppRoutes.part(productId, part)),
         onOpenHistory: () => context.push(AppRoutes.history(productId)),

@@ -13,24 +13,30 @@ Future<void> signIn(
   required String password,
   bool register = false,
 }) async {
-  final response = await ref.read(apiClientProvider).postJson(
+  // Kullanıcı beklerken sayfadan çıkabilir; [ref] o zaman kullanılamaz.
+  // Gerekenler istekten önce alınır, yoksa açılan oturum kaybolurdu.
+  final container = ProviderScope.containerOf(ref.context, listen: false);
+  final response = await container.read(apiClientProvider).postJson(
     register ? '/api/auth/register' : '/api/auth/login',
     {'email': email.trim(), 'password': password},
   );
-  await ref.read(sessionProvider.notifier).signedIn(response);
+  await container.read(sessionProvider.notifier).signedIn(response);
   // Misafirken görünmeyen kullanıcı dosyaları gelsin.
-  ref.invalidate(productLibraryProvider);
+  container.invalidate(productLibraryProvider);
 }
 
 /// Sunucudaki oturumu kapatır. Sunucuya ulaşılamasa da yerelde çıkılır.
 Future<void> signOut(WidgetRef ref) async {
+  final container = ProviderScope.containerOf(ref.context, listen: false);
   try {
-    await ref.read(apiClientProvider).postJson('/api/auth/logout', const {});
+    await container
+        .read(apiClientProvider)
+        .postJson('/api/auth/logout', const {});
   } on ApiException {
     // Token yerelde silinince zaten kullanılmaz; süresi dolunca da biter.
   }
-  await ref.read(sessionProvider.notifier).signedOut();
-  ref.invalidate(productLibraryProvider);
+  await container.read(sessionProvider.notifier).signedOut();
+  container.invalidate(productLibraryProvider);
 }
 
 /// Sunucunun hesap hatalarını kullanıcıya uygun metne çevirir.
