@@ -82,14 +82,19 @@ export function explodeOffsets(
 
     const thin = thinnestAxis(groupSize);
     const span = groupSize.length();
-    list.forEach((part, i) => {
+    // İç içe parçalar (merkezi grubun merkezine çok yakın) kendi aralarında
+    // sıralanır. Sıra bütün grubun içinden sayılırsa, çok üyeli bir grupta
+    // (arabanın gövdesi) tek bir iç içe parça metrelerce uzağa kayar.
+    const nested = list.filter((p) => p.center.distanceTo(groupCenter) < span * 0.12);
+    list.forEach((part) => {
       const inside = part.center.clone().sub(groupCenter);
       let move: THREE.Vector3;
       if (list.length === 1) {
         move = new THREE.Vector3();
-      } else if (inside.length() < span * 0.12) {
+      } else if (nested.includes(part)) {
         // İç içe parça: ince eksen boyunca sıraya diz.
-        move = thin.clone().multiplyScalar((i - (list.length - 1) / 2) * span * 0.18);
+        const i = nested.indexOf(part);
+        move = thin.clone().multiplyScalar((i - (nested.length - 1) / 2) * span * 0.18);
       } else {
         move = inside.clone().normalize().multiplyScalar(inside.length() * 0.5 + span * 0.05);
       }
