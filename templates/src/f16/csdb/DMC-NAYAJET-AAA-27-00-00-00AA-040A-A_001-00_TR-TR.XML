@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYAJET-AAA-D000000-0-NAYA0-00004-A-001-01 SYSTEM "ICN-NAYAJET-AAA-D000000-0-NAYA0-00004-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="27" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Uçuş kumandaları</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16D Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>F-16 elektrikli (fly-by-wire) kumandalı ilk savaş uçaklarından biridir. Pilotun kumandası uçuş kumanda bilgisayarına gider; bilgisayar kumanda yüzeylerinin hidrolik eyleyicilerini çalıştırır.</para>
+      </levelledPara>
+      <figure id="fig-0004"><title>Uçuş kumanda yüzeyleri</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00004-A-001-01"/></figure>
+      <levelledPara>
+        <title>Yüzeyler</title>
+        <para>Flaperonlar kanatların firar kenarındadır; hem kanatçık hem flap görevi görür.</para>
+        <para>Hücum kenarı flapları hıza ve hücum açısına göre kendiliğinden hareket eder.</para>
+        <para>Yatay kuyruklar tek parça döner (stabilatör); birlikte dönünce yunuslama, ters yönde dönünce yatış sağlar.</para>
+        <para>Dümen dikey kuyruğun firar kenarındadır. Hava frenleri lülenin iki yanında açılır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

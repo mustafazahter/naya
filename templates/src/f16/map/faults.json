@@ -1,0 +1,345 @@
+{
+  "symptoms": [
+    {
+      "id": "sym.no_light",
+      "text": "Motor çalıştırmada ateş almıyor"
+    },
+    {
+      "id": "sym.egt_high",
+      "text": "Egzoz sıcaklığı normalden yüksek"
+    },
+    {
+      "id": "sym.power_loss",
+      "text": "Motor itkisi düşük"
+    },
+    {
+      "id": "sym.engine_vibration",
+      "text": "Motor titreşimi artmış"
+    },
+    {
+      "id": "sym.fan_damage",
+      "text": "Fan kanadında çentik ya da eğilme görülüyor"
+    },
+    {
+      "id": "sym.oil_low",
+      "text": "Motor yağ seviyesi sık sık düşüyor"
+    },
+    {
+      "id": "sym.oil_pressure",
+      "text": "Motor yağ basıncı uyarısı"
+    },
+    {
+      "id": "sym.ab_no_light",
+      "text": "Art yakıcı devreye girmiyor"
+    },
+    {
+      "id": "sym.nozzle_damage",
+      "text": "Lüle yapraklarında çatlak ya da yanık var"
+    },
+    {
+      "id": "sym.hyd_low",
+      "text": "Hidrolik basınç uyarısı yanıyor"
+    },
+    {
+      "id": "sym.hyd_leak",
+      "text": "Gövde altında ya da yuvalarda hidrolik sıvısı izi"
+    },
+    {
+      "id": "sym.flcs_light",
+      "text": "Uçuş kumanda uyarısı yanıyor"
+    },
+    {
+      "id": "sym.speedbrake",
+      "text": "Hava frenleri tam açılmıyor ya da kapanmıyor"
+    },
+    {
+      "id": "sym.fuel_water",
+      "text": "Yakıt örneğinde su görülüyor"
+    },
+    {
+      "id": "sym.fuel_leak",
+      "text": "Konformal tank bağlantısında yakıt izi"
+    },
+    {
+      "id": "sym.tire_wear",
+      "text": "Lastik aşınma işaretine kadar aşınmış"
+    },
+    {
+      "id": "sym.tire_low",
+      "text": "Lastik basıncı düşük"
+    },
+    {
+      "id": "sym.pull",
+      "text": "Uçak taksi sırasında bir yana çekiyor"
+    },
+    {
+      "id": "sym.brake_weak",
+      "text": "Frenler zayıf tutuyor"
+    },
+    {
+      "id": "sym.brake_pin",
+      "text": "Fren aşınma pimi gövdeyle aynı hizada"
+    },
+    {
+      "id": "sym.strut_low",
+      "text": "Amortisör dikmesi çok kısa duruyor"
+    },
+    {
+      "id": "sym.shimmy",
+      "text": "Burun tekerleği taksi sırasında titriyor"
+    },
+    {
+      "id": "sym.canopy_seal",
+      "text": "Kokpit basınçlanmıyor ya da kanopiden ıslık sesi geliyor"
+    },
+    {
+      "id": "sym.canopy_vision",
+      "text": "Kanopiden görüş bulanık ya da çizikli"
+    },
+    {
+      "id": "sym.radome_damage",
+      "text": "Radomda erozyon ya da yıldırım izi var"
+    },
+    {
+      "id": "sym.hook_damage",
+      "text": "Kuyruk kancası ucunda çentik ya da aşınma"
+    }
+  ],
+  "faults": [
+    {
+      "id": "f.igniters",
+      "part": "engine.igniters",
+      "symptoms": [
+        "sym.no_light"
+      ],
+      "cause": "Ateşleyiciler ya da ateşleme ünitesi kıvılcım üretmiyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-00AA-421A-A"
+    },
+    {
+      "id": "f.fuel_nozzles",
+      "part": "engine.fuel_nozzles",
+      "symptoms": [
+        "sym.no_light",
+        "sym.egt_high"
+      ],
+      "cause": "Yakıt enjektörleri kısmen tıkanmış; alev düzensiz.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.fan.fod",
+      "part": "engine.fan",
+      "symptoms": [
+        "sym.fan_damage",
+        "sym.engine_vibration"
+      ],
+      "cause": "Fan kanatları yabancı cisim (FOD) çarpmasıyla hasarlanmış.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-72-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.hpc.erosion",
+      "part": "engine.hpc",
+      "symptoms": [
+        "sym.power_loss",
+        "sym.egt_high"
+      ],
+      "cause": "Kompresör kanatları aşınmış; motor verimi düşmüş.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.hpt.blade",
+      "part": "engine.hpt",
+      "symptoms": [
+        "sym.egt_high",
+        "sym.engine_vibration"
+      ],
+      "cause": "Yüksek basınç türbini kanatlarında yanma ya da kaplama kaybı.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.oil.leak",
+      "part": "engine.oil",
+      "symptoms": [
+        "sym.oil_low",
+        "sym.oil_pressure"
+      ],
+      "cause": "Motor yağ sisteminde sızıntı ya da yatak keçesinden kaçak.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-79-10-00-00AA-300A-A"
+    },
+    {
+      "id": "f.afterburner",
+      "part": "engine.afterburner",
+      "symptoms": [
+        "sym.ab_no_light"
+      ],
+      "cause": "Art yakıcı ateşlemesi ya da yakıt püskürtme halkası arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-72-50-00-00AA-310A-A"
+    },
+    {
+      "id": "f.nozzle.flaps",
+      "part": "engine.nozzle",
+      "symptoms": [
+        "sym.nozzle_damage"
+      ],
+      "cause": "Lüle yaprakları ısıdan çatlamış ya da yanmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-72-50-00-00AA-310A-A"
+    },
+    {
+      "id": "f.hyd.leak",
+      "part": "hydraulics",
+      "symptoms": [
+        "sym.hyd_low",
+        "sym.hyd_leak"
+      ],
+      "cause": "Hidrolik hatta, bağlantıda ya da eyleyicide sızıntı.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-29-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-29-10-00-00AA-300A-A"
+    },
+    {
+      "id": "f.actuator",
+      "part": "flight_controls.actuators",
+      "symptoms": [
+        "sym.flcs_light",
+        "sym.hyd_leak"
+      ],
+      "cause": "Bir kumanda eyleyicisi sızdırıyor ya da geri bildirimi bozuk.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-27-00-00-00AA-310A-A"
+    },
+    {
+      "id": "f.speed_brake",
+      "part": "speed_brakes",
+      "symptoms": [
+        "sym.speedbrake"
+      ],
+      "cause": "Hava freni eyleyicisi ya da menteşesi arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-27-50-00-00AA-310A-A"
+    },
+    {
+      "id": "f.fuel.water",
+      "part": "fuel.internal",
+      "symptoms": [
+        "sym.fuel_water"
+      ],
+      "cause": "Tanklarda su birikmiş; yoğuşma ya da kirli yakıt.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-28-10-00-00AA-300A-A",
+      "repair": "DMC-NAYAJET-AAA-28-10-00-00AA-300A-A"
+    },
+    {
+      "id": "f.cft.seal",
+      "part": "fuel.cft",
+      "symptoms": [
+        "sym.fuel_leak"
+      ],
+      "cause": "Konformal tank bağlantı contası sızdırıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-28-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.tire.worn",
+      "part": "gear.wheels",
+      "symptoms": [
+        "sym.tire_wear",
+        "sym.pull"
+      ],
+      "cause": "Lastik aşınma sınırına gelmiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-32-40-00-00AA-300A-A",
+      "repair": "DMC-NAYAJET-AAA-32-40-00-00AA-920A-A"
+    },
+    {
+      "id": "f.tire.pressure",
+      "part": "gear.wheels",
+      "symptoms": [
+        "sym.tire_low",
+        "sym.pull"
+      ],
+      "cause": "Lastik basıncı düşük; supap ya da jant contası kaçırıyor olabilir.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-32-40-00-00AA-300A-A"
+    },
+    {
+      "id": "f.brakes.worn",
+      "part": "gear.brakes",
+      "symptoms": [
+        "sym.brake_pin",
+        "sym.brake_weak"
+      ],
+      "cause": "Fren diskleri aşınma sınırına gelmiş.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-32-40-00-00AA-310A-A"
+    },
+    {
+      "id": "f.strut.service",
+      "part": "gear.struts",
+      "symptoms": [
+        "sym.strut_low",
+        "sym.hyd_leak"
+      ],
+      "cause": "Amortisör dikmesi azot ya da yağ kaybetmiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-32-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.nose.torque_link",
+      "part": "nose_gear",
+      "symptoms": [
+        "sym.shimmy"
+      ],
+      "cause": "Burun iniş takımı tork kolunda boşluk ya da titreşim sönümleyicide arıza.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-32-00-00-00AA-421A-A"
+    },
+    {
+      "id": "f.canopy.seal",
+      "part": "airframe.canopy",
+      "symptoms": [
+        "sym.canopy_seal"
+      ],
+      "cause": "Kanopi contası yırtılmış ya da sertleşmiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-56-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.canopy.scratch",
+      "part": "airframe.canopy",
+      "symptoms": [
+        "sym.canopy_vision"
+      ],
+      "cause": "Kanopi camı kirli ya da yanlış temizlikle çizilmiş.",
+      "severity": 1,
+      "isolation": "DMC-NAYAJET-AAA-56-10-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-56-10-00-00AA-250A-A"
+    },
+    {
+      "id": "f.radome.erosion",
+      "part": "airframe.radome",
+      "symptoms": [
+        "sym.radome_damage"
+      ],
+      "cause": "Radom yüzeyi yağmur erozyonu ya da yıldırım çarpmasıyla hasarlanmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-53-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.hook.wear",
+      "part": "tail_hook",
+      "symptoms": [
+        "sym.hook_damage"
+      ],
+      "cause": "Kuyruk kancası ucu aşınmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYAJET-AAA-32-50-00-00AA-310A-A"
+    }
+  ]
+}

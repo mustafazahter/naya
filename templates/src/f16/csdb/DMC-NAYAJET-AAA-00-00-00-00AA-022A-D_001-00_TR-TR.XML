@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/brex.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>F-16D Block 60</techName><infoName>İş kuralları</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16D Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <brex>
+      <snsRules>
+        <snsDescr>
+          <snsSystem><snsCode>00</snsCode><snsTitle>Uçak</snsTitle></snsSystem>
+          <snsSystem><snsCode>25</snsCode><snsTitle>Kokpit donanımı</snsTitle><snsSubSystem><snsCode>1</snsCode><snsTitle>Fırlatma koltukları</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Fırlatma koltukları</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Fırlatma koltukları</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem></snsSystem>
+          <snsSystem><snsCode>27</snsCode><snsTitle>Uçuş kumandaları</snsTitle><snsSubSystem><snsCode>1</snsCode><snsTitle>Flaperonlar</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Flaperonlar</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Flaperonlar</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>2</snsCode><snsTitle>Dümen</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Dümen</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Dümen</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>3</snsCode><snsTitle>Yatay kuyruklar</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Yatay kuyruklar</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Yatay kuyruklar</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>4</snsCode><snsTitle>Hücum kenarı flapları</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Hücum kenarı flapları</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Hücum kenarı flapları</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>5</snsCode><snsTitle>Hava frenleri</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Hava frenleri</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Hava frenleri</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem></snsSystem>
+          <snsSystem><snsCode>28</snsCode><snsTitle>Yakıt sistemi</snsTitle><snsSubSystem><snsCode>1</snsCode><snsTitle>Gövde içi tanklar</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Gövde içi tanklar</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Gövde içi tanklar</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>2</snsCode><snsTitle>Konformal yakıt tankları</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Konformal yakıt tankları</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Konformal yakıt tankları</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem></snsSystem>
+          <snsSystem><snsCode>29</snsCode><snsTitle>Hidrolik güç</snsTitle><snsSubSystem><snsCode>1</snsCode><snsTitle>Hidrolik sistemler</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Hidrolik sistemler</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Hidrolik sistemler</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem></snsSystem>
+          <snsSystem><snsCode>32</snsCode><snsTitle>İniş takımı</snsTitle><snsSubSystem><snsCode>1</snsCode><snsTitle>Ana iniş takımı</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Ana iniş takımı</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Ana iniş takımı</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>2</snsCode><snsTitle>Burun iniş takımı</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Burun iniş takımı</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Burun iniş takımı</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>4</snsCode><snsTitle>Tekerlekler ve frenler</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Tekerlekler ve frenler</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Tekerlekler ve frenler</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>5</snsCode><snsTitle>Kuyruk kancası</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Kuyruk kancası</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Kuyruk kancası</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem></snsSystem>
+          <snsSystem><snsCode>53</snsCode><snsTitle>Gövde</snsTitle><snsSubSystem><snsCode>1</snsCode><snsTitle>Gövde yapısı</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Gövde yapısı</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Gövde yapısı</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>2</snsCode><snsTitle>Radom</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Radom</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Radom</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>3</snsCode><snsTitle>Hava alığı</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Hava alığı</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Hava alığı</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem></snsSystem>
+          <snsSystem><snsCode>56</snsCode><snsTitle>Kanopi</snsTitle><snsSubSystem><snsCode>1</snsCode><snsTitle>Kanopi camı ve çerçevesi</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Kanopi camı ve çerçevesi</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Kanopi camı ve çerçevesi</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem></snsSystem>
+          <snsSystem><snsCode>57</snsCode><snsTitle>Kanatlar ve kuyruk</snsTitle><snsSubSystem><snsCode>1</snsCode><snsTitle>Kanatlar</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Kanatlar</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Kanatlar</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>2</snsCode><snsTitle>Kuyruk</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Kuyruk</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Kuyruk</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem></snsSystem>
+          <snsSystem><snsCode>72</snsCode><snsTitle>Motor</snsTitle><snsSubSystem><snsCode>1</snsCode><snsTitle>Fan ve kompresörler</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Fan ve kompresörler</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Fan ve kompresörler</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>2</snsCode><snsTitle>Yanma odası</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Yanma odası</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Yanma odası</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>3</snsCode><snsTitle>Türbinler</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Türbinler</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Türbinler</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem><snsSubSystem><snsCode>5</snsCode><snsTitle>Art yakıcı ve lüle</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Art yakıcı ve lüle</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Art yakıcı ve lüle</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem></snsSystem>
+          <snsSystem><snsCode>79</snsCode><snsTitle>Motor yağı</snsTitle><snsSubSystem><snsCode>1</snsCode><snsTitle>Yağ sistemi</snsTitle><snsSubSubSystem><snsCode>0</snsCode><snsTitle>Yağ sistemi</snsTitle><snsAssy><snsCode>00</snsCode><snsTitle>Yağ sistemi</snsTitle></snsAssy></snsSubSubSystem></snsSubSystem></snsSystem>
+        </snsDescr>
+      </snsRules>
+      <contextRules/>
+    </brex>
+  </content>
+</dmodule>

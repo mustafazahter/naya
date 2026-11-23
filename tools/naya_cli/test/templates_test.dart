@@ -58,13 +58,72 @@ void main() {
     });
   });
 
-  group('Corolla şablonu', () {
+  _vehicleTemplate(
+    name: 'Corolla',
+    folder: 'corolla',
+    credits: 2,
+    systems: [
+      'Araç',
+      'Gövde',
+      'Motor',
+      'Güç aktarma',
+      'Fren sistemi',
+      'Süspansiyon ve direksiyon',
+      'Tekerlekler',
+      'Elektrik ve aydınlatma',
+    ],
+  );
+
+  _vehicleTemplate(
+    name: 'Leopard 2A6',
+    folder: 'leopard2',
+    credits: 1,
+    systems: [
+      'Araç',
+      'Gövde ve kule',
+      'Güç paketi',
+      'Güç aktarma',
+      'Yürüyen takım',
+      'Elektrik sistemi',
+      'Silah ve optikler',
+    ],
+  );
+
+  _vehicleTemplate(
+    name: 'F-16D',
+    folder: 'f16',
+    credits: 2,
+    systems: [
+      'Uçak',
+      'Kokpit donanımı',
+      'Uçuş kumandaları',
+      'Yakıt sistemi',
+      'Hidrolik güç',
+      'İniş takımı',
+      'Gövde',
+      'Kanopi',
+      'Kanatlar ve kuyruk',
+      'Motor',
+      'Motor yağı',
+    ],
+  );
+}
+
+/// Corolla, tank ve uçak şablonlarının ortak kabul kriteri: 30-60 parça,
+/// 15-25 arıza, 20-40 DM, 50 MB altı, uyarısız doğrulama, atıflar.
+void _vehicleTemplate({
+  required String name,
+  required String folder,
+  required int credits,
+  required List<String> systems,
+}) {
+  group('$name şablonu', () {
     late NayaFile file;
     late int size;
     late Csdb csdb;
 
     setUpAll(() {
-      final bytes = packFolder(Directory('../../templates/src/corolla'))
+      final bytes = packFolder(Directory('../../templates/src/$folder'))
           .encode();
       size = bytes.length;
       file = NayaFile.decode(bytes);
@@ -98,7 +157,7 @@ void main() {
     });
 
     test('atıflar manifestte', () {
-      expect(file.manifest.credits, hasLength(2));
+      expect(file.manifest.credits, hasLength(credits));
       expect(
         file.manifest.credits.map((c) => c.license),
         everyElement('CC-BY-4.0'),
@@ -107,16 +166,7 @@ void main() {
 
     test('S1000D içeriği okunur ve SNS ağacı BREX başlıklarını taşır', () {
       expect(csdb.problems, isEmpty);
-      expect(csdb.snsTree.map((n) => n.title), [
-        'Araç',
-        'Gövde',
-        'Motor',
-        'Güç aktarma',
-        'Fren sistemi',
-        'Süspansiyon ve direksiyon',
-        'Tekerlekler',
-        'Elektrik ve aydınlatma',
-      ]);
+      expect(csdb.snsTree.map((n) => n.title), systems);
       expect(csdb.chunks.length, greaterThan(100));
     });
   });

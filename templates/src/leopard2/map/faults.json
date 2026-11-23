@@ -1,0 +1,352 @@
+{
+  "symptoms": [
+    {
+      "id": "sym.no_start",
+      "text": "Motor çalışmıyor"
+    },
+    {
+      "id": "sym.slow_crank",
+      "text": "Marş ağır dönüyor"
+    },
+    {
+      "id": "sym.power_loss",
+      "text": "Motor çekmiyor, tank hızlanmıyor"
+    },
+    {
+      "id": "sym.black_smoke",
+      "text": "Egzozdan siyah duman çıkıyor"
+    },
+    {
+      "id": "sym.blue_smoke",
+      "text": "Egzozdan mavi duman çıkıyor"
+    },
+    {
+      "id": "sym.whistle",
+      "text": "Güç paketinden ıslık sesi geliyor"
+    },
+    {
+      "id": "sym.overheat",
+      "text": "Motor sıcaklığı yükseliyor"
+    },
+    {
+      "id": "sym.coolant_loss",
+      "text": "Soğutma sıvısı eksiliyor"
+    },
+    {
+      "id": "sym.oil_pressure",
+      "text": "Yağ basıncı uyarısı yanıyor"
+    },
+    {
+      "id": "sym.oil_leak",
+      "text": "Motor bölmesinin altına yağ damlıyor"
+    },
+    {
+      "id": "sym.air_filter_light",
+      "text": "Hava filtresi göstergesi kırmızı"
+    },
+    {
+      "id": "sym.water_in_fuel",
+      "text": "Yakıt filtresinde su birikiyor"
+    },
+    {
+      "id": "sym.shift",
+      "text": "Vitesler sert ya da geç geçiyor"
+    },
+    {
+      "id": "sym.sprocket_leak",
+      "text": "Yürütücü dişlinin iç tarafında yağ izi var"
+    },
+    {
+      "id": "sym.brake_weak",
+      "text": "Fren zayıf tutuyor"
+    },
+    {
+      "id": "sym.track_slack",
+      "text": "Palet sarkık, palet atıyor"
+    },
+    {
+      "id": "sym.track_noise",
+      "text": "Yürüyen takımdan vuruntu ya da şıkırtı geliyor"
+    },
+    {
+      "id": "sym.vibration",
+      "text": "Asfaltta sürüşte titreşim artmış"
+    },
+    {
+      "id": "sym.hot_hub",
+      "text": "Bir yol tekerleği göbeği çok ısınıyor"
+    },
+    {
+      "id": "sym.rubber_loss",
+      "text": "Tekerlek bandajından lastik parçaları kopuyor"
+    },
+    {
+      "id": "sym.pitching",
+      "text": "Tank engebede aşırı yalpalıyor"
+    },
+    {
+      "id": "sym.pull",
+      "text": "Tank bir yana çekiyor"
+    },
+    {
+      "id": "sym.dim_lights",
+      "text": "Farlar sönük yanıyor"
+    },
+    {
+      "id": "sym.light_out",
+      "text": "Bir lamba yanmıyor"
+    },
+    {
+      "id": "sym.blurry_optics",
+      "text": "Optikten görüntü bulanık"
+    }
+  ],
+  "faults": [
+    {
+      "id": "f.batteries.flat",
+      "part": "electrical.batteries",
+      "symptoms": [
+        "sym.no_start",
+        "sym.slow_crank",
+        "sym.dim_lights"
+      ],
+      "cause": "Aküler boşalmış ya da ömrünü doldurmuş.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA4-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.generator.failed",
+      "part": "engine.generator",
+      "symptoms": [
+        "sym.dim_lights"
+      ],
+      "cause": "Jeneratör aküleri şarj etmiyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA4-10-00-00AA-300A-A"
+    },
+    {
+      "id": "f.fuel.water",
+      "part": "fuel.filter",
+      "symptoms": [
+        "sym.water_in_fuel",
+        "sym.power_loss",
+        "sym.no_start"
+      ],
+      "cause": "Yakıta su karışmış; filtre ve su ayırıcı dolmuş.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA1-50-00-00AA-300A-A"
+    },
+    {
+      "id": "f.air_filter.clogged",
+      "part": "air_filters",
+      "symptoms": [
+        "sym.air_filter_light",
+        "sym.power_loss",
+        "sym.black_smoke"
+      ],
+      "cause": "Hava filtresi elemanları tozla tıkanmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYATANK-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA1-40-00-00AA-920A-A"
+    },
+    {
+      "id": "f.turbo.leak",
+      "part": "engine.turbochargers",
+      "symptoms": [
+        "sym.whistle",
+        "sym.power_loss",
+        "sym.black_smoke"
+      ],
+      "cause": "Turboşarj hava bağlantısında kaçak var.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA1-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.engine.oil_burning",
+      "part": "engine",
+      "symptoms": [
+        "sym.blue_smoke",
+        "sym.oil_pressure"
+      ],
+      "cause": "Motor yağ yakıyor; turboşarj keçeleri ya da segmanlar aşınmış olabilir.",
+      "severity": 3,
+      "isolation": "DMC-NAYATANK-AAA-DA1-20-00-00AA-300A-A"
+    },
+    {
+      "id": "f.oil.low",
+      "part": "engine.oil",
+      "symptoms": [
+        "sym.oil_pressure",
+        "sym.oil_leak"
+      ],
+      "cause": "Motor yağı eksik ya da bir conta sızdırıyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYATANK-AAA-DA1-20-00-00AA-300A-A",
+      "repair": "DMC-NAYATANK-AAA-DA1-20-00-00AA-241A-A"
+    },
+    {
+      "id": "f.grilles.blocked",
+      "part": "hull.engine_deck",
+      "symptoms": [
+        "sym.overheat"
+      ],
+      "cause": "Motor güvertesi ızgaraları yaprak ya da çamurla tıkanmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA1-30-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA0-30-00-00AA-250A-A"
+    },
+    {
+      "id": "f.radiator.dirty",
+      "part": "cooling.radiators",
+      "symptoms": [
+        "sym.overheat"
+      ],
+      "cause": "Radyatör petekleri toz ve kirle kaplanmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA1-30-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA1-30-00-00AA-250A-A"
+    },
+    {
+      "id": "f.fan.drive",
+      "part": "cooling.fans",
+      "symptoms": [
+        "sym.overheat"
+      ],
+      "cause": "Soğutma fanlarından biri dönmüyor; fan tahriki arızalı.",
+      "severity": 3,
+      "isolation": "DMC-NAYATANK-AAA-DA1-30-00-00AA-421A-A"
+    },
+    {
+      "id": "f.coolant.leak",
+      "part": "cooling",
+      "symptoms": [
+        "sym.coolant_loss",
+        "sym.overheat"
+      ],
+      "cause": "Soğutma sisteminde hortum ya da bağlantı sızdırıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA1-30-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA1-30-00-00AA-300A-A"
+    },
+    {
+      "id": "f.transmission.oil",
+      "part": "transmission",
+      "symptoms": [
+        "sym.shift"
+      ],
+      "cause": "Şanzıman yağı eksik ya da eskimiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA2-10-00-00AA-300A-A"
+    },
+    {
+      "id": "f.brakes.worn",
+      "part": "transmission.brakes",
+      "symptoms": [
+        "sym.brake_weak"
+      ],
+      "cause": "Servis frenleri aşınmış.",
+      "severity": 3
+    },
+    {
+      "id": "f.final_drive.seal",
+      "part": "transmission.final_drives",
+      "symptoms": [
+        "sym.sprocket_leak",
+        "sym.track_noise"
+      ],
+      "cause": "Son dişli keçesi sızdırıyor; yağ eksilirse dişliler aşınır.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA2-20-00-00AA-300A-A"
+    },
+    {
+      "id": "f.track.slack",
+      "part": "idlers.tensioner",
+      "symptoms": [
+        "sym.track_slack",
+        "sym.track_noise"
+      ],
+      "cause": "Palet gerginliği azalmış; gerdirme silindiri gres kaçırıyor olabilir.",
+      "severity": 3,
+      "isolation": "DMC-NAYATANK-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA3-10-00-00AA-271A-A"
+    },
+    {
+      "id": "f.pads.worn",
+      "part": "tracks.pads",
+      "symptoms": [
+        "sym.vibration",
+        "sym.track_noise"
+      ],
+      "cause": "Palet tabanları aşınmış ya da kopmuş.",
+      "severity": 1,
+      "isolation": "DMC-NAYATANK-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA3-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.wheel.bearing",
+      "part": "road_wheels_l",
+      "symptoms": [
+        "sym.hot_hub",
+        "sym.track_noise"
+      ],
+      "cause": "Yol tekerleği rulmanı aşınmış ya da göbekte yağ kalmamış.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.wheel.tyre",
+      "part": "road_wheels_r",
+      "symptoms": [
+        "sym.rubber_loss",
+        "sym.vibration"
+      ],
+      "cause": "Yol tekerleğinin lastik bandajı parçalanıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.damper.leak",
+      "part": "suspension.dampers",
+      "symptoms": [
+        "sym.pitching",
+        "sym.pull"
+      ],
+      "cause": "Amortisör yağını kaçırmış; sönümleme yok.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.sprocket.worn",
+      "part": "sprockets",
+      "symptoms": [
+        "sym.track_slack",
+        "sym.track_noise"
+      ],
+      "cause": "Yürütücü dişli dişleri aşınmış; palet atlıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA3-30-00-00AA-310A-A"
+    },
+    {
+      "id": "f.lights.bulb",
+      "part": "electrical.headlights",
+      "symptoms": [
+        "sym.light_out"
+      ],
+      "cause": "Ampul yanmış ya da soket oksitlenmiş.",
+      "severity": 1,
+      "repair": "DMC-NAYATANK-AAA-DA4-20-00-00AA-920A-A"
+    },
+    {
+      "id": "f.optics.dirty",
+      "part": "turret.optics",
+      "symptoms": [
+        "sym.blurry_optics"
+      ],
+      "cause": "Optik camı kirli ya da nemlenmiş.",
+      "severity": 1,
+      "repair": "DMC-NAYATANK-AAA-DA5-20-00-00AA-250A-A"
+    }
+  ]
+}

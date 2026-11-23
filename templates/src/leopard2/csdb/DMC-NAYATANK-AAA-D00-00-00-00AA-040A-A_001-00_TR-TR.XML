@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01 SYSTEM "ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Leopard 2A6</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Leopard 2, Almanya'da geliştirilen ve birçok ülkenin kullandığı bir ana muharebe tankıdır. 2A6 sürümü, 2000'li yıllarda daha uzun namlulu topla güncellenmiş sürümdür.</para>
+        <para>Mürettebat dört kişidir: komutan, nişancı, yükleyici ve sürücü. Sürücü gövdenin önünde sağda; komutan, nişancı ve yükleyici kulededir.</para>
+      </levelledPara>
+      <figure id="fig-0001"><title>Tank, soldan görünüş</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure>
+      <levelledPara>
+        <title>Sistemler</title>
+        <para>Gövde ve kule: kaynaklı çelik gövde, dönen kule, sürücü ve kule kapakları, yan etekler, motor güvertesi.</para>
+        <para>Güç paketi: gövdenin arkasında V12 dizel motor, şanzıman, soğutma sistemi, hava filtreleri ve egzoz. Motor ve şanzıman tek bir paket olarak birlikte sökülüp takılır.</para>
+        <para>Yürüyen takım: her yanda yedi yol tekerleği, burulma çubuklu süspansiyon, önde avara, arkada yürütücü dişli ve lastik tabanlı paletler.</para>
+        <para>Elektrik: 24 V doğru akım sistemi, aküler, farlar ve arka lambalar.</para>
+        <para>Silah ve optikler: kulede ana top, makineli tüfek, sis bombası atıcıları ve nişan ile gözetleme optikleri. Bu şablon silah sistemlerinin yalnız dış muayenesini ve temizliğini kapsar.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Bu el kitabı hakkında</title>
+        <para>Bu şablon eğitim amaçlıdır ve yalnız genel bakım bilgisi içerir. Ölçü ve ayar değerleri bu şablonda verilmez; aracın kendi teknik el kitabındaki değerleri kullanın.</para>
+        <para>Modeldeki güç paketi (motor, şanzıman, soğutma, filtreler, tanklar) temsilidir; yeri ve görevi doğru, biçimi ve ölçüleri gerçek değildir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

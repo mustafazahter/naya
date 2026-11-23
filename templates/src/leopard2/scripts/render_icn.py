@@ -1,0 +1,40 @@
+"""DM'lerdeki çizimleri (ICN) modelden üretir.
+
+    blender -b --python render_icn.py -- ../model/product.glb cikti/
+
+Çıkan PNG'ler JPEG'e çevrilip csdb/ altına ICN adıyla konur:
+
+    sips -s format jpeg -s formatOptions 82 cikti/00001.png --out \\
+        ../csdb/ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01.JPG
+"""
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'scripts'))
+
+from icn_render import render  # noqa: E402
+
+TURRET = ['turret', 'main_gun', 'optics', 'machine_gun', 'smoke_dischargers']
+POWERPACK = ['engine', 'transmission', 'radiators', 'cooling_fans',
+             'air_filters', 'fuel_tanks', 'exhaust']
+LEFT_RUNNING = ['track_l', 'road_wheels_l', 'suspension_l', 'idler_l',
+                'sprocket_l']
+
+# Blender'da tankın önü -Y, solu +X yönünde.
+VIEWS = [
+    ('00001', None, 19, (1, 0.05, 0.15), (), None, ()),
+    ('00002', POWERPACK, 8.5, (0.9, 0.7, 0.9), ('engine', 'transmission'),
+     None, ('hull', 'engine_deck', 'side_skirt_l', 'side_skirt_r',
+            *TURRET)),
+    ('00003', ['track_l'], 14, (1, -0.1, 0.12), LEFT_RUNNING, None,
+     ('side_skirt_l',)),
+    ('00004', ['radiators', 'cooling_fans'], 6.5, (0.5, 0.7, 1),
+     ('radiators', 'cooling_fans'), None, ('hull', 'engine_deck', *TURRET)),
+    ('00005', ['turret'], 8.5, (0.6, -0.7, 0.9),
+     ('optics', 'machine_gun', 'smoke_dischargers'), None, ()),
+    ('00006', ['idler_l'], 4.5, (1, -0.7, 0.35), ('idler_l', 'track_l'),
+     None, ('side_skirt_l',)),
+]
+
+argv = sys.argv[sys.argv.index('--') + 1:]
+render(argv[0], argv[1], VIEWS)
