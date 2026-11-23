@@ -43,6 +43,9 @@ pids=($!)
 # Çalışıyorsa uygulama gömülü viewer yerine bunu kullanır; viewer'da yapılan
 # değişiklik sayfa yenilenince görünür.
 defines=(--dart-define=NAYA_API_URL="http://localhost:$port")
+# CanvasKit (~7 MB) Google'ın CDN'i yerine Flutter SDK'dan gelsin; yavaş
+# bağlantıda sayfa CDN'i beklerken dakikalarca beyaz kalıyordu.
+defines+=(--no-web-resources-cdn)
 if [[ -d packages/viewer_web/node_modules ]]; then
   (cd packages/viewer_web && exec npx vite --port 5173 --strictPort) &
   pids+=($!)
