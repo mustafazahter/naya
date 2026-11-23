@@ -172,7 +172,7 @@ export class NayaViewer {
     }
     this.finishScan();
     this.selected = null;
-    this.hovered = null;
+    this.setHovered(null);
     this.isolated = null;
     this.weights = new Map();
     this.model = gltf.scene;
@@ -192,6 +192,7 @@ export class NayaViewer {
    */
   introduce(): Promise<void> {
     this.finishIntro();
+    this.setHovered(null);
     if (!this.model || this.parts.length === 0) return Promise.resolve();
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return Promise.resolve();
 
@@ -277,6 +278,8 @@ export class NayaViewer {
   async isolate(id: string | null): Promise<void> {
     this.finishIntro();
     this.isolated = this.find(id);
+    // Üstünde durulan parça gizlenmiş olabilir.
+    this.setHovered(null);
     this.refreshMaterials();
     if (this.isolated) await this.focus(this.isolated.id);
     else await this.frameModel(true);
@@ -292,6 +295,7 @@ export class NayaViewer {
     this.finishIntro();
     this.finishScan();
     this.selected = null;
+    this.setHovered(null);
     this.weights = new Map();
 
     const box = new THREE.Box3().setFromObject(this.model);
@@ -613,7 +617,9 @@ export class NayaViewer {
       part.node.visible = this.isolated === null || part === this.isolated;
       const weight = this.weights.get(part.id) ?? 0;
       const isSelected = part === this.selected;
-      const isHovered = part === this.hovered && !isSelected;
+      // Tarama ve açılışta parlamanın rengi hep mavi kalsın.
+      const isHovered =
+        part === this.hovered && !isSelected && this.scanning === null && this.intro === null;
       const stands = isSelected || weight > 0;
       for (const { mesh, normal } of part.meshes) {
         const ghosted = ghostOthers && !stands;
@@ -657,46 +663,61 @@ export class NayaViewer {
   }
 
   /**
-   * Web'de fare parçanın üstüne gelince parça hafifçe parlar ve imleç el
-   * olur. Dokunmatik ekranda hover yok; telefonda hiç çalışmaz. Büyük
+   * Web'de fare parçanın üstüne gelince parça belli belirsiz parlar ve imleç
+   * el olur. Yalnız fare olaylarında; dokunmatik ekranda hover yok. Büyük
    * modellerde ışın izleme pahalı olduğu için en çok 20 kez/sn bakılır;
-   * sürüklerken, tarama ve açılış sırasında bakılmaz.
+   * sürüklerken, tarama ve açılış sırasında bakılmaz. Kamera fare kıpırdamadan
+   * hareket ederse (tekerlek, uçuş, parçalara ayırma) durunca yeniden bakılır.
    */
   private listenForHover(canvas: HTMLCanvasElement): void {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (!window.matchMedia("(any-hover: hover)").matches) return;
     let last = 0;
     let pending: number | null = null;
-    const update = (part: Part | null) => {
-      if (part === this.hovered) return;
-      this.hovered = part;
-      canvas.style.cursor = part ? "pointer" : "";
-      this.refreshMaterials();
+    let mouse: { x: number; y: number } | null = null;
+    const cancel = () => {
+      if (pending !== null) clearTimeout(pending);
+      pending = null;
+    };
+    const run = () => {
+      pending = null;
+      last = performance.now();
+      if (!mouse || this.scanning || this.intro) return this.setHovered(null);
+      const rect = canvas.getBoundingClientRect();
+      const pointer = new THREE.Vector2(
+        ((mouse.x - rect.left) / rect.width) * 2 - 1,
+        -((mouse.y - rect.top) / rect.height) * 2 + 1,
+      );
+      this.setHovered(this.pick(pointer) ?? null);
+    };
+    const schedule = () => {
+      cancel();
+      pending = window.setTimeout(run, Math.max(0, 50 - (performance.now() - last)));
     };
     canvas.addEventListener("pointermove", (e) => {
       if (e.pointerType !== "mouse") return;
+      mouse = { x: e.clientX, y: e.clientY };
       if (e.buttons !== 0 || this.scanning || this.intro) {
-        update(null);
+        cancel();
+        this.setHovered(null);
         return;
       }
-      const run = () => {
-        pending = null;
-        last = performance.now();
-        const rect = canvas.getBoundingClientRect();
-        const pointer = new THREE.Vector2(
-          ((e.clientX - rect.left) / rect.width) * 2 - 1,
-          -((e.clientY - rect.top) / rect.height) * 2 + 1,
-        );
-        update(this.pick(pointer) ?? null);
-      };
-      if (pending !== null) clearTimeout(pending);
-      const wait = Math.max(0, 50 - (performance.now() - last));
-      pending = window.setTimeout(run, wait);
+      schedule();
     });
     canvas.addEventListener("pointerleave", () => {
-      if (pending !== null) clearTimeout(pending);
-      pending = null;
-      update(null);
+      mouse = null;
+      cancel();
+      this.setHovered(null);
     });
+    canvas.addEventListener("wheel", () => mouse && schedule(), { passive: true });
+    this.controls.addEventListener("rest", () => mouse && schedule());
+  }
+
+  /** Üstünde durulan parçayı değiştirir; imleci ve parlamayı yeniler. */
+  private setHovered(part: Part | null): void {
+    this.renderer.domElement.style.cursor = part ? "pointer" : "";
+    if (part === this.hovered) return;
+    this.hovered = part;
+    this.refreshMaterials();
   }
 }
 

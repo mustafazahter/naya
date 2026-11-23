@@ -63,6 +63,6 @@ Düğüm adlarında nokta yok (three.js siliyor); parça kimliğiyle eşleşme `
 - **Parlama:** her parçanın malzemesinin kopyasına küçük bir shader eki (`src/glow.ts`). Kenara yaklaştıkça artan mavi ışık; güç 0 iken görünüm değişmez. Tam ekran son işleme (bloom, outline pass) kullanılmadı: telefonda her karede fazladan geçiş olmasın. Bütün kopyalar aynı shader'ı paylaşıyor.
 - **Tarama bandı:** dört kenarı sönen, toplamalı (additive) karışımlı tek bir dörtgen. Model yüklenirken kurulur ve saydam bekler; böylece shader taramanın ilk karesinde derlenmez.
 - **CAD görünümü:** öne çıkmayan parçalar ortak, yarı saydam gri tek bir malzemeye geçer.
-- **Fareyle üstüne gelme:** yalnız fareli cihazlarda (`(hover: hover) and (pointer: fine)`); parça soluk gri bir ışıkla belli belirsiz parlar, imleç el olur. Işın izleme en çok 20 kez/sn; sürüklerken, tarama ve açılış sırasında yapılmaz. Telefonda ve tablette çalışmaz.
+- **Fareyle üstüne gelme:** yalnız fare olaylarında (`pointerType === "mouse"`, `(any-hover: hover)`); parça soluk gri bir ışıkla belli belirsiz parlar, imleç el olur. Parlama yalnız normal görünümde; X-ışını ya da seçim varken (CAD grisi) yalnız imleç değişir. Işın izleme en çok 20 kez/sn; sürüklerken, tarama ve açılış sırasında yapılmaz, kamera fare kıpırdamadan hareket ederse durunca yeniden yapılır. Dokunmatik ekranda çalışmaz.
 
 Mac'te (Chrome, 2x ekran) tarama boyunca 60 fps ölçüldü. Önizleme sayfasındaki **Tara** düğmesi örnek bir teşhisle taramayı gösterir.
