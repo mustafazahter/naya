@@ -37,6 +37,8 @@ import bpy
 FRONT_HUB = (0.544, 0.351)   # (x, z)
 REAR_HUB = (-0.544, 0.364)
 BB = (-0.153, 0.306)
+FRONT_CALIPER = (0.475, 0.373)
+REAR_CALIPER = (-0.512, 0.425)
 
 
 def dist(c, point):
@@ -80,6 +82,21 @@ def bodies(obj, materials=None):
                        [(a + b) / 2 for a, b in zip(lo, hi)],
                        [b - a for a, b in zip(lo, hi)], mats))
     bm.free()
+    # Birleştirmede çöken (alanı sıfıra yakın) yüzler gövdelerden düşer;
+    # bunlar kendi merkezleriyle tek yüzlük gövde sayılır, yoksa eski
+    # düğümde ince şerit olarak kalırlar.
+    covered = set().union(*(r[0] for r in result)) if result else set()
+    names = [m.name for m in obj.data.materials]
+    for p in obj.data.polygons:
+        if p.index in covered or (
+                materials and names[p.material_index] not in materials):
+            continue
+        pts = [mw @ obj.data.vertices[i].co for i in p.vertices]
+        lo = [min(q[i] for q in pts) for i in range(3)]
+        hi = [max(q[i] for q in pts) for i in range(3)]
+        result.append(({p.index}, [(a + b) / 2 for a, b in zip(lo, hi)],
+                       [b - a for a, b in zip(lo, hi)],
+                       {names[p.material_index]}))
     return result
 
 
@@ -154,11 +171,19 @@ def apply(name, rule, materials=None):
 
 def remove_duplicates(obj):
     """Aynı yerde, aynı büyüklükte ve aynı yönde iki yüz varsa birini siler;
-    kaynak CAD modelinde bazı yüzler iki kez var ve ışıkta titreşiyor."""
+    kaynak CAD modelinde bazı yüzler iki kez var ve ışıkta titreşiyor.
+    Alanı sıfır olan yüzleri de siler."""
     bm = bmesh.new()
     bm.from_mesh(obj.data)
     seen, extra = set(), []
     for f in bm.faces:
+        # Alanı olmayan yüzler görünmez ama seçimde ince çizgi gibi kalır.
+        # Uzun ama kılcal (eni mikron düzeyinde) şeritler de öyle.
+        area = f.calc_area()
+        if area < 1e-9 or (area < 2e-8 and max(
+                e.calc_length() for e in f.edges) > 0.005):
+            extra.append(f)
+            continue
         c, n = f.calc_center_median(), f.normal
         key = (round(c.x, 5), round(c.y, 5), round(c.z, 5),
                round(f.calc_area() * 1e7), round(abs(n.x), 2),
@@ -172,7 +197,7 @@ def remove_duplicates(obj):
         bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces],
                          context='VERTS')
         bm.to_mesh(obj.data)
-        print(f'{obj.name}: {len(extra)} çift yüz silindi')
+        print(f'{obj.name}: {len(extra)} çift ya da boş yüz silindi')
     bm.free()
 
 
@@ -182,20 +207,42 @@ def front_brake(c, s, mats, n, largest):
     # Mandal, kamı ve pulu: göbek ekseninde, diskin dışında (y > 0.055).
     if dist(c, FRONT_HUB) < 0.04 and c[1] > 0.055:
         return 'wheel_front_hub'
+    # Mandal kolunun ucundan kopuk kalan küçük parçalar (mandal düzlemi
+    # y ≈ 0.072, kaliperin dışında).
+    if (c[1] > 0.068 and dist(c, FRONT_HUB) < 0.075
+            and dist(c, FRONT_CALIPER) > 0.04):
+        return 'wheel_front_hub'
     # Kaliperden yukarı çıkan fren teli.
     if mats == {'AppC74'} and s[2] > 0.1:
         return 'cables_brake'
     # Disk ve cıvataları göbeğe ortalı.
-    if dist(c, FRONT_HUB) < 0.03:
+    if rotor_piece(c, n, FRONT_HUB, FRONT_CALIPER):
         return 'brakes_front_rotor'
     return None
+
+
+def rotor_piece(c, n, hub, caliper):
+    """Disk ve cıvataları göbeğe ortalı. Diskin kollarından kopuk kalan ince
+    şeritler de disk düzleminde (y ≈ 0.035) ve disk yarıçapı içinde; kaliperin
+    içindeki balatalar bunlara karışmasın diye kaliperin çevresi hariç."""
+    if dist(c, hub) < 0.03:
+        return True
+    # Tek tük yüzler tam disk yüzeyinde (y ≈ 0.04); balatalar ise yüzlerce
+    # yüzlük gövdeler ve diskten en az 1 mm uzakta.
+    if n <= 2 and dist(c, hub) < 0.08 and abs(c[1] - 0.041) < 0.003:
+        return True
+    return (n < 400 and dist(c, hub) < 0.078 and abs(c[1] - 0.035) < 0.02
+            and dist(c, caliper) > 0.035)
 
 
 def rear_brake(c, s, mats, n, largest):
     # Mandal ve kamı (y > 0.07) ile göbekten geçen mil (Y boyunca uzun).
     if dist(c, REAR_HUB) < 0.04 and (c[1] > 0.07 or s[1] > 0.05):
         return 'wheel_rear_hub'
-    if dist(c, REAR_HUB) < 0.03:
+    if (c[1] > 0.085 and dist(c, REAR_HUB) < 0.075
+            and dist(c, REAR_CALIPER) > 0.04):
+        return 'wheel_rear_hub'
+    if rotor_piece(c, n, REAR_HUB, REAR_CALIPER):
         return 'brakes_rear_rotor'
     return None
 
