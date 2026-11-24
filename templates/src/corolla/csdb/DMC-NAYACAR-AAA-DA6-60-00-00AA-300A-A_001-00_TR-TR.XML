@@ -31,7 +31,7 @@
         <reqCondGroup><noConds/></reqCondGroup>
         <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Sigorta çekme maşası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-070</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Avometre</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-071</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Sigorta takımı (7,5-30 A)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-016</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Sigorta takımı (7,5-30 A)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-018</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><safetyRqmts><caution><warningAndCautionPara>Atan sigortanın yerine daha yüksek değerli sigorta takmayın; kablo yanabilir.</warningAndCautionPara></caution></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>

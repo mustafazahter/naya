@@ -310,7 +310,7 @@ void main() {
       expect(result.procedure, 'DMC-NAYACAR-AAA-DA3-10-00-00AA-921A-A');
     });
 
-    test('trafikte hararet: radyatör fanı ve çalışma testi', () async {
+    test('trafikte hararet: radyatör fanı ve fan değişimi', () async {
       final result = await DiagnosisFlow(
         catalog: corolla,
         decider: _ScriptedDecider([
@@ -341,7 +341,7 @@ void main() {
       expect(result.decision, DiagnosisDecision.focus);
       expect(result.top!.partId, 'cooling.fan');
       expect(result.fault!.id, 'f.fan.inoperative');
-      expect(result.procedure, 'DMC-NAYACAR-AAA-DA1-40-00-00AA-320A-A');
+      expect(result.procedure, 'DMC-NAYACAR-AAA-DA1-40-00-05AA-920A-A');
     });
   });
   group('Leopard 2A6 kataloğu', () {

@@ -27,7 +27,7 @@
         <reqCondGroup><noConds/></reqCondGroup>
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Ampul, H3 12 V 55 W</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-020</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr><spareDescr id="pt-0002"><name>Sis lambası contası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-021</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Ampul, H3 12 V 55 W</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-022</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr><spareDescr id="pt-0002"><name>Sis lambası contası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-023</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><safetyRqmts><caution><warningAndCautionPara>Halojen ampulün camına çıplak elle dokunmayın.</warningAndCautionPara></caution></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>

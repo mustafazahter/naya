@@ -963,42 +963,77 @@
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA4-30-134"/>
+          <partSegment><itemIdentData><descrForPart>Ön düzen (toplama)</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="135" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA4-30-135"/>
           <partSegment><itemIdentData><descrForPart>Direksiyon kutusu</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="135" indenture="3">
+      <catalogSeqNumber figureNumber="01" item="136" indenture="3">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
-          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA4-30-135"/>
-          <partSegment><itemIdentData><descrForPart>Rot milleri ve rot başları</descrForPart></itemIdentData></partSegment>
-        </itemSeqNumber>
-      </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="136" indenture="2">
-        <itemSeqNumber itemSeqNumberValue="00A">
-          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA4-30-136"/>
-          <partSegment><itemIdentData><descrForPart>Direksiyon simidi ve kolonu</descrForPart></itemIdentData></partSegment>
+          <partSegment><itemIdentData><descrForPart>Rot milleri ve rot başları</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
       <catalogSeqNumber figureNumber="01" item="137" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA4-30-137"/>
+          <partSegment><itemIdentData><descrForPart>Direksiyon simidi ve kolonu</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="138" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA4-30-138"/>
           <partSegment><itemIdentData><descrForPart>Hidrolik direksiyon pompası ve deposu</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="138" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="139" indenture="1">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>4</quantityPerNextHigherAssy>
-          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA5-00-138"/>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA5-00-139"/>
           <partSegment><itemIdentData><descrForPart>Tekerlekler</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="139" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="140" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>4</quantityPerNextHigherAssy>
-          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA5-10-139"/>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA5-10-140"/>
           <partSegment><itemIdentData><descrForPart>Lastikler</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="141" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA5-10-141"/>
+          <partSegment><itemIdentData><descrForPart>Sol ön tekerlek</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="142" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA5-10-142"/>
+          <partSegment><itemIdentData><descrForPart>Sağ ön tekerlek</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="143" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA5-10-143"/>
+          <partSegment><itemIdentData><descrForPart>Sol arka tekerlek</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="144" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA5-10-144"/>
+          <partSegment><itemIdentData><descrForPart>Sağ arka tekerlek</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
     </illustratedPartsCatalog>

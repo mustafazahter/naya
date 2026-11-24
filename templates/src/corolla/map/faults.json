@@ -237,6 +237,14 @@
       "text": "Direksiyon çevrilirken inilti geliyor"
     },
     {
+      "id": "sym.ps_fluid_low",
+      "text": "Direksiyon yağı eksiliyor, aracın önünde kırmızımsı yağ lekesi var"
+    },
+    {
+      "id": "sym.heavy_at_idle",
+      "text": "Direksiyon rölantide ağır, devir artınca hafifliyor"
+    },
+    {
       "id": "sym.dim_lights",
       "text": "Farlar sönük yanıyor"
     },
@@ -470,7 +478,7 @@
       "cause": "Yağ pompası aşınmış ya da emiş süzgeci tıkanmış; yağ basıncı düşük.",
       "severity": 3,
       "isolation": "DMC-NAYACAR-AAA-DA1-30-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA1-30-00-00AA-361A-A"
+      "repair": "DMC-NAYACAR-AAA-DA1-30-00-01AA-920A-A"
     },
     {
       "id": "f.oil_switch.faulty",
@@ -540,7 +548,7 @@
       "cause": "Radyatör kapağı basınç tutmuyor; su kaynayıp genleşme kabından taşıyor.",
       "severity": 2,
       "isolation": "DMC-NAYACAR-AAA-DA1-40-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA1-40-00-00AA-361A-A"
+      "repair": "DMC-NAYACAR-AAA-DA1-40-00-04AA-920A-A"
     },
     {
       "id": "f.fan.inoperative",
@@ -551,7 +559,7 @@
       "cause": "Radyatör fanı, rölesi ya da fan müşiri arızalı; fan devreye girmiyor.",
       "severity": 2,
       "isolation": "DMC-NAYACAR-AAA-DA1-40-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA1-40-00-00AA-320A-A"
+      "repair": "DMC-NAYACAR-AAA-DA1-40-00-05AA-920A-A"
     },
     {
       "id": "f.hoses.cracked",
@@ -623,7 +631,7 @@
       "cause": "Pompa modülündeki basınç regülatörü basıncı tutamıyor.",
       "severity": 2,
       "isolation": "DMC-NAYACAR-AAA-DA1-70-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA1-70-00-00AA-361A-A"
+      "repair": "DMC-NAYACAR-AAA-DA1-70-00-04AA-920A-A"
     },
     {
       "id": "f.injectors.clogged",
@@ -731,7 +739,7 @@
       "cause": "EVAP boşaltma valfi açık kalmış ya da kanister hortumu çatlak.",
       "severity": 1,
       "isolation": "DMC-NAYACAR-AAA-DA1-90-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA1-90-00-00AA-300A-A"
+      "repair": "DMC-NAYACAR-AAA-DA1-90-00-01AA-920A-A"
     },
     {
       "id": "f.plugs.worn",
@@ -866,8 +874,7 @@
       ],
       "cause": "Motor beyninin beslemesi ya da toprağı kesik.",
       "severity": 3,
-      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA1-80-00-00AA-300A-A"
+      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-00AA-421A-A"
     },
     {
       "id": "f.battery.flat",
@@ -952,7 +959,7 @@
       ],
       "cause": "Korna, korna rölesi ya da direksiyondaki kontak arızalı.",
       "severity": 1,
-      "isolation": "DMC-NAYACAR-AAA-DA6-60-00-00AA-421A-A",
+      "isolation": "DMC-NAYACAR-AAA-DA6-80-00-00AA-421A-A",
       "repair": "DMC-NAYACAR-AAA-DA6-80-00-00AA-920A-A"
     },
     {
@@ -963,7 +970,7 @@
       ],
       "cause": "Gösterge panelinin baskılı devresinde lehim çatlamış ya da lambaları yanmış.",
       "severity": 1,
-      "isolation": "DMC-NAYACAR-AAA-DA6-60-00-00AA-421A-A",
+      "isolation": "DMC-NAYACAR-AAA-DA6-50-00-00AA-421A-A",
       "repair": "DMC-NAYACAR-AAA-DA6-50-00-00AA-920A-A"
     },
     {
@@ -1168,7 +1175,7 @@
       "cause": "Kondenser ya da rakorlar sızdırıyor; soğutucu akışkan eksik.",
       "severity": 1,
       "isolation": "DMC-NAYACAR-AAA-DA7-20-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA7-20-00-00AA-300A-A"
+      "repair": "DMC-NAYACAR-AAA-DA7-20-00-01AA-920A-A"
     },
     {
       "id": "f.ac.compressor",
@@ -1227,7 +1234,7 @@
       "cause": "Debriyaj ana ya da tali merkezi kaçırıyor; sistemde hava var.",
       "severity": 2,
       "isolation": "DMC-NAYACAR-AAA-DA2-10-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA2-10-00-00AA-271A-A"
+      "repair": "DMC-NAYACAR-AAA-DA2-10-00-01AA-920A-A"
     },
     {
       "id": "f.transaxle.oil_low",
@@ -1320,7 +1327,7 @@
       "cause": "Fren servosu vakum almıyor; hortum çatlak ya da diyafram yırtık.",
       "severity": 3,
       "isolation": "DMC-NAYACAR-AAA-DA3-00-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA3-30-00-00AA-300A-A"
+      "repair": "DMC-NAYACAR-AAA-DA3-30-00-02AA-920A-A"
     },
     {
       "id": "f.master.internal",
@@ -1343,7 +1350,7 @@
       "cause": "Fren hortumu çatlamış ya da borusu paslanıp delinmiş.",
       "severity": 3,
       "isolation": "DMC-NAYACAR-AAA-DA3-00-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA3-30-00-00AA-210A-A"
+      "repair": "DMC-NAYACAR-AAA-DA3-30-00-01AA-920A-A"
     },
     {
       "id": "f.parking.adjust",
@@ -1449,7 +1456,7 @@
     },
     {
       "id": "f.alignment",
-      "part": "chassis.steering_rack",
+      "part": "chassis.front_alignment",
       "symptoms": [
         "sym.pull",
         "sym.tire_wear"
@@ -1475,22 +1482,22 @@
       "id": "f.power_steering.leak",
       "part": "chassis.power_steering",
       "symptoms": [
-        "sym.heavy_steering",
-        "sym.steering_whine"
+        "sym.ps_fluid_low",
+        "sym.heavy_steering"
       ],
-      "cause": "Direksiyon yağı eksik; hortum ya da pompa keçesi sızdırıyor.",
+      "cause": "Direksiyon yağı eksik; hortum ya da rakor sızdırıyor.",
       "severity": 2,
       "isolation": "DMC-NAYACAR-AAA-DA4-30-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA4-30-00-00AA-300A-A"
+      "repair": "DMC-NAYACAR-AAA-DA4-30-00-02AA-920A-A"
     },
     {
       "id": "f.power_steering.pump",
       "part": "chassis.power_steering",
       "symptoms": [
-        "sym.heavy_steering",
-        "sym.steering_whine"
+        "sym.steering_whine",
+        "sym.heavy_at_idle"
       ],
-      "cause": "Hidrolik direksiyon pompası aşınmış; basınç vermiyor.",
+      "cause": "Hidrolik direksiyon pompası aşınmış; yağ seviyesi doğruyken basınç vermiyor.",
       "severity": 2,
       "isolation": "DMC-NAYACAR-AAA-DA4-30-00-00AA-421A-A",
       "repair": "DMC-NAYACAR-AAA-DA4-30-00-01AA-920A-A"

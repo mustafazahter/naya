@@ -38,7 +38,7 @@
         <proceduralStep><para>Aracı düz olarak kaldırın.</para><figure id="fig-0002"><title>Motor bölmesi</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Şanzımanın yanındaki doldurma tapasını sökün.</para></proceduralStep>
         <proceduralStep><para>Yağ seviyesi tapa deliğinin alt kenarına kadar olmalıdır.</para></proceduralStep>
-        <proceduralStep><para>Seviye düşükse delikten yağ taşana kadar ekleyin (toplam kapasite yaklaşık 2,6 litre).</para></proceduralStep>
+        <proceduralStep><para>Seviye düşükse delikten yağ taşana kadar ekleyin (toplam kapasite yaklaşık 1,9 litre).</para></proceduralStep>
         <proceduralStep><para>Tapayı 39 N·m'de sıkın; şanzıman ve aks mili keçelerinde kaçak olup olmadığına bakın.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

@@ -45,13 +45,35 @@
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-flasher"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0004">
-              <action>Yanmayan lambanın ampulünü çıkarıp bakın.</action>
+              <action>Yanmayan lambanın hangisi olduğuna bakın.</action>
+              <isolationStepQuestion>Yanmayan far mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0005"/><noAnswer nextActionRefId="stp-0006"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0005">
+              <action>Far ampulünü çıkarıp bakın.</action>
+              <isolationStepQuestion>Ampulün teli kopuk ya da camı kararmış mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-headlight"/><noAnswer nextActionRefId="end-socket"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0006">
+              <action>Lambaya bakmaya devam edin.</action>
+              <isolationStepQuestion>Yanmayan sis lambası mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0007"/><noAnswer nextActionRefId="stp-0008"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0007">
+              <action>Sis lambasını içinden bakın ve ampulünü çıkarın.</action>
+              <isolationStepQuestion>Lambada su ya da ampulde kopuk tel var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-fog"/><noAnswer nextActionRefId="end-socket"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0008">
+              <action>Arka lambanın ampulünü çıkarıp bakın.</action>
               <isolationStepQuestion>Ampulün teli kopuk ya da camı kararmış mı?</isolationStepQuestion>
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-bulb"/><noAnswer nextActionRefId="end-socket"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-switch"><action>Stop lambası müşiri ayarsız ya da arızalı; müşiri ayarlayın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA6" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-bulb"><action>Ampulü değiştirin (hızlı çakma o taraftaki bir ampulün yandığını gösterir). <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA6" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-flasher"><action>Sinyal rölesi (flaşör) arızalı; röleyi değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA6" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="02" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-headlight"><action>Far ampulünü değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA6" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-fog"><action>Sis lambasını kurutup contasını yenileyin, ampulü değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA6" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="03" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-socket"><action>Ampul sağlam: duy oksitli ya da besleme yok; sigortayı ve duyu kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA6" subSystemCode="6" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

@@ -29,7 +29,7 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Ohmmetre</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-041</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Ohmmetre</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-038</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Stop lambası müşiri</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-DA6-20-101</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><noSafety/></reqSafety>

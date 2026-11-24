@@ -138,11 +138,12 @@ VEHICLE = dm(
             'Motor: 1ZZ-FE, 4 silindir sıralı, 16 supap, çift eksantrik '
             '(DOHC), 1794 cm³, sıkıştırma oranı 10,0:1.',
             'Lastikler: 175/65 R14. Lastik basıncı ön ve arka 2,2 bar.',
-            'Motor yağı: 5W-30 (API SL ya da üstü), filtreyle birlikte '
+            'Motor yağı: 5W-30, üreticinin önerdiği API sınıfında; filtreyle '
+            'birlikte '
             'yaklaşık 3,7 litre.',
-            'Soğutma suyu: uzun ömürlü etilen glikol antifriz, %50 karışım; '
+            'Soğutma suyu: etilen glikol esaslı antifriz, %50 karışım; '
             'sistem yaklaşık 6 litre.',
-            'Şanzıman yağı: API GL-4, SAE 75W-90. Fren hidroliği: DOT 3 ya da '
+            'Şanzıman yağı: API GL-4 ya da GL-5, SAE 75W-90, yaklaşık 1,9 litre. Fren hidroliği: DOT 3 ya da '
             'DOT 4. Hidrolik direksiyon yağı: ATF Dexron II/III.',
             'Bijon somunu sıkma torku: 103 N·m.',
         ]),
@@ -169,8 +170,8 @@ dm(code=code('D00', info='300'), tech='Araç', info='Periyodik kontrol',
        ('Her 100 000 km\'de', [
            'İridyum bujileri değiştirin.',
            'Supap boşluğunu kontrol edin.',
-           'Soğutma suyunu değiştirin (ilk değişim 160 000 km, sonra her '
-           '80 000 km).',
+           'Soğutma suyunu değiştirin (her 40 000 km\'de ya da iki yılda '
+           'bir).',
        ]),
    ])
 
@@ -533,9 +534,10 @@ ENGINE_ISOLATE = dm(
              code('DA6', '1', '300')),
             ('end-starter', 'Akü dolu ama marş dönmüyor: marş sistemini '
              'kontrol edin.', code('DA6', '4', '421')),
-            ('end-ignition', 'Hiçbir silindirde kıvılcım yok: önce krank '
-             'konum sensörünü ölçün; sağlamsa IG sigortasını ve motor '
-             'beynini kontrol edin.', code('DA1', '8', '361', '01')),
+            ('end-ignition', 'Hiçbir silindirde kıvılcım yok: krank konum '
+             'sensörünü ölçün ve değer dışındaysa değiştirin; sağlamsa IG '
+             'sigortasını ve motor beynini kontrol edin.',
+             code('DA1', '8', '920', '03')),
             ('end-fuel', 'Yakıt gelmiyor: yakıt basıncını kontrol edin.',
              code('DA1', '7', '421')),
             ('end-compression', 'Kıvılcım ve yakıt var: kompresyonu ölçün.',
@@ -626,8 +628,8 @@ ENGINE_NOISE = dm(
              code('DA1', '2', '300')),
             ('end-valves', 'Supap boşluğunu ölçün ve ayarlayın.',
              code('DA1', '1', '271')),
-            ('end-mounts', 'Motor takozlarını kontrol edin.',
-             code('DA1', info='300')),
+            ('end-mounts', 'Yırtık motor takozunu değiştirin.',
+             code('DA1', '0', '920')),
             ('end-shop', 'Ses motorun alt tarafından geliyorsa ana yatak ya '
              'da biyel yatağı aşınmış olabilir; motoru çalıştırmayın ve '
              + SHOP + '.', None),
@@ -805,22 +807,29 @@ OIL_ISO = dm(
              'stp-0003'),
             ('stp-0002', 'Motoru temizleyip kısa süre çalıştırın; kaçağın '
              'nereden başladığını yukarıdan aşağıya izleyin.', 'Kaçak supap '
-             'kapağının kenarından mı geliyor?', 'end-cover', 'stp-0004'),
+             'kapağının kenarından mı geliyor?', 'stp-0005', 'stp-0004'),
             ('stp-0003', 'Yağ basınç müşirinin yerine manometre takıp '
              'basıncı ölçün.', 'Rölantide basınç 29 kPa\'nın üstünde mi?',
              'end-switch', 'end-pump'),
             ('stp-0004', 'Kasnak arkasına ve karter kenarına bakın.',
              'Kaçak ön krank keçesinden mi geliyor?', 'end-seal',
              'end-pan'),
+            ('stp-0005', 'Motor rölantideyken yağ doldurma kapağını hafifçe '
+             'açın; sonra PCV valfini söküp sallayın.', 'Kapaktan basınçla '
+             'gaz çıkıyor ya da valf tıkırdamıyor mu?', 'end-pcv',
+             'end-cover'),
         ],
         'ends': [
-            ('end-cover', 'Supap kapağı contasını değiştirin; PCV valfini de '
-             'kontrol edin.', code('DA1', '1', '920', '01')),
+            ('end-cover', 'Supap kapağı contasını değiştirin.',
+             code('DA1', '1', '920', '01')),
+            ('end-pcv', 'PCV valfi tıkalı; karter basıncı contayı '
+             'zorluyor. Valfi değiştirin, sonra contayı kontrol edin.',
+             code('DA1', '9', '920')),
             ('end-switch', 'Basınç yeterli: yağ basınç müşiri ya da kablosu '
              'arızalı; müşiri değiştirin.', code('DA1', '3', '920')),
-            ('end-pump', 'Basınç düşük: yağ pompası, emiş süzgeci ya da '
-             'yataklar. Motoru çalıştırmayın; basıncı ölçün ve ' + SHOP
-             + '.', code('DA1', '3', '361')),
+            ('end-pump', 'Basınç düşük: önce emiş süzgecini kontrol edin; '
+             'temizse yağ pompasını değiştirin. Basınç yine düşükse '
+             'yataklar aşınmıştır.', code('DA1', '3', '920', '01')),
             ('end-seal', 'Ön krank keçesini değiştirin.',
              code('DA1', '2', '920')),
             ('end-pan', 'Karter tapası contasını ya da karter contasını '
@@ -844,6 +853,28 @@ OIL_PRESSURE = dm(
         'Manometreyi sökün; müşirin dişlerine macun sürüp 15 N·m\'de '
         'sıkın.',
     ])
+
+OIL_PUMP = dm(
+    code=code('DA1', '3', '920', '01'), tech='Yağ pompası', figure=3,
+    tools=[('Lokma takımı', 1), ('Tork anahtarı', 1),
+           ('Krank kasnağı tutucusu', 1)],
+    spares=[('Yağ pompası', 1), ('Yağ pompası contası', 1)],
+    supplies=[('Motor yağı, 5W-30', 4), ('Silikon conta macunu', None)],
+    warnings=['Pompa zincir kapağının içindedir; işe başlamadan triger '
+              'işaretlerini hizalayın.'],
+    steps=[
+        'Motor yağını boşaltın; karteri ve emiş süzgecini sökün. Süzgeç '
+        'tıkalıysa temizleyin.',
+        'Aksesuar kayışını, krank kasnağını ve su pompası kasnağını sökün.',
+        '1. silindiri ÜÖN\'ye getirin; zincir kapağını sökün.',
+        'Pompa rotorunu ve gövdesini kontrol edin: dış rotor ile gövde '
+        'arasındaki boşluk 0,33 mm\'yi geçiyorsa pompayı değiştirin.',
+        'Yeni pompayı yeni contayla takın; zincir kapağını silikonla '
+        'kapatıp cıvatalarını 11 N·m\'de sıkın.',
+        'Kasnağı 138 N·m\'de sıkın, karteri takın, yağı doldurun ve yağ '
+        'basıncını ölçün.',
+    ],
+    next=code('DA1', '3', '361'))
 
 OIL_SWITCH = dm(
     code=code('DA1', '3', '920'), tech='Yağ basınç müşiri', figure=3,
@@ -873,7 +904,7 @@ COOLING = dm(
             'çalışınca devreye girer.',
         ]),
         ('Bakım', [
-            'Uzun ömürlü antifriz ilk 160 000 km\'de, sonra her 80 000 km\'de '
+            'Bu dönemin antifrizi her 40 000 km\'de ya da iki yılda bir '
             'değiştirilir. Karışım %50 antifriz, %50 saf sudur.',
         ]),
     ])
@@ -925,13 +956,15 @@ OVERHEAT = dm(
              code('DA1', '4', '920')),
             ('end-hose', 'Çatlak hortumu ya da gevşek kelepçeyi yenileyin.',
              code('DA1', '4', '920', '02')),
-            ('end-fan', 'Fan sigortasını, rölesini ve fan motorunu kontrol '
-             'edin.', code('DA1', '4', '320')),
+            ('end-fan', 'Fan sigortasını, rölesini ve müşirini kontrol '
+             'edin; fan motoru dönmüyorsa değiştirin.',
+             code('DA1', '4', '920', '05')),
             ('end-gasket', 'Yanma gazı soğutma suyuna karışıyor: silindir '
              'kapak contası yanmış olabilir. Önce kompresyonu ölçün.',
              code('DA1', '1', '361')),
-            ('end-cap', 'Görünür kaçak yok: radyatör kapağını ve sistemin '
-             'basınç tutmasını kontrol edin.', code('DA1', '4', '361')),
+            ('end-cap', 'Görünür kaçak yok: sistemi basınç testiyle '
+             'deneyin; kapak basınç tutmuyorsa kapağı değiştirin.',
+             code('DA1', '4', '920', '04')),
             ('end-thermostat', 'Termostat kapalı kalmış; termostatı '
              'değiştirin.', code('DA1', '4', '920', '01')),
             ('end-radiator', 'Su dolaşıyor ama soğumuyor: radyatör petekleri '
@@ -1045,6 +1078,40 @@ WATER_PUMP = dm(
     ],
     next=code('DA1', '4', '210'))
 
+RADIATOR_CAP = dm(
+    code=code('DA1', '4', '920', '04'), tech='Radyatör kapağı',
+    figure=10, tools=[('Soğutma sistemi basınç test pompası', 1),
+                      ('Radyatör kapağı adaptörü', 1)],
+    spares=[('Radyatör kapağı', 1)], supplies=[('Soğutma suyu', None)],
+    warnings=['Motor sıcakken radyatör kapağını açmayın.'],
+    steps=[
+        'Motor soğukken kapağı açın; contasında çatlak ve tortu olup '
+        'olmadığına bakın.',
+        'Kapağı adaptörle pompaya takın: 74-103 kPa\'da açılmalı ve en az '
+        '59 kPa\'yı tutmalıdır.',
+        'Tutmuyorsa aynı basınç değerinde yeni kapak takın.',
+        'Sistemi 118 kPa ile deneyin ve genleşme kabındaki seviyeyi '
+        'tamamlayın.',
+    ])
+
+FAN = dm(
+    code=code('DA1', '4', '920', '05'), tech='Radyatör fanı motoru',
+    figure=10, tools=[('Lokma takımı', 1)],
+    spares=[('Radyatör fan motoru', 1)],
+    warnings=['Fan kontak açıkken her an çalışabilir; işe başlamadan akünün '
+              'eksi kutbunu sökün.'],
+    steps=[
+        'Fan sigortasını, rölesini ve fan müşirini çalışma testindeki gibi '
+        'kontrol edin; arızalı olanı değiştirin.',
+        'Motor dönmüyorsa akünün eksi kutbunu sökün, fan soketini çıkarın.',
+        'Fan davlumbazının üst cıvatalarını sökün ve fanı davlumbazıyla '
+        'yukarı çekip çıkarın.',
+        'Kanadın somununu sökün, motoru davlumbazdan ayırın; yenisini '
+        'takın.',
+        'Fanı yerine takın, aküyü bağlayın; klimayı açarak ya da motoru '
+        'ısıtarak fanın devreye girdiğini kontrol edin.',
+    ])
+
 THERMOSTAT = dm(
     code=code('DA1', '4', '920', '01'), tech='Termostat', figure=10,
     tools=[('Lokma takımı', 1), ('Termometre', 1)],
@@ -1112,7 +1179,7 @@ PLUGS = dm(
         'yakmayı gösterir.',
         'Yeni bujilerin tırnak aralığını kontrol edin: 1,0-1,1 mm. İridyum '
         'bujinin tırnağını eğmeyin.',
-        'Bujileri önce elle, sonra 18 N·m\'de sıkın.',
+        'Bujileri önce elle, sonra 25 N·m\'de sıkın.',
         'Bobinleri yerine takın (cıvatalar 9 N·m), soketleri bağlayın.',
     ])
 
@@ -1351,6 +1418,18 @@ PCV = dm(
         'kontrol edin.',
     ])
 
+PURGE_VSV = dm(
+    code=code('DA1', '9', '920', '01'), tech='EVAP boşaltma valfi (VSV)',
+    figure=2, tools=[('Ohmmetre', 1)],
+    spares=[('EVAP boşaltma valfi (VSV)', 1)],
+    steps=[
+        'Valfin soketini ve iki hortumunu ayırın; hortumların yerini '
+        'işaretleyin.',
+        'Valfi tutucusundan çıkarın.',
+        'Yeni valfin direncini ölçün (20 °C\'de 27-33 Ω) ve takın.',
+        'Hortumları ve soketi takın; arıza kodunu silin.',
+    ])
+
 EMISSION_ISO = dm(
     code=code('DA1', '9', '421'), tech='Yakıt buharı kontrolü (EVAP)',
     info='Arıza bulma',
@@ -1375,7 +1454,7 @@ EMISSION_ISO = dm(
             ('end-hose', 'Hortumu yenileyin ve sistemi kontrol edin.',
              code('DA1', '9', '300')),
             ('end-vsv', 'Boşaltma valfi açık kalmış; valfi değiştirin.',
-             code('DA1', '9', '300')),
+             code('DA1', '9', '920', '01')),
             ('end-shop', 'Kanister ya da depo tarafında kaçak olabilir; '
              'duman testi için ' + SHOP + '.', None),
         ],
@@ -1442,7 +1521,7 @@ FUEL_ISO = dm(
              'filtreyi, sonra pompayı değiştirin.',
              code('DA1', '7', '920', '01')),
             ('end-regulator', 'Basınç regülatörü açık kalıyor; regülatörü '
-             'değiştirin.', code('DA1', '7', '361')),
+             'değiştirin.', code('DA1', '7', '920', '04')),
             ('end-leak', 'Basınç tutmuyor: enjektörler damlatıyor ya da '
              'pompa çek valfi kaçırıyor.', code('DA1', '7', '920', '02')),
             ('end-injectors', 'Basınç normal: enjektörleri ve ateşlemeyi '
@@ -1485,6 +1564,20 @@ FUEL_PUMP = dm(
         'Kontağı birkaç kez açıp kapatarak hattı doldurun ve kaçak kontrolü '
         'yapın.',
     ])
+
+FUEL_REGULATOR = dm(
+    code=code('DA1', '7', '920', '04'), tech='Yakıt basınç regülatörü',
+    figure=9, tools=[('Lokma takımı', 1)],
+    spares=[('Yakıt basınç regülatörü', 1), ('Pompa modülü contası', 1)],
+    warnings=['Benzin çok yanıcıdır; önce yakıt basıncını boşaltın.'],
+    steps=[
+        'Pompa modülünü yakıt pompası değişimindeki gibi depodan çıkarın.',
+        'Regülatörün tutucu klipsini çıkarın ve regülatörü filtre '
+        'gövdesinden çekin.',
+        'Yeni regülatörü yeni O-halkalarıyla takın, klipsi yerleştirin.',
+        'Modülü yeni contayla takın; yakıt basıncını ölçün.',
+    ],
+    next=code('DA1', '7', '361'))
 
 FUEL_FILTER = dm(
     code=code('DA1', '7', '920', '01'), tech='Yakıt filtresi', figure=9,
@@ -1565,8 +1658,10 @@ MIL_ISO = dm(
             ('stp-0003', 'Kodlara bakmaya devam edin.', 'P0130-P0141 '
              '(oksijen sensörü) ya da P0171/P0172 (karışım) kodu var mı?',
              'end-o2', 'stp-0004'),
-            ('stp-0004', 'Kodlara bakmaya devam edin.', 'P0335 (krank) ya '
-             'da P0340 (eksantrik konum) kodu var mı?', 'end-position',
+            ('stp-0004', 'Kodlara bakmaya devam edin.', 'P0335 (krank '
+             'konum sensörü) kodu var mı?', 'end-ckp', 'stp-0008'),
+            ('stp-0008', 'Kodlara bakmaya devam edin.', 'P0340 '
+             '(eksantrik konum sensörü) kodu var mı?', 'end-cmp',
              'stp-0005'),
             ('stp-0005', 'Kodlara bakmaya devam edin.', 'P0120-P0123 (gaz '
              'kelebeği konum sensörü) kodu var mı?', 'end-tps', 'stp-0006'),
@@ -1578,12 +1673,14 @@ MIL_ISO = dm(
         'ends': [
             ('end-maf', 'Hava akış ölçeri temizleyin ve kontrol edin.',
              code('DA1', '8', '250')),
-            ('end-ect', 'Su sıcaklık sensörünü ölçün.',
-             code('DA1', '8', '361')),
+            ('end-ect', 'Su sıcaklık sensörünü ölçün; değer dışındaysa '
+             'değiştirin.', code('DA1', '8', '920', '02')),
             ('end-o2', 'Oksijen sensörünü ve emme tarafında hava kaçağını '
              'kontrol edin.', code('DA1', '8', '920', '01')),
-            ('end-position', 'Krank ya da eksantrik konum sensörünü ölçün.',
-             code('DA1', '8', '361', '01')),
+            ('end-ckp', 'Krank konum sensörünü ölçün; değer dışındaysa '
+             'değiştirin.', code('DA1', '8', '920', '03')),
+            ('end-cmp', 'Eksantrik konum sensörünü ölçün; değer '
+             'dışındaysa değiştirin.', code('DA1', '8', '920', '04')),
             ('end-tps', 'Gaz kelebeği konum sensörünü kontrol edin.',
              code('DA1', '8', '920', '05')),
             ('end-knock', 'Vuruntu sensörünü kontrol edin.',
@@ -1723,8 +1820,11 @@ CKP = dm(
     spares=[('Krank konum sensörü', 1)],
     supplies=[('Motor yağı, 5W-30', None)],
     steps=[
-        'Akünün eksi kutbunu sökün; sensörün soketini çıkarın.',
-        'Sensörün cıvatasını sökün ve sensörü çevirerek çıkarın.',
+        'Sensörün soketini çıkarıp direncini ölçün: soğukta '
+        '1630-2740 Ω, sıcakta 2065-3225 Ω. Değer içindeyse sensörü '
+        'değiştirmeyin; kabloyu ve motor beynini kontrol edin.',
+        'Akünün eksi kutbunu sökün. Sensörün cıvatasını sökün ve sensörü '
+        'çevirerek çıkarın.',
         'Yeni sensörün O-halkasına yağ sürüp takın; cıvatayı 9 N·m\'de '
         'sıkın.',
         'Aküyü bağlayın, motoru çalıştırıp devir göstergesinin marşta '
@@ -1736,8 +1836,9 @@ CMP = dm(
     figure=3, tools=[('Lokma, 10 mm', 1)],
     spares=[('Eksantrik konum sensörü', 1)],
     steps=[
-        'Sensörün soketini çıkarın; silindir kapağının arka tarafındaki '
-        'cıvatayı sökün.',
+        'Sensörün soketini çıkarıp direncini ölçün: soğukta 835-1400 Ω, '
+        'sıcakta 1060-1645 Ω. Değer içindeyse kabloyu kontrol edin.',
+        'Silindir kapağının arka tarafındaki cıvatayı sökün.',
         'Sensörü çıkarın; yuvada yağ kaçağı varsa O-halkayı yenileyin.',
         'Yeni sensörü takın, cıvatayı 9 N·m\'de sıkın; arıza kodunu silin.',
     ])
@@ -1800,7 +1901,7 @@ GEARBOX = dm(
         'Şanzımanın yanındaki doldurma tapasını sökün.',
         'Yağ seviyesi tapa deliğinin alt kenarına kadar olmalıdır.',
         'Seviye düşükse delikten yağ taşana kadar ekleyin (toplam '
-        'kapasite yaklaşık 2,6 litre).',
+        'kapasite yaklaşık 1,9 litre).',
         'Tapayı 39 N·m\'de sıkın; şanzıman ve aks mili keçelerinde kaçak '
         'olup olmadığına bakın.',
     ])
@@ -1833,8 +1934,9 @@ CLUTCH = dm(
         'ends': [
             ('end-clutch', 'Debriyaj balatası aşınmış ya da baskı zayıf; '
              'debriyaj setini değiştirin.', code('DA2', '1', '920')),
-            ('end-hydraulic', 'Hidrolik kaçağını bulun, hidroliği tamamlayın '
-             've havasını alın.', code('DA2', '1', '271')),
+            ('end-hydraulic', 'Kaçak yapan ana ya da tali merkezi '
+             'değiştirin, sonra havasını alın.',
+             code('DA2', '1', '920', '01')),
             ('end-oil', 'Şanzıman yağını tamamlayın.', code('DA2', '1', '300')),
             ('end-linkage', 'Vites kolu burçlarını ve kumanda tellerini '
              'kontrol edin.', code('DA2', '1', '271', '01')),
@@ -1865,6 +1967,25 @@ CLUTCH_SET = dm(
         'Rulmanın ve çatalın temas yerlerini gresleyin; şanzımanı takıp '
         'çan cıvatalarını 64 N·m\'de sıkın.',
     ])
+
+CLUTCH_CYL = dm(
+    code=code('DA2', '1', '920', '01'), tech='Debriyaj ana ve tali merkezi',
+    figure=7, tools=[('Rakor anahtarı, 10 mm', 1), ('Lokma takımı', 1)],
+    spares=[('Debriyaj tali merkezi', 1), ('Debriyaj ana merkezi', 1)],
+    supplies=[('Fren hidroliği, DOT 3', None)],
+    warnings=['Fren hidroliği boyaya zarar verir; çevreyi bezle örtün.'],
+    steps=[
+        'Pedal altında ve şanzımandaki tali merkezin körüğünde hidrolik '
+        'izi arayın; kaçak hangisindeyse onu değiştirin.',
+        'Tali merkez: borunun rakorunu gevşetip ayırın, iki cıvatayı '
+        'sökerek merkezi çıkarın; yenisini takıp cıvataları 12 N·m\'de '
+        'sıkın.',
+        'Ana merkez: depodaki hidroliği çekin, boruyu ve pedal pimini '
+        'ayırın, torpido duvarındaki iki somunu sökün; yenisini takıp '
+        'somunları 13 N·m\'de sıkın.',
+        'Boru rakorlarını 15 N·m\'de sıkın; depoyu doldurun.',
+    ],
+    next=code('DA2', '1', '271'))
 
 CLUTCH_BLEED = dm(
     code=code('DA2', '1', '271'), tech='Debriyaj hidroliği',
@@ -1985,11 +2106,12 @@ BRAKE_ISOLATE = dm(
              'mm\'den ince mi?', 'end-rear', 'end-fluid'),
         ],
         'ends': [
-            ('end-booster', 'Fren servosu vakum almıyor: vakum hortumunu ve '
-             'servoyu kontrol edin.', code('DA3', '3', '300')),
-            ('end-leak', 'Kaçağı giderin, hidroliği tamamlayın ve sistemin '
-             'havasını alın. Kaçak giderilmeden aracı kullanmayın.',
-             code('DA3', '3', '210')),
+            ('end-booster', 'Fren servosu vakum almıyor: vakum hortumunu, '
+             'çek valfi ve servoyu kontrol edip arızalı olanı '
+             'değiştirin.', code('DA3', '3', '920', '02')),
+            ('end-leak', 'Kaçak yapan hortumu ya da boruyu değiştirin, '
+             'sonra sistemin havasını alın. Kaçak giderilmeden aracı '
+             'kullanmayın.', code('DA3', '3', '920', '01')),
             ('end-pads', 'Ön balataları değiştirin.', code('DA3', '1', '921')),
             ('end-disc', 'Diskleri ölçün ve gerekirse değiştirin.',
              code('DA3', '1', '361')),
@@ -2125,6 +2247,49 @@ BOOSTER = dm(
         'Fren hidroliği deposunda seviyenin MIN ve MAX arasında olduğunu '
         've hidroliğin koyulaşmadığını kontrol edin.',
     ])
+
+BOOSTER_REPLACE = dm(
+    code=code('DA3', '3', '920', '02'), tech='Fren servosu ve vakum hortumu',
+    figure=2, tools=[('Lokma takımı', 1), ('Tork anahtarı', 1)],
+    spares=[('Fren servosu vakum hortumu', 1), ('Fren servosu', 1)],
+    supplies=[('Fren hidroliği, DOT 3', None)],
+    steps=[
+        'Vakum hortumunu ve çek valfini kontrol edin; çatlak hortumu ya da '
+        'her iki yöne hava geçiren valfi değiştirin ve servoyu yeniden '
+        'deneyin.',
+        'Servo yine vakum tutmuyorsa: ana merkezi borularını açmadan '
+        'servodan ayırıp kenara alın.',
+        'Pedal altında itici çubuk pimini ve servonun dört somununu sökün; '
+        'servoyu motor bölmesinden çıkarın.',
+        'Yeni servoyu takın, somunları 13 N·m\'de sıkın; itici çubuk '
+        'boşluğunu kontrol edin.',
+        'Ana merkezi takın; pedal yüksekliğini ve stop lambası müşirini '
+        'kontrol edin.',
+    ],
+    next=code('DA3', '3', '300'))
+
+BRAKE_HOSE = dm(
+    code=code('DA3', '3', '920', '01'), tech='Fren hortumu ve borusu',
+    figure=4, tools=[('Rakor anahtarı, 10 mm', 1), ('Hortum kıskacı', 1),
+                     ('Tork anahtarı', 1)],
+    spares=[('Fren hortumu', 1), ('Banjo cıvatası rondelası', 2)],
+    supplies=[('Fren hidroliği, DOT 3', None)],
+    warnings=['Kaçak giderilmeden aracı kullanmayın.',
+              'Fren borusunu ezmeden ve keskin bükmeden yönlendirin; onarım '
+              'için boru eklemeyin, boruyu bütün olarak değiştirin.'],
+    steps=[
+        'Kaçağın yerini bulun: hortumda çatlak ya da şişlik, boruda pas '
+        'delinmesi ya da rakorda ıslaklık.',
+        'Hortum: boru rakorunu rakor anahtarıyla gevşetin, tutucu klipsi '
+        'çıkarın; kaliper tarafındaki banjo cıvatasını sökün.',
+        'Yeni hortumu kıvrılmayacak şekilde takın; banjo cıvatasını yeni '
+        'rondelalarla 29 N·m, boru rakorunu 15 N·m\'de sıkın.',
+        'Boru: aynı boyda ve aynı uç tipinde boruyu eski borunun yolundan '
+        'geçirip tutuculara bağlayın; rakorları 15 N·m\'de sıkın.',
+        'Direksiyonu iki yana sonuna kadar çevirip hortumun gerilmediğini ve '
+        'tekerleğe değmediğini kontrol edin.',
+    ],
+    next=code('DA3', '3', '210'))
 
 BRAKE_BLEED = dm(
     code=code('DA3', '3', '210'), tech='Fren hidroliği',
@@ -2320,15 +2485,21 @@ SUSPENSION_ISOLATE = dm(
              'stp-0005'),
             ('stp-0005', '60-90 km/s\'de sürerken sesi dinleyin, sonra '
              'hafif viraj alın.', 'Hızla artan, virajda değişen bir uğultu '
-             'var mı?', 'end-bearing', 'stp-0007'),
+             'var mı?', 'stp-0009', 'stp-0007'),
             ('stp-0006', 'Aracı kaldırıp tekerleği altından ve üstünden '
              'tutup sallayın.', 'Rotil ya da rot başında boşluk var mı?',
-             'end-joint', 'stp-0008'),
+             'stp-0010', 'stp-0008'),
             ('stp-0007', 'Motor çalışırken direksiyonu sağa sola çevirin.',
              'Direksiyon ağır ya da pompadan inilti geliyor mu?',
              'end-steering', 'end-shop'),
             ('stp-0008', 'Viraj demiri bağlantı çubuklarını elle oynatın.',
              'Çubuk mafsallarında boşluk var mı?', 'end-link', 'end-strut'),
+            ('stp-0009', 'Aracı kaldırıp tekerlekleri elle çevirin ve '
+             'yaylarını elle yoklayın.', 'Hırıltı ve boşluk ön '
+             'tekerlekte mi?', 'end-bearing', 'end-bearing-rear'),
+            ('stp-0010', 'Tekerleği 3 ve 9 konumundan tutup sallarken '
+             'rot başına bakın.', 'Boşluk rot başında mı?', 'end-tierod',
+             'end-joint'),
         ],
         'ends': [
             ('end-pressure', 'Lastik basınçlarını 2,2 bara ayarlayın.',
@@ -2337,10 +2508,15 @@ SUSPENSION_ISOLATE = dm(
              code('DA4', '3', '271')),
             ('end-balance', 'Tekerlek balansı bozulmuş olabilir; balans '
              'yaptırın.', code('DA5', '1', '271')),
-            ('end-bearing', 'Tekerlek rulmanı aşınmış; uğultunun geldiği '
-             'tarafın rulmanını değiştirin.', code('DA5', '2', '920')),
-            ('end-joint', 'Boşluk rotilde ise rotili, rot başında ise rot '
-             'başını değiştirin.', code('DA4', '1', '920', '01')),
+            ('end-bearing', 'Ön tekerlek rulmanı aşınmış; uğultunun '
+             'geldiği tarafın rulmanını değiştirin.',
+             code('DA5', '2', '920')),
+            ('end-bearing-rear', 'Arka tekerlek rulmanı aşınmış; göbeği '
+             'rulmanıyla değiştirin.', code('DA5', '2', '920', '01')),
+            ('end-tierod', 'Rot başını değiştirin ve ön düzeni '
+             'ayarlatın.', code('DA4', '3', '920')),
+            ('end-joint', 'Ön alt rotili değiştirin.',
+             code('DA4', '1', '920', '01')),
             ('end-link', 'Viraj demiri bağlantı çubuklarını değiştirin.',
              code('DA4', '1', '920', '02')),
             ('end-strut', 'Amortisörü, takozunu ve salıncak burcunu kontrol '
@@ -2407,7 +2583,7 @@ STEERING_ISO = dm(
             ('end-rack', 'Direksiyon kutusunun keçeleri sızdırıyor; kutunun '
              'yenilenmesi için ' + SHOP + '.', None),
             ('end-leak', 'Kaçak yapan hortumu ya da kelepçeyi yenileyin, '
-             'yağı tamamlayın.', code('DA4', '3', '300')),
+             'yağı tamamlayın.', code('DA4', '3', '920', '02')),
             ('end-belt', 'Kayışı gerin ya da değiştirin.',
              code('DA1', '0', '920', '01')),
             ('end-fluid', 'Sistemin havasını alın ve yağı değiştirin.',
@@ -2432,6 +2608,23 @@ PS_CHECK = dm(
         'Depodaki yağda köpük kalmadığını ve seviyenin değişmediğini '
         'kontrol edin.',
     ])
+
+PS_HOSE = dm(
+    code=code('DA4', '3', '920', '02'), tech='Hidrolik direksiyon hortumu',
+    figure=2, tools=[('Rakor anahtarı', 1), ('Kelepçe pensesi', 1)],
+    spares=[('Direksiyon basınç hortumu', 1), ('Direksiyon dönüş hortumu', 1)],
+    supplies=[('Direksiyon yağı, ATF Dexron II', None)],
+    steps=[
+        'Motoru temizleyip çalıştırın; direksiyonu çevirirken kaçağın '
+        'yerini bulun (hortum, kelepçe ya da rakor).',
+        'Depodaki yağı şırıngayla çekin; altına kap koyun.',
+        'Basınç hortumunun rakorlarını ya da dönüş hortumunun kelepçelerini '
+        'sökün ve hortumu çıkarın.',
+        'Yeni hortumu yeni rondelalarla takın; basınç rakorlarını 44 N·m\'de '
+        'sıkın.',
+        'Yağı doldurup sistemin havasını alın.',
+    ],
+    next=code('DA4', '3', '300'))
 
 PS_PUMP = dm(
     code=code('DA4', '3', '920', '01'), tech='Hidrolik direksiyon pompası',
@@ -2778,6 +2971,33 @@ GROUND = dm(
         'Aküyü bağlayıp marş ve lambaları deneyin.',
     ])
 
+CLUSTER_ISO = dm(
+    code=code('DA6', '5', '421'), tech='Gösterge paneli',
+    info='Arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA6-007',
+        'descr': 'Göstergeler çalışmıyor, ibreler takılıyor ya da uyarı '
+                 'lambaları yanmıyor.',
+        'steps': [
+            ('stp-0001', 'Kontağı açın.', 'Göstergelerin ve uyarı '
+             'lambalarının hiçbiri çalışmıyor mu?', 'stp-0002', 'stp-0003'),
+            ('stp-0002', 'GAUGE sigortasını kontrol edin.', 'Sigorta atmış '
+             'mı?', 'end-fuse', 'end-cluster'),
+            ('stp-0003', 'Yalnız hararet göstergesi yanlışsa su sıcaklık '
+             'göndericisinin soketini çıkarıp kontağı açın.', 'İbre bu '
+             'durumda da hareket etmiyor mu?', 'end-cluster', 'end-sender'),
+        ],
+        'ends': [
+            ('end-fuse', 'Sigortayı değiştirin; yeniden atarsa kısa devreyi '
+             'arayın.', code('DA6', '6', '300')),
+            ('end-cluster', 'Gösterge panelinin lambalarını ve baskılı '
+             'devresini kontrol edin.', code('DA6', '5', '920')),
+            ('end-sender', 'Gösterge sağlam: hararet göndericisi ya da '
+             'kablosu arızalı; sensörü değiştirin.',
+             code('DA1', '8', '920', '02')),
+        ],
+    })
+
 CLUSTER = dm(
     code=code('DA6', '5', '920'), tech='Gösterge paneli', figure=7,
     tools=[('Döşeme sökme aparatı', 1), ('Tornavida', 1)],
@@ -2795,6 +3015,26 @@ CLUSTER = dm(
         'arayın.',
         'Göstergeyi takıp bütün ibreleri ve uyarı lambalarını deneyin.',
     ])
+
+HORN_ISO = dm(
+    code=code('DA6', '8', '421'), tech='Korna', info='Arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA6-008',
+        'descr': 'Korna düğmesine basınca ses gelmiyor.',
+        'steps': [
+            ('stp-0001', 'HORN sigortasını kontrol edin.', 'Sigorta atmış '
+             'mı?', 'end-fuse', 'stp-0002'),
+            ('stp-0002', 'Kornanın soketini çıkarıp kornaya aküden 12 V '
+             'verin.', 'Korna çalıyor mu?', 'end-relay', 'end-horn'),
+        ],
+        'ends': [
+            ('end-fuse', 'Sigortayı değiştirin; yeniden atarsa kısa devreyi '
+             'arayın.', code('DA6', '6', '300')),
+            ('end-relay', 'Korna sağlam: korna rölesini ve direksiyondaki '
+             'kontağı kontrol edin.', code('DA6', '6', '300')),
+            ('end-horn', 'Korna arızalı; değiştirin.', code('DA6', '8', '920')),
+        ],
+    })
 
 HORN = dm(
     code=code('DA6', '8', '920'), tech='Korna', figure=2,
@@ -2859,7 +3099,17 @@ LIGHTS_ISO = dm(
             ('stp-0003', 'Sinyaller hiç çakmıyor ya da sürekli yanıyor mu '
              'bakın.', 'İki yönde de çakma yok mu?', 'end-flasher',
              'stp-0004'),
-            ('stp-0004', 'Yanmayan lambanın ampulünü çıkarıp bakın.',
+            ('stp-0004', 'Yanmayan lambanın hangisi olduğuna bakın.',
+             'Yanmayan far mı?', 'stp-0005', 'stp-0006'),
+            ('stp-0005', 'Far ampulünü çıkarıp bakın.', 'Ampulün teli '
+             'kopuk ya da camı kararmış mı?', 'end-headlight',
+             'end-socket'),
+            ('stp-0006', 'Lambaya bakmaya devam edin.', 'Yanmayan sis '
+             'lambası mı?', 'stp-0007', 'stp-0008'),
+            ('stp-0007', 'Sis lambasını içinden bakın ve ampulünü '
+             'çıkarın.', 'Lambada su ya da ampulde kopuk tel var mı?',
+             'end-fog', 'end-socket'),
+            ('stp-0008', 'Arka lambanın ampulünü çıkarıp bakın.',
              'Ampulün teli kopuk ya da camı kararmış mı?', 'end-bulb',
              'end-socket'),
         ],
@@ -2870,6 +3120,10 @@ LIGHTS_ISO = dm(
              'ampulün yandığını gösterir).', code('DA6', '2', '920', '01')),
             ('end-flasher', 'Sinyal rölesi (flaşör) arızalı; röleyi '
              'değiştirin.', code('DA6', '2', '920', '02')),
+            ('end-headlight', 'Far ampulünü değiştirin.',
+             code('DA6', '2', '920')),
+            ('end-fog', 'Sis lambasını kurutup contasını yenileyin, '
+             'ampulü değiştirin.', code('DA6', '2', '920', '03')),
             ('end-socket', 'Ampul sağlam: duy oksitli ya da besleme yok; '
              'sigortayı ve duyu kontrol edin.', code('DA6', '6', '421')),
         ],
@@ -3041,10 +3295,13 @@ AC_ISO = dm(
              'var mı?', 'end-clutch', 'stp-0004'),
             ('stp-0003', 'Kondenserin önünü ve fanın çalışmasını kontrol '
              'edin.', 'Kondenser kirli ya da fan çalışmıyor mu?',
-             'end-condenser', 'end-gas'),
+             'end-condenser', 'stp-0004'),
             ('stp-0004', 'Klima manometreleriyle sistem basıncını ölçün.',
-             'Statik basınç 400 kPa\'nın altında mı?', 'end-gas',
+             'Statik basınç 400 kPa\'nın altında mı?', 'stp-0005',
              'end-switch'),
+            ('stp-0005', 'Kondenseri ve rakorlarını elektronik kaçak '
+             'dedektörüyle tarayın.', 'Kaçak kondenserin peteğinde mi?',
+             'end-condenser-leak', 'end-gas'),
         ],
         'ends': [
             ('end-clutch', 'Kompresör kavraması arızalı ya da boşluğu '
@@ -3053,6 +3310,8 @@ AC_ISO = dm(
              code('DA1', '4', '320')),
             ('end-gas', 'Soğutucu akışkan eksik: sızıntıyı bulup giderin ve '
              'sistemi şarj ettirin.', code('DA7', '2', '300')),
+            ('end-condenser-leak', 'Kondenser delinmiş; kondenseri '
+             'değiştirin.', code('DA7', '2', '920', '01')),
             ('end-switch', 'Basınç müşiri, klima rölesi ya da kumanda '
              'arızalı; ' + SHOP + '.', None),
         ],
@@ -3075,6 +3334,28 @@ AC_CHECK = dm(
         'Kaçağı giderdikten sonra sistemi vakumlayıp etiketteki miktarda '
         'R-134a ile şarj ettirin (yetkili klima servisi işi).',
     ])
+
+CONDENSER = dm(
+    code=code('DA7', '2', '920', '01'), tech='Klima kondenseri', figure=10,
+    tools=[('Lokma takımı', 1), ('Klima manometre takımı', 1)],
+    spares=[('Klima kondenseri', 1), ('Klima O-halkası takımı', 1)],
+    supplies=[('Kompresör yağı, ND-OIL 8', None),
+              ('Soğutucu akışkan R-134a', None)],
+    warnings=['Sistemdeki akışkanı yalnız geri kazanım cihazıyla '
+              'boşaltın.'],
+    steps=[
+        'Kaçak kondenserdeyse ya da rakoru onarılamıyorsa akışkanı geri '
+        'kazanım cihazıyla boşaltın.',
+        'Ön tamponu ve ızgarayı sökün; kondenserin giriş ve çıkış '
+        'rakorlarını ayırıp tıkayın.',
+        'Kondenserin tutucularını sökün ve kondenseri radyatörün önünden '
+        'çıkarın.',
+        'Yeni kondensere eskisi kadar kompresör yağı ekleyin; yeni '
+        'O-halkalarla takın ve rakorları sıkın.',
+        'Sistemi vakumlayıp etiketteki miktarda şarj ettirin; basınçları '
+        'kontrol edin.',
+    ],
+    next=code('DA7', '2', '300'))
 
 COMPRESSOR = dm(
     code=code('DA7', '2', '920'), tech='Klima kompresörü', figure=11,
@@ -3277,7 +3558,7 @@ part('engine.oil_pan', 'Karter', 'engine', 'DA1-30', ['engine_oil_pan'],
 part('engine.oil_pump', 'Yağ pompası', 'engine', 'DA1-30',
      ['engine_oil_pump'], 'z.engine',
      'Yağı karterden emip yataklara basınçla gönderir.',
-     {'measure': OIL_PRESSURE})
+     {'measure': OIL_PRESSURE, 'replace': OIL_PUMP})
 part('engine.oil_filter', 'Yağ filtresi', 'engine', 'DA1-30',
      ['engine_oil_filter'], 'z.engine', 'Yağdaki metal ve is parçalarını '
      'tutar.', {'replace': OIL_CHANGE})
@@ -3301,10 +3582,11 @@ part('cooling', 'Soğutma sistemi', None, 'DA1-40',
      {'isolate': OVERHEAT, 'inspect': COOLING_CHECK})
 part('cooling.radiator', 'Radyatör', 'cooling', 'DA1-40', ['radiator'],
      'z.front', 'Soğutma suyunu geçen havayla soğutur; fan arkasındadır.',
-     {'inspect': COOLING_CHECK, 'replace': RADIATOR})
+     {'inspect': COOLING_CHECK, 'replace': RADIATOR,
+      'measure': COOLANT_PRESSURE})
 part('cooling.fan', 'Radyatör fanı', 'cooling', 'DA1-40', ['radiator_fan'],
      'z.front', 'Su ısınınca ya da klima açılınca devreye giren elektrikli '
-     'fan.', {'test': FAN_TEST})
+     'fan.', {'test': FAN_TEST, 'replace': FAN})
 part('cooling.hoses', 'Radyatör ve kalorifer hortumları', 'cooling',
      'DA1-40', ['radiator_hoses'], 'z.engine', 'Motoru radyatöre ve '
      'kalorifer peteğine bağlayan lastik hortumlar.',
@@ -3369,7 +3651,8 @@ part('exhaust.pcv', 'Karter havalandırma (PCV) valfi', 'exhaust', 'DA1-90',
 part('exhaust.evap', 'Yakıt buharı kanisteri ve boşaltma valfi', 'exhaust',
      'DA1-90', ['fuel_tank', 'engine_intake'], 'z.under',
      'Depo buharını aktif karbonda tutup motora çeker.',
-     {'inspect': EVAP_CHECK, 'isolate': EMISSION_ISO})
+     {'inspect': EVAP_CHECK, 'replace': PURGE_VSV,
+      'isolate': EMISSION_ISO})
 
 # Ateşleme
 part('ignition', 'Ateşleme sistemi', None, 'DA1-50',
@@ -3451,14 +3734,14 @@ part('electrical.ignition_switch', 'Kontak anahtarı ve marş rölesi',
 part('electrical.cluster', 'Gösterge paneli (kadran)', 'electrical',
      'DA6-50', ['instrument_cluster'], 'z.cabin', 'Hız ve devir '
      'göstergesi, yakıt ve hararet göstergeleri, uyarı lambaları.',
-     {'replace': CLUSTER})
+     {'replace': CLUSTER, 'isolate': CLUSTER_ISO})
 part('electrical.wiring', 'Kablo demeti ve toprak bağlantıları',
      'electrical', 'DA6-60', ['body', 'dashboard'], 'z.cabin',
      'Bütün devreleri birbirine bağlayan demet ve gövde toprak noktaları.',
      {'clean': GROUND, 'inspect': FUSE_CHECK})
 part('electrical.horn', 'Korna', 'electrical', 'DA6-80', ['bumper_front'],
      'z.front', 'Ön tamponun arkasında, radyatör traversinde.',
-     {'replace': HORN})
+     {'replace': HORN, 'isolate': HORN_ISO})
 
 # Aydınlatma
 part('lighting', 'Aydınlatma ve sinyal', None, 'DA6-20',
@@ -3495,7 +3778,8 @@ part('hvac.compressor', 'Klima kompresörü', 'hvac', 'DA7-20',
      {'replace': COMPRESSOR, 'isolate': AC_ISO})
 part('hvac.condenser', 'Klima kondenseri', 'hvac', 'DA7-20',
      ['ac_condenser'], 'z.front', 'Radyatörün önünde; akışkanın ısısını '
-     'havaya atar.', {'inspect': AC_CHECK, 'isolate': AC_ISO})
+     'havaya atar.',
+     {'inspect': AC_CHECK, 'replace': CONDENSER, 'isolate': AC_ISO})
 part('hvac.blower', 'Kalorifer fanı', 'hvac', 'DA7-10', ['dashboard'],
      'z.cabin', 'Yolcu tarafında torpidonun altında; dört kademeli, '
      'dirençle ayarlanır.', {'replace': BLOWER, 'isolate': HEATER_ISO})
@@ -3518,7 +3802,8 @@ part('drivetrain.clutch', 'Debriyaj', 'drivetrain.transaxle', 'DA2-10',
 part('drivetrain.clutch_hydraulics', 'Debriyaj ana ve tali merkezi',
      'drivetrain', 'DA2-10', ['pedals', 'transaxle'], 'z.engine',
      'Pedal kuvvetini hidrolikle şanzımandaki debriyaj çatalına iletir; '
-     'fren hidroliğiyle çalışır.', {'adjust': CLUTCH_BLEED})
+     'fren hidroliğiyle çalışır.',
+     {'adjust': CLUTCH_BLEED, 'replace': CLUTCH_CYL})
 part('drivetrain.shift_linkage', 'Vites kolu ve kumanda telleri',
      'drivetrain', 'DA2-10', ['interior_trim', 'transaxle'], 'z.cabin',
      'Vites kolunun hareketini iki telle şanzımana iletir.',
@@ -3559,7 +3844,7 @@ part('brakes.rear.pads', 'Arka kaliperler ve balatalar', 'brakes.rear',
 part('brakes.booster', 'Fren servosu', 'brakes', 'DA3-30',
      ['brake_booster'], 'z.engine',
      'Motor vakumuyla pedal kuvvetini artırır; ana merkez önündedir.',
-     {'inspect': BOOSTER})
+     {'inspect': BOOSTER, 'replace': BOOSTER_REPLACE})
 part('brakes.master_cylinder', 'Fren ana merkezi ve deposu',
      'brakes.booster', 'DA3-30', ['brake_booster'], 'z.engine',
      'Çift devreli ana merkez; depo debriyajla ortaktır.',
@@ -3567,7 +3852,7 @@ part('brakes.master_cylinder', 'Fren ana merkezi ve deposu',
 part('brakes.lines', 'Fren boruları ve hortumları', 'brakes', 'DA3-30',
      ['brake_caliper_front', 'brake_caliper_rear'], 'z.under',
      'Hidroliği ana merkezden kaliperlere taşır; tekerleklerde esnek '
-     'hortumlar.', {'service': BRAKE_BLEED})
+     'hortumlar.', {'replace': BRAKE_HOSE, 'service': BRAKE_BLEED})
 part('brakes.parking', 'El freni', 'brakes', 'DA3-40',
      ['brake_caliper_rear', 'interior_trim'], 'z.cabin',
      'Orta konsoldaki kol ve arka kaliperlere giden teller.',
@@ -3615,6 +3900,10 @@ part('chassis.wheel_bearing_rear', 'Arka göbekler ve tekerlek rulmanları',
      'chassis.suspension_rear', 'DA5-20', ['hub_rear'], 'z.rear',
      'Arka aks taşıyıcısı ve onunla bütün halde değişen göbek-rulman.',
      {'replace': BEARING_REAR}, quantity=2)
+part('chassis.front_alignment', 'Ön düzen (toplama)', 'chassis', 'DA4-30',
+     ['strut_front', 'control_arm_front', 'steering_rack'], 'z.front',
+     'Ön tekerleklerin toplama açısı; rot milleriyle ayarlanır. Kamber ve '
+     'kaster sabittir.', {'adjust': ALIGNMENT})
 part('chassis.steering_rack', 'Direksiyon kutusu', 'chassis', 'DA4-30',
      ['steering_rack'], 'z.front',
      'Kremayer dişliyle direksiyon dönüşünü tekerleklere iletir.',
@@ -3630,7 +3919,8 @@ part('chassis.power_steering', 'Hidrolik direksiyon pompası ve deposu',
      'chassis', 'DA4-30', ['ps_reservoir'], 'z.engine',
      'Kayışla dönen pompa ve motor bölmesinin sağ arkasındaki yağ deposu. '
      'Seçilince depo vurgulanır.',
-     {'inspect': PS_CHECK, 'replace': PS_PUMP, 'isolate': STEERING_ISO})
+     {'inspect': PS_CHECK, 'replace': PS_PUMP, 'repair': PS_HOSE,
+      'isolate': STEERING_ISO})
 
 # Tekerlekler
 part('wheels', 'Tekerlekler', None, 'DA5-00', WHEEL_NODES, 'z.under',
@@ -3639,6 +3929,14 @@ part('wheels', 'Tekerlekler', None, 'DA5-00', WHEEL_NODES, 'z.under',
 part('wheels.tires', 'Lastikler', 'wheels', 'DA5-10', WHEEL_NODES,
      'z.under', '175/65 R14 lastikler; basınç ön ve arka 2,2 bar.',
      {'inspect': TIRES, 'adjust': BALANCE}, quantity=4)
+for wid, wname, wnode, wzone in [
+        ('wheel.fl', 'Sol ön tekerlek', 'wheel_fl', 'z.front'),
+        ('wheel.fr', 'Sağ ön tekerlek', 'wheel_fr', 'z.front'),
+        ('wheel.rl', 'Sol arka tekerlek', 'wheel_rl', 'z.rear'),
+        ('wheel.rr', 'Sağ arka tekerlek', 'wheel_rr', 'z.rear')]:
+    part(wid, wname, 'wheels', 'DA5-10', [wnode], wzone,
+         'Lastik, çelik jant ve göbek kapağı.',
+         {'inspect': TIRES, 'replace': WHEEL})
 
 ZONES = [
     ('z.front', 'Ön', None), ('z.engine', 'Motor bölmesi', 'z.front'),
@@ -3718,6 +4016,10 @@ SYMPTOMS = [
     ('sym.wheel_hum', 'Tekerlekten hızla artan uğultu geliyor'),
     ('sym.heavy_steering', 'Direksiyon ağır dönüyor'),
     ('sym.steering_whine', 'Direksiyon çevrilirken inilti geliyor'),
+    ('sym.ps_fluid_low', 'Direksiyon yağı eksiliyor, aracın önünde '
+     'kırmızımsı yağ lekesi var'),
+    ('sym.heavy_at_idle', 'Direksiyon rölantide ağır, devir artınca '
+     'hafifliyor'),
     # Elektrik ve aydınlatma
     ('sym.dim_lights', 'Farlar sönük yanıyor'),
     ('sym.battery_light', 'Şarj lambası yanıyor'),
@@ -3793,7 +4095,7 @@ FAULTS = [
     ('f.oil_pump.worn', 'engine.oil_pump', ['sym.oil_light',
                                             'sym.engine_rattle'],
      'Yağ pompası aşınmış ya da emiş süzgeci tıkanmış; yağ basıncı düşük.',
-     3, OIL_ISO, OIL_PRESSURE),
+     3, OIL_ISO, OIL_PUMP),
     ('f.oil_switch.faulty', 'engine.oil_pressure_switch', ['sym.oil_light'],
      'Yağ basınç müşiri arızalı; basınç yeterliyken lamba yanıyor.', 1,
      OIL_ISO, OIL_SWITCH),
@@ -3814,10 +4116,10 @@ FAULTS = [
     ('f.radiator_cap.faulty', 'cooling.radiator',
      ['sym.coolant_loss', 'sym.overheat'],
      'Radyatör kapağı basınç tutmuyor; su kaynayıp genleşme kabından '
-     'taşıyor.', 2, OVERHEAT, COOLANT_PRESSURE),
+     'taşıyor.', 2, OVERHEAT, RADIATOR_CAP),
     ('f.fan.inoperative', 'cooling.fan', ['sym.overheat_idle'],
      'Radyatör fanı, rölesi ya da fan müşiri arızalı; fan devreye '
-     'girmiyor.', 2, OVERHEAT, FAN_TEST),
+     'girmiyor.', 2, OVERHEAT, FAN),
     ('f.hoses.cracked', 'cooling.hoses', ['sym.coolant_loss',
                                           'sym.overheat'],
      'Radyatör hortumu çatlamış ya da kelepçesi gevşemiş.', 2, OVERHEAT,
@@ -3840,7 +4142,8 @@ FAULTS = [
      FUEL_FILTER),
     ('f.fuel_regulator.faulty', 'fuel.pump',
      ['sym.hard_start_hot', 'sym.black_smoke'],
-     'Pompa modülündeki basınç regülatörü basıncı tutamıyor.', 2, FUEL_ISO, FUEL_PRESSURE),
+     'Pompa modülündeki basınç regülatörü basıncı tutamıyor.', 2,
+     FUEL_ISO, FUEL_REGULATOR),
     ('f.injectors.clogged', 'fuel.injectors',
      ['sym.misfire', 'sym.rough_idle', 'sym.hard_start_hot'],
      'Bir enjektör tıkanmış ya da damlatıyor.', 2, IGNITION, INJECTORS),
@@ -3869,7 +4172,7 @@ FAULTS = [
      'sızdırıyor.', 1, OIL_ISO, PCV),
     ('f.evap.purge', 'exhaust.evap', ['sym.mil', 'sym.fuel_smell'],
      'EVAP boşaltma valfi açık kalmış ya da kanister hortumu çatlak.', 1,
-     EMISSION_ISO, EVAP_CHECK),
+     EMISSION_ISO, PURGE_VSV),
     # Ateşleme
     ('f.plugs.worn', 'engine.spark_plugs', ['sym.misfire', 'sym.power_loss',
                                             'sym.hard_start_cold'],
@@ -3910,7 +4213,7 @@ FAULTS = [
      'Vuruntu sensörü arızalı; motor beyni avansı güvenlik için geri '
      'alıyor.', 1, MIL_ISO, KNOCK),
     ('f.ecu.power', 'engine_control.ecu', ['sym.no_start', 'sym.mil'],
-     'Motor beyninin beslemesi ya da toprağı kesik.', 3, MIL_ISO, ECU_CHECK),
+     'Motor beyninin beslemesi ya da toprağı kesik.', 3, MIL_ISO, None),
     # Elektrik
     ('f.battery.flat', 'battery', ['sym.no_start', 'sym.slow_crank',
                                    'sym.dim_lights'],
@@ -3937,10 +4240,10 @@ FAULTS = [
      'Toprak bağlantısı oksitlenmiş ya da gevşemiş.', 2, FUSE_ISO, GROUND),
     ('f.horn.failed', 'electrical.horn', ['sym.horn'],
      'Korna, korna rölesi ya da direksiyondaki kontak arızalı.', 1,
-     FUSE_ISO, HORN),
+     HORN_ISO, HORN),
     ('f.cluster.failed', 'electrical.cluster', ['sym.gauges'],
      'Gösterge panelinin baskılı devresinde lehim çatlamış ya da lambaları '
-     'yanmış.', 1, FUSE_ISO, CLUSTER),
+     'yanmış.', 1, CLUSTER_ISO, CLUSTER),
     ('f.window.regulator', 'body.window_regulators', ['sym.window'],
      'Cam krikosunun teli kopmuş ya da motoru zayıflamış.', 1, WINDOW_ISO,
      REGULATOR),
@@ -3992,7 +4295,7 @@ FAULTS = [
     # Isıtma ve klima
     ('f.ac.leak', 'hvac.condenser', ['sym.ac_warm'],
      'Kondenser ya da rakorlar sızdırıyor; soğutucu akışkan eksik.', 1,
-     AC_ISO, AC_CHECK),
+     AC_ISO, CONDENSER),
     ('f.ac.compressor', 'hvac.compressor', ['sym.ac_warm', 'sym.ac_noise'],
      'Kompresör kavraması devreye girmiyor ya da kompresör aşınmış.', 2,
      AC_ISO, COMPRESSOR),
@@ -4009,7 +4312,7 @@ FAULTS = [
     ('f.clutch.hydraulic', 'drivetrain.clutch_hydraulics',
      ['sym.clutch_pedal', 'sym.hard_shift'],
      'Debriyaj ana ya da tali merkezi kaçırıyor; sistemde hava var.', 2,
-     CLUTCH, CLUTCH_BLEED),
+     CLUTCH, CLUTCH_CYL),
     ('f.transaxle.oil_low', 'drivetrain.transaxle', ['sym.hard_shift'],
      'Şanzıman yağı eksik.', 2, CLUTCH, GEARBOX),
     ('f.shift_linkage.worn', 'drivetrain.shift_linkage', ['sym.vague_shift'],
@@ -4036,13 +4339,13 @@ FAULTS = [
     ('f.booster.vacuum', 'brakes.booster', ['sym.pedal_hard',
                                             'sym.brake_weak'],
      'Fren servosu vakum almıyor; hortum çatlak ya da diyafram yırtık.', 3,
-     BRAKE_ISOLATE, BOOSTER),
+     BRAKE_ISOLATE, BOOSTER_REPLACE),
     ('f.master.internal', 'brakes.master_cylinder', ['sym.pedal_soft'],
      'Ana merkezin keçeleri içeriden kaçırıyor.', 3, BRAKE_ISOLATE, MASTER),
     ('f.brake_lines.leak', 'brakes.lines',
      ['sym.pedal_soft', 'sym.brake_fluid_low'],
      'Fren hortumu çatlamış ya da borusu paslanıp delinmiş.', 3,
-     BRAKE_ISOLATE, BRAKE_BLEED),
+     BRAKE_ISOLATE, BRAKE_HOSE),
     ('f.parking.adjust', 'brakes.parking', ['sym.handbrake'],
      'El freni teli gerilmiş ya da ayarı bozulmuş.', 2, REAR_BRAKES,
      PARKING),
@@ -4070,17 +4373,18 @@ FAULTS = [
                                                   'sym.tire_wear'],
      'Arka salıncak ya da çeki kolu burcu aşınmış; arka toplama bozuluyor.',
      2, REAR_SUSPENSION, None),
-    ('f.alignment', 'chassis.steering_rack', ['sym.pull', 'sym.tire_wear'],
+    ('f.alignment', 'chassis.front_alignment', ['sym.pull', 'sym.tire_wear'],
      'Ön düzen bozulmuş.', 1, SUSPENSION_ISOLATE, ALIGNMENT),
     ('f.tie_rod.worn', 'chassis.tie_rods', ['sym.wander', 'sym.tire_wear'],
      'Rot başında boşluk var.', 3, SUSPENSION_ISOLATE, TIE_ROD),
     ('f.power_steering.leak', 'chassis.power_steering',
-     ['sym.heavy_steering', 'sym.steering_whine'],
-     'Direksiyon yağı eksik; hortum ya da pompa keçesi sızdırıyor.', 2,
-     STEERING_ISO, PS_CHECK),
+     ['sym.ps_fluid_low', 'sym.heavy_steering'],
+     'Direksiyon yağı eksik; hortum ya da rakor sızdırıyor.', 2,
+     STEERING_ISO, PS_HOSE),
     ('f.power_steering.pump', 'chassis.power_steering',
-     ['sym.heavy_steering', 'sym.steering_whine'],
-     'Hidrolik direksiyon pompası aşınmış; basınç vermiyor.', 2,
+     ['sym.steering_whine', 'sym.heavy_at_idle'],
+     'Hidrolik direksiyon pompası aşınmış; yağ seviyesi doğruyken basınç '
+     'vermiyor.', 2,
      STEERING_ISO, PS_PUMP),
     # Tekerlekler
     ('f.tire.puncture', 'wheels.tires', ['sym.flat', 'sym.pull'],
@@ -4098,6 +4402,17 @@ SPARE_PARTS = {
     'Kanallı aksesuar kayışı': 'engine.drive_belt',
     'Yağ filtresi': 'engine.oil_filter',
     'Yağ basınç müşiri': 'engine.oil_pressure_switch',
+    'Yağ pompası': 'engine.oil_pump',
+    'Radyatör kapağı': 'cooling.radiator',
+    'Radyatör fan motoru': 'cooling.fan',
+    'Yakıt basınç regülatörü': 'fuel.pump',
+    'Debriyaj ana merkezi': 'drivetrain.clutch_hydraulics',
+    'Debriyaj tali merkezi': 'drivetrain.clutch_hydraulics',
+    'Fren servosu': 'brakes.booster',
+    'Fren hortumu': 'brakes.lines',
+    'Klima kondenseri': 'hvac.condenser',
+    'Direksiyon basınç hortumu': 'chassis.power_steering',
+    'Direksiyon dönüş hortumu': 'chassis.power_steering',
     'Emme manifoldu contası': 'engine.intake',
     'Egzoz manifoldu contası': 'engine.exhaust_manifold',
     'Su pompası, contasıyla': 'engine.water_pump',

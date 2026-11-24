@@ -31,7 +31,7 @@
         <reqCondGroup><noConds/></reqCondGroup>
         <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Döşeme sökme aparatı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-001</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Tornavida</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-042</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Gösterge paneli lambası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-017</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Gösterge paneli lambası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-019</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><safetyRqmts><caution><warningAndCautionPara>Göstergeyi yüzü aşağı bakacak şekilde koymayın; ibreler zarar görür.</warningAndCautionPara></caution></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>

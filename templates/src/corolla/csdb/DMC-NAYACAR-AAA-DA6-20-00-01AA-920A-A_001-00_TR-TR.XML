@@ -27,7 +27,7 @@
         <reqCondGroup><noConds/></reqCondGroup>
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Ampul, P21/5W 12 V</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-018</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr><spareDescr id="pt-0002"><name>Ampul, P21W 12 V</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-019</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Ampul, P21/5W 12 V</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-020</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr><spareDescr id="pt-0002"><name>Ampul, P21W 12 V</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-021</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>

@@ -37,7 +37,7 @@
             <isolationStep id="stp-0002">
               <action>Motoru temizleyip kısa süre çalıştırın; kaçağın nereden başladığını yukarıdan aşağıya izleyin.</action>
               <isolationStepQuestion>Kaçak supap kapağının kenarından mı geliyor?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-cover"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0005"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0003">
               <action>Yağ basınç müşirinin yerine manometre takıp basıncı ölçün.</action>
@@ -49,9 +49,15 @@
               <isolationStepQuestion>Kaçak ön krank keçesinden mi geliyor?</isolationStepQuestion>
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-seal"/><noAnswer nextActionRefId="end-pan"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
-            <isolationProcedureEnd id="end-cover"><action>Supap kapağı contasını değiştirin; PCV valfini de kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationStep id="stp-0005">
+              <action>Motor rölantideyken yağ doldurma kapağını hafifçe açın; sonra PCV valfini söküp sallayın.</action>
+              <isolationStepQuestion>Kapaktan basınçla gaz çıkıyor ya da valf tıkırdamıyor mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-pcv"/><noAnswer nextActionRefId="end-cover"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationProcedureEnd id="end-cover"><action>Supap kapağı contasını değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-pcv"><action>PCV valfi tıkalı; karter basıncı contayı zorluyor. Valfi değiştirin, sonra contayı kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="9" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-switch"><action>Basınç yeterli: yağ basınç müşiri ya da kablosu arızalı; müşiri değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-pump"><action>Basınç düşük: yağ pompası, emiş süzgeci ya da yataklar. Motoru çalıştırmayın; basıncı ölçün ve yetkili servise başvurun. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="361" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-pump"><action>Basınç düşük: önce emiş süzgecini kontrol edin; temizse yağ pompasını değiştirin. Basınç yine düşükse yataklar aşınmıştır. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-seal"><action>Ön krank keçesini değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-pan"><action>Karter tapası contasını ya da karter contasını yenileyin; yağı tamamlayın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="241" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>

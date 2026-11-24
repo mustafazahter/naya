@@ -35,8 +35,8 @@
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Akünün eksi kutbunu sökün; sensörün soketini çıkarın.</para><figure id="fig-0003"><title>1ZZ-FE motor</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure></proceduralStep>
-        <proceduralStep><para>Sensörün cıvatasını sökün ve sensörü çevirerek çıkarın.</para></proceduralStep>
+        <proceduralStep><para>Sensörün soketini çıkarıp direncini ölçün: soğukta 1630-2740 Ω, sıcakta 2065-3225 Ω. Değer içindeyse sensörü değiştirmeyin; kabloyu ve motor beynini kontrol edin.</para><figure id="fig-0003"><title>1ZZ-FE motor</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Akünün eksi kutbunu sökün. Sensörün cıvatasını sökün ve sensörü çevirerek çıkarın.</para></proceduralStep>
         <proceduralStep><para>Yeni sensörün O-halkasına yağ sürüp takın; cıvatayı 9 N·m'de sıkın.</para></proceduralStep>
         <proceduralStep><para>Aküyü bağlayın, motoru çalıştırıp devir göstergesinin marşta oynadığını kontrol edin.</para></proceduralStep>
       </mainProcedure>

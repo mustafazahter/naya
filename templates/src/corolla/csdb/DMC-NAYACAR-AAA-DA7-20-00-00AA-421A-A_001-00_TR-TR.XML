@@ -42,16 +42,22 @@
             <isolationStep id="stp-0003">
               <action>Kondenserin önünü ve fanın çalışmasını kontrol edin.</action>
               <isolationStepQuestion>Kondenser kirli ya da fan çalışmıyor mu?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-condenser"/><noAnswer nextActionRefId="end-gas"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-condenser"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0004">
               <action>Klima manometreleriyle sistem basıncını ölçün.</action>
               <isolationStepQuestion>Statik basınç 400 kPa'nın altında mı?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-gas"/><noAnswer nextActionRefId="end-switch"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0005"/><noAnswer nextActionRefId="end-switch"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0005">
+              <action>Kondenseri ve rakorlarını elektronik kaçak dedektörüyle tarayın.</action>
+              <isolationStepQuestion>Kaçak kondenserin peteğinde mi?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-condenser-leak"/><noAnswer nextActionRefId="end-gas"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-clutch"><action>Kompresör kavraması arızalı ya da boşluğu büyümüş; kompresörü kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA7" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-condenser"><action>Kondenseri temizleyin; fanı kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="320" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-gas"><action>Soğutucu akışkan eksik: sızıntıyı bulup giderin ve sistemi şarj ettirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA7" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-condenser-leak"><action>Kondenser delinmiş; kondenseri değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA7" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-switch"><action>Basınç müşiri, klima rölesi ya da kumanda arızalı; yetkili servise başvurun.</action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

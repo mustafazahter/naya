@@ -35,7 +35,8 @@
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Sensörün soketini çıkarın; silindir kapağının arka tarafındaki cıvatayı sökün.</para><figure id="fig-0003"><title>1ZZ-FE motor</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Sensörün soketini çıkarıp direncini ölçün: soğukta 835-1400 Ω, sıcakta 1060-1645 Ω. Değer içindeyse kabloyu kontrol edin.</para><figure id="fig-0003"><title>1ZZ-FE motor</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Silindir kapağının arka tarafındaki cıvatayı sökün.</para></proceduralStep>
         <proceduralStep><para>Sensörü çıkarın; yuvada yağ kaçağı varsa O-halkayı yenileyin.</para></proceduralStep>
         <proceduralStep><para>Yeni sensörü takın, cıvatayı 9 N·m'de sıkın; arıza kodunu silin.</para></proceduralStep>
       </mainProcedure>

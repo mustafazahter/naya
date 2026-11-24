@@ -934,7 +934,8 @@
         "item": "049"
       },
       "procedures": {
-        "measure": "DMC-NAYACAR-AAA-DA1-30-00-00AA-361A-A"
+        "measure": "DMC-NAYACAR-AAA-DA1-30-00-00AA-361A-A",
+        "replace": "DMC-NAYACAR-AAA-DA1-30-00-01AA-920A-A"
       }
     },
     {
@@ -1054,7 +1055,8 @@
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA1-40-00-00AA-300A-A",
-        "replace": "DMC-NAYACAR-AAA-DA1-40-00-03AA-920A-A"
+        "replace": "DMC-NAYACAR-AAA-DA1-40-00-03AA-920A-A",
+        "measure": "DMC-NAYACAR-AAA-DA1-40-00-00AA-361A-A"
       }
     },
     {
@@ -1073,7 +1075,8 @@
         "item": "056"
       },
       "procedures": {
-        "test": "DMC-NAYACAR-AAA-DA1-40-00-00AA-320A-A"
+        "test": "DMC-NAYACAR-AAA-DA1-40-00-00AA-320A-A",
+        "replace": "DMC-NAYACAR-AAA-DA1-40-00-05AA-920A-A"
       }
     },
     {
@@ -1421,6 +1424,7 @@
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA1-90-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA1-90-00-01AA-920A-A",
         "isolate": "DMC-NAYACAR-AAA-DA1-90-00-00AA-421A-A"
       }
     },
@@ -1820,7 +1824,8 @@
         "item": "094"
       },
       "procedures": {
-        "replace": "DMC-NAYACAR-AAA-DA6-50-00-00AA-920A-A"
+        "replace": "DMC-NAYACAR-AAA-DA6-50-00-00AA-920A-A",
+        "isolate": "DMC-NAYACAR-AAA-DA6-50-00-00AA-421A-A"
       }
     },
     {
@@ -1860,7 +1865,8 @@
         "item": "096"
       },
       "procedures": {
-        "replace": "DMC-NAYACAR-AAA-DA6-80-00-00AA-920A-A"
+        "replace": "DMC-NAYACAR-AAA-DA6-80-00-00AA-920A-A",
+        "isolate": "DMC-NAYACAR-AAA-DA6-80-00-00AA-421A-A"
       }
     },
     {
@@ -2041,6 +2047,7 @@
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA7-20-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA7-20-00-01AA-920A-A",
         "isolate": "DMC-NAYACAR-AAA-DA7-20-00-00AA-421A-A"
       }
     },
@@ -2156,7 +2163,8 @@
         "item": "111"
       },
       "procedures": {
-        "adjust": "DMC-NAYACAR-AAA-DA2-10-00-00AA-271A-A"
+        "adjust": "DMC-NAYACAR-AAA-DA2-10-00-00AA-271A-A",
+        "replace": "DMC-NAYACAR-AAA-DA2-10-00-01AA-920A-A"
       }
     },
     {
@@ -2356,7 +2364,8 @@
         "item": "121"
       },
       "procedures": {
-        "inspect": "DMC-NAYACAR-AAA-DA3-30-00-00AA-300A-A"
+        "inspect": "DMC-NAYACAR-AAA-DA3-30-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA3-30-00-02AA-920A-A"
       }
     },
     {
@@ -2396,6 +2405,7 @@
         "item": "123"
       },
       "procedures": {
+        "replace": "DMC-NAYACAR-AAA-DA3-30-00-01AA-920A-A",
         "service": "DMC-NAYACAR-AAA-DA3-30-00-00AA-210A-A"
       }
     },
@@ -2608,6 +2618,27 @@
       }
     },
     {
+      "id": "chassis.front_alignment",
+      "name": "Ön düzen (toplama)",
+      "parent": "chassis",
+      "sns": "DA4-30",
+      "meshNodes": [
+        "strut_front",
+        "control_arm_front",
+        "steering_rack"
+      ],
+      "zone": "z.front",
+      "function": "Ön tekerleklerin toplama açısı; rot milleriyle ayarlanır. Kamber ve kaster sabittir.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "134"
+      },
+      "procedures": {
+        "adjust": "DMC-NAYACAR-AAA-DA4-30-00-00AA-271A-A"
+      }
+    },
+    {
       "id": "chassis.steering_rack",
       "name": "Direksiyon kutusu",
       "parent": "chassis",
@@ -2620,7 +2651,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "134"
+        "item": "135"
       },
       "procedures": {
         "adjust": "DMC-NAYACAR-AAA-DA4-30-00-00AA-271A-A"
@@ -2639,7 +2670,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "135"
+        "item": "136"
       },
       "procedures": {
         "replace": "DMC-NAYACAR-AAA-DA4-30-00-00AA-920A-A"
@@ -2658,7 +2689,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "136"
+        "item": "137"
       }
     },
     {
@@ -2674,11 +2705,12 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "137"
+        "item": "138"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA4-30-00-00AA-300A-A",
         "replace": "DMC-NAYACAR-AAA-DA4-30-00-01AA-920A-A",
+        "repair": "DMC-NAYACAR-AAA-DA4-30-00-02AA-920A-A",
         "isolate": "DMC-NAYACAR-AAA-DA4-30-00-00AA-421A-A"
       }
     },
@@ -2697,7 +2729,7 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "138"
+        "item": "139"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
@@ -2720,11 +2752,91 @@
       "ipd": {
         "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "139"
+        "item": "140"
       },
       "procedures": {
         "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
         "adjust": "DMC-NAYACAR-AAA-DA5-10-00-00AA-271A-A"
+      }
+    },
+    {
+      "id": "wheel.fl",
+      "name": "Sol ön tekerlek",
+      "parent": "wheels",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "wheel_fl"
+      ],
+      "zone": "z.front",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "141"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA5-00-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "wheel.fr",
+      "name": "Sağ ön tekerlek",
+      "parent": "wheels",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "wheel_fr"
+      ],
+      "zone": "z.front",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "142"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA5-00-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "wheel.rl",
+      "name": "Sol arka tekerlek",
+      "parent": "wheels",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "wheel_rl"
+      ],
+      "zone": "z.rear",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "143"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA5-00-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "wheel.rr",
+      "name": "Sağ arka tekerlek",
+      "parent": "wheels",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "wheel_rr"
+      ],
+      "zone": "z.rear",
+      "function": "Lastik, çelik jant ve göbek kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "144"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
+        "replace": "DMC-NAYACAR-AAA-DA5-00-00-00AA-920A-A"
       }
     }
   ]

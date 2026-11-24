@@ -46,8 +46,13 @@
             </isolationStep>
             <isolationStep id="stp-0004">
               <action>Kodlara bakmaya devam edin.</action>
-              <isolationStepQuestion>P0335 (krank) ya da P0340 (eksantrik konum) kodu var mı?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-position"/><noAnswer nextActionRefId="stp-0005"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepQuestion>P0335 (krank konum sensörü) kodu var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-ckp"/><noAnswer nextActionRefId="stp-0008"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0008">
+              <action>Kodlara bakmaya devam edin.</action>
+              <isolationStepQuestion>P0340 (eksantrik konum sensörü) kodu var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-cmp"/><noAnswer nextActionRefId="stp-0005"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0005">
               <action>Kodlara bakmaya devam edin.</action>
@@ -65,9 +70,10 @@
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-misfire"/><noAnswer nextActionRefId="end-ecu"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-maf"><action>Hava akış ölçeri temizleyin ve kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="8" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="250" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-ect"><action>Su sıcaklık sensörünü ölçün. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="8" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="361" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-ect"><action>Su sıcaklık sensörünü ölçün; değer dışındaysa değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="8" subSubSystemCode="0" assyCode="00" disassyCode="02" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-o2"><action>Oksijen sensörünü ve emme tarafında hava kaçağını kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="8" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-position"><action>Krank ya da eksantrik konum sensörünü ölçün. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="8" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="361" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-ckp"><action>Krank konum sensörünü ölçün; değer dışındaysa değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="8" subSubSystemCode="0" assyCode="00" disassyCode="03" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-cmp"><action>Eksantrik konum sensörünü ölçün; değer dışındaysa değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="8" subSubSystemCode="0" assyCode="00" disassyCode="04" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-tps"><action>Gaz kelebeği konum sensörünü kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="8" subSubSystemCode="0" assyCode="00" disassyCode="05" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-knock"><action>Vuruntu sensörünü kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="8" subSubSystemCode="0" assyCode="00" disassyCode="07" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-misfire"><action>Tekleyen silindiri bulun. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
