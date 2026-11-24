@@ -48,4 +48,13 @@ void main() {
     });
     expect(model.details, 'x/free · 1M token: girdi \$0, çıktı \$0');
   });
+
+  test('çok küçük fiyat üslü sayı olarak değil sınırla yazılır', () {
+    final model = AiModel.fromJson({
+      'id': 'x/tiny',
+      'inputPrice': 0.00000012,
+      'outputPrice': 0.0004,
+    });
+    expect(model.details, 'x/tiny · 1M token: girdi \$<0.0001, çıktı \$0.0004');
+  });
 }

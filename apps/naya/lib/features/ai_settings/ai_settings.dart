@@ -83,9 +83,11 @@ class AiModel {
       : '${(count / 1000).round()}K';
 
   /// 1'in altında iki anlamlı basamak (0.0507 → 0.051), üstünde en çok
-  /// iki ondalık (10 → 10, 2.5 → 2.5).
+  /// iki ondalık (10 → 10, 2.5 → 2.5). Çok küçük fiyat üslü sayıya
+  /// (1.2e-7) dönmesin diye `<0.0001` yazılır.
   static String _dollars(double v) {
     if (v == 0) return '0';
+    if (v < 0.0001) return '<0.0001';
     if (v < 1) return _trim(v.toStringAsPrecision(2));
     return _trim(v.toStringAsFixed(2));
   }
