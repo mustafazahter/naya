@@ -103,6 +103,194 @@
     {
       "id": "sym.hook_damage",
       "text": "Kuyruk kancası ucunda çentik ya da aşınma"
+    },
+    {
+      "id": "sym.cockpit_temp",
+      "text": "Kokpit soğumuyor ya da aşırı ısınıyor"
+    },
+    {
+      "id": "sym.duct_hot",
+      "text": "Klima ya da hava alma kanalı çevresinde ısı izi"
+    },
+    {
+      "id": "sym.gen_light",
+      "text": "Jeneratör uyarı ışığı yanıyor"
+    },
+    {
+      "id": "sym.battery_low",
+      "text": "Akü gerilimi düşük ya da akü uyarısı"
+    },
+    {
+      "id": "sym.ext_power",
+      "text": "Dış güç bağlanınca uçağa elektrik gelmiyor"
+    },
+    {
+      "id": "sym.intermittent",
+      "text": "Bir sistem ara ara arıza veriyor, kendiliğinden düzeliyor"
+    },
+    {
+      "id": "sym.epu_smell",
+      "text": "Acil güç ünitesi bölgesinde keskin koku ya da sızıntı izi"
+    },
+    {
+      "id": "sym.fire_light",
+      "text": "Yangın ya da aşırı ısı uyarısı yerde nedensiz yanıyor"
+    },
+    {
+      "id": "sym.fire_test",
+      "text": "Yangın uyarısı testinde ışıklar yanmıyor"
+    },
+    {
+      "id": "sym.harness_wear",
+      "text": "Koltuk kemerinde yırtık ya da aşınma"
+    },
+    {
+      "id": "sym.display_scratch",
+      "text": "Ekran ya da gösterge camı çizik veya kirli"
+    },
+    {
+      "id": "sym.loose_object",
+      "text": "Kokpitte gevşek eşya ya da kumandada sıkışma"
+    },
+    {
+      "id": "sym.lef_split",
+      "text": "Hücum kenarı flapları iki yanda farklı konumda"
+    },
+    {
+      "id": "sym.stick_play",
+      "text": "Kumanda kolu ya da pedallarda boşluk"
+    },
+    {
+      "id": "sym.fuel_pressure",
+      "text": "Yakıt basıncı uyarısı yanıyor"
+    },
+    {
+      "id": "sym.fuel_imbalance",
+      "text": "Tanklar arasında yakıt dengesizliği oluşuyor"
+    },
+    {
+      "id": "sym.fuel_qty",
+      "text": "Yakıt miktar göstergesi tutarsız"
+    },
+    {
+      "id": "sym.refuel_slow",
+      "text": "Yerde ikmal yavaş ya da kendiliğinden kesiliyor"
+    },
+    {
+      "id": "sym.receptacle",
+      "text": "Havada ikmal ağzının kapağı tam kapanmıyor"
+    },
+    {
+      "id": "sym.accumulator",
+      "text": "Akümülatör ön dolumu düşük görünüyor"
+    },
+    {
+      "id": "sym.hyd_filter",
+      "text": "Hidrolik filtre tıkanma göstergesi çıkmış"
+    },
+    {
+      "id": "sym.gear_light",
+      "text": "İniş takımı konum ışığı uygun yanmıyor"
+    },
+    {
+      "id": "sym.gear_door",
+      "text": "İniş takımı kapağı tam kapanmıyor"
+    },
+    {
+      "id": "sym.steering",
+      "text": "Burun tekerleği yönlendirmesi devreye girmiyor"
+    },
+    {
+      "id": "sym.antiskid",
+      "text": "Anti-skid uyarısı yanıyor"
+    },
+    {
+      "id": "sym.brake_leak",
+      "text": "Fren gövdesinde hidrolik sızıntısı"
+    },
+    {
+      "id": "sym.light_out",
+      "text": "Dış lambalardan biri yanmıyor"
+    },
+    {
+      "id": "sym.cockpit_light",
+      "text": "Kokpit panel aydınlatması yanmıyor"
+    },
+    {
+      "id": "sym.airspeed",
+      "text": "Hız göstergesi tutarsız"
+    },
+    {
+      "id": "sym.altitude",
+      "text": "İrtifa göstergesi tutarsız"
+    },
+    {
+      "id": "sym.pitot_heat",
+      "text": "Pitot ısıtma uyarısı yanıyor"
+    },
+    {
+      "id": "sym.aoa_damage",
+      "text": "Hücum açısı algılayıcısı eğik ya da dönmüyor"
+    },
+    {
+      "id": "sym.oxygen",
+      "text": "Oksijen uyarısı yanıyor ya da maskeye akış zayıf"
+    },
+    {
+      "id": "sym.oxygen_bottle",
+      "text": "Acil oksijen tüpü göstergesi düşük"
+    },
+    {
+      "id": "sym.jfs",
+      "text": "Motor çalıştırıcısı (JFS) devreye girmiyor"
+    },
+    {
+      "id": "sym.fastener",
+      "text": "Panel bağlantı elemanı eksik ya da gevşek"
+    },
+    {
+      "id": "sym.corrosion",
+      "text": "Kaplamada kabarma, beyaz toz ya da çukurlanma"
+    },
+    {
+      "id": "sym.discharger",
+      "text": "Statik boşaltıcı kırık ya da eksik"
+    },
+    {
+      "id": "sym.ventral",
+      "text": "Alt kuyruk kanatçığında ezik ya da yer teması izi"
+    },
+    {
+      "id": "sym.chip_light",
+      "text": "Talaş uyarısı ya da talaş algılayıcıda metal parçacık"
+    },
+    {
+      "id": "sym.oil_filter",
+      "text": "Yağ filtresi tıkanma göstergesi çıkmış"
+    },
+    {
+      "id": "sym.fuel_filter",
+      "text": "Motor yakıt filtresi tıkanma göstergesi çıkmış"
+    },
+    {
+      "id": "sym.rpm_fluct",
+      "text": "Motor devri dalgalanıyor"
+    },
+    {
+      "id": "sym.stall",
+      "text": "Motor tekliyor ya da patlama sesi geliyor"
+    },
+    {
+      "id": "sym.engine_ind",
+      "text": "Motor göstergeleri birbiriyle uyuşmuyor"
+    },
+    {
+      "id": "sym.nozzle_fault",
+      "text": "Lüle konum uyarısı yanıyor"
+    },
+    {
+      "id": "sym.ab_liner",
+      "text": "Art yakıcı astarında çatlak ya da çökme"
     }
   ],
   "faults": [
@@ -112,9 +300,10 @@
       "symptoms": [
         "sym.no_light"
       ],
-      "cause": "Ateşleyiciler ya da ateşleme ünitesi kıvılcım üretmiyor.",
+      "cause": "Ateşleyiciler kıvılcım üretmiyor.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-72-00-00-00AA-421A-A"
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-74-10-00-00AA-920A-A"
     },
     {
       "id": "f.fuel_nozzles",
@@ -125,7 +314,8 @@
       ],
       "cause": "Yakıt enjektörleri kısmen tıkanmış; alev düzensiz.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
     },
     {
       "id": "f.fan.fod",
@@ -136,7 +326,8 @@
       ],
       "cause": "Fan kanatları yabancı cisim (FOD) çarpmasıyla hasarlanmış.",
       "severity": 3,
-      "isolation": "DMC-NAYAJET-AAA-72-10-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-01AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-05-20-00-03AA-300A-A"
     },
     {
       "id": "f.hpc.erosion",
@@ -147,7 +338,8 @@
       ],
       "cause": "Kompresör kanatları aşınmış; motor verimi düşmüş.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-02AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
     },
     {
       "id": "f.hpt.blade",
@@ -158,7 +350,8 @@
       ],
       "cause": "Yüksek basınç türbini kanatlarında yanma ya da kaplama kaybı.",
       "severity": 3,
-      "isolation": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-02AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-72-00-00-00AA-520A-A"
     },
     {
       "id": "f.oil.leak",
@@ -169,7 +362,8 @@
       ],
       "cause": "Motor yağ sisteminde sızıntı ya da yatak keçesinden kaçak.",
       "severity": 3,
-      "isolation": "DMC-NAYAJET-AAA-79-10-00-00AA-300A-A"
+      "isolation": "DMC-NAYAJET-AAA-79-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-79-10-00-00AA-300A-A"
     },
     {
       "id": "f.afterburner",
@@ -179,7 +373,8 @@
       ],
       "cause": "Art yakıcı ateşlemesi ya da yakıt püskürtme halkası arızalı.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-72-50-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-72-50-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-72-50-00-00AA-310A-A"
     },
     {
       "id": "f.nozzle.flaps",
@@ -189,19 +384,20 @@
       ],
       "cause": "Lüle yaprakları ısıdan çatlamış ya da yanmış.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-72-50-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-72-50-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-72-50-00-00AA-920A-A"
     },
     {
       "id": "f.hyd.leak",
-      "part": "hydraulics",
+      "part": "hydraulics.lines",
       "symptoms": [
         "sym.hyd_low",
         "sym.hyd_leak"
       ],
-      "cause": "Hidrolik hatta, bağlantıda ya da eyleyicide sızıntı.",
+      "cause": "Hidrolik hatta, bağlantıda ya da hortumda sızıntı.",
       "severity": 3,
       "isolation": "DMC-NAYAJET-AAA-29-00-00-00AA-421A-A",
-      "repair": "DMC-NAYAJET-AAA-29-10-00-00AA-300A-A"
+      "repair": "DMC-NAYAJET-AAA-29-10-00-00AA-310A-A"
     },
     {
       "id": "f.actuator",
@@ -212,7 +408,8 @@
       ],
       "cause": "Bir kumanda eyleyicisi sızdırıyor ya da geri bildirimi bozuk.",
       "severity": 3,
-      "isolation": "DMC-NAYAJET-AAA-27-00-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-27-60-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-27-00-00-00AA-920A-A"
     },
     {
       "id": "f.speed_brake",
@@ -222,7 +419,8 @@
       ],
       "cause": "Hava freni eyleyicisi ya da menteşesi arızalı.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-27-50-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-27-50-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-27-50-00-00AA-310A-A"
     },
     {
       "id": "f.fuel.water",
@@ -243,7 +441,8 @@
       ],
       "cause": "Konformal tank bağlantı contası sızdırıyor.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-28-20-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-28-20-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-28-20-00-00AA-310A-A"
     },
     {
       "id": "f.tire.worn",
@@ -278,7 +477,8 @@
       ],
       "cause": "Fren diskleri aşınma sınırına gelmiş.",
       "severity": 3,
-      "isolation": "DMC-NAYAJET-AAA-32-40-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-32-40-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-32-40-00-01AA-920A-A"
     },
     {
       "id": "f.strut.service",
@@ -289,7 +489,8 @@
       ],
       "cause": "Amortisör dikmesi azot ya da yağ kaybetmiş.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-32-10-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-32-10-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-32-10-00-00AA-210A-A"
     },
     {
       "id": "f.nose.torque_link",
@@ -299,17 +500,19 @@
       ],
       "cause": "Burun iniş takımı tork kolunda boşluk ya da titreşim sönümleyicide arıza.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-32-00-00-00AA-421A-A"
+      "isolation": "DMC-NAYAJET-AAA-32-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-32-20-00-00AA-310A-A"
     },
     {
       "id": "f.canopy.seal",
-      "part": "airframe.canopy",
+      "part": "airframe.canopy_seal",
       "symptoms": [
         "sym.canopy_seal"
       ],
       "cause": "Kanopi contası yırtılmış ya da sertleşmiş.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-56-10-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-56-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-56-10-00-00AA-920A-A"
     },
     {
       "id": "f.canopy.scratch",
@@ -330,7 +533,8 @@
       ],
       "cause": "Radom yüzeyi yağmur erozyonu ya da yıldırım çarpmasıyla hasarlanmış.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-53-20-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-53-20-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-53-20-00-00AA-920A-A"
     },
     {
       "id": "f.hook.wear",
@@ -340,7 +544,749 @@
       ],
       "cause": "Kuyruk kancası ucu aşınmış.",
       "severity": 1,
-      "isolation": "DMC-NAYAJET-AAA-32-50-00-00AA-310A-A"
+      "isolation": "DMC-NAYAJET-AAA-32-50-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-32-50-00-00AA-310A-A"
+    },
+    {
+      "id": "f.ecs.pack",
+      "part": "ecs.pack",
+      "symptoms": [
+        "sym.cockpit_temp"
+      ],
+      "cause": "Klima ünitesinin ısı değiştiricisi tıkanmış ya da soğutma türbini arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-36-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-21-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.ecs.duct",
+      "part": "ecs.ducts",
+      "symptoms": [
+        "sym.cockpit_temp",
+        "sym.duct_hot"
+      ],
+      "cause": "Klima kanalı çatlamış ya da kelepçesi gevşemiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-36-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-21-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.ecs.pressure",
+      "part": "ecs.pressure",
+      "symptoms": [
+        "sym.canopy_seal"
+      ],
+      "cause": "Basınç kontrol valfi ya da conta şişirme hattı arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-56-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-21-30-00-00AA-320A-A"
+    },
+    {
+      "id": "f.bleed.leak",
+      "part": "engine.bleed",
+      "symptoms": [
+        "sym.duct_hot",
+        "sym.fire_light"
+      ],
+      "cause": "Hava alma kanalından sıcak hava sızıyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-36-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-36-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.gen.main",
+      "part": "electrical.generator",
+      "symptoms": [
+        "sym.gen_light"
+      ],
+      "cause": "Ana jeneratör arızalı ya da tahrik mili kırık.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-24-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-24-20-00-00AA-920A-A"
+    },
+    {
+      "id": "f.gen.standby",
+      "part": "electrical.standby",
+      "symptoms": [
+        "sym.gen_light"
+      ],
+      "cause": "Yedek jeneratör arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-24-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-24-20-00-00AA-920A-A"
+    },
+    {
+      "id": "f.battery",
+      "part": "electrical.battery",
+      "symptoms": [
+        "sym.battery_low",
+        "sym.jfs"
+      ],
+      "cause": "Akü şarj tutmuyor ya da kutup başları korozyonlu.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-24-30-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-24-30-00-00AA-920A-A"
+    },
+    {
+      "id": "f.ext_power",
+      "part": "electrical.external",
+      "symptoms": [
+        "sym.ext_power"
+      ],
+      "cause": "Dış güç prizinin pinleri yanmış ya da korozyonlu.",
+      "severity": 1,
+      "isolation": "DMC-NAYAJET-AAA-24-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-24-40-00-00AA-200A-A"
+    },
+    {
+      "id": "f.wiring",
+      "part": "electrical.wiring",
+      "symptoms": [
+        "sym.intermittent",
+        "sym.light_out"
+      ],
+      "cause": "Kablo demeti yapıya sürtünüp yalıtımı aşınmış ya da konnektör gevşemiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-24-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-24-60-00-00AA-310A-A"
+    },
+    {
+      "id": "f.epu.leak",
+      "part": "electrical.epu",
+      "symptoms": [
+        "sym.epu_smell"
+      ],
+      "cause": "Acil güç ünitesinin yakıt hattında ya da deposunda sızıntı.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-24-50-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-24-50-00-00AA-310A-A"
+    },
+    {
+      "id": "f.fire.detector",
+      "part": "fire.detectors",
+      "symptoms": [
+        "sym.fire_light"
+      ],
+      "cause": "Algılayıcı halka ezilmiş ya da konnektörü nem almış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-26-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-26-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.fire.test",
+      "part": "fire.warning",
+      "symptoms": [
+        "sym.fire_test"
+      ],
+      "cause": "Uyarı lambası ya da test devresi arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-26-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-26-10-00-00AA-320A-A"
+    },
+    {
+      "id": "f.harness",
+      "part": "cockpit.harness",
+      "symptoms": [
+        "sym.harness_wear"
+      ],
+      "cause": "Koltuk kemeri aşınmış ya da tokası zor açılıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-25-20-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-25-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.seat.pins",
+      "part": "cockpit.seats",
+      "symptoms": [
+        "sym.loose_object"
+      ],
+      "cause": "Koltuk emniyet pimi ya da bayrağı eksik; koltuk çevresinde gevşek eşya.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-25-10-00-00AA-300A-A",
+      "repair": "DMC-NAYAJET-AAA-25-30-00-00AA-310A-A"
+    },
+    {
+      "id": "f.displays",
+      "part": "cockpit.panels",
+      "symptoms": [
+        "sym.display_scratch"
+      ],
+      "cause": "Ekran ve gösterge camları yanlış malzemeyle temizlenmiş ya da kirlenmiş.",
+      "severity": 1,
+      "isolation": "DMC-NAYAJET-AAA-25-30-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-25-30-00-00AA-250A-A"
+    },
+    {
+      "id": "f.controls.play",
+      "part": "cockpit.controls",
+      "symptoms": [
+        "sym.stick_play",
+        "sym.loose_object"
+      ],
+      "cause": "Kumanda kolu tabanında ya da pedal mekanizmasında boşluk.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-27-70-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-27-70-00-00AA-310A-A"
+    },
+    {
+      "id": "f.flcs.computer",
+      "part": "flight_controls.computer",
+      "symptoms": [
+        "sym.flcs_light",
+        "sym.intermittent"
+      ],
+      "cause": "Kumanda bilgisayarı kendi kendini sınamada arıza veriyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-27-60-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-27-00-00-00AA-320A-A"
+    },
+    {
+      "id": "f.lef.drive",
+      "part": "flight_controls.lef_drive",
+      "symptoms": [
+        "sym.lef_split",
+        "sym.flcs_light"
+      ],
+      "cause": "Hücum kenarı flap tahrik ünitesi ya da mili arızalı.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-27-60-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-27-40-00-00AA-320A-A"
+    },
+    {
+      "id": "f.fuel.pump",
+      "part": "fuel.pumps",
+      "symptoms": [
+        "sym.fuel_pressure"
+      ],
+      "cause": "Yakıt pompası arızalı.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-28-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-28-30-00-00AA-920A-A"
+    },
+    {
+      "id": "f.fuel.valve",
+      "part": "fuel.valves",
+      "symptoms": [
+        "sym.fuel_imbalance",
+        "sym.refuel_slow"
+      ],
+      "cause": "Aktarma ya da ikmal valfi yanlış konumda kalmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-28-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-28-30-00-00AA-310A-A"
+    },
+    {
+      "id": "f.fuel.qty",
+      "part": "fuel.quantity",
+      "symptoms": [
+        "sym.fuel_qty"
+      ],
+      "cause": "Yakıt miktar algılayıcısı ya da devresi arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-28-40-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-28-40-00-00AA-320A-A"
+    },
+    {
+      "id": "f.fuel.spr",
+      "part": "fuel.spr",
+      "symptoms": [
+        "sym.refuel_slow"
+      ],
+      "cause": "Tek nokta ikmal ağzının contası ya da valfi arızalı.",
+      "severity": 1,
+      "isolation": "DMC-NAYAJET-AAA-28-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-28-10-00-00AA-210A-A"
+    },
+    {
+      "id": "f.fuel.receptacle",
+      "part": "fuel.receptacle",
+      "symptoms": [
+        "sym.receptacle"
+      ],
+      "cause": "Havada ikmal ağzının kapağı ya da kilidi hasarlı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-28-50-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-28-50-00-00AA-310A-A"
+    },
+    {
+      "id": "f.hyd.pump",
+      "part": "hydraulics.pumps",
+      "symptoms": [
+        "sym.hyd_low"
+      ],
+      "cause": "Hidrolik pompası basınç üretmiyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-29-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-29-20-00-00AA-920A-A"
+    },
+    {
+      "id": "f.hyd.accumulator",
+      "part": "hydraulics.accumulators",
+      "symptoms": [
+        "sym.accumulator"
+      ],
+      "cause": "Akümülatörün azot ön dolumu kaçmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-29-30-00-00AA-300A-A",
+      "repair": "DMC-NAYAJET-AAA-29-30-00-00AA-300A-A"
+    },
+    {
+      "id": "f.hyd.filter",
+      "part": "hydraulics.filters",
+      "symptoms": [
+        "sym.hyd_filter"
+      ],
+      "cause": "Filtre elemanı tıkanmış; sistemde aşınma parçacığı olabilir.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-29-10-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-29-10-00-00AA-921A-A"
+    },
+    {
+      "id": "f.hyd.reservoir",
+      "part": "hydraulics.reservoirs",
+      "symptoms": [
+        "sym.hyd_low",
+        "sym.hyd_leak"
+      ],
+      "cause": "Depo seviyesi düşük ya da seviye göstergesi yanlış okuyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-29-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-29-10-00-00AA-300A-A"
+    },
+    {
+      "id": "f.gear.lock",
+      "part": "gear.retraction",
+      "symptoms": [
+        "sym.gear_light"
+      ],
+      "cause": "Kilit algılayıcısı gevşemiş ya da kilit tam oturmuyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-32-30-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-32-30-00-00AA-320A-A"
+    },
+    {
+      "id": "f.gear.wow",
+      "part": "gear.wow",
+      "symptoms": [
+        "sym.gear_light",
+        "sym.steering"
+      ],
+      "cause": "Yer/hava algılayıcısı yanlış konum bildiriyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-32-60-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-32-30-00-00AA-310A-A"
+    },
+    {
+      "id": "f.gear.door",
+      "part": "airframe.gear_doors",
+      "symptoms": [
+        "sym.gear_door",
+        "sym.gear_light"
+      ],
+      "cause": "İniş takımı kapağının ayarı bozulmuş ya da menteşesi aşınmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-32-30-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-52-30-00-00AA-271A-A"
+    },
+    {
+      "id": "f.steering",
+      "part": "gear.steering",
+      "symptoms": [
+        "sym.steering",
+        "sym.pull"
+      ],
+      "cause": "Yönlendirme eyleyicisi sızdırıyor ya da devresi arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-32-60-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-32-60-00-00AA-310A-A"
+    },
+    {
+      "id": "f.antiskid",
+      "part": "gear.antiskid",
+      "symptoms": [
+        "sym.antiskid",
+        "sym.tire_wear"
+      ],
+      "cause": "Tekerlek hız algılayıcısı ya da kablosu arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-32-40-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-32-40-00-00AA-320A-A"
+    },
+    {
+      "id": "f.brakes.leak",
+      "part": "gear.brakes",
+      "symptoms": [
+        "sym.brake_leak",
+        "sym.brake_weak"
+      ],
+      "cause": "Fren pistonu contası sızdırıyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-32-40-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-32-40-00-01AA-920A-A"
+    },
+    {
+      "id": "f.light.position",
+      "part": "lights.position",
+      "symptoms": [
+        "sym.light_out"
+      ],
+      "cause": "Seyir lambası yanmış ya da camın içine nem girmiş.",
+      "severity": 1,
+      "isolation": "DMC-NAYAJET-AAA-33-40-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-33-40-00-00AA-920A-A"
+    },
+    {
+      "id": "f.light.anticollision",
+      "part": "lights.anticollision",
+      "symptoms": [
+        "sym.light_out"
+      ],
+      "cause": "Çarpışma önleyici lamba arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-33-40-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-33-40-00-00AA-920A-A"
+    },
+    {
+      "id": "f.light.landing",
+      "part": "lights.landing",
+      "symptoms": [
+        "sym.light_out"
+      ],
+      "cause": "İniş ya da taksi lambası yanmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-33-40-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-33-40-00-00AA-920A-A"
+    },
+    {
+      "id": "f.light.cockpit",
+      "part": "lights.cockpit",
+      "symptoms": [
+        "sym.cockpit_light"
+      ],
+      "cause": "Panel aydınlatma lambası ya da parlaklık ayarı arızalı.",
+      "severity": 1,
+      "isolation": "DMC-NAYAJET-AAA-33-10-00-00AA-320A-A",
+      "repair": "DMC-NAYAJET-AAA-33-10-00-00AA-320A-A"
+    },
+    {
+      "id": "f.pitot.blocked",
+      "part": "air_data.pitot",
+      "symptoms": [
+        "sym.airspeed"
+      ],
+      "cause": "Pitot tüpü tıkanmış ya da kılıfı çıkarılmamış.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-34-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-34-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.pitot.heater",
+      "part": "air_data.pitot",
+      "symptoms": [
+        "sym.pitot_heat"
+      ],
+      "cause": "Pitot ısıtıcısı yanmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-34-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-34-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.static.blocked",
+      "part": "air_data.static",
+      "symptoms": [
+        "sym.altitude",
+        "sym.airspeed"
+      ],
+      "cause": "Statik port boya, bant ya da kirle tıkanmış.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-34-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-34-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.aoa",
+      "part": "air_data.aoa",
+      "symptoms": [
+        "sym.aoa_damage"
+      ],
+      "cause": "Hücum açısı algılayıcısı darbe almış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-34-10-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-34-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.oxygen.hose",
+      "part": "oxygen.regulators",
+      "symptoms": [
+        "sym.oxygen"
+      ],
+      "cause": "Maske hortumu çatlamış ya da bağlantı ağzı gevşek.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-35-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-35-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.oxygen.generator",
+      "part": "oxygen.generator",
+      "symptoms": [
+        "sym.oxygen"
+      ],
+      "cause": "Oksijen üretim ünitesi arızalı.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-35-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-35-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.oxygen.bottle",
+      "part": "oxygen.emergency",
+      "symptoms": [
+        "sym.oxygen_bottle"
+      ],
+      "cause": "Acil oksijen tüpü basınç kaybetmiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-35-20-00-00AA-300A-A",
+      "repair": "DMC-NAYAJET-AAA-35-20-00-00AA-300A-A"
+    },
+    {
+      "id": "f.jfs.unit",
+      "part": "jfs.unit",
+      "symptoms": [
+        "sym.jfs"
+      ],
+      "cause": "Çalıştırıcının yakıt beslemesi ya da kendisi arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-49-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-49-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.jfs.accumulator",
+      "part": "jfs.accumulators",
+      "symptoms": [
+        "sym.jfs",
+        "sym.accumulator"
+      ],
+      "cause": "Çalıştırma akümülatörleri dolu değil ya da ön dolumu düşük.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-49-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-49-10-00-00AA-210A-A"
+    },
+    {
+      "id": "f.fasteners",
+      "part": "airframe.panels",
+      "symptoms": [
+        "sym.fastener"
+      ],
+      "cause": "Erişim paneli bağlantı elemanı kaybolmuş ya da gevşemiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-52-10-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-52-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.corrosion",
+      "part": "airframe.structure",
+      "symptoms": [
+        "sym.corrosion"
+      ],
+      "cause": "Kaplamada ya da bağlantı elemanlarının çevresinde korozyon.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-53-10-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-20-40-00-00AA-250A-A"
+    },
+    {
+      "id": "f.discharger",
+      "part": "wings.dischargers",
+      "symptoms": [
+        "sym.discharger"
+      ],
+      "cause": "Statik boşaltıcı kırılmış ya da kopmuş.",
+      "severity": 1,
+      "isolation": "DMC-NAYAJET-AAA-57-10-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-57-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.ventral",
+      "part": "airframe.ventral_fins",
+      "symptoms": [
+        "sym.ventral"
+      ],
+      "cause": "Alt kanatçık yere ya da yer ekipmanına çarpmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-53-10-00-01AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-53-10-00-01AA-310A-A"
+    },
+    {
+      "id": "f.engine.bearing",
+      "part": "engine.shafts",
+      "symptoms": [
+        "sym.engine_vibration",
+        "sym.chip_light"
+      ],
+      "cause": "Mil yatağı aşınmış; yağda metal parçacık var.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-01AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-72-00-00-00AA-520A-A"
+    },
+    {
+      "id": "f.engine.mount",
+      "part": "engine.mounts",
+      "symptoms": [
+        "sym.engine_vibration"
+      ],
+      "cause": "Motor bağlantısında boşluk ya da çatlak.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-01AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-72-00-00-00AA-310A-A"
+    },
+    {
+      "id": "f.engine.sensor",
+      "part": "engine.sensors",
+      "symptoms": [
+        "sym.engine_ind",
+        "sym.egt_high"
+      ],
+      "cause": "Motor algılayıcısı ya da kablosu arızalı; gösterge yanlış okuyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-77-10-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-77-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.fuel_control",
+      "part": "engine.fuel_control",
+      "symptoms": [
+        "sym.rpm_fluct",
+        "sym.power_loss"
+      ],
+      "cause": "Motor yakıt kontrol ünitesi arızalı.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-03AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-73-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.engine.fuel_filter",
+      "part": "engine.fuel_filter",
+      "symptoms": [
+        "sym.fuel_filter",
+        "sym.power_loss"
+      ],
+      "cause": "Motor yakıt filtresi tıkanmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-03AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-73-10-00-00AA-921A-A"
+    },
+    {
+      "id": "f.vsv",
+      "part": "engine.vsv",
+      "symptoms": [
+        "sym.stall",
+        "sym.power_loss"
+      ],
+      "cause": "Değişken stator kanatlarının bağlantısında boşluk ya da eyleyici arızası.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-03AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-72-10-00-00AA-300A-A"
+    },
+    {
+      "id": "f.lpc.dirty",
+      "part": "engine.lpc",
+      "symptoms": [
+        "sym.egt_high",
+        "sym.power_loss"
+      ],
+      "cause": "Kompresör kanatları kir ve tuzla kaplanmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-02AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-72-10-00-00AA-250A-A"
+    },
+    {
+      "id": "f.ignition_unit",
+      "part": "engine.ignition_unit",
+      "symptoms": [
+        "sym.no_light"
+      ],
+      "cause": "Ateşleme ünitesi yüksek gerilim üretmiyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-72-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-74-10-00-00AA-320A-A"
+    },
+    {
+      "id": "f.gearbox",
+      "part": "engine.gearbox",
+      "symptoms": [
+        "sym.chip_light",
+        "sym.oil_low"
+      ],
+      "cause": "Dişli kutusunda dişli ya da yatak aşınması; conta kaçağı.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-79-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-72-60-00-00AA-310A-A"
+    },
+    {
+      "id": "f.oil.filter",
+      "part": "engine.oil_filter",
+      "symptoms": [
+        "sym.oil_filter",
+        "sym.oil_pressure"
+      ],
+      "cause": "Yağ filtresi tıkanmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-79-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-79-10-00-00AA-921A-A"
+    },
+    {
+      "id": "f.oil.chip",
+      "part": "engine.chip_detector",
+      "symptoms": [
+        "sym.chip_light"
+      ],
+      "cause": "Talaş algılayıcıda metal parçacık birikmiş.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-79-00-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-79-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.nozzle.actuator",
+      "part": "engine.nozzle_actuators",
+      "symptoms": [
+        "sym.nozzle_fault",
+        "sym.ab_no_light"
+      ],
+      "cause": "Lüle eyleyicisi sızdırıyor ya da konum geri bildirimi bozuk.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-72-50-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-72-50-00-00AA-320A-A"
+    },
+    {
+      "id": "f.ab.fuel",
+      "part": "engine.ab_fuel",
+      "symptoms": [
+        "sym.ab_no_light"
+      ],
+      "cause": "Art yakıcı püskürtme halkası tıkanmış ya da hattı sızdırıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-72-50-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-73-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.ab.liner",
+      "part": "engine.ab_liner",
+      "symptoms": [
+        "sym.ab_liner"
+      ],
+      "cause": "Art yakıcı astarı ısıdan çatlamış ya da çökmüş.",
+      "severity": 3,
+      "isolation": "DMC-NAYAJET-AAA-72-50-00-00AA-310A-A",
+      "repair": "DMC-NAYAJET-AAA-72-00-00-00AA-520A-A"
+    },
+    {
+      "id": "f.flameholder",
+      "part": "engine.flameholder",
+      "symptoms": [
+        "sym.ab_no_light",
+        "sym.nozzle_damage"
+      ],
+      "cause": "Alev tutucu halkaları yanmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYAJET-AAA-72-50-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-72-50-00-00AA-310A-A"
     }
   ]
 }

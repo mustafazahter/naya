@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYAJET-AAA-D000000-0-NAYA0-00001-A-001-01 SYSTEM "ICN-NAYAJET-AAA-D000000-0-NAYA0-00001-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="12" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Servis noktaları</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Uçağın günlük servisi yakıt, motor yağı, hidrolik sıvısı, lastik ve amortisör azotu, oksijen ve çalıştırma akümülatörleri için yapılır.</para>
+        <para>Her servis noktası panel üzerinde etiketlidir; doğru sıvıyı etiketten ve uçağın kendi el kitabından doğrulayın. Ölçü, basınç ve tork değerleri bu şablonda verilmez; uçağın kendi teknik el kitabındaki değerleri kullanın.</para>
+      </levelledPara>
+      <figure id="fig-0001"><title>Uçak, soldan görünüş</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure>
+      <levelledPara>
+        <title>Servis noktaları</title>
+        <para>Yakıt: gövdenin altındaki tek nokta ikmal ağzı; havada ikmal ağzı kanopinin arkasında, gövdenin üstündedir.</para>
+        <para>Motor yağı: motor bölmesinde, alt erişim panelinin arkasındaki depo.</para>
+        <para>Hidrolik: A ve B sistemlerinin depoları; seviye göstergeleri erişim panellerinin arkasında.</para>
+        <para>Lastikler ve amortisörler: her dikmenin ve tekerleğin üstündeki dolum valfleri.</para>
+        <para>Dış güç: gövdenin altındaki dış güç prizi.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

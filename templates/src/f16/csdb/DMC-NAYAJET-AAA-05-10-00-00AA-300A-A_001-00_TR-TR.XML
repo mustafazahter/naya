@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYAJET-AAA-D000000-0-NAYA0-00001-A-001-01 SYSTEM "ICN-NAYAJET-AAA-D000000-0-NAYA0-00001-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="05" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Uçak</techName><infoName>Faz muayenesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Uçak takozlu ve topraklı; iniş takımı emniyet pimleri ve fırlatma koltuğu emniyet pimleri takılı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Motor durdurulmuş, ana şalter kapalı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Elektrik gücü kesik; ilgili devre kesiciler açık ve etiketli.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Hidrolik sistemlerde basınç yok.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Uçak hangarda; erişim panelleri muayene planına göre açılmış.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>El feneri</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-007</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Ayna</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-009</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0003"><name>Boroskop</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-008</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSpares><noSpares/></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Motor durduktan sonra lüle, art yakıcı ve frenler uzun süre sıcak kalır; soğumasını bekleyin.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Muayene aralığını ve ek işleri uçağın bakım programından alın; önceki muayenede açık kalan kayıtları gözden geçirin.</para><figure id="fig-0001"><title>Uçak, soldan görünüş</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><title>Gövde ve kanatlar</title><proceduralStep><para>Gövde, kanat, kuyruk ve konformal tank yüzeylerini çatlak, ezik, korozyon ve gevşek bağlantı elemanı açısından muayene edin.</para></proceduralStep><proceduralStep><para>Radomu, hava alığını ve iniş takımı kapaklarını muayene edin.</para></proceduralStep><proceduralStep><para>Statik boşaltıcıları ve anten tabanlarını kontrol edin.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Sistemler</title><proceduralStep><para>Uçuş kumanda yüzeylerinin menteşe ve eyleyici bağlantılarını muayene edin.</para></proceduralStep><proceduralStep><para>Hidrolik ve yakıt hatlarını, bağlantı noktalarını ve pompaları sızıntı ve sürtünme açısından kontrol edin.</para></proceduralStep><proceduralStep><para>Kablo demetlerini, konnektörleri ve topraklama şeritlerini kontrol edin.</para></proceduralStep><proceduralStep><para>Oksijen, klima ve hava alma kanallarını muayene edin.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>İniş takımı</title><proceduralStep><para>Dikmeleri, tork kollarını, açma-kapama eyleyicilerini ve kilitleri muayene edin.</para></proceduralStep><proceduralStep><para>Tekerlekleri, lastikleri ve frenleri muayene edin.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Motor</title><proceduralStep><para>Fanı, kompresör girişini ve lüleyi muayene edin.</para></proceduralStep><proceduralStep><para>Yağ filtresini ve talaş algılayıcıyı kontrol edin; yağ örneği alın.</para></proceduralStep><proceduralStep><para>Bakım programı gerektiriyorsa boroskop muayenesi yapın.</para></proceduralStep></proceduralStep>
+        <proceduralStep><para>Bulunan her eksikliği kayda geçirin, giderilmesini izleyin ve panelleri kapatmadan önce alet sayımı yapın.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

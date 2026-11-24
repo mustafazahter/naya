@@ -40,6 +40,22 @@ VIEWS = [
     ('00007', ['intake'], 7.5, (0.45, -1, 0.1), ('intake',), None, ()),
     ('00008', ['engine_fan'], 3.2, (0.5, -1, 0.35), ('engine_fan',),
      [e for e in ENGINE if e != 'engine_casing'], ()),
+    # Sol kanat ucu: seyir lambası.
+    ('00009', (4.75, 2.3, 2.0), 2.2, (0.7, -1, 0.6), ('lights',), None, ()),
+    ('00010', ['nose_gear'], 4.5, (1, -0.5, -0.1), ('nose_gear',), None, ()),
+    ('00011', None, 26, (0.6, 0.3, 1), ('conformal_tanks', 'wing_l',
+                                        'wing_r'), None, ()),
+    ('00012', ['radome'], 6, (1, -0.8, 0.3), ('radome',), None, ()),
+    ('00013', ['vertical_tail'], 10, (1, 0.5, 0.35),
+     ('vertical_tail', 'rudder', 'horizontal_tail_l', 'horizontal_tail_r'),
+     None, ()),
+    ('00014', ['engine_gearbox'], 2.0, (1, -0.4, -0.6), ('engine_gearbox',),
+     [*ENGINE, 'afterburner'], ()),
+    ('00015', ['afterburner', 'engine_nozzle'], 6, (1, 0.7, 0.4),
+     ('afterburner', 'engine_nozzle'), None,
+     ('fuselage', 'conformal_tanks', 'speed_brakes', *LEFT)),
+    ('00016', ['cockpit'], 6, (1, -0.4, 0.9), ('cockpit',), None,
+     ('canopy',)),
 ]
 
 argv = sys.argv[sys.argv.index('--') + 1:]

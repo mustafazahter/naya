@@ -370,12 +370,19 @@ void main() {
         'landing_gear',
         'tail_hook',
         'engine',
+        'ecs',
+        'electrical',
+        'lights',
+        'air_data',
+        'oxygen',
+        'fire',
+        'jfs',
       ]);
     });
 
     _faultPartsSelectable(jet, 'f16');
 
-    test('frenler zayıf: aşınma pimi muayenesi', () async {
+    test('frenler zayıf: aşınmış fren değiştirilir', () async {
       final result = await DiagnosisFlow(
         catalog: jet,
         decider: _ScriptedDecider([
@@ -406,7 +413,39 @@ void main() {
       expect(result.decision, DiagnosisDecision.focus);
       expect(result.top!.partId, 'gear.brakes');
       expect(result.fault!.id, 'f.brakes.worn');
-      expect(result.procedure, 'DMC-NAYAJET-AAA-32-40-00-00AA-310A-A');
+      expect(result.procedure, 'DMC-NAYAJET-AAA-32-40-00-01AA-920A-A');
+    });
+
+    test('jeneratör uyarısı: belirsiz arızada arıza bulma DM\'i', () async {
+      final result = await DiagnosisFlow(
+        catalog: jet,
+        decider: _ScriptedDecider([
+          _diagnose,
+          const DecisionAnswers(
+            choices: {
+              'system': {'electrical': 0.8, 'engine': 0.1, 'none': 0.1},
+            },
+          ),
+          const DecisionAnswers(
+            choices: {
+              'part:electrical': {
+                'electrical.generator': 0.6,
+                'electrical.standby': 0.3,
+                'none': 0.1,
+              },
+            },
+          ),
+          const DecisionAnswers(
+            choices: {
+              'fault': {'f.gen.main': 0.2, 'none': 0.8},
+            },
+            yes: {'danger': 0.4},
+          ),
+        ]),
+      ).run('Motor çalışırken jeneratör uyarı ışığı yanıyor.');
+
+      expect(result.top!.partId, 'electrical.generator');
+      expect(result.procedure, 'DMC-NAYAJET-AAA-24-00-00-00AA-421A-A');
     });
   });
 }
