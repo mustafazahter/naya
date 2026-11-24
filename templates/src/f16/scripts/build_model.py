@@ -8,59 +8,78 @@ içinde motor yok. Motor ayrı bir model: her parçası ayrı adlı, genel bir
 
 1. Uçağın nesnelerini uygulamanın düğümlerine toplar (`flaperon_l`,
    `main_gear_r`...). Düğüm adı `map/parts.json`'daki `meshNodes` ile aynı.
-2. Tek parça gövdeden kanatları, burun konisini (radom) ve hava alığını
-   yüz yüz ayırır.
-3. Dış yüklerin (füzeler, bombalar, yakıt tankları, pilonlar) hepsini atar.
+2. Tek parça gövdeden kanatları, burun konisini (radom), hava alığını ve
+   gövdeye gömülü dikey kuyruk yüzlerini ayırır. Sınırlar önce düzlemle
+   kesilir; böylece parçaların kenarı testere dişi gibi kalmaz.
+3. Küçük ayrıntı nesnesindeki lamba camlarını `lights` düğümüne, HUD camını
+   kokpite alır; dış yükleri (füzeler, bombalar, yakıt tankları, pilonlar)
+   ve HUD sembol düzlemlerini atar.
 4. Turbofanı gövdeye sığacak ölçeğe getirip motor bölmesine yerleştirir;
    gondolunu ve giriş dudağını atar. Kaynakta art yakıcı yok; motorla
    lüle arasına basit bir art yakıcı kanalı yapar.
-5. Malzemeleri düğüme göre yeniden renklendirir, gerçek ölçeğe getirir,
-   uçağın önünü -Y'ye çevirir ve Draco ile sıkıştırıp yazar.
+5. Malzemeleri düğüme göre yeniden renklendirir; kokpitte kaynağın kendi
+   panel ve koltuk dokularını kullanır. Gerçek ölçeğe getirir, uçağın önünü
+   -Y'ye çevirir ve Draco ile sıkıştırıp yazar.
 
     blender -b --python build_model.py -- "General Dynamics F-16D Block 60.obj" \
-        Turbofan_Engine.obj ../model/product.glb
+        Turbofan_Engine.obj textures/ ../model/product.glb
+
+`textures/` uçak kaynağıyla gelen doku klasörü (F16D_06_T.png...).
 
 Uçak kaynağında Z yukarı, burun +Y, uçağın solu -X yönünde. Motor
 kaynağında birim milimetre, eksen +X (önden arkaya).
 """
 import math
+import os
 import sys
 
 import bmesh
 import bpy
 from mathutils import Matrix, Vector
+from mathutils.bvhtree import BVHTree
 
 # Kaynak uçak 13,7 m; F-16'nın boyu yaklaşık 15 m.
 SCALE = 1.08
 
 # --- Malzemeler -----------------------------------------------------------
 
-# Renkler doğrusal (linear) değerler; viewer'ın ışığında açık görünür.
-# Boya iki tonlu: üst yüzeyler mavi-gri, alt yüzeyler açık gri (gölge
-# kamuflajı); kanopinin önünde koyu yansıma önleyici panel.
+# Renkler doğrusal (linear) değerler; viewer'ın ışığında oldukları gibi değil
+# daha açık görünürler, bu yüzden koyu tutuldu. Boya iki tonlu gri: üst
+# yüzeyler koyu, alt yüzeyler açık (gölge kamuflajı); kanopinin önünde
+# yansıma önleyici koyu panel.
 PALETTE = {
-    'paint': ((0.10, 0.135, 0.19), 0.55, 0.0),
-    'paint_belly': ((0.30, 0.33, 0.37), 0.55, 0.0),
-    'paint_dark': ((0.035, 0.045, 0.06), 0.6, 0.0),
+    'paint': ((0.075, 0.083, 0.095), 0.55, 0.0),
+    'paint_belly': ((0.17, 0.18, 0.195), 0.55, 0.0),
+    'paint_dark': ((0.03, 0.033, 0.038), 0.6, 0.0),
     'antiglare': ((0.012, 0.013, 0.015), 0.8, 0.0),
-    'radome': ((0.025, 0.028, 0.032), 0.45, 0.0),
-    'glass': ((0.75, 0.55, 0.15), 0.05, 0.3),
-    'interior': ((0.10, 0.10, 0.11), 0.8, 0.0),
-    'gear': ((0.85, 0.86, 0.87), 0.4, 0.2),
-    'rubber': ((0.025, 0.025, 0.027), 0.85, 0.0),
-    'rim': ((0.70, 0.71, 0.73), 0.3, 1.0),
-    'brake': ((0.18, 0.17, 0.16), 0.5, 1.0),
-    'steel': ((0.45, 0.46, 0.48), 0.35, 1.0),
-    'titanium': ((0.36, 0.30, 0.24), 0.35, 1.0),
-    'hot': ((0.45, 0.22, 0.10), 0.45, 1.0),
-    'alu': ((0.66, 0.67, 0.69), 0.4, 1.0),
-    'blade': ((0.55, 0.57, 0.60), 0.3, 1.0),
-    'bronze': ((0.70, 0.45, 0.18), 0.35, 1.0),
-    'compressor': ((0.25, 0.42, 0.60), 0.35, 1.0),
+    'radome': ((0.03, 0.032, 0.036), 0.45, 0.0),
+    'glass': ((0.30, 0.24, 0.10), 0.05, 0.3),
+    'frame': ((0.035, 0.037, 0.04), 0.6, 0.0),
+    'interior': ((0.045, 0.047, 0.05), 0.75, 0.0),
+    'screen': ((0.006, 0.008, 0.008), 0.15, 0.0),
+    'bay': ((0.10, 0.105, 0.11), 0.7, 0.0),
+    'gear': ((0.50, 0.51, 0.52), 0.45, 0.1),
+    'rubber': ((0.018, 0.018, 0.02), 0.85, 0.0),
+    'rim': ((0.42, 0.43, 0.45), 0.35, 0.8),
+    'brake': ((0.10, 0.095, 0.09), 0.5, 0.9),
+    'steel': ((0.30, 0.31, 0.33), 0.35, 1.0),
+    'titanium': ((0.22, 0.19, 0.16), 0.4, 1.0),
+    'hot': ((0.20, 0.11, 0.06), 0.5, 1.0),
+    'liner': ((0.12, 0.10, 0.085), 0.6, 0.9),
+    'alu': ((0.42, 0.43, 0.45), 0.4, 1.0),
+    'blade': ((0.38, 0.40, 0.43), 0.3, 1.0),
+    'bronze': ((0.45, 0.28, 0.10), 0.35, 1.0),
+    'compressor': ((0.10, 0.20, 0.32), 0.35, 1.0),
+    'light_red': ((0.60, 0.02, 0.02), 0.2, 0.0),
+    'light_green': ((0.02, 0.45, 0.06), 0.2, 0.0),
+    'light_white': ((0.80, 0.80, 0.75), 0.2, 0.0),
 }
 
+# Lambalar hafifçe kendi ışığını verir; uzaktan da seçilsinler.
+EMISSIVE = {'light_red', 'light_green', 'light_white'}
+
 NODE_COLORS = {
-    'radome': 'radome', 'canopy': 'glass', 'cockpit': 'interior',
+    'radome': 'radome', 'canopy': 'frame', 'cockpit': 'interior',
     'nose_gear': 'gear', 'main_gear_l': 'gear', 'main_gear_r': 'gear',
     'tail_hook': 'gear', 'engine_nozzle': 'titanium',
     'afterburner': 'hot', 'engine_casing': 'alu', 'engine_fan': 'blade',
@@ -68,10 +87,24 @@ NODE_COLORS = {
     'engine_combustor': 'hot', 'engine_hpt': 'hot', 'engine_lpt': 'hot',
     'engine_shafts': 'bronze', 'engine_gearbox': 'alu',
     'speed_brakes': 'paint_dark', 'conformal_tanks': 'paint',
+    'lights': 'light_white',
 }
 
-# Kaynak malzeme adındaki parça → renk (kanopi camı, tekerlekler).
+# Kaynak malzeme adındaki parça → renk (kanopi camı, kapalı ekranlar).
 SOURCE_MATERIALS = [('glass', 'glass')]
+
+# Kokpitte kaynağın kendi dokuları: malzeme adı → doku dosyası. Ekranlar
+# (ins.5, ins.6) doku yerine kapalı ekran rengi alır: uçak yerde, bakımda.
+COCKPIT_TEXTURES = {
+    'cock_2.0': 'F16D_06_T.png',       # koltuklar, kumanda kolları, kaporta
+    'cock_2.1': 'F16D_VC_01_C.png',    # konsol gövdeleri
+    'cock_2.2': 'F16D_VC_02_C.png',    # yan konsol panelleri
+    'cock_2.3': 'F16D_VC_03_C.png',    # panel ayrıntıları
+    'cock_2.4': 'F16D_VC_GAU3D_01_C.png',  # göstergeler
+    'ins.7': 'F16D_VC_GAU3D_02_C.png',
+    'poly_34.0': 'Gauges2.png',        # yapay ufuk küresi
+}
+COCKPIT_FLAT = {'ins.5': 'screen', 'ins.6': 'screen', 'cock.0': 'interior'}
 
 
 def material(key, cache={}):
@@ -85,25 +118,55 @@ def material(key, cache={}):
     bsdf.inputs['Roughness'].default_value = roughness
     bsdf.inputs['Metallic'].default_value = metallic
     if key == 'glass':
-        bsdf.inputs['Alpha'].default_value = 0.35
+        bsdf.inputs['Alpha'].default_value = 0.3
         m.blend_method = 'BLEND'
+    if key in EMISSIVE:
+        bsdf.inputs['Emission Color'].default_value = (*color, 1)
+        bsdf.inputs['Emission Strength'].default_value = 0.6
     cache[key] = m
     return m
 
 
-def recolor(obj, default):
+def textured(filename, textures, cache={}):
+    """Kokpit dokusu bağlı malzeme."""
+    if filename in cache:
+        return cache[filename]
+    m = bpy.data.materials.new(f'naya_tex_{filename.split(".")[0]}')
+    m.use_nodes = True
+    tree = m.node_tree
+    bsdf = next(n for n in tree.nodes if n.type == 'BSDF_PRINCIPLED')
+    bsdf.inputs['Roughness'].default_value = 0.7
+    image = tree.nodes.new('ShaderNodeTexImage')
+    image.image = bpy.data.images.load(os.path.join(textures, filename))
+    tree.links.new(image.outputs['Color'], bsdf.inputs['Base Color'])
+    cache[filename] = m
+    return m
+
+
+def recolor(obj, default, textures=None):
     for slot in obj.material_slots:
         name = slot.material.name if slot.material else ''
         if name.startswith('naya_'):
             continue
-        slot.material = material(next(
-            (k for p, k in SOURCE_MATERIALS if p in name), default))
+        if textures and name in COCKPIT_TEXTURES:
+            slot.material = textured(COCKPIT_TEXTURES[name], textures)
+        elif textures and name in COCKPIT_FLAT:
+            slot.material = material(COCKPIT_FLAT[name])
+        else:
+            slot.material = material(next(
+                (k for p, k in SOURCE_MATERIALS if p in name), default))
     if not obj.material_slots:
         obj.data.materials.append(material(default))
 
 
 def two_tone(obj, antiglare=False):
-    """Gövde boyasını iki tona böler: aşağı bakan yüzler açık gri.
+    """Gövde boyasını iki tona böler: alt yüzeyler açık gri.
+
+    Kaynakta bazı alt yüzlerin normali yukarı bakıyor; normale göre
+    boyayınca kanat altları yamalı çıkıyordu. Bunun yerine yüzün
+    merkezinden dikey ışın atılır: üstünde aynı parçanın başka bir yüzü
+    olan ve altında yüzü olmayan yüz alt yüzeydir. Gövdenin yanları da
+    böylece orta hattan ikiye ayrılır.
     [antiglare] gövdede kanopinin önündeki üst şeridi koyulaştırır
     (kaynak koordinatlarında, burun +Y)."""
     names = [s.material.name for s in obj.material_slots]
@@ -116,13 +179,24 @@ def two_tone(obj, antiglare=False):
             names.append(material(key).name)
     belly = names.index('naya_paint_belly')
     dark = names.index('naya_antiglare')
-    for p in obj.data.polygons:
+    mesh = obj.data
+    tree = BVHTree.FromPolygons([v.co for v in mesh.vertices],
+                                [p.vertices for p in mesh.polygons])
+    up, down = Vector((0, 0, 1)), Vector((0, 0, -1))
+
+    def covered(c, direction):
+        hit = tree.ray_cast(c + direction * 0.002, direction, 3.0)
+        return hit[0] is not None
+
+    for p in mesh.polygons:
         if p.material_index != paint:
             continue
-        c, n = p.center, p.normal
-        if antiglare and 4.55 < c.y < 5.6 and abs(c.x) < 0.32 and n.z > 0.5:
+        c = p.center
+        above, below = covered(c, up), covered(c, down)
+        if (antiglare and 4.55 < c.y < 5.6 and abs(c.x) < 0.32
+                and not above):
             p.material_index = dark
-        elif n.z < -0.25:
+        elif above and not below:
             p.material_index = belly
 
 
@@ -139,11 +213,12 @@ AIRCRAFT_PARTS = {
     'tail': 'vertical_tail', 'poly_18': 'rudder',
     'poly_16': 'speed_brakes', 'poly_17': 'speed_brakes',
     'engines': 'engine_nozzle', 'hook': 'tail_hook', 'cft': 'conformal_tanks',
-    'poly_30': 'canopy', 'cock': 'canopy',
-    'cock_2': 'cockpit', 'ins': 'cockpit', 'poly_29': 'cockpit',
+    # Kanopi: cam ve çerçeve (yaylar, kilit rayları).
+    'poly_30': 'canopy', 'poly_29': 'canopy',
+    # Kokpit: kabin teknesi ve kenarları, koltuklar, paneller, ekranlar.
+    'cock': 'cockpit', 'cock_2': 'cockpit', 'ins': 'cockpit',
     'screen1': 'cockpit', 'screen2': 'cockpit', 'screen3': 'cockpit',
-    'screen4': 'cockpit', 'HUD': 'cockpit', 'pitch_ladder': 'cockpit',
-    'velo_vec': 'cockpit', 'poly_19': 'cockpit', 'poly_20': 'cockpit',
+    'screen4': 'cockpit', 'poly_19': 'cockpit', 'poly_20': 'cockpit',
     'poly_27': 'cockpit', 'poly_28': 'cockpit', 'poly_31': 'cockpit',
     'poly_32': 'cockpit', 'poly_33': 'cockpit', 'poly_34': 'cockpit',
     # Burun iniş takımı: dikme ve teker, kapaklar.
@@ -156,8 +231,10 @@ AIRCRAFT_PARTS = {
     'poly_10': 'main_gear_r', 'poly_13': 'main_gear_r', 'poly_5': 'main_gear_r',
 }
 
-# Dış yükler ve boş nesneler atılır.
-DROP = ('extra1', 'extra2', 'extra3', 'extra4', 'extra5', 'wheel')
+# Dış yükler, boş nesneler ve HUD'un sembol düzlemleri (simülatörün çizdiği
+# göstergeler; donanım değil) atılır.
+DROP = ('extra1', 'extra2', 'extra3', 'extra4', 'extra5', 'wheel', 'HUD',
+        'velo_vec', 'pitch_ladder')
 
 # İniş takımı kapakları gövde parçası; alt gövde boyasını alır.
 DOORS = ('poly_10', 'poly_11', 'poly_12', 'poly_3', 'poly_13', 'poly_14')
@@ -171,16 +248,59 @@ WHEELS = {
     'nose_gear': ((0.01, 2.62, 0.22), 0.225, 0.12, 0.13, False),
 }
 
+# Gövdeyi bölen düzlemler (kaynak koordinatlarında): radomun arka kenarı ve
+# hava alığı kutusu. Yüzler önce bunlarla kesilir, sonra merkezine göre
+# düğüme gider.
+RADOME_Y = 5.55
+WING_BOX = ((1.08, 6.0), (-2.75, 1.3), (1.45, 2.3))  # x yanın mutlak değeri
+INTAKE_BOX = ((-0.8, 0.8), (1.6, 4.1), (-1.0, 1.35))
 
-def body_face(c):
-    """Tek parça gövdenin bir yüzü hangi düğüme gider."""
-    if c.y > 5.55:
+# İniş takımı yuvaları: gövdenin altında kapakların arasında kalan açıklık.
+# Alt yüzün bu dikdörtgenlerdeki kısmı koyu yuva rengini alır.
+# (x aralığı, y aralığı).
+BAYS = [((-0.62, -0.12), (-1.15, 0.38)), ((0.12, 0.62), (-1.15, 0.38)),
+        ((-0.16, 0.16), (1.30, 2.55))]
+
+
+def body_face(c, mat):
+    """Tek parça gövdenin bir yüzü hangi düğüme gider. [mat] kaynak
+    malzemesi: kaynakta kanatların ve dikey kuyruğun dokusu aynı
+    (`body.1`)."""
+    if c.y > RADOME_Y:
         return 'radome'
-    if abs(c.x) > 1.08 and -2.75 < c.y < 1.3 and 1.45 < c.z < 2.3:
+    if mat == 'body.1' and abs(c.x) < 0.25 and c.z > 2.6:
+        # Gövdenin üstünde kalan kanat dokulu yüzler dikey kuyruğun
+        # gövdeye gömülü kökü ve ucu; önceden gövdeye düşüyordu.
+        return 'vertical_tail'
+    (x0, x1), (y0, y1), (z0, z1) = WING_BOX
+    if (x0 < abs(c.x) < x1 and y0 < c.y < y1 and z0 < c.z < z1) or (
+            mat == 'body.3' and abs(c.x) > 4.2):
+        # Kanat ve kanat ucu rayları.
         return 'wing_l' if c.x < 0 else 'wing_r'
-    if abs(c.x) < 0.8 and 1.6 < c.y < 4.1 and c.z < 1.35:
+    (x0, x1), (y0, y1), (z0, z1) = INTAKE_BOX
+    if x0 < c.x < x1 and y0 < c.y < y1 and z0 < c.z < z1:
         return 'intake'
     return 'fuselage'
+
+
+def parts_face(c, mat):
+    """Küçük ayrıntılar nesnesinin (`parts`) yüzleri: lamba camları,
+    HUD camı, gövde üstü küçük parçalar."""
+    if mat != 'glass':
+        return 'fuselage'
+    if abs(c.x) < 0.3 and 3.8 < c.y < 4.5 and c.z > 2.3:
+        return 'cockpit'
+    return 'lights'
+
+
+def light_color(c):
+    """Seyir lambalarının rengi: sol kanat ucu kırmızı, sağ yeşil, gerisi
+    (kuyruk, iniş ve taksi lambaları) beyaz. Kaynak koordinatlarında."""
+    if c.x < -3:
+        return 'light_red'
+    if c.x > 3:
+        return 'light_green'
+    return 'light_white'
 
 
 # --- Motor ------------------------------------------------------------------
@@ -250,6 +370,34 @@ def take_faces(obj, faces, name):
     return copy
 
 
+def cut(obj, planes, near=None):
+    """Nesnenin yüzlerini düzlemlerle keser; düzlemi kesen yüz ikiye ayrılır.
+    [near] verilirse yalnız merkezi bu kutuya (x, y, z aralıkları) düşen
+    yüzler kesilir; kalan yüzlere boşuna kenar eklenmez."""
+    bm = bmesh.new()
+    bm.from_mesh(obj.data)
+    for co, no in planes:
+        faces = [f for f in bm.faces if near is None or all(
+            lo < v < hi for v, (lo, hi) in zip(f.calc_center_median(), near))]
+        geom = list({e for f in faces for e in f.edges}) + faces + list(
+            {v for f in faces for v in f.verts})
+        bmesh.ops.bisect_plane(bm, geom=geom, dist=1e-5,
+                               plane_co=Vector(co), plane_no=Vector(no))
+    bm.to_mesh(obj.data)
+    bm.free()
+
+
+def split_by(obj, classify):
+    """Nesnenin yüzlerini [classify](merkez, malzeme adı) sonucuna göre
+    düğümlere ayırır."""
+    mats = [m.name if m else '' for m in obj.data.materials]
+    faces = {}
+    for p in obj.data.polygons:
+        node = classify(p.center, mats[p.material_index] if mats else '')
+        faces.setdefault(node, []).append(p.index)
+    return {node: take_faces(obj, f, node) for node, f in faces.items()}
+
+
 def drop_wheel(obj, center, radius, width):
     """Merkezi tekerlek ekseninde olan adacıkları (lastik, jant, göbek)
     siler."""
@@ -315,9 +463,36 @@ def wheel(center, radius, rim, width, brake):
     return objects
 
 
+def paint_bays(obj):
+    """Gövde altındaki iniş takımı yuvalarını koyu yuva rengine boyar.
+    Yuva sınırları önce düzlemle kesilir ki kenar düz olsun."""
+    for (x0, x1), (y0, y1) in BAYS:
+        near = ((x0 - 0.3, x1 + 0.3), (y0 - 0.3, y1 + 0.3), (-1, 1.6))
+        cut(obj, [((x0, 0, 0), (1, 0, 0)), ((x1, 0, 0), (1, 0, 0)),
+                  ((0, y0, 0), (0, 1, 0)), ((0, y1, 0), (0, 1, 0))], near)
+    obj.data.materials.append(material('bay'))
+    bay = len(obj.data.materials) - 1
+    for p in obj.data.polygons:
+        c = p.center
+        if p.normal.z < -0.5 and c.z < 1.6 and any(
+                x0 < c.x < x1 and y0 < c.y < y1 for (x0, x1), (y0, y1) in BAYS):
+            p.material_index = bay
+
+
+def color_lights(obj):
+    names = [m.name for m in obj.data.materials]
+    for key in ('light_red', 'light_green', 'light_white'):
+        if material(key).name not in names:
+            obj.data.materials.append(material(key))
+            names.append(material(key).name)
+    for p in obj.data.polygons:
+        p.material_index = names.index(material(light_color(p.center)).name)
+
+
 def afterburner():
     """Motorun arkasından lüleye uzanan kanal, alev tutucu halkaları ve
-    yakıt püskürtme halkası."""
+    yakıt püskürtme halkası. Kanalın içi koyu astar rengi; lüleden
+    bakınca boşluk değil astar görünür."""
     front = ENGINE_FRONT.y - ENGINE_LENGTH
     length = front - NOZZLE_FRONT
     center = (0, (front + NOZZLE_FRONT) / 2, ENGINE_FRONT.z)
@@ -332,16 +507,26 @@ def afterburner():
             minor_radius=0.025, location=(0, front - offset, ENGINE_FRONT.z),
             rotation=(math.pi / 2, 0, 0))
         pieces.append(bpy.context.active_object)
+    # Türbin çıkış konisi: lüleden bakınca kanalın dibini kapatır.
+    bpy.ops.mesh.primitive_cone_add(
+        vertices=32, radius1=0.3, radius2=0.06, depth=0.35,
+        location=(0, front - 0.17, ENGINE_FRONT.z),
+        rotation=(math.pi / 2, 0, 0))
+    pieces.append(bpy.context.active_object)
     bpy.context.view_layer.update()
     for p in pieces:
         bake(p)
+    pieces[0].data.materials.append(material('liner'))
+    for p in pieces[1:]:
+        p.data.materials.append(material('hot'))
     return join(pieces, 'afterburner')
 
 
 # --- Kurulum ----------------------------------------------------------------
 
 def main():
-    aircraft_path, engine_path, out_path = sys.argv[sys.argv.index('--') + 1:]
+    (aircraft_path, engine_path, textures,
+     out_path) = sys.argv[sys.argv.index('--') + 1:]
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.wm.obj_import(filepath=aircraft_path)
     bpy.context.view_layer.update()
@@ -353,11 +538,24 @@ def main():
             bpy.data.objects.remove(obj)
             continue
         if name == 'body':
-            faces = {}
-            for p in obj.data.polygons:
-                faces.setdefault(body_face(p.center), []).append(p.index)
-            for node, f in faces.items():
-                groups.setdefault(node, []).append(take_faces(obj, f, node))
+            cut(obj, [((0, RADOME_Y, 0), (0, 1, 0))],
+                ((-1, 1), (RADOME_Y - 0.6, RADOME_Y + 0.6), (0, 4)))
+            (x0, x1), (y0, y1), (z0, z1) = WING_BOX
+            for side in (-1, 1):
+                xs = sorted((side * (x0 - 0.4), side * x1))
+                cut(obj, [((side * x0, 0, 0), (1, 0, 0)),
+                          ((0, y0, 0), (0, 1, 0)), ((0, y1, 0), (0, 1, 0)),
+                          ((0, 0, z0), (0, 0, 1)), ((0, 0, z1), (0, 0, 1))],
+                    (xs, (y0 - 0.4, y1 + 0.4), (z0 - 0.4, z1 + 0.4)))
+            (x0, x1), (y0, y1), (z0, z1) = INTAKE_BOX
+            cut(obj, [((x0, 0, 0), (1, 0, 0)), ((x1, 0, 0), (1, 0, 0)),
+                      ((0, y0, 0), (0, 1, 0)), ((0, y1, 0), (0, 1, 0)),
+                      ((0, 0, z1), (0, 0, 1))],
+                ((x0 - 0.4, x1 + 0.4), (y0 - 0.4, y1 + 0.4), (0, z1 + 0.4)))
+        if name in ('body', 'parts'):
+            classify = body_face if name == 'body' else parts_face
+            for node, piece in split_by(obj, classify).items():
+                groups.setdefault(node, []).append(piece)
             bpy.data.objects.remove(obj)
             continue
         if name in DOORS:
@@ -370,8 +568,13 @@ def main():
         nodes[node] = join([nodes[node], *wheel(center, radius, rim, width,
                                                 brake)], node)
     for node, obj in nodes.items():
-        recolor(obj, NODE_COLORS.get(node, 'paint'))
-        two_tone(obj, antiglare=node == 'fuselage')
+        recolor(obj, NODE_COLORS.get(node, 'paint'),
+                textures if node == 'cockpit' else None)
+        # Dikey kuyruk ve dümen tümüyle üst renkte.
+        if node not in ('vertical_tail', 'rudder'):
+            two_tone(obj, antiglare=node == 'fuselage')
+    paint_bays(nodes['fuselage'])
+    color_lights(nodes['lights'])
 
     # Motor.
     before = set(bpy.data.objects)
@@ -416,6 +619,8 @@ def main():
     bpy.ops.export_scene.gltf(
         filepath=out_path,
         export_format='GLB',
+        export_image_format='JPEG',
+        export_jpeg_quality=80,
         export_draco_mesh_compression_enable=True,
         export_draco_mesh_compression_level=7,
     )
