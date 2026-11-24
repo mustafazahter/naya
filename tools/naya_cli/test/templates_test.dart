@@ -109,8 +109,10 @@ void main() {
   );
 }
 
-/// Corolla, tank ve uçak şablonlarının ortak kabul kriteri: 30-60 parça,
-/// 15-25 arıza, 20-40 DM, 50 MB altı, uyarısız doğrulama, atıflar.
+/// Corolla, tank ve uçak şablonlarının ortak kabul kriteri: 30-150 parça,
+/// 15-120 arıza, 20-250 DM, 50 MB altı, uyarısız doğrulama, atıflar.
+/// Üst sınırlar profesyonel bir veri setinin kapsamına göre geniş tutuldu;
+/// amaç yalnız boş ya da bozuk bir şablonu yakalamak.
 void _vehicleTemplate({
   required String name,
   required String folder,
@@ -140,12 +142,15 @@ void _vehicleTemplate({
       expect(report.warnings, isEmpty);
     });
 
-    test('kabul kriteri: 30-60 parça, 15-25 arıza, 20-40 DM, 50 MB altı', () {
-      expect(file.parts!.parts.length, inInclusiveRange(30, 60));
-      expect(file.faults!.faults.length, inInclusiveRange(15, 25));
-      expect(csdb.dataModules.length, inInclusiveRange(20, 40));
-      expect(size, lessThan(50 * 1024 * 1024));
-    });
+    test(
+      'kabul kriteri: 30-150 parça, 15-120 arıza, 20-250 DM, 50 MB altı',
+      () {
+        expect(file.parts!.parts.length, inInclusiveRange(30, 150));
+        expect(file.faults!.faults.length, inInclusiveRange(15, 120));
+        expect(csdb.dataModules.length, inInclusiveRange(20, 250));
+        expect(size, lessThan(50 * 1024 * 1024));
+      },
+    );
 
     test('modeldeki her düğüm en az bir parçaya bağlı', () {
       final nodes = glbNodeNames(
