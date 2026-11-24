@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/fault.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Motor yağlama</techName><infoName>Yağ basıncı uyarısı: arıza bulma</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <faultIsolation>
+      <faultIsolationProcedure>
+        <fault faultCode="NAYATANK-DA1-005"/>
+        <faultDescr><descr>Motor çalışırken yağ basıncı uyarısı yanıyor ya da gösterge düşük basınç gösteriyor.</descr></faultDescr>
+        <isolationProcedure>
+          <preliminaryRqmts><reqCondGroup><noConds/></reqCondGroup><reqSupportEquips><noSupportEquips/></reqSupportEquips><reqSupplies><noSupplies/></reqSupplies><reqSpares><noSpares/></reqSpares><reqSafety><noSafety/></reqSafety></preliminaryRqmts>
+          <isolationMainProcedure>
+            <isolationStep id="stp-0001">
+              <action>Motoru hemen durdurun. Birkaç dakika sonra yağ seviyesini kontrol edin.</action>
+              <isolationStepQuestion>Seviye düşük mü?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0002"/><noAnswer nextActionRefId="stp-0003"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0002">
+              <action>Güç paketinin altına ve yağ soğutucusuna bakın.</action>
+              <isolationStepQuestion>Belirgin bir yağ sızıntısı var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-leak"/><noAnswer nextActionRefId="end-fill"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0003">
+              <action>Yağın rengine ve kokusuna bakın.</action>
+              <isolationStepQuestion>Yağ süt gibi açık renkli ya da yakıt kokulu mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-contaminated"/><noAnswer nextActionRefId="end-sensor"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationProcedureEnd id="end-leak"><action>Sızıntının yerini belirleyin; yağ soğutucusu ya da conta sızdırıyorsa bildirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-fill"><action>Yağı tamamlayın ve motoru yeniden deneyin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-contaminated"><action>Yağa soğutma sıvısı ya da yakıt karışmış; motoru çalıştırmayın, yetkili bakım birimine bildirin.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-sensor"><action>Seviye ve yağ normal: basınç algılayıcısı ya da yağ pompası arızalı olabilir; bildirin.</action></isolationProcedureEnd>
+          </isolationMainProcedure>
+          <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+        </isolationProcedure>
+      </faultIsolationProcedure>
+    </faultIsolation>
+  </content>
+</dmodule>

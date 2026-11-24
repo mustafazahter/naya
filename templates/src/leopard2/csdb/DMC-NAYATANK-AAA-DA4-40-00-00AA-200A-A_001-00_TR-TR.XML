@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYATANK-AAA-D000000-0-NAYA0-00008-A-001-01 SYSTEM "ICN-NAYATANK-AAA-D000000-0-NAYA0-00008-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA4" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="200" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Tank</techName><infoName>Takviyeyle çalıştırma</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Takviye veren araç ya da kaynak hazır.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Takviye kablosu</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-030</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSpares><noSpares/></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Takviye kablosunu yalnız takviye prizinden bağlayın; akü kutup başlarına doğrudan kıskaç takmayın.</warningAndCautionPara></warning><warning><warningAndCautionPara>İki aracın da ana şalteri kapalıyken bağlantı yapın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Takviye prizinin kapağını açın; prizi temizleyin.</para><figure id="fig-0008"><title>Aküler, sürücü bölmesinde</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00008-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Takviye kablosunu önce takviye veren araca, sonra bu tanka takın.</para></proceduralStep>
+        <proceduralStep><para>Takviye veren aracın motorunu çalıştırın.</para></proceduralStep>
+        <proceduralStep><para>Bu tankın ana şalterini açın ve motoru el kitabındaki yolla çalıştırın.</para></proceduralStep>
+        <proceduralStep><para>Motor çalışınca kabloyu ters sırayla ayırın ve priz kapağını kapatın.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

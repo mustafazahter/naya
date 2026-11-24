@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYATANK-AAA-D000000-0-NAYA0-00008-A-001-01 SYSTEM "ICN-NAYATANK-AAA-D000000-0-NAYA0-00008-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA4" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Elektrik sistemi</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>24 V doğru akım sistemi motor dururken akülerden, motor çalışırken jeneratörden beslenir.</para>
+        <para>Aküler sürücü bölmesinin yanındaki akü kutularındadır. Ana şalter aküleri sistemden ayırır.</para>
+        <para>Sigorta ve devre kesici panoları sürücü bölmesinde ve kulededir. Kablo demetleri gövde ile kule arasında döner bağlantıdan geçer.</para>
+        <para>Takviye prizi, başka bir araçtan ya da dış kaynaktan çalıştırma ve şarj için kullanılır.</para>
+      </levelledPara>
+      <figure id="fig-0008"><title>Aküler, sürücü bölmesinde</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00008-A-001-01"/></figure>
+      <levelledPara>
+        <title>İç haberleşme</title>
+        <para>Mürettebat başlıkları ve kumanda kutularıyla dört kişi birbiriyle konuşur. Bu şablon yalnız düzenin denenmesini ve bağlantı kontrollerini kapsar.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

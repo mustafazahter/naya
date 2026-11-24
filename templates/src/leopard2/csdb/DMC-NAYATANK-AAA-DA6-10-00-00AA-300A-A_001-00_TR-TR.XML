@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYATANK-AAA-D000000-0-NAYA0-00016-A-001-01 SYSTEM "ICN-NAYATANK-AAA-D000000-0-NAYA0-00016-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA6" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Hidrolik yağı</techName><infoName>Seviye kontrolü</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Tank düz zeminde, motor durdurulmuş, park freni çekili.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Hidrolik düzen el kitabındaki kontrol konumunda.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqSupportEquips><noSupportEquips/></reqSupportEquips>
+        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Hidrolik yağı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-013</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
+        <reqSpares><noSpares/></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Hidrolik sistem motor durduktan sonra da basınç altında kalabilir. Basıncı aracın el kitabındaki yolla boşaltmadan hiçbir hidrolik bağlantıyı gevşetmeyin.</warningAndCautionPara></warning><caution><warningAndCautionPara>Depoya toz ve su kaçırmayın; kapağın çevresini açmadan önce silin.</warningAndCautionPara></caution></safetyRqmts></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Hidrolik deposunun gözetleme camından ya da çubuğundan seviyeyi okuyun.</para><figure id="fig-0016"><title>Kule</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00016-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Seviye işaretler arasında olmalıdır; eksikse el kitabındaki yağdan tamamlayın.</para></proceduralStep>
+        <proceduralStep><para>Yağın rengine bakın: köpüklü ya da bulanık yağ hava ya da su karıştığını gösterir; bildirin.</para></proceduralStep>
+        <proceduralStep><para>Kapağı kapatın ve çevresini silin.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

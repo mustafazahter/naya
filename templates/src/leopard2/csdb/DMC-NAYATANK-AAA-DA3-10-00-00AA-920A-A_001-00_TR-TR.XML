@@ -31,7 +31,7 @@
         <reqCondGroup><reqCondNoRef><reqCond>Tank düz zeminde, motor durdurulmuş, park freni çekili.</reqCond></reqCondNoRef></reqCondGroup>
         <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Lokma takımı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-005</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Tork anahtarı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-010</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Palet tabanı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-DA3-10-033</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">8</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Palet tabanı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-DA3-10-067</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">8</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>

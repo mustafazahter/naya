@@ -27,7 +27,7 @@
         <reqCondGroup><reqCondNoRef><reqCond>Tank düz zeminde, motor durdurulmuş, park freni çekili.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Aydınlatma anahtarı kapalı.</reqCond></reqCondNoRef></reqCondGroup>
         <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Tornavida takımı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-013</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Far ampulü, 24 V</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-DA4-20-044</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Far ampulü, 24 V</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-DA4-20-085</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>

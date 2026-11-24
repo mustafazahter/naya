@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYATANK-AAA-D000000-0-NAYA0-00014-A-001-01 SYSTEM "ICN-NAYATANK-AAA-D000000-0-NAYA0-00014-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Hava emme kanalları</techName><infoName>Gözle muayene</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Tank düz zeminde, motor durdurulmuş, park freni çekili.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Motor güvertesi açık.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Tornavida takımı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-013</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Hortum kelepçesi</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-002</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">2</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Motor durduktan sonra güç paketi, egzoz ve radyatörler uzun süre sıcak kalır; soğumasını bekleyin.</warningAndCautionPara></warning><caution><warningAndCautionPara>Filtreden sonraki kanala sızan toz motoru kısa sürede aşındırır; açık kanalla motoru çalıştırmayın.</warningAndCautionPara></caution></safetyRqmts></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Filtre yuvasından turboşarjlara giden kanalları boydan boya kontrol edin.</para><figure id="fig-0014"><title>Hava filtreleri ve egzoz</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00014-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Kanallarda yırtık, çatlak ya da sürtünme izi arayın.</para></proceduralStep>
+        <proceduralStep><para>Kelepçeleri kontrol edin; gevşek kelepçeyi sıkın, bozuk olanı değiştirin.</para></proceduralStep>
+        <proceduralStep><para>Filtreden sonraki kanalın içinde toz izi varsa bildirin.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

@@ -86,6 +86,8 @@ void main() {
       'Yürüyen takım',
       'Elektrik sistemi',
       'Silah ve optikler',
+      'Hidrolik sistem',
+      'Mürettebat bölmesi donanımı',
     ],
   );
 

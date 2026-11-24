@@ -31,7 +31,7 @@
         <reqCondGroup><reqCondNoRef><reqCond>Tank düz zeminde, motor durdurulmuş, park freni çekili.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Motor güvertesi kapakları açık.</reqCond></reqCondNoRef></reqCondGroup>
         <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Lokma takımı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-005</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Hava filtresi elemanı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-DA1-40-022</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">2</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Hava filtresi elemanı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-DA1-40-046</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">2</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><safetyRqmts><caution><warningAndCautionPara>Filtre yuvası açıkken içine toz ve yabancı cisim kaçmamasına dikkat edin.</warningAndCautionPara></caution></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>

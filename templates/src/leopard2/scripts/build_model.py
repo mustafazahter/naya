@@ -8,11 +8,17 @@ mirror) çoğaltılmış. Bu betik:
 1. Modifier'ları uygular, nesneleri dünya koordinatlarına sabitler.
 2. Büyük nesneleri birbirine değmeyen parçalara (adacık) ayırır ve
    konumlarına göre uygulamanın düğümlerine toplar (`track_l`, `main_gun`...).
-   Düğüm adı `map/parts.json`'daki `meshNodes` ile aynı.
+   Düğüm adı `map/parts.json`'daki `meshNodes` ile aynı. Yan etek
+   panelleri, lamba gövdeleri ve motor güvertesi parçaları gövdeye
+   karışmasın diye ayrı kurallar var; üst gövde plakasının büyük adacığı
+   yüz yüz ayrılır. Kaynakta üst üste
+   iki kez bulunan adacıklar bir kez alınır (z-fighting).
 3. Kaynakta olmayan güç paketini basit şekillerle modeller: motor,
    şanzıman ve son dişliler, radyatörler, fanlar, hava filtreleri, yakıt
-   tankları, akü ve egzoz. Bunlar temsilidir, ölçüleri gerçek değildir.
-4. Malzemeleri düğüme göre yeniden renklendirir.
+   tankları, akü ve egzoz. Bunlar temsilidir, ölçüleri gerçek değildir;
+   gövde tabanından ve arka plakadan dışarı taşmazlar.
+4. Malzemeleri düğüme göre yeniden renklendirir; lamba camları altındaki
+   ampulün rengini alır.
 5. Gerçek ölçeğe getirir, yere oturtur ve Draco ile sıkıştırıp yazar.
 
     blender -b --python build_model.py -- Leopard_2A6.blend ../model/product.glb
@@ -31,24 +37,26 @@ SCALE = 0.443
 
 # --- Malzemeler -----------------------------------------------------------
 
-# Renkler doğrusal (linear) değerler; viewer'ın ışığında açık görünür.
-# Zırh rengi NATO yeşiline (RAL 6031) yakın.
+# Renkler doğrusal (linear) değerler. Görüntüleyicinin ortam ışığı ve ton
+# eşlemesi rengi açar; bu yüzden değerler koyu, metaller de tam metal değil
+# (tam metal yüzey ortamı yansıtıp beyaz görünür). Zırh rengi NATO yeşiline
+# (RAL 6031) yakın; güç paketi boyalı koyu gri.
 PALETTE = {
     'armor': ((0.055, 0.068, 0.035), 0.8, 0.0),
     'armor_dark': ((0.02, 0.022, 0.015), 0.8, 0.0),
     'rubber': ((0.03, 0.03, 0.03), 0.9, 0.0),
-    'track': ((0.16, 0.15, 0.14), 0.6, 0.7),
-    'steel': ((0.42, 0.43, 0.44), 0.4, 1.0),
-    'engine': ((0.10, 0.11, 0.12), 0.5, 0.6),
-    'alu': ((0.62, 0.63, 0.65), 0.4, 1.0),
-    'filter': ((0.55, 0.45, 0.20), 0.7, 0.0),
-    'fuel': ((0.30, 0.32, 0.22), 0.6, 0.2),
-    'battery': ((0.06, 0.06, 0.07), 0.6, 0.0),
-    'radiator': ((0.35, 0.36, 0.37), 0.5, 0.8),
-    'glass': ((0.25, 0.35, 0.40), 0.05, 0.0),
-    'lens': ((0.9, 0.92, 0.95), 0.05, 0.0),
-    'amber': ((0.9, 0.45, 0.05), 0.2, 0.0),
-    'tail': ((0.55, 0.02, 0.02), 0.15, 0.0),
+    'track': ((0.07, 0.065, 0.06), 0.6, 0.6),
+    'steel': ((0.20, 0.20, 0.21), 0.45, 0.7),
+    'engine': ((0.06, 0.065, 0.07), 0.55, 0.3),
+    'alu': ((0.13, 0.135, 0.14), 0.5, 0.4),
+    'filter': ((0.16, 0.13, 0.06), 0.7, 0.0),
+    'fuel': ((0.06, 0.07, 0.04), 0.7, 0.0),
+    'battery': ((0.03, 0.03, 0.035), 0.6, 0.0),
+    'radiator': ((0.10, 0.10, 0.10), 0.5, 0.5),
+    'glass': ((0.02, 0.03, 0.035), 0.05, 0.0),
+    'lens': ((0.55, 0.56, 0.58), 0.08, 0.0),
+    'amber': ((0.75, 0.28, 0.02), 0.2, 0.0),
+    'tail': ((0.45, 0.01, 0.01), 0.15, 0.0),
 }
 
 # Kaynak malzeme adındaki parça → renk. Listede yoksa düğümün rengi.
@@ -64,7 +72,8 @@ NODE_COLORS = {
     'sprocket_l': 'track', 'sprocket_r': 'track',
     'suspension_l': 'steel', 'suspension_r': 'steel',
     'optics': 'armor_dark', 'machine_gun': 'armor_dark',
-    'headlights': 'lens', 'taillights': 'tail',
+    # Lamba gövdeleri zırh renginde; camlar kaynak malzemesinden ya da
+    # LAMPS'teki renkten.
     'engine': 'engine', 'transmission': 'alu', 'cooling_fans': 'steel',
     'radiators': 'radiator', 'air_filters': 'filter', 'fuel_tanks': 'fuel',
     'batteries': 'battery', 'exhaust': 'steel',
@@ -85,13 +94,16 @@ def material(key, cache={}):
     return m
 
 
-def recolor(obj, default):
+def recolor(obj, default, override=None):
+    """Kaynak malzemeleri paletle değiştirir; [override] verilirse bütün
+    yüzler o renkte olur (lamba camları gibi)."""
     for slot in obj.material_slots:
         name = slot.material.name if slot.material else ''
-        key = next((k for p, k in SOURCE_MATERIALS if p in name), default)
+        key = override or next(
+            (k for p, k in SOURCE_MATERIALS if p in name), default)
         slot.material = material(key)
     if not obj.material_slots:
-        obj.data.materials.append(material(default))
+        obj.data.materials.append(material(override or default))
 
 
 # --- Kaynak parçaların düğümleri ---------------------------------------------
@@ -101,35 +113,96 @@ def recolor(obj, default):
 
 LIGHTS = ('orange_light', 'red_ligh', 'BlackGlass')
 
+# Lamba yuvaları: (düğüm, |x| aralığı, y aralığı, z aralığı). Kutunun içinde
+# kalan adacıklar (cam, ampul, gövde, koruyucu) o lambanın düğümüne gider;
+# yoksa lamba gövdesine dokununca "Gövde" yazar.
+LAMPS = [
+    ('headlights', (1.6, 2.2), (-7.3, -6.8), (2.7, 3.15)),    # ön farlar
+    ('headlights', (3.45, 3.8), (-6.85, -6.5), (3.0, 3.45)),  # ön köşe lambaları
+    ('taillights', (1.0, 1.55), (9.2, 9.5), (1.6, 2.1)),      # arka alt lambalar
+    ('taillights', (2.55, 3.7), (9.45, 9.7), (2.6, 2.9)),     # arka lamba grupları
+]
+
 
 def side(c, left, right):
     return left if c.x > 0 else right
 
 
 def light(c, s, mats):
-    # Kaynakta lamba camı malzemesi periskoplarda da var; yalnız ön ve arka
-    # uçtakiler lamba.
-    if any(m.startswith(LIGHTS) for m in mats) and max(s) < 1.0:
-        if c.y < -5.5:
-            return 'headlights'
-        if c.y > 9.0:
-            return 'taillights'
+    """Lamba yuvasındaki adacık: (düğüm, renk). Lambaların camı kaynakta
+    açık mavi; altındaki kırmızı ve sarı ampuller görünmüyordu. Cam, far ise
+    açık renk, arka lamba grubunda altındaki ampulün rengini alır."""
+    lo, hi = c - s / 2, c + s / 2
+    for node, (x0, x1), (y0, y1), (z0, z1) in LAMPS:
+        if (x0 <= abs(lo.x) <= x1 and x0 <= abs(hi.x) <= x1
+                and y0 <= lo.y and hi.y <= y1 and z0 <= lo.z and hi.z <= z1):
+            if any(m.startswith('BlackGlass') for m in mats):
+                if node == 'headlights':
+                    return node, 'lens'
+                return node, 'tail' if s.x > 0.4 else 'amber'
+            return node
     return None
 
 
+def skirt(c, s):
+    """Yan etek: paletin dış yüzündeki dikey paneller ve üst şerit. İç
+    kenarı |x| = 3,65'in dışında, üstü çamurluğun altında."""
+    return (abs(c.x) - s.x / 2 > 3.62 and c.z + s.z / 2 < 3.78
+            and c.y > -7.2)
+
+
+def deck(c, s):
+    """Motor güvertesi: kulenin arkasında, üst yüzeydeki yassı parçalar."""
+    return (c.y > 4.6 and c.z > 3.75 and abs(c.x) < 2.95 and s.z < 0.5
+            and max(s) < 6.0)
+
+
 def hull_rule(c, s, mats):
-    if abs(c.x) > 3.55 and 1.6 < c.z < 3.7 and s.x < 0.6 and c.y > -6.5:
+    lamp = light(c, s, mats)
+    if lamp:
+        return lamp
+    if skirt(c, s) or (abs(c.x) > 3.55 and 1.6 < c.z < 3.7 and s.x < 0.6
+                       and c.y > -6.5):
         return side(c, 'side_skirt_l', 'side_skirt_r')
-    return light(c, s, mats) or 'hull'
+    if deck(c, s):
+        return 'engine_deck'
+    return 'hull'
 
 
 def fittings_rule(c, s, mats):
     """Çamurluklar, yan etekler, motor güvertesi ızgaraları, lambalar."""
     if s.x > 1.5 and s.y > 1.5 and s.z < 0.1 and c.y > 6.5 and abs(c.x) < 2.5:
         return 'engine_deck'
-    if abs(c.x) > 3.6 and 1.0 < c.z < 3.6 and s.y < 3.0 and c.y > -6.0:
+    lamp = light(c, s, mats)
+    if lamp:
+        return lamp
+    if skirt(c, s) or (abs(c.x) > 3.6 and 1.0 < c.z < 3.6 and s.y < 3.0
+                       and c.y > -6.0):
         return side(c, 'side_skirt_l', 'side_skirt_r')
-    return light(c, s, mats) or 'hull'
+    if deck(c, s):
+        return 'engine_deck'
+    return 'hull'
+
+
+def plate_face_rule(c):
+    """Üst gövde plakasının tek tek yüzleri: yan eteğin üst şeridi ve
+    havalandırma panjuru, motor güvertesi, gerisi gövde."""
+    if abs(c.x) > 3.62 and 2.9 < c.z < 3.78:
+        return side(c, 'side_skirt_l', 'side_skirt_r')
+    if c.y > 4.4 and c.z > 3.3 and abs(c.x) < 2.5:
+        return 'engine_deck'
+    return 'hull'
+
+
+def plate_rule(c, s, mats):
+    """Üst gövde plakası: büyük adacık yüz yüz, küçükler bütün olarak."""
+    if s.y > 10:
+        return plate_face_rule
+    if skirt(c, s):
+        return side(c, 'side_skirt_l', 'side_skirt_r')
+    if c.y > 4.4 and c.z > 3.3 and abs(c.x) < 2.5:
+        return 'engine_deck'
+    return 'hull'
 
 
 def wheels_rule(c, s, mats):
@@ -140,8 +213,12 @@ def wheels_rule(c, s, mats):
 
 def gun_rule(c, s, mats):
     # Namlu, duman tahliye tüpü, namlu ağzı ve kalkan kulenin önünde,
-    # ortada.
+    # ortada. Namlunun kuleden çıkan kökü ve top kalkanı da topa ait:
+    # eksende (z = 4,485) duran yuvarlak parçalar.
     if abs(c.x) < 0.75 and s.x < 1.2 and c.y < -6.0:
+        return 'main_gun'
+    if (abs(c.x) < 0.1 and c.y < -4.3 and abs(c.z - 4.485) < 0.1
+            and abs(s.x - s.z) < 0.05):
         return 'main_gun'
     return 'turret'
 
@@ -153,6 +230,14 @@ def turret_side_rule(c, s, mats):
 
 
 def roof_rule(c, s, mats):
+    # Antenler ince ve uzun; kaynakta silah malzemesini taşıdıkları için
+    # makineli tüfeğe karışıyordu.
+    if s.z > 0.5 and max(s.x, s.y) < 0.05:
+        return 'turret'
+    # Komutan periskobu (dönen gözetleme optiği) kulenin sağ arkasında,
+    # komutan kapağının önünde yükselen silindir.
+    if abs(c.x + 0.62) < 0.45 and 1.6 < c.y < 3.3 and c.z > 5.7:
+        return 'optics'
     # Yükleyici kapağındaki makineli tüfek ve kundağı.
     if (c.x > 0.6 and 'Gun' in mats) or (abs(c.x - 1.75) < 0.4 and abs(c.y - 1.3) < 1.5
                          and c.z > 5.95):
@@ -179,11 +264,9 @@ SOURCE_RULES = {
     'Up1': gun_rule,
     'Up2': turret_side_rule,
     'Up3': roof_rule,
+    # Üst gövde plakası; büyük adacığı yüz yüz ayrılır.
+    'Box0ewfef': plate_rule,
 }
-
-# Üst gövde plakası tek parça; motor güvertesi (arka) yüz yüz ayrılır.
-DECK_SPLIT = ('Box0ewfef', lambda c: 'engine_deck'
-              if c.y > 4.4 and c.z > 3.3 and abs(c.x) < 2.5 else 'hull')
 
 
 # --- Yardımcılar ------------------------------------------------------------
@@ -226,8 +309,32 @@ def islands(obj):
     return result
 
 
-def face_centers(obj):
-    return [p.center.copy() for p in obj.data.polygons]
+def classify(obj, rule):
+    """Adacıkları kurala göre gruplar: {(düğüm, renk): [yüz...]}.
+
+    Kural düğüm adı, (düğüm, renk) ya da yüz yüz karar verecek bir işlev
+    döndürür. Kaynakta üst üste iki kez bulunan aynı adacık (aynı yüz
+    sayısı, aynı kutu) bir kez alınır; ikisi birden kalınca yüzeyler
+    titreşir (z-fighting).
+    """
+    polys = obj.data.polygons
+    seen = set()
+    groups = {}
+    for faces, center, size, mats in islands(obj):
+        key = (len(faces), *(round(v, 4) for v in (*center, *size)))
+        if key in seen:
+            continue
+        seen.add(key)
+        result = rule(center, size, mats)
+        if callable(result):
+            for f in faces:
+                groups.setdefault((result(polys[f].center), None),
+                                  []).append(f)
+            continue
+        if isinstance(result, str):
+            result = (result, None)
+        groups.setdefault(result, []).extend(faces)
+    return groups
 
 
 def take_faces(obj, faces, name):
@@ -323,7 +430,8 @@ def powerpack():
              for side in (1, -1)]
     nodes['engine'] = join([
         solid('box', (0, 6.3, 2.0), (1.3, 3.2, 1.1)),
-        solid('box', (0, 6.3, 1.32), (1.05, 3.0, 0.3)),
+        # Karter gövde tabanının (z = 1,24) üstünde kalır.
+        solid('box', (0, 6.3, 1.52), (1.05, 3.0, 0.2)),
         *banks, *heads,
         solid('cyl', (0, 4.62, 2.0), (0.45, 0.18), rotation=AXIS_Y,
               key='steel'),
@@ -333,8 +441,9 @@ def powerpack():
 
     # Şanzıman ve iki yanda son dişliler (yürütücü dişlilere bağlanır).
     nodes['transmission'] = join([
-        solid('box', (0, 8.65, 2.0), (2.7, 1.15, 1.3), key='alu'),
-        solid('box', (0, 8.65, 1.3), (2.2, 1.0, 0.25), key='alu'),
+        # Gövde tabanı arkada (y > 9) yükselir; şanzıman tabandan çıkmasın.
+        solid('box', (0, 8.55, 2.2), (2.7, 1.0, 1.3), key='alu'),
+        solid('box', (0, 8.55, 1.55), (2.2, 0.8, 0.25), key='alu'),
         *[solid('cyl', (side * 1.95, 8.61, 2.09), (0.48, 0.38),
                 rotation=AXIS_X, key='alu') for side in (1, -1)],
     ], 'transmission')
@@ -360,18 +469,22 @@ def powerpack():
         solid('box', (side * 1.62, 5.6, 3.1), (0.5, 1.6, 0.7), key='filter')
         for side in (1, -1)], 'air_filters')
     nodes['fuel_tanks'] = join([
-        solid('box', (side * 1.85, 6.3, 1.75), (0.55, 2.9, 1.0), key='fuel')
+        solid('box', (side * 1.85, 6.3, 2.05), (0.55, 2.9, 1.0), key='fuel')
         for side in (1, -1)], 'fuel_tanks')
     # Akü kutuları sürücü bölmesinin solunda.
     nodes['batteries'] = join([
         solid('box', (1.45, y, 1.55), (0.6, 0.55, 0.55), key='battery')
         for y in (-4.9, -4.25)], 'batteries')
+    # Egzoz turboşarjlardan radyatörlerin altından geçip arka plakadaki
+    # ızgaraya (y = 9,4) gelir; susturucu gövdenin içinde kalır.
     exhaust = []
     for side in (1, -1):
-        exhaust += pipe([(side * 1.42, 8.0, 2.95), (side * 1.55, 8.9, 3.05),
-                         (side * 1.6, 10.2, 3.05)], 0.13)
-        exhaust.append(solid('box', (side * 1.6, 9.6, 3.05),
-                             (0.5, 0.9, 0.45), key='steel'))
+        exhaust += pipe([(side * 1.42, 7.75, 2.85), (side * 1.25, 8.95, 2.82),
+                         (side * 1.15, 9.1, 2.82)], 0.12)
+        exhaust.append(solid('box', (side * 1.15, 9.2, 2.82),
+                             (0.6, 0.3, 0.32), key='steel'))
+        exhaust += pipe([(side * 1.15, 9.3, 2.72), (side * 1.15, 9.42, 2.6)],
+                        0.09)
     nodes['exhaust'] = join(exhaust, 'exhaust')
     return nodes
 
@@ -391,7 +504,7 @@ def main():
     depsgraph = bpy.context.evaluated_depsgraph_get()
 
     sources = {name: evaluated_copy(bpy.data.objects[name], depsgraph)
-               for name in [*SOURCE_RULES, DECK_SPLIT[0]]}
+               for name in SOURCE_RULES}
     for o in list(bpy.data.objects):
         if o not in sources.values():
             bpy.data.objects.remove(o)
@@ -399,23 +512,14 @@ def main():
     groups = {}
     for name, rule in SOURCE_RULES.items():
         obj = sources[name]
-        faces = {}
-        for group, center, size, mats in islands(obj):
-            faces.setdefault(rule(center, size, mats), []).extend(group)
-        for node, f in faces.items():
-            groups.setdefault(node, []).append(take_faces(obj, f, node))
-    deck, rule = DECK_SPLIT
-    faces = {}
-    for i, c in enumerate(face_centers(sources[deck])):
-        faces.setdefault(rule(c), []).append(i)
-    for node, f in faces.items():
-        groups.setdefault(node, []).append(take_faces(sources[deck], f, node))
+        for (node, override), faces in classify(obj, rule).items():
+            piece = take_faces(obj, faces, node)
+            recolor(piece, NODE_COLORS.get(node, 'armor'), override)
+            groups.setdefault(node, []).append(piece)
     for o in sources.values():
         bpy.data.objects.remove(o)
 
     nodes = {node: join(objs, node) for node, objs in groups.items()}
-    for node, obj in nodes.items():
-        recolor(obj, NODE_COLORS.get(node, 'armor'))
     nodes.update(powerpack())
 
     # Gerçek ölçek; paletlerin altı z = 0.
