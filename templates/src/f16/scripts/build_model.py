@@ -65,7 +65,7 @@ PALETTE = {
     'steel': ((0.30, 0.31, 0.33), 0.35, 1.0),
     'titanium': ((0.22, 0.19, 0.16), 0.4, 1.0),
     'hot': ((0.20, 0.11, 0.06), 0.5, 1.0),
-    'liner': ((0.12, 0.10, 0.085), 0.6, 0.9),
+    'liner': ((0.05, 0.042, 0.036), 0.8, 0.2),
     'alu': ((0.42, 0.43, 0.45), 0.4, 1.0),
     'blade': ((0.38, 0.40, 0.43), 0.3, 1.0),
     'bronze': ((0.45, 0.28, 0.10), 0.35, 1.0),
@@ -159,7 +159,20 @@ def recolor(obj, default, textures=None):
         obj.data.materials.append(material(default))
 
 
-def two_tone(obj, antiglare=False):
+def ray_test(mesh):
+    """covered(merkez, yön): merkezden o yöne atılan ışın aynı ağın başka
+    bir yüzüne çarpıyor mu? Normali ters yüzlerde de doğru sonuç verir."""
+    tree = BVHTree.FromPolygons([v.co for v in mesh.vertices],
+                                [p.vertices for p in mesh.polygons])
+
+    def covered(c, direction, near=0.002):
+        """[near]: bu uzaklıktan yakın çarpmalar sayılmaz."""
+        hit = tree.ray_cast(c + direction * near, direction, 3.0)
+        return hit[0] is not None
+    return covered
+
+
+def two_tone(obj, fuselage=False):
     """Gövde boyasını iki tona böler: alt yüzeyler açık gri.
 
     Kaynakta bazı alt yüzlerin normali yukarı bakıyor; normale göre
@@ -167,12 +180,18 @@ def two_tone(obj, antiglare=False):
     merkezinden dikey ışın atılır: üstünde aynı parçanın başka bir yüzü
     olan ve altında yüzü olmayan yüz alt yüzeydir. Gövdenin yanları da
     böylece orta hattan ikiye ayrılır.
-    [antiglare] gövdede kanopinin önündeki üst şeridi koyulaştırır
-    (kaynak koordinatlarında, burun +Y)."""
+    [fuselage] gövde için: kanopinin önündeki üst şerit koyulaşır (kaynak
+    koordinatlarında, burun +Y). Gövdenin uzun üçgenlerinin merkezi kabuğun
+    biraz içinde kalır; aşağı atılan ışın hemen alttaki kabuğa çarpıp yüzü
+    üst renkte bırakıyordu, bu yüzden yakın çarpmalar sayılmaz. Kokpit
+    açıklığının altında yukarıda yüz olmadığından orada normale de bakılır.
+    """
     names = [s.material.name for s in obj.material_slots]
     if 'naya_paint' not in names:
         return
-    paint = names.index('naya_paint')
+    # Birleştirilen nesnelerden aynı boya birden çok yuvada kalabiliyor;
+    # yalnız ilkine bakınca yüzlerin bir kısmı tek tonda kalıyordu.
+    paint = {i for i, n in enumerate(names) if n == 'naya_paint'}
     for key in ('paint_belly', 'antiglare'):
         if material(key).name not in names:
             obj.data.materials.append(material(key))
@@ -180,23 +199,22 @@ def two_tone(obj, antiglare=False):
     belly = names.index('naya_paint_belly')
     dark = names.index('naya_antiglare')
     mesh = obj.data
-    tree = BVHTree.FromPolygons([v.co for v in mesh.vertices],
-                                [p.vertices for p in mesh.polygons])
+    covered = ray_test(mesh)
     up, down = Vector((0, 0, 1)), Vector((0, 0, -1))
 
-    def covered(c, direction):
-        hit = tree.ray_cast(c + direction * 0.002, direction, 3.0)
-        return hit[0] is not None
-
     for p in mesh.polygons:
-        if p.material_index != paint:
+        if p.material_index not in paint:
             continue
         c = p.center
-        above, below = covered(c, up), covered(c, down)
-        if (antiglare and 4.55 < c.y < 5.6 and abs(c.x) < 0.32
-                and not above):
-            p.material_index = dark
-        elif above and not below:
+        above = covered(c, up)
+        if fuselage:
+            if (4.55 < c.y < 5.6 and abs(c.x) < 0.32 and c.z > 1.9
+                    and not above):
+                p.material_index = dark
+            elif not covered(c, down, 0.12) and (
+                    above or p.normal.z < -0.5):
+                p.material_index = belly
+        elif above and not covered(c, down):
             p.material_index = belly
 
 
@@ -253,7 +271,7 @@ WHEELS = {
 # düğüme gider.
 RADOME_Y = 5.55
 WING_BOX = ((1.08, 6.0), (-2.75, 1.3), (1.45, 2.3))  # x yanın mutlak değeri
-INTAKE_BOX = ((-0.8, 0.8), (1.6, 4.1), (-1.0, 1.35))
+INTAKE_BOX = ((-0.8, 0.8), (1.6, 3.6), (-1.0, 1.62))
 
 # İniş takımı yuvaları: gövdenin altında kapakların arasında kalan açıklık.
 # Alt yüzün bu dikdörtgenlerdeki kısmı koyu yuva rengini alır.
@@ -286,6 +304,10 @@ def body_face(c, mat):
 def parts_face(c, mat):
     """Küçük ayrıntılar nesnesinin (`parts`) yüzleri: lamba camları,
     HUD camı, gövde üstü küçük parçalar."""
+    if mat == 'cft.0':
+        # Konformal tankların üstündeki küçük kapaklar; gövdeye bağlı
+        # değil, tankın üstünde duruyorlar.
+        return 'conformal_tanks'
     if mat != 'glass':
         return 'fuselage'
     if abs(c.x) < 0.3 and 3.8 < c.y < 4.5 and c.z > 2.3:
@@ -398,6 +420,23 @@ def split_by(obj, classify):
     return {node: take_faces(obj, f, node) for node, f in faces.items()}
 
 
+def drop_caps(obj, y0, y1):
+    """Lülenin ve gövde arkasının içini kapatan düz diskleri siler. Lüleden
+    bakınca art yakıcı astarı yerine gri bir kapak görünüyordu. Kaynak
+    koordinatlarında, eksen lülenin ekseni."""
+    bm = bmesh.new()
+    bm.from_mesh(obj.data)
+    doomed = []
+    for f in bm.faces:
+        c = f.calc_center_median()
+        r = math.hypot(c.x, c.z - ENGINE_FRONT.z)
+        if y0 < c.y < y1 and r < 0.42 and abs(f.normal.y) > 0.8:
+            doomed.append(f)
+    bmesh.ops.delete(bm, geom=doomed, context='FACES')
+    bm.to_mesh(obj.data)
+    bm.free()
+
+
 def drop_wheel(obj, center, radius, width):
     """Merkezi tekerlek ekseninde olan adacıkları (lastik, jant, göbek)
     siler."""
@@ -472,11 +511,25 @@ def paint_bays(obj):
                   ((0, y0, 0), (0, 1, 0)), ((0, y1, 0), (0, 1, 0))], near)
     obj.data.materials.append(material('bay'))
     bay = len(obj.data.materials) - 1
+    covered = ray_test(obj.data)
+    down = Vector((0, 0, -1))
     for p in obj.data.polygons:
         c = p.center
-        if p.normal.z < -0.5 and c.z < 1.6 and any(
+        if c.z < 1.6 and not covered(c, down) and any(
                 x0 < c.x < x1 and y0 < c.y < y1 for (x0, x1), (y0, y1) in BAYS):
             p.material_index = bay
+
+
+def paint_tunnel(obj):
+    """Gövdenin lüleye uzanan iç kabuğu (egzoz tüneli) dış boyayla
+    boyanmıştı; lüleden bakınca gri bir boru görünüyordu. Art yakıcı
+    astarıyla aynı koyu renge boyanır. Kaynak koordinatlarında."""
+    obj.data.materials.append(material('liner'))
+    liner = len(obj.data.materials) - 1
+    for p in obj.data.polygons:
+        c = p.center
+        if c.y < -3.3 and math.hypot(c.x, c.z - ENGINE_FRONT.z) < 0.5:
+            p.material_index = liner
 
 
 def color_lights(obj):
@@ -537,7 +590,10 @@ def main():
         if name.startswith(DROP) or not obj.data.polygons:
             bpy.data.objects.remove(obj)
             continue
+        if name == 'engines':
+            drop_caps(obj, -5.8, -5.3)
         if name == 'body':
+            drop_caps(obj, -3.9, -3.5)
             cut(obj, [((0, RADOME_Y, 0), (0, 1, 0))],
                 ((-1, 1), (RADOME_Y - 0.6, RADOME_Y + 0.6), (0, 4)))
             (x0, x1), (y0, y1), (z0, z1) = WING_BOX
@@ -572,8 +628,9 @@ def main():
                 textures if node == 'cockpit' else None)
         # Dikey kuyruk ve dümen tümüyle üst renkte.
         if node not in ('vertical_tail', 'rudder'):
-            two_tone(obj, antiglare=node == 'fuselage')
+            two_tone(obj, fuselage=node == 'fuselage')
     paint_bays(nodes['fuselage'])
+    paint_tunnel(nodes['fuselage'])
     color_lights(nodes['lights'])
 
     # Motor.
