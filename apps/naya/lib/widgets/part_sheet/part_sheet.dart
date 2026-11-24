@@ -74,13 +74,18 @@ class PartSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     final path = content.pathTo(part.id);
+    final seen = <String>{part.id};
     final related = <Part>[
-      ...content.childrenOf(part.id),
-      if (node != null)
-        for (final p in content.siblingsOnNode(node!, part))
-          if (p.parent != part.id) p,
+      for (final p in [
+        ...content.childrenOf(part.id),
+        if (node != null)
+          for (final p in content.siblingsOnNode(node!, part))
+            if (p.parent != part.id) p,
+        ...content.groupsCovering(part.id),
+      ])
+        if (seen.add(p.id)) p,
     ];
-    final faults = content.faultsFor(part.id);
+    final faults = content.cardFaults(part.id);
     final procedures = part.procedures.entries.toList()
       ..sort((a, b) => _rank(a.key).compareTo(_rank(b.key)));
 

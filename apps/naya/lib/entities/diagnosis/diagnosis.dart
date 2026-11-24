@@ -25,6 +25,7 @@ class Diagnosis {
     required this.symptom,
     required this.candidates,
     required this.systemsScanned,
+    this.systems = const [],
     this.decision = DiagnosisDecision.focus,
     this.danger,
     this.faultCause,
@@ -58,6 +59,10 @@ class Diagnosis {
           ),
       ],
       systemsScanned: result.systems.where((s) => s.id != 'none').length,
+      systems: [
+        for (final s in result.systems)
+          if (s.id != 'none') s,
+      ],
       decision: result.decision,
       danger: result.danger,
       faultCause: fault == null ? null : faultCauseOf?.call(fault.id),
@@ -77,6 +82,10 @@ class Diagnosis {
   /// Olasılığa göre azalan sırada.
   final List<Candidate> candidates;
   final int systemsScanned;
+
+  /// Sistem turunun olasılıkları ("hiçbiri" hariç), azalan sırada. Parça
+  /// seçilemediğinde modelde hangi bölgeye bakıldığını göstermek için.
+  final List<Scored> systems;
   final DiagnosisDecision decision;
 
   /// "Kullanmaya devam etmek tehlikeli mi?" sorusunda "evet" olasılığı.

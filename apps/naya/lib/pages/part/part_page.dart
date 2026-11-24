@@ -89,7 +89,7 @@ class _PartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final faults = content.faultsFor(part.id);
+    final faults = content.cardFaults(part.id);
     final procedures = part.procedures.entries.toList()
       ..sort((a, b) => _rank(a.key).compareTo(_rank(b.key)));
     final children = content.childrenOf(part.id);

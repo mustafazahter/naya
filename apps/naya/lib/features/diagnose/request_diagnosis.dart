@@ -79,7 +79,7 @@ Diagnosis _fromJson(Map<String, Object?> json, ProductContent content) =>
 /// - Belirsiz sonuçta ilk üç aday soluk parlar; kamera yaklaşmaz.
 Map<String, double> scanWeights(Diagnosis diagnosis, ProductContent content) {
   final candidates = diagnosis.candidates;
-  if (candidates.isEmpty) return const {};
+  if (candidates.isEmpty) return _systemWeights(diagnosis, content);
   final top = candidates.first.probability;
   final weights = <String, double>{};
   for (final (i, c) in candidates.indexed) {
@@ -96,6 +96,34 @@ Map<String, double> scanWeights(Diagnosis diagnosis, ProductContent content) {
     for (final node in content.part(c.partId)?.meshNodes ?? const <String>[]) {
       final current = weights[node] ?? 0;
       if (weight > current) weights[node] = weight;
+    }
+  }
+  return weights;
+}
+
+/// Parça seçilemedi ama sistem tahmini var: en olası bir iki sistemin
+/// bütün parçaları soluk parlar, kullanıcı yapay zekânın nereye baktığını
+/// görür. Sistem de yoksa (konu dışı ya da bilgi yetersiz) vurgu yok.
+Map<String, double> _systemWeights(
+  Diagnosis diagnosis,
+  ProductContent content,
+) {
+  final systems = diagnosis.systems;
+  if (systems.isEmpty || diagnosis.decision == DiagnosisDecision.notDiagnosis) {
+    return const {};
+  }
+  final top = systems.first.probability;
+  if (top <= 0) return const {};
+  final weights = <String, double>{};
+  for (final s in systems.take(2)) {
+    if (s.probability < 0.25) continue;
+    final weight = 0.35 * s.probability / top;
+    for (final part in content.parts.parts) {
+      final path = content.pathTo(part.id);
+      if (path.isEmpty || path.first.id != s.id) continue;
+      for (final node in part.meshNodes) {
+        if (weight > (weights[node] ?? 0)) weights[node] = weight;
+      }
     }
   }
   return weights;

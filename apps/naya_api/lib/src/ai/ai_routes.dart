@@ -121,6 +121,14 @@ class AiRoutes {
             if (m is String) _message(m),
       ],
     );
+    // Canlıda "modelde efekt yok" gibi durumlar anlaşılabilsin diye kararın
+    // özeti günlüğe yazılır; kullanıcının mesajı ve kimliği yazılmaz.
+    final result = record.result;
+    stdout.writeln(
+      'Teşhis: karar=${result.decision.name} '
+      'sistem=${result.systems.isEmpty ? '-' : result.systems.first.id} '
+      'aday=${result.candidates.length} model=${result.model}',
+    );
     return jsonOk(record.toJson(), status: 201);
   }
 

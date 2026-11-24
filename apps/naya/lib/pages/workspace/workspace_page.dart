@@ -328,6 +328,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
                 case AnswerDone(:final conversation, :final sources):
                   _conversation = conversation;
                   replaceAnswer(AnswerTurn('$buffer', sources: sources));
+                  if (run == _run) _showSources(sources);
               }
             });
           },
@@ -413,6 +414,27 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
       final finished = await _viewer.scan(const {});
       if (!finished) return;
     }
+  }
+
+  /// Sohbet cevabının dayandığı DM'lerin parçaları modelde parlar; konu
+  /// parçası varsa o tam, diğerleri soluk. Kaynak yoksa görünüm değişmez.
+  void _showSources(List<String> sources) {
+    final content = ref.read(productContentProvider(product.id)).value;
+    if (content == null || sources.isEmpty) return;
+    final weights = <String, double>{};
+    for (final part in content.partsForModules(sources).take(6)) {
+      for (final node in part.meshNodes) {
+        weights[node] = part.id == _part ? 1 : 0.6;
+      }
+    }
+    final topic = _part;
+    for (final node
+        in topic == null
+            ? const <String>[]
+            : content.part(topic)?.meshNodes ?? const <String>[]) {
+      weights[node] = 1;
+    }
+    if (weights.isNotEmpty) _viewer.highlight(weights);
   }
 
   void _focusPart(ProductContent content, String partId) {
