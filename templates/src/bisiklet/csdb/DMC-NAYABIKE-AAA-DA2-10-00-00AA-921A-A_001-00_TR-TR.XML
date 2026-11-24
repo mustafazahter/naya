@@ -12,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Fren balatası</techName><infoName>Değiştirme</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -29,14 +29,13 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="seq-0001"><name>Alyan anahtar takımı (2-8 mm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-HEX</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Alyan anahtar takımı (2-8 mm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-HEX</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="spa-0001"><name>Fren balatası çifti</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-BR-110</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Fren balatası çifti</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-BR-110</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><safetyRqmts><warning><warningAndCautionPara>Balata tozu solunmamalı; kaliperi basınçlı havayla temizlemeyin.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Tekerleği sökün.</para><figure id="fig-0003"><title>Ön disk fren</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure>
-</proceduralStep>
+        <proceduralStep><para>Tekerleği sökün.</para><figure id="fig-0003"><title>Ön disk fren</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure></proceduralStep>
         <proceduralStep><title>Eski balataları çıkarın</title><proceduralStep><para>Kaliperdeki balata pimi emniyet klipsini çıkarın ve pimi çekin.</para></proceduralStep><proceduralStep><para>Balataları ve yayı kaliperin üstünden çekerek çıkarın.</para></proceduralStep></proceduralStep>
         <proceduralStep><para>Balata kalınlığını ölçün; sürtünme malzemesi 0,5 mm'den inceyse ya da yağlanmışsa yenilerini takın.</para></proceduralStep>
         <proceduralStep><title>Yeni balataları takın</title><proceduralStep><para>Balataları yayla birlikte kaliperin üstünden yerleştirin.</para></proceduralStep><proceduralStep><para>Balata pimini takın ve emniyet klipsini geçirin.</para></proceduralStep></proceduralStep>

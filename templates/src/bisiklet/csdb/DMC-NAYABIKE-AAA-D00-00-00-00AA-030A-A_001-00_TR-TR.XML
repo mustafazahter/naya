@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="030" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="24"/>
+        <dmTitle><techName>Bisiklet</techName><infoName>Sıkma torkları</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Cıvataları tork anahtarıyla sıkın. Değerler bu sınıftaki parçalar için yaygın üretici değerleridir; parçanın üzerinde ya da kendi el kitabında farklı bir değer yazıyorsa o geçerlidir.</para>
+        <para>Dişleri temiz ve hafif greslenmiş olarak sıkın. Disk cıvataları ve kaliper cıvataları gibi titreşim alan cıvatalara orta güçte vida sabitleyici sürülür.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Kadro, çatal ve kumanda</title>
+        <para>Torklar:<randomList><listItem><para>Gidon boğazı (stem) çatal boğazı cıvataları: 5-6 Nm, sırayla.</para></listItem><listItem><para>Gidon boğazı ön kapak cıvataları: 5-6 Nm, çapraz sırayla.</para></listItem><listItem><para>Furç üst kapak cıvatası: yalnız boşluk alınacak kadar; tork uygulanmaz.</para></listItem><listItem><para>Fren kolu kelepçesi: 6-8 Nm.</para></listItem><listItem><para>Tetik vites kolu kelepçesi: 2,5-3 Nm.</para></listItem><listItem><para>Elcik kilit halkası (varsa): 2-3 Nm.</para></listItem><listItem><para>Sele kelepçesi (tek cıvata): 20-24 Nm.</para></listItem><listItem><para>Sele borusu kelepçesi (cıvatalı): 5-6 Nm; çabuk sökme kelepçede elle kapatma.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Aktarma organları</title>
+        <para>Torklar:<randomList><listItem><para>Pedal kolu cıvatası (kare göbek): 35-50 Nm.</para></listItem><listItem><para>Orta göbek kartuşu (BSA): 50-70 Nm.</para></listItem><listItem><para>Aynakol cıvataları: 8-11 Nm.</para></listItem><listItem><para>Pedal: 35-55 Nm.</para></listItem><listItem><para>Kaset kilit somunu: 30-50 Nm.</para></listItem><listItem><para>Arka vites değiştirici bağlantı cıvatası: 8-10 Nm.</para></listItem><listItem><para>Vites teli sıkma cıvatası (ön ve arka): 5-7 Nm.</para></listItem><listItem><para>Ön vites değiştirici kelepçesi: 5-7 Nm.</para></listItem><listItem><para>Vites askısı cıvatası: 1,5-2,5 Nm (askı üreticisinin değeri geçerlidir).</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Frenler ve tekerlekler</title>
+        <para>Torklar:<randomList><listItem><para>Fren diski cıvatası (6 cıvatalı, T25): 2-4 Nm.</para></listItem><listItem><para>Kaliper bağlantı cıvataları: 6-8 Nm.</para></listItem><listItem><para>Fren teli sıkma cıvatası: 6-8 Nm.</para></listItem><listItem><para>Çabuk sökme mandalı: tork yerine kapatma direnci; mandal kapanırken avuç içinde iz bırakmalıdır.</para></listItem><listItem><para>Göbek kontra somunları: 15-17 Nm.</para></listItem></randomList></para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

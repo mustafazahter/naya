@@ -13,6 +13,9 @@
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
         "item": "001"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA0-10-00-00AA-310A-A"
       }
     },
     {
@@ -30,7 +33,10 @@
         "item": "002"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-300A-A"
+        "isolate": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-421A-A",
+        "inspect": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA0-20-00-01AA-271A-A",
+        "lubricate": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-241A-A"
       }
     },
     {
@@ -49,8 +55,85 @@
         "item": "003"
       },
       "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-300A-A",
         "adjust": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-271A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA0-20-00-01AA-920A-A"
+      }
+    },
+    {
+      "id": "fork.stanchions",
+      "name": "Çatal iç boruları",
+      "parent": "fork",
+      "sns": "DA0-20",
+      "meshNodes": [
+        "fork"
+      ],
+      "zone": "z.front",
+      "function": "Alt bacakların üzerinde kaydığı krom kaplı borular.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "004"
+      },
+      "procedures": {
         "inspect": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "fork.lowers",
+      "name": "Çatal alt bacakları",
+      "parent": "fork",
+      "sns": "DA0-20",
+      "meshNodes": [
+        "fork"
+      ],
+      "zone": "z.front",
+      "function": "Ön tekerleği ve kaliperi taşıyan, burçlu alt gövde.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "005"
+      },
+      "procedures": {
+        "lubricate": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-241A-A"
+      }
+    },
+    {
+      "id": "fork.seals",
+      "name": "Çatal toz keçeleri",
+      "parent": "fork",
+      "sns": "DA0-20",
+      "meshNodes": [
+        "fork"
+      ],
+      "zone": "z.front",
+      "function": "İç borudaki kiri sıyırır, banyo yağını içeride tutar.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "006"
+      },
+      "procedures": {
+        "replace": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-921A-A"
+      }
+    },
+    {
+      "id": "fork.spring",
+      "name": "Çatal yayı ve ön yük ayarı",
+      "parent": "fork",
+      "sns": "DA0-20",
+      "meshNodes": [
+        "fork"
+      ],
+      "zone": "z.front",
+      "function": "Sol ayaktaki helezon yay; ön yük düğmesiyle sertliği ayarlanır.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "007"
+      },
+      "procedures": {
+        "adjust": "DMC-NAYABIKE-AAA-DA0-20-00-01AA-271A-A"
       }
     },
     {
@@ -65,7 +148,69 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "004"
+        "item": "008"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA0-30-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA0-30-00-00AA-271A-A"
+      }
+    },
+    {
+      "id": "cockpit.bar",
+      "name": "Gidon borusu",
+      "parent": "cockpit",
+      "sns": "DA0-30",
+      "meshNodes": [
+        "handlebar"
+      ],
+      "zone": "z.cockpit",
+      "function": "680 mm düz alüminyum gidon, 31,8 mm kelepçe çapı.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "009"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA0-30-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "cockpit.stem",
+      "name": "Gidon boğazı",
+      "parent": "cockpit",
+      "sns": "DA0-30",
+      "meshNodes": [
+        "handlebar"
+      ],
+      "zone": "z.cockpit",
+      "function": "Gidonu çatal boğazına bağlar; furç ayarı bunun üzerinden yapılır.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "010"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA0-30-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-271A-A"
+      }
+    },
+    {
+      "id": "cockpit.grips",
+      "name": "Elcikler",
+      "parent": "cockpit",
+      "sns": "DA0-30",
+      "meshNodes": [
+        "handlebar"
+      ],
+      "zone": "z.cockpit",
+      "function": "Gidon uçlarındaki kauçuk tutma yerleri.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "011"
+      },
+      "procedures": {
+        "replace": "DMC-NAYABIKE-AAA-DA0-30-00-00AA-921A-A"
       }
     },
     {
@@ -81,10 +226,12 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "006"
+        "item": "012"
       },
       "procedures": {
-        "adjust": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-271A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA1-60-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-271A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA1-60-00-00AA-920A-A"
       }
     },
     {
@@ -100,10 +247,12 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "007"
+        "item": "013"
       },
       "procedures": {
-        "adjust": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-271A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-271A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-920A-A"
       }
     },
     {
@@ -115,7 +264,15 @@
         "seatpost"
       ],
       "zone": "z.middle",
-      "function": "Sürücünün oturduğu sele ve onu taşıyan boru."
+      "function": "Sürücünün oturduğu sele ve onu taşıyan boru.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "014"
+      },
+      "procedures": {
+        "adjust": "DMC-NAYABIKE-AAA-DA0-40-00-00AA-271A-A"
+      }
     },
     {
       "id": "seat.saddle",
@@ -126,10 +283,14 @@
         "saddle"
       ],
       "zone": "z.middle",
+      "function": "Çelik raylı sele.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "008"
+        "item": "015"
+      },
+      "procedures": {
+        "adjust": "DMC-NAYABIKE-AAA-DA0-40-00-01AA-271A-A"
       }
     },
     {
@@ -145,7 +306,46 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "009"
+        "item": "016"
+      },
+      "procedures": {
+        "adjust": "DMC-NAYABIKE-AAA-DA0-40-00-00AA-271A-A",
+        "lubricate": "DMC-NAYABIKE-AAA-DA0-40-00-00AA-241A-A"
+      }
+    },
+    {
+      "id": "seat.post_head",
+      "name": "Sele borusu başlığı",
+      "parent": "seat.post",
+      "sns": "DA0-40",
+      "meshNodes": [
+        "seatpost"
+      ],
+      "zone": "z.middle",
+      "function": "Seleyi raylarından tutan tek cıvatalı kelepçe.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "017"
+      },
+      "procedures": {
+        "adjust": "DMC-NAYABIKE-AAA-DA0-40-00-01AA-271A-A"
+      }
+    },
+    {
+      "id": "seat.clamp",
+      "name": "Sele borusu kelepçesi",
+      "parent": "seat.post",
+      "sns": "DA0-40",
+      "meshNodes": [
+        "seatpost"
+      ],
+      "zone": "z.middle",
+      "function": "Sele borusunu kadroya sıkan çabuk sökme kelepçe.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "018"
       },
       "procedures": {
         "adjust": "DMC-NAYABIKE-AAA-DA0-40-00-00AA-271A-A"
@@ -158,34 +358,23 @@
       "meshNodes": [
         "drive_chain",
         "drive_crankset",
+        "drive_bottom_bracket",
         "drive_pedals",
         "drive_cassette",
         "drive_derailleur",
-        "drive_front_derailleur"
+        "drive_front_derailleur",
+        "cables_shift"
       ],
       "zone": "z.middle",
-      "function": "Pedal gücünü arka tekerleğe aktarır; 3 × 8 = 24 vites."
-    },
-    {
-      "id": "drive.chain",
-      "name": "Zincir",
-      "parent": "drive",
-      "sns": "DA1-10",
-      "meshNodes": [
-        "drive_chain"
-      ],
-      "zone": "z.middle",
-      "function": "Aynakoldaki gücü arka dişliye taşır.",
+      "function": "Pedal gücünü arka tekerleğe aktarır; 3 × 8 = 24 vites.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "013"
+        "item": "019"
       },
       "procedures": {
-        "measure": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-361A-A",
-        "lubricate": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-241A-A",
-        "remove": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-520A-A",
-        "install": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-720A-A"
+        "isolate": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
+        "clean": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-250A-A"
       }
     },
     {
@@ -201,10 +390,51 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "010"
+        "item": "020"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A",
+        "remove": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "drive.chainrings",
+      "name": "Aynalar",
+      "parent": "drive.crankset",
+      "sns": "DA1-20",
+      "meshNodes": [
+        "drive_crankset"
+      ],
+      "zone": "z.middle",
+      "function": "22, 32 ve 42 dişli çelik aynalar.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "021"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA1-20-00-02AA-921A-A"
+      }
+    },
+    {
+      "id": "drive.crank_arms",
+      "name": "Pedal kolları",
+      "parent": "drive.crankset",
+      "sns": "DA1-20",
+      "meshNodes": [
+        "drive_crankset"
+      ],
+      "zone": "z.middle",
+      "function": "170 mm alüminyum kollar; kare göbekli mile cıvatayla takılır.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "022"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A",
+        "remove": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-920A-A"
       }
     },
     {
@@ -213,17 +443,18 @@
       "parent": "drive.crankset",
       "sns": "DA1-20",
       "meshNodes": [
-        "drive_crankset"
+        "drive_bottom_bracket"
       ],
       "zone": "z.middle",
       "function": "Pedal kollarının döndüğü rulmanlı mil.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "011"
+        "item": "023"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA1-20-00-01AA-920A-A"
       }
     },
     {
@@ -239,10 +470,33 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "012"
+        "item": "024"
       },
       "procedures": {
         "adjust": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-271A-A"
+      }
+    },
+    {
+      "id": "drive.chain",
+      "name": "Zincir",
+      "parent": "drive",
+      "sns": "DA1-10",
+      "meshNodes": [
+        "drive_chain"
+      ],
+      "zone": "z.middle",
+      "function": "Aynakoldaki gücü arka dişliye taşır.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "025"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-421A-A",
+        "measure": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-361A-A",
+        "lubricate": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-241A-A",
+        "remove": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-520A-A",
+        "install": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-720A-A"
       }
     },
     {
@@ -258,10 +512,30 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "014"
+        "item": "026"
       },
       "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA1-30-00-00AA-300A-A",
         "replace": "DMC-NAYABIKE-AAA-DA1-30-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "drive.lockring",
+      "name": "Kaset kilit somunu",
+      "parent": "drive.cassette",
+      "sns": "DA1-30",
+      "meshNodes": [
+        "drive_cassette"
+      ],
+      "zone": "z.rear",
+      "function": "Kaseti serbest çark gövdesinde tutar.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "027"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA1-30-00-00AA-300A-A"
       }
     },
     {
@@ -277,11 +551,12 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "015"
+        "item": "028"
       },
       "procedures": {
         "adjust": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-271A-A",
-        "inspect": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-310A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-310A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-920A-A"
       }
     },
     {
@@ -297,10 +572,30 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "016"
+        "item": "029"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-310A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-310A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA1-40-00-01AA-921A-A"
+      }
+    },
+    {
+      "id": "drive.jockey_wheels",
+      "name": "Makaralar",
+      "parent": "drive.rear_derailleur",
+      "sns": "DA1-40",
+      "meshNodes": [
+        "drive_derailleur"
+      ],
+      "zone": "z.rear",
+      "function": "Zinciri kılavuzlayan ve geren iki makara.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "030"
+      },
+      "procedures": {
+        "replace": "DMC-NAYABIKE-AAA-DA1-40-00-02AA-921A-A"
       }
     },
     {
@@ -316,10 +611,30 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "017"
+        "item": "031"
       },
       "procedures": {
-        "replace": "DMC-NAYABIKE-AAA-DA1-50-00-00AA-920A-A"
+        "replace": "DMC-NAYABIKE-AAA-DA1-50-00-00AA-920A-A",
+        "lubricate": "DMC-NAYABIKE-AAA-DA1-50-00-00AA-241A-A"
+      }
+    },
+    {
+      "id": "drive.pedal_bearings",
+      "name": "Pedal rulmanları",
+      "parent": "drive.pedals",
+      "sns": "DA1-50",
+      "meshNodes": [
+        "drive_pedals"
+      ],
+      "zone": "z.middle",
+      "function": "Pedal gövdesinin mil üzerinde döndüğü bilyalı yataklar.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "032"
+      },
+      "procedures": {
+        "lubricate": "DMC-NAYABIKE-AAA-DA1-50-00-00AA-241A-A"
       }
     },
     {
@@ -328,17 +643,57 @@
       "parent": "drive",
       "sns": "DA1-60",
       "meshNodes": [
-        "handlebar"
+        "cables_shift"
       ],
       "zone": "z.cockpit",
       "function": "Vites kollarındaki hareketi vites değiştiricilere taşır.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "018"
+        "item": "033"
       },
       "procedures": {
-        "adjust": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-271A-A"
+        "adjust": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-271A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA1-60-00-00AA-921A-A",
+        "lubricate": "DMC-NAYABIKE-AAA-DA1-60-00-00AA-241A-A"
+      }
+    },
+    {
+      "id": "drive.shift_cable_rear",
+      "name": "Arka vites teli",
+      "parent": "drive.shift_cables",
+      "sns": "DA1-60",
+      "meshNodes": [
+        "cables_shift"
+      ],
+      "zone": "z.rear",
+      "function": "Sağ vites kolundan arka vites değiştiriciye giden tel ve kılıf.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "034"
+      },
+      "procedures": {
+        "replace": "DMC-NAYABIKE-AAA-DA1-60-00-00AA-921A-A"
+      }
+    },
+    {
+      "id": "drive.shift_cable_front",
+      "name": "Ön vites teli",
+      "parent": "drive.shift_cables",
+      "sns": "DA1-60",
+      "meshNodes": [
+        "cables_shift"
+      ],
+      "zone": "z.middle",
+      "function": "Sol vites kolundan ön vites değiştiriciye giden tel ve kılıf.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "035"
+      },
+      "procedures": {
+        "replace": "DMC-NAYABIKE-AAA-DA1-60-00-00AA-921A-A"
       }
     },
     {
@@ -347,11 +702,21 @@
       "sns": "DA2",
       "meshNodes": [
         "brakes_front",
-        "brakes_rear"
+        "brakes_rear",
+        "brakes_front_rotor",
+        "brakes_rear_rotor",
+        "cables_brake"
       ],
+      "zone": "z.middle",
       "function": "İki tekerlekte telle çalışan disk frenler.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "036"
+      },
       "procedures": {
         "isolate": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
+        "inspect": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-300A-A",
         "adjust": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-271A-A"
       }
     },
@@ -359,19 +724,21 @@
       "id": "brakes.front",
       "name": "Ön disk fren",
       "parent": "brakes",
-      "sns": "DA2",
+      "sns": "DA2-10",
       "meshNodes": [
         "brakes_front"
       ],
       "zone": "z.front",
+      "function": "Telle çalışan mekanik kaliper ve balataları.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "019"
+        "item": "037"
       },
       "procedures": {
         "isolate": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
-        "adjust": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-271A-A"
+        "adjust": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-271A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA2-10-00-01AA-920A-A"
       }
     },
     {
@@ -387,10 +754,31 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "020"
+        "item": "038"
       },
       "procedures": {
+        "measure": "DMC-NAYABIKE-AAA-DA2-10-00-00AA-361A-A",
+        "clean": "DMC-NAYABIKE-AAA-DA2-10-00-00AA-250A-A",
         "replace": "DMC-NAYABIKE-AAA-DA2-10-00-00AA-921A-A"
+      }
+    },
+    {
+      "id": "brakes.front.adapter",
+      "name": "Ön kaliper adaptörü",
+      "parent": "brakes.front",
+      "sns": "DA2-10",
+      "meshNodes": [
+        "brakes_front"
+      ],
+      "zone": "z.front",
+      "function": "Kaliperi çatala ya da kadroya bağlayan ara parça.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "039"
+      },
+      "procedures": {
+        "replace": "DMC-NAYABIKE-AAA-DA2-10-00-01AA-920A-A"
       }
     },
     {
@@ -399,36 +787,40 @@
       "parent": "brakes.front",
       "sns": "DA2-20",
       "meshNodes": [
-        "brakes_front"
+        "brakes_front_rotor"
       ],
       "zone": "z.front",
-      "function": "Göbeğe bağlı 160 mm çelik disk.",
+      "function": "Göbeğe altı cıvatayla bağlı 160 mm çelik disk.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "021"
+        "item": "040"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-300A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-271A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-920A-A"
       }
     },
     {
       "id": "brakes.rear",
       "name": "Arka disk fren",
       "parent": "brakes",
-      "sns": "DA2",
+      "sns": "DA2-10",
       "meshNodes": [
         "brakes_rear"
       ],
       "zone": "z.rear",
+      "function": "Telle çalışan mekanik kaliper ve balataları.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "019"
+        "item": "041"
       },
       "procedures": {
         "isolate": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
-        "adjust": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-271A-A"
+        "adjust": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-271A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA2-10-00-01AA-920A-A"
       }
     },
     {
@@ -444,10 +836,31 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "020"
+        "item": "042"
       },
       "procedures": {
+        "measure": "DMC-NAYABIKE-AAA-DA2-10-00-00AA-361A-A",
+        "clean": "DMC-NAYABIKE-AAA-DA2-10-00-00AA-250A-A",
         "replace": "DMC-NAYABIKE-AAA-DA2-10-00-00AA-921A-A"
+      }
+    },
+    {
+      "id": "brakes.rear.adapter",
+      "name": "Arka kaliper adaptörü",
+      "parent": "brakes.rear",
+      "sns": "DA2-10",
+      "meshNodes": [
+        "brakes_rear"
+      ],
+      "zone": "z.rear",
+      "function": "Kaliperi çatala ya da kadroya bağlayan ara parça.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "043"
+      },
+      "procedures": {
+        "replace": "DMC-NAYABIKE-AAA-DA2-10-00-01AA-920A-A"
       }
     },
     {
@@ -456,17 +869,19 @@
       "parent": "brakes.rear",
       "sns": "DA2-20",
       "meshNodes": [
-        "brakes_rear"
+        "brakes_rear_rotor"
       ],
       "zone": "z.rear",
-      "function": "Göbeğe bağlı 160 mm çelik disk.",
+      "function": "Göbeğe altı cıvatayla bağlı 160 mm çelik disk.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "021"
+        "item": "044"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-300A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-271A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-920A-A"
       }
     },
     {
@@ -475,17 +890,57 @@
       "parent": "brakes",
       "sns": "DA2-30",
       "meshNodes": [
-        "handlebar"
+        "cables_brake"
       ],
       "zone": "z.cockpit",
       "function": "Fren kolundaki kuvveti kalipere taşır.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "022"
+        "item": "045"
       },
       "procedures": {
-        "adjust": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-271A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-271A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-921A-A"
+      }
+    },
+    {
+      "id": "brakes.cable_front",
+      "name": "Ön fren teli",
+      "parent": "brakes.cables",
+      "sns": "DA2-30",
+      "meshNodes": [
+        "cables_brake"
+      ],
+      "zone": "z.front",
+      "function": "Sol fren kolundan çatal boyunca ön kalipere iner.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "046"
+      },
+      "procedures": {
+        "replace": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-921A-A"
+      }
+    },
+    {
+      "id": "brakes.cable_rear",
+      "name": "Arka fren teli",
+      "parent": "brakes.cables",
+      "sns": "DA2-30",
+      "meshNodes": [
+        "cables_brake"
+      ],
+      "zone": "z.middle",
+      "function": "Sağ fren kolundan üst boru boyunca arka kalipere gider.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "047"
+      },
+      "procedures": {
+        "replace": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-921A-A"
       }
     },
     {
@@ -494,17 +949,20 @@
       "sns": "DA3",
       "meshNodes": [
         "wheel_front_tire",
+        "wheel_front_tube",
         "wheel_front_rim",
         "wheel_front_spokes",
         "wheel_front_hub"
       ],
       "zone": "z.front",
+      "function": "Lastik, iç lastik, jant, teller ve göbek.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "023"
+        "item": "048"
       },
       "procedures": {
+        "isolate": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
         "inspect": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A",
         "remove": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-520A-A",
         "install": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-720A-A"
@@ -523,10 +981,12 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "025"
+        "item": "049"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-300A-A",
+        "refill": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-210A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA3-10-00-01AA-921A-A"
       }
     },
     {
@@ -535,17 +995,38 @@
       "parent": "wheel.front",
       "sns": "DA3-10",
       "meshNodes": [
-        "wheel_front_tire"
+        "wheel_front_tube"
       ],
       "zone": "z.front",
       "function": "Havayı tutan lastik; otomobil sibobludur.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "026"
+        "item": "050"
       },
       "procedures": {
-        "replace": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-920A-A"
+        "replace": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-920A-A",
+        "refill": "DMC-NAYABIKE-AAA-DA3-10-00-01AA-210A-A"
+      }
+    },
+    {
+      "id": "wheel.front.valve",
+      "name": "Ön sibop",
+      "parent": "wheel.front.tube",
+      "sns": "DA3-10",
+      "meshNodes": [
+        "wheel_front_tube"
+      ],
+      "zone": "z.front",
+      "function": "İç lastiğin otomobil tipi sibobu; içi sökülüp değiştirilebilir.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "051"
+      },
+      "procedures": {
+        "replace": "DMC-NAYABIKE-AAA-DA3-10-00-02AA-921A-A",
+        "refill": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-210A-A"
       }
     },
     {
@@ -557,13 +1038,35 @@
         "wheel_front_rim"
       ],
       "zone": "z.front",
+      "function": "Çift cidarlı alüminyum jant, 32 delik.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "027"
+        "item": "052"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-271A-A"
+      }
+    },
+    {
+      "id": "wheel.front.rim_tape",
+      "name": "Ön jant bandı",
+      "parent": "wheel.front.rim",
+      "sns": "DA3-20",
+      "meshNodes": [
+        "wheel_front_rim"
+      ],
+      "zone": "z.front",
+      "function": "Tel deliklerini örterek iç lastiği korur.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "053"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-300A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-920A-A"
       }
     },
     {
@@ -579,10 +1082,12 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "028"
+        "item": "054"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A"
+        "measure": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-361A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-271A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-921A-A"
       }
     },
     {
@@ -598,10 +1103,53 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "029"
+        "item": "055"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-271A-A",
+        "lubricate": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-241A-A"
+      }
+    },
+    {
+      "id": "wheel.front.bearings",
+      "name": "Ön göbek rulmanları",
+      "parent": "wheel.front.hub",
+      "sns": "DA3-30",
+      "meshNodes": [
+        "wheel_front_hub"
+      ],
+      "zone": "z.front",
+      "function": "Koni ve bilyalı (açılıp ayarlanabilen) göbek yatakları.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "056"
+      },
+      "procedures": {
+        "adjust": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-271A-A",
+        "lubricate": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-241A-A"
+      }
+    },
+    {
+      "id": "wheel.front.qr",
+      "name": "Ön çabuk sökme mandalı",
+      "parent": "wheel.front.hub",
+      "sns": "DA3-30",
+      "meshNodes": [
+        "wheel_front_hub"
+      ],
+      "zone": "z.front",
+      "function": "Tekerleği takımsız söküp takmaya yarayan kamlı mil.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "057"
+      },
+      "procedures": {
+        "adjust": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-271A-A",
+        "remove": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-520A-A",
+        "install": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-720A-A"
       }
     },
     {
@@ -610,17 +1158,20 @@
       "sns": "DA3",
       "meshNodes": [
         "wheel_rear_tire",
+        "wheel_rear_tube",
         "wheel_rear_rim",
         "wheel_rear_spokes",
         "wheel_rear_hub"
       ],
       "zone": "z.rear",
+      "function": "Lastik, iç lastik, jant, teller ve göbek.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "024"
+        "item": "058"
       },
       "procedures": {
+        "isolate": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
         "inspect": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A",
         "remove": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-520A-A",
         "install": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-720A-A"
@@ -639,10 +1190,12 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "025"
+        "item": "059"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-300A-A",
+        "refill": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-210A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA3-10-00-01AA-921A-A"
       }
     },
     {
@@ -651,17 +1204,38 @@
       "parent": "wheel.rear",
       "sns": "DA3-10",
       "meshNodes": [
-        "wheel_rear_tire"
+        "wheel_rear_tube"
       ],
       "zone": "z.rear",
       "function": "Havayı tutan lastik; otomobil sibobludur.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "026"
+        "item": "060"
       },
       "procedures": {
-        "replace": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-920A-A"
+        "replace": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-920A-A",
+        "refill": "DMC-NAYABIKE-AAA-DA3-10-00-01AA-210A-A"
+      }
+    },
+    {
+      "id": "wheel.rear.valve",
+      "name": "Arka sibop",
+      "parent": "wheel.rear.tube",
+      "sns": "DA3-10",
+      "meshNodes": [
+        "wheel_rear_tube"
+      ],
+      "zone": "z.rear",
+      "function": "İç lastiğin otomobil tipi sibobu; içi sökülüp değiştirilebilir.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "061"
+      },
+      "procedures": {
+        "replace": "DMC-NAYABIKE-AAA-DA3-10-00-02AA-921A-A",
+        "refill": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-210A-A"
       }
     },
     {
@@ -673,13 +1247,35 @@
         "wheel_rear_rim"
       ],
       "zone": "z.rear",
+      "function": "Çift cidarlı alüminyum jant, 32 delik.",
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "027"
+        "item": "062"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-271A-A"
+      }
+    },
+    {
+      "id": "wheel.rear.rim_tape",
+      "name": "Arka jant bandı",
+      "parent": "wheel.rear.rim",
+      "sns": "DA3-20",
+      "meshNodes": [
+        "wheel_rear_rim"
+      ],
+      "zone": "z.rear",
+      "function": "Tel deliklerini örterek iç lastiği korur.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "063"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-300A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-920A-A"
       }
     },
     {
@@ -695,10 +1291,12 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "028"
+        "item": "064"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A"
+        "measure": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-361A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-271A-A",
+        "replace": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-921A-A"
       }
     },
     {
@@ -714,10 +1312,72 @@
       "ipd": {
         "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "029"
+        "item": "065"
       },
       "procedures": {
-        "inspect": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A"
+        "inspect": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-300A-A",
+        "adjust": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-271A-A",
+        "lubricate": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-241A-A"
+      }
+    },
+    {
+      "id": "wheel.rear.bearings",
+      "name": "Arka göbek rulmanları",
+      "parent": "wheel.rear.hub",
+      "sns": "DA3-30",
+      "meshNodes": [
+        "wheel_rear_hub"
+      ],
+      "zone": "z.rear",
+      "function": "Koni ve bilyalı (açılıp ayarlanabilen) göbek yatakları.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "066"
+      },
+      "procedures": {
+        "adjust": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-271A-A",
+        "lubricate": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-241A-A"
+      }
+    },
+    {
+      "id": "wheel.rear.qr",
+      "name": "Arka çabuk sökme mandalı",
+      "parent": "wheel.rear.hub",
+      "sns": "DA3-30",
+      "meshNodes": [
+        "wheel_rear_hub"
+      ],
+      "zone": "z.rear",
+      "function": "Tekerleği takımsız söküp takmaya yarayan kamlı mil.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "067"
+      },
+      "procedures": {
+        "adjust": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-271A-A",
+        "remove": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-520A-A",
+        "install": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-720A-A"
+      }
+    },
+    {
+      "id": "wheel.rear.freehub",
+      "name": "Serbest çark gövdesi",
+      "parent": "wheel.rear.hub",
+      "sns": "DA3-30",
+      "meshNodes": [
+        "wheel_rear_hub"
+      ],
+      "zone": "z.rear",
+      "function": "Kasetin oturduğu, pedal çevrilmeyince tekerleğin serbest dönmesini sağlayan gövde.",
+      "ipd": {
+        "dmc": "DMC-NAYABIKE-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "068"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-300A-A"
       }
     }
   ]

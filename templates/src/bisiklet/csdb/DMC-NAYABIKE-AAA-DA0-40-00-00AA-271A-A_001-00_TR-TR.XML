@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYABIKE-AAA-D000000-0-NAYA0-00010-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-D000000-0-NAYA0-00010-A-001-01.JPG" NDATA JPEG>
+]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
     <dmAddress>
@@ -8,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Sele</techName><infoName>Yükseklik ayarı</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -25,15 +29,15 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="seq-0001"><name>Alyan anahtar takımı (2-8 mm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-HEX</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Alyan anahtar takımı (2-8 mm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-HEX</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
-        <reqSafety><noSafety/></reqSafety>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Sele borusu üzerindeki en az yerleştirme çizgisi kadroya girmelidir. Çizgi görünüyorsa seleyi yükseltmeyin.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Sele borusu kelepçesini gevşetin.</para></proceduralStep>
+        <proceduralStep><para>Sele borusu kelepçesini gevşetin.</para><figure id="fig-0010"><title>Sele ve sele borusu</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00010-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Pedal en alt noktadayken ve topuk pedalın üstündeyken bacak tam düz olacak şekilde seleyi ayarlayın.</para></proceduralStep>
-        <proceduralStep><caution><warningAndCautionPara>Sele borusu üzerindeki en az yerleştirme çizgisi kadroya girmelidir. Çizgi görünüyorsa seleyi yükseltmeyin.</warningAndCautionPara></caution><para>Seleyi kadroya hizalayın ve kelepçeyi 5 Nm ile sıkın.</para></proceduralStep>
+        <proceduralStep><para>Seleyi kadroya hizalayın ve kelepçeyi kapatın. Cıvatalı kelepçede 5-6 Nm ile sıkın; çabuk sökme kelepçe kapanırken avuç içinde iz bırakmalıdır.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
     </procedure>

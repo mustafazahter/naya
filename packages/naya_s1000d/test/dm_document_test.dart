@@ -342,7 +342,7 @@ void main() {
         .whereType<File>()
         .where((f) => f.uri.pathSegments.last.startsWith('DMC-'))
         .toList();
-    expect(files, hasLength(26));
+    expect(files, hasLength(84));
     for (final file in files) {
       final doc = DmDocument.parse(file.readAsStringSync());
       final shown = _flatten(doc);

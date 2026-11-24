@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYABIKE-AAA-D000000-0-NAYA0-00002-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-D000000-0-NAYA0-00002-A-001-01.JPG" NDATA JPEG>
+]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
     <dmAddress>
@@ -8,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Zincir</techName><infoName>Temizlik ve yağlama</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -25,18 +29,17 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="seq-0001"><name>Bakım sehpası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-STAND</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
-        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Bakım sehpası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-STAND</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Zincir yağı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-SP-CHAIN-LUBE</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr><supplyDescr id="sp-0002"><name>Temiz bez</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-SP-RAG</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
-        <reqSafety><noSafety/></reqSafety>
+        <reqSafety><safetyRqmts><caution><warningAndCautionPara>Yağın fren disklerine ve balatalara bulaşmamasına dikkat edin.</warningAndCautionPara></caution></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Bisikleti bakım sehpasına alın.</para></proceduralStep>
+        <proceduralStep><para>Bisikleti bakım sehpasına alın.</para><figure id="fig-0002"><title>Aktarma organları</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Pedalı geriye çevirirken zinciri temiz bir bezle silin. Çok kirliyse zincir temizleyicisi kullanın ve kurumasını bekleyin.</para></proceduralStep>
         <proceduralStep><para>Pedalı geriye çevirirken her baklanın üst kısmına bir damla zincir yağı damlatın.</para></proceduralStep>
         <proceduralStep><para>Pedalı yirmi tur kadar çevirip vitesleri birkaç kez değiştirin.</para></proceduralStep>
         <proceduralStep><para>Fazla yağı bezle silin. Dışta kalan yağ toz toplar.</para></proceduralStep>
-        <proceduralStep><warning><warningAndCautionPara>Yağın fren disklerine ve balatalara bulaşmamasına dikkat edin.</warningAndCautionPara></warning><para>Uyarıya uyduğunuzu kontrol edin.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
     </procedure>

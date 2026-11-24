@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dmodule [
 <!NOTATION JPEG SYSTEM "JPEG">
-<!ENTITY ICN-NAYABIKE-AAA-D000000-0-NAYA0-00002-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-D000000-0-NAYA0-00002-A-001-01.JPG" NDATA JPEG>
+<!ENTITY ICN-NAYABIKE-AAA-D000000-0-NAYA0-00009-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-D000000-0-NAYA0-00009-A-001-01.JPG" NDATA JPEG>
 ]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
@@ -12,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Kaset</techName><infoName>Değiştirme</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -29,16 +29,15 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="seq-0001"><name>Kaset sökme aparatı ve zincir kırbacı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-CASSETTE-TOOL</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Kaset sökme aparatı ve zincir kırbacı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-CASSETTE-TOOL</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Tork anahtarı (2-60 Nm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-TORQUE</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="spa-0001"><name>Kaset, 8 dişli</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-DR-300</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Kaset, 8 dişli</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-DR-300</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Arka tekerleği sökün.</para><figure id="fig-0002"><title>Aktarma organları</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure>
-</proceduralStep>
+        <proceduralStep><para>Arka tekerleği sökün.</para><figure id="fig-0009"><title>Kaset ve arka göbek</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00009-A-001-01"/></figure></proceduralStep>
         <proceduralStep><title>Eski kaseti sökün</title><proceduralStep><para>Kaset sökme aparatını kilit somunu dişlerine yerleştirin.</para></proceduralStep><proceduralStep><para>Zincir kırbacıyla kaseti tutarken aparatı anahtarla saat yönünün tersine çevirip kilit somununu çıkarın.</para></proceduralStep><proceduralStep><para>Dişlileri ve ara pulları sırasını bozmadan çıkarın.</para></proceduralStep></proceduralStep>
-        <proceduralStep><title>Yeni kaseti takın</title><proceduralStep><para>Dişlileri göbek gövdesindeki geniş kanala hizalayarak büyükten küçüğe doğru yerleştirin.</para></proceduralStep><proceduralStep><para>Kilit somununu aparatla 40 Nm ile sıkın.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Yeni kaseti takın</title><proceduralStep><para>Dişlileri göbek gövdesindeki geniş kanala hizalayarak büyükten küçüğe doğru yerleştirin.</para></proceduralStep><proceduralStep><para>Kilit somununu aparatla 30-50 Nm ile sıkın.</para></proceduralStep></proceduralStep>
         <proceduralStep><para>Tekerleği takın ve vites ayarını kontrol edin.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA3" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="720" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>

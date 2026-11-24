@@ -26,9 +26,11 @@ void main() {
       expect(report.warnings, isEmpty);
     });
 
-    test('kabul kriteri: 30+ parça, 15+ arıza, 50 MB altı', () {
+    test('kabul kriteri: 30+ parça, 15+ arıza, 60+ DM, 50 MB altı', () {
       expect(file.parts!.parts.length, greaterThanOrEqualTo(30));
       expect(file.faults!.faults.length, greaterThanOrEqualTo(15));
+      final dms = file.entries.keys.where((k) => k.startsWith('csdb/DMC-'));
+      expect(dms.length, greaterThanOrEqualTo(60));
       expect(size, lessThan(50 * 1024 * 1024));
     });
 

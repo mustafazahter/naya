@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="24"/>
+        <dmTitle><techName>Bisiklet</techName><infoName>Periyodik bakım çizelgesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><noConds/></reqCondGroup>
+        <reqSupportEquips><noSupportEquips/></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSpares><noSpares/></reqSpares>
+        <reqSafety><noSafety/></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><title>Her sürüşten önce</title><proceduralStep><para>Sürüş öncesi kontrolü yapın.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Her sürüşten sonra</title><proceduralStep><para>Çamurlu sürüşten sonra bisikleti yıkayın, zinciri kurulayıp yağlayın.</para></proceduralStep><proceduralStep><para>Çatal iç borularını ve toz keçelerini temiz bir bezle silin.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Her 25 saatte ya da ayda bir</title><proceduralStep><para>Zinciri temizleyip yağlayın.</para></proceduralStep><proceduralStep><para>Fren balatası kalınlığını ve kol boşluğunu kontrol edin.</para></proceduralStep><proceduralStep><para>Tekerleklerde yalpa ve tel gevşekliği olup olmadığına bakın.</para></proceduralStep><proceduralStep><para>Vites ayarını kontrol edin.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Her 50 saatte ya da üç ayda bir</title><proceduralStep><para>Zincir aşınmasını ölçün.</para></proceduralStep><proceduralStep><para>Çatal alt bacak yağını değiştirin ve toz keçelerini temizleyin.</para></proceduralStep><proceduralStep><para>Cıvataları sıkma torklarına göre kontrol edin.</para></proceduralStep><proceduralStep><para>Fren ve vites tellerini ve kılıflarını kontrol edin.</para></proceduralStep><proceduralStep><para>Fren disklerinin kalınlığını ölçün.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Her 100 saatte ya da yılda bir</title><proceduralStep><para>Fren ve vites tellerini ve kılıflarını değiştirin.</para></proceduralStep><proceduralStep><para>Furç, göbek ve pedal rulmanlarının boşluğunu ve dönüşünü kontrol edin; gerekiyorsa bakımını yapın.</para></proceduralStep><proceduralStep><para>Orta göbeği kontrol edin.</para></proceduralStep><proceduralStep><para>Sele borusunu söküp temizleyin ve gresleyin.</para></proceduralStep><proceduralStep><para>Çatalın yetkili serviste tam bakımını yaptırın.</para></proceduralStep></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

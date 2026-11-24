@@ -12,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Fren sistemi</techName><infoName>Tanım</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -36,6 +36,10 @@
         <title>Çalışma</title>
         <para>Kol çekilince fren teli kaliperdeki kolu döndürür. Dış balata diske doğru itilir, disk iç balataya bastırılır ve tekerlek yavaşlar.</para>
         <para>Balatalar aşındıkça kol boşluğu artar; bu boşluk kaliperdeki iç balata ayar düğmesi ve fren kolundaki ayar vidasıyla alınır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Aşınma sınırları</title>
+        <para>Ölçüler:<randomList><listItem><para>Balata sürtünme malzemesi: en az 0,5 mm (çelik taban hariç).</para></listItem><listItem><para>Disk kalınlığı: en az 1,5 mm (yenisi 1,8 mm).</para></listItem><listItem><para>Kol boşluğu: kol, gidona 2 cm'den fazla yaklaşmamalı.</para></listItem></randomList></para>
       </levelledPara>
       <levelledPara>
         <title>Uyarı</title>

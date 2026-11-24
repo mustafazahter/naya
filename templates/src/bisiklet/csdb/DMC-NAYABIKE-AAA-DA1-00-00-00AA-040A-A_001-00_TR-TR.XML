@@ -12,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Aktarma organları</techName><infoName>Tanım</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -38,8 +38,12 @@
         <para>Zinciri aşırı çaprazlamayın: önde büyük aynada arkadaki en büyük dişli, önde küçük aynada arkadaki en küçük dişli kullanılmamalıdır. Bu durum zinciri ve dişlileri hızlı aşındırır, zincirin düşmesine yol açar.</para>
       </levelledPara>
       <levelledPara>
+        <title>Ayar noktaları</title>
+        <para>Vites değiştiricilerde üç ayar vardır:<randomList><listItem><para>Limit vidaları (H ve L): zincirin en küçük ve en büyük dişlinin dışına kaçmasını önler.</para></listItem><listItem><para>Tel gerginliği: vites kolundaki ya da vites değiştiricideki ayar vidasıyla her tıkta bir dişli geçilmesini sağlar.</para></listItem><listItem><para>B vidası (yalnız arkada): üst makaranın dişlilere uzaklığını ayarlar.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
         <title>Aşınma</title>
-        <para>Zincir kullanıldıkça uzar. Uzamış zincir dişlileri de aşındırır; zamanında değiştirilen zincir kaseti ve aynakolu korur.</para>
+        <para>Zincir kullanıldıkça uzar. Uzamış zincir dişlileri de aşındırır; zamanında değiştirilen zincir kaseti ve aynakolu korur. 8 vitesli zincir %0,75 uzamada değiştirilir.</para>
       </levelledPara>
     </description>
   </content>

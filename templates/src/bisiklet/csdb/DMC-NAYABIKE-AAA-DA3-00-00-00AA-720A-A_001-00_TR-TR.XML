@@ -12,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Tekerlek</techName><infoName>Takma</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -32,15 +32,13 @@
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
-        <reqSafety><noSafety/></reqSafety>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Mandal yarı kapalı bırakılırsa tekerlek sürüş sırasında çıkabilir.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Diski kaliperin balataları arasına hizalayarak tekerleği yuvalarına oturtun. Arka tekerlekte zinciri en küçük dişliye geçirin.</para><figure id="fig-0005"><title>Arka tekerlek</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure>
-</proceduralStep>
+        <proceduralStep><para>Diski kaliperin balataları arasına hizalayarak tekerleği yuvalarına oturtun. Arka tekerlekte zinciri en küçük dişliye geçirin.</para><figure id="fig-0005"><title>Arka tekerlek</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Mandal karşısındaki somunu sıkın; mandal kapanırken avuç içinde iz bırakacak kadar direnç olmalıdır.</para></proceduralStep>
         <proceduralStep><para>Mandalı kapatın.</para></proceduralStep>
         <proceduralStep><para>Tekerleği çevirin ve fren kolunu birkaç kez sıkın.</para></proceduralStep>
-        <proceduralStep><warning><warningAndCautionPara>Mandal yarı kapalı bırakılırsa tekerlek sürüş sırasında çıkabilir.</warningAndCautionPara></warning><para>Uyarıya uyduğunuzu kontrol edin.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
     </procedure>

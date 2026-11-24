@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYABIKE-AAA-D000000-0-NAYA0-00006-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-D000000-0-NAYA0-00006-A-001-01.JPG" NDATA JPEG>
+]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
     <dmAddress>
@@ -8,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Furç</techName><infoName>Ayar</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -25,13 +29,13 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="seq-0001"><name>Alyan anahtar takımı (2-8 mm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-HEX</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Alyan anahtar takımı (2-8 mm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-HEX</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Tork anahtarı (2-60 Nm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-TORQUE</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Gidon boğazının yan taraftaki iki sıkma cıvatasını 5 mm alyanla gevşetin.</para></proceduralStep>
+        <proceduralStep><para>Gidon boğazının yan taraftaki iki sıkma cıvatasını 5 mm alyanla gevşetin.</para><figure id="fig-0006"><title>Yaylı çatal ve furç</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00006-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Üstteki kapak cıvatasını çeyrek tur sıkın.</para></proceduralStep>
         <proceduralStep><para>Ön freni sıkıp gidonu ileri geri iterek boşluğu kontrol edin. Boşluk kalmayana kadar çeyrek turluk adımlarla devam edin.</para></proceduralStep>
         <proceduralStep><para>Gidonu çevirin; dönüş sıkışmamalıdır. Sıkışıyorsa kapak cıvatasını biraz gevşetin.</para></proceduralStep>

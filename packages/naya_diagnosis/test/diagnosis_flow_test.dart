@@ -75,6 +75,8 @@ void main() {
       expect(catalog.systemOf('brakes.front.pads'), 'brakes');
     });
 
+    _faultPartsSelectable(catalog, 'bisiklet');
+
     test('açıklamalarda bilinen belirtiler var', () {
       final chain = catalog.part('drive.chain')!;
       expect(

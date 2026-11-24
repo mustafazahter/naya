@@ -12,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Tekerlek</techName><infoName>Sökme</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -29,17 +29,15 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="seq-0001"><name>Bakım sehpası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-STAND</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Bakım sehpası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-STAND</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
-        <reqSafety><noSafety/></reqSafety>
+        <reqSafety><safetyRqmts><caution><warningAndCautionPara>Tekerlek sökülüyken fren kolunu sıkmayın; balatalar birbirine yaklaşır ve disk yerine giremez.</warningAndCautionPara></caution></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Arka tekerlek için zinciri en küçük arka dişliye alın.</para><figure id="fig-0005"><title>Arka tekerlek</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure>
-</proceduralStep>
+        <proceduralStep><para>Arka tekerlek için zinciri en küçük arka dişliye alın.</para><figure id="fig-0005"><title>Arka tekerlek</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Çabuk sökme mandalını açın. Ön tekerlekte mandalın karşısındaki somunu birkaç tur gevşetin.</para></proceduralStep>
         <proceduralStep><para>Arka tekerlekte vites değiştiriciyi geriye çekip tekerleği aşağı doğru çıkarın.</para></proceduralStep>
-        <proceduralStep><caution><warningAndCautionPara>Tekerlek sökülüyken fren kolunu sıkmayın.</warningAndCautionPara></caution><para>Uyarıya uyduğunuzu kontrol edin.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA3" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="720" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>

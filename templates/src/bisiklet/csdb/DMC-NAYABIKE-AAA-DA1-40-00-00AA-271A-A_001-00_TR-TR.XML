@@ -12,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Arka vites değiştirici</techName><infoName>Ayar</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -29,14 +29,13 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="seq-0001"><name>Alyan anahtar takımı (2-8 mm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-HEX</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="seq-0002"><name>Bakım sehpası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-STAND</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Alyan anahtar takımı (2-8 mm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-HEX</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Bakım sehpası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-STAND</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Sağ vites kolunu en küçük dişliye alın.</para><figure id="fig-0004"><title>Arka vites değiştirici</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00004-A-001-01"/></figure>
-</proceduralStep>
+        <proceduralStep><para>Sağ vites kolunu en küçük dişliye alın.</para><figure id="fig-0004"><title>Arka vites değiştirici</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00004-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Üst limit vidasını (H) üst makara en küçük dişlinin tam altında olacak şekilde ayarlayın.</para></proceduralStep>
         <proceduralStep><para>Pedalı çevirirken vitesleri tek tek büyütün. Zincir bir üst dişliye geç çıkıyorsa vites kolundaki ayar vidasını saat yönünün tersine çeyrek tur çevirin; bir sonraki dişliye kaçıyorsa saat yönünde çevirin.</para></proceduralStep>
         <proceduralStep><para>En büyük dişliye geçin. Alt limit vidasını (L) zincir tellere değmeden en büyük dişliye çıkacak şekilde ayarlayın.</para></proceduralStep>

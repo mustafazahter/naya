@@ -12,8 +12,8 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
-        <dmTitle><techName>Bisiklet</techName><infoName>Resimli parça verisi</infoName></dmTitle>
+        <issueDate year="2026" month="11" day="24"/>
+        <dmTitle><techName>Dağ bisikleti</techName><infoName>Resimli parça kataloğu</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
     <dmStatus issueType="new">
@@ -46,189 +46,462 @@
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-FK-110"/>
-          <partSegment><itemIdentData><descrForPart>Furç takımı</descrForPart></itemIdentData></partSegment>
+          <partSegment><itemIdentData><descrForPart>Furç takımı, 1 1/8"</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="004" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="004" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-FK-120"/>
+          <partSegment><itemIdentData><descrForPart>İç boru ve taç ünitesi, 30 mm</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="005" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-FK-130"/>
+          <partSegment><itemIdentData><descrForPart>Alt bacak, burçlarıyla</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="006" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-FK-140"/>
+          <partSegment><itemIdentData><descrForPart>Toz keçesi ve köpük halka takımı</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="007" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-FK-150"/>
+          <partSegment><itemIdentData><descrForPart>Helezon yay, orta sertlik</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="008" indenture="1">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-CP-100"/>
           <partSegment><itemIdentData><descrForPart>Gidon, elcikli</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="005" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="009" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
-          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-CP-110"/>
-          <partSegment><itemIdentData><descrForPart>Tetik vites kolu, sol 3 vites</descrForPart></itemIdentData></partSegment>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-CP-140"/>
+          <partSegment><itemIdentData><descrForPart>Gidon borusu, 680 mm, 31,8 mm</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="006" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="010" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-CP-150"/>
+          <partSegment><itemIdentData><descrForPart>Gidon boğazı, 70 mm, 1 1/8"</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="011" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-CP-160"/>
+          <partSegment><itemIdentData><descrForPart>Elcik çifti</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="012" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-CP-120"/>
           <partSegment><itemIdentData><descrForPart>Tetik vites kolu, sağ 8 vites</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="007" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="013" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-CP-130"/>
           <partSegment><itemIdentData><descrForPart>Fren kolu</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="008" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="014" indenture="1">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-ST-000"/>
+          <partSegment><itemIdentData><descrForPart>Sele grubu</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="015" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-ST-100"/>
-          <partSegment><itemIdentData><descrForPart>Sele</descrForPart></itemIdentData></partSegment>
+          <partSegment><itemIdentData><descrForPart>Sele, çelik raylı</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="009" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="016" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-ST-110"/>
           <partSegment><itemIdentData><descrForPart>Sele borusu, 27,2 mm</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="010" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="017" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-ST-120"/>
+          <partSegment><itemIdentData><descrForPart>Sele kelepçesi, tek cıvatalı</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="018" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-ST-130"/>
+          <partSegment><itemIdentData><descrForPart>Sele borusu kelepçesi, çabuk sökme, 31,8 mm</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="019" indenture="1">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-000"/>
+          <partSegment><itemIdentData><descrForPart>Aktarma organları takımı</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="020" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-100"/>
           <partSegment><itemIdentData><descrForPart>Aynakol, 3 aynalı, pedal kollarıyla</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="011" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="021" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>3</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-130"/>
+          <partSegment><itemIdentData><descrForPart>Ayna, 42 diş</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="022" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-140"/>
+          <partSegment><itemIdentData><descrForPart>Pedal kolu, 170 mm, kare göbek</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="023" indenture="3">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-110"/>
-          <partSegment><itemIdentData><descrForPart>Orta göbek, kartuş</descrForPart></itemIdentData></partSegment>
+          <partSegment><itemIdentData><descrForPart>Orta göbek, kartuş, kare mil, BSA 68 × 122,5 mm</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="012" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="024" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-120"/>
-          <partSegment><itemIdentData><descrForPart>Ön vites değiştirici</descrForPart></itemIdentData></partSegment>
+          <partSegment><itemIdentData><descrForPart>Ön vites değiştirici, kelepçeli, 31,8 mm</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="013" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="025" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-200"/>
           <partSegment><itemIdentData><descrForPart>Zincir, 8 vites, 116 bakla</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="014" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="026" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-300"/>
           <partSegment><itemIdentData><descrForPart>Kaset, 8 dişli, 11-32</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="015" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="027" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-310"/>
+          <partSegment><itemIdentData><descrForPart>Kaset kilit somunu, 11 diş</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="028" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-400"/>
-          <partSegment><itemIdentData><descrForPart>Arka vites değiştirici</descrForPart></itemIdentData></partSegment>
+          <partSegment><itemIdentData><descrForPart>Arka vites değiştirici, 8 vites, uzun kafes</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="016" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="029" indenture="3">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-410"/>
           <partSegment><itemIdentData><descrForPart>Vites askısı</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="017" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="030" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-420"/>
+          <partSegment><itemIdentData><descrForPart>Makara, 11 diş</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="031" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-500"/>
-          <partSegment><itemIdentData><descrForPart>Pedal takımı, platform</descrForPart></itemIdentData></partSegment>
+          <partSegment><itemIdentData><descrForPart>Pedal takımı, platform, 9/16"</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="018" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="032" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-510"/>
+          <partSegment><itemIdentData><descrForPart>Pedal rulman takımı (koni, bilya, toz kapağı)</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="033" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-600"/>
           <partSegment><itemIdentData><descrForPart>Vites teli ve kılıfı</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="019" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="034" indenture="3">
         <itemSeqNumber itemSeqNumberValue="00A">
-          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-610"/>
+          <partSegment><itemIdentData><descrForPart>Vites teli 2100 mm ve 4 mm kılıf, arka</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="035" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-DR-620"/>
+          <partSegment><itemIdentData><descrForPart>Vites teli 2100 mm ve 4 mm kılıf, ön</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="036" indenture="1">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-000"/>
+          <partSegment><itemIdentData><descrForPart>Fren sistemi takımı</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="037" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-100"/>
           <partSegment><itemIdentData><descrForPart>Mekanik disk kaliper</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="020" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="038" indenture="3">
         <itemSeqNumber itemSeqNumberValue="00A">
-          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-110"/>
           <partSegment><itemIdentData><descrForPart>Fren balatası çifti, organik</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="021" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="039" indenture="3">
         <itemSeqNumber itemSeqNumberValue="00A">
-          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-120"/>
+          <partSegment><itemIdentData><descrForPart>Kaliper adaptörü, 160 mm</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="040" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-200"/>
           <partSegment><itemIdentData><descrForPart>Fren diski, 160 mm, 6 cıvatalı</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="022" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="041" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-100"/>
+          <partSegment><itemIdentData><descrForPart>Mekanik disk kaliper</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="042" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-110"/>
+          <partSegment><itemIdentData><descrForPart>Fren balatası çifti, organik</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="043" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-120"/>
+          <partSegment><itemIdentData><descrForPart>Kaliper adaptörü, 160 mm</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="044" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-200"/>
+          <partSegment><itemIdentData><descrForPart>Fren diski, 160 mm, 6 cıvatalı</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="045" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-300"/>
           <partSegment><itemIdentData><descrForPart>Fren teli ve kılıfı</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="023" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="046" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-310"/>
+          <partSegment><itemIdentData><descrForPart>Fren teli 1700 mm ve 5 mm kılıf, ön</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="047" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-BR-320"/>
+          <partSegment><itemIdentData><descrForPart>Fren teli 1700 mm ve 5 mm kılıf, arka</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="048" indenture="1">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-100"/>
           <partSegment><itemIdentData><descrForPart>Ön tekerlek, takım</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="024" indenture="1">
+      <catalogSeqNumber figureNumber="01" item="049" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-310"/>
+          <partSegment><itemIdentData><descrForPart>Dış lastik, 27,5 × 2,25</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="050" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-320"/>
+          <partSegment><itemIdentData><descrForPart>İç lastik, 27,5 × 2,1-2,4, otomobil sibopu</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="051" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-325"/>
+          <partSegment><itemIdentData><descrForPart>Sibop içi, otomobil tipi</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="052" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-330"/>
+          <partSegment><itemIdentData><descrForPart>Jant, 27,5", 32 delik</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="053" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-335"/>
+          <partSegment><itemIdentData><descrForPart>Jant bandı, 584 × 19 mm</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="054" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>32</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-340"/>
+          <partSegment><itemIdentData><descrForPart>Jant teli, 2 mm</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="055" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-350"/>
+          <partSegment><itemIdentData><descrForPart>Ön göbek, 6 cıvatalı disk yuvalı, 32 delik</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="056" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-352"/>
+          <partSegment><itemIdentData><descrForPart>Koni, kontra somun ve 3/16" bilya takımı</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="057" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-355"/>
+          <partSegment><itemIdentData><descrForPart>Çabuk sökme mandalı, 100 mm</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="058" indenture="1">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-200"/>
           <partSegment><itemIdentData><descrForPart>Arka tekerlek, takım</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="025" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="059" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
-          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-310"/>
           <partSegment><itemIdentData><descrForPart>Dış lastik, 27,5 × 2,25</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="026" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="060" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
-          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-320"/>
           <partSegment><itemIdentData><descrForPart>İç lastik, 27,5 × 2,1-2,4, otomobil sibopu</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="027" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="061" indenture="3">
         <itemSeqNumber itemSeqNumberValue="00A">
-          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
-          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-330"/>
-          <partSegment><itemIdentData><descrForPart>Jant, 32 delik</descrForPart></itemIdentData></partSegment>
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-325"/>
+          <partSegment><itemIdentData><descrForPart>Sibop içi, otomobil tipi</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="028" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="062" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
-          <quantityPerNextHigherAssy>64</quantityPerNextHigherAssy>
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-330"/>
+          <partSegment><itemIdentData><descrForPart>Jant, 27,5", 32 delik</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="063" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-335"/>
+          <partSegment><itemIdentData><descrForPart>Jant bandı, 584 × 19 mm</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="064" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>32</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-340"/>
           <partSegment><itemIdentData><descrForPart>Jant teli, 2 mm</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
-      <catalogSeqNumber figureNumber="01" item="029" indenture="2">
+      <catalogSeqNumber figureNumber="01" item="065" indenture="2">
         <itemSeqNumber itemSeqNumberValue="00A">
-          <quantityPerNextHigherAssy>2</quantityPerNextHigherAssy>
-          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-350"/>
-          <partSegment><itemIdentData><descrForPart>Göbek, çabuk sökme mandallı</descrForPart></itemIdentData></partSegment>
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-360"/>
+          <partSegment><itemIdentData><descrForPart>Arka göbek, 6 cıvatalı disk yuvalı, 32 delik</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="066" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-362"/>
+          <partSegment><itemIdentData><descrForPart>Koni, kontra somun ve 3/16" bilya takımı</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="067" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-365"/>
+          <partSegment><itemIdentData><descrForPart>Çabuk sökme mandalı, 135 mm</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="068" indenture="3">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NB-WH-370"/>
+          <partSegment><itemIdentData><descrForPart>Serbest çark gövdesi, 8-10 vites</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
     </illustratedPartsCatalog>

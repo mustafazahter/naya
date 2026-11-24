@@ -8,14 +8,15 @@ parça haritası ve arızalar böylece birbiriyle tutarlı kalır.
 
 DM sözlüğünün alanları:
   code, tech (konu), info (bilgi adı; yoksa bilgi koduna göre)
-  description: [(başlık, [paragraf...])]   → tanım DM'i
+  description: [(başlık, [paragraf...])]   → tanım DM'i; paragraf yerine
+               (giriş, [madde...]) verilirse paragrafın içinde liste olur
   steps: [adım | (başlık, [alt adım...])]   → prosedür DM'i
   isolation: {...}                          → arıza bulma DM'i
   figure: çizim numarası
   tools, supplies, spares: [(ad, adet)]; adet None ise "Gerektiği kadar"
   warnings, cautions: [metin]
   conditions: [metin]
-  next: sonraki işlemin DMC'si
+  next: sonraki işlemin DMC'si ya da DMC listesi
 """
 import json
 from pathlib import Path
@@ -71,7 +72,8 @@ class Content:
 
     def __init__(self, here, model, applic, product, manual, sns, figures,
                  company='NAYA0', date=('2026', '11', '23'),
-                 liquids=('yağı', 'suyu', 'hidroliği'), general='D00'):
+                 liquids=('yağı', 'suyu', 'hidroliği'), general='D00',
+                 numbers=None):
         self.csdb = Path(here) / 'csdb'
         self.map = Path(here) / 'map'
         self.model, self.company, self.date = model, company, date
@@ -82,6 +84,9 @@ class Content:
         # Yedek parça adı → IPD'deki parçanın kimliği; böylece prosedürdeki
         # parça katalogda aynı numarayla bulunur.
         self.spare_parts = {}
+        # Alet ve sarf malzemesi adı → sabit parça numarası; verilmeyenler
+        # NC-TL-001 gibi sırayla numaralanır.
+        self.numbers = dict(numbers or {})
         self._numbers = {}
         self.brex = self.code(general, info='022', item='D')
         self.ipd = self.code(general, info='941', disassy='01')
@@ -96,13 +101,15 @@ class Content:
         return kwargs['code']
 
     def part(self, id, name, parent, sns, nodes, zone, function,
-             procedures=None, quantity=1, part_number=None):
+             procedures=None, quantity=1, part_number=None, ipd_name=None):
         """(id, ad, üst parça, sns, düğümler, bölge, işlev, prosedürler,
-        IPD adedi). Düğümü olmayan parça içinde bulunduğu düğüme bağlanır."""
+        IPD adedi). Düğümü olmayan parça içinde bulunduğu düğüme bağlanır.
+        [ipd_name] katalogdaki tanım (ölçü, tip); yoksa parçanın adı."""
         self.parts.append(dict(id=id, name=name, parent=parent, sns=sns,
                                nodes=nodes, zone=zone, function=function,
                                procedures=procedures or {},
                                quantity=quantity, part_number=part_number,
+                               ipd_name=ipd_name,
                                item=f'{len(self.parts) + 1:03d}'))
 
     def icn(self, number):
@@ -123,6 +130,8 @@ class Content:
         numarayı alır."""
         if prefix == 'PT' and name in self.spare_parts:
             return self.part_number(self.spare_parts[name])
+        if name in self.numbers:
+            return self.numbers[name]
         key = (prefix, name)
         if key not in self._numbers:
             count = sum(1 for k in self._numbers if k[0] == prefix) + 1
@@ -175,12 +184,23 @@ class Content:
                 f'{t(self.figures[number])}</title><graphic '
                 f'infoEntityIdent="{self.icn(number)}"/></figure>')
 
+    @staticmethod
+    def para_xml(p, indent='        '):
+        """Paragraf; (giriş, [madde...]) ise maddeler paragrafın içinde
+        sırasız liste olur."""
+        if isinstance(p, str):
+            return f'{indent}<para>{t(p)}</para>'
+        intro, items = p
+        rows = ''.join(f'<listItem><para>{t(i)}</para></listItem>'
+                       for i in items)
+        return f'{indent}<para>{t(intro)}<randomList>{rows}</randomList></para>'
+
     def description_body(self, d):
         lines = ['    <description>']
         for i, (title, paras) in enumerate(d['description']):
             lines.append('      <levelledPara>')
             lines.append(f'        <title>{t(title)}</title>')
-            lines += [f'        <para>{t(p)}</para>' for p in paras]
+            lines += [self.para_xml(p) for p in paras]
             lines.append('      </levelledPara>')
             if i == 0 and d.get('figure'):
                 lines.append(self.figure_xml(d['figure'], '      '))
@@ -265,9 +285,11 @@ class Content:
                 steps.append(f'        <proceduralStep><para>{t(step)}</para>'
                              f'{figure}</proceduralStep>')
         nxt = d.get('next')
-        close = ('<reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond>'
-                 f'{nxt.ref()}</reqCondDm></reqCondGroup>') if nxt else (
-            '<reqCondGroup><noConds/></reqCondGroup>')
+        nxt = nxt if isinstance(nxt, list) else [nxt] if nxt else []
+        close = ('<reqCondGroup>' + ''.join(
+            '<reqCondDm><reqCond>Sonraki işlem:</reqCond>'
+            f'{n.ref()}</reqCondDm>' for n in nxt) + '</reqCondGroup>'
+        ) if nxt else '<reqCondGroup><noConds/></reqCondGroup>'
         return ('    <procedure>\n' + self.prelim(d)
                 + '\n      <mainProcedure>\n' + '\n'.join(steps)
                 + '\n      </mainProcedure>\n'
@@ -328,7 +350,8 @@ class Content:
                 f'          <partRef manufacturerCodeValue="{self.company}" '
                 f'partNumberValue={quoteattr(number)}/>\n'
                 '          <partSegment><itemIdentData><descrForPart>'
-                f'{t(p["name"])}</descrForPart></itemIdentData></partSegment>\n'
+                f'{t(p["ipd_name"] or p["name"])}</descrForPart>'
+                '</itemIdentData></partSegment>\n'
                 '        </itemSeqNumber>\n'
                 '      </catalogSeqNumber>')
         return ('    <illustratedPartsCatalog>\n' + '\n'.join(rows)
@@ -524,8 +547,9 @@ class Content:
                 for v in p['procedures'].values()]
         refs += [(f[0], dmc) for f in self.faults for dmc in f[5:7] if dmc]
         for d in self.dms:
-            if d.get('next'):
-                refs.append((str(d['code']), d['next']))
+            nxt = d.get('next')
+            for n in (nxt if isinstance(nxt, list) else [nxt] if nxt else []):
+                refs.append((str(d['code']), n))
             iso = d.get('isolation')
             if not iso:
                 continue
