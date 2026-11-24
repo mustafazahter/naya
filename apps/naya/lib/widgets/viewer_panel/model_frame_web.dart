@@ -101,6 +101,8 @@ class _ModelFrameState extends State<ModelFrame> {
     switch (data['type']) {
       case 'partTap':
         widget.onPartTap(data['part'] as String?);
+      case 'escape':
+        widget.controller.escapePressed();
       case 'ready':
         widget.onReady?.call();
       case 'progress':

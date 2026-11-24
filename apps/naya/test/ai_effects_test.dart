@@ -117,6 +117,25 @@ void main() {
     );
   });
 
+  test('başka daldaki büyük grup kapsayan grup sayılmaz', () {
+    final content = ProductContent(
+      productId: 'araba',
+      parts: PartsFile.fromJson({
+        'parts': [
+          _part('engine', 'Motor', ['block', 'pump']),
+          _part('engine.water_pump', 'Su pompası', ['pump'], parent: 'engine'),
+          _part('cooling', 'Soğutma', ['radiator']),
+          // Soğutma dalında ama su pompasının düğümünü de kapsıyor.
+          _part('cooling.hoses', 'Hortumlar', [
+            'radiator',
+            'pump',
+          ], parent: 'cooling'),
+        ],
+      }),
+    );
+    expect(content.groupsCovering('engine.water_pump'), isEmpty);
+  });
+
   group('teşhis vurgusu', () {
     Diagnosis diagnosis(DiagnosisDecision decision, List<Scored> systems) =>
         Diagnosis(
@@ -137,6 +156,18 @@ void main() {
       );
       expect(weights.keys, unorderedEquals(['engine_block', 'coils']));
       expect(weights['coils'], closeTo(0.35, 1e-9));
+    });
+
+    test('yapay zekâ "hiçbiri" dediyse sistem parlamaz', () {
+      final d = Diagnosis(
+        symptom: 'Garip bir koku var',
+        candidates: const [],
+        systemsScanned: 1,
+        systems: const [Scored('engine', 0.4)],
+        noSystemFits: true,
+        decision: DiagnosisDecision.uncertain,
+      );
+      expect(scanWeights(d, _car()), isEmpty);
     });
 
     test('konu dışı mesajda ve sistem yokken vurgu yok', () {

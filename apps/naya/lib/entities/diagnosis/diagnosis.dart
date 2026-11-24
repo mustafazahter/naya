@@ -26,6 +26,7 @@ class Diagnosis {
     required this.candidates,
     required this.systemsScanned,
     this.systems = const [],
+    this.noSystemFits = false,
     this.decision = DiagnosisDecision.focus,
     this.danger,
     this.faultCause,
@@ -63,6 +64,8 @@ class Diagnosis {
         for (final s in result.systems)
           if (s.id != 'none') s,
       ],
+      noSystemFits:
+          result.systems.isNotEmpty && result.systems.first.id == 'none',
       decision: result.decision,
       danger: result.danger,
       faultCause: fault == null ? null : faultCauseOf?.call(fault.id),
@@ -86,6 +89,9 @@ class Diagnosis {
   /// Sistem turunun olasılıkları ("hiçbiri" hariç), azalan sırada. Parça
   /// seçilemediğinde modelde hangi bölgeye bakıldığını göstermek için.
   final List<Scored> systems;
+
+  /// Yapay zekânın ilk cevabı "hiçbiri": belirtiyi açıklayan sistem yok.
+  final bool noSystemFits;
   final DiagnosisDecision decision;
 
   /// "Kullanmaya devam etmek tehlikeli mi?" sorusunda "evet" olasılığı.

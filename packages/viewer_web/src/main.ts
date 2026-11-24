@@ -16,6 +16,11 @@ const viewer = new NayaViewer({
   },
 });
 
+// Tıklayınca klavye odağı iframe'e geçer; Esc uygulamaya da ulaşsın.
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") send({ type: "escape" });
+});
+
 /** Flutter tarafına olay gönderir: web'de iframe'in sahibine, Android'de JS kanalına. */
 function send(event: ViewerEvent): void {
   const channel = (window as unknown as { NayaBridge?: { postMessage(m: string): void } }).NayaBridge;

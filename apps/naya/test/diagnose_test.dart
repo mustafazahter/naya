@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:naya/app/app.dart';
@@ -220,6 +221,8 @@ void main() {
         await tester.pump(const Duration(milliseconds: 300));
       }
 
+      // Yarım yazılmış mesaj kart açılıp kapanınca kaybolmamalı.
+      await tester.enterText(find.byType(TextField), 'yarım soru');
       await tester.tap(find.text('Parça kartı'));
       await tester.pumpAndSettle();
       // Kart sağ sütunda: üstte modeli karartan perde yok, sohbet gizli.
@@ -231,7 +234,16 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Sohbete dön'), findsNothing);
       expect(find.byType(TextField), findsOneWidget);
+      expect(find.text('yarım soru'), findsOneWidget);
       expect(find.text('Zincir aşınmış, değiştirin.'), findsOneWidget);
+
+      // Esc de kartı kapatır.
+      await tester.tap(find.text('Parça kartı'));
+      await tester.pumpAndSettle();
+      expect(find.text('Sohbete dön'), findsOneWidget);
+      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+      await tester.pumpAndSettle();
+      expect(find.text('Sohbete dön'), findsNothing);
     });
 
     testWidgets('soru sorulduysa cevap önceki mesajla gider', (tester) async {

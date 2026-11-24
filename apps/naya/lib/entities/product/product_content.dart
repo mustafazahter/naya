@@ -211,7 +211,8 @@ class ProductContent {
 
   /// Verilen DM'lerin anlattığı parçalar: prosedürü o DM olan parçalar ve
   /// arıza bulması ya da onarımı o DM olan arızaların parçaları. Parça
-  /// kataloğu (IPD) her parçayı anlattığı için sayılmaz. Dosyadaki sırayla.
+  /// kataloğu (IPD) her parçayı anlattığı için, kök sistemler de bütün
+  /// sistemi yakacağı için sayılmaz. Dosyadaki sırayla.
   List<Part> partsForModules(Iterable<String> dmcs) {
     final wanted = {for (final d in dmcs) d.split('_').first};
     if (wanted.isEmpty) return const [];
@@ -223,36 +224,42 @@ class ProductContent {
     };
     return [
       for (final p in parts.parts)
-        if (ids.contains(p.id)) p,
+        if (ids.contains(p.id) && p.parent != null) p,
     ];
   }
 
   /// Parçanın düğümlerinin hepsini kapsayan grup parçaları: kapının
-  /// kartında kapı kilitleri, cam mekanizmaları ve fitiller. Üst montajlar
-  /// (gövde, motor) ve alt parçalar sayılmaz; onlar ağaçta zaten görünür.
+  /// kartında kapı kilitleri, cam mekanizmaları ve fitiller. Yalnız aynı
+  /// üst montajın altındaki kardeşler sayılır; kök sistemler ve başka
+  /// dallardaki büyük gruplar (motor, yakıt) her parçaya arıza yağdırmasın.
   List<Part> groupsCovering(String id) {
     final part = _byId[id];
-    if (part == null || part.meshNodes.isEmpty) return const [];
+    final parent = part?.parent;
+    if (part == null || parent == null || part.meshNodes.isEmpty) {
+      return const [];
+    }
     return [
       for (final p in parts.parts)
         if (p.id != id &&
+            p.parent == parent &&
             p.meshNodes.length > part.meshNodes.length &&
-            part.meshNodes.every(p.meshNodes.contains) &&
-            !_isAncestor(p.id, id) &&
-            !_isAncestor(id, p.id))
+            part.meshNodes.every(p.meshNodes.contains))
           p,
     ];
   }
 
   /// Kartta gösterilecek arızalar: parçanın ve alt parçalarının
-  /// arızalarına, parçayı kapsayan grup parçalarının arızaları da katılır.
-  /// Kapıya dokunan kişi kilit ve cam arızalarını da görür. En ciddisi önce.
+  /// arızalarına, parçayı kapsayan grup parçalarının kendi arızaları
+  /// katılır. Kapıya dokunan kişi kilit ve cam arızalarını da görür. En
+  /// ciddisi önce.
   List<Fault> cardFaults(String id) {
+    final groups = {for (final g in groupsCovering(id)) g.id};
     final seen = <String>{};
     final list = [
       for (final f in [
         ...faultsFor(id),
-        for (final g in groupsCovering(id)) ...faultsFor(g.id),
+        for (final f in faults?.faults ?? const <Fault>[])
+          if (groups.contains(f.part)) f,
       ])
         if (seen.add(f.id)) f,
     ];

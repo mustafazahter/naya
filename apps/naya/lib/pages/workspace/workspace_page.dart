@@ -134,6 +134,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
   @override
   void initState() {
     super.initState();
+    _viewer.onEscape = _closeDocked;
     if (widget.request != null) unawaited(_handle(widget.request!));
   }
 
@@ -219,6 +220,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
     _answer = null;
     _run++;
     setState(() {
+      _docked = null;
       _turns.clear();
       _thread.clear();
       _diagnosis = null;
@@ -410,7 +412,6 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
   Future<void> _sweepWhile(int run, bool Function() busy) async {
     await _viewer.whenReady();
     while (mounted && run == _run && busy()) {
-      if (_viewer.exploded.value) _viewer.explode(0);
       final finished = await _viewer.scan(const {});
       if (!finished) return;
     }
@@ -442,7 +443,16 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
     if (nodes.isNotEmpty) _viewer.focus(nodes.first);
   }
 
-  void _closeDocked() => setState(() => _docked = null);
+  void _closeDocked() {
+    if (_docked != null) setState(() => _docked = null);
+  }
+
+  /// Ekrandaki geri oku sayfadan çıkar; açık kartın geri davranışına
+  /// (önceki parça, sohbete dönüş) takılmaz.
+  void _leave() {
+    final navigator = Navigator.of(context);
+    if (navigator.canPop()) navigator.pop();
+  }
 
   /// Yazılan belirtiyi teşhis ettirir, sonucu sohbette gösterir ve modelde
   /// canlandırır.
@@ -573,7 +583,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
           if (part != null) widget.onOpenPart(part.id);
         },
         credit: _creditLine(product),
-        onBack: () => Navigator.of(context).maybePop(),
+        onBack: _leave,
       );
     } else {
       // Masaüstünde ve testlerde WebView yok; şematik çizim.
@@ -581,7 +591,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
         productTitle: product.title,
         diagnosis: sampleDiagnosis,
         onPartTap: (_) {},
-        onBack: () => Navigator.of(context).maybePop(),
+        onBack: _leave,
       );
     }
 
@@ -625,32 +635,38 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
                   ),
                   child: SizedBox(
                     width: 420,
-                    child: AnimatedSwitcher(
-                      duration: NayaMotion.base,
-                      switchInCurve: NayaMotion.decelerate,
-                      child: _docked == null || data == null
-                          ? KeyedSubtree(
-                              key: const ValueKey('chat'),
-                              child: chat,
-                            )
-                          : _DockedSheet(
-                              key: ValueKey(_docked),
-                              content: data,
-                              docked: _docked!,
-                              onClose: _closeDocked,
-                              onOpenModule: widget.onOpenModule,
-                              onOpenDetails: (id) {
-                                _closeDocked();
-                                widget.onOpenPart(id);
-                              },
-                              onAsk: _askAbout,
-                              onPartChanged: (part) => _focusPart(data, part),
-                            ),
+                    child: IndexedStack(
+                      index: _docked == null || data == null ? 0 : 1,
+                      sizing: StackFit.expand,
+                      children: [
+                        chat,
+                        if (_docked != null && data != null)
+                          _DockedSheet(
+                            key: ValueKey(_docked),
+                            content: data,
+                            docked: _docked!,
+                            onClose: _closeDocked,
+                            onOpenModule: widget.onOpenModule,
+                            onOpenDetails: (id) {
+                              _closeDocked();
+                              widget.onOpenPart(id);
+                            },
+                            onAsk: _askAbout,
+                            onPartChanged: (part) => _focusPart(data, part),
+                          )
+                        else
+                          const SizedBox.shrink(),
+                      ],
                     ),
                   ),
                 ),
               ],
             );
+          }
+          if (_docked != null) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (mounted) _closeDocked();
+            });
           }
           return Column(
             children: [
@@ -686,8 +702,9 @@ class _PartSheetHost extends StatefulWidget {
     this.onClose,
   });
 
-  /// Verilirse kart bir sütunda duruyordur: geri tuşu sayfadan çıkmaz,
-  /// önceki parçaya ya da sohbete döner.
+  /// Verilirse kart bir sütunda duruyordur: sistemin geri tuşu (Android)
+  /// sayfadan çıkmaz, önceki parçaya ya da sohbete döner. Web'de tarayıcının
+  /// geri tuşu go_router'la sayfadan çıkar.
   final VoidCallback? onClose;
 
   final ProductContent content;
@@ -771,7 +788,7 @@ class _DockedPart {
 
 /// Geniş ekranda sohbetin yerine geçen parça kartı: üstte sohbete dönüş,
 /// altında kart. Viewer'ın üstüne binmez, modeli karartmaz.
-class _DockedSheet extends StatelessWidget {
+class _DockedSheet extends StatefulWidget {
   const _DockedSheet({
     required this.content,
     required this.docked,
@@ -792,14 +809,38 @@ class _DockedSheet extends StatelessWidget {
   final ValueChanged<String> onPartChanged;
 
   @override
+  State<_DockedSheet> createState() => _DockedSheetState();
+}
+
+class _DockedSheetState extends State<_DockedSheet> {
+  // Kart her açılışta (her parça yeni bir durum) odağı alır: sohbet alanı
+  // odaktaysa bile Esc karta gider, gizlenen alana yazı yazılmaz.
+  final _focus = FocusNode(debugLabel: 'parça kartı');
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _focus.requestFocus();
+    });
+  }
+
+  @override
+  void dispose() {
+    _focus.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final c = context.colors;
+    final w = widget;
     return ColoredBox(
       color: c.surface,
       child: CallbackShortcuts(
-        bindings: {const SingleActivator(LogicalKeyboardKey.escape): onClose},
+        bindings: {const SingleActivator(LogicalKeyboardKey.escape): w.onClose},
         child: Focus(
-          autofocus: true,
+          focusNode: _focus,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -808,14 +849,14 @@ class _DockedSheet extends StatelessWidget {
                 child: Row(
                   children: [
                     TextButton.icon(
-                      onPressed: onClose,
+                      onPressed: w.onClose,
                       icon: const Icon(Icons.arrow_back, size: 18),
                       label: const Text('Sohbete dön'),
                     ),
                     const Spacer(),
                     IconButton(
                       tooltip: 'Kartı kapat',
-                      onPressed: onClose,
+                      onPressed: w.onClose,
                       icon: const Icon(Icons.close, size: 20),
                     ),
                   ],
@@ -823,14 +864,14 @@ class _DockedSheet extends StatelessWidget {
               ),
               Expanded(
                 child: _PartSheetHost(
-                  content: content,
-                  initialPart: docked.part,
-                  node: docked.node,
-                  onClose: onClose,
-                  onOpenModule: onOpenModule,
-                  onOpenDetails: onOpenDetails,
-                  onAsk: onAsk,
-                  onPartChanged: onPartChanged,
+                  content: w.content,
+                  initialPart: w.docked.part,
+                  node: w.docked.node,
+                  onClose: w.onClose,
+                  onOpenModule: w.onOpenModule,
+                  onOpenDetails: w.onOpenDetails,
+                  onAsk: w.onAsk,
+                  onPartChanged: w.onPartChanged,
                 ),
               ),
             ],

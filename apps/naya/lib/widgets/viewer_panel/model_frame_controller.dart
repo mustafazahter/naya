@@ -24,6 +24,11 @@ class ModelFrameController {
   /// Model yüklenip viewer komut almaya hazır olunca tamamlanır.
   final _ready = Completer<void>();
 
+  /// Viewer'a odaklıyken Esc'e basıldı (web'de iframe klavyeyi alır).
+  VoidCallback? onEscape;
+
+  void escapePressed() => onEscape?.call();
+
   /// Viewer `ready` gönderdi.
   void markReady() {
     if (!_ready.isCompleted) _ready.complete();

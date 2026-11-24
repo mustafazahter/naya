@@ -109,7 +109,9 @@ Map<String, double> _systemWeights(
   ProductContent content,
 ) {
   final systems = diagnosis.systems;
-  if (systems.isEmpty || diagnosis.decision == DiagnosisDecision.notDiagnosis) {
+  if (systems.isEmpty ||
+      diagnosis.noSystemFits ||
+      diagnosis.decision == DiagnosisDecision.notDiagnosis) {
     return const {};
   }
   final top = systems.first.probability;
