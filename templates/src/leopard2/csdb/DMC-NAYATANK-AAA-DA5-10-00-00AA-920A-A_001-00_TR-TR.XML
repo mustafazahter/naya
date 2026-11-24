@@ -32,10 +32,10 @@
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Namlu ağzı koruyucu kapağı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-DA5-10-023</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
-        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silahların boş ve emniyette olduğu silah sorumlusu tarafından doğrulanmadan kule üzerinde çalışmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silah sorumlusunun izni olmadan kule üzerinde ve namlu önünde çalışmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Eski kapağı namlu ağzından çıkarın; namlunun içine bakmayın ve hiçbir cisim sokmayın.</para><figure id="fig-0016"><title>Kule</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00016-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Eski kapağı namlu ağzından çıkarın; namluya hiçbir cisim sokmayın.</para><figure id="fig-0016"><title>Kule</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00016-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Yeni kapağı namlu ağzına tam oturacak şekilde takın.</para></proceduralStep>
         <proceduralStep><para>Kapağın bağlantı kayışını sabitleyin.</para></proceduralStep>
         <proceduralStep><para>Değişikliği silah sorumlusuna bildirin.</para></proceduralStep>

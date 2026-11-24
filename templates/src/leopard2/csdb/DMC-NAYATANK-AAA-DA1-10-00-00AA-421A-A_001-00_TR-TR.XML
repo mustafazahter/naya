@@ -32,7 +32,7 @@
             <isolationStep id="stp-0001">
               <action>Hava filtresi tıkanıklık göstergesine bakın.</action>
               <isolationStepQuestion>Gösterge kırmızı mı?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-air"/><noAnswer nextActionRefId="stp-0002"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0005"/><noAnswer nextActionRefId="stp-0002"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0002">
               <action>Yakıt filtresinin su ayırıcısına bakın.</action>
@@ -49,10 +49,16 @@
               <isolationStepQuestion>Gösterge panelinde motor arıza uyarısı var mı?</isolationStepQuestion>
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-ecu"/><noAnswer nextActionRefId="end-fuel"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
+            <isolationStep id="stp-0005">
+              <action>Ön temizleyicinin girişlerine ve toz atma çıkışına bakın.</action>
+              <isolationStepQuestion>Giriş ya da toz atma çıkışı tıkalı mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-precleaner"/><noAnswer nextActionRefId="end-air"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationProcedureEnd id="end-precleaner"><action>Ön temizleyiciyi ve toz atma çıkışını temizleyin; gösterge yine kırmızıysa filtre elemanlarını değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="250" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-air"><action>Hava filtresi elemanlarını değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-water"><action>Su ayırıcıyı boşaltın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-intake"><action>Hava emme kanallarını ve kelepçeleri onarın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-ecu"><action>Motor kontrol ünitesi ya da bir algılayıcı arızalı olabilir; yetkili bakım birimine bildirin.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-ecu"><action>Motor kontrol ünitesi ya da bir algılayıcı arızalı olabilir; yetkili bakım birimine bildirin. Onarımdan sonra çalıştırma testini yapın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="320" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-fuel"><action>Yakıt filtresi tıkanmış olabilir; filtre elemanını değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

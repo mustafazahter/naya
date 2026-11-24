@@ -32,13 +32,13 @@
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
-        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silahların boş ve emniyette olduğu silah sorumlusu tarafından doğrulanmadan kule üzerinde çalışmayın.</warningAndCautionPara></warning><warning><warningAndCautionPara>Atıcı tüplerinin önünde durmayın; tüplerin dolu olup olmadığını yalnız silah sorumlusu belirler.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silah sorumlusunun izni olmadan kule üzerinde ve namlu önünde çalışmayın.</warningAndCautionPara></warning><warning><warningAndCautionPara>Atıcıların önünde durmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Atıcı tüplerinde ezik, çatlak ya da kopuk parça olup olmadığına dışarıdan bakın.</para><figure id="fig-0005"><title>Kule üstü donanımı</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure></proceduralStep>
-        <proceduralStep><para>Tüp ağızlarındaki koruyucu kapakların yerinde olduğunu kontrol edin.</para></proceduralStep>
-        <proceduralStep><para>Tüplerin taşıyıcı plakalarının kuleye bağlantısını gözle kontrol edin.</para></proceduralStep>
-        <proceduralStep><para>Tüplere elinizi ya da bir cisim sokmayın; hasarı bildirin.</para></proceduralStep>
+        <proceduralStep><para>Atıcıların dış gövdesinde ezik, çatlak ya da kopuk parça olup olmadığına bakın.</para><figure id="fig-0005"><title>Kule üstü donanımı</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Koruyucu kapakların yerinde olduğunu kontrol edin.</para></proceduralStep>
+        <proceduralStep><para>Taşıyıcı plakaların kuleye bağlantısını gözle kontrol edin.</para></proceduralStep>
+        <proceduralStep><para>Atıcılara elinizi ya da bir cisim sokmayın; hasarı bildirin.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
     </procedure>

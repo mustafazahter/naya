@@ -25,7 +25,7 @@
     <faultIsolation>
       <faultIsolationProcedure>
         <fault faultCode="NAYATANK-DA5-001"/>
-        <faultDescr><descr>Nişan optiğinden, komutan periskobundan ya da sürücü periskobundan görüntü bulanık, lekeli ya da buğulu.</descr></faultDescr>
+        <faultDescr><descr>Nişancı optiğinden, komutan periskobundan ya da sürücü periskobundan görüntü bulanık, lekeli ya da buğulu.</descr></faultDescr>
         <isolationProcedure>
           <preliminaryRqmts><reqCondGroup><noConds/></reqCondGroup><reqSupportEquips><noSupportEquips/></reqSupportEquips><reqSupplies><noSupplies/></reqSupplies><reqSpares><noSpares/></reqSpares><reqSafety><noSafety/></reqSafety></preliminaryRqmts>
           <isolationMainProcedure>
@@ -45,7 +45,7 @@
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-moisture"/><noAnswer nextActionRefId="end-clean"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-clean"><action>Optik camını temizleyin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA5" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="250" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-damaged"><action>Sürücü periskobu ise değiştirin; nişan ve komutan optiklerini yetkili birime bildirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA5" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-damaged"><action>Sürücü periskobu ise değiştirin; kule optiklerini yetkili birime bildirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA5" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-moisture"><action>Optiğin içine nem girmiş; optiği açmayın, yetkili bakım birimine bildirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA5" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

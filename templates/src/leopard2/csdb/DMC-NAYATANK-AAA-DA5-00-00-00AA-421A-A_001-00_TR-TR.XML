@@ -30,13 +30,13 @@
           <preliminaryRqmts><reqCondGroup><noConds/></reqCondGroup><reqSupportEquips><noSupportEquips/></reqSupportEquips><reqSupplies><noSupplies/></reqSupplies><reqSpares><noSpares/></reqSpares><reqSafety><noSafety/></reqSafety></preliminaryRqmts>
           <isolationMainProcedure>
             <isolationStep id="stp-0001">
-              <action>Silah sorumlusuna silahların boş ve emniyette olduğunu doğrulatın. Namlu ağzı kapağına bakın.</action>
+              <action>Silah sorumlusundan izin alın. Namlu ağzı kapağına bakın.</action>
               <isolationStepQuestion>Kapak yırtık ya da kayıp mı?</isolationStepQuestion>
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-cover"/><noAnswer nextActionRefId="stp-0002"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0002">
               <action>Sis bombası atıcılarına dışarıdan bakın.</action>
-              <isolationStepQuestion>Tüp ezik ya da koruyucu kapak eksik mi?</isolationStepQuestion>
+              <isolationStepQuestion>Atıcı ezik ya da koruyucu kapak eksik mi?</isolationStepQuestion>
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-smoke"/><noAnswer nextActionRefId="end-mount"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-cover"><action>Namlu ağzı kapağını değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA5" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>

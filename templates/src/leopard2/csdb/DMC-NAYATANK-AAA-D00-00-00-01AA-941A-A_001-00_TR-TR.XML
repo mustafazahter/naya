@@ -200,14 +200,14 @@
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA5-20-025"/>
-          <partSegment><itemIdentData><descrForPart>Nişan ve gözetleme optikleri</descrForPart></itemIdentData></partSegment>
+          <partSegment><itemIdentData><descrForPart>Kule optikleri</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
       <catalogSeqNumber figureNumber="01" item="026" indenture="3">
         <itemSeqNumber itemSeqNumberValue="00A">
           <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
           <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA5-20-026"/>
-          <partSegment><itemIdentData><descrForPart>Nişancı nişan optiği</descrForPart></itemIdentData></partSegment>
+          <partSegment><itemIdentData><descrForPart>Nişancı optiği</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
       <catalogSeqNumber figureNumber="01" item="027" indenture="3">

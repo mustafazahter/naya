@@ -84,8 +84,8 @@ code, dm, part = C.code, C.dm, C.part
 
 # Her prosedürde tekrarlanan güvenlik uyarıları.
 PARKED = 'Tank düz zeminde, motor durdurulmuş, park freni çekili.'
-WEAPONS_SAFE = ('Silahların boş ve emniyette olduğu silah sorumlusu '
-                'tarafından doğrulanmadan kule üzerinde çalışmayın.')
+WEAPONS_SAFE = ('Silah sorumlusunun izni olmadan kule üzerinde ve namlu '
+                'önünde çalışmayın.')
 HOT = ('Motor durduktan sonra güç paketi, egzoz ve radyatörler uzun süre '
        'sıcak kalır; soğumasını bekleyin.')
 NO_VALUES = ('Ölçü ve ayar değerleri bu şablonda verilmez; aracın kendi '
@@ -102,8 +102,8 @@ VEHICLE = dm(
     description=[
         ('Genel', [
             'Leopard 2, Almanya\'da geliştirilen ve birçok ülkenin '
-            'kullandığı bir ana muharebe tankıdır. 2A6, 2000\'li yıllarda '
-            'daha uzun namlulu topla güncellenen sürümdür.',
+            'kullandığı bir ana muharebe tankıdır. 2A6 bu ailenin '
+            'sürümlerinden biridir.',
             'Mürettebat dört kişidir: komutan, nişancı, yükleyici ve '
             'sürücü. Sürücü gövdenin önünde sağda; komutan, nişancı ve '
             'yükleyici kulededir.',
@@ -119,10 +119,10 @@ VEHICLE = dm(
             'tabanlı paletler.',
             'Elektrik: 24 V doğru akım sistemi, aküler, farlar ve arka '
             'lambalar.',
-            'Silah ve optikler: kulede ana top, makineli tüfek, sis bombası '
-            'atıcıları ve nişan ile gözetleme optikleri. Bu şablon '
-            'silahların yalnız dış muayenesini, optiklerin de temizliğini '
-            'kapsar.',
+            'Silah ve optikler: kulenin dış donanımı; ana top, makineli '
+            'tüfek kundağı, sis bombası atıcıları ve optikler. Bu şablon '
+            'bunların yalnız dış muayenesini, namlu ağzı kapağını ve optik '
+            'temizliğini kapsar.',
         ]),
         ('Bu el kitabı hakkında', [
             'Bu şablon eğitim amaçlıdır ve yalnız genel bakım bilgisi içerir. '
@@ -181,8 +181,9 @@ HULL = dm(
             'soğutma havası girer; kapaklar güç paketine erişim sağlar.',
         ]),
         ('Kule', [
-            'Kule bir yatak üzerinde döner ve ana topu, makineli tüfeği, sis '
-            'bombası atıcılarını ve optikleri taşır.',
+            'Kule bir yatak üzerinde döner. Üstünde ve çevresinde ana top, '
+            'makineli tüfek kundağı, sis bombası atıcıları ve optikler '
+            'bulunur.',
             'Komutan ve yükleyici kapakları kulenin üstündedir.',
         ]),
     ])
@@ -212,9 +213,8 @@ TURRET_CHECK = dm(
     steps=[
         'Komutan ve yükleyici kapaklarını açıp kapatın; menteşe ve '
         'kilitleri kontrol edin.',
-        'Sis bombası atıcılarının tüplerinde ezik, çatlak ya da su birikmesi '
-        'olup olmadığına dışarıdan bakın. Tüplere elinizi ya da bir cisim '
-        'sokmayın.',
+        'Sis bombası atıcılarının dış gövdesinde ezik ya da çatlak olup '
+        'olmadığına bakın. Atıcılara elinizi ya da bir cisim sokmayın.',
         'Makineli tüfek kundağının kule üstündeki bağlantısını gözle kontrol '
         'edin; silahın kendisine dokunmayın.',
         'Antenlerin ve anten tabanlarının sağlam olduğunu kontrol edin.',
@@ -286,8 +286,8 @@ ENGINE_ISOLATE = dm(
              'Gösterge kırmızı mı?', 'end-air', 'end-service'),
         ],
         'ends': [
-            ('end-battery', 'Aküleri şarj edin ya da değiştirin.',
-             code('DA4', '1', '300')),
+            ('end-battery', 'Aküleri şarj edin; şarj tutmayan aküyü '
+             'değiştirin.', code('DA4', '1', '210')),
             ('end-starter', 'Aküler dolu ama marş dönmüyor: marş devresini '
              'arayın.', code('DA4', '3', '421')),
             ('end-fuel', 'Yakıt ikmali yapın ya da kesme valfini açın.',
@@ -408,15 +408,25 @@ OVERHEAT = dm(
              'Izgaralar yaprak ya da çamurla tıkalı mı?', 'end-grille',
              'stp-0002'),
             ('stp-0002', 'Motor soğuduktan sonra soğutma sıvısı seviyesini '
-             'kontrol edin.', 'Seviye düşük mü?', 'end-coolant', 'stp-0003'),
+             'kontrol edin.', 'Seviye düşük mü?', 'stp-0004', 'stp-0003'),
             ('stp-0003', 'Motoru çalıştırın ve fanların döndüğünü '
              'ızgaralardan dinleyin ve hava akışını hissedin.',
-             'İki fan da dönüyor mu?', 'end-radiator', 'end-fan'),
+             'İki fan da dönüyor mu?', 'stp-0005', 'end-fan'),
+            ('stp-0004', 'Soğutma hortumlarına ve kelepçelerine bakın.',
+             'Hortumda ıslaklık, beyaz kalıntı ya da çatlak var mı?',
+             'end-hose', 'end-coolant'),
+            ('stp-0005', 'Soğutma sıvısının rengine ve bakım kaydındaki '
+             'değişim tarihine bakın.', 'Sıvı bulanık, paslı ya da '
+             'değişimi gecikmiş mi?', 'end-coolant-change', 'end-radiator'),
         ],
         'ends': [
             ('end-grille', 'Izgaraları temizleyin.', code('DA0', '3', '250')),
             ('end-coolant', 'Soğutma sıvısını tamamlayın ve sızıntıyı '
              'arayın.', code('DA1', '3', '300')),
+            ('end-hose', 'Sızdıran hortumu ya da kelepçeyi değiştirin.',
+             code('DA1', '3', '920')),
+            ('end-coolant-change', 'Soğutma sıvısını değiştirin.',
+             code('DA1', '3', '220')),
             ('end-radiator', 'Fanlar çalışıyor: radyatör petekleri kirli '
              'olabilir; temizleyin.', code('DA1', '3', '250')),
             ('end-fan', 'Fan dönmüyor: fanları ve fan tahrikini muayene '
@@ -577,17 +587,37 @@ RUNNING_ISOLATE = dm(
              'end-wheel', 'stp-0004'),
             ('stp-0004', 'Palet tabanlarını kontrol edin.',
              'Tabanlar aşınma sınırında ya da eksik mi?', 'end-pads',
+             'stp-0005'),
+            ('stp-0005', 'Palet bağlantı parçalarını ve kama cıvatalarını '
+             'kontrol edin.', 'Bağlantı parçası gevşek ya da eksik mi?',
+             'end-connector', 'stp-0006'),
+            ('stp-0006', 'Amortisörlere ve bağlantılarına bakın.',
+             'Amortisörde yağ izi ya da kopuk bağlantı var mı?',
+             'end-damper', 'stp-0007'),
+            ('stp-0007', 'Destek makaralarına ve paletin üst koluna bakın.',
+             'Makara dönmüyor, bandajı kopuk ya da üst kolda makara aşınma '
+             'izi var mı?', 'end-roller', 'stp-0008'),
+            ('stp-0008', 'Bakım kaydında salıncak kolu yataklarının son '
+             'gresleme tarihine bakın.', 'Gresleme gecikmiş mi?', 'end-arm',
              'end-service'),
         ],
         'ends': [
             ('end-tension', 'Palet gerginliğini ayarlayın.',
              code('DA3', '1', '271')),
-            ('end-sprocket', 'Yürütücü dişliyi ve avarayı muayene edin.',
-             code('DA3', '3', '310')),
+            ('end-sprocket', 'Yürütücü dişli çemberlerini değiştirin; '
+             'avarayı da muayene edin.', code('DA3', '3', '920')),
             ('end-wheel', 'Yol tekerleklerini ve süspansiyonu muayene edin.',
              code('DA3', '2', '310')),
             ('end-pads', 'Palet tabanlarını değiştirin.',
              code('DA3', '1', '920')),
+            ('end-connector', 'Palet bağlantı parçalarını değiştirin.',
+             code('DA3', '1', '920', '01')),
+            ('end-damper', 'Amortisörü değiştirin.',
+             code('DA3', '2', '920', '01')),
+            ('end-roller', 'Destek makaralarını muayene edin.',
+             code('DA3', '2', '310', '01')),
+            ('end-arm', 'Salıncak kolu yataklarını gresleyin.',
+             code('DA3', '2', '240')),
             ('end-service', 'Görünür bir sorun yok: burulma çubukları ya da '
              'son dişliler arızalı olabilir; yetkili bakım birimine '
              'bildirin.', None),
@@ -723,17 +753,16 @@ WEAPONS = dm(
     code=code('DA5'), tech='Silah ve optikler', figure=5,
     description=[
         ('Genel', [
-            'Kule ana topu, ana topa eş eksenli bir makineli tüfeği, '
-            'yükleyici kapağındaki makineli tüfeği ve iki yandaki sis '
-            'bombası atıcılarını taşır.',
-            'Nişancının ve komutanın nişan optikleri kulenin üstündedir; '
+            'Kulenin dış donanımı: önde ana top ve top kalkanı, yükleyici '
+            'kapağında makineli tüfek kundağı, iki yanda sis bombası '
+            'atıcıları.',
+            'Nişancı optiği ve komutan periskobu kulenin üstündedir; '
             'sürücünün periskopları gövdenin önündedir.',
         ]),
         ('Bu şablonun kapsamı', [
-            'Bu şablon silahların yalnız dış muayenesini ve optiklerin '
-            'temizliğini kapsar. Silahların sökülmesi, ayarı ve atışla ilgili '
-            'her iş yalnız yetkili silah personelince, aracın kendi '
-            'el kitabına göre yapılır.',
+            'Bu şablon yalnız dış muayeneyi, namlu ağzı kapağını ve optik '
+            'temizliğini kapsar. Bunların dışındaki her iş yetkili '
+            'personelindir ve aracın kendi el kitabına göre yapılır.',
         ]),
     ])
 
@@ -748,8 +777,8 @@ GUN_CHECK = dm(
        'parça olup olmadığına bakın.',
        'Top kalkanının çevresindeki toz körüğünde yırtık olup olmadığını '
        'kontrol edin.',
-       'Bulduğunuz hasarı silah sorumlusuna bildirin; namluya ya da '
-       'mekanizmaya müdahale etmeyin.',
+       'Bulduğunuz hasarı silah sorumlusuna bildirin; başka bir işlem '
+       'yapmayın.',
    ])
 
 OPTICS_CLEAN = dm(
@@ -797,11 +826,9 @@ SAFETY = dm(
             'park frenini çekin ve gerekiyorsa ana şalteri kapatın.',
         ]),
         ('Silahlar', [
-            'Silahların boş ve emniyette olduğu silah sorumlusunca '
-            'doğrulanmadan kule üstünde ve namlu önünde çalışmayın.',
-            'Bu şablon silahların yalnız dış muayenesini kapsar. Mekanizmaya, '
-            'sis bombası atıcılarının içine ve atış düzenlerine müdahale '
-            'etmeyin.',
+            WEAPONS_SAFE,
+            'Bu şablon silahların yalnız dış muayenesini kapsar. Silahlara '
+            've sis bombası atıcılarının içine müdahale etmeyin.',
         ]),
         ('Güç paketi ve sıvılar', [
             HOT,
@@ -1260,9 +1287,9 @@ TURRET_RING = dm(
             'Kule, gövdenin üstündeki büyük bir bilyalı yatak üzerinde '
             'döner. Yatağın çevresindeki conta su ve tozun içeri girmesini '
             'önler.',
-            'Kule döndürme ve top yükseliş tahrikleri kulenin içindedir. '
-            'Mürettebat bunların yalnız temizliğini, gres noktalarını ve '
-            'gözle muayenesini yapar; ayar ve onarım yetkili birimindir.',
+            'Kule tahrik düzenleri kulenin içindedir. Mürettebat bunların '
+            'yalnız çevresini temiz tutar ve dışarıdan gözle bakar; ayar ve '
+            'onarım yetkili birimindir.',
             'Kule kilidi, seyir ve bakım sırasında kuleyi gövdeye sabitler.',
         ]),
     ])
@@ -1272,8 +1299,8 @@ RING_GREASE = dm(
     figure=16,
     tools=[('Gres pompası', 1), ('Temiz bez', None)],
     supplies=[('Gres', None)],
-    conditions=[PARKED, 'Silah sorumlusu ve kule kumandası yetkili bir '
-                'mürettebat üyesinde.'],
+    conditions=[PARKED, 'Kuleyi yalnız yetkili bir mürettebat üyesi '
+                'döndürür.'],
     warnings=[WEAPONS_SAFE, 'Kule dönerken kule ile gövde arasına elinizi '
               've aletlerinizi sokmayın.'],
     steps=[
@@ -1354,7 +1381,7 @@ POWER_ISOLATE = dm(
                  'sürüşte hızlanmıyor.',
         'steps': [
             ('stp-0001', 'Hava filtresi tıkanıklık göstergesine bakın.',
-             'Gösterge kırmızı mı?', 'end-air', 'stp-0002'),
+             'Gösterge kırmızı mı?', 'stp-0005', 'stp-0002'),
             ('stp-0002', 'Yakıt filtresinin su ayırıcısına bakın.',
              'Su ya da tortu var mı?', 'end-water', 'stp-0003'),
             ('stp-0003', 'Motor güvertesini açın ve hava emme kanallarını, '
@@ -1364,15 +1391,22 @@ POWER_ISOLATE = dm(
             ('stp-0004', 'Motor kontrol uyarılarına bakın.',
              'Gösterge panelinde motor arıza uyarısı var mı?', 'end-ecu',
              'end-fuel'),
+            ('stp-0005', 'Ön temizleyicinin girişlerine ve toz atma '
+             'çıkışına bakın.', 'Giriş ya da toz atma çıkışı tıkalı mı?',
+             'end-precleaner', 'end-air'),
         ],
         'ends': [
+            ('end-precleaner', 'Ön temizleyiciyi ve toz atma çıkışını '
+             'temizleyin; gösterge yine kırmızıysa filtre elemanlarını '
+             'değiştirin.', code('DA1', '4', '250')),
             ('end-air', 'Hava filtresi elemanlarını değiştirin.',
              code('DA1', '4', '920')),
             ('end-water', 'Su ayırıcıyı boşaltın.', code('DA1', '5', '300')),
             ('end-intake', 'Hava emme kanallarını ve kelepçeleri onarın.',
              code('DA1', '4', '310', '01')),
             ('end-ecu', 'Motor kontrol ünitesi ya da bir algılayıcı '
-             'arızalı olabilir; yetkili bakım birimine bildirin.', None),
+             'arızalı olabilir; yetkili bakım birimine bildirin. Onarımdan '
+             'sonra çalıştırma testini yapın.', code('DA1', '1', '320')),
             ('end-fuel', 'Yakıt filtresi tıkanmış olabilir; filtre '
              'elemanını değiştirin.', code('DA1', '5', '920')),
         ],
@@ -1401,8 +1435,9 @@ SMOKE_ISOLATE = dm(
             ('end-air', 'Hava filtresini değiştirin, kanalları onarın.',
              code('DA1', '4', '920')),
             ('end-injection', 'Hava yolu normal: enjeksiyon sistemi arızalı '
-             'olabilir; motoru zorlamayın, yetkili bakım birimine bildirin.',
-             None),
+             'olabilir; motoru zorlamayın, yetkili bakım birimine bildirin. '
+             'Onarımdan sonra çalıştırma testini yapın.',
+             code('DA1', '1', '320')),
             ('end-oil', 'Motor yağ yakıyor; seviyeyi tamamlayın ve yetkili '
              'bakım birimine bildirin.', code('DA1', '2', '300')),
             ('end-coolant', 'Soğutma sıvısı yanma odasına geçiyor olabilir; '
@@ -1451,8 +1486,9 @@ OIL_ISOLATE = dm(
             ('end-fill', 'Yağı tamamlayın ve motoru yeniden deneyin.',
              code('DA1', '2', '300')),
             ('end-contaminated', 'Yağa soğutma sıvısı ya da yakıt '
-             'karışmış; motoru çalıştırmayın, yetkili bakım birimine '
-             'bildirin.', None),
+             'karışmış; motoru çalıştırmayın. Soğutma sıvısı seviyesini '
+             'kontrol edip yetkili bakım birimine bildirin.',
+             code('DA1', '3', '300')),
             ('end-sensor', 'Seviye ve yağ normal: basınç algılayıcısı ya da '
              'yağ pompası arızalı olabilir; bildirin.', None),
         ],
@@ -1674,8 +1710,8 @@ TRANS_ISOLATE = dm(
              'varsa bildirin.', code('DA2', '1', '241')),
             ('end-clean', 'Radyatörleri ve ızgaraları temizleyin.',
              code('DA1', '3', '250')),
-            ('end-controls', 'Kumanda bağlantılarını muayene edin.',
-             code('DA2', '4', '310')),
+            ('end-controls', 'Kumanda bağlantılarını yağlayın; boşluk ya '
+             'da hasar varsa bildirin.', code('DA2', '4', '240')),
             ('end-service', 'Şanzıman içi arıza olabilir; yetkili bakım '
              'birimine bildirin.', None),
         ],
@@ -2216,7 +2252,7 @@ OPTICS_ISOLATE = dm(
     info='Görüntü bulanık ya da buğulu: arıza bulma',
     isolation={
         'fault': 'NAYATANK-DA5-001',
-        'descr': 'Nişan optiğinden, komutan periskobundan ya da sürücü '
+        'descr': 'Nişancı optiğinden, komutan periskobundan ya da sürücü '
                  'periskobundan görüntü bulanık, lekeli ya da buğulu.',
         'steps': [
             ('stp-0001', 'Optiğin dış camına bakın.',
@@ -2229,8 +2265,8 @@ OPTICS_ISOLATE = dm(
         ],
         'ends': [
             ('end-clean', 'Optik camını temizleyin.', code('DA5', '2', '250')),
-            ('end-damaged', 'Sürücü periskobu ise değiştirin; nişan ve '
-             'komutan optiklerini yetkili birime bildirin.',
+            ('end-damaged', 'Sürücü periskobu ise değiştirin; kule '
+             'optiklerini yetkili birime bildirin.',
              code('DA5', '2', '920')),
             ('end-moisture', 'Optiğin içine nem girmiş; optiği açmayın, '
              'yetkili bakım birimine bildirin.', code('DA5', '2', '310')),
@@ -2241,7 +2277,7 @@ OPTICS_COVERS = dm(
     code=code('DA5', '2', '310'), tech='Optik koruyucu kapakları ve camları',
     figure=5, conditions=[PARKED, 'Kule kilitli.'], warnings=[WEAPONS_SAFE],
     steps=[
-        'Nişan optiğinin ve komutan periskobunun koruyucu kapaklarını açıp '
+        'Nişancı optiğinin ve komutan periskobunun koruyucu kapaklarını açıp '
         'kapatın; menteşe ve kilitleri kontrol edin.',
         'Camlarda çizik, çatlak ve kaplama hasarı olup olmadığına bakın.',
         'Kapak contalarının yerinde olduğunu kontrol edin.',
@@ -2270,8 +2306,8 @@ MUZZLE_COVER = dm(
     conditions=[PARKED, 'Kule ve top kilitli.'],
     warnings=[WEAPONS_SAFE],
     steps=[
-        'Eski kapağı namlu ağzından çıkarın; namlunun içine bakmayın ve '
-        'hiçbir cisim sokmayın.',
+        'Eski kapağı namlu ağzından çıkarın; namluya hiçbir cisim '
+        'sokmayın.',
         'Yeni kapağı namlu ağzına tam oturacak şekilde takın.',
         'Kapağın bağlantı kayışını sabitleyin.',
         'Değişikliği silah sorumlusuna bildirin.',
@@ -2289,36 +2325,33 @@ MG_CHECK = dm(
         'temizleyin.',
         'Kundağın kilit kolunun ve emniyet pimlerinin yerinde olduğunu '
         'kontrol edin.',
-        'Silahın kendisine dokunmayın; hasarı silah sorumlusuna bildirin.',
+        'Silaha dokunmayın; hasarı silah sorumlusuna bildirin.',
     ])
 
 SMOKE_CHECK = dm(
     code=code('DA5', '4', '310'), tech='Sis bombası atıcıları',
     info='Dış muayene', figure=5,
     conditions=[PARKED, 'Kule kilitli.'],
-    warnings=[WEAPONS_SAFE, 'Atıcı tüplerinin önünde durmayın; tüplerin '
-              'dolu olup olmadığını yalnız silah sorumlusu belirler.'],
+    warnings=[WEAPONS_SAFE, 'Atıcıların önünde durmayın.'],
     steps=[
-        'Atıcı tüplerinde ezik, çatlak ya da kopuk parça olup olmadığına '
-        'dışarıdan bakın.',
-        'Tüp ağızlarındaki koruyucu kapakların yerinde olduğunu kontrol '
-        'edin.',
-        'Tüplerin taşıyıcı plakalarının kuleye bağlantısını gözle kontrol '
-        'edin.',
-        'Tüplere elinizi ya da bir cisim sokmayın; hasarı bildirin.',
+        'Atıcıların dış gövdesinde ezik, çatlak ya da kopuk parça olup '
+        'olmadığına bakın.',
+        'Koruyucu kapakların yerinde olduğunu kontrol edin.',
+        'Taşıyıcı plakaların kuleye bağlantısını gözle kontrol edin.',
+        'Atıcılara elinizi ya da bir cisim sokmayın; hasarı bildirin.',
     ])
 
 SMOKE_CLEAN = dm(
     code=code('DA5', '4', '250'), tech='Sis bombası atıcıları',
     info='Dış temizlik', figure=5,
     tools=[('Yumuşak kıllı fırça', 1), ('Temiz bez', None)],
-    conditions=[PARKED, 'Kule kilitli.',
-                'Silah sorumlusu tüplerin boş olduğunu doğrulamış.'],
+    conditions=[PARKED, 'Kule kilitli.', 'Silah sorumlusu izin vermiş.'],
     warnings=[WEAPONS_SAFE],
     steps=[
-        'Tüplerin ve taşıyıcı plakaların dış yüzündeki çamuru fırçayla alın.',
+        'Atıcıların ve taşıyıcı plakaların dış yüzündeki çamuru fırçayla '
+        'alın.',
         'Koruyucu kapakların çevresini kuru bezle silin.',
-        'Tüplerin içine su ya da temizleyici tutmayın.',
+        'Atıcılara su ya da temizleyici tutmayın.',
         'Temizlikten sonra koruyucu kapakları kontrol edin.',
     ])
 
@@ -2551,11 +2584,15 @@ FIRE_ISOLATE = dm(
     isolation={
         'fault': 'NAYATANK-DA7-002',
         'descr': 'Gösterge panelinde yangın söndürme sistemi arıza uyarısı '
-                 'yanıyor; yangın belirtisi yok.',
+                 'yanıyor ya da el tipi söndürücünün göstergesi düşük; '
+                 'yangın belirtisi yok.',
         'steps': [
             ('stp-0001', 'Önce gerçek bir yangın belirtisi (duman, koku, '
              'ısı) olup olmadığını kontrol edin.', 'Yangın belirtisi var mı?',
-             'end-fire', 'stp-0002'),
+             'end-fire', 'stp-0004'),
+            ('stp-0004', 'El tipi söndürücülerin göstergelerine ve '
+             'mühürlerine bakın.', 'Bir söndürücünün göstergesi düşük ya da '
+             'mührü kopuk mu?', 'end-extinguisher', 'stp-0002'),
             ('stp-0002', 'Söndürücü tüplerinin göstergelerine bakın.',
              'Bir tüpün göstergesi düşük mü?', 'end-bottle', 'stp-0003'),
             ('stp-0003', 'Algılayıcıların ve kablolarının üstüne bakın.',
@@ -2565,6 +2602,8 @@ FIRE_ISOLATE = dm(
         'ends': [
             ('end-fire', 'Motoru durdurun, mürettebatı tahliye edin ve el '
              'kitabındaki yangın talimatını uygulayın.', None),
+            ('end-extinguisher', 'Söndürücüyü yenisiyle değiştirin.',
+             code('DA7', '2', '300')),
             ('end-bottle', 'Tüpü yetkili bakım birimine değiştirtin.',
              code('DA7', '2', '310')),
             ('end-detector', 'Algılayıcıyı silin, kablo hasarını bildirin.',
@@ -2719,11 +2758,11 @@ WEAPON_EXT_ISOLATE = dm(
         'descr': 'Namlu ağzı kapağı, sis bombası atıcıları ya da makineli '
                  'tüfek kundağında dışarıdan görülen hasar var.',
         'steps': [
-            ('stp-0001', 'Silah sorumlusuna silahların boş ve emniyette '
-             'olduğunu doğrulatın. Namlu ağzı kapağına bakın.',
+            ('stp-0001', 'Silah sorumlusundan izin alın. Namlu ağzı '
+             'kapağına bakın.',
              'Kapak yırtık ya da kayıp mı?', 'end-cover', 'stp-0002'),
             ('stp-0002', 'Sis bombası atıcılarına dışarıdan bakın.',
-             'Tüp ezik ya da koruyucu kapak eksik mi?', 'end-smoke',
+             'Atıcı ezik ya da koruyucu kapak eksik mi?', 'end-smoke',
              'end-mount'),
         ],
         'ends': [
@@ -2807,7 +2846,7 @@ part('hull.towing.bar', 'Çeki demiri', 'hull.towing', 'DA0-40', ['hull'],
 part('turret', 'Kule', None, 'DA0-20',
      ['turret', 'main_gun', 'optics', 'machine_gun', 'smoke_dischargers'],
      'z.turret',
-     'Dönen kule; silahları, optikleri ve mürettebattan üç kişiyi taşır.',
+     'Gövdenin üstündeki dönen kule; mürettebattan üç kişi buradadır.',
      {'inspect': TURRET_CHECK})
 part('turret.hatches', 'Komutan ve yükleyici kapakları', 'turret', 'DA0-20',
      ['turret'], 'z.turret', 'Kule üstündeki iki mürettebat kapağı.',
@@ -2820,7 +2859,7 @@ part('turret.ring', 'Kule yatağı ve contası', 'turret', 'DA0-60',
       'lubricate': RING_GREASE})
 part('turret.drives', 'Kule tahrik düzenleri', 'turret', 'DA0-60',
      ['turret'], 'z.turret',
-     'Kuleyi döndüren ve topu yükselten tahrikler; yalnız gözle muayene.',
+     'Kulenin içindeki tahrik düzenleri; yalnız dışarıdan gözle bakılır.',
      {'inspect': RING_CHECK, 'isolate': RING_ISOLATE})
 part('turret.lock', 'Kule kilidi', 'turret', 'DA0-60', ['turret'],
      'z.turret', 'Seyir ve bakımda kuleyi gövdeye sabitleyen kilit.',
@@ -2842,12 +2881,12 @@ part('turret.main_gun.boot', 'Top kalkanı toz körüğü', 'turret.main_gun',
      'DA5-10', ['main_gun'], 'z.turret',
      'Top kalkanı ile kule arasındaki esnek körük.',
      {'inspect': GUN_CHECK})
-part('turret.optics', 'Nişan ve gözetleme optikleri', 'turret', 'DA5-20',
+part('turret.optics', 'Kule optikleri', 'turret', 'DA5-20',
      ['optics'], 'z.turret',
-     'Nişancının ve komutanın kule üstündeki optikleri.',
+     'Kule üstündeki nişancı optiği ve komutan periskobu.',
      {'clean': OPTICS_CLEAN, 'inspect': OPTICS_COVERS,
       'isolate': OPTICS_ISOLATE})
-part('turret.optics.gunner', 'Nişancı nişan optiği', 'turret.optics',
+part('turret.optics.gunner', 'Nişancı optiği', 'turret.optics',
      'DA5-20', ['optics'], 'z.turret',
      'Kulenin ön sağ tavanındaki koruyucu kapaklı optik.',
      {'clean': OPTICS_CLEAN, 'isolate': OPTICS_ISOLATE})
@@ -2864,7 +2903,7 @@ part('turret.machine_gun', 'Makineli tüfek', 'turret', 'DA5-30',
      {'inspect': MG_CHECK})
 part('turret.smoke_dischargers', 'Sis bombası atıcıları', 'turret', 'DA5-40',
      ['smoke_dischargers'], 'z.turret',
-     'Kulenin iki yanındaki atıcı tüpleri; tankı sis perdesiyle gizler.',
+     'Kulenin iki yanındaki atıcılar ve taşıyıcı plakaları.',
      {'inspect': SMOKE_CHECK, 'clean': SMOKE_CLEAN}, quantity=2)
 
 # Güç paketi
@@ -3261,8 +3300,8 @@ SYMPTOMS = [
     ('sym.heater_no_start', 'Isıtıcı ateş almıyor ya da sönüyor'),
     ('sym.heater_smoke', 'Isıtıcı egzozundan yoğun duman çıkıyor'),
     ('sym.muzzle_cover', 'Namlu ağzı kapağı yırtık ya da kayıp'),
-    ('sym.smoke_tube_damage', 'Sis bombası atıcı tüpü ezik ya da kapağı '
-     'eksik'),
+    ('sym.smoke_tube_damage', 'Sis bombası atıcısı ezik ya da koruyucu '
+     'kapağı eksik'),
 ]
 
 # (id, parça, belirtiler, neden, önem 1-3, arıza bulma, onarım)
@@ -3347,7 +3386,7 @@ FAULTS = [
                                             'sym.power_loss'],
      'Motor kontrol ünitesi ya da bir algılayıcı arızalı.', 2, POWER_ISOLATE,
      ENGINE_TEST),
-    ('f.engine.oil_burning', 'engine', ['sym.blue_smoke', 'sym.oil_pressure'],
+    ('f.engine.oil_burning', 'engine', ['sym.blue_smoke'],
      'Motor yağ yakıyor; turboşarj keçeleri ya da segmanlar aşınmış '
      'olabilir.', 3, SMOKE_ISOLATE, OIL_CHECK),
     ('f.engine.coolant_in_oil', 'engine', ['sym.milky_oil',
@@ -3360,7 +3399,7 @@ FAULTS = [
      VIBRATION_ISOLATE, MOUNTS),
     ('f.oil.low', 'engine.oil', ['sym.oil_pressure', 'sym.oil_leak'],
      'Motor yağı eksik ya da bir conta sızdırıyor.', 3, OIL_ISOLATE,
-     OIL_CHANGE),
+     OIL_CHECK),
     ('f.oil_cooler.leak', 'engine.oil_cooler', ['sym.oil_leak'],
      'Motor yağ soğutucusu ya da bağlantısı sızdırıyor.', 2, OIL_ISOLATE,
      ENGINE_CHECK),
@@ -3452,8 +3491,11 @@ FAULTS = [
     ('f.hatch.stiff', 'hull.driver_hatch', ['sym.hatch_stiff'],
      'Kapak menteşesi ve kilidi kurumuş ya da kirlenmiş.', 1, HATCH_ISOLATE,
      HATCH_GREASE),
-    ('f.skirt.damaged', 'hull.side_skirt_l', ['sym.skirt_damaged'],
-     'Yan etek paneli çarpmayla eğilmiş ya da cıvatası kopmuş.', 1,
+    ('f.skirt_l.damaged', 'hull.side_skirt_l', ['sym.skirt_damaged'],
+     'Sol yan etek paneli çarpmayla eğilmiş ya da cıvatası kopmuş.', 1,
+     EXTERIOR_ISOLATE, SKIRT_CHANGE),
+    ('f.skirt_r.damaged', 'hull.side_skirt_r', ['sym.skirt_damaged'],
+     'Sağ yan etek paneli çarpmayla eğilmiş ya da cıvatası kopmuş.', 1,
      EXTERIOR_ISOLATE, SKIRT_CHANGE),
     ('f.tow_cable.worn', 'hull.towing.cables', ['sym.tow_cable_damaged'],
      'Çeki halatının telleri kopmuş ya da halat ezilmiş.', 2,
@@ -3479,7 +3521,8 @@ FAULTS = [
      MUZZLE_COVER),
     ('f.smoke_tube.damaged', 'turret.smoke_dischargers',
      ['sym.smoke_tube_damage'],
-     'Atıcı tüpü dalla ya da çarpmayla ezilmiş, koruyucu kapağı düşmüş.', 2,
+     'Atıcının dış gövdesi dalla ya da çarpmayla ezilmiş, koruyucu kapağı '
+     'düşmüş.', 2,
      WEAPON_EXT_ISOLATE, SMOKE_CHECK),
     # Hidrolik
     ('f.hydraulic.low', 'hydraulics.unit', ['sym.hydraulic_slow'],
@@ -3510,7 +3553,7 @@ FAULTS = [
      HEATER_ISOLATE, HEATER_CHECK),
     ('f.heater.fuel', 'crew.heater', ['sym.heater_no_start'],
      'Isıtıcının yakıt bağlantısında hava ya da sızıntı var.', 1,
-     HEATER_ISOLATE, HEATER_TEST),
+     HEATER_ISOLATE, HEATER_CHECK),
 ]
 
 # Yedek parça adı → IPD'deki parça.

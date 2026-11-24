@@ -6,7 +6,7 @@ Leopard 2A6 ana muharebe tankı. İçerik yalnız genel bakım bilgisidir: periy
 leopard2/
 ├── naya.json      manifest (bütünlük özetleri paketlerken eklenir)
 ├── csdb/          S1000D Issue 5.0: 138 DM, PM, DML, 16 çizim
-├── map/           parts.json (108 parça), faults.json (73 arıza, 67 belirti), zones.json
+├── map/           parts.json (108 parça), faults.json (74 arıza, 67 belirti), zones.json
 ├── model/         product.glb
 └── scripts/       modeli kuran, içeriği ve çizimleri üreten betikler
 ```

@@ -266,7 +266,7 @@
     },
     {
       "id": "sym.smoke_tube_damage",
-      "text": "Sis bombası atıcı tüpü ezik ya da kapağı eksik"
+      "text": "Sis bombası atıcısı ezik ya da koruyucu kapağı eksik"
     }
   ],
   "faults": [
@@ -546,8 +546,7 @@
       "id": "f.engine.oil_burning",
       "part": "engine",
       "symptoms": [
-        "sym.blue_smoke",
-        "sym.oil_pressure"
+        "sym.blue_smoke"
       ],
       "cause": "Motor yağ yakıyor; turboşarj keçeleri ya da segmanlar aşınmış olabilir.",
       "severity": 3,
@@ -588,7 +587,7 @@
       "cause": "Motor yağı eksik ya da bir conta sızdırıyor.",
       "severity": 3,
       "isolation": "DMC-NAYATANK-AAA-DA1-20-00-00AA-421A-A",
-      "repair": "DMC-NAYATANK-AAA-DA1-20-00-00AA-241A-A"
+      "repair": "DMC-NAYATANK-AAA-DA1-20-00-00AA-300A-A"
     },
     {
       "id": "f.oil_cooler.leak",
@@ -902,12 +901,23 @@
       "repair": "DMC-NAYATANK-AAA-DA0-20-00-00AA-240A-A"
     },
     {
-      "id": "f.skirt.damaged",
+      "id": "f.skirt_l.damaged",
       "part": "hull.side_skirt_l",
       "symptoms": [
         "sym.skirt_damaged"
       ],
-      "cause": "Yan etek paneli çarpmayla eğilmiş ya da cıvatası kopmuş.",
+      "cause": "Sol yan etek paneli çarpmayla eğilmiş ya da cıvatası kopmuş.",
+      "severity": 1,
+      "isolation": "DMC-NAYATANK-AAA-DA0-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA0-50-00-00AA-920A-A"
+    },
+    {
+      "id": "f.skirt_r.damaged",
+      "part": "hull.side_skirt_r",
+      "symptoms": [
+        "sym.skirt_damaged"
+      ],
+      "cause": "Sağ yan etek paneli çarpmayla eğilmiş ya da cıvatası kopmuş.",
       "severity": 1,
       "isolation": "DMC-NAYATANK-AAA-DA0-00-00-00AA-421A-A",
       "repair": "DMC-NAYATANK-AAA-DA0-50-00-00AA-920A-A"
@@ -997,7 +1007,7 @@
       "symptoms": [
         "sym.smoke_tube_damage"
       ],
-      "cause": "Atıcı tüpü dalla ya da çarpmayla ezilmiş, koruyucu kapağı düşmüş.",
+      "cause": "Atıcının dış gövdesi dalla ya da çarpmayla ezilmiş, koruyucu kapağı düşmüş.",
       "severity": 2,
       "isolation": "DMC-NAYATANK-AAA-DA5-00-00-00AA-421A-A",
       "repair": "DMC-NAYATANK-AAA-DA5-40-00-00AA-310A-A"
@@ -1113,7 +1123,7 @@
       "cause": "Isıtıcının yakıt bağlantısında hava ya da sızıntı var.",
       "severity": 1,
       "isolation": "DMC-NAYATANK-AAA-DA7-30-00-00AA-421A-A",
-      "repair": "DMC-NAYATANK-AAA-DA7-30-00-00AA-320A-A"
+      "repair": "DMC-NAYATANK-AAA-DA7-30-00-00AA-310A-A"
     }
   ]
 }

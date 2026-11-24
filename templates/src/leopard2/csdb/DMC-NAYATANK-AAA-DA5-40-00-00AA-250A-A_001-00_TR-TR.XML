@@ -28,16 +28,16 @@
   <content>
     <procedure>
       <preliminaryRqmts>
-        <reqCondGroup><reqCondNoRef><reqCond>Tank düz zeminde, motor durdurulmuş, park freni çekili.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Kule kilitli.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Silah sorumlusu tüplerin boş olduğunu doğrulamış.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqCondGroup><reqCondNoRef><reqCond>Tank düz zeminde, motor durdurulmuş, park freni çekili.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Kule kilitli.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Silah sorumlusu izin vermiş.</reqCond></reqCondNoRef></reqCondGroup>
         <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Yumuşak kıllı fırça</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-001</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Temiz bez</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-017</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
-        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silahların boş ve emniyette olduğu silah sorumlusu tarafından doğrulanmadan kule üzerinde çalışmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silah sorumlusunun izni olmadan kule üzerinde ve namlu önünde çalışmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Tüplerin ve taşıyıcı plakaların dış yüzündeki çamuru fırçayla alın.</para><figure id="fig-0005"><title>Kule üstü donanımı</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Atıcıların ve taşıyıcı plakaların dış yüzündeki çamuru fırçayla alın.</para><figure id="fig-0005"><title>Kule üstü donanımı</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Koruyucu kapakların çevresini kuru bezle silin.</para></proceduralStep>
-        <proceduralStep><para>Tüplerin içine su ya da temizleyici tutmayın.</para></proceduralStep>
+        <proceduralStep><para>Atıcılara su ya da temizleyici tutmayın.</para></proceduralStep>
         <proceduralStep><para>Temizlikten sonra koruyucu kapakları kontrol edin.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

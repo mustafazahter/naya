@@ -288,7 +288,7 @@
         "smoke_dischargers"
       ],
       "zone": "z.turret",
-      "function": "Dönen kule; silahları, optikleri ve mürettebattan üç kişiyi taşır.",
+      "function": "Gövdenin üstündeki dönen kule; mürettebattan üç kişi buradadır.",
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
@@ -349,7 +349,7 @@
         "turret"
       ],
       "zone": "z.turret",
-      "function": "Kuleyi döndüren ve topu yükselten tahrikler; yalnız gözle muayene.",
+      "function": "Kulenin içindeki tahrik düzenleri; yalnız dışarıdan gözle bakılır.",
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
@@ -478,14 +478,14 @@
     },
     {
       "id": "turret.optics",
-      "name": "Nişan ve gözetleme optikleri",
+      "name": "Kule optikleri",
       "parent": "turret",
       "sns": "DA5-20",
       "meshNodes": [
         "optics"
       ],
       "zone": "z.turret",
-      "function": "Nişancının ve komutanın kule üstündeki optikleri.",
+      "function": "Kule üstündeki nişancı optiği ve komutan periskobu.",
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
@@ -499,7 +499,7 @@
     },
     {
       "id": "turret.optics.gunner",
-      "name": "Nişancı nişan optiği",
+      "name": "Nişancı optiği",
       "parent": "turret.optics",
       "sns": "DA5-20",
       "meshNodes": [
@@ -585,7 +585,7 @@
         "smoke_dischargers"
       ],
       "zone": "z.turret",
-      "function": "Kulenin iki yanındaki atıcı tüpleri; tankı sis perdesiyle gizler.",
+      "function": "Kulenin iki yanındaki atıcılar ve taşıyıcı plakaları.",
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
