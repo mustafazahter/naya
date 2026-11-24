@@ -25,7 +25,7 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><reqCondNoRef><reqCond>Motor çalışma sıcaklığında.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Akü tam dolu.</reqCond></reqCondNoRef></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Kompresyon ölçer</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-001</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Buji anahtarı, 16 mm</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-002</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Kompresyon ölçer</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-009</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Buji anahtarı, 16 mm</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-010</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
         <reqSafety><safetyRqmts><warning><warningAndCautionPara>Motor sıcakken egzoz manifolduna dokunmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>

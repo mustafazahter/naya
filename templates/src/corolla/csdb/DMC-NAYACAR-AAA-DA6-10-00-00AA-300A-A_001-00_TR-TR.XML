@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dmodule [
 <!NOTATION JPEG SYSTEM "JPEG">
-<!ENTITY ICN-NAYACAR-AAA-D000000-0-NAYA0-00002-A-001-01 SYSTEM "ICN-NAYACAR-AAA-D000000-0-NAYA0-00002-A-001-01.JPG" NDATA JPEG>
+<!ENTITY ICN-NAYACAR-AAA-D000000-0-NAYA0-00011-A-001-01 SYSTEM "ICN-NAYACAR-AAA-D000000-0-NAYA0-00011-A-001-01.JPG" NDATA JPEG>
 ]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
@@ -29,15 +29,15 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Voltmetre</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-022</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Voltmetre</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-029</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
         <reqSafety><safetyRqmts><warning><warningAndCautionPara>Akü patlayıcı hidrojen gazı çıkarır; yakınında kıvılcım çıkarmayın, sigara içmeyin.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Motor kapalıyken akü kutup başları arasındaki gerilimi ölçün. 12,6 V ve üstü tam dolu, 12,4 V yaklaşık %75 dolu aküyü gösterir; 12,2 V'un altındaysa akü şarj edilmelidir.</para><figure id="fig-0002"><title>Motor bölmesi</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure></proceduralStep>
-        <proceduralStep><para>Motoru çalıştırın ve gerilimi yeniden ölçün. 13,8-14,4 V arası şarj sisteminin çalıştığını gösterir.</para></proceduralStep>
-        <proceduralStep><para>Gerilim 13,5 V'un altındaysa alternatör kayışını ve alternatörü kontrol ettirin.</para></proceduralStep>
+        <proceduralStep><para>Motor kapalıyken akü kutup başları arasındaki gerilimi ölçün. 12,6 V ve üstü tam dolu, 12,4 V yaklaşık %75 dolu aküyü gösterir; 12,2 V'un altındaysa akü şarj edilmelidir.</para><figure id="fig-0011"><title>Şarj ve marş: alternatör, marş motoru ve akü</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00011-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Motoru çalıştırın ve gerilimi yeniden ölçün. 13,9-15,1 V arası şarj sisteminin çalıştığını gösterir.</para></proceduralStep>
+        <proceduralStep><para>Gerilim 13,5 V'un altındaysa şarj sistemini kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Kutup başlarındaki beyaz oksidi sıcak su ve tel fırçayla temizleyin; kelepçeleri sıkın.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

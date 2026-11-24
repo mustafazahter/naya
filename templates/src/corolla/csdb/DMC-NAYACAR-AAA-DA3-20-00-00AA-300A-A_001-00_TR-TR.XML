@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYACAR-AAA-D000000-0-NAYA0-00008-A-001-01 SYSTEM "ICN-NAYACAR-AAA-D000000-0-NAYA0-00008-A-001-01.JPG" NDATA JPEG>
+]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
     <dmAddress>
@@ -31,7 +35,7 @@
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Aracın arkasını kaldırın ve tekerlekleri sökün.</para></proceduralStep>
+        <proceduralStep><para>Aracın arkasını kaldırın ve tekerlekleri sökün.</para><figure id="fig-0008"><title>Arka süspansiyon ve fren</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00008-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Balata kalınlığını kontrol edin; 1 mm'nin altındaysa değiştirin.</para></proceduralStep>
         <proceduralStep><para>Kaliper ve hortumlarda kaçak olup olmadığına bakın.</para></proceduralStep>
         <proceduralStep><para>El freni kolunu çekin; 5-8 diş arasında tam tutmalıdır. Daha fazlaysa el freni telini ayarlatın.</para></proceduralStep>

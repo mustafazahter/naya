@@ -29,7 +29,7 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><reqCondNoRef><reqCond>Lastikler soğuk (araç en az 3 saat durmuş).</reqCond></reqCondNoRef></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Lastik basınç ölçer</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-019</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Diş derinliği ölçer</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-020</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Lastik basınç ölçer</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-063</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Diş derinliği ölçer</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-064</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
         <reqSafety><noSafety/></reqSafety>
@@ -38,6 +38,7 @@
         <proceduralStep><para>Dört lastiğin ve stepnenin basıncını ölçün; ön ve arka 2,2 bar olmalıdır.</para><figure id="fig-0006"><title>Tekerlek ve lastik</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00006-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Diş derinliğini üç noktadan ölçün. Yasal sınır 1,6 mm'dir; kışın en az 4 mm önerilir.</para></proceduralStep>
         <proceduralStep><para>Yanaklarda kesik, şişlik ve çatlak olup olmadığına bakın. Şişlikli lastik hemen değiştirilmelidir.</para></proceduralStep>
+        <proceduralStep><para>Lastiğin üretim tarihini (DOT kodunun son dört hanesi: hafta ve yıl) okuyun; altı yaşını geçmiş lastik kauçuğu sertleştiği için değiştirilmelidir.</para></proceduralStep>
         <proceduralStep><para>Aşınma düzensizse (iç ya da dış kenar) ön düzen ayarı yaptırın.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

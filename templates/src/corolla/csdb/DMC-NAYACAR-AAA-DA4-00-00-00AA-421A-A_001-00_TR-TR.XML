@@ -25,7 +25,7 @@
     <faultIsolation>
       <faultIsolationProcedure>
         <fault faultCode="NAYACAR-DA4-001"/>
-        <faultDescr><descr>Araç bir yana çekiyor, direksiyon titriyor, tümseklerde vuruntu sesi geliyor ya da lastikler düzensiz aşınıyor.</descr></faultDescr>
+        <faultDescr><descr>Araç bir yana çekiyor, direksiyon titriyor, tümseklerde vuruntu sesi geliyor, tekerlekten uğultu geliyor ya da lastikler düzensiz aşınıyor.</descr></faultDescr>
         <isolationProcedure>
           <preliminaryRqmts><reqCondGroup><noConds/></reqCondGroup><reqSupportEquips><noSupportEquips/></reqSupportEquips><reqSupplies><noSupplies/></reqSupplies><reqSpares><noSpares/></reqSpares><reqSafety><noSafety/></reqSafety></preliminaryRqmts>
           <isolationMainProcedure>
@@ -41,19 +41,43 @@
             </isolationStep>
             <isolationStep id="stp-0003">
               <action>Aracı yavaşça tümsekten geçirin ve sesi dinleyin.</action>
-              <isolationStepQuestion>Önden vuruntu sesi geliyor mu?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-strut"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepQuestion>Önden vuruntu ya da tıkırtı sesi geliyor mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0006"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0004">
               <action>Belirli bir hızda direksiyonda titreme olup olmadığını izleyin.</action>
               <isolationStepQuestion>Titreme var mı?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-balance"/><noAnswer nextActionRefId="end-shop"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-balance"/><noAnswer nextActionRefId="stp-0005"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0005">
+              <action>60-90 km/s'de sürerken sesi dinleyin, sonra hafif viraj alın.</action>
+              <isolationStepQuestion>Hızla artan, virajda değişen bir uğultu var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-bearing"/><noAnswer nextActionRefId="stp-0007"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0006">
+              <action>Aracı kaldırıp tekerleği altından ve üstünden tutup sallayın.</action>
+              <isolationStepQuestion>Rotil ya da rot başında boşluk var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-joint"/><noAnswer nextActionRefId="stp-0008"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0007">
+              <action>Motor çalışırken direksiyonu sağa sola çevirin.</action>
+              <isolationStepQuestion>Direksiyon ağır ya da pompadan inilti geliyor mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-steering"/><noAnswer nextActionRefId="end-shop"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0008">
+              <action>Viraj demiri bağlantı çubuklarını elle oynatın.</action>
+              <isolationStepQuestion>Çubuk mafsallarında boşluk var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-link"/><noAnswer nextActionRefId="end-strut"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-pressure"><action>Lastik basınçlarını 2,2 bara ayarlayın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA5" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-alignment"><action>Ön düzen ayarı yaptırın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA4" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-strut"><action>Amortisörü, takozunu, salıncak burcunu ve rotili kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA4" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-balance"><action>Tekerlek balansı bozulmuş olabilir; balans yaptırın.</action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-shop"><action>Direksiyon kutusu ya da rot başları aşınmış olabilir; yetkili servise başvurun.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-balance"><action>Tekerlek balansı bozulmuş olabilir; balans yaptırın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA5" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-bearing"><action>Tekerlek rulmanı aşınmış; uğultunun geldiği tarafın rulmanını değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA5" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-joint"><action>Boşluk rotilde ise rotili, rot başında ise rot başını değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA4" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-link"><action>Viraj demiri bağlantı çubuklarını değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA4" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="02" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-strut"><action>Amortisörü, takozunu ve salıncak burcunu kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA4" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-steering"><action>Hidrolik direksiyonu kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA4" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-shop"><action>Direksiyon kutusu aşınmış olabilir; yetkili servise başvurun.</action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
         </isolationProcedure>

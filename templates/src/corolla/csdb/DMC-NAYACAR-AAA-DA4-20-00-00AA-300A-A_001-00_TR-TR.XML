@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYACAR-AAA-D000000-0-NAYA0-00008-A-001-01 SYSTEM "ICN-NAYACAR-AAA-D000000-0-NAYA0-00008-A-001-01.JPG" NDATA JPEG>
+]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
     <dmAddress>
@@ -31,9 +35,9 @@
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Aracın arka köşesine bastırıp bırakın; birden çok salınım amortisörün zayıfladığını gösterir.</para></proceduralStep>
+        <proceduralStep><para>Aracın arka köşesine bastırıp bırakın; birden çok salınım amortisörün zayıfladığını gösterir.</para><figure id="fig-0008"><title>Arka süspansiyon ve fren</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00008-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Arka amortisörlerde yağ sızıntısı olup olmadığına bakın.</para></proceduralStep>
-        <proceduralStep><para>Salıncakların ve viraj demirinin burçlarını çatlak ve yırtığa karşı kontrol edin.</para></proceduralStep>
+        <proceduralStep><para>Salıncakların, çeki kolunun ve viraj demirinin burçlarını çatlak ve yırtığa karşı kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Aracı kaldırın, arka tekerleği sallayarak rulman boşluğunu kontrol edin.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

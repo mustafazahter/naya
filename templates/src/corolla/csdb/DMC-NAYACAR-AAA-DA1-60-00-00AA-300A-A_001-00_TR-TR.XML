@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYACAR-AAA-D000000-0-NAYA0-00009-A-001-01 SYSTEM "ICN-NAYACAR-AAA-D000000-0-NAYA0-00009-A-001-01.JPG" NDATA JPEG>
+]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
     <dmAddress>
@@ -31,7 +35,7 @@
         <reqSafety><safetyRqmts><warning><warningAndCautionPara>Egzoz sistemi motor durduktan sonra da uzun süre sıcak kalır.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Motoru çalıştırın ve manifold, boru bağlantıları ve susturucu çevresinden üfleme sesi gelip gelmediğini dinleyin.</para></proceduralStep>
+        <proceduralStep><para>Motoru çalıştırın ve manifold, boru bağlantıları ve susturucu çevresinden üfleme sesi gelip gelmediğini dinleyin.</para><figure id="fig-0009"><title>Araç altı: egzoz hattı ve yakıt deposu</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00009-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Motoru durdurun, araç soğuyunca altına bakın: boruda delik, paslanma ve kopmuş askı lastiği olup olmadığını kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Susturucuyu elle sallayın; askılarda boşluk varsa lastikleri değiştirin.</para></proceduralStep>
         <proceduralStep><para>Egzoz manifoldu somunlarında gevşeklik olup olmadığını kontrol edin.</para></proceduralStep>

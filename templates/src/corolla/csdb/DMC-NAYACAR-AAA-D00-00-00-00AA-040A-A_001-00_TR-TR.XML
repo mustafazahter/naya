@@ -36,19 +36,22 @@
       <figure id="fig-0001"><title>Araç, soldan görünüş</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure>
       <levelledPara>
         <title>Sistemler</title>
-        <para>Gövde: kapılar, kaput, bagaj kapağı, tamponlar, camlar.</para>
-        <para>Motor: blok ve silindir kapağı, triger zinciri, yağlama, soğutma, ateşleme, emme ve egzoz.</para>
-        <para>Güç aktarma: şanzıman, debriyaj ve iki ön aks mili.</para>
-        <para>Fren sistemi: önde disk fren; bu modelde arkada da disk var (E100 sedanların çoğunda arkada kampana fren bulunur). Vakumlu fren servosu.</para>
-        <para>Süspansiyon: önde ve arkada MacPherson tipi amortisörler, kremayer dişli direksiyon.</para>
-        <para>Elektrik: 12 V akü, farlar ve arka lambalar.</para>
+        <para>Gövde: kapılar, kaput, bagaj kapağı, tamponlar, camlar, silecekler, aynalar ve kabin döşemesi.</para>
+        <para>Motor: blok ve silindir kapağı, triger zinciri, yağlama, soğutma, ateşleme, yakıt, motor yönetimi, emme, egzoz ve emisyon kontrolü.</para>
+        <para>Güç aktarma: beş ileri manuel şanzıman, hidrolik debriyaj ve iki ön aks mili.</para>
+        <para>Fren sistemi: önde havalandırmalı disk; bu modelde arkada da disk var (E100 sedanların çoğunda arkada kampana fren bulunur). Vakumlu fren servosu, mekanik el freni. Bu donanımda ABS yok; ABS bazı pazarlarda opsiyondu.</para>
+        <para>Süspansiyon: önde ve arkada MacPherson tipi amortisörler, hidrolik destekli kremayer direksiyon.</para>
+        <para>Elektrik: 12 V akü, alternatör, marş motoru, farlar ve lambalar, elektrikli camlar ve merkezi kilit.</para>
+        <para>Isıtma ve klima: motor suyuyla çalışan kalorifer, R-134a soğutucu akışkanlı klima.</para>
       </levelledPara>
       <levelledPara>
         <title>Teknik veriler</title>
-        <para>Motor: 1ZZ-FE, 4 silindir sıralı, 16 supap, çift eksantrik (DOHC), 1794 cm³.</para>
+        <para>Motor: 1ZZ-FE, 4 silindir sıralı, 16 supap, çift eksantrik (DOHC), 1794 cm³, sıkıştırma oranı 10,0:1.</para>
         <para>Lastikler: 175/65 R14. Lastik basıncı ön ve arka 2,2 bar.</para>
-        <para>Motor yağı: 5W-30, filtreyle birlikte yaklaşık 3,7 litre.</para>
-        <para>Soğutma suyu: uzun ömürlü antifriz karışımı, yaklaşık 6 litre.</para>
+        <para>Motor yağı: 5W-30 (API SL ya da üstü), filtreyle birlikte yaklaşık 3,7 litre.</para>
+        <para>Soğutma suyu: uzun ömürlü etilen glikol antifriz, %50 karışım; sistem yaklaşık 6 litre.</para>
+        <para>Şanzıman yağı: API GL-4, SAE 75W-90. Fren hidroliği: DOT 3 ya da DOT 4. Hidrolik direksiyon yağı: ATF Dexron II/III.</para>
+        <para>Bijon somunu sıkma torku: 103 N·m.</para>
       </levelledPara>
     </description>
   </content>

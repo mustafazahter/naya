@@ -38,7 +38,7 @@
         <proceduralStep><para>Aracın ön köşesine bastırıp bırakın. Gövde bir kez inip kalkarak durmalıdır; birden çok salınım amortisörün zayıfladığını gösterir.</para><figure id="fig-0004"><title>Ön fren ve süspansiyon</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00004-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Amortisörün gövdesinde yağ sızıntısı olup olmadığına bakın.</para></proceduralStep>
         <proceduralStep><para>Aracı kaldırın, tekerleği üstten ve alttan tutup sallayın. Boşluk rotil ya da tekerlek rulmanı aşınmasını gösterir.</para></proceduralStep>
-        <proceduralStep><para>Salıncak burçlarında çatlak ve yırtık olup olmadığını kontrol edin.</para></proceduralStep>
+        <proceduralStep><para>Salıncak burçlarında ve viraj demiri lastiklerinde çatlak ve yırtık olup olmadığını kontrol edin.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
     </procedure>
