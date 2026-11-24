@@ -30,7 +30,10 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 RUN git clone --depth 1 --branch "$FLUTTER_VERSION" \
       https://github.com/flutter/flutter.git /sdks/flutter
-ENV PATH=/sdks/flutter/bin:/sdks/flutter/bin/cache/dart-sdk/bin:$PATH
+# Komuta'nın derleme ortamında root, dosya sahipliğini değiştiremiyor;
+# Flutter'ın indirdiği arşivler sahipliği korumadan açılsın.
+ENV PATH=/sdks/flutter/bin:/sdks/flutter/bin/cache/dart-sdk/bin:$PATH \
+    TAR_OPTIONS=--no-same-owner
 RUN flutter config --no-analytics --enable-web \
  && flutter precache --web \
  && flutter --version
