@@ -324,9 +324,12 @@ class OpenRouterProvider implements AiProvider {
     }
   }
 
+  /// OpenRouter fiyatı token başına; yönlendirici modeller (`openrouter/auto`
+  /// gibi) fiyatı seçilen modele bağlı olduğu için `-1` döndürür, o zaman
+  /// fiyat bilinmiyor sayılır.
   static double? _perMillion(Object? perToken) {
     final value = perToken is String ? double.tryParse(perToken) : null;
-    return value == null ? null : value * 1000000;
+    return value == null || value < 0 ? null : value * 1000000;
   }
 
   static const _unexpected = AiException(

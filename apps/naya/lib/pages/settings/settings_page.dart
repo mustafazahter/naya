@@ -558,7 +558,7 @@ class _ModelPickerState extends State<_ModelPicker> {
                       ),
                     ),
                     subtitle: Text(
-                      _details(m),
+                      m.details,
                       style: context.text.mono.copyWith(
                         fontSize: 11,
                         color: c.textMuted,
@@ -576,18 +576,4 @@ class _ModelPickerState extends State<_ModelPicker> {
       ],
     );
   }
-
-  /// "deepseek/… · 128K · $0.10 / $0.40"
-  static String _details(AiModel m) {
-    final parts = [m.id];
-    final context = m.contextLength;
-    if (context != null) parts.add('${(context / 1000).round()}K');
-    if (m.inputPrice != null && m.outputPrice != null) {
-      parts.add('\$${_price(m.inputPrice!)} / \$${_price(m.outputPrice!)}');
-    }
-    return parts.join(' · ');
-  }
-
-  static String _price(double v) =>
-      v == 0 ? '0' : (v < 1 ? v.toStringAsFixed(2) : v.toStringAsFixed(1));
 }

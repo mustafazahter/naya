@@ -45,9 +45,13 @@ class AiModel {
     name: json['name'] as String? ?? json['id']! as String,
     kind: json['kind'] as String? ?? 'chat',
     contextLength: json['contextLength'] as int?,
-    inputPrice: (json['inputPrice'] as num?)?.toDouble(),
-    outputPrice: (json['outputPrice'] as num?)?.toDouble(),
+    inputPrice: _price(json['inputPrice']),
+    outputPrice: _price(json['outputPrice']),
   );
+
+  /// Eksi fiyat (yönlendirici modeller) bilinmiyor sayılır.
+  static double? _price(Object? value) =>
+      value is num && value >= 0 ? value.toDouble() : null;
 
   final String id;
   final String name;
@@ -57,6 +61,38 @@ class AiModel {
   final int? contextLength;
   final double? inputPrice;
   final double? outputPrice;
+
+  /// Model listesindeki alt satır:
+  /// `deepseek/… · 1M · 1M token: girdi $0.051, çıktı $0.2`.
+  String get details {
+    final parts = [id];
+    final context = contextLength;
+    if (context != null) parts.add(_tokens(context));
+    final input = inputPrice;
+    final output = outputPrice;
+    if (input != null && output != null) {
+      parts.add(
+        '1M token: girdi \$${_dollars(input)}, çıktı \$${_dollars(output)}',
+      );
+    }
+    return parts.join(' · ');
+  }
+
+  static String _tokens(int count) => count >= 1000000
+      ? '${_trim((count / 1000000).toStringAsFixed(1))}M'
+      : '${(count / 1000).round()}K';
+
+  /// 1'in altında iki anlamlı basamak (0.0507 → 0.051), üstünde en çok
+  /// iki ondalık (10 → 10, 2.5 → 2.5).
+  static String _dollars(double v) {
+    if (v == 0) return '0';
+    if (v < 1) return _trim(v.toStringAsPrecision(2));
+    return _trim(v.toStringAsFixed(2));
+  }
+
+  static String _trim(String number) => number.contains('.')
+      ? number.replaceFirst(RegExp(r'\.?0+$'), '')
+      : number;
 }
 
 /// Modellerin görevleri: sohbet (açıklama, cevap) ve karar (teşhis).
