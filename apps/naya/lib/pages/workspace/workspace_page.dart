@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../entities/diagnosis/diagnosis.dart';
@@ -123,6 +124,10 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
 
   /// Her teşhiste artar; eski teşhisin animasyonu yenisini bozmasın.
   var _run = 0;
+
+  /// Geniş ekranda sağ sütunda açık parça kartı; null ise sohbet görünür.
+  /// Kart viewer'ın üstüne binmez, viewer düğmeleri hep görünür kalır.
+  _DockedPart? _docked;
 
   Product get product => widget.product;
 
@@ -283,6 +288,20 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
       _addUserTurn(text);
       _turns.add(const AnswerTurn('', streaming: true));
     });
+    final run = _run;
+    var waiting = true;
+    unawaited(_sweepWhile(run, () => waiting));
+    // İlk kelime ya da hata gelince tarama durur, kamera konuya döner.
+    void answered() {
+      if (!waiting) return;
+      waiting = false;
+      if (run != _run) return;
+      _viewer.highlight(const {});
+      final content = ref.read(productContentProvider(product.id)).value;
+      final part = _part;
+      if (content != null && part != null) _focusPart(content, part);
+    }
+
     final buffer = StringBuffer();
     void replaceAnswer(AnswerTurn turn) {
       if (_turns.isNotEmpty && _turns.last is AnswerTurn) {
@@ -300,6 +319,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
         ).listen(
           (event) {
             if (!mounted) return;
+            answered();
             setState(() {
               switch (event) {
                 case AnswerDelta(:final text):
@@ -313,6 +333,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
           },
           onError: (Object e) {
             if (!mounted) return;
+            answered();
             setState(() {
               _answer = null;
               if (buffer.isEmpty) {
@@ -325,7 +346,9 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
             });
           },
           onDone: () {
-            if (mounted) setState(() => _answer = null);
+            if (!mounted) return;
+            answered();
+            setState(() => _answer = null);
           },
           cancelOnError: true,
         );
@@ -342,6 +365,10 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
 
   void _openPart(ProductContent content, String partId, {String? node}) {
     final wide = MediaQuery.sizeOf(context).width >= 900;
+    if (wide) {
+      setState(() => _docked = _DockedPart(partId, node));
+      return;
+    }
     Widget sheet(ScrollController? controller) => _PartSheetHost(
       content: content,
       initialPart: partId,
@@ -357,43 +384,9 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
         _askAbout(id);
       },
       // Kartta başka parçaya geçince modelde de o parçaya bakılır.
-      onPartChanged: (part) {
-        final nodes = content.part(part)?.meshNodes ?? const [];
-        if (nodes.isNotEmpty) _viewer.focus(nodes.first);
-      },
+      onPartChanged: (part) => _focusPart(content, part),
     );
 
-    if (wide) {
-      showGeneralDialog<void>(
-        context: context,
-        barrierDismissible: true,
-        barrierLabel: 'Kapat',
-        barrierColor: Colors.black38,
-        transitionDuration: NayaMotion.base,
-        pageBuilder: (context, _, _) => Align(
-          alignment: Alignment.centerRight,
-          child: Material(
-            color: context.colors.surface,
-            child: SizedBox(
-              width: 440,
-              height: double.infinity,
-              child: SafeArea(child: sheet(null)),
-            ),
-          ),
-        ),
-        transitionBuilder: (context, animation, _, child) => SlideTransition(
-          position: Tween(begin: const Offset(0.15, 0), end: Offset.zero)
-              .animate(
-                CurvedAnimation(
-                  parent: animation,
-                  curve: NayaMotion.decelerate,
-                ),
-              ),
-          child: FadeTransition(opacity: animation, child: child),
-        ),
-      );
-      return;
-    }
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
@@ -409,6 +402,25 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
       ),
     );
   }
+
+  /// Cevap beklenirken modelde tarama bandı gidip gelir; kullanıcı
+  /// yapay zekânın modele baktığını görür. [busy] false olunca o geçiş
+  /// biter; yeni bir tarama ya da vurgu gelirse hemen kesilir.
+  Future<void> _sweepWhile(int run, bool Function() busy) async {
+    await _viewer.whenReady();
+    while (mounted && run == _run && busy()) {
+      if (_viewer.exploded.value) _viewer.explode(0);
+      final finished = await _viewer.scan(const {});
+      if (!finished) return;
+    }
+  }
+
+  void _focusPart(ProductContent content, String partId) {
+    final nodes = content.part(partId)?.meshNodes ?? const [];
+    if (nodes.isNotEmpty) _viewer.focus(nodes.first);
+  }
+
+  void _closeDocked() => setState(() => _docked = null);
 
   /// Yazılan belirtiyi teşhis ettirir, sonucu sohbette gösterir ve modelde
   /// canlandırır.
@@ -434,6 +446,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
       _addUserTurn(text);
       _diagnosing = true;
     });
+    unawaited(_sweepWhile(run, () => _diagnosing));
     try {
       final diagnosis = await requestDiagnosis(
         ref.read(apiClientProvider),
@@ -464,6 +477,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
   /// Parça kartındaki "… hakkında sor": kart kapanır, sohbet o parçaya
   /// döner.
   void _askAbout(String partId) {
+    _docked = null;
     _reset();
     setState(() {
       _chatting = true;
@@ -587,7 +601,31 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
                       left: BorderSide(color: context.colors.line),
                     ),
                   ),
-                  child: SizedBox(width: 420, child: chat),
+                  child: SizedBox(
+                    width: 420,
+                    child: AnimatedSwitcher(
+                      duration: NayaMotion.base,
+                      switchInCurve: NayaMotion.decelerate,
+                      child: _docked == null || data == null
+                          ? KeyedSubtree(
+                              key: const ValueKey('chat'),
+                              child: chat,
+                            )
+                          : _DockedSheet(
+                              key: ValueKey(_docked),
+                              content: data,
+                              docked: _docked!,
+                              onClose: _closeDocked,
+                              onOpenModule: widget.onOpenModule,
+                              onOpenDetails: (id) {
+                                _closeDocked();
+                                widget.onOpenPart(id);
+                              },
+                              onAsk: _askAbout,
+                              onPartChanged: (part) => _focusPart(data, part),
+                            ),
+                    ),
+                  ),
                 ),
               ],
             );
@@ -623,7 +661,12 @@ class _PartSheetHost extends StatefulWidget {
     required this.onPartChanged,
     this.node,
     this.controller,
+    this.onClose,
   });
+
+  /// Verilirse kart bir sütunda duruyordur: geri tuşu sayfadan çıkmaz,
+  /// önceki parçaya ya da sohbete döner.
+  final VoidCallback? onClose;
 
   final ProductContent content;
   final String initialPart;
@@ -658,9 +701,13 @@ class _PartSheetHostState extends State<_PartSheetHost> {
     if (part == null) return const SizedBox.shrink();
     return PopScope(
       // Alt parçadan geri tuşu önce önceki parçaya döner.
-      canPop: _history.isEmpty,
+      canPop: _history.isEmpty && widget.onClose == null,
       onPopInvokedWithResult: (didPop, _) {
-        if (didPop || _history.isEmpty) return;
+        if (didPop) return;
+        if (_history.isEmpty) {
+          widget.onClose?.call();
+          return;
+        }
         setState(() => _partId = _history.removeLast());
         widget.onPartChanged(_partId);
       },
@@ -678,6 +725,94 @@ class _PartSheetHostState extends State<_PartSheetHost> {
           onSelectPart: _select,
           onOpenDetails: () => widget.onOpenDetails(_partId),
           onAsk: () => widget.onAsk(_partId),
+        ),
+      ),
+    );
+  }
+}
+
+/// Sağ sütunda açılan parça kartı.
+@immutable
+class _DockedPart {
+  const _DockedPart(this.part, this.node);
+
+  final String part;
+  final String? node;
+
+  @override
+  bool operator ==(Object other) =>
+      other is _DockedPart && other.part == part && other.node == node;
+
+  @override
+  int get hashCode => Object.hash(part, node);
+}
+
+/// Geniş ekranda sohbetin yerine geçen parça kartı: üstte sohbete dönüş,
+/// altında kart. Viewer'ın üstüne binmez, modeli karartmaz.
+class _DockedSheet extends StatelessWidget {
+  const _DockedSheet({
+    required this.content,
+    required this.docked,
+    required this.onClose,
+    required this.onOpenModule,
+    required this.onOpenDetails,
+    required this.onAsk,
+    required this.onPartChanged,
+    super.key,
+  });
+
+  final ProductContent content;
+  final _DockedPart docked;
+  final VoidCallback onClose;
+  final ValueChanged<String> onOpenModule;
+  final ValueChanged<String> onOpenDetails;
+  final ValueChanged<String> onAsk;
+  final ValueChanged<String> onPartChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return ColoredBox(
+      color: c.surface,
+      child: CallbackShortcuts(
+        bindings: {const SingleActivator(LogicalKeyboardKey.escape): onClose},
+        child: Focus(
+          autofocus: true,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                child: Row(
+                  children: [
+                    TextButton.icon(
+                      onPressed: onClose,
+                      icon: const Icon(Icons.arrow_back, size: 18),
+                      label: const Text('Sohbete dön'),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      tooltip: 'Kartı kapat',
+                      onPressed: onClose,
+                      icon: const Icon(Icons.close, size: 20),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: _PartSheetHost(
+                  content: content,
+                  initialPart: docked.part,
+                  node: docked.node,
+                  onClose: onClose,
+                  onOpenModule: onOpenModule,
+                  onOpenDetails: onOpenDetails,
+                  onAsk: onAsk,
+                  onPartChanged: onPartChanged,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

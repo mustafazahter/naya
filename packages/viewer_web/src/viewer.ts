@@ -607,12 +607,13 @@ export class NayaViewer {
 
   /**
    * Seçim, vurgu, izole ya da X-ışını değişince görünümü yeniler. Öne
-   * çıkan parçalar kendi malzemesiyle parlar; diğerleri CAD görünümüne
-   * geçer, izole edilmişse hiç görünmez.
+   * çıkan parçalar kendi malzemesiyle parlar; X-ışınında ve teşhis
+   * vurgusunda diğerleri CAD görünümüne geçer, izole edilmişse hiç
+   * görünmez. Yalnız seçim modeli karartmaz: kamera parçaya yaklaşırken
+   * çevresi de olduğu gibi görünür, seçilen parça parlar.
    */
   private refreshMaterials(): void {
-    const ghostOthers =
-      this.scanning === null && (this.xray || this.selected !== null || this.weights.size > 0);
+    const ghostOthers = this.scanning === null && (this.xray || this.weights.size > 0);
     for (const part of this.parts) {
       part.node.visible = this.isolated === null || part === this.isolated;
       const weight = this.weights.get(part.id) ?? 0;
