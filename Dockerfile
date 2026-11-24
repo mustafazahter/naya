@@ -3,9 +3,11 @@
 # Komuta bu dosyayla derler; yerelde Docker kullanmıyoruz.
 # Tek servis: API hem /api isteklerini hem de Flutter web derlemesini sunar.
 # Veriler (SQLite, .naya dosyaları, yedekler) /data'ya bağlanan kalıcı
-# diskte durur. Ayrıntı: naya-notlar/nasil-yapildi/komuta.md
+# diskte durur. Ayrıntı: apps/naya_api/README.md → "Yayın".
 
-ARG FLUTTER_VERSION=3.47.6
+# Proje Dart ^3.13 istiyor; hazır Flutter imajları bu sürümde değil.
+# Flutter resmî git etiketinden kuruluyor (yereldeki sürümle aynı).
+ARG FLUTTER_VERSION=3.47.5
 
 # 1) 3D viewer (three.js). Uygulamanın içine gömülür; web'de iframe.
 FROM node:20-bookworm-slim AS viewer
@@ -20,7 +22,18 @@ COPY packages/viewer_web packages/viewer_web
 RUN mkdir -p apps/naya/assets/viewer && cd packages/viewer_web && npm run bundle
 
 # 2) Flutter web, şablonlar ve API.
-FROM ghcr.io/cirruslabs/flutter:${FLUTTER_VERSION} AS build
+FROM debian:bookworm-slim AS build
+ARG FLUTTER_VERSION
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      ca-certificates curl git unzip xz-utils \
+ && rm -rf /var/lib/apt/lists/*
+RUN git clone --depth 1 --branch "$FLUTTER_VERSION" \
+      https://github.com/flutter/flutter.git /sdks/flutter
+ENV PATH=/sdks/flutter/bin:/sdks/flutter/bin/cache/dart-sdk/bin:$PATH
+RUN flutter config --no-analytics --enable-web \
+ && flutter precache --web \
+ && flutter --version
 WORKDIR /src
 COPY . .
 COPY --from=viewer /src/apps/naya/assets/viewer apps/naya/assets/viewer
