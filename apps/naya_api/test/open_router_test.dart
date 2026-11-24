@@ -237,6 +237,15 @@ void main() {
                   },
                   'pricing': {'prompt': '0.0000003', 'completion': '0.0000012'},
                 },
+              if (!decisions)
+                {
+                  'id': 'openrouter/auto',
+                  'name': 'Auto Router',
+                  'architecture': {
+                    'output_modalities': ['text'],
+                  },
+                  'pricing': {'prompt': '-1', 'completion': '-1'},
+                },
             ],
           }),
           200,
@@ -248,9 +257,13 @@ void main() {
     expect(models.map((m) => (m.id, m.kind)), [
       ('typesafe/jev-1.14', 'decision'),
       ('deepseek/deepseek-v4.1-flash', 'chat'),
+      ('openrouter/auto', 'chat'),
     ]);
     expect(models.first.inputPrice, closeTo(0.042, 1e-9));
-    expect(models.last.outputPrice, closeTo(1.2, 1e-9));
+    expect(models[1].outputPrice, closeTo(1.2, 1e-9));
+    // Yönlendiricinin -1 fiyatı bilinmiyor sayılır.
+    expect(models.last.inputPrice, isNull);
+    expect(models.last.outputPrice, isNull);
   });
 
   group('KeyVault', () {
