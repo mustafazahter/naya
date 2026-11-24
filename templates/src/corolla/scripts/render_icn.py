@@ -12,12 +12,11 @@ parçalar (kaput, tekerlek) gizlenir.
         ../csdb/ICN-NAYACAR-AAA-D000000-0-NAYA0-00001-A-001-01.JPG
 """
 import sys
+from pathlib import Path
 
-import bpy
-import mathutils
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'scripts'))
 
-GREY = (0.82, 0.84, 0.87, 1)
-ORANGE = (0.85, 0.45, 0.12, 1)
+from icn_render import render  # noqa: E402
 
 ENGINE = [
     'engine_block', 'engine_head', 'engine_head_gasket', 'engine_head_cover',
@@ -28,9 +27,7 @@ ENGINE = [
     'engine_coils', 'engine_spark_plugs',
 ]
 
-# (dosya, bakılan yer, uzaklık, bakış yönü, vurgulananlar, gösterilenler,
-#  gizlenenler). Bakılan yer parça listesi, bir nokta ya da None (bütün
-#  araç); gösterilenler None ise hepsi.
+# Görünüş biçimi templates/scripts/icn_render.py'de.
 # Blender'da aracın önü -Y, solu +X yönünde.
 VIEWS = [
     ('00001', None, 8.5, (1, 0.05, 0.12), (), None, ()),
@@ -47,57 +44,5 @@ VIEWS = [
     ('00006', ['wheel_fl'], 1.3, (1, -0.15, 0.12), ('wheel_fl',), None, ()),
 ]
 
-
-def main():
-    argv = sys.argv[sys.argv.index('--') + 1:]
-    glb, out = argv
-    bpy.ops.wm.read_factory_settings(use_empty=True)
-    bpy.ops.import_scene.gltf(filepath=glb)
-    objects = {o.name: o for o in bpy.data.objects if o.type == 'MESH'}
-
-    scene = bpy.context.scene
-    scene.render.engine = 'BLENDER_WORKBENCH'
-    scene.render.resolution_x = 1200
-    scene.render.resolution_y = 800
-    scene.view_settings.view_transform = 'Standard'
-    shading = scene.display.shading
-    shading.light = 'STUDIO'
-    shading.color_type = 'OBJECT'
-    shading.show_cavity = True
-    shading.cavity_type = 'BOTH'
-    shading.show_object_outline = True
-    shading.object_outline_color = (0.1, 0.12, 0.15)
-    shading.background_type = 'VIEWPORT'
-    shading.background_color = (1, 1, 1)
-
-    camera_data = bpy.data.cameras.new('kamera')
-    camera_data.lens = 60
-    camera = bpy.data.objects.new('kamera', camera_data)
-    scene.collection.objects.link(camera)
-    scene.camera = camera
-
-    def center(names):
-        points = []
-        for name in names:
-            o = objects[name]
-            points += [o.matrix_world @ mathutils.Vector(c) for c in o.bound_box]
-        return [(min(p[i] for p in points) + max(p[i] for p in points)) / 2
-                for i in range(3)]
-
-    for name, target, distance, direction, highlight, shown, hidden in VIEWS:
-        for part, o in objects.items():
-            o.color = ORANGE if part in highlight else GREY
-            o.hide_render = part in hidden or (
-                shown is not None and part not in shown)
-        if isinstance(target, tuple):
-            t = mathutils.Vector(target)
-        else:
-            t = mathutils.Vector(center(target or objects))
-        camera.location = t + mathutils.Vector(direction).normalized() * distance
-        camera.rotation_euler = (t - camera.location).to_track_quat(
-            '-Z', 'Y').to_euler()
-        scene.render.filepath = f'{out}/{name}.png'
-        bpy.ops.render.render(write_still=True)
-
-
-main()
+argv = sys.argv[sys.argv.index('--') + 1:]
+render(argv[0], argv[1], VIEWS)
