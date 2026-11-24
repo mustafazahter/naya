@@ -44,6 +44,5 @@ VIEWS = [
     ('00006', ['wheel_fl'], 1.3, (1, -0.15, 0.12), ('wheel_fl',), None, ()),
 ]
 
-
 argv = sys.argv[sys.argv.index('--') + 1:]
 render(argv[0], argv[1], VIEWS)
