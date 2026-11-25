@@ -216,7 +216,8 @@ void main() {
       final result = record['result']! as Map<String, Object?>;
       expect(result['decision'], 'needsInfo');
       expect(result['candidates'], isEmpty);
-      expect(ai.decisions, hasLength(1));
+      // Soru sorulurken sistem turu da yapılır (modelde bölge parlasın).
+      expect(ai.decisions, hasLength(2));
       final prompt = ai.chats.single.last.content;
       expect(prompt, contains('tek bir soru'));
       // Soru sorulurken en olası bölge de anlatılsın.

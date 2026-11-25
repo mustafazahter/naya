@@ -79,14 +79,14 @@ class DiagnosisFlow {
         model: _modelOf(models),
       );
     }
-    if (sufficiency != null && sufficiency < sufficiencyThreshold) {
-      return DiagnosisResult(
-        intent: intent,
-        decision: DiagnosisDecision.needsInfo,
-        sufficiency: sufficiency,
-        model: _modelOf(models),
-      );
-    }
+    // Belirtiler yetmiyorsa önce netleştirici soru sorulur. Yine de sistem
+    // turu yapılır: kullanıcı modelde yapay zekânın nereye baktığını görür.
+    // Kullanıcı bir soruyu zaten cevapladıysa (önceki mesaj var) akış
+    // durmaz; aynı soru döngüsüne girmeden parça turuna geçilir.
+    final insufficient =
+        sufficiency != null &&
+        sufficiency < sufficiencyThreshold &&
+        earlierMessages.isEmpty;
 
     // 2. Sistem turu
     final systems = catalog.systems;
@@ -101,6 +101,15 @@ class DiagnosisFlow {
     });
     models.add(systemAnswer.model);
     final systemScores = _sorted(systemAnswer.choices['system'] ?? const {});
+    if (insufficient) {
+      return DiagnosisResult(
+        intent: intent,
+        decision: DiagnosisDecision.needsInfo,
+        sufficiency: sufficiency,
+        systems: systemScores,
+        model: _modelOf(models),
+      );
+    }
     if (systemScores.isEmpty || systemScores.first.id == none) {
       return DiagnosisResult(
         intent: intent,
