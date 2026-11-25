@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="030" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="24"/>
+        <dmTitle><techName>Bisiklet</techName><infoName>Yağlar, sıvılar ve basınçlar</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Yağlar</title>
+        <para>Kullanılanlar:<randomList><listItem><para>Zincir yağı: kuru hava için kuru tip, ıslak ve çamurlu hava için ıslak tip zincir yağı. Her baklaya bir damla; fazlası silinir.</para></listItem><listItem><para>Bisiklet gresi: rulmanlar, pedal dişleri, sele borusu ve cıvata dişleri için.</para></listItem><listItem><para>Çatal yağı: alt bacaklar için üreticinin önerdiği tip ve miktar; üretici değerine bakın.</para></listItem><listItem><para>İç lastik koruyucu sıvısı (kullanılıyorsa): üreticinin önerdiği miktar, iç lastiğin sibobundan.</para></listItem><listItem><para>Orta güçte vida sabitleyici: disk ve kaliper cıvataları için.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Temizleyiciler</title>
+        <para>İzopropil alkol: fren diski ve balata çevresi için. Yağ çözücü yalnız aktarma organlarında kullanılır; frenlere bulaştırılmaz.</para>
+        <para>Bisiklet şampuanı ve bol su; basınçlı yıkama rulmanlara tutulmaz.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Lastik basıncı</title>
+        <para>Bu bisikletin lastikleri için genellikle 2,0-3,5 bar (30-50 psi); kesin aralık lastiğin yanağında yazar. Hafif sürücü ve gevşek zeminde alt, ağır sürücü ve sert zeminde üst değere yakın.</para>
+        <para>Basınç her sürüşten önce manometreli pompayla kontrol edilir; iç lastikler birkaç günde doğal olarak basınç kaybeder.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Çatal</title>
+        <para>Ön yük ayarı sürücü ağırlığına göre yapılır; çatal yağı miktarı ve tipi için üretici değerine bakın. Çatalın içindeki sönüm yağının değişimi yetkili servis işidir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

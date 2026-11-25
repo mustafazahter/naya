@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="24"/>
+        <dmTitle><techName>Yaylı çatal</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Yay ve sönüm</title>
+        <para>Çatalın iç boruları alt bacakların içinde kayar. İçerideki helezon yay darbeyi emer; sönüm düzeni çatalın geri gelişini yavaşlatır, böylece çatal yaylanıp sekmez.</para>
+        <para>Ön yük düğmesi yayı önceden sıkıştırır. Sürücü ağırlığına göre ayarlanmazsa çatal ya dibe vurur ya da hiç çalışmaz.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Keçeler ve yağ</title>
+        <para>Toz keçeleri iç boruları silerek kiri dışarıda tutar. Alt bacaklardaki az miktardaki yağ burçları yağlar. Yağ eskiyip azalınca çatal takılarak çalışır ve burçlar aşınır.</para>
+        <para>İç borudaki bir çizik keçeyi keser; çatal yağ kaçırmaya başlar. İç boru onarılmaz, alt bacakla birlikte değiştirilir.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Furç</title>
+        <para>Çatal boğazı kadronun furç borusundaki iki rulmanın içinde döner. Furç boşluğu gidon boğazı ile üst kapak cıvatasıyla alınır; boşluk kalırsa frenlerken gidon ileri geri oynar.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

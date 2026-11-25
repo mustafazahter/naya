@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA3" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="24"/>
+        <dmTitle><techName>Tekerlekler</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Tel ve jant</title>
+        <para>Teller göbeği janta bağlar ve gergin durur. Tekerlek yükü aşağıdaki tellerin gerginliğinin azalmasıyla taşır. Teller gevşerse jant yalpalar; bir tel koparsa jant o yana hemen eğilir.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Lastik</title>
+        <para>İç lastikteki hava dış lastiği şişirir ve jantın kenarlarına oturtur. Basınç düşükse lastik darbede jant kenarına kadar ezilir ve iç lastik iki yerden delinir (yılan ısırığı).</para>
+        <para>Jant bandı tel deliklerini örter; kayarsa delik kenarı iç lastiği içeriden keser.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Göbek ve mandal</title>
+        <para>Göbek akslar üzerindeki bilyalı rulmanlarda döner. Koni ayarı gevşekse tekerlek yanlara oynar, sıkıysa takılarak döner.</para>
+        <para>Çabuk sökme mandalı tekerleği kadroya ya da çatala sıkar; mandal kapatılırken avuç içinde belirgin bir direnç hissedilmeli ve iz bırakmalıdır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

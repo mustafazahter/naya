@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="24"/>
+        <dmTitle><techName>Gidon ve kumanda</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Gidon</title>
+        <para>Gidon boğazı gidonu çatal boğazına bağlar; iki kelepçe cıvatası çatal boğazını, ön kapak cıvataları gidonu sıkar. Bu cıvatalar yanlış torkta sıkılırsa gidon kayar ya da karbon/alüminyum boru zarar görür.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Kumandalar</title>
+        <para>Vites kolları her tıkta teli belirli bir miktar çeker ya da bırakır; vites değiştirici bu hareketle zinciri bir dişliden ötekine iter.</para>
+        <para>Fren kolları fren telini çekerek mekanik kaliperi sıkar. Kol pivotu kurursa kol yavaş döner ya da yerine dönmez.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

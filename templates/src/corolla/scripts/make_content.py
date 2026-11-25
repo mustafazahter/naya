@@ -3423,7 +3423,8 @@ dm(code=code('DA0', info='040', disassy='01'), tech='Gövde', info=HOW,
        ('Silecekler ve cam suyu', [
            'Silecek motoru, kaputun arkasındaki bölmede bir kol düzeneğini '
            'döndürür; iki silecek kolu buna bağlıdır. Motorun içindeki park '
-           'anahtarı, düğme kapatılınca kolları camın altına getirip durdurur.',
+           'anahtarı, düğme kapatılınca kolları camın altına getirip '
+           'durdurur.',
            'Cam suyu pompası depodaki suyu memelerden cama püskürtür.',
        ]),
    ])

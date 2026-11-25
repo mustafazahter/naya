@@ -5,8 +5,8 @@
 ```
 bisiklet/
 ├── naya.json      manifest (bütünlük özetleri paketlerken eklenir)
-├── csdb/          S1000D Issue 5.0: 86 DM, PM, DML, 14 çizim
-├── map/           parts.json (68 parça), faults.json (63 arıza, 42 belirti), zones.json, hotspots.json
+├── csdb/          S1000D Issue 5.0: 97 DM, PM, DML, 14 çizim
+├── map/           parts.json (68 parça), faults.json (74 arıza, 194 belirti), zones.json, hotspots.json
 ├── model/         product.glb
 └── scripts/       içeriği, modeli ve çizimleri üreten betikler
 ```
@@ -35,7 +35,7 @@ python3 make_content.py
 
 | SNS | Sistem |
 | --- | --- |
-| `D00` | Bisiklet: genel tanım, sıkma torkları, sürüş öncesi kontrol, periyodik bakım çizelgesi, temizlik, yağlama, sesler için arıza bulma, parça kataloğu, iş kuralları |
+| `D00` | Bisiklet: genel tanım, sıkma torkları, sürüş öncesi kontrol, periyodik bakım çizelgesi, bakım takvimi ve değiştirme ölçütleri, yağlar ve basınçlar, terimler sözlüğü, temizlik, yağlama, sesler için arıza bulma, parça kataloğu, iş kuralları |
 | `DA0` | Kadro, çatal ve kumanda (`-10` kadro, `-20` çatal ve furç, `-30` gidon ve kumanda, `-40` sele) |
 | `DA1` | Aktarma organları (`-10` zincir, `-20` aynakol, orta göbek ve ön vites, `-30` kaset, `-40` arka vites, `-50` pedallar, `-60` vites kolları ve telleri) |
 | `DA2` | Fren sistemi (`-10` balatalar ve kaliperler, `-20` diskler, `-30` fren kolları ve telleri) |
@@ -62,6 +62,8 @@ Kullanılan bilgi kodları (S1000D Chap 8.4):
 | `941` | Resimli parça verisi (IPD) |
 
 Aynı alt sistemde aynı bilgi kodundan ikinci bir DM gerektiğinde sökme kodu (`disassyCode`) `01`, `02` diye artar; örneğin `DA0-20 271` furç ayarı, `DA0-20 271 01` çatal ön yük ayarı.
+
+Her kök sistemin bir "Nasıl çalışır" DM'i (bilgi kodu 040) var. Arızaların belirtilerine sürücünün arızayı kendi sözleriyle anlatışı da eklenir ("ön frenden demir sürtme sesi geliyor", "pedal boşa dönüyor"); teşhis serbest metni bu söyleyişlerle eşleştirir ve ön ile arka parçadaki aynı arıza ancak bunlarla ayrılır. Söyleyişler betikteki `PHRASINGS` tablosundadır. Betik, her arızanın arıza bulma DM'inin onarım DM'ine götürdüğünü ve iki arızanın aynı belirti kümesini taşımadığını denetler.
 
 Değerler (tork, aşınma sınırları, basınç) bu sınıftaki parçalar için yaygın üretici değerleridir: Shimano bayi el kitapları (balata en az 0,5 mm, disk en az 1,5 mm), Park Tool tork tablosu ve zincir aşınma sınırları (8 vites için %0,75). Parçanın üzerinde ya da kendi el kitabında farklı bir değer varsa o geçerlidir; çatal yağı miktarı gibi modele özgü değerler için DM'ler çatalın el kitabına yönlendirir.
 

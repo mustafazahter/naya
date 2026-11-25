@@ -1879,6 +1879,327 @@ dm(code=HUB_CHECK, tech='Göbek ve serbest çark', info='Kontrol',
    ])
 
 
+# --- Sele grubu arıza bulma -------------------------------------------------
+
+SEAT_ISOLATE = code('DA0', '4', '421')
+
+dm(code=SEAT_ISOLATE, tech='Sele grubu', info='Arıza bulma',
+   isolation={
+       'fault': 'NAYABIKE-DA0-101',
+       'descr': 'Sele sürüşte kayıyor, yatıyor ya da gıcırdıyor.',
+       'steps': [
+           ('stp-0001', 'Sele borusunda kadronun üst kenarına bir bant '
+            'yapıştırıp kısa bir sürüş yapın.', 'Sele borusu banttan '
+            'aşağı kaydı mı?', 'end-height', 'stp-0002'),
+           ('stp-0002', 'Seleyi ucundan ve arkasından bastırın.', 'Sele '
+            'öne ya da arkaya yatıyor mu?', 'end-saddle', 'stp-0003'),
+           ('stp-0003', 'Selede otururken ağırlığınızı kaydırıp sesin '
+            'nereden geldiğini dinleyin.', 'Ses sele borusunun kadroya '
+            'girdiği yerden mi geliyor?', 'end-post', 'end-rails'),
+       ],
+       'ends': [
+           ('end-height', 'Sele borusu kelepçesini temizleyip doğru '
+            'kuvvetle sıkın.', SEAT_HEIGHT),
+           ('end-saddle', 'Sele kelepçesini ayarlayıp torkunda sıkın.',
+            SADDLE_ADJUST),
+           ('end-post', 'Sele borusunu söküp temizleyin ve gresleyin.',
+            SEATPOST_SERVICE),
+           ('end-rails', 'Ses sele raylarından ya da kelepçeden geliyor; '
+            'kelepçeyi söküp temaslarını gresleyerek yeniden sıkın.',
+            SADDLE_ADJUST),
+       ],
+   })
+
+# --- Nasıl çalışır -----------------------------------------------------------
+#
+# Her sistem kökü için sade bir çalışma anlatımı. Sistemde zaten bir tanım
+# DM'i varsa bu anlatım yanına '01' sökme koduyla eklenir.
+
+HOW = 'Nasıl çalışır'
+
+dm(code=code('DA0', '1', '040'), tech='Kadro', info=HOW, description=[
+    ('Kadronun görevi', [
+        'Kadro bütün parçaların bağlandığı iskelettir. Sürücünün ağırlığı '
+        'sele borusu ve orta göbek üzerinden, darbeler tekerleklerden ve '
+        'çataldan kadroya geçer.',
+        'Ön üçgen (üst boru, alt boru, sele borusu) ile arka üçgen (zincir '
+        've sele kalçaları) birlikte bükülmeye karşı sert bir yapı '
+        'oluşturur.',
+    ]),
+    ('Çatlak belirtileri', [
+        'Çatlak çoğu zaman kaynak yerlerinde, furç borusunun altında ve orta '
+        'göbek çevresinde başlar. Boyada ince bir çizgi gibi görünür; '
+        'yüklenince gıcırdar. Çatlak kadro onarılmaz, değiştirilir.',
+    ]),
+])
+
+dm(code=code('DA0', '2', '040', '01'), tech='Yaylı çatal', info=HOW,
+   description=[
+       ('Yay ve sönüm', [
+           'Çatalın iç boruları alt bacakların içinde kayar. İçerideki '
+           'helezon yay darbeyi emer; sönüm düzeni çatalın geri gelişini '
+           'yavaşlatır, böylece çatal yaylanıp sekmez.',
+           'Ön yük düğmesi yayı önceden sıkıştırır. Sürücü ağırlığına göre '
+           'ayarlanmazsa çatal ya dibe vurur ya da hiç çalışmaz.',
+       ]),
+       ('Keçeler ve yağ', [
+           'Toz keçeleri iç boruları silerek kiri dışarıda tutar. Alt '
+           'bacaklardaki az miktardaki yağ burçları yağlar. Yağ eskiyip '
+           'azalınca çatal takılarak çalışır ve burçlar aşınır.',
+           'İç borudaki bir çizik keçeyi keser; çatal yağ kaçırmaya '
+           'başlar. İç boru onarılmaz, alt bacakla birlikte değiştirilir.',
+       ]),
+       ('Furç', [
+           'Çatal boğazı kadronun furç borusundaki iki rulmanın içinde '
+           'döner. Furç boşluğu gidon boğazı ile üst kapak cıvatasıyla '
+           'alınır; boşluk kalırsa frenlerken gidon ileri geri oynar.',
+       ]),
+   ])
+
+dm(code=code('DA0', '3', '040'), tech='Gidon ve kumanda', info=HOW,
+   description=[
+       ('Gidon', [
+           'Gidon boğazı gidonu çatal boğazına bağlar; iki kelepçe cıvatası '
+           'çatal boğazını, ön kapak cıvataları gidonu sıkar. Bu cıvatalar '
+           'yanlış torkta sıkılırsa gidon kayar ya da karbon/alüminyum boru '
+           'zarar görür.',
+       ]),
+       ('Kumandalar', [
+           'Vites kolları her tıkta teli belirli bir miktar çeker ya da '
+           'bırakır; vites değiştirici bu hareketle zinciri bir dişliden '
+           'ötekine iter.',
+           'Fren kolları fren telini çekerek mekanik kaliperi sıkar. Kol '
+           'pivotu kurursa kol yavaş döner ya da yerine dönmez.',
+       ]),
+   ])
+
+dm(code=code('DA0', '4', '040'), tech='Sele grubu', info=HOW, description=[
+    ('Yükseklik ve konum', [
+        'Sele borusu kadronun sele borusuna girer ve kelepçeyle sıkılır. '
+        'Sele yüksekliği, pedal en aşağıdayken dizin hafifçe bükülü kalacağı '
+        'kadar olmalıdır.',
+        'Sele, sele borusunun başlığındaki kelepçeye raylarından bağlanır; '
+        'ileri geri konum ve eğim bu kelepçeyle ayarlanır.',
+    ]),
+    ('Sesler', [
+        'Kuru ya da kirli sele borusu kadro içinde gıcırdar. Sele borusunda '
+        'üzerinde yazan en az takma derinliği işaretinin kadro içinde '
+        'kalması gerekir; dışarıda kalırsa kadro çatlayabilir.',
+    ]),
+])
+
+dm(code=code('DA1', info='040', disassy='01'), tech='Aktarma organları',
+   info=HOW,
+   description=[
+       ('Pedaldan tekerleğe', [
+           'Pedallar pedal kollarını, kollar orta göbekteki mili döndürür. '
+           'Aynalar zinciri çeker; zincir arka kasetteki dişliyi, kaset de '
+           'serbest çark gövdesi üzerinden arka tekerleği döndürür.',
+           'Serbest çark gövdesindeki tırnaklar yalnız pedal ileri '
+           'çevrilince kavrar; pedal durunca tekerlek serbest döner ve '
+           'tıkırtı duyulur.',
+       ]),
+       ('Vitesler', [
+           'Arka vites değiştirici zinciri kasetteki dişliler arasında, ön '
+           'vites değiştirici aynalar arasında kaydırır. Küçük ön ayna ile '
+           'büyük arka dişli en hafif, büyük ön ayna ile küçük arka dişli en '
+           'ağır vitestir.',
+           'Limit vidaları zincirin en dıştaki dişlilerden dışarı '
+           'kaçmasını önler. Tel gerginliği her tıkın tam bir dişliye denk '
+           'gelmesini sağlar. Vites askısı darbede eğilerek kadroyu korur; '
+           'eğilince vitesler bozulur.',
+       ]),
+       ('Aşınma', [
+           'Zincirin pimleri ve makaraları aşındıkça zincir uzar. Uzamış '
+           'zincir dişlileri de aşındırır; zincir zamanında değişirse kaset '
+           've aynalar çok daha uzun dayanır.',
+       ]),
+   ])
+
+dm(code=code('DA2', info='040', disassy='01'), tech='Fren sistemi',
+   info=HOW,
+   description=[
+       ('Mekanik disk fren', [
+           'Fren kolu çekilince tel kaliperdeki kolu döndürür. Kol bir '
+           'kam düzeneğiyle hareketli balatayı diske iter; disk sabit '
+           'balataya doğru hafifçe esneyerek iki balata arasında sıkışır.',
+           'Balata aşındıkça kol daha çok yol alır. Balata boşluğu kaliperin '
+           'ayar düğmesiyle ve tel gerginliğiyle alınır.',
+       ]),
+       ('Temizlik', [
+           'Diske ya da balataya bulaşan yağ freni ciddi biçimde '
+           'zayıflatır ve ciyaklama yapar. Yağlanmış organik balata '
+           'temizlenmez, değiştirilir; disk izopropil alkolle silinir.',
+           'Yeni balatalar ilk birkaç frenlemede diske alıştırılır; tam '
+           'gücüne ondan sonra ulaşır.',
+       ]),
+       ('Disk', [
+           'Disk ısı ve sürtünmeyle incelir. En az kalınlığın altına inen '
+           'disk değiştirilir. Eğilmiş disk her turda balataya sürter.',
+       ]),
+   ])
+
+dm(code=code('DA3', info='040', disassy='01'), tech='Tekerlekler', info=HOW,
+   description=[
+       ('Tel ve jant', [
+           'Teller göbeği janta bağlar ve gergin durur. Tekerlek yükü '
+           'aşağıdaki tellerin gerginliğinin azalmasıyla taşır. Teller '
+           'gevşerse jant yalpalar; bir tel koparsa jant o yana hemen eğilir.',
+       ]),
+       ('Lastik', [
+           'İç lastikteki hava dış lastiği şişirir ve jantın kenarlarına '
+           'oturtur. Basınç düşükse lastik darbede jant kenarına kadar '
+           'ezilir ve iç lastik iki yerden delinir (yılan ısırığı).',
+           'Jant bandı tel deliklerini örter; kayarsa delik kenarı iç '
+           'lastiği içeriden keser.',
+       ]),
+       ('Göbek ve mandal', [
+           'Göbek akslar üzerindeki bilyalı rulmanlarda döner. Koni ayarı '
+           'gevşekse tekerlek yanlara oynar, sıkıysa takılarak döner.',
+           'Çabuk sökme mandalı tekerleği kadroya ya da çatala sıkar; '
+           'mandal kapatılırken avuç içinde belirgin bir direnç hissedilmeli '
+           've iz bırakmalıdır.',
+       ]),
+   ])
+
+# --- Bakım takvimi, sıvılar ve terimler --------------------------------------
+
+SEE_MAKER = 'üretici değerine bakın'
+
+dm(code=code('D00', info='000'), tech='Bisiklet',
+   info='Bakım takvimi ve değiştirme ölçütleri',
+   description=[
+       ('Kullanım', [
+           'Adım adım yapılacaklar periyodik bakım çizelgesinde. Bu DM, '
+           'hangi parçanın ne zaman değiştirileceğini gösteren ölçütleri '
+           'toplar. Islak, çamurlu ve tozlu sürüşte aralıklar kısalır.',
+       ]),
+       ('Değiştirme ölçütleri', [
+           ('Parça şu durumda değiştirilir:', [
+               'Zincir: zincir ölçer %0,75 işaretinde tam oturuyorsa (bu '
+               'bisikletin zinciri için); %0,5\'te değişim yaklaşmıştır.',
+               'Kaset ve aynalar: yeni zincir yükte atlıyorsa ya da dişler '
+               'köpek balığı yüzgeci gibi sivrilmişse.',
+               'Fren balatası: sürtünme malzemesi 0,5 mm\'ye inmişse ya da '
+               'balata yağlanmışsa.',
+               'Fren diski: 1,5 mm\'nin altına incelmişse, çatlamışsa ya da '
+               'düzeltilemeyecek kadar eğilmişse.',
+               'Dış lastik: tırtıllar aşınmışsa, yanağında kesik ya da '
+               'kabarma varsa.',
+               'Fren ve vites teli: lifleri kopmuş, paslanmış ya da kılıfı '
+               'ezilmişse.',
+               'Elcikler: gidonda dönüyorsa ya da yırtılmışsa.',
+           ]),
+       ]),
+       ('Takvim', [
+           ('Özet:', [
+               'Her sürüşten önce: lastik basıncı, frenler, çabuk sökme '
+               'mandalları.',
+               'Her çamurlu sürüşten sonra: yıkama, zinciri kurulama ve '
+               'yağlama, çatal iç borularını silme.',
+               'Ayda bir: zincir temizliği, balata ve kol boşluğu, tekerlek '
+               'yalpası, vites ayarı.',
+               'Üç ayda bir: zincir ölçümü, çatal alt bacak bakımı, tork '
+               'kontrolü, tel ve kılıflar, disk kalınlığı.',
+               'Yılda bir: tellerin ve kılıfların değişimi, rulmanların '
+               'bakımı, sele borusunun greslenmesi, çatalın tam bakımı.',
+           ]),
+       ]),
+   ])
+
+dm(code=code('D00', info='030', disassy='01'), tech='Bisiklet',
+   info='Yağlar, sıvılar ve basınçlar',
+   description=[
+       ('Yağlar', [
+           ('Kullanılanlar:', [
+               'Zincir yağı: kuru hava için kuru tip, ıslak ve çamurlu '
+               'hava için ıslak tip zincir yağı. Her baklaya bir damla; '
+               'fazlası silinir.',
+               'Bisiklet gresi: rulmanlar, pedal dişleri, sele borusu ve '
+               'cıvata dişleri için.',
+               f'Çatal yağı: alt bacaklar için üreticinin önerdiği tip ve '
+               f'miktar; {SEE_MAKER}.',
+               'İç lastik koruyucu sıvısı (kullanılıyorsa): üreticinin '
+               'önerdiği miktar, iç lastiğin sibobundan.',
+               'Orta güçte vida sabitleyici: disk ve kaliper cıvataları '
+               'için.',
+           ]),
+       ]),
+       ('Temizleyiciler', [
+           'İzopropil alkol: fren diski ve balata çevresi için. Yağ çözücü '
+           'yalnız aktarma organlarında kullanılır; frenlere bulaştırılmaz.',
+           'Bisiklet şampuanı ve bol su; basınçlı yıkama rulmanlara '
+           'tutulmaz.',
+       ]),
+       ('Lastik basıncı', [
+           'Bu bisikletin lastikleri için genellikle 2,0-3,5 bar (30-50 psi); '
+           'kesin aralık lastiğin yanağında yazar. Hafif sürücü ve gevşek '
+           'zeminde alt, ağır sürücü ve sert zeminde üst değere yakın.',
+           'Basınç her sürüşten önce manometreli pompayla kontrol edilir; iç '
+           'lastikler birkaç günde doğal olarak basınç kaybeder.',
+       ]),
+       ('Çatal', [
+           f'Ön yük ayarı sürücü ağırlığına göre yapılır; çatal yağı '
+           f'miktarı ve tipi için {SEE_MAKER}. Çatalın içindeki sönüm '
+           'yağının değişimi yetkili servis işidir.',
+       ]),
+   ])
+
+dm(code=code('D00', info='006'), tech='Bisiklet', info='Terimler sözlüğü',
+   description=[
+       ('Kadro, çatal ve kumanda', [
+           ('Terimler:', [
+               'Furç: çatal boğazının kadro içinde döndüğü rulman takımı.',
+               'Gidon boğazı (stem): gidonu çatal boğazına bağlayan parça.',
+               'İç boru ve alt bacak: yaylı çatalın kayan ve sabit '
+               'boruları.',
+               'Ön yük: çatal yayının önceden sıkıştırılması.',
+               'Çökme (sag): sürücü binince çatalın kendiliğinden çöktüğü '
+               'miktar.',
+               'Toz keçesi: iç boruyu silerek kiri dışarıda tutan keçe.',
+               'Elcik: gidonun tutulan lastik kaplaması.',
+           ]),
+       ]),
+       ('Aktarma organları', [
+           ('Terimler:', [
+               'Aynakol: pedal kolları ve ön dişlilerin (aynaların) takımı.',
+               'Orta göbek: pedal kollarını taşıyan milli rulman kartuşu.',
+               'Kaset: arka göbekteki dişliler takımı.',
+               'Serbest çark gövdesi: kasetin takıldığı, yalnız ileri '
+               'yönde kavrayan göbek parçası.',
+               'Vites değiştirici (aktarıcı): zinciri dişliler arasında '
+               'kaydıran düzen.',
+               'Vites askısı: arka vites değiştiriciyi kadroya bağlayan, '
+               'darbede eğilen parça.',
+               'Makara: arka vites değiştiricideki iki küçük dişli tekerlek.',
+               'Limit vidası: vites değiştiricinin gidebileceği en uç '
+               'konumu sınırlayan vida.',
+               'Zincir uzaması: pim ve makaraların aşınmasıyla zincirin '
+               'boyunun artması.',
+               'Kilit bakla (hızlı bakla): zinciri aletsiz birleştiren '
+               'bakla.',
+           ]),
+       ]),
+       ('Fren ve tekerlek', [
+           ('Terimler:', [
+               'Kaliper: balataları diske bastıran fren gövdesi.',
+               'Adaptör: kaliperi kadroya ya da çatala bağlayan ara parça.',
+               'Balata: diske sürtünerek bisikleti yavaşlatan parça.',
+               'Alıştırma: yeni balatanın diske ilk frenlemelerle '
+               'oturtulması.',
+               'Jant bandı: jant içindeki tel deliklerini örten bant.',
+               'Sibop: iç lastiğin hava valfi.',
+               'Yılan ısırığı: düşük basınçta iç lastikte oluşan iki yan '
+               'yana delik.',
+               'Yalpa: tekerleğin dönerken yana sallanması.',
+               'Tel gerginliği: tellerin ne kadar gergin olduğu; jantın '
+               'düzgünlüğünü belirler.',
+               'Koni: göbek rulmanının bilyalarını yerinde tutan somun.',
+               'Çabuk sökme mandalı: tekerleği aletsiz sıkıp bırakan mandal.',
+           ]),
+       ]),
+   ])
+
 # --- Parçalar ----------------------------------------------------------------
 #
 # (kimlik, ad, üst parça, SNS, model düğümleri, bölge, işlev, prosedürler).
@@ -2272,12 +2593,14 @@ FAULTS = [
      3, BRAKE_LEVER_ISOLATE, BRAKE_LEVER),
 
     ('f.seatpost.slip', 'seat.post', ['sym.saddle_slip'],
-     'Sele borusu kelepçesi yeterince sıkılmamış.', 1, None, SEAT_HEIGHT),
+     'Sele borusu kelepçesi yeterince sıkılmamış.', 1, SEAT_ISOLATE,
+     SEAT_HEIGHT),
     ('f.seatpost.creak', 'seat.post', ['sym.seat_creak'],
      'Sele borusu kuru ya da kirli; kadro içinde gıcırdıyor.', 1, NOISES,
      SEATPOST_SERVICE),
     ('f.post_head.loose', 'seat.post_head', ['sym.saddle_tilt'],
-     'Sele kelepçesinin cıvatası gevşemiş.', 2, None, SADDLE_ADJUST),
+     'Sele kelepçesinin cıvatası gevşemiş.', 2, SEAT_ISOLATE,
+     SADDLE_ADJUST),
 
     ('f.chain.worn', 'drive.chain', ['sym.chain_skip', 'sym.chain_noise'],
      'Zincir aşınıp uzamış; dişlilere tam oturmuyor.', 2, CHAIN_MEASURE,
@@ -2436,6 +2759,57 @@ FAULTS = [
 ]
 
 # Prosedürdeki yedek parça adı → IPD'deki parça; numaralar aynı olur.
+
+# Ek arızaların belirtileri ve arızaları.
+SYMPTOMS += [
+    ('sym.rear_wheel_shift', 'Arka tekerlek kadroda kayıyor, pedala '
+     'yüklenince yamuluyor'),
+    ('sym.saddle_creak', 'Sele raylarından ya da sele kelepçesinden '
+     'gıcırtı geliyor'),
+    ('sym.chainring_click', 'Her pedal turunda aynakoldan tık sesi '
+     'geliyor'),
+]
+
+FAULTS += [
+    ('f.qr_rear.loose', 'wheel.rear.qr',
+     ['sym.rear_wheel_shift', 'sym.wheel_play'],
+     'Arka çabuk sökme mandalı gevşek kapatılmış; tekerlek pedal '
+     'kuvvetiyle kayıyor.', 3, WHEEL_ISOLATE, QR_ADJUST),
+    ('f.hub_front.dry', 'wheel.front.bearings', ['sym.hub_rough'],
+     'Ön göbek rulmanlarının gresi kurumuş ya da içine su girmiş.', 1,
+     WHEEL_ISOLATE, HUB_SERVICE),
+    ('f.valve_rear.leak', 'wheel.rear.valve', ['sym.slow_leak'],
+     'Arka sibobun içi gevşemiş ya da sibop dibinden kaçırıyor.', 1,
+     WHEEL_ISOLATE, VALVE),
+    ('f.tire_rear.worn', 'wheel.rear.tire', ['sym.tire_wear'],
+     'Arka lastiğin tırtılları aşınmış; çekiş azalmış.', 2, WHEEL_ISOLATE,
+     TIRE),
+    ('f.rim_front.out_of_true', 'wheel.front.rim', ['sym.wobble'],
+     'Ön jant darbeyle eğrilmiş.', 2, WHEEL_ISOLATE, TRUING),
+    ('f.rim_tape_front.shifted', 'wheel.front.rim_tape', ['sym.flat'],
+     'Ön jant bandı kaymış; tel deliği iç lastiği içeriden kesiyor.', 1,
+     WHEEL_ISOLATE, TUBE),
+    ('f.tire_rear.pressure_low', 'wheel.rear.tire',
+     ['sym.pinch_flat', 'sym.flat'],
+     'Arka lastik düşük basınçla sürülmüş; iç lastik darbede jantla taş '
+     'arasında sıkışıyor.', 2, WHEEL_ISOLATE, INFLATE),
+    ('f.brake_rear.adapter_loose', 'brakes.rear.adapter',
+     ['sym.brake_clunk'],
+     'Arka kaliper adaptörünün cıvataları gevşemiş.', 3, BRAKE_ISOLATE,
+     CALIPER),
+    ('f.chainring.bolts', 'drive.chainrings',
+     ['sym.chainring_click', 'sym.crank_creak'],
+     'Aynakol cıvataları gevşemiş; aynalar birbirine göre oynuyor.', 2,
+     CRANK_ISOLATE, CRANK_CHECK),
+    ('f.spokes_rear.broken', 'wheel.rear.spokes',
+     ['sym.spoke_ping', 'sym.wobble', 'sym.brake_rub'],
+     'Arka tekerlekte tel kopmuş; jant kopan telin karşı yanına eğilmiş.',
+     3, WHEEL_ISOLATE, SPOKE_REPLACE),
+    ('f.saddle.creak', 'seat.saddle', ['sym.saddle_creak'],
+     'Sele rayları ile kelepçe arasındaki temas kurumuş ya da kirlenmiş.',
+     1, SEAT_ISOLATE, SADDLE_ADJUST),
+]
+
 SPARE_PARTS = {
     'Zincir, 8 vites': 'drive.chain',
     'Kaset, 8 dişli': 'drive.cassette',
@@ -2461,27 +2835,324 @@ SPARE_PARTS = {
     'Furç rulmanı takımı': 'fork.headset',
 }
 
-def check_fault_paths():
-    """Her arızanın arıza bulma DM'i, onarım DM'ine götürmeli: arıza bulma
-    DM'inde bir son ya da kontrol prosedüründe "sonraki işlem" onarıma
-    gitmeli. Gitmiyorsa kullanıcı teşhisten onarıma ulaşamaz; üretim durur."""
-    by_code = {str(d['code']): d for d in C.dms}
-    problems = []
-    for fid, _, _, _, _, isolation, repair in FAULTS:
-        if not isolation or not repair or isolation == repair:
-            continue
-        d = by_code[str(isolation)]
-        if 'isolation' in d:
-            targets = [e[2] for e in d['isolation']['ends'] if e[2]]
-        else:
-            nxt = d.get('next')
-            targets = nxt if isinstance(nxt, list) else [nxt] if nxt else []
-        if str(repair) not in {str(t) for t in targets}:
-            problems.append(f'{fid}: {isolation} → {repair} yolu yok')
-    assert not problems, '\n'.join(problems)
 
+# --- Söyleyişler ------------------------------------------------------------
+#
+# Sürücünün arızayı kendi sözleriyle anlatışı; teşhis serbest metni bunlarla
+# eşleştirir. Her metin arızaya bir belirti olarak eklenir
+# (`Content.add_phrasings`). Ön ve arka parçalardaki aynı arızalar ancak bu
+# söyleyişlerle birbirinden ayrılır.
 
-check_fault_paths()
+PHRASINGS = {
+    # Kadro, çatal ve kumanda
+    'f.frame.crack': [
+        'Kadronun kaynak yerinde boyada ince bir çizgi var, gittikçe uzuyor',
+        'Ayağa kalkıp pedal basınca kadrodan çıt sesi geliyor',
+    ],
+    'f.headset.loose': [
+        'Ön freni sıkıp bisikleti ileri geri itince gidon tarafından tık '
+        'tık ses geliyor',
+        'Kasislerde ön taraftan takırtı geliyor, gidon boğazı oynuyor gibi',
+    ],
+    'f.headset.worn': [
+        'Gidonu çevirince ortada bir yerde tık diye oturuyor',
+        'Düz giderken gidon kendiliğinden bir noktada duruyor',
+    ],
+    'f.fork.worn': [
+        'Çatal çökerken içinden tok bir vuruntu geliyor',
+        'Ön tekerleği tutup sallayınca çatal bacaklarında boşluk var',
+    ],
+    'f.fork.seals': [
+        'Çatalın toz keçesinin çevresinde yağlı kir birikiyor',
+        'Çatal iç borusunda her sürüşten sonra yağ izi kalıyor',
+    ],
+    'f.fork.stanchion': [
+        'Çatal iç borusunda tırnağa takılan bir çizik var',
+        'Çizik olan yerden yağ sızıyor',
+    ],
+    'f.fork.preload': [
+        'Çatal küçük bir düşüşte sonuna kadar çöküp dibe vuruyor',
+        'Çatal çok sert, hiç çalışmıyor gibi',
+    ],
+    'f.stem.loose': [
+        'Ön tekerlek düz giderken gidon yamuk duruyor',
+        'Gidona yüklenince gidon boğazıyla birlikte dönüyor',
+    ],
+    'f.bar.damaged': [
+        'Gidonun kelepçe kenarında çizik ve çatlak var',
+        'Düşüşten sonra gidon eğildi',
+    ],
+    'f.grips.worn': [
+        'Elcikler yağmurda gidonda dönüyor',
+        'Elciklerin lastiği yırtılmış ve kaygan',
+    ],
+    'f.shifter.faulty': [
+        'Vites koluna basıyorum ama tık gelmiyor, kol boşa gidiyor',
+        'Vites kolu basılı kalıyor, geri dönmüyor',
+    ],
+    'f.brake_lever.sticky': [
+        'Fren kolunu bırakınca yavaşça yerine dönüyor',
+        'Fren kolu düşüşten sonra eğildi ve takılıyor',
+    ],
+    'f.seatpost.slip': [
+        'Sürerken sele yavaş yavaş aşağı iniyor',
+        'Sele yüksekliği her sürüşte değişiyor',
+    ],
+    'f.seatpost.creak': [
+        'Selede otururken sele borusunun kadroya girdiği yerden gıcırtı '
+        'geliyor',
+        'Ayakta pedal çevirince ses kesiliyor, oturunca başlıyor',
+    ],
+    'f.post_head.loose': [
+        'Sele burnu aşağı ya da yukarı düştü',
+        'Sele kasiste geriye yattı',
+    ],
+    # Aktarma organları
+    'f.chain.worn': [
+        'Yokuşta pedala yüklenince zincir tak diye boşa kaçıyor',
+        'Zincir çok eski, ölçer takınca tam oturuyor',
+        'Zincir aynakolun dişlerinden ileri doğru kalkıyor',
+    ],
+    'f.chain.dry': [
+        'Pedal çevirirken zincirden cızırtı geliyor',
+        'Yağmurdan sonra zincir paslanmış ve gıcırdıyor',
+    ],
+    'f.chain.stiff_link': [
+        'Arka makaralardan geçerken zincir her turda bir kez sıçrıyor',
+        'Pedalı geri çevirince zincirde bir bakla kıvrık kalıyor',
+    ],
+    'f.cassette.worn': [
+        'Yeni zincir taktım, en çok kullandığım viteste zincir atlıyor',
+        'Kasetin dişleri sivri ve köpek balığı yüzgeci gibi',
+    ],
+    'f.lockring.loose': [
+        'Arka dişliler göbek üzerinde elle oynatılınca sallanıyor',
+        'Kaset tarafından tıkırtı geliyor, kilit somunu gevşek',
+    ],
+    'f.crankset.worn_teeth': [
+        'Ön aynanın dişleri sivrilmiş, zincir dişliden düşüyor',
+        'Zincir yeni olmasına rağmen ön aynadan kayıyor',
+    ],
+    'f.crank.loose': [
+        'Pedal kolu milde oynuyor, her turda tık sesi geliyor',
+        'Pedal kolunun cıvatası gevşemiş, kol sallanıyor',
+    ],
+    'f.bottom_bracket.worn': [
+        'Pedal kollarını yanlara itince orta göbekte boşluk var',
+        'Pedalı çevirirken orta göbekten hırıltı ve tıkırtı geliyor',
+    ],
+    'f.front_derailleur.misadjusted': [
+        'Ön vites büyük aynaya çıkmıyor',
+        'Ön viteste zincir içe ya da dışa düşüyor',
+    ],
+    'f.front_derailleur.position': [
+        'Ön vites değiştiricinin kafesi zincire sürtüyor, her turda ses '
+        'var',
+        'Ön vites kafesi eğri duruyor',
+    ],
+    'f.rear_derailleur.misadjusted': [
+        'Arka vitesler bir sonraki dişliye geç geçiyor, iki dişli arasında '
+        'kalıyor',
+        'Arkada vites kendi kendine atlıyor, tıkırdıyor',
+    ],
+    'f.rear_derailleur.limit': [
+        'En hafif viteste zincir tellere doğru kaçıyor',
+        'En ağır viteste zincir kasetten kadroya düşüyor',
+    ],
+    'f.rear_derailleur.damaged': [
+        'Arka vites değiştirici düşüşten sonra içe doğru eğildi',
+        'Vites değiştiricinin kafesi yamuk ve zincir gevşek kalıyor',
+    ],
+    'f.hanger.bent': [
+        'Bisiklet yan yattıktan sonra vitesler bozuldu',
+        'Arkadan bakınca vites değiştirici kasetle aynı hizada değil',
+    ],
+    'f.jockey.worn': [
+        'Arka vites değiştiricinin küçük tekerleklerinin dişleri aşınmış',
+        'Makaralardan hırıltı geliyor',
+    ],
+    'f.pedal.bearing': [
+        'Pedalın kendisi aks üzerinde yanlara oynuyor',
+        'Pedala basınca pedaldan tıkırtı geliyor',
+    ],
+    'f.pedal_bearings.dry': [
+        'Pedalı elle çevirince takılarak, kumlu gibi dönüyor',
+        'Pedal elle çevrilince hemen duruyor',
+    ],
+    'f.shift_cable.stretched': [
+        'Yeni bisiklette birkaç hafta sonra vitesler kaymaya başladı',
+        'Vites ayarı sürekli bozuluyor',
+    ],
+    'f.shift_cable_rear.frayed': [
+        'Arka vites kolunda tel ucunun lifleri dağılmış',
+        'Arka vites kolu çok sert basıyor',
+    ],
+    'f.shift_cable_front.dirty': [
+        'Ön vites kolu sert ve vites geç değişiyor',
+        'Ön vites telinin kılıfı çamurlu ve paslı',
+    ],
+    # Frenler
+    'f.brake_front.pads_worn': [
+        'Ön frenden demir sürtme sesi geliyor',
+        'Ön fren kolunu gidona kadar sıkmak gerekiyor',
+    ],
+    'f.brake_front.contaminated': [
+        'Ön fren zincir yağı bulaştıktan sonra tutmuyor ve ötüyor',
+        'Ön fren ıslakken korna gibi ötüyor',
+    ],
+    'f.brake_front.rotor_bent': [
+        'Ön tekerlek dönerken diskten şı şı diye sürtme sesi geliyor',
+        'Ön disk dönerken kaliperin içinde yalpalıyor',
+    ],
+    'f.brake_front.rotor_worn': [
+        'Ön disk incelmiş ve kenarında basamak oluşmuş',
+        'Ön balatalar yeni ama fren yine zayıf',
+    ],
+    'f.brake_front.caliper_misaligned': [
+        'Ön teker elle çevrilince balata diske hafifçe sürtüyor',
+        'Ön tekerleği söküp taktıktan sonra fren sürtmeye başladı',
+    ],
+    'f.brake_front.adapter_loose': [
+        'Ön freni sıkınca çatal tarafında kaliper oynuyor, tok ses geliyor',
+        'Ön kaliperin cıvatası gevşemiş',
+    ],
+    'f.brake_rear.pads_worn': [
+        'Arka frenden metal sürtme sesi geliyor',
+        'Arka fren kolu gidona kadar geliyor',
+    ],
+    'f.brake_rear.contaminated': [
+        'Arka fren yağlanmış gibi kaygan ve ötüyor',
+        'Zinciri yağlarken arka diske yağ sıçradı, fren tutmuyor',
+    ],
+    'f.brake_rear.rotor_bent': [
+        'Arka tekerlek dönerken diskten sürtme sesi geliyor',
+        'Arka disk düşüşten sonra eğildi',
+    ],
+    'f.brake_rear.rotor_worn': [
+        'Arka disk çok incelmiş, kenarında çıkıntı var',
+        'Arka balatalar değişti ama arka fren hâlâ zayıf',
+    ],
+    'f.brake_rear.caliper_misaligned': [
+        'Arka teker elle çevrilince balata diske sürtüyor',
+        'Arka tekerlek takıldıktan sonra arka fren sürtmeye başladı',
+    ],
+    'f.brake_cable.stretched': [
+        'İki fren kolu da her hafta biraz daha gidona yaklaşıyor',
+        'Fren kolu boşluğu yeni bisiklette çabuk arttı',
+    ],
+    'f.brake_cable_front.frayed': [
+        'Ön fren teli kaliper ucunda dağılmış',
+        'Ön fren kolu ağır çekiliyor ve geç dönüyor',
+    ],
+    'f.brake_cable_rear.frayed': [
+        'Arka fren teli paslanmış ve kılıfta sürtüyor',
+        'Arka fren kolu ağır çekiliyor ve geç dönüyor',
+    ],
+    # Tekerlekler
+    'f.tube_front.puncture': [
+        'Ön lastik bir anda indi',
+        'Ön lastiğe diken batmış',
+    ],
+    'f.tube_rear.puncture': [
+        'Arka lastik bir anda indi',
+        'Arka lastikte çivi ya da cam parçası var',
+    ],
+    'f.rim.out_of_true': [
+        'Arka tekerlek dönerken yanlara sallanıyor',
+        'Arka jant fren diskine göre değil, kadroya göre yalpalıyor',
+    ],
+    'f.spokes.loose': [
+        'Arka tekerlekteki teller elle sıkınca gevşek geliyor',
+        'Arka tekerlekten tıkırtı ve tel çınlaması geliyor',
+    ],
+    'f.spokes_front.broken': [
+        'Ön tekerlekte bir tel kopmuş, sarkıyor',
+        'Ön jant birden eğildi ve çatala yaklaşıyor',
+    ],
+    'f.rim_tape.shifted': [
+        'Arka iç lastik hep jant tarafından deliniyor',
+        'Arka iç lastiğin iç yüzünde küçük kesikler var',
+    ],
+    'f.valve_front.leak': [
+        'Ön lastik birkaç günde iniyor, sibopta sabun köpürüyor',
+        'Ön sibobun ucu eğilmiş ve hava kaçırıyor',
+    ],
+    'f.tire_front.pressure_low': [
+        'Ön iç lastikte yan yana iki delik var',
+        'Taşa çarptıktan sonra ön lastik indi',
+    ],
+    'f.tire_front.worn': [
+        'Ön lastiğin tırtılları yok olmuş, virajda kayıyor',
+        'Ön lastik inceldi, içinden bez görünüyor',
+    ],
+    'f.tire_rear.damaged': [
+        'Arka lastiğin yanağında kesik var, iç lastik dışarı fışkırıyor',
+        'Arka lastikte bir yer balon gibi şişmiş',
+    ],
+    'f.hub_front.play': [
+        'Ön tekerleği tutup yanlara sallayınca boşluk var',
+        'Ön göbek tarafından tıkırtı geliyor',
+    ],
+    'f.qr_front.loose': [
+        'Ön tekerlek çatalda oynuyor, mandal kolay kapanıyor',
+        'Ön tekerlek mandalı açık kalmış gibi',
+    ],
+    'f.hub_rear.worn': [
+        'Arka tekerleği elle çevirince göbekten hışırtı geliyor',
+        'Arka göbekte boşluk var ve kaset sallanıyor',
+    ],
+    'f.freehub.slipping': [
+        'Pedala basıyorum, pedal boşa dönüyor, bisiklet gitmiyor',
+        'Pedal bazen kavrıyor bazen boşa kaçıyor, soğukta daha kötü',
+    ],
+    # Ek arızalar
+    'f.qr_rear.loose': [
+        'Ayağa kalkıp pedal basınca arka tekerlek kayıp frene sürtüyor',
+        'Arka tekerlek mandalı gevşek kapatılmış',
+    ],
+    'f.hub_front.dry': [
+        'Ön tekerleği elle çevirince göbekten hışırtı geliyor',
+        'Ön tekerlek elle çevrilince çabuk duruyor',
+    ],
+    'f.valve_rear.leak': [
+        'Arka lastik birkaç günde iniyor, delik bulamıyorum',
+        'Arka sibobun dibinden hava kaçıyor',
+    ],
+    'f.tire_rear.worn': [
+        'Arka lastik yokuşta patinaj yapıyor, tırtılları aşınmış',
+        'Arka lastiğin ortası düzleşmiş',
+    ],
+    'f.rim_front.out_of_true': [
+        'Ön tekerlek dönerken yanlara sallanıyor',
+        'Çukura girdikten sonra ön jant eğildi',
+    ],
+    'f.rim_tape_front.shifted': [
+        'Ön iç lastik hep jant tarafından deliniyor',
+        'Ön jantta tel deliği açıkta kalmış',
+    ],
+    'f.tire_rear.pressure_low': [
+        'Arka iç lastikte yan yana iki küçük delik var',
+        'Kaldırımdan inince arka lastik indi',
+    ],
+    'f.brake_rear.adapter_loose': [
+        'Arka freni sıkınca kaliper oynuyor, tok bir ses geliyor',
+        'Arka kaliperin bağlantı cıvatası gevşemiş',
+    ],
+    'f.chainring.bolts': [
+        'Aynakoldan her turda tık sesi geliyor',
+        'Ön aynalar birbirine göre oynuyor',
+    ],
+    'f.spokes_rear.broken': [
+        'Arka tekerlekte bir tel kopmuş, jant fren diskine doğru eğildi',
+        'Arka tekerlekten çınlama geldi, sonra tekerlek yalpalamaya başladı',
+    ],
+    'f.saddle.creak': [
+        'Selede otururken selenin altından gıcırtı geliyor',
+        'Seleyi bastırınca raylardan ses geliyor',
+    ],
+}
+
 C.zones, C.symptoms, C.faults = ZONES, SYMPTOMS, FAULTS
+C.add_phrasings(PHRASINGS)
 C.spare_parts = SPARE_PARTS
 C.write()
