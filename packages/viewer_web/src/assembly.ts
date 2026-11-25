@@ -85,7 +85,12 @@ export function explodeOffsets(
     // İç içe parçalar (merkezi grubun merkezine çok yakın) kendi aralarında
     // sıralanır. Sıra bütün grubun içinden sayılırsa, çok üyeli bir grupta
     // (arabanın gövdesi) tek bir iç içe parça metrelerce uzağa kayar.
-    const nested = list.filter((p) => p.center.distanceTo(groupCenter) < span * 0.12);
+    // Sıra parçaların eksen üzerindeki konumuna göre: soldaki sola, sağdaki
+    // sağa açılır. Dosya sırasıyla dizilince sol koltuk sağa, sağ koltuk sola
+    // kayıp üst üste biniyordu.
+    const nested = list
+      .filter((p) => p.center.distanceTo(groupCenter) < span * 0.12)
+      .sort((a, b) => a.center.dot(thinHorizontal) - b.center.dot(thinHorizontal));
     list.forEach((part) => {
       const inside = part.center.clone().sub(groupCenter);
       let move: THREE.Vector3;
