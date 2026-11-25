@@ -1,20 +1,22 @@
 import * as THREE from "three";
 
+import { FINE, fineKey } from "./explode";
+
 /**
  * Geliştirirken parçalara ayırmayı denetler: parçaların yüzeyini ince
  * hücrelere çevirir, ayırmanın birkaç anında hangi parçaların birbirine
  * girdiğini sayar. Tarayıcı konsolunda `explodeReport()` ile çalışır.
  *
  * Yalnız toplu hâle göre yeni olan değmeler sayılır: modelde zaten birbirine
- * dayanan iki parça (koltuk ve halı) yerinde kaldıkça çakışma sayılmaz.
+ * dayanan iki parça (koltuk ve halı) yerinde kaldıkça çakışma sayılmaz;
+ * ayrılırken değdikleri hücre sayısı da toplu hâldekini aşmamalı.
  */
 
 export interface CheckedPart {
   id: string;
   node: THREE.Object3D;
   home: THREE.Vector3;
-  away: THREE.Vector3;
-  /** [value] ilerlemesinde parçanın yer değiştirmesi. */
+  /** [value] ilerlemesinde parçanın yer değiştirmesi, modelin yerel eksenlerinde. */
   offsetAt(value: number): THREE.Vector3;
 }
 
@@ -26,9 +28,11 @@ export interface Clash {
   cells: number;
 }
 
-const key = (i: number, j: number, k: number) => (i + 2048) * 4096 * 4096 + (j + 2048) * 4096 + (k + 2048);
-
-export function explodeReport(parts: CheckedPart[], level: THREE.Object3D, moments = [0.2, 0.4, 0.6, 0.8, 1]): Clash[] {
+export function explodeReport(
+  parts: CheckedPart[],
+  level: THREE.Object3D,
+  moments = Array.from({ length: 20 }, (_, i) => (i + 1) / 20),
+): Clash[] {
   // Ölçüm toplu hâlde yapılır.
   const saved = parts.map((p) => p.node.position.clone());
   for (const p of parts) p.node.position.copy(p.home);
@@ -37,26 +41,32 @@ export function explodeReport(parts: CheckedPart[], level: THREE.Object3D, momen
   const box = new THREE.Box3();
   for (const p of parts) box.union(new THREE.Box3().setFromObject(p.node).applyMatrix4(toLocal));
   const size = box.getSize(new THREE.Vector3());
-  const cell = Math.max(size.x, size.y, size.z) / 220;
+  const cell = Math.max(size.x, size.y, size.z) / FINE;
 
   const cells = parts.map((p) => surface(p.node, toLocal, cell));
   parts.forEach((p, i) => p.node.position.copy(saved[i]));
 
   const count = (value: number) => {
-    const owners = new Map<number, number>();
+    // Bir hücrede kaç parça varsa her ikilisi sayılır.
+    const owners = new Map<number, number[]>();
     const pairs = new Map<string, number>();
     parts.forEach((p, n) => {
       const o = p.offsetAt(value).divideScalar(cell);
       const [oi, oj, ok] = [Math.round(o.x), Math.round(o.y), Math.round(o.z)];
       const list = cells[n];
       for (let c = 0; c < list.length; c += 3) {
-        const k = key(list[c] + oi, list[c + 1] + oj, list[c + 2] + ok);
-        const other = owners.get(k);
-        if (other === undefined) owners.set(k, n);
-        else if (other !== n) {
+        const k = fineKey(list[c] + oi, list[c + 1] + oj, list[c + 2] + ok);
+        const others = owners.get(k);
+        if (!others) {
+          owners.set(k, [n]);
+          continue;
+        }
+        if (others[others.length - 1] === n) continue;
+        for (const other of others) {
           const name = other < n ? `${other}|${n}` : `${n}|${other}`;
           pairs.set(name, (pairs.get(name) ?? 0) + 1);
         }
+        others.push(n);
       }
     });
     return pairs;
@@ -66,8 +76,11 @@ export function explodeReport(parts: CheckedPart[], level: THREE.Object3D, momen
   const worst = new Map<string, Clash>();
   for (const value of moments) {
     for (const [name, n] of count(value)) {
-      const extra = n - (home.get(name) ?? 0);
-      if (extra < 3) continue;
+      // Toplu hâlde birbirini kesen iki yüzey bir hücre kayınca kesişme
+      // çizgisinin hücre sayısı biraz oynar; bu oynama çakışma sayılmaz.
+      const before = home.get(name) ?? 0;
+      const extra = n - before;
+      if (extra < 3 + 0.1 * before) continue;
       const [a, b] = name.split("|").map(Number);
       const previous = worst.get(name);
       if (!previous || previous.cells < extra) {
@@ -108,11 +121,13 @@ function surface(node: THREE.Object3D, toLocal: THREE.Matrix4, cell: number): In
       ac.subVectors(c, a);
       for (let u = 0; u <= n; u++) {
         for (let v = 0; u + v <= n; v++) {
-          p.copy(a).addScaledVector(ab, u / n).addScaledVector(ac, v / n);
+          p.copy(a)
+            .addScaledVector(ab, u / n)
+            .addScaledVector(ac, v / n);
           const i = Math.floor(p.x / cell);
           const j = Math.floor(p.y / cell);
           const k = Math.floor(p.z / cell);
-          const id = key(i, j, k);
+          const id = fineKey(i, j, k);
           if (seen.has(id)) continue;
           seen.add(id);
           out.push(i, j, k);

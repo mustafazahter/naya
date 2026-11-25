@@ -6,25 +6,39 @@ import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.j
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 
 import { groupNodes, type PartsMap } from "./assembly";
-import { makeGrid, planExplode, voxelize } from "./explode";
+import { makeGrid, offsetAt, planExplode, shapeOf, triangles, type Plan, type Stage } from "./explode";
+import type { PlanReply, PlanRequest } from "./explodeWorker";
 import type { CheckedPart } from "./explodeCheck";
 import { Glow, scanBand } from "./glow";
+import { splitPieces } from "./pieces";
 
 CameraControls.install({ THREE });
+
+/**
+ * Parçalara ayırmada birlikte hareket eden kısım. Çoğu parça tek kısımdır;
+ * sağ ve sol amortisör gibi aralarında boşluk olan kısımları ayrı açılır.
+ */
+interface Piece {
+  /** Hareket eden düğüm: bölünmemiş parçada parçanın kendisi. */
+  node: THREE.Object3D;
+  home: THREE.Vector3;
+  /**
+   * Modelin yerel eksenlerindeki kaymayı düğümün kendi eksenlerine çevirir;
+   * bölünmemiş parçada null (düğüm zaten o eksenlerde duruyor).
+   */
+  basis: THREE.Matrix3 | null;
+  /**
+   * Ayırma ilerlemesine (0-1) göre yolu. Dıştaki parçalar önce kalkar,
+   * içtekiler onların açtığı yoldan sonra çıkar.
+   */
+  stage: Stage;
+}
 
 /** Modeldeki tek bir parça: seçilebilen, parçalara ayırmada hareket eden düğüm. */
 interface Part {
   id: string;
   node: THREE.Object3D;
-  home: THREE.Vector3;
-  /** Parçalara ayırırken gideceği yer, modelin yerel koordinatlarında. */
-  away: THREE.Vector3;
-  /**
-   * Ayırma ilerlemesinin (0-1) hangi aralığında hareket ettiği. Dıştaki
-   * parçalar önce kalkar, içtekiler onların açtığı yoldan sonra çıkar.
-   */
-  start: number;
-  end: number;
+  pieces: Piece[];
   glow: Glow;
   /** `normal`: kendi malzemesinin parlayabilen kopyası. */
   meshes: { mesh: THREE.Mesh; normal: THREE.Material | THREE.Material[] }[];
@@ -63,13 +77,77 @@ interface Intro {
 }
 
 const easeOutExpo = (t: number) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
-const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const shift = new THREE.Vector3();
+
+/** Kısmı yerinden [offset] kadar (modelin yerel eksenlerinde) kaydırır. */
+function place(piece: Piece, offset: THREE.Vector3): void {
+  shift.copy(offset);
+  if (piece.basis) shift.applyMatrix3(piece.basis);
+  piece.node.position.copy(piece.home).add(shift);
+}
+
+const offset = new THREE.Vector3();
 
 /** [value] ilerlemesinde parçanın yeri. */
 function pose(part: Part, value: number): void {
-  const span = Math.max(part.end - part.start, 1e-6);
-  const t = easeInOut(THREE.MathUtils.clamp((value - part.start) / span, 0, 1));
-  part.node.position.lerpVectors(part.home, part.away, t);
+  for (const piece of part.pieces) place(piece, offsetAt(piece.stage, value, offset));
+}
+
+/** Parçanın açılınca en çok ne kadar uzaklaştığı. */
+const reach = (part: Part) => Math.max(...part.pieces.map((p) => p.stage.offset.length()));
+
+let worker: Worker | null = null;
+let requests = 0;
+const waiting = new Map<number, { request: PlanRequest; done: (plan: Plan) => void }>();
+
+/**
+ * Parçalara ayırma planı. Ayrı iş parçacığında kurulur; iş parçacığı
+ * açılamazsa (eski WebView) burada.
+ */
+function planOf(request: PlanRequest): Promise<Plan> {
+  const local = (request: PlanRequest) => {
+    const [x0, y0, z0, x1, y1, z1] = request.box;
+    const grid = makeGrid(new THREE.Box3(new THREE.Vector3(x0, y0, z0), new THREE.Vector3(x1, y1, z1)));
+    const shapes = request.pieces.map((p) => shapeOf(p.id, p.tris, grid));
+    return planExplode(grid, shapes, new Map(request.groups));
+  };
+  try {
+    worker ??= new Worker(new URL("./explodeWorker.ts", import.meta.url), { type: "module" });
+  } catch {
+    return Promise.resolve(local(request));
+  }
+  const id = ++requests;
+  const w = worker;
+  w.onmessage = (e: MessageEvent<PlanReply & { id: number }>) => {
+    const done = waiting.get(e.data.id)?.done;
+    waiting.delete(e.data.id);
+    done?.({
+      layers: e.data.layers,
+      stages: new Map(
+        e.data.stages.map(([key, stage]) => [
+          key,
+          {
+            offset: new THREE.Vector3().fromArray(stage.offset),
+            moves: stage.moves.map((m) => ({
+              start: m.start,
+              end: m.end,
+              points: m.points.map((p) => new THREE.Vector3().fromArray(p)),
+            })),
+          },
+        ]),
+      ),
+    });
+  };
+  return new Promise((resolve) => {
+    waiting.set(id, { request, done: resolve });
+    w.onerror = () => {
+      // İş parçacığı çalışmadı: bekleyenler burada kurulur.
+      worker = null;
+      for (const { request, done } of waiting.values()) done(local(request));
+      waiting.clear();
+    };
+    w.postMessage({ ...request, id });
+  });
 }
 
 /**
@@ -126,6 +204,7 @@ export class NayaViewer {
   private explodeTarget = 0;
   private explodeValue = 0;
   private explodeLayers = 0;
+  private loads = 0;
   private xray = false;
 
   constructor(private readonly options: ViewerOptions) {
@@ -182,6 +261,17 @@ export class NayaViewer {
       }),
       loadMap(mapUrl ?? url.replace(/\.glb$/i, ".parts.json")),
     ]);
+    // Plan kurulurken eski model ekranda kalır. Bu sırada başka bir model
+    // istendiyse bu yükleme bırakılır.
+    const token = ++this.loads;
+    const model = gltf.scene;
+    this.placeOnGround(model);
+    const parts = await this.collectParts(model, map);
+    if (token !== this.loads) {
+      disposeModel(model, this.ghost);
+      return [];
+    }
+
     this.finishIntro();
     if (this.model) {
       this.scene.remove(this.model);
@@ -192,11 +282,11 @@ export class NayaViewer {
     this.setHovered(null);
     this.isolated = null;
     this.weights = new Map();
-    this.model = gltf.scene;
-    this.scene.add(this.model);
-
-    this.placeOnGround(this.model);
-    this.parts = this.collectParts(this.model, map);
+    this.explodeTarget = 0;
+    this.explodeValue = 0;
+    this.model = model;
+    this.scene.add(model);
+    this.parts = parts;
     this.addShadowCatcher(this.model);
     this.prepareBand(this.model);
     await this.frameModel(false);
@@ -215,7 +305,7 @@ export class NayaViewer {
 
     // Önce merkezdekiler (kadro), en son en dıştakiler (tekerlek parçaları).
     const order = [...this.parts].sort(
-      (a, b) => a.away.distanceTo(a.home) - b.away.distanceTo(b.home),
+      (a, b) => reach(a) - reach(b),
     );
     const delays = new Map<Part, number>();
     order.forEach((part, i) =>
@@ -260,10 +350,11 @@ export class NayaViewer {
 
   /** Parçalar [amount] kadar açıkken modelin kapladığı kutu. */
   private boxAt(amount: number): THREE.Box3 {
-    const now = this.parts.map((p) => p.node.position.clone());
+    const pieces = this.parts.flatMap((p) => p.pieces);
+    const now = pieces.map((p) => p.node.position.clone());
     for (const part of this.parts) pose(part, amount);
     const box = new THREE.Box3().setFromObject(this.model!);
-    this.parts.forEach((part, i) => part.node.position.copy(now[i]));
+    pieces.forEach((piece, i) => piece.node.position.copy(now[i]));
     return box;
   }
 
@@ -273,19 +364,14 @@ export class NayaViewer {
    */
   explodeTrack(): { level: THREE.Object3D | null; parts: CheckedPart[] } {
     const level = this.parts[0]?.node.parent ?? null;
-    const parts = this.parts.map((part) => ({
-      id: part.id,
-      node: part.node,
-      home: part.home,
-      away: part.away,
-      offsetAt: (value: number) => {
-        const now = part.node.position.clone();
-        pose(part, value);
-        const offset = part.node.position.clone().sub(part.home);
-        part.node.position.copy(now);
-        return offset;
-      },
-    }));
+    const parts = this.parts.flatMap((part) =>
+      part.pieces.map((piece, k) => ({
+        id: part.pieces.length > 1 ? `${part.id}#${k}` : part.id,
+        node: piece.node,
+        home: piece.home,
+        offsetAt: (value: number) => offsetAt(piece.stage, value, new THREE.Vector3()),
+      })),
+    );
     return { level, parts };
   }
 
@@ -433,8 +519,9 @@ export class NayaViewer {
 
     // Parçalara ayırma yumuşakça hedefe yaklaşır; açılış sürerken parçaları
     // o yönetir.
-    // Katmanlar sırayla oynar; süre katman sayısıyla uzar ama 2,6 sn'yi geçmez.
-    const seconds = THREE.MathUtils.clamp(0.6 + 0.2 * this.explodeLayers, 0.9, 2.6);
+    // Hareketler sırayla oynar; süre art arda gelen hareket sayısıyla uzar
+    // ama 3 sn'yi geçmez.
+    const seconds = THREE.MathUtils.clamp(0.5 + 0.28 * this.explodeLayers, 1, 3);
     const gap = this.explodeTarget - this.explodeValue;
     const next = this.explodeValue + Math.sign(gap) * Math.min(Math.abs(gap), delta / seconds);
     if (this.intro) {
@@ -450,13 +537,14 @@ export class NayaViewer {
   private stepIntro(): void {
     const intro = this.intro!;
     const elapsed = this.clock.elapsedTime - intro.start;
-    const offset = new THREE.Vector3();
+    const spread = new THREE.Vector3();
     let landed = 0;
     for (const part of this.parts) {
       const t = THREE.MathUtils.clamp((elapsed - intro.delays.get(part)!) / INTRO_FLIGHT, 0, 1);
       if (t >= 1) landed++;
-      offset.subVectors(part.away, part.home).multiplyScalar((1 - easeOutExpo(t)) * INTRO_SPREAD);
-      part.node.position.copy(part.home).add(offset);
+      for (const piece of part.pieces) {
+        place(piece, spread.copy(piece.stage.offset).multiplyScalar((1 - easeOutExpo(t)) * INTRO_SPREAD));
+      }
       // Yolun yarısından sonra kendi malzemesine geçer ve sönerek parlar.
       const solid = t > 0.55;
       for (const { mesh, normal } of part.meshes) {
@@ -536,7 +624,7 @@ export class NayaViewer {
    * dışa aktarımda olur) onun içine iner; ilk dallanan seviyedeki her düğüm
    * bir parçadır.
    */
-  private collectParts(model: THREE.Object3D, map: PartsMap | null): Part[] {
+  private async collectParts(model: THREE.Object3D, map: PartsMap | null): Promise<Part[]> {
     let level: THREE.Object3D = model;
     while (level.children.length === 1 && !(level.children[0] instanceof THREE.Mesh)) {
       level = level.children[0];
@@ -560,19 +648,31 @@ export class NayaViewer {
         );
       }
     }
-    const grid = makeGrid(box);
-    const shapes = nodes.map(({ id, node }) => voxelize(id, node, toLocal, grid));
-    const plan = planExplode(
-      grid,
-      shapes,
-      groupNodes(
-        map,
-        nodes.map((n) => n.id),
-      ),
+    // Aralarında boşluk olan kısımlar (sağ ve sol amortisör) ayrı açılır. En
+    // büyük parça (kasa, gövde) yerinde kalacağı için bölünmez.
+    const longest = Math.max(...box.getSize(new THREE.Vector3()).toArray());
+    const span = (node: THREE.Object3D) => new THREE.Box3().setFromObject(node).getSize(new THREE.Vector3()).length();
+    const biggest = nodes.reduce((a, b) => (span(b.node) > span(a.node) ? b : a)).node;
+    const split = nodes.map(({ node }) => (node === biggest ? null : splitPieces(node, longest * 0.08)));
+    const pieceIds = nodes.map(({ id }, n) => split[n]?.map((_, k) => `${id}#${k}`) ?? [id]);
+    const groups = groupNodes(
+      map,
+      nodes.map((n) => n.id),
     );
+    nodes.forEach(({ id }, n) => {
+      if (split[n]) for (const piece of pieceIds[n]) groups.set(piece, groups.get(id) ?? id);
+    });
+
+    const plan = await planOf({
+      box: [...box.min.toArray(), ...box.max.toArray()] as PlanRequest["box"],
+      pieces: nodes.flatMap(({ node }, n) =>
+        (split[n] ?? [node]).map((target, k) => ({ id: pieceIds[n][k], tris: triangles(target, toLocal) })),
+      ),
+      groups: [...groups],
+    });
     this.explodeLayers = plan.layers;
 
-    return nodes.map(({ id, node }) => {
+    return nodes.map(({ id, node }, n) => {
       const glow = new Glow(this.glowColor);
       const meshes: Part["meshes"] = [];
       node.traverse((child) => {
@@ -585,10 +685,15 @@ export class NayaViewer {
         child.material = normal;
         meshes.push({ mesh: child, normal });
       });
-      const home = node.position.clone();
-      const { offset, start, end } = plan.stages.get(id)!;
-      const away = home.clone().add(offset);
-      return { id, node, home, away, start, end, glow, meshes };
+      node.updateMatrix();
+      const basis = new THREE.Matrix3().setFromMatrix4(node.matrix).invert();
+      const pieces: Piece[] = (split[n] ?? [node]).map((target, k) => ({
+        node: target,
+        home: target.position.clone(),
+        basis: split[n] ? basis : null,
+        stage: plan.stages.get(pieceIds[n][k])!,
+      }));
+      return { id, node, pieces, glow, meshes };
     });
   }
 
