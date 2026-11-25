@@ -253,6 +253,19 @@ void main() {
       expect(prompt, isNot(contains('%')));
     });
 
+    test('takip mesajında ürüne uygunluk düşük olsa da teşhis sürer', () async {
+      ai.foreign = true;
+      final record = await diagnose(
+        'Sıcakta da oluyor.',
+        earlier: ['Zincir sesi geliyor.'],
+      );
+      final result = record['result']! as Map<String, Object?>;
+      expect(result['candidates'], isNotEmpty);
+      final prompt = ai.chats.single.last.content;
+      expect(prompt, isNot(contains('doğru ürünün seçili olup olmadığını')));
+      expect(prompt, contains('Aday parçalar'));
+    });
+
     test('takip mesajında önceki mesajlar açıklamaya gider', () async {
       await diagnose(
         'Soğukken daha çok oluyor.',

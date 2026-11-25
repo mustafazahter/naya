@@ -446,8 +446,10 @@ class Assistant {
     ];
     final weak = systems.isEmpty || systems.first.probability < 0.3;
     // Karar modeli anlatılanın bu ürüne ait olmadığını söylediyse sistem
-    // turu yapılmamıştır.
+    // turu yapılmamıştır. Takip mesajında olasılık düşük olsa da akış
+    // sürer; o zaman sistemler doludur ve bu yol seçilmez.
     final foreign =
+        result.systems.isEmpty &&
         result.relevance != null &&
         result.relevance! < DiagnosisFlow.relevanceThreshold;
     // Soru soran (arıza anlatmayan) kullanıcıya "doğru ürün mü" denmez.
