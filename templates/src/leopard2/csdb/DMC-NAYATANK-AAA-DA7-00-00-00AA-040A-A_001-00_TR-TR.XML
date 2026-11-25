@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA7" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Mürettebat bölmesi donanımı</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Havalandırma ve NBC koruma</title>
+        <para>Havalandırma ünitesi mürettebat bölmesine filtrelenmiş hava verir. NBC koruma durumunda hava özel filtrelerden geçer ve bölme hafif basınç altında tutulur.</para>
+        <para>Mürettebat ünitenin çalışmasını, filtre göstergesini ve filtre değişimini yapar.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Yangın söndürme</title>
+        <para>Motor bölmesinde ve mürettebat bölmesinde yangın algılayıcıları ve söndürücü tüpler bulunur. Ayrıca el tipi söndürücüler vardır.</para>
+        <para>Otomatik yangın söndürme sisteminin tüplerine ve tetikleme düzenine yetkisiz müdahale etmeyin; yanlışlıkla boşalan söndürücü gaz mürettebat bölmesinde tehlikelidir.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Isıtıcı</title>
+        <para>Yakıtla çalışan ısıtıcı soğukta mürettebat bölmesini ısıtır. Egzozu gövde dışına verilir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

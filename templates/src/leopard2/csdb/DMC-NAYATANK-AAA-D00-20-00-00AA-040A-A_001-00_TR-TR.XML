@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01 SYSTEM "ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Yağlama</techName><infoName>Yağlama çizelgesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Yağlama noktaları</title>
+        <para>Motor: motor yağı, yağ çubuğundan kontrol, dönemsel değişim.</para>
+        <para>Şanzıman: şanzıman yağı, çubuktan kontrol, dönemsel değişim ve filtre.</para>
+        <para>Son dişliler: dişli yağı, seviye tapasından kontrol.</para>
+        <para>Yürüyen takım: salıncak kolu yatakları, avara gerdirme tertibatı ve destek makaraları; gres.</para>
+        <para>Kule: kule yatağı ve kapak menteşeleri; gres.</para>
+        <para>Sürüş kumandaları: bağlantı mafsalları; hafif yağ ya da gres.</para>
+        <para>Hidrolik sistem: hidrolik yağı, depodan seviye kontrolü.</para>
+      </levelledPara>
+      <figure id="fig-0001"><title>Tank, soldan görünüş</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure>
+      <levelledPara>
+        <title>Kurallar</title>
+        <para>Yağ ve gres türünü aracın el kitabından ve yağlama plakasından seçin; farklı yağları karıştırmayın.</para>
+        <para>Gresörlüğü greslemeden önce silin; kirli gres yatağı aşındırır.</para>
+        <para>Eski gres yatağın kenarından taze gres görünene kadar basın; taşan gresi silin.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

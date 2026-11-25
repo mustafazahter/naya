@@ -29,7 +29,7 @@
     <description>
       <levelledPara>
         <title>Genel</title>
-        <para>Leopard 2, Almanya'da geliştirilen ve birçok ülkenin kullandığı bir ana muharebe tankıdır. 2A6, 2000'li yıllarda daha uzun namlulu topla güncellenen sürümdür.</para>
+        <para>Leopard 2, Almanya'da geliştirilen ve birçok ülkenin kullandığı bir ana muharebe tankıdır. 2A6 bu ailenin sürümlerinden biridir.</para>
         <para>Mürettebat dört kişidir: komutan, nişancı, yükleyici ve sürücü. Sürücü gövdenin önünde sağda; komutan, nişancı ve yükleyici kulededir.</para>
       </levelledPara>
       <figure id="fig-0001"><title>Tank, soldan görünüş</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure>
@@ -39,7 +39,7 @@
         <para>Güç paketi: gövdenin arkasında V12 dizel motor, şanzıman, soğutma sistemi, hava filtreleri ve egzoz. Motor ve şanzıman tek bir paket olarak birlikte sökülüp takılır.</para>
         <para>Yürüyen takım: her yanda yedi yol tekerleği, burulma çubuklu süspansiyon, önde avara, arkada yürütücü dişli ve lastik tabanlı paletler.</para>
         <para>Elektrik: 24 V doğru akım sistemi, aküler, farlar ve arka lambalar.</para>
-        <para>Silah ve optikler: kulede ana top, makineli tüfek, sis bombası atıcıları ve nişan ile gözetleme optikleri. Bu şablon silahların yalnız dış muayenesini, optiklerin de temizliğini kapsar.</para>
+        <para>Silah ve optikler: kulenin dış donanımı; ana top, makineli tüfek kundağı, sis bombası atıcıları ve optikler. Bu şablon bunların yalnız dış muayenesini, namlu ağzı kapağını ve optik temizliğini kapsar.</para>
       </levelledPara>
       <levelledPara>
         <title>Bu el kitabı hakkında</title>

@@ -32,11 +32,11 @@
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
-        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silahların boş ve emniyette olduğu silah sorumlusu tarafından doğrulanmadan kule üzerinde çalışmayın.</warningAndCautionPara></warning><warning><warningAndCautionPara>Kule üstünde çalışırken düşmeye karşı dikkatli olun; ıslak ve buzlu yüzeyler kaygandır.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silah sorumlusunun izni olmadan kule üzerinde ve namlu önünde çalışmayın.</warningAndCautionPara></warning><warning><warningAndCautionPara>Kule üstünde çalışırken düşmeye karşı dikkatli olun; ıslak ve buzlu yüzeyler kaygandır.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
         <proceduralStep><para>Komutan ve yükleyici kapaklarını açıp kapatın; menteşe ve kilitleri kontrol edin.</para><figure id="fig-0005"><title>Kule üstü donanımı</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure></proceduralStep>
-        <proceduralStep><para>Sis bombası atıcılarının tüplerinde ezik, çatlak ya da su birikmesi olup olmadığına dışarıdan bakın. Tüplere elinizi ya da bir cisim sokmayın.</para></proceduralStep>
+        <proceduralStep><para>Sis bombası atıcılarının dış gövdesinde ezik ya da çatlak olup olmadığına bakın. Atıcılara elinizi ya da bir cisim sokmayın.</para></proceduralStep>
         <proceduralStep><para>Makineli tüfek kundağının kule üstündeki bağlantısını gözle kontrol edin; silahın kendisine dokunmayın.</para></proceduralStep>
         <proceduralStep><para>Antenlerin ve anten tabanlarının sağlam olduğunu kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Bulduğunuz hasarı silah sorumlusuna ve birlik bakım kaydına bildirin.</para></proceduralStep>

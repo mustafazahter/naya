@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01 SYSTEM "ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Periyodik bakım</techName><infoName>Bakım düzeni</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Bakım düzeyleri</title>
+        <para>Günlük kontrol: tankı her kullanmadan önce mürettebat yapar. Seviyeler, sızıntılar, paletler, lambalar ve optikler bakılır.</para>
+        <para>Görev öncesi, görev sırası ve görev sonrası kontroller: arazi görevinin başında, molalarda ve sonunda yapılır.</para>
+        <para>Haftalık ve aylık bakım: gresleme, temizlik, akü ve kablo kontrolü, filtre göstergeleri, alet sayımı.</para>
+        <para>Dönemsel bakım: yağ ve filtre değişimleri, soğutma sıvısı değişimi ve kapsamlı muayeneler. Aralıklar çalışma saatine ve kilometreye bağlıdır; aracın el kitabındaki çizelgeyi kullanın.</para>
+      </levelledPara>
+      <figure id="fig-0001"><title>Tank, soldan görünüş</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure>
+      <levelledPara>
+        <title>Kayıt</title>
+        <para>Her kontrolün sonucu ve bulunan her eksik araç bakım kaydına yazılır. Mürettebatın gideremediği eksik yetkili bakım birimine bildirilir.</para>
+        <para>Tozlu, çamurlu, çok sıcak ya da çok soğuk çalışma koşullarında filtre ve gresleme aralıkları kısalır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

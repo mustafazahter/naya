@@ -315,10 +315,62 @@ void main() {
         'fuel',
         'running_gear',
         'electrical',
+        'hydraulics',
+        'crew_systems',
+        'equipment',
       ]);
     });
 
     _faultPartsSelectable(tank, 'leopard2');
+
+    test('güç paketinin parçaları soğutmayı ve fan tahrikini kapsar', () {
+      expect(
+        tank.partsOf('powerpack').map((p) => p.id),
+        containsAll(['cooling.radiators', 'cooling.fans', 'cooling.fan_drive']),
+      );
+      expect(tank.systemOf('hull.engine_deck.grilles'), 'hull');
+    });
+
+    test('havalandırma zayıf: NBC filtresi değişimi', () async {
+      final result =
+          await DiagnosisFlow(
+            catalog: tank,
+            decider: _ScriptedDecider([
+              _diagnose,
+              const DecisionAnswers(
+                choices: {
+                  'system': {
+                    'crew_systems': 0.8,
+                    'electrical': 0.1,
+                    'none': 0.1,
+                  },
+                },
+              ),
+              const DecisionAnswers(
+                choices: {
+                  'part:crew_systems': {
+                    'crew.nbc_filter': 0.75,
+                    'crew.nbc': 0.15,
+                    'none': 0.1,
+                  },
+                },
+              ),
+              const DecisionAnswers(
+                choices: {
+                  'fault': {'f.nbc.filter': 0.85, 'none': 0.15},
+                },
+                yes: {'danger': 0.2},
+              ),
+            ]),
+          ).run(
+            'Kapaklar kapalıyken içerisi havasız, filtre göstergesi kırmızıda.',
+          );
+
+      expect(result.decision, DiagnosisDecision.focus);
+      expect(result.top!.partId, 'crew.nbc_filter');
+      expect(result.fault!.id, 'f.nbc.filter');
+      expect(result.procedure, 'DMC-NAYATANK-AAA-DA7-10-00-00AA-920A-A');
+    });
 
     test('motor ısınıyor: radyatör temizliği', () async {
       final result = await DiagnosisFlow(

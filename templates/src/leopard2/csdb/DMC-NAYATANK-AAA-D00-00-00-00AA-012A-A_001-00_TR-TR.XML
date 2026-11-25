@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="012" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Leopard 2A6</techName><infoName>Güvenlik uyarıları</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Bu el kitabındaki işler eğitimli mürettebat ve bakım personeli içindir. Bir iş size verilen yetkinin dışındaysa durun ve yetkili bakım birimine bildirin.</para>
+        <para>Her işe başlamadan önce tankı düz zemine alın, motoru durdurun, park frenini çekin ve gerekiyorsa ana şalteri kapatın.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Silahlar</title>
+        <para>Silah sorumlusunun izni olmadan kule üzerinde ve namlu önünde çalışmayın.</para>
+        <para>Bu şablon silahların yalnız dış muayenesini kapsar. Silahlara ve sis bombası atıcılarının içine müdahale etmeyin.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Güç paketi ve sıvılar</title>
+        <para>Motor durduktan sonra güç paketi, egzoz ve radyatörler uzun süre sıcak kalır; soğumasını bekleyin.</para>
+        <para>Soğutma sistemi sıcakken basınç altındadır; doldurma kapağını motor soğumadan açmayın.</para>
+        <para>Yakıt, yağ ve hidrolik yağı yanıcıdır; açık alevle yaklaşmayın, dökülenleri hemen silin ve atıkları ayrı toplayın.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Kaldırma ve ağır parçalar</title>
+        <para>Paletler, tekerlekler, yan etek panelleri ve aküler ağırdır. Kaldırma düzeni olmadan tek başınıza taşımayın.</para>
+        <para>Asılı yükün altında durmayın.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

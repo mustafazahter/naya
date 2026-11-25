@@ -19,6 +19,8 @@ POWERPACK = ['engine', 'transmission', 'radiators', 'cooling_fans',
              'air_filters', 'fuel_tanks', 'exhaust']
 LEFT_RUNNING = ['track_l', 'road_wheels_l', 'suspension_l', 'idler_l',
                 'sprocket_l']
+# Gövdenin içini göstermek için gizlenen dış parçalar.
+COVERS = ('hull', 'engine_deck', 'side_skirt_l', 'side_skirt_r', *TURRET)
 
 # Blender'da tankın önü -Y, solu +X yönünde.
 VIEWS = [
@@ -36,6 +38,23 @@ VIEWS = [
      None, ('side_skirt_l',)),
     ('00007', ['engine_deck'], 7, (0.5, 0.75, 1), ('engine_deck',), None,
      TURRET),
+    ('00008', ['batteries'], 5, (0.3, -0.5, 1), ('batteries',), None,
+     COVERS),
+    ('00009', ['side_skirt_l'], 12, (1, -0.35, 0.3), ('side_skirt_l',),
+     None, ()),
+    ('00010', ['headlights'], 6.5, (0.45, -1, 0.45), ('headlights',), None,
+     ()),
+    ('00011', ['taillights'], 5, (0.45, 1, 0.3), ('taillights',), None,
+     ()),
+    ('00012', ['fuel_tanks'], 8, (0.9, 0.6, 0.9), ('fuel_tanks',), None,
+     COVERS),
+    ('00013', ['transmission'], 6.5, (0.9, 0.9, 0.8), ('transmission',),
+     None, COVERS),
+    ('00014', ['air_filters', 'exhaust'], 7.5, (0.9, 0.6, 1),
+     ('air_filters', 'exhaust'), None, COVERS),
+    ('00015', ['road_wheels_l'], 10, (1, -0.2, 0.15),
+     ('road_wheels_l', 'suspension_l'), None, ('side_skirt_l',)),
+    ('00016', ['turret'], 10, (-0.6, 0.7, 0.8), ('turret',), None, ()),
 ]
 
 argv = sys.argv[sys.argv.index('--') + 1:]

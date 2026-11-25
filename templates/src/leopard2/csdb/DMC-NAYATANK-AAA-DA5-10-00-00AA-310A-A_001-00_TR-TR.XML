@@ -32,13 +32,13 @@
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
-        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silahların boş ve emniyette olduğu silah sorumlusu tarafından doğrulanmadan kule üzerinde çalışmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silah sorumlusunun izni olmadan kule üzerinde ve namlu önünde çalışmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
         <proceduralStep><para>Namlu ağzı koruyucu kapağının takılı ve sağlam olduğunu kontrol edin.</para><figure id="fig-0001"><title>Tank, soldan görünüş</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Namlunun dış yüzeyinde ve ısı kılıfında ezik, yırtık ya da gevşek parça olup olmadığına bakın.</para></proceduralStep>
         <proceduralStep><para>Top kalkanının çevresindeki toz körüğünde yırtık olup olmadığını kontrol edin.</para></proceduralStep>
-        <proceduralStep><para>Bulduğunuz hasarı silah sorumlusuna bildirin; namluya ya da mekanizmaya müdahale etmeyin.</para></proceduralStep>
+        <proceduralStep><para>Bulduğunuz hasarı silah sorumlusuna bildirin; başka bir işlem yapmayın.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
     </procedure>

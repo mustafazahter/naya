@@ -18,7 +18,8 @@
         "item": "001"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA0-10-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA0-10-00-00AA-310A-A",
+        "clean": "DMC-NAYATANK-AAA-D00-30-00-00AA-250A-A"
       }
     },
     {
@@ -37,14 +38,53 @@
         "item": "002"
       },
       "procedures": {
+        "clean": "DMC-NAYATANK-AAA-DA0-30-00-00AA-250A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA0-30-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "hull.engine_deck.grilles",
+      "name": "Motor güvertesi ızgaraları",
+      "parent": "hull.engine_deck",
+      "sns": "DA0-30",
+      "meshNodes": [
+        "engine_deck"
+      ],
+      "zone": "z.engine",
+      "function": "Fanların soğutma havasını çektiği yuvarlak ızgaralar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "003"
+      },
+      "procedures": {
         "clean": "DMC-NAYATANK-AAA-DA0-30-00-00AA-250A-A"
+      }
+    },
+    {
+      "id": "hull.engine_deck.hatches",
+      "name": "Motor güvertesi erişim kapakları",
+      "parent": "hull.engine_deck",
+      "sns": "DA0-30",
+      "meshNodes": [
+        "engine_deck"
+      ],
+      "zone": "z.engine",
+      "function": "Güç paketine, doldurma ağızlarına ve filtrelere erişim kapakları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "004"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA0-30-00-00AA-310A-A"
       }
     },
     {
       "id": "hull.side_skirt_l",
       "name": "Sol yan etek",
       "parent": "hull",
-      "sns": "DA0-10",
+      "sns": "DA0-50",
       "meshNodes": [
         "side_skirt_l"
       ],
@@ -53,17 +93,18 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "003"
+        "item": "005"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA0-10-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA0-50-00-00AA-310A-A",
+        "replace": "DMC-NAYATANK-AAA-DA0-50-00-00AA-920A-A"
       }
     },
     {
       "id": "hull.side_skirt_r",
       "name": "Sağ yan etek",
       "parent": "hull",
-      "sns": "DA0-10",
+      "sns": "DA0-50",
       "meshNodes": [
         "side_skirt_r"
       ],
@@ -72,10 +113,31 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "004"
+        "item": "006"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA0-10-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA0-50-00-00AA-310A-A",
+        "replace": "DMC-NAYATANK-AAA-DA0-50-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "hull.fenders",
+      "name": "Çamurluklar ve dış kutular",
+      "parent": "hull",
+      "sns": "DA0-50",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Paletlerin üstündeki çamurluklar ve üstlerindeki teçhizat kutuları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "007"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA0-50-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA0-00-00-00AA-421A-A"
       }
     },
     {
@@ -91,17 +153,77 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "005"
+        "item": "008"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA0-10-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA0-10-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA0-10-00-00AA-421A-A",
+        "lubricate": "DMC-NAYATANK-AAA-DA0-20-00-00AA-240A-A"
+      }
+    },
+    {
+      "id": "hull.hatch_seals",
+      "name": "Kapak contaları",
+      "parent": "hull",
+      "sns": "DA0-10",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Sürücü, komutan ve yükleyici kapaklarının su ve toz contaları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "009"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYATANK-AAA-DA0-10-00-00AA-421A-A",
+        "replace": "DMC-NAYATANK-AAA-DA0-10-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "hull.escape_hatch",
+      "name": "Taban kaçış kapağı",
+      "parent": "hull",
+      "sns": "DA0-10",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.driver",
+      "function": "Gövde tabanındaki acil durum çıkış kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "010"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA0-10-00-01AA-310A-A"
+      }
+    },
+    {
+      "id": "hull.drain_plugs",
+      "name": "Gövde boşaltma tapaları",
+      "parent": "hull",
+      "sns": "DA0-10",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Gövde içinde biriken suyun boşaltıldığı tapalar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "011"
+      },
+      "procedures": {
+        "clean": "DMC-NAYATANK-AAA-DA0-10-00-00AA-220A-A"
       }
     },
     {
       "id": "hull.towing",
       "name": "Çeki kancaları ve halatı",
       "parent": "hull",
-      "sns": "DA0-10",
+      "sns": "DA0-40",
       "meshNodes": [
         "hull"
       ],
@@ -110,10 +232,48 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "006"
+        "item": "012"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA0-10-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA0-40-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "hull.towing.cables",
+      "name": "Çeki halatları",
+      "parent": "hull.towing",
+      "sns": "DA0-40",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Gövde üstünde taşınan, gözlü çelik çeki halatları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "013"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA0-40-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "hull.towing.bar",
+      "name": "Çeki demiri",
+      "parent": "hull.towing",
+      "sns": "DA0-40",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Arızalı tankın kısa mesafede çekilmesinde kullanılan demir.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "014"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA0-40-00-00AA-310A-A"
       }
     },
     {
@@ -128,11 +288,11 @@
         "smoke_dischargers"
       ],
       "zone": "z.turret",
-      "function": "Dönen kule; silahları, optikleri ve mürettebattan üç kişiyi taşır.",
+      "function": "Gövdenin üstündeki dönen kule; mürettebattan üç kişi buradadır.",
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "007"
+        "item": "015"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA0-20-00-00AA-310A-A"
@@ -151,7 +311,107 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "008"
+        "item": "016"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA0-20-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA0-10-00-00AA-421A-A",
+        "lubricate": "DMC-NAYATANK-AAA-DA0-20-00-00AA-240A-A"
+      }
+    },
+    {
+      "id": "turret.ring",
+      "name": "Kule yatağı ve contası",
+      "parent": "turret",
+      "sns": "DA0-60",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Kulenin üzerinde döndüğü bilyalı yatak ve su geçirmez conta.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "017"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYATANK-AAA-DA0-60-00-00AA-421A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA0-60-00-00AA-310A-A",
+        "lubricate": "DMC-NAYATANK-AAA-DA0-60-00-00AA-240A-A"
+      }
+    },
+    {
+      "id": "turret.drives",
+      "name": "Kule tahrik düzenleri",
+      "parent": "turret",
+      "sns": "DA0-60",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Kulenin içindeki tahrik düzenleri; yalnız dışarıdan gözle bakılır.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "018"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA0-60-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA0-60-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "turret.lock",
+      "name": "Kule kilidi",
+      "parent": "turret",
+      "sns": "DA0-60",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Seyir ve bakımda kuleyi gövdeye sabitleyen kilit.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "019"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA0-60-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "turret.basket",
+      "name": "Kule arka sepeti",
+      "parent": "turret",
+      "sns": "D00-40",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Kulenin arkasındaki teçhizat sepeti.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "020"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-D00-40-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "turret.antennas",
+      "name": "Antenler",
+      "parent": "turret",
+      "sns": "DA0-20",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Kule üstündeki telsiz antenleri ve anten tabanları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "021"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA0-20-00-00AA-310A-A"
@@ -170,7 +430,47 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "009"
+        "item": "022"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA5-10-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA5-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "turret.main_gun.muzzle_cover",
+      "name": "Namlu ağzı koruyucu kapağı",
+      "parent": "turret.main_gun",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "main_gun"
+      ],
+      "zone": "z.turret",
+      "function": "Namluyu su, toz ve yabancı cisme karşı kapatan kapak.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "023"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA5-10-00-00AA-310A-A",
+        "replace": "DMC-NAYATANK-AAA-DA5-10-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "turret.main_gun.boot",
+      "name": "Top kalkanı toz körüğü",
+      "parent": "turret.main_gun",
+      "sns": "DA5-10",
+      "meshNodes": [
+        "main_gun"
+      ],
+      "zone": "z.turret",
+      "function": "Top kalkanı ile kule arasındaki esnek körük.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "024"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA5-10-00-00AA-310A-A"
@@ -178,28 +478,90 @@
     },
     {
       "id": "turret.optics",
-      "name": "Nişan ve gözetleme optikleri",
+      "name": "Kule optikleri",
       "parent": "turret",
       "sns": "DA5-20",
       "meshNodes": [
         "optics"
       ],
       "zone": "z.turret",
-      "function": "Nişancının ve komutanın kule üstündeki optikleri.",
+      "function": "Kule üstündeki nişancı optiği ve komutan periskobu.",
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "010"
+        "item": "025"
       },
       "procedures": {
-        "clean": "DMC-NAYATANK-AAA-DA5-20-00-00AA-250A-A"
+        "clean": "DMC-NAYATANK-AAA-DA5-20-00-00AA-250A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA5-20-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA5-20-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "turret.optics.gunner",
+      "name": "Nişancı optiği",
+      "parent": "turret.optics",
+      "sns": "DA5-20",
+      "meshNodes": [
+        "optics"
+      ],
+      "zone": "z.turret",
+      "function": "Kulenin ön sağ tavanındaki koruyucu kapaklı optik.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "026"
+      },
+      "procedures": {
+        "clean": "DMC-NAYATANK-AAA-DA5-20-00-00AA-250A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA5-20-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "turret.optics.commander",
+      "name": "Komutan periskobu",
+      "parent": "turret.optics",
+      "sns": "DA5-20",
+      "meshNodes": [
+        "optics"
+      ],
+      "zone": "z.turret",
+      "function": "Komutan kapağının önünde yükselen dönen gözetleme optiği.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "027"
+      },
+      "procedures": {
+        "clean": "DMC-NAYATANK-AAA-DA5-20-00-00AA-250A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA5-20-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "turret.periscopes",
+      "name": "Kapak periskopları",
+      "parent": "turret",
+      "sns": "DA5-20",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Komutan ve yükleyici kapaklarının çevresindeki gözetleme blokları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "028"
+      },
+      "procedures": {
+        "clean": "DMC-NAYATANK-AAA-DA5-20-00-00AA-250A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA5-20-00-00AA-310A-A"
       }
     },
     {
       "id": "turret.machine_gun",
       "name": "Makineli tüfek",
       "parent": "turret",
-      "sns": "DA0-20",
+      "sns": "DA5-30",
       "meshNodes": [
         "machine_gun"
       ],
@@ -208,29 +570,30 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "011"
+        "item": "029"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA0-20-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA5-30-00-00AA-310A-A"
       }
     },
     {
       "id": "turret.smoke_dischargers",
       "name": "Sis bombası atıcıları",
       "parent": "turret",
-      "sns": "DA0-20",
+      "sns": "DA5-40",
       "meshNodes": [
         "smoke_dischargers"
       ],
       "zone": "z.turret",
-      "function": "Kulenin iki yanındaki atıcı tüpleri; tankı sis perdesiyle gizler.",
+      "function": "Kulenin iki yanındaki atıcılar ve taşıyıcı plakaları.",
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "012"
+        "item": "030"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA0-20-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA5-40-00-00AA-310A-A",
+        "clean": "DMC-NAYATANK-AAA-DA5-40-00-00AA-250A-A"
       }
     },
     {
@@ -250,11 +613,31 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "013"
+        "item": "031"
       },
       "procedures": {
         "replace": "DMC-NAYATANK-AAA-DA1-10-00-00AA-920A-A",
-        "isolate": "DMC-NAYATANK-AAA-DA1-00-00-00AA-421A-A"
+        "isolate": "DMC-NAYATANK-AAA-DA1-00-00-00AA-421A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA1-10-00-00AA-320A-A"
+      }
+    },
+    {
+      "id": "powerpack.mounts",
+      "name": "Güç paketi bağlantı takozları",
+      "parent": "powerpack",
+      "sns": "DA1-10",
+      "meshNodes": [
+        "engine"
+      ],
+      "zone": "z.engine",
+      "function": "Paketi gövdeye bağlayan, titreşimi sönümleyen lastik takozlar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "032"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA1-10-00-01AA-310A-A"
       }
     },
     {
@@ -270,11 +653,11 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "014"
+        "item": "033"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA1-10-00-00AA-310A-A",
-        "isolate": "DMC-NAYATANK-AAA-DA1-00-00-00AA-421A-A"
+        "isolate": "DMC-NAYATANK-AAA-DA1-10-00-00AA-421A-A"
       }
     },
     {
@@ -290,10 +673,11 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "015"
+        "item": "034"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA1-10-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA1-10-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA1-10-00-00AA-421A-A"
       }
     },
     {
@@ -309,18 +693,39 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "016"
+        "item": "035"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA1-20-00-00AA-300A-A",
-        "lubricate": "DMC-NAYATANK-AAA-DA1-20-00-00AA-241A-A"
+        "lubricate": "DMC-NAYATANK-AAA-DA1-20-00-00AA-241A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA1-20-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "engine.oil_cooler",
+      "name": "Motor yağ soğutucusu",
+      "parent": "engine",
+      "sns": "DA1-20",
+      "meshNodes": [
+        "radiators"
+      ],
+      "zone": "z.engine",
+      "function": "Motor yağını soğutma havasıyla soğutan petek.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "036"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA1-10-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA1-20-00-00AA-421A-A"
       }
     },
     {
       "id": "engine.starter",
       "name": "Marş motoru",
       "parent": "engine",
-      "sns": "DA1-10",
+      "sns": "DA4-30",
       "meshNodes": [
         "engine"
       ],
@@ -329,17 +734,18 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "017"
+        "item": "037"
       },
       "procedures": {
-        "isolate": "DMC-NAYATANK-AAA-DA1-00-00-00AA-421A-A"
+        "isolate": "DMC-NAYATANK-AAA-DA4-30-00-00AA-421A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA4-30-00-00AA-310A-A"
       }
     },
     {
       "id": "engine.generator",
       "name": "Jeneratör",
       "parent": "engine",
-      "sns": "DA1-10",
+      "sns": "DA4-30",
       "meshNodes": [
         "engine"
       ],
@@ -348,10 +754,31 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "018"
+        "item": "038"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA4-10-00-00AA-300A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA4-30-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA4-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "engine.control",
+      "name": "Motor kontrol ünitesi ve algılayıcılar",
+      "parent": "engine",
+      "sns": "DA1-10",
+      "meshNodes": [
+        "engine"
+      ],
+      "zone": "z.engine",
+      "function": "Motoru yöneten elektronik ünite, sıcaklık ve basınç algılayıcıları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "039"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYATANK-AAA-DA1-10-00-00AA-421A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA1-10-00-00AA-320A-A"
       }
     },
     {
@@ -368,7 +795,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "019"
+        "item": "040"
       },
       "procedures": {
         "isolate": "DMC-NAYATANK-AAA-DA1-30-00-00AA-421A-A",
@@ -388,7 +815,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "020"
+        "item": "041"
       },
       "procedures": {
         "clean": "DMC-NAYATANK-AAA-DA1-30-00-00AA-250A-A"
@@ -407,10 +834,71 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "021"
+        "item": "042"
       },
       "procedures": {
-        "clean": "DMC-NAYATANK-AAA-DA1-30-00-00AA-250A-A"
+        "clean": "DMC-NAYATANK-AAA-DA1-30-00-00AA-250A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA1-30-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "cooling.fan_drive",
+      "name": "Fan tahriki",
+      "parent": "cooling",
+      "sns": "DA1-30",
+      "meshNodes": [
+        "cooling_fans"
+      ],
+      "zone": "z.engine",
+      "function": "Soğutma fanlarını motordan döndürür.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "043"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA1-30-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA1-30-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "cooling.coolant",
+      "name": "Soğutma sıvısı ve genleşme kabı",
+      "parent": "cooling",
+      "sns": "DA1-30",
+      "meshNodes": [
+        "radiators"
+      ],
+      "zone": "z.engine",
+      "function": "Antifrizli soğutma sıvısı, genleşme kabı ve basınç kapağı.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "044"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA1-30-00-00AA-300A-A",
+        "refill": "DMC-NAYATANK-AAA-DA1-30-00-00AA-220A-A"
+      }
+    },
+    {
+      "id": "cooling.hoses",
+      "name": "Soğutma hortumları ve kelepçeleri",
+      "parent": "cooling",
+      "sns": "DA1-30",
+      "meshNodes": [
+        "engine"
+      ],
+      "zone": "z.engine",
+      "function": "Motor, radyatörler ve genleşme kabı arasındaki hortumlar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "045"
+      },
+      "procedures": {
+        "replace": "DMC-NAYATANK-AAA-DA1-30-00-00AA-920A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA1-10-00-00AA-310A-A"
       }
     },
     {
@@ -426,10 +914,49 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "022"
+        "item": "046"
       },
       "procedures": {
-        "replace": "DMC-NAYATANK-AAA-DA1-40-00-00AA-920A-A"
+        "replace": "DMC-NAYATANK-AAA-DA1-40-00-00AA-920A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA1-10-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "air_filters.precleaner",
+      "name": "Ön temizleyici ve toz atma fanı",
+      "parent": "air_filters",
+      "sns": "DA1-40",
+      "meshNodes": [
+        "air_filters"
+      ],
+      "zone": "z.engine",
+      "function": "İri tozu filtreye ulaşmadan ayırıp dışarı atar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "047"
+      },
+      "procedures": {
+        "clean": "DMC-NAYATANK-AAA-DA1-40-00-00AA-250A-A"
+      }
+    },
+    {
+      "id": "air_filters.ducts",
+      "name": "Hava emme kanalları",
+      "parent": "air_filters",
+      "sns": "DA1-40",
+      "meshNodes": [
+        "air_filters"
+      ],
+      "zone": "z.engine",
+      "function": "Filtrelerden turboşarjlara temiz hava taşıyan kanallar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "048"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA1-40-00-01AA-310A-A"
       }
     },
     {
@@ -445,10 +972,11 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "023"
+        "item": "049"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA1-40-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA1-40-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA1-10-00-01AA-421A-A"
       }
     },
     {
@@ -464,17 +992,58 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "024"
+        "item": "050"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA2-10-00-00AA-300A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA2-10-00-00AA-300A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA2-10-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "transmission.oil",
+      "name": "Şanzıman yağı ve filtresi",
+      "parent": "transmission",
+      "sns": "DA2-10",
+      "meshNodes": [
+        "transmission"
+      ],
+      "zone": "z.engine",
+      "function": "Şanzımanı yağlayan ve soğutan yağ ile yağ filtresi.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "051"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA2-10-00-00AA-300A-A",
+        "lubricate": "DMC-NAYATANK-AAA-DA2-10-00-00AA-241A-A"
+      }
+    },
+    {
+      "id": "transmission.oil_cooler",
+      "name": "Şanzıman yağ soğutucusu",
+      "parent": "transmission",
+      "sns": "DA2-10",
+      "meshNodes": [
+        "radiators"
+      ],
+      "zone": "z.engine",
+      "function": "Şanzıman yağını soğutma havasıyla soğutan petek.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "052"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA2-10-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA2-10-00-00AA-421A-A"
       }
     },
     {
       "id": "transmission.brakes",
       "name": "Servis frenleri",
       "parent": "transmission",
-      "sns": "DA2-10",
+      "sns": "DA2-30",
       "meshNodes": [
         "transmission"
       ],
@@ -483,7 +1052,31 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "025"
+        "item": "053"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA2-30-00-00AA-320A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA2-30-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "transmission.parking_brake",
+      "name": "Park freni",
+      "parent": "transmission",
+      "sns": "DA2-30",
+      "meshNodes": [
+        "transmission"
+      ],
+      "zone": "z.engine",
+      "function": "Duran tankı yerinde tutan fren ve kumandası.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "054"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA2-30-00-00AA-320A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA2-30-00-00AA-421A-A"
       }
     },
     {
@@ -499,10 +1092,32 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "026"
+        "item": "055"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA2-20-00-00AA-300A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA2-20-00-00AA-300A-A",
+        "lubricate": "DMC-NAYATANK-AAA-DA2-20-00-00AA-241A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA2-20-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "transmission.controls",
+      "name": "Sürüş kumandaları",
+      "parent": "transmission",
+      "sns": "DA2-40",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.driver",
+      "function": "Direksiyon kumandası, pedallar, vites seçici ve park freni kolu.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "056"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA2-40-00-00AA-310A-A",
+        "lubricate": "DMC-NAYATANK-AAA-DA2-40-00-00AA-240A-A"
       }
     },
     {
@@ -517,11 +1132,12 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "027"
+        "item": "057"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA1-50-00-00AA-300A-A",
-        "refill": "DMC-NAYATANK-AAA-DA1-50-00-00AA-210A-A"
+        "refill": "DMC-NAYATANK-AAA-DA1-50-00-00AA-210A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA1-50-00-00AA-421A-A"
       }
     },
     {
@@ -537,7 +1153,7 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "028"
+        "item": "058"
       },
       "procedures": {
         "refill": "DMC-NAYATANK-AAA-DA1-50-00-00AA-210A-A"
@@ -556,10 +1172,90 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "029"
+        "item": "059"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA1-50-00-00AA-300A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA1-50-00-00AA-300A-A",
+        "replace": "DMC-NAYATANK-AAA-DA1-50-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "fuel.lines",
+      "name": "Yakıt boruları ve hortumları",
+      "parent": "fuel",
+      "sns": "DA1-50",
+      "meshNodes": [
+        "fuel_tanks"
+      ],
+      "zone": "z.engine",
+      "function": "Tanklar, filtre, besleme pompası ve motor arasındaki borular.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "060"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA1-50-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA1-50-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "fuel.caps",
+      "name": "Yakıt doldurma kapakları",
+      "parent": "fuel",
+      "sns": "DA1-50",
+      "meshNodes": [
+        "engine_deck"
+      ],
+      "zone": "z.engine",
+      "function": "Motor güvertesindeki contalı doldurma kapakları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "061"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA1-50-00-00AA-310A-A",
+        "refill": "DMC-NAYATANK-AAA-DA1-50-00-00AA-210A-A"
+      }
+    },
+    {
+      "id": "fuel.pump",
+      "name": "Yakıt besleme pompası",
+      "parent": "fuel",
+      "sns": "DA1-50",
+      "meshNodes": [
+        "engine"
+      ],
+      "zone": "z.engine",
+      "function": "Yakıtı tanklardan filtre üzerinden motora gönderir.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "062"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYATANK-AAA-DA1-50-00-00AA-421A-A",
+        "adjust": "DMC-NAYATANK-AAA-DA1-50-00-00AA-230A-A"
+      }
+    },
+    {
+      "id": "fuel.injection",
+      "name": "Yakıt enjeksiyon sistemi",
+      "parent": "fuel",
+      "sns": "DA1-50",
+      "meshNodes": [
+        "engine"
+      ],
+      "zone": "z.engine",
+      "function": "Yakıtı silindirlere püskürten sistem; yalnız yetkili birim açar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "063"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYATANK-AAA-DA1-10-00-01AA-421A-A"
       }
     },
     {
@@ -583,10 +1279,11 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "030"
+        "item": "064"
       },
       "procedures": {
-        "isolate": "DMC-NAYATANK-AAA-DA3-00-00-00AA-421A-A"
+        "isolate": "DMC-NAYATANK-AAA-DA3-00-00-00AA-421A-A",
+        "lubricate": "DMC-NAYATANK-AAA-D00-20-00-00AA-240A-A"
       }
     },
     {
@@ -602,11 +1299,12 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "031"
+        "item": "065"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA3-10-00-00AA-310A-A",
-        "adjust": "DMC-NAYATANK-AAA-DA3-10-00-00AA-271A-A"
+        "adjust": "DMC-NAYATANK-AAA-DA3-10-00-00AA-271A-A",
+        "remove": "DMC-NAYATANK-AAA-DA3-10-00-00AA-520A-A"
       }
     },
     {
@@ -622,11 +1320,12 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "032"
+        "item": "066"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA3-10-00-00AA-310A-A",
-        "adjust": "DMC-NAYATANK-AAA-DA3-10-00-00AA-271A-A"
+        "adjust": "DMC-NAYATANK-AAA-DA3-10-00-00AA-271A-A",
+        "remove": "DMC-NAYATANK-AAA-DA3-10-00-00AA-520A-A"
       }
     },
     {
@@ -643,10 +1342,31 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "033"
+        "item": "067"
       },
       "procedures": {
         "replace": "DMC-NAYATANK-AAA-DA3-10-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "tracks.connectors",
+      "name": "Palet bağlantı parçaları",
+      "parent": "running_gear",
+      "sns": "DA3-10",
+      "meshNodes": [
+        "track_l",
+        "track_r"
+      ],
+      "zone": "z.running",
+      "function": "Bakla pimlerinin uçlarını birleştiren parçalar ve kama cıvataları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "068"
+      },
+      "procedures": {
+        "replace": "DMC-NAYATANK-AAA-DA3-10-00-01AA-920A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA3-10-00-00AA-310A-A"
       }
     },
     {
@@ -663,10 +1383,12 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "034"
+        "item": "069"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA3-20-00-00AA-421A-A",
+        "replace": "DMC-NAYATANK-AAA-DA3-20-00-00AA-920A-A"
       }
     },
     {
@@ -682,10 +1404,11 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "035"
+        "item": "070"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A",
+        "replace": "DMC-NAYATANK-AAA-DA3-20-00-00AA-920A-A"
       }
     },
     {
@@ -701,10 +1424,32 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "036"
+        "item": "071"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A",
+        "replace": "DMC-NAYATANK-AAA-DA3-20-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "road_wheels.hubs",
+      "name": "Tekerlek göbekleri ve rulmanları",
+      "parent": "road_wheels",
+      "sns": "DA3-20",
+      "meshNodes": [
+        "road_wheels_l",
+        "road_wheels_r"
+      ],
+      "zone": "z.running",
+      "function": "Tekerleklerin döndüğü rulmanlar, keçeler ve göbek kapakları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "072"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYATANK-AAA-DA3-20-00-00AA-421A-A",
+        "replace": "DMC-NAYATANK-AAA-DA3-20-00-00AA-920A-A"
       }
     },
     {
@@ -721,10 +1466,11 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "037"
+        "item": "073"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A",
+        "lubricate": "DMC-NAYATANK-AAA-DA3-20-00-00AA-240A-A"
       }
     },
     {
@@ -741,10 +1487,74 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "038"
+        "item": "074"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A",
+        "replace": "DMC-NAYATANK-AAA-DA3-20-00-01AA-920A-A"
+      }
+    },
+    {
+      "id": "suspension.arms",
+      "name": "Salıncak kolları",
+      "parent": "suspension",
+      "sns": "DA3-20",
+      "meshNodes": [
+        "suspension_l",
+        "suspension_r"
+      ],
+      "zone": "z.running",
+      "function": "Yol tekerleklerini burulma çubuklarına bağlayan kollar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "075"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A",
+        "lubricate": "DMC-NAYATANK-AAA-DA3-20-00-00AA-240A-A"
+      }
+    },
+    {
+      "id": "suspension.torsion_bars",
+      "name": "Burulma çubukları",
+      "parent": "suspension",
+      "sns": "DA3-20",
+      "meshNodes": [
+        "suspension_l",
+        "suspension_r"
+      ],
+      "zone": "z.running",
+      "function": "Gövde tabanı boyunca uzanan, yay görevi gören çelik çubuklar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "076"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA3-20-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "suspension.support_rollers",
+      "name": "Destek makaraları",
+      "parent": "suspension",
+      "sns": "DA3-20",
+      "meshNodes": [
+        "suspension_l",
+        "suspension_r"
+      ],
+      "zone": "z.running",
+      "function": "Paletin üst kolunu taşıyan küçük makaralar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "077"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA3-20-00-01AA-310A-A",
+        "lubricate": "DMC-NAYATANK-AAA-DA3-20-00-00AA-240A-A"
       }
     },
     {
@@ -761,11 +1571,12 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "039"
+        "item": "078"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA3-30-00-00AA-310A-A",
-        "adjust": "DMC-NAYATANK-AAA-DA3-10-00-00AA-271A-A"
+        "adjust": "DMC-NAYATANK-AAA-DA3-10-00-00AA-271A-A",
+        "lubricate": "DMC-NAYATANK-AAA-DA3-30-00-00AA-240A-A"
       }
     },
     {
@@ -782,10 +1593,11 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "040"
+        "item": "079"
       },
       "procedures": {
-        "adjust": "DMC-NAYATANK-AAA-DA3-10-00-00AA-271A-A"
+        "adjust": "DMC-NAYATANK-AAA-DA3-10-00-00AA-271A-A",
+        "lubricate": "DMC-NAYATANK-AAA-DA3-30-00-00AA-240A-A"
       }
     },
     {
@@ -802,10 +1614,31 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "041"
+        "item": "080"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA3-30-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "sprockets.rings",
+      "name": "Yürütücü dişli çemberleri",
+      "parent": "sprockets",
+      "sns": "DA3-30",
+      "meshNodes": [
+        "sprocket_l",
+        "sprocket_r"
+      ],
+      "zone": "z.running",
+      "function": "Göbeğe cıvatalı, değiştirilebilir dişli çemberler.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "081"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA3-30-00-00AA-310A-A",
+        "replace": "DMC-NAYATANK-AAA-DA3-30-00-00AA-920A-A"
       }
     },
     {
@@ -822,10 +1655,11 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "042"
+        "item": "082"
       },
       "procedures": {
-        "inspect": "DMC-NAYATANK-AAA-DA4-10-00-00AA-300A-A"
+        "inspect": "DMC-NAYATANK-AAA-DA4-10-00-00AA-300A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA4-00-00-00AA-421A-A"
       }
     },
     {
@@ -841,11 +1675,32 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "043"
+        "item": "083"
       },
       "procedures": {
         "inspect": "DMC-NAYATANK-AAA-DA4-10-00-00AA-300A-A",
-        "replace": "DMC-NAYATANK-AAA-DA4-10-00-00AA-920A-A"
+        "replace": "DMC-NAYATANK-AAA-DA4-10-00-00AA-920A-A",
+        "refill": "DMC-NAYATANK-AAA-DA4-10-00-00AA-210A-A"
+      }
+    },
+    {
+      "id": "electrical.master_switch",
+      "name": "Ana şalter ve akü röleleri",
+      "parent": "electrical",
+      "sns": "DA4-10",
+      "meshNodes": [
+        "batteries"
+      ],
+      "zone": "z.driver",
+      "function": "Aküleri elektrik sisteminden ayıran şalter ve röleler.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "084"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYATANK-AAA-DA4-30-00-00AA-421A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA4-10-00-00AA-300A-A"
       }
     },
     {
@@ -861,10 +1716,32 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "044"
+        "item": "085"
       },
       "procedures": {
-        "replace": "DMC-NAYATANK-AAA-DA4-20-00-00AA-920A-A"
+        "replace": "DMC-NAYATANK-AAA-DA4-20-00-00AA-920A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA4-20-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA4-20-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "electrical.marker_lights",
+      "name": "Ön köşe lambaları",
+      "parent": "electrical",
+      "sns": "DA4-20",
+      "meshNodes": [
+        "headlights"
+      ],
+      "zone": "z.hull",
+      "function": "Gövdenin ön köşelerindeki sarı işaret lambaları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "086"
+      },
+      "procedures": {
+        "replace": "DMC-NAYATANK-AAA-DA4-20-00-00AA-920A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA4-20-00-00AA-421A-A"
       }
     },
     {
@@ -880,10 +1757,420 @@
       "ipd": {
         "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
         "figure": "01",
-        "item": "045"
+        "item": "087"
       },
       "procedures": {
-        "replace": "DMC-NAYATANK-AAA-DA4-20-00-00AA-920A-A"
+        "replace": "DMC-NAYATANK-AAA-DA4-20-00-01AA-920A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA4-20-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA4-20-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "electrical.harness",
+      "name": "Kablo demetleri ve konnektörler",
+      "parent": "electrical",
+      "sns": "DA4-40",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Gövde ve kule boyunca uzanan kablo demetleri.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "088"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA4-40-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA4-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "electrical.fuses",
+      "name": "Sigorta ve devre kesici panoları",
+      "parent": "electrical",
+      "sns": "DA4-40",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.driver",
+      "function": "Devreleri aşırı akıma karşı koruyan sigortalar ve devre kesiciler.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "089"
+      },
+      "procedures": {
+        "replace": "DMC-NAYATANK-AAA-DA4-40-00-00AA-920A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA4-20-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "electrical.slave_socket",
+      "name": "Takviye prizi",
+      "parent": "electrical",
+      "sns": "DA4-40",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Dış kaynaktan çalıştırma ve şarj için kapaklı priz.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "090"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA4-40-00-00AA-200A-A"
+      }
+    },
+    {
+      "id": "electrical.instruments",
+      "name": "Sürücü gösterge paneli",
+      "parent": "electrical",
+      "sns": "DA4-40",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.driver",
+      "function": "Motor, şanzıman ve elektrik göstergeleri ile uyarı lambaları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "091"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA1-10-00-00AA-320A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA4-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "electrical.intercom",
+      "name": "İç haberleşme düzeni",
+      "parent": "electrical",
+      "sns": "DA4-50",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Mürettebat başlıkları, kumanda kutuları ve ana ünite.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "092"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA4-50-00-00AA-320A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA4-50-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "hydraulics",
+      "name": "Hidrolik sistem",
+      "sns": "DA6-00",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Pompa, depo, filtre, akümülatör, hortumlar ve bağlantılar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "093"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYATANK-AAA-DA6-00-00-00AA-421A-A",
+        "inspect": "DMC-NAYATANK-AAA-DA6-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "hydraulics.unit",
+      "name": "Hidrolik ünite (pompa ve depo)",
+      "parent": "hydraulics",
+      "sns": "DA6-10",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Hidrolik yağını basan pompa ve yağ deposu.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "094"
+      },
+      "procedures": {
+        "refill": "DMC-NAYATANK-AAA-DA6-10-00-00AA-300A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA6-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "hydraulics.filter",
+      "name": "Hidrolik filtre",
+      "parent": "hydraulics",
+      "sns": "DA6-10",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Hidrolik yağındaki kiri tutan filtre.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "095"
+      },
+      "procedures": {
+        "replace": "DMC-NAYATANK-AAA-DA6-10-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "hydraulics.accumulator",
+      "name": "Hidrolik akümülatörü",
+      "parent": "hydraulics",
+      "sns": "DA6-10",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Basınçlı yağı depolar; yalnız yetkili birim açar.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "096"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYATANK-AAA-DA6-00-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "hydraulics.hoses",
+      "name": "Hidrolik hortumları ve bağlantıları",
+      "parent": "hydraulics",
+      "sns": "DA6-20",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Ünite ile tahrikler arasındaki yüksek basınç hortumları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "097"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA6-20-00-00AA-310A-A",
+        "replace": "DMC-NAYATANK-AAA-DA6-20-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "crew_systems",
+      "name": "Mürettebat bölmesi donanımı",
+      "sns": "DA7-00",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Havalandırma ve NBC koruma, yangın söndürme ve ısıtıcı.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "098"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA7-10-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "crew.nbc",
+      "name": "NBC koruma ve havalandırma ünitesi",
+      "parent": "crew_systems",
+      "sns": "DA7-10",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Mürettebat bölmesine filtrelenmiş hava veren ünite.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "099"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA7-10-00-00AA-300A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA7-10-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "crew.nbc_filter",
+      "name": "NBC filtre elemanı",
+      "parent": "crew.nbc",
+      "sns": "DA7-10",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Havadaki zararlı maddeleri tutan filtre.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "100"
+      },
+      "procedures": {
+        "replace": "DMC-NAYATANK-AAA-DA7-10-00-00AA-920A-A"
+      }
+    },
+    {
+      "id": "crew.fire_system",
+      "name": "Yangın söndürme sistemi",
+      "parent": "crew_systems",
+      "sns": "DA7-20",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.engine",
+      "function": "Motor ve mürettebat bölmesindeki algılayıcılar ve söndürücü tüpler.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "101"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA7-20-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA7-20-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "crew.fire_bottles",
+      "name": "Söndürücü tüpleri",
+      "parent": "crew.fire_system",
+      "sns": "DA7-20",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.engine",
+      "function": "Sistemin otomatik ya da elle boşaltılan söndürücü tüpleri.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "102"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA7-20-00-00AA-310A-A"
+      }
+    },
+    {
+      "id": "crew.fire_detectors",
+      "name": "Yangın algılayıcıları",
+      "parent": "crew.fire_system",
+      "sns": "DA7-20",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.engine",
+      "function": "Motor ve mürettebat bölmesindeki ısı ve alev algılayıcıları.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "103"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA7-20-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA7-20-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "crew.extinguishers",
+      "name": "El tipi yangın söndürücüler",
+      "parent": "crew_systems",
+      "sns": "DA7-20",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.driver",
+      "function": "Mürettebat bölmesinde ve dışarıda bağlı taşınabilir söndürücüler.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "104"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA7-20-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "crew.heater",
+      "name": "Isıtıcı",
+      "parent": "crew_systems",
+      "sns": "DA7-30",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Yakıtla çalışan mürettebat bölmesi ısıtıcısı.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "105"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-DA7-30-00-00AA-310A-A",
+        "isolate": "DMC-NAYATANK-AAA-DA7-30-00-00AA-421A-A"
+      }
+    },
+    {
+      "id": "equipment",
+      "name": "Alet ve teçhizat",
+      "sns": "D00-40",
+      "meshNodes": [
+        "turret",
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Mürettebatın kullandığı alet takımı ve dış teçhizat.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "106"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-D00-40-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "equipment.tool_kit",
+      "name": "Araç alet takımı",
+      "parent": "equipment",
+      "sns": "D00-40",
+      "meshNodes": [
+        "turret"
+      ],
+      "zone": "z.turret",
+      "function": "Anahtarlar, lokma takımı, gres pompası, kürek ve kazma.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "107"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-D00-40-00-00AA-300A-A"
+      }
+    },
+    {
+      "id": "equipment.track_tools",
+      "name": "Palet aletleri",
+      "parent": "equipment",
+      "sns": "D00-40",
+      "meshNodes": [
+        "hull"
+      ],
+      "zone": "z.hull",
+      "function": "Palet sökme, takma ve gerdirme için kullanılan aletler.",
+      "ipd": {
+        "dmc": "DMC-NAYATANK-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "108"
+      },
+      "procedures": {
+        "inspect": "DMC-NAYATANK-AAA-D00-40-00-00AA-300A-A"
       }
     }
   ]

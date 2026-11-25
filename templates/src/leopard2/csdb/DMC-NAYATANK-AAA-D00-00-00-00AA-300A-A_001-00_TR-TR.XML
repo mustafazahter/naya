@@ -32,7 +32,7 @@
         <reqSupportEquips><noSupportEquips/></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
-        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silahların boş ve emniyette olduğu silah sorumlusu tarafından doğrulanmadan kule üzerinde çalışmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Silah sorumlusunun izni olmadan kule üzerinde ve namlu önünde çalışmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
         <proceduralStep><title>Çalıştırmadan önce</title><figure id="fig-0001"><title>Tank, soldan görünüş</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure><proceduralStep><para>Tankın çevresinde dolaşın; altında yağ, yakıt ya da soğutma sıvısı lekesi olup olmadığına bakın.</para></proceduralStep><proceduralStep><para>Motor yağı, soğutma sıvısı ve şanzıman yağı seviyelerini kontrol edin.</para></proceduralStep><proceduralStep><para>Paletleri, palet tabanlarını, yol tekerleklerini ve yan etekleri gözle kontrol edin.</para></proceduralStep><proceduralStep><para>Motor güvertesi ızgaralarının üstünde yaprak, çamur ya da yabancı cisim kalmadığından emin olun.</para></proceduralStep><proceduralStep><para>Farları, arka lambaları ve sinyalleri yakarak kontrol edin.</para></proceduralStep><proceduralStep><para>Optiklerin koruyucu kapaklarını açın, camların temiz olduğunu kontrol edin.</para></proceduralStep></proceduralStep>

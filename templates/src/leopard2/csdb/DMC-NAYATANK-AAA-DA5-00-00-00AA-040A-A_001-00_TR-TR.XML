@@ -29,13 +29,13 @@
     <description>
       <levelledPara>
         <title>Genel</title>
-        <para>Kule ana topu, ana topa eş eksenli bir makineli tüfeği, yükleyici kapağındaki makineli tüfeği ve iki yandaki sis bombası atıcılarını taşır.</para>
-        <para>Nişancının ve komutanın nişan optikleri kulenin üstündedir; sürücünün periskopları gövdenin önündedir.</para>
+        <para>Kulenin dış donanımı: önde ana top ve top kalkanı, yükleyici kapağında makineli tüfek kundağı, iki yanda sis bombası atıcıları.</para>
+        <para>Nişancı optiği ve komutan periskobu kulenin üstündedir; sürücünün periskopları gövdenin önündedir.</para>
       </levelledPara>
       <figure id="fig-0005"><title>Kule üstü donanımı</title><graphic infoEntityIdent="ICN-NAYATANK-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure>
       <levelledPara>
         <title>Bu şablonun kapsamı</title>
-        <para>Bu şablon silahların yalnız dış muayenesini ve optiklerin temizliğini kapsar. Silahların sökülmesi, ayarı ve atışla ilgili her iş yalnız yetkili silah personelince, aracın kendi el kitabına göre yapılır.</para>
+        <para>Bu şablon yalnız dış muayeneyi, namlu ağzı kapağını ve optik temizliğini kapsar. Bunların dışındaki her iş yetkili personelindir ve aracın kendi el kitabına göre yapılır.</para>
       </levelledPara>
     </description>
   </content>
