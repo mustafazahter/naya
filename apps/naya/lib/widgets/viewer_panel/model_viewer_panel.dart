@@ -93,6 +93,36 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
     _selected = widget.focusPart;
   }
 
+  final _topBarKey = GlobalKey();
+  final _buttonsKey = GlobalKey();
+  final _bottomRowKey = GlobalKey();
+  EdgeInsets? _sentInsets;
+
+  /// Üst çubuk, sağdaki düğmeler ve alt satırın modelin hangi kenarlarını
+  /// kapladığını viewer'a bildirir. Değişmediyse yeniden göndermez.
+  void _reportInsets() {
+    if (!mounted || !_ready) return;
+    final panel = context.findRenderObject() as RenderBox?;
+    if (panel == null || !panel.hasSize) return;
+    Rect? rectOf(GlobalKey key) {
+      final box = key.currentContext?.findRenderObject() as RenderBox?;
+      if (box == null || !box.hasSize) return null;
+      return box.localToGlobal(Offset.zero, ancestor: panel) & box.size;
+    }
+
+    final top = rectOf(_topBarKey);
+    final buttons = rectOf(_buttonsKey);
+    final bottom = rectOf(_bottomRowKey);
+    final insets = EdgeInsets.only(
+      top: top?.bottom ?? 0,
+      right: buttons == null ? 0 : panel.size.width - buttons.left,
+      bottom: bottom == null ? 0 : panel.size.height - bottom.top,
+    );
+    if (insets == _sentInsets) return;
+    _sentInsets = insets;
+    _controller.insets(insets);
+  }
+
   @override
   void dispose() {
     // Dışarıdan verilen denetleyiciyi sahibi kapatır.
@@ -120,6 +150,9 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
 
   @override
   Widget build(BuildContext context) {
+    // Düğmeler ve yazılar yerleşince ölçülür; ekran döner ya da parça
+    // seçilip yeni düğme çıkarsa yeniden.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _reportInsets());
     final c = context.colors;
     return Stack(
       children: [
@@ -162,6 +195,7 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
             // olmadan tıklanamıyor, tıklama iframe'e gidiyor.
             child: PointerInterceptor(
               child: ViewerTopBar(
+                key: _topBarKey,
                 title: widget.productTitle,
                 subtitle: widget.subtitle,
                 onBack: widget.onBack,
@@ -180,6 +214,7 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
             child: Center(
               child: PointerInterceptor(
                 child: Column(
+                  key: _buttonsKey,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     // Teşhis animasyonu da modeli ayırabildiği için durum
@@ -236,6 +271,7 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
           child: _ShowWhen(
             visible: _ready,
             child: Row(
+              key: _bottomRowKey,
               children: [
                 Container(
                   width: 6,
@@ -268,11 +304,18 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
                 ],
                 if (widget.credit != null) ...[
                   const SizedBox(width: NayaSpace.md),
-                  Text(
-                    widget.credit!,
-                    style: context.text.small.copyWith(
-                      fontSize: 10,
-                      color: c.textMuted,
+                  // Uzun atıf telefonda satırı taşırıp parça adını siliyordu;
+                  // en fazla yarı genişlik, gerekirse iki satır.
+                  Flexible(
+                    child: Text(
+                      widget.credit!,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.end,
+                      style: context.text.small.copyWith(
+                        fontSize: 10,
+                        color: c.textMuted,
+                      ),
                     ),
                   ),
                 ],

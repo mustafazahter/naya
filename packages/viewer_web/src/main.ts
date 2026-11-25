@@ -111,6 +111,9 @@ window.addEventListener("message", (e: MessageEvent<ViewerCommand>) => {
     case "xray":
       viewer.setXray(command.enabled);
       break;
+    case "insets":
+      viewer.setInsets(command);
+      break;
     case "isolate":
       void viewer.isolate(command.part);
       break;
