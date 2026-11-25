@@ -63,7 +63,7 @@ Kullanılan bilgi kodları (S1000D Chap 8.4):
 
 Aynı alt sistemde aynı bilgi kodundan ikinci bir DM gerektiğinde sökme kodu (`disassyCode`) `01`, `02` diye artar; örneğin `DA0-20 271` furç ayarı, `DA0-20 271 01` çatal ön yük ayarı.
 
-Her kök sistemin bir "Nasıl çalışır" DM'i (bilgi kodu 040) var. Arızaların belirtilerine sürücünün arızayı kendi sözleriyle anlatışı da eklenir ("ön frenden demir sürtme sesi geliyor", "pedal boşa dönüyor"); teşhis serbest metni bu söyleyişlerle eşleştirir ve ön ile arka parçadaki aynı arıza ancak bunlarla ayrılır. Söyleyişler betikteki `PHRASINGS` tablosundadır. Betik, her arızanın arıza bulma DM'inin onarım DM'ine götürdüğünü ve iki arızanın aynı belirti kümesini taşımadığını denetler.
+Her kök sistemin bir "Çalışma ilkesi" DM'i (bilgi kodu 040) var. Arızaların belirtilerine sürücünün arızayı kendi sözleriyle anlatışı da eklenir ("ön frenden demir sürtme sesi geliyor", "pedal boşa dönüyor"); teşhis serbest metni bu söyleyişlerle eşleştirir ve ön ile arka parçadaki aynı arıza ancak bunlarla ayrılır. Söyleyişler betikteki `PHRASINGS` tablosundadır. Betik, her arızanın arıza bulma DM'inin onarım DM'ine götürdüğünü ve iki arızanın aynı belirti kümesini taşımadığını denetler.
 
 Değerler (tork, aşınma sınırları, basınç) bu sınıftaki parçalar için yaygın üretici değerleridir: Shimano bayi el kitapları (balata en az 0,5 mm, disk en az 1,5 mm), Park Tool tork tablosu ve zincir aşınma sınırları (8 vites için %0,75). Parçanın üzerinde ya da kendi el kitabında farklı bir değer varsa o geçerlidir; çatal yağı miktarı gibi modele özgü değerler için DM'ler çatalın el kitabına yönlendirir.
 

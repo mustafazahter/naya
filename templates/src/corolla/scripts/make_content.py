@@ -3392,13 +3392,13 @@ COMPRESSOR = dm(
     next=code('DA7', '2', '300'))
 
 # ===========================================================================
-# Nasıl çalışır
+# Çalışma ilkesi
 # ===========================================================================
 #
 # Her sistemin kökü için sade bir çalışma anlatımı. Sistemde zaten bir tanım
 # DM'i varsa bu anlatım ona dokunmadan yanına '01' sökme koduyla eklenir.
 
-HOW = 'Nasıl çalışır'
+HOW = 'Çalışma ilkesi'
 
 dm(code=code('DA0', info='040', disassy='01'), tech='Gövde', info=HOW,
    description=[

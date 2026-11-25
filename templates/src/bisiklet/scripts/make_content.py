@@ -1910,12 +1910,12 @@ dm(code=SEAT_ISOLATE, tech='Sele grubu', info='Arıza bulma',
        ],
    })
 
-# --- Nasıl çalışır -----------------------------------------------------------
+# --- Çalışma ilkesi ----------------------------------------------------------
 #
 # Her sistem kökü için sade bir çalışma anlatımı. Sistemde zaten bir tanım
 # DM'i varsa bu anlatım yanına '01' sökme koduyla eklenir.
 
-HOW = 'Nasıl çalışır'
+HOW = 'Çalışma ilkesi'
 
 dm(code=code('DA0', '1', '040'), tech='Kadro', info=HOW, description=[
     ('Kadronun görevi', [

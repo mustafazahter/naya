@@ -2928,12 +2928,12 @@ DRIVE_IDLER_ISOLATE = dm(
         ],
     })
 
-# --- Nasıl çalışır -----------------------------------------------------------
+# --- Çalışma ilkesi ----------------------------------------------------------
 #
 # Her sistem kökü için sade bir çalışma anlatımı. Değer yazılmaz; sistemde
 # zaten bir tanım DM'i varsa bu anlatım yanına '01' sökme koduyla eklenir.
 
-HOW = 'Nasıl çalışır'
+HOW = 'Çalışma ilkesi'
 
 dm(code=code('DA0', '1', '040'), tech='Gövde', info=HOW,
    description=[

@@ -9,7 +9,7 @@
       </dmIdent>
       <dmAddressItems>
         <issueDate year="2026" month="11" day="23"/>
-        <dmTitle><techName>Motor çalıştırma ünitesi</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+        <dmTitle><techName>Motor çalıştırma ünitesi</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
     <dmStatus issueType="new">

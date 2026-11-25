@@ -42,7 +42,7 @@ cd templates/src/leopard2/scripts && python3 make_content.py
 
 Her arızanın belirtileri, bir arıza bulma DM'i (`421`) ve bir onarım ya da bakım DM'i var. Mevcut DM'lerin kodları değişmez; aynı sistem, alt sistem ve bilgi kodunda ikinci bir DM ayrıştırma koduyla (`01`, `02`…) ayrılır.
 
-Her kök sistemin bir "Nasıl çalışır" DM'i (bilgi kodu 040) var. Arızaların belirtilerine mürettebatın arızayı kendi sözleriyle anlatışı da eklenir ("molada bir göbek çok sıcak", "kule bir noktada takılıyor"); teşhis serbest metni bu söyleyişlerle eşleştirir. Söyleyişler betikteki `PHRASINGS` tablosundadır. Bakım takvimi ve sıvılar DM'leri yalnız neye, ne zaman ve nasıl bakılacağını anlatır; aralık, tip ve miktar yazılmaz.
+Her kök sistemin bir "Çalışma ilkesi" DM'i (bilgi kodu 040) var. Arızaların belirtilerine mürettebatın arızayı kendi sözleriyle anlatışı da eklenir ("molada bir göbek çok sıcak", "kule bir noktada takılıyor"); teşhis serbest metni bu söyleyişlerle eşleştirir. Söyleyişler betikteki `PHRASINGS` tablosundadır. Bakım takvimi ve sıvılar DM'leri yalnız neye, ne zaman ve nasıl bakılacağını anlatır; aralık, tip ve miktar yazılmaz.
 
 Çizimler (`ICN-…-0000N-…JPG`) modelden `scripts/render_icn.py` ile üretilir; konusu olan parçalar turuncu. PNG'ler `sips` ile JPEG'e çevrilir (betiğin başındaki komut).
 

@@ -60,7 +60,7 @@ Sistem kodları ATA 100 bölüm numaralarına benzer:
 
 Arıza bulma DM'leri belirtiden başlar, her adımda bir soru sorar ve onarım ya da değiştirme DM'ine yönlendirir. Her arızanın `faults.json`'da arıza bulma ve onarım DM'i var. Değiştirme DM'lerindeki yedek parçalar parça kataloğundaki numarayla eşleşir. Betik, her arızanın arıza bulma DM'inin onarım DM'ine götürdüğünü ve iki arızanın aynı belirti kümesini taşımadığını denetler.
 
-Her kök sistemin bir "Nasıl çalışır" DM'i (bilgi kodu 040) var. Arızaların belirtilerine pilotun ve teknisyenin arızayı kendi sözleriyle anlatışı da eklenir ("talaş ışığı yandı", "taksi sırasında burun tekerleği titriyor"); teşhis serbest metni bu söyleyişlerle eşleştirir. Söyleyişler betikteki `PHRASINGS` tablosundadır. Bakım takvimi ve sıvılar DM'leri yalnız neye, ne zaman ve nasıl bakılacağını anlatır; aralık, tip ve miktar yazılmaz.
+Her kök sistemin bir "Çalışma ilkesi" DM'i (bilgi kodu 040) var. Arızaların belirtilerine pilotun ve teknisyenin arızayı kendi sözleriyle anlatışı da eklenir ("talaş ışığı yandı", "taksi sırasında burun tekerleği titriyor"); teşhis serbest metni bu söyleyişlerle eşleştirir. Söyleyişler betikteki `PHRASINGS` tablosundadır. Bakım takvimi ve sıvılar DM'leri yalnız neye, ne zaman ve nasıl bakılacağını anlatır; aralık, tip ve miktar yazılmaz.
 
 Çizimler (`ICN-…-0000N-…JPG`) modelden `scripts/render_icn.py` ile üretilir; konusu olan parçalar turuncu.
 
