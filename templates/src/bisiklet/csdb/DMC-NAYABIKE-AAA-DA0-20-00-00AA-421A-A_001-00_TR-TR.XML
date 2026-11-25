@@ -32,7 +32,12 @@
             <isolationStep id="stp-0001">
               <action>Ön freni sıkıp gidonu ileri geri itin.</action>
               <isolationStepQuestion>Boşluk ya da tıkırtı hissediliyor mu?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-headset"/><noAnswer nextActionRefId="stp-0002"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-headset"/><noAnswer nextActionRefId="stp-0006"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0006">
+              <action>Ön tekerleği yerden kaldırıp gidonu yavaşça sağa sola çevirin.</action>
+              <isolationStepQuestion>Gidon belli bir noktada takılıyor ya da tırtıklı dönüyor mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-bearings"/><noAnswer nextActionRefId="stp-0002"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0002">
               <action>İç boruları silip birkaç kez çökertin; sonra toz keçelerinin çevresine bakın.</action>
@@ -55,6 +60,7 @@
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-bushings"/><noAnswer nextActionRefId="end-service"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-headset"><action>Furç boşluğunu alın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-bearings"><action>Furç rulmanları ya da kapları çukurlaşmış; rulmanları değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-stanchion"><action>Çizik iç boru keçeyi kısa sürede bozar; iç boru ünitesi yetkili serviste değiştirilmelidir.</action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-seals"><action>Toz keçelerini değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="921" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-preload"><action>Ön yükü sürücü ağırlığına göre ayarlayın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>

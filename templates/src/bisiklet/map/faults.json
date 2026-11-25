@@ -201,7 +201,7 @@
       ],
       "cause": "Furç rulmanları ya da kapları çukurlaşmış.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA0-20-00-01AA-920A-A"
     },
     {
@@ -290,7 +290,7 @@
       ],
       "cause": "Vites kolunun içindeki mandal mekanizması arızalı.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-60-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-60-00-00AA-920A-A"
     },
     {
@@ -301,7 +301,7 @@
       ],
       "cause": "Fren kolu pivotu kurumuş ya da bükülmüş.",
       "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-920A-A"
     },
     {
@@ -355,7 +355,7 @@
       ],
       "cause": "Zincir kurumuş ya da kirlenmiş.",
       "severity": 1,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-361A-A",
+      "isolation": "DMC-NAYABIKE-AAA-D00-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-241A-A"
     },
     {
@@ -390,8 +390,7 @@
       ],
       "cause": "Kaset kilit somunu gevşemiş.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-30-00-00AA-300A-A",
-      "repair": "DMC-NAYABIKE-AAA-DA1-30-00-00AA-920A-A"
+      "repair": "DMC-NAYABIKE-AAA-DA1-30-00-00AA-300A-A"
     },
     {
       "id": "f.crankset.worn_teeth",
@@ -402,7 +401,7 @@
       ],
       "cause": "Aynakol dişleri sivrilmiş.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-20-00-02AA-921A-A"
     },
     {
@@ -414,7 +413,7 @@
       ],
       "cause": "Pedal kolu cıvatası gevşemiş; kol kare milde oynuyor.",
       "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-920A-A"
     },
     {
@@ -426,7 +425,7 @@
       ],
       "cause": "Orta göbek rulmanları aşınmış ya da gevşemiş.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-20-00-01AA-920A-A"
     },
     {
@@ -483,7 +482,7 @@
       ],
       "cause": "Arka vites değiştiricinin kafesi bükülmüş ya da yayı zayıflamış.",
       "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-310A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-920A-A"
     },
     {
@@ -496,7 +495,7 @@
       ],
       "cause": "Vites askısı darbe sonucu bükülmüş.",
       "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-310A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-40-00-01AA-921A-A"
     },
     {
@@ -508,7 +507,7 @@
       ],
       "cause": "Makara dişleri aşınmış ya da yatağı kurumuş.",
       "severity": 1,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-310A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-40-00-02AA-921A-A"
     },
     {
@@ -592,7 +591,7 @@
       "cause": "Ön disk ya da balatalar yağlanmış.",
       "severity": 4,
       "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
-      "repair": "DMC-NAYABIKE-AAA-DA2-10-00-00AA-250A-A"
+      "repair": "DMC-NAYABIKE-AAA-DA2-10-00-00AA-921A-A"
     },
     {
       "id": "f.brake_front.rotor_bent",
@@ -614,7 +613,7 @@
       ],
       "cause": "Ön disk 1,5 mm'nin altına incelmiş.",
       "severity": 4,
-      "isolation": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-920A-A"
     },
     {
@@ -637,7 +636,7 @@
       ],
       "cause": "Ön kaliper adaptörünün cıvataları gevşemiş.",
       "severity": 4,
-      "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA2-10-00-01AA-920A-A"
     },
     {
@@ -674,7 +673,7 @@
       "cause": "Arka disk ya da balatalar yağlanmış.",
       "severity": 4,
       "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
-      "repair": "DMC-NAYABIKE-AAA-DA2-10-00-00AA-250A-A"
+      "repair": "DMC-NAYABIKE-AAA-DA2-10-00-00AA-921A-A"
     },
     {
       "id": "f.brake_rear.rotor_bent",
@@ -696,7 +695,7 @@
       ],
       "cause": "Arka disk 1,5 mm'nin altına incelmiş.",
       "severity": 4,
-      "isolation": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-920A-A"
     },
     {
@@ -743,7 +742,7 @@
       ],
       "cause": "Ön fren teli paslanmış ya da kılıfı ezilmiş; tel sürtünüyor.",
       "severity": 4,
-      "isolation": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-921A-A"
     },
     {
@@ -755,7 +754,7 @@
       ],
       "cause": "Arka fren teli paslanmış ya da kılıfı ezilmiş; tel sürtünüyor.",
       "severity": 4,
-      "isolation": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-921A-A"
     },
     {
@@ -779,7 +778,7 @@
       ],
       "cause": "Arka tekerlekte teller gevşemiş.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-361A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-271A-A"
     },
     {
@@ -791,7 +790,7 @@
       ],
       "cause": "Ön tekerlekte tel kopmuş.",
       "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-921A-A"
     },
     {
@@ -826,7 +825,7 @@
       ],
       "cause": "Lastik basıncı düşük kalmış; iç lastik darbede jantla taş arasında sıkışıyor.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-210A-A"
     },
     {
@@ -837,7 +836,6 @@
       ],
       "cause": "Ön lastiğin tırtılları aşınmış.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-300A-A",
       "repair": "DMC-NAYABIKE-AAA-DA3-10-00-01AA-921A-A"
     },
     {
@@ -849,7 +847,7 @@
       ],
       "cause": "Arka lastiğin yanağı kesilmiş ya da kabarmış.",
       "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA3-10-00-01AA-921A-A"
     },
     {
@@ -883,7 +881,7 @@
       ],
       "cause": "Arka göbek rulmanlarının gresi kurumuş, koni ve bilyalar aşınmış.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-241A-A"
     },
     {

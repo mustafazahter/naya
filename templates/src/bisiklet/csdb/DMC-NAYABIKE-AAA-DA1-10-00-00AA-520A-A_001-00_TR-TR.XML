@@ -36,7 +36,7 @@
       </preliminaryRqmts>
       <mainProcedure>
         <proceduralStep><para>Zinciri en küçük aynaya ve en küçük arka dişliye alın; zincir gerginliği azalır.</para><figure id="fig-0002"><title>Aktarma organları</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure></proceduralStep>
-        <proceduralStep><title>Pimi çıkarın</title><proceduralStep><para>Zincir sökme aparatını zincirin alt kolundaki bir baklaya yerleştirin.</para></proceduralStep><proceduralStep><para>Aparat kolunu pim baklanın dış plakasından neredeyse çıkana kadar çevirin. Pimi tamamen çıkarmayın.</para></proceduralStep><proceduralStep><para>Baklayı bükerek zinciri ayırın.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Pimi çıkarın</title><proceduralStep><para>Zincir sökme aparatını zincirin alt kolundaki bir baklaya yerleştirin.</para></proceduralStep><proceduralStep><para>Aparat kolunu pim baklanın dış plakasından çıkana kadar çevirin. Çıkan pim yeniden kullanılmaz.</para></proceduralStep><proceduralStep><para>Baklayı bükerek zinciri ayırın.</para></proceduralStep></proceduralStep>
         <proceduralStep><para>Zinciri dişlilerden ve vites değiştiricilerden çekerek çıkarın.</para></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="720" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>

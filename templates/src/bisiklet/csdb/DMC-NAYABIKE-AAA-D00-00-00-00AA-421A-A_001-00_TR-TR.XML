@@ -35,6 +35,11 @@
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0002"/><noAnswer nextActionRefId="stp-0003"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0002">
+              <action>Pedalları koldayken elle çevirin ve pedal gövdesini mil yönünde oynatın.</action>
+              <isolationStepQuestion>Pedal takılarak dönüyor ya da mil üzerinde boşluk yapıyor mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-pedal"/><noAnswer nextActionRefId="stp-0005"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0005">
               <action>Ayakta pedal basarken ve otururken sesi dinleyin; sonra pedal kollarını yanlara itin.</action>
               <isolationStepQuestion>Ses ayakta ve her pedal turunda aynı noktada mı geliyor?</isolationStepQuestion>
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-crank"/><noAnswer nextActionRefId="end-chain"/></yesNoAnswer></isolationStepAnswer>
@@ -49,11 +54,12 @@
               <isolationStepQuestion>Ses seleden ya da sele borusundan mı geliyor?</isolationStepQuestion>
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-seat"/><noAnswer nextActionRefId="end-wheel"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
-            <isolationProcedureEnd id="end-crank"><action>Pedal, pedal kolu ve orta göbeği kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-pedal"><action>Pedalı söküp rulmanını kontrol edin; rulman aşınmışsa pedalı değiştirin. Takarken 35 Nm ile sıkın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-crank"><action>Aynakol ve orta göbek için arıza bulmaya geçin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-chain"><action>Zinciri temizleyip yağlayın; ses sürerse vites ayarını kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="241" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-fork"><action>Çatalı ve furçu kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-fork"><action>Çatal için arıza bulmaya geçin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-seat"><action>Sele borusunu söküp temizleyin ve gresleyin; sele kelepçesini sıkın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="241" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-wheel"><action>Tekerlekleri, telleri ve çabuk sökme mandallarını kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA3" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-wheel"><action>Tekerlekler için arıza bulmaya geçin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA3" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
         </isolationProcedure>

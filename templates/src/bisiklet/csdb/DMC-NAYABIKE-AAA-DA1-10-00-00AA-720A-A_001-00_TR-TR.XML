@@ -31,13 +31,13 @@
         <reqCondGroup><noConds/></reqCondGroup>
         <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Zincir sökme aparatı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-CHAIN-TOOL</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Zincir, 8 vites</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-DR-200</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
-        <reqSafety><noSafety/></reqSafety>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Zincir, 8 vites</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-DR-200</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr><spareDescr id="pt-0002"><name>Zincir bağlantı pimi, 6-8 vites</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-PT-001</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSafety><safetyRqmts><caution><warningAndCautionPara>Shimano HG zincirde sökülen pimi geri itmeyin; pim yuvası genişler ve zincir kopabilir. Her zaman yeni bağlantı pimi ya da 8 vites bağlantı baklası kullanın.</warningAndCautionPara></caution></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
         <proceduralStep><para>Yeni zinciri eskisiyle yan yana koyup aynı bakla sayısında kısaltın. Eski zincir yoksa: zinciri en büyük aynadan ve en büyük arka dişliden vites değiştiriciye uğramadan geçirin, iki bakla ekleyerek kesin.</para><figure id="fig-0002"><title>Aktarma organları</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Zinciri aynadan, arka dişliden ve arka vites değiştiricinin iki makarası arasından geçirin. Makaralar arasındaki metal dile değmemelidir.</para></proceduralStep>
-        <proceduralStep><para>Zincirin uçlarını birleştirin ve aparatla pimi baklanın her iki yanından eşit çıkacak şekilde itin. Bağlantı baklası (hızlı bakla) kullanılıyorsa pedala yüklenerek kilitleyin.</para></proceduralStep>
+        <proceduralStep><para>Zincirin uçlarını birleştirin. Yeni bağlantı pimini kılavuz ucundan baklaya sokup aparatla, pim iki yandan eşit çıkana kadar itin; çıkıntı yapan kılavuz ucunu pensle kırın. Bağlantı baklası kullanılıyorsa iki yarıyı takıp pedala yüklenerek kilitleyin.</para></proceduralStep>
         <proceduralStep><para>Birleşen baklayı yanlara bükerek gevşetin; sıkışık kalmamalıdır.</para></proceduralStep>
         <proceduralStep><para>Bütün vitesleri deneyin.</para></proceduralStep>
       </mainProcedure>

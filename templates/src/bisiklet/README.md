@@ -5,7 +5,7 @@
 ```
 bisiklet/
 ├── naya.json      manifest (bütünlük özetleri paketlerken eklenir)
-├── csdb/          S1000D Issue 5.0: 84 DM, PM, DML, 14 çizim
+├── csdb/          S1000D Issue 5.0: 86 DM, PM, DML, 14 çizim
 ├── map/           parts.json (68 parça), faults.json (63 arıza, 42 belirti), zones.json, hotspots.json
 ├── model/         product.glb
 └── scripts/       içeriği, modeli ve çizimleri üreten betikler

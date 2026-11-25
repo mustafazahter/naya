@@ -161,6 +161,7 @@ CHAIN_INSTALL = code('DA1', '1', '720')
 CHAIN_ISOLATE = code('DA1', '1', '421')
 FD_ADJUST = code('DA1', '2', '271')
 CRANK_CHECK = code('DA1', '2', '300')
+CRANK_ISOLATE = code('DA1', '2', '421')
 CRANK_ARMS = code('DA1', '2', '920')
 BOTTOM_BRACKET = code('DA1', '2', '920', '01')
 CHAINRING = code('DA1', '2', '921', '02')
@@ -192,6 +193,7 @@ ROTOR_TRUE = code('DA2', '2', '271')
 BRAKE_CABLES = code('DA2', '3', '921')
 BRAKE_LEVER = code('DA2', '3', '920')
 BRAKE_LEVER_CHECK = code('DA2', '3', '300')
+BRAKE_LEVER_ISOLATE = code('DA2', '3', '421')
 
 WHEELS = code('DA3')
 WHEEL_CHECK = code('DA3', info='300')
@@ -414,7 +416,11 @@ dm(code=NOISES, tech='Bisiklet', info='Arıza bulma: sesler', isolation={
         ('stp-0001', 'Bisikleti sehpaya alın ve pedalı çevirmeden yalnız '
          'arka tekerleği döndürün.',
          'Ses yalnız pedal çevirince mi geliyor?', 'stp-0002', 'stp-0003'),
-        ('stp-0002', 'Ayakta pedal basarken ve otururken sesi dinleyin; '
+        ('stp-0002', 'Pedalları koldayken elle çevirin ve pedal gövdesini '
+         'mil yönünde oynatın.',
+         'Pedal takılarak dönüyor ya da mil üzerinde boşluk yapıyor mu?',
+         'end-pedal', 'stp-0005'),
+        ('stp-0005', 'Ayakta pedal basarken ve otururken sesi dinleyin; '
          'sonra pedal kollarını yanlara itin.',
          'Ses ayakta ve her pedal turunda aynı noktada mı geliyor?',
          'end-crank', 'end-chain'),
@@ -427,15 +433,17 @@ dm(code=NOISES, tech='Bisiklet', info='Arıza bulma: sesler', isolation={
          'end-wheel'),
     ],
     'ends': [
-        ('end-crank', 'Pedal, pedal kolu ve orta göbeği kontrol edin.',
-         CRANK_CHECK),
+        ('end-pedal', 'Pedalı söküp rulmanını kontrol edin; rulman '
+         'aşınmışsa pedalı değiştirin. Takarken 35 Nm ile sıkın.', PEDALS),
+        ('end-crank', 'Aynakol ve orta göbek için arıza bulmaya geçin.',
+         CRANK_ISOLATE),
         ('end-chain', 'Zinciri temizleyip yağlayın; ses sürerse vites '
          'ayarını kontrol edin.', CHAIN_LUBE),
-        ('end-fork', 'Çatalı ve furçu kontrol edin.', FORK_CHECK),
+        ('end-fork', 'Çatal için arıza bulmaya geçin.', FORK_ISOLATE),
         ('end-seat', 'Sele borusunu söküp temizleyin ve gresleyin; sele '
          'kelepçesini sıkın.', SEATPOST_SERVICE),
-        ('end-wheel', 'Tekerlekleri, telleri ve çabuk sökme mandallarını '
-         'kontrol edin.', WHEEL_CHECK),
+        ('end-wheel', 'Tekerlekler için arıza bulmaya geçin.',
+         WHEEL_ISOLATE),
     ],
 })
 
@@ -544,7 +552,11 @@ dm(code=FORK_ISOLATE, tech='Yaylı çatal', info='Arıza bulma', isolation={
     'steps': [
         ('stp-0001', 'Ön freni sıkıp gidonu ileri geri itin.',
          'Boşluk ya da tıkırtı hissediliyor mu?', 'end-headset',
-         'stp-0002'),
+         'stp-0006'),
+        ('stp-0006', 'Ön tekerleği yerden kaldırıp gidonu yavaşça sağa '
+         'sola çevirin.',
+         'Gidon belli bir noktada takılıyor ya da tırtıklı dönüyor mu?',
+         'end-bearings', 'stp-0002'),
         ('stp-0002', 'İç boruları silip birkaç kez çökertin; sonra '
          'toz keçelerinin çevresine bakın.',
          'İç boruda yağ halkası ya da keçe çevresinde kir birikmiş mi?',
@@ -561,6 +573,8 @@ dm(code=FORK_ISOLATE, tech='Yaylı çatal', info='Arıza bulma', isolation={
     ],
     'ends': [
         ('end-headset', 'Furç boşluğunu alın.', HEADSET_ADJUST),
+        ('end-bearings', 'Furç rulmanları ya da kapları çukurlaşmış; '
+         'rulmanları değiştirin.', HEADSET_BEARINGS),
         ('end-stanchion', 'Çizik iç boru keçeyi kısa sürede bozar; iç boru '
          'ünitesi yetkili serviste değiştirilmelidir.', None),
         ('end-seals', 'Toz keçelerini değiştirin.', FORK_SEALS),
@@ -773,30 +787,64 @@ dm(code=SHIFT_ISOLATE, tech='Vites sistemi', info='Arıza bulma',
        'descr': 'Vites geç geçiyor, hiç geçmiyor, tıkırtı yapıyor ya da '
                 'zincir düşüyor.',
        'steps': [
-           ('stp-0001', 'Bisikleti sehpaya alın ve arka vites '
+           ('stp-0001', 'Pedal çevirirken vitesleri önde ve arkada ayrı '
+            'ayrı değiştirin.', 'Sorun ön aynalarda mı?', 'stp-0009',
+            'stp-0002'),
+           ('stp-0002', 'Bisikleti sehpaya alın ve arka vites '
             'değiştiriciye arkadan bakın.',
             'Makaralar dişlilerle aynı düzlemde değil mi (içe eğik mi)?',
-            'end-hanger', 'stp-0002'),
-           ('stp-0002', 'Pedal çevirirken vites kolunu en küçükten en '
+            'stp-0003', 'stp-0004'),
+           ('stp-0003', 'Vites askısını hizalama aparatıyla ölçün ve '
+            'çatlak için inceleyin.',
+            'Askı çatlak mı ya da düzeltme tutmuyor mu?',
+            'end-hanger-replace', 'end-hanger-align'),
+           ('stp-0004', 'Arka vites değiştiricinin kafesine bakın ve kafesi '
+            'elle öne çekip bırakın.',
+            'Kafes bükük mü ya da yay zinciri germiyor mu?', 'end-rd',
+            'stp-0005'),
+           ('stp-0005', 'Makaraları elle çevirip yanlara oynatın ve '
+            'dişlerine bakın.',
+            'Makara dişleri sivrilmiş mi ya da makarada boşluk var mı?',
+            'end-jockey', 'stp-0006'),
+           ('stp-0006', 'Pedal çevirirken vites kolunu en küçükten en '
             'büyüğe tek tek çekin.',
             'Zincir en küçük ya da en büyük dişlinin dışına kaçıyor mu?',
-            'end-limits', 'stp-0003'),
-           ('stp-0003', 'Vites kolunu çektiğinizde teldeki gerginliği ve '
+            'end-limits', 'stp-0007'),
+           ('stp-0007', 'Vites kolunu çektiğinizde teldeki gerginliği ve '
             'kolun direncini hissedin.',
-            'Kol sert mi ya da tel kılıfta takılıyor mu?', 'end-cable',
-            'stp-0004'),
-           ('stp-0004', 'Kolu bıraktığınızda kolun ve zincirin geri '
+            'Kol sert mi ya da tel kılıfta takılıyor mu?', 'stp-0008',
+            'stp-0010'),
+           ('stp-0008', 'Teli kılıf dışındaki kısımlarında ve uçlarında '
+            'inceleyin.', 'Tel paslı mı ya da lifleri kopuk mu?',
+            'end-cable', 'end-cable-lube'),
+           ('stp-0010', 'Kolu bıraktığınızda kolun ve zincirin geri '
             'dönüşünü izleyin.',
-            'Kol yerine dönmüyor ya da tıklamıyor mu?', 'end-shifter',
+            'Kol yerine dönmüyor ya da tıklamıyor mu?', 'stp-0011',
             'end-adjust'),
+           ('stp-0011', 'Teli sıkma cıvatasından çıkarıp kolu boşta '
+            'çalıştırın.', 'Kol tel olmadan da takılıyor mu?',
+            'end-shifter', 'end-cable'),
+           ('stp-0009', 'Sol vites kolunu çekerken teldeki direnci '
+            'hissedin.', 'Kol sert mi ya da tel kılıfta takılıyor mu?',
+            'stp-0008', 'end-fd'),
        ],
        'ends': [
-           ('end-hanger', 'Vites askısını kontrol edin.', HANGER_CHECK),
+           ('end-hanger-replace', 'Vites askısını değiştirin.',
+            HANGER_REPLACE),
+           ('end-hanger-align', 'Askıyı hizalama aparatıyla düzeltin.',
+            HANGER_CHECK),
+           ('end-rd', 'Arka vites değiştiriciyi değiştirin.', RD_REPLACE),
+           ('end-jockey', 'Makaraları değiştirin.', JOCKEY),
            ('end-limits', 'Limit vidalarını ayarlayın.', RD_ADJUST),
            ('end-cable', 'Vites telini ve kılıfını değiştirin.',
             SHIFT_CABLES),
-           ('end-shifter', 'Vites kolunu kontrol edin.', SHIFTER_CHECK),
+           ('end-cable-lube', 'Teli temizleyip yağlayın.',
+            SHIFT_CABLE_LUBE),
+           ('end-shifter', 'Vites kolu arızalı; değiştirin.',
+            SHIFTER_REPLACE),
            ('end-adjust', 'Tel gerginliğini ayarlayın.', RD_ADJUST),
+           ('end-fd', 'Ön vites değiştiricinin konumunu, limit vidalarını '
+            've tel gerginliğini ayarlayın.', FD_ADJUST),
        ],
    })
 
@@ -853,8 +901,8 @@ dm(code=CHAIN_REMOVE, tech='Zincir', info='Sökme', figure=2,
        ('Pimi çıkarın', [
            'Zincir sökme aparatını zincirin alt kolundaki bir baklaya '
            'yerleştirin.',
-           'Aparat kolunu pim baklanın dış plakasından neredeyse çıkana '
-           'kadar çevirin. Pimi tamamen çıkarmayın.',
+           'Aparat kolunu pim baklanın dış plakasından çıkana kadar '
+           'çevirin. Çıkan pim yeniden kullanılmaz.',
            'Baklayı bükerek zinciri ayırın.',
        ]),
        'Zinciri dişlilerden ve vites değiştiricilerden çekerek çıkarın.',
@@ -863,7 +911,11 @@ dm(code=CHAIN_REMOVE, tech='Zincir', info='Sökme', figure=2,
 
 dm(code=CHAIN_INSTALL, tech='Zincir', info='Takma', figure=2,
    tools=[('Zincir sökme aparatı', 1)],
-   spares=[('Zincir, 8 vites', 1)],
+   spares=[('Zincir, 8 vites', 1),
+           ('Zincir bağlantı pimi, 6-8 vites', 1)],
+   cautions=['Shimano HG zincirde sökülen pimi geri itmeyin; pim yuvası '
+             'genişler ve zincir kopabilir. Her zaman yeni bağlantı pimi '
+             'ya da 8 vites bağlantı baklası kullanın.'],
    steps=[
        'Yeni zinciri eskisiyle yan yana koyup aynı bakla sayısında '
        'kısaltın. Eski zincir yoksa: zinciri en büyük aynadan ve en büyük '
@@ -872,9 +924,10 @@ dm(code=CHAIN_INSTALL, tech='Zincir', info='Takma', figure=2,
        'Zinciri aynadan, arka dişliden ve arka vites değiştiricinin iki '
        'makarası arasından geçirin. Makaralar arasındaki metal dile '
        'değmemelidir.',
-       'Zincirin uçlarını birleştirin ve aparatla pimi baklanın her iki '
-       'yanından eşit çıkacak şekilde itin. Bağlantı baklası (hızlı bakla) '
-       'kullanılıyorsa pedala yüklenerek kilitleyin.',
+       'Zincirin uçlarını birleştirin. Yeni bağlantı pimini kılavuz '
+       'ucundan baklaya sokup aparatla, pim iki yandan eşit çıkana kadar '
+       'itin; çıkıntı yapan kılavuz ucunu pensle kırın. Bağlantı baklası '
+       'kullanılıyorsa iki yarıyı takıp pedala yüklenerek kilitleyin.',
        'Birleşen baklayı yanlara bükerek gevşetin; sıkışık kalmamalıdır.',
        'Bütün vitesleri deneyin.',
    ],
@@ -944,6 +997,34 @@ dm(code=CRANK_CHECK, tech='Aynakol ve orta göbek', info='Kontrol',
        'Aynaların eğri olup olmadığını, kol dönerken ön vites '
        'değiştiricinin kafesine bakarak kontrol edin.',
    ])
+
+dm(code=CRANK_ISOLATE, tech='Aynakol ve orta göbek',
+   info='Arıza bulma', isolation={
+       'fault': 'NAYABIKE-DA1-003',
+       'descr': 'Pedala basarken gıcırtı geliyor, pedal kolu boşluk '
+                'yapıyor ya da zincir aynadan atlıyor.',
+       'steps': [
+           ('stp-0001', 'Pedal kollarını kadroya dik tutun ve iki kolu '
+            'birlikte yanlara itin.', 'Boşluk var mı?', 'stp-0002',
+            'stp-0003'),
+           ('stp-0002', 'Pedal kolu cıvatalarını 35-50 Nm ile sıkın ve '
+            'kolları yeniden yanlara itin.', 'Boşluk sürüyor mu?',
+            'end-bb', 'end-crank'),
+           ('stp-0003', 'Zinciri aynadan indirip pedal kollarını çevirin.',
+            'Dönüş pürüzlü ya da sesli mi?', 'end-bb', 'stp-0004'),
+           ('stp-0004', 'Aynaların dişlerine bakın.',
+            'Dişler sivrilmiş ya da kancalanmış mı?', 'end-chainring',
+            'end-check'),
+       ],
+       'ends': [
+           ('end-bb', 'Orta göbeği değiştirin.', BOTTOM_BRACKET),
+           ('end-crank', 'Kol gevşemişti. Kolu söküp kare yuvasının '
+            'bozulmadığını kontrol edin ve yeniden takın.', CRANK_ARMS),
+           ('end-chainring', 'Aşınmış aynayı değiştirin.', CHAINRING),
+           ('end-check', 'Aynakolu ve orta göbeği ayrıntılı kontrol edin.',
+            CRANK_CHECK),
+       ],
+   })
 
 dm(code=CRANK_ARMS, tech='Pedal kolları', info='Sökme ve takma', figure=8,
    tools=[HEX, TORQUE, ('Pedal kolu çektirmesi (kare göbek)', 1)],
@@ -1267,7 +1348,9 @@ dm(code=BRAKE_ISOLATE, tech='Fren sistemi', info='Arıza bulma', isolation={
         ('stp-0004', 'Tekerleği çevirerek diskin kaliperden geçişini '
          'izleyin.',
          'Disk kaliper içinde yalpalıyor ya da balatalara sürtüyor mu?',
-         'end-rotor', 'stp-0005'),
+         'end-rotor', 'stp-0006'),
+        ('stp-0006', 'Kaliperi elle tutup oynatın.',
+         'Kaliper ya da adaptörü oynuyor mu?', 'end-caliper', 'stp-0005'),
         ('stp-0005', 'Diskin kalınlığını kumpasla ölçün.',
          "Disk 1,5 mm'den ince mi?", 'end-rotor-worn', 'end-shop'),
     ],
@@ -1276,12 +1359,14 @@ dm(code=BRAKE_ISOLATE, tech='Fren sistemi', info='Arıza bulma', isolation={
         ('end-clean', 'Diski izopropil alkolle temizleyin. Yağlanmış '
          'balatalar temizlenemez; değiştirin.', PADS),
         ('end-adjust', 'Fren telini ve kaliperi ayarlayın.', BRAKE_ADJUST),
-        ('end-rotor', 'Diski kontrol edin ve gerekiyorsa düzeltin.',
-         ROTOR_CHECK),
+        ('end-rotor', 'Diski düzeltin; belirgin eğri disk '
+         'değiştirilmelidir.', ROTOR_TRUE),
+        ('end-caliper', 'Kaliperi ve adaptörünü söküp vida sabitleyiciyle '
+         'yeniden takın.', CALIPER),
         ('end-rotor-worn', 'Diski değiştirin.', ROTOR_REPLACE),
         ('end-shop', 'Fren teli kılıfı ezilmiş ya da kaliper arızalı '
-         'olabilir; teli ve kılıfı kontrol edin, sorun sürerse yetkili '
-         'servise başvurun.', BRAKE_LEVER_CHECK),
+         'olabilir; fren kolu ve teli için arıza bulmaya geçin, sorun '
+         'sürerse yetkili servise başvurun.', BRAKE_LEVER_ISOLATE),
     ],
 })
 
@@ -1429,6 +1514,29 @@ dm(code=BRAKE_LEVER, tech='Fren kolu', info='Değiştirme', figure=7,
    ],
    next=BRAKE_CABLES)
 
+dm(code=BRAKE_LEVER_ISOLATE, tech='Fren kolları ve telleri',
+   info='Arıza bulma', isolation={
+       'fault': 'NAYABIKE-DA2-002',
+       'descr': 'Fren kolu sert çalışıyor ya da bırakınca yerine dönmüyor.',
+       'steps': [
+           ('stp-0001', 'Fren telini kaliperdeki sıkma cıvatasından çıkarın '
+            've kolu boşta çalıştırın.', 'Kol tel olmadan da takılıyor mu?',
+            'end-lever', 'stp-0002'),
+           ('stp-0002', 'Teli kılıf içinde ileri geri çekin ve kılıfı '
+            'boydan boya inceleyin.',
+            'Tel takılıyor mu, paslı mı ya da kılıf ezik mi?', 'end-cable',
+            'end-caliper'),
+       ],
+       'ends': [
+           ('end-lever', 'Kol pivotuna yağ damlatın; düzelmezse fren kolunu '
+            'değiştirin.', BRAKE_LEVER),
+           ('end-cable', 'Fren telini ve kılıfını değiştirin.',
+            BRAKE_CABLES),
+           ('end-caliper', 'Tel ve kol sağlam: kaliper kolu takılıyor '
+            'olabilir; kaliperi söküp kontrol edin.', CALIPER),
+       ],
+   })
+
 dm(code=BRAKE_LEVER_CHECK, tech='Fren kolları ve telleri', info='Kontrol',
    figure=13, tools=[HEX, TORQUE], supplies=[LUBE],
    steps=[
@@ -1519,13 +1627,24 @@ dm(code=WHEEL_ISOLATE, tech='Tekerlekler', info='Arıza bulma', isolation={
          'Sibopta kabarcık var mı?', 'end-valve', 'stp-0003'),
         ('stp-0003', 'İç lastiği çıkarıp deliğin yerine bakın.',
          'Delik iç lastiğin jant tarafında mı?', 'end-rim-tape',
-         'end-tube'),
+         'stp-0007'),
+        ('stp-0007', 'Deliğin şekline bakın.',
+         'Yan yana iki küçük delik (yılan ısırığı) mı?', 'end-pressure',
+         'stp-0008'),
+        ('stp-0008', 'Dış lastiğin içini ve yanaklarını deliğin hizasında '
+         'inceleyin.', 'Dış lastikte kesik ya da yanakta yırtık var mı?',
+         'end-tire', 'end-tube'),
         ('stp-0004', 'Tekerleği iki elle tutup yanlara sallayın.',
          'Tekerlek yanlara oynuyor mu?', 'stp-0005', 'stp-0006'),
         ('stp-0005', 'Çabuk sökme mandalının kapalı ve sıkı olduğunu '
-         'kontrol edin.', 'Mandal gevşek mi?', 'end-qr', 'end-hub'),
+         'kontrol edin.', 'Mandal gevşek mi?', 'end-qr', 'stp-0009'),
+        ('stp-0009', 'Tekerleği sökün ve göbek milini parmaklarınızla '
+         'çevirin.', 'Dönüş pürüzlü ya da hışırtılı mı?',
+         'end-hub-service', 'end-hub'),
         ('stp-0006', 'Tekerleği çevirip janta bakın.',
-         'Jant yanlara yalpalıyor mu?', 'end-true', 'end-ok'),
+         'Jant yanlara yalpalıyor mu?', 'stp-0010', 'end-ok'),
+        ('stp-0010', 'Telleri ikişer ikişer sıkarak yoklayın.',
+         'Kopuk ya da çok gevşek tel var mı?', 'end-spoke', 'end-true'),
     ],
     'ends': [
         ('end-valve', 'Sibop içini sıkın ya da değiştirin.', VALVE),
@@ -1533,8 +1652,15 @@ dm(code=WHEEL_ISOLATE, tech='Tekerlekler', info='Arıza bulma', isolation={
          'kontrol edin, iç lastiği değiştirin.', TUBE),
         ('end-tube', 'İç lastiği yamayın ya da değiştirin; dış lastiğin '
          'içindeki batan cismi bulun.', TUBE),
+        ('end-pressure', 'Lastik basıncı düşük kalmış. İç lastiği yamayın '
+         'ya da değiştirin ve lastiği basınç aralığında tutun.', INFLATE),
+        ('end-tire', 'Dış lastiği değiştirin; kesik yerinden iç lastik '
+         'yeniden delinir.', TIRE),
         ('end-qr', 'Çabuk sökme mandalını ayarlayın.', QR_ADJUST),
         ('end-hub', 'Göbek rulman boşluğunu ayarlayın.', HUB_ADJUST),
+        ('end-hub-service', 'Göbek rulmanlarının bakımını yapın.',
+         HUB_SERVICE),
+        ('end-spoke', 'Kopuk teli değiştirin.', SPOKE_REPLACE),
         ('end-true', 'Tekerleği düzeltin.', TRUING),
         ('end-ok', 'Tekerlek sağlam görünüyor; tekerlekleri ayrıntılı '
          'kontrol edin.', WHEEL_CHECK),
@@ -2117,8 +2243,7 @@ FAULTS = [
      ['sym.headset_play', 'sym.fork_knock'], 'Furç gevşemiş.', 3,
      FORK_CHECK, HEADSET_ADJUST),
     ('f.headset.worn', 'fork.headset', ['sym.steering_notchy'],
-     'Furç rulmanları ya da kapları çukurlaşmış.', 2, FORK_CHECK,
-     HEADSET_BEARINGS),
+     'Furç rulmanları ya da kapları çukurlaşmış.', 2, FORK_ISOLATE, HEADSET_BEARINGS),
     ('f.fork.worn', 'fork.lowers', ['sym.fork_knock', 'sym.fork_sticky'],
      'Çatal burçları aşınmış ya da alt bacak yağı azalmış.', 3,
      FORK_ISOLATE, FORK_SERVICE),
@@ -2141,10 +2266,10 @@ FAULTS = [
     ('f.shifter.faulty', 'cockpit.shifters',
      ['sym.shifter_no_return', 'sym.shift_slow'],
      'Vites kolunun içindeki mandal mekanizması arızalı.', 2,
-     SHIFTER_CHECK, SHIFTER_REPLACE),
+     SHIFT_ISOLATE, SHIFTER_REPLACE),
     ('f.brake_lever.sticky', 'cockpit.brake_levers',
      ['sym.lever_no_return'], 'Fren kolu pivotu kurumuş ya da bükülmüş.',
-     3, BRAKE_LEVER_CHECK, BRAKE_LEVER),
+     3, BRAKE_LEVER_ISOLATE, BRAKE_LEVER),
 
     ('f.seatpost.slip', 'seat.post', ['sym.saddle_slip'],
      'Sele borusu kelepçesi yeterince sıkılmamış.', 1, None, SEAT_HEIGHT),
@@ -2158,7 +2283,7 @@ FAULTS = [
      'Zincir aşınıp uzamış; dişlilere tam oturmuyor.', 2, CHAIN_MEASURE,
      CHAIN_REMOVE),
     ('f.chain.dry', 'drive.chain', ['sym.chain_noise'],
-     'Zincir kurumuş ya da kirlenmiş.', 1, CHAIN_MEASURE, CHAIN_LUBE),
+     'Zincir kurumuş ya da kirlenmiş.', 1, NOISES, CHAIN_LUBE),
     ('f.chain.stiff_link', 'drive.chain',
      ['sym.chain_skip', 'sym.shift_noise'],
      'Zincirde sıkışmış bir bakla var; makaralardan geçerken atlıyor.', 2,
@@ -2168,18 +2293,17 @@ FAULTS = [
      'atlıyor.', 2, CHAIN_ISOLATE, CASSETTE),
     ('f.lockring.loose', 'drive.lockring',
      ['sym.cassette_wobble', 'sym.shift_noise'],
-     'Kaset kilit somunu gevşemiş.', 2, CASSETTE_CHECK, CASSETTE),
+     'Kaset kilit somunu gevşemiş.', 2, None, CASSETTE_CHECK),
     ('f.crankset.worn_teeth', 'drive.chainrings',
      ['sym.chain_skip', 'sym.chain_drop'], 'Aynakol dişleri sivrilmiş.',
-     2, CRANK_CHECK, CHAINRING),
+     2, CRANK_ISOLATE, CHAINRING),
     ('f.crank.loose', 'drive.crank_arms',
      ['sym.pedal_play', 'sym.crank_creak'],
      'Pedal kolu cıvatası gevşemiş; kol kare milde oynuyor.', 3,
-     CRANK_CHECK, CRANK_ARMS),
+     CRANK_ISOLATE, CRANK_ARMS),
     ('f.bottom_bracket.worn', 'drive.bottom_bracket',
      ['sym.crank_creak', 'sym.pedal_play'],
-     'Orta göbek rulmanları aşınmış ya da gevşemiş.', 2, CRANK_CHECK,
-     BOTTOM_BRACKET),
+     'Orta göbek rulmanları aşınmış ya da gevşemiş.', 2, CRANK_ISOLATE, BOTTOM_BRACKET),
     ('f.front_derailleur.misadjusted', 'drive.front_derailleur',
      ['sym.front_shift', 'sym.chain_drop'],
      'Ön vites değiştiricinin limit vidaları ya da tel gerginliği ayarsız.',
@@ -2198,15 +2322,13 @@ FAULTS = [
     ('f.rear_derailleur.damaged', 'drive.rear_derailleur',
      ['sym.shift_slow', 'sym.chain_drop'],
      'Arka vites değiştiricinin kafesi bükülmüş ya da yayı zayıflamış.',
-     3, HANGER_CHECK, RD_REPLACE),
+     3, SHIFT_ISOLATE, RD_REPLACE),
     ('f.hanger.bent', 'drive.hanger',
      ['sym.shift_noise', 'sym.chain_drop', 'sym.shift_slow'],
-     'Vites askısı darbe sonucu bükülmüş.', 3, HANGER_CHECK,
-     HANGER_REPLACE),
+     'Vites askısı darbe sonucu bükülmüş.', 3, SHIFT_ISOLATE, HANGER_REPLACE),
     ('f.jockey.worn', 'drive.jockey_wheels',
      ['sym.shift_noise', 'sym.chain_noise'],
-     'Makara dişleri aşınmış ya da yatağı kurumuş.', 1, HANGER_CHECK,
-     JOCKEY),
+     'Makara dişleri aşınmış ya da yatağı kurumuş.', 1, SHIFT_ISOLATE, JOCKEY),
     ('f.pedal.bearing', 'drive.pedals', ['sym.pedal_play',
                                          'sym.crank_creak'],
      'Pedal rulmanı aşınmış ya da pedal kola tam sıkılmamış.', 2, NOISES,
@@ -2232,20 +2354,19 @@ FAULTS = [
      'Ön balatalar aşınmış.', 4, BRAKE_ISOLATE, PADS),
     ('f.brake_front.contaminated', 'brakes.front.pads',
      ['sym.brake_weak', 'sym.brake_squeal'],
-     'Ön disk ya da balatalar yağlanmış.', 4, BRAKE_ISOLATE, BRAKE_CLEAN),
+     'Ön disk ya da balatalar yağlanmış.', 4, BRAKE_ISOLATE, PADS),
     ('f.brake_front.rotor_bent', 'brakes.front.rotor', ['sym.brake_rub'],
      'Ön disk eğrilmiş.', 2, BRAKE_ISOLATE, ROTOR_TRUE),
     ('f.brake_front.rotor_worn', 'brakes.front.rotor',
      ['sym.brake_weak', 'sym.lever_travel'],
-     "Ön disk 1,5 mm'nin altına incelmiş.", 4, ROTOR_CHECK, ROTOR_REPLACE),
+     "Ön disk 1,5 mm'nin altına incelmiş.", 4, BRAKE_ISOLATE, ROTOR_REPLACE),
     ('f.brake_front.caliper_misaligned', 'brakes.front',
      ['sym.brake_rub', 'sym.lever_travel'],
      'Ön kaliper diske ortalı değil ya da balata boşluğu fazla.', 2,
      BRAKE_ISOLATE, BRAKE_ADJUST),
     ('f.brake_front.adapter_loose', 'brakes.front.adapter',
      ['sym.brake_clunk'],
-     'Ön kaliper adaptörünün cıvataları gevşemiş.', 4, BRAKE_CHECK,
-     CALIPER),
+     'Ön kaliper adaptörünün cıvataları gevşemiş.', 4, BRAKE_ISOLATE, CALIPER),
     ('f.tube_front.puncture', 'wheel.front.tube', ['sym.flat'],
      'Ön iç lastik delinmiş.', 3, WHEEL_ISOLATE, TUBE),
     ('f.brake_rear.pads_worn', 'brakes.rear.pads',
@@ -2253,13 +2374,12 @@ FAULTS = [
      'Arka balatalar aşınmış.', 4, BRAKE_ISOLATE, PADS),
     ('f.brake_rear.contaminated', 'brakes.rear.pads',
      ['sym.brake_weak', 'sym.brake_squeal'],
-     'Arka disk ya da balatalar yağlanmış.', 4, BRAKE_ISOLATE, BRAKE_CLEAN),
+     'Arka disk ya da balatalar yağlanmış.', 4, BRAKE_ISOLATE, PADS),
     ('f.brake_rear.rotor_bent', 'brakes.rear.rotor', ['sym.brake_rub'],
      'Arka disk eğrilmiş.', 2, BRAKE_ISOLATE, ROTOR_TRUE),
     ('f.brake_rear.rotor_worn', 'brakes.rear.rotor',
      ['sym.brake_weak', 'sym.lever_travel'],
-     "Arka disk 1,5 mm'nin altına incelmiş.", 4, ROTOR_CHECK,
-     ROTOR_REPLACE),
+     "Arka disk 1,5 mm'nin altına incelmiş.", 4, BRAKE_ISOLATE, ROTOR_REPLACE),
     ('f.brake_rear.caliper_misaligned', 'brakes.rear',
      ['sym.brake_rub', 'sym.lever_travel'],
      'Arka kaliper diske ortalı değil ya da balata boşluğu fazla.', 2,
@@ -2273,19 +2393,19 @@ FAULTS = [
     ('f.brake_cable_front.frayed', 'brakes.cable_front',
      ['sym.lever_no_return', 'sym.brake_weak'],
      'Ön fren teli paslanmış ya da kılıfı ezilmiş; tel sürtünüyor.', 4,
-     BRAKE_LEVER_CHECK, BRAKE_CABLES),
+     BRAKE_LEVER_ISOLATE, BRAKE_CABLES),
     ('f.brake_cable_rear.frayed', 'brakes.cable_rear',
      ['sym.lever_no_return', 'sym.brake_weak'],
      'Arka fren teli paslanmış ya da kılıfı ezilmiş; tel sürtünüyor.', 4,
-     BRAKE_LEVER_CHECK, BRAKE_CABLES),
+     BRAKE_LEVER_ISOLATE, BRAKE_CABLES),
 
     ('f.rim.out_of_true', 'wheel.rear.rim', ['sym.wobble', 'sym.brake_rub'],
      'Arka jant eğrilmiş.', 2, WHEEL_ISOLATE, TRUING),
     ('f.spokes.loose', 'wheel.rear.spokes', ['sym.wobble', 'sym.spoke_ping'],
-     'Arka tekerlekte teller gevşemiş.', 2, SPOKE_TENSION, TRUING),
+     'Arka tekerlekte teller gevşemiş.', 2, WHEEL_ISOLATE, TRUING),
     ('f.spokes_front.broken', 'wheel.front.spokes',
      ['sym.spoke_ping', 'sym.wobble'], 'Ön tekerlekte tel kopmuş.', 3,
-     WHEEL_CHECK, SPOKE_REPLACE),
+     WHEEL_ISOLATE, SPOKE_REPLACE),
     ('f.rim_tape.shifted', 'wheel.rear.rim_tape',
      ['sym.flat', 'sym.slow_leak'],
      'Jant bandı kaymış; tel delikleri iç lastiği deliyor.', 2,
@@ -2296,12 +2416,12 @@ FAULTS = [
     ('f.tire_front.pressure_low', 'wheel.front.tire',
      ['sym.pinch_flat', 'sym.flat'],
      'Lastik basıncı düşük kalmış; iç lastik darbede jantla taş arasında '
-     'sıkışıyor.', 2, WHEEL_CHECK, INFLATE),
+     'sıkışıyor.', 2, WHEEL_ISOLATE, INFLATE),
     ('f.tire_front.worn', 'wheel.front.tire', ['sym.tire_wear'],
-     'Ön lastiğin tırtılları aşınmış.', 2, TIRE_CHECK, TIRE),
+     'Ön lastiğin tırtılları aşınmış.', 2, None, TIRE),
     ('f.tire_rear.damaged', 'wheel.rear.tire',
      ['sym.tire_damage', 'sym.flat'],
-     'Arka lastiğin yanağı kesilmiş ya da kabarmış.', 3, TIRE_CHECK, TIRE),
+     'Arka lastiğin yanağı kesilmiş ya da kabarmış.', 3, WHEEL_ISOLATE, TIRE),
     ('f.hub_front.play', 'wheel.front.bearings', ['sym.wheel_play'],
      'Ön göbek rulmanında boşluk var.', 3, WHEEL_ISOLATE, HUB_ADJUST),
     ('f.qr_front.loose', 'wheel.front.qr', ['sym.wheel_play'],
@@ -2310,7 +2430,7 @@ FAULTS = [
     ('f.hub_rear.worn', 'wheel.rear.bearings',
      ['sym.hub_rough', 'sym.wheel_play'],
      'Arka göbek rulmanlarının gresi kurumuş, koni ve bilyalar aşınmış.',
-     2, HUB_CHECK, HUB_SERVICE),
+     2, WHEEL_ISOLATE, HUB_SERVICE),
     ('f.freehub.slipping', 'wheel.rear.freehub', ['sym.freehub_slip'],
      'Serbest çark gövdesinin tırnakları tutmuyor.', 3, HUB_CHECK, None),
 ]
@@ -2341,6 +2461,27 @@ SPARE_PARTS = {
     'Furç rulmanı takımı': 'fork.headset',
 }
 
+def check_fault_paths():
+    """Her arızanın arıza bulma DM'i, onarım DM'ine götürmeli: arıza bulma
+    DM'inde bir son ya da kontrol prosedüründe "sonraki işlem" onarıma
+    gitmeli. Gitmiyorsa kullanıcı teşhisten onarıma ulaşamaz; üretim durur."""
+    by_code = {str(d['code']): d for d in C.dms}
+    problems = []
+    for fid, _, _, _, _, isolation, repair in FAULTS:
+        if not isolation or not repair or isolation == repair:
+            continue
+        d = by_code[str(isolation)]
+        if 'isolation' in d:
+            targets = [e[2] for e in d['isolation']['ends'] if e[2]]
+        else:
+            nxt = d.get('next')
+            targets = nxt if isinstance(nxt, list) else [nxt] if nxt else []
+        if str(repair) not in {str(t) for t in targets}:
+            problems.append(f'{fid}: {isolation} → {repair} yolu yok')
+    assert not problems, '\n'.join(problems)
+
+
+check_fault_paths()
 C.zones, C.symptoms, C.faults = ZONES, SYMPTOMS, FAULTS
 C.spare_parts = SPARE_PARTS
 C.write()
