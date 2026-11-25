@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../entities/diagnosis/diagnosis.dart';
 import '../../entities/product/procedure_preview.dart';
 import '../../shared/ui/components.dart';
+import '../../shared/ui/rich_message.dart';
 import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
 
@@ -298,17 +299,10 @@ class _Answer extends StatelessWidget {
 
   static final _citation = RegExp(r'\s*\[DMC-[^\]]+\]');
 
-  /// Modeller ara sıra Markdown yazıyor; düz metinde yıldızlar ve başlık
-  /// işaretleri gürültü.
-  static final _markdown = RegExp(r'\*\*|__|^#{1,6}\s+', multiLine: true);
-
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final text = turn.text
-        .replaceAll(_citation, '')
-        .replaceAll(_markdown, '')
-        .trim();
+    final text = turn.text.replaceAll(_citation, '').trim();
     final productId = this.productId;
     final open = onOpenModule;
     return Column(
@@ -319,19 +313,16 @@ class _Answer extends StatelessWidget {
         if (text.isEmpty && turn.streaming)
           const _Thinking('Yazıyor…')
         else
-          Text.rich(
-            TextSpan(
-              text: text,
-              children: [
-                // Akış sürerken metnin sonunda yanıp sönmeyen ince imleç.
-                if (turn.streaming)
-                  TextSpan(
+          RichMessage(
+            text,
+            style: context.text.body.copyWith(color: c.text),
+            // Akış sürerken metnin sonunda yanıp sönmeyen ince imleç.
+            trailing: turn.streaming
+                ? TextSpan(
                     text: ' ▍',
                     style: TextStyle(color: c.accent),
-                  ),
-              ],
-            ),
-            style: context.text.body.copyWith(color: c.text),
+                  )
+                : null,
           ),
         if (turn.sources.isNotEmpty) ...[
           const SizedBox(height: NayaSpace.md),
@@ -554,7 +545,7 @@ class _AssistantMessage extends StatelessWidget {
           _DangerBanner(danger: danger!),
           const SizedBox(height: NayaSpace.md),
         ],
-        Text(
+        RichMessage(
           text.isEmpty ? _fallback : text,
           style: context.text.body.copyWith(color: c.text),
         ),

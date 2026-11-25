@@ -79,10 +79,10 @@ blender -b --python templates/scripts/render_thumbnail.py -- templates/src/corol
 
 1. Gövde modelindeki seçenekli parçalardan (tampon, ızgara, fren) fabrika çıkışı olanı alır.
 2. Parçaları uygulamanın düğümlerine toplar (`door_fl`, `strut_front`...).
-3. Gövdeyi, kabini ve motor bölmesini birbirine değmeyen parçalarına (adacık) ayırır; her adacık malzemesine ve konumuna göre düğümüne gider: silecekler, koltuklar, gösterge paneli, gösterge kadranı, pedallar, halı, iç döşeme, genleşme kabı, cam suyu deposu, hidrolik direksiyon deposu, radyatör hortumları...
+3. Gövdeyi, kabini ve motor bölmesini birbirine değmeyen parçalarına (adacık) ayırır; her adacık malzemesine ve konumuna göre düğümüne gider: silecekler, koltuklar, gösterge paneli, gösterge kadranı, pedallar, halı, iç döşeme, genleşme kabı, cam suyu deposu, hidrolik direksiyon deposu, radyatör hortumları... Motor bölmesindeki eski egzoz ön borusu atılır: kaynakta tek yüzlü şeritlerden yapılmış, aracın altında iğne demeti gibi görünüyor.
 4. Kabinden görünen boyalı sacın 4 mm içine döşeme renginde bir kopya koyar (tavanda açık renk tavan döşemesi, belin altında koyu döşeme, kapılarda kapı döşemesi); camdan bakınca içerisi kırmızı görünmez.
 5. Eski düşük ayrıntılı motordan yalnız şanzımanı tutar; 1ZZ-FE'yi enine, volanı şanzımana bakacak şekilde yerleştirir.
-6. Kaynakta olmayan parçaları basit biçimlerle yapar: lastik ve jant, egzoz hattı (ön boru, katalitik konvertör, susturucu), yakıt deposu, radyatör fanı, alternatör, marş motoru, klima kompresörü ve kondenseri, tekerlek davlumbazı iç kaplamaları. Göbek kapağını her tekerleğe kopyalar.
+6. Kaynakta olmayan parçaları basit biçimlerle yapar: lastik ve jant, egzoz hattı (ön boru, katalitik konvertör, susturucu), yakıt deposu (taban sacına gömülü, yandan bakınca marşpiyelin altından sarkmaz), radyatör fanı, alternatör, marş motoru, klima kompresörü ve kondenseri, tekerlek davlumbazı iç kaplamaları. Göbek kapağını her tekerleğe kopyalar.
 7. Malzemeleri düğüme ve adlarına göre yeniden renklendirir; kaynakta hiçbir malzemenin rengi yok. glTF temel renkleri doğrusal olduğu ve görüntüleyicide (RoomEnvironment + ACES) açık göründüğü için değerler koyu seçildi.
 
 Motor sadeleştirilmiyor: ince parçalarda sadeleştirme sivri üçgenler bırakıyor. Kaynakta silindir kafasının bir köşesi kafanın çok altında kalmıştı; X-ışınında "V" çiziyordu, betik bu köşeyi siler. Arka disklerin merkezi öndekilerden 2 cm alçak; arka lastiklerin yere giren kısmı basılmış gibi düzlenir.

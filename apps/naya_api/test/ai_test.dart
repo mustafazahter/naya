@@ -216,9 +216,22 @@ void main() {
       final result = record['result']! as Map<String, Object?>;
       expect(result['decision'], 'needsInfo');
       expect(result['candidates'], isEmpty);
-      expect(ai.decisions, hasLength(1));
+      // Soru sorulurken sistem turu da yapılır (modelde bölge parlasın).
+      expect(ai.decisions, hasLength(2));
       final prompt = ai.chats.single.last.content;
       expect(prompt, contains('tek bir soru'));
+      // Soru sorulurken en olası bölge de anlatılsın.
+      expect(prompt, contains('En olası sistemler: '));
+    });
+
+    test('belirti hiçbir sisteme uymuyorsa bölge tahmin edilmez', () async {
+      ai
+        ..vague = true
+        ..unrelated = true;
+      await diagnose('Ekranda garip bir yazı var.');
+      final prompt = ai.chats.single.last.content;
+      expect(prompt, contains('hiçbir sistemiyle açıkça eşleşmedi'));
+      expect(prompt, isNot(contains('En olası sistemler')));
     });
 
     test('Jev\'e giden sistem sorusunda "hiçbiri" var', () async {

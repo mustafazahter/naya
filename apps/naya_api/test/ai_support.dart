@@ -38,6 +38,9 @@ class FakeAi implements AiProvider {
   /// Belirtiler yetmiyor mu?
   bool vague = false;
 
+  /// Belirti hiçbir sisteme uymuyor mu ("hiçbiri" önde)?
+  bool unrelated = false;
+
   @override
   Future<void> checkKey(String apiKey) async {
     checkedKeys.add(apiKey);
@@ -76,7 +79,9 @@ class FakeAi implements AiProvider {
         case 'sufficient':
           yes[key] = vague ? 0.1 : 0.9;
         case 'system':
-          choices[key] = {'drive': 0.85, 'brakes': 0.1, 'none': 0.05};
+          choices[key] = unrelated
+              ? {'none': 0.9, 'drive': 0.05, 'brakes': 0.05}
+              : {'drive': 0.85, 'brakes': 0.1, 'none': 0.05};
         case 'part:drive':
           choices[key] = {
             'drive.chain': 0.8,

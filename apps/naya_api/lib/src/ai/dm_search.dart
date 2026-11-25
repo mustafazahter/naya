@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:drift/drift.dart';
 import 'package:naya_format/naya_format.dart';
 import 'package:naya_s1000d/naya_s1000d.dart';
@@ -76,18 +78,20 @@ class DmSearch {
   }) async {
     final query = ftsQuery(text);
     if (query == null) return const [];
-    final rows = await _db
-        .customSelect(
-          'SELECT dmc, title, body FROM dm_chunks '
-          'WHERE dm_chunks MATCH ? AND library_item_id = ? '
-          'ORDER BY rank LIMIT ?',
-          variables: [
-            Variable.withString(query),
-            Variable.withString(itemId),
-            Variable.withInt(limit),
-          ],
-        )
-        .get();
+    final rows = await _safely(
+      () => _db
+          .customSelect(
+            'SELECT dmc, title, body FROM dm_chunks '
+            'WHERE dm_chunks MATCH ? AND library_item_id = ? '
+            'ORDER BY rank LIMIT ?',
+            variables: [
+              Variable.withString(query),
+              Variable.withString(itemId),
+              Variable.withInt(limit),
+            ],
+          )
+          .get(),
+    );
     return [
       for (final row in rows)
         DmPassage(
@@ -100,13 +104,15 @@ class DmSearch {
 
   /// Belirli DM'lerin parçaları, dosyadaki sırayla.
   Future<List<DmPassage>> passagesOf(String itemId, String dmc) async {
-    final rows = await _db
-        .customSelect(
-          'SELECT dmc, title, body FROM dm_chunks '
-          'WHERE library_item_id = ? AND dmc = ? ORDER BY rowid',
-          variables: [Variable.withString(itemId), Variable.withString(dmc)],
-        )
-        .get();
+    final rows = await _safely(
+      () => _db
+          .customSelect(
+            'SELECT dmc, title, body FROM dm_chunks '
+            'WHERE library_item_id = ? AND dmc = ? ORDER BY rowid',
+            variables: [Variable.withString(itemId), Variable.withString(dmc)],
+          )
+          .get(),
+    );
     return [
       for (final row in rows)
         DmPassage(
@@ -115,6 +121,18 @@ class DmSearch {
           text: row.read<String>('body'),
         ),
     ];
+  }
+
+  /// Dizin okunamazsa (bozuk dosya gibi) istek düşmesin: yapay zekâ
+  /// kaynaksız cevap verir, sorun günlükte görünür. Dizin bir sonraki
+  /// açılışta `NayaDatabase.checkIntegrity` ile onarılır.
+  Future<List<QueryRow>> _safely(Future<List<QueryRow>> Function() read) async {
+    try {
+      return await read();
+    } on Object catch (e) {
+      stderr.writeln('Arama dizini okunamadı: $e');
+      return const [];
+    }
   }
 
   /// Kullanıcının yazdığından FTS5 sorgusu. Her kelime tırnak içine alınır
