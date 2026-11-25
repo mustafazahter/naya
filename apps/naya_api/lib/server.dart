@@ -124,7 +124,7 @@ class NayaApi {
     return pipeline.addHandler(app);
   }
 
-  /// Açılış işleri: admin hesabı, şablonlar, ilk yedek ve günlük
+  /// Açılış işleri: veritabanı denetimi, admin hesabı, şablonlar, ilk yedek ve günlük
   /// zamanlayıcı.
   Future<void> start() async {
     final email = config.adminEmail;
@@ -136,6 +136,18 @@ class NayaApi {
         // Sunucu yine açılsın; sorun günlükte görünür.
         stderr.writeln('Admin hesabı hazırlanamadı: ${e.message}');
       }
+    }
+    final integrity = await db.checkIntegrity();
+    if (integrity.problem != null) {
+      stderr.writeln(
+        'Veritabanı denetimi sorun buldu: ${integrity.problem} '
+        '(yedekler: ${config.backupDir})',
+      );
+    }
+    if (integrity.searchRebuilt) {
+      stderr.writeln(
+        'Arama dizini bozuktu, yeniden kuruluyor: ${integrity.searchProblem}',
+      );
     }
     await importTemplates();
     final indexed = await library.indexMissing();
