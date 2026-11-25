@@ -36,7 +36,8 @@ class NayaColors {
     lineStrong: Color(0xFF343B45),
     text: Color(0xFFECEFF3),
     textSecondary: Color(0xFFA3ABB5),
-    textMuted: Color(0xFF6B737E),
+    // WCAG AA: üç yüzeyde de en az 4,5:1 (6B737E en koyu yüzeyde 3,57'ydi).
+    textMuted: Color(0xFF7C848F),
     platinum: Color(0xFFD5DAE1),
     accent: Color(0xFF8DB8F2),
     accentStrong: Color(0xFF5E95E0),
@@ -56,9 +57,11 @@ class NayaColors {
     lineStrong: Color(0xFFC3CAD3),
     text: Color(0xFF14181E),
     textSecondary: Color(0xFF4A525C),
-    textMuted: Color(0xFF7A828D),
+    // WCAG AA: üç yüzeyde de en az 4,5:1 (7A828D 3,34'tü, 3D74C9 3,97'ydi);
+    // beyaz düğme yazısı da 4,63'ten 5,31'e çıkıyor.
+    textMuted: Color(0xFF646C77),
     platinum: Color(0xFF2B3139),
-    accent: Color(0xFF3D74C9),
+    accent: Color(0xFF336ABF),
     accentStrong: Color(0xFF2D5FAD),
     onAccent: Color(0xFFFFFFFF),
     danger: Color(0xFFC8373D),

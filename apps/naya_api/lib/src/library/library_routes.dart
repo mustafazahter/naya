@@ -69,7 +69,10 @@ class LibraryRoutes {
   Future<Response> _entry(Request request, String id, String path) async {
     final item = await _library.find(id, userOf(request));
     if (item == null) return _missing();
-    if (_notModified(request, item)) return _notModifiedResponse(item);
+    final pinned = _isPinned(request, item);
+    if (_notModified(request, item)) {
+      return _notModifiedResponse(item, pinned: pinned);
+    }
     final entryPath = Uri.decodeComponent(path);
     final bytes = await _library.readEntry(item, entryPath);
     if (bytes == null) return notFound('Dosyada "$entryPath" yok.');
@@ -78,7 +81,7 @@ class LibraryRoutes {
       headers: {
         'content-type': _contentTypeOf(entryPath),
         'content-length': '${bytes.length}',
-        ..._cacheHeaders(item),
+        ..._cacheHeaders(item, pinned: pinned),
         ..._sandboxHeaders,
       },
     );
@@ -172,6 +175,8 @@ class LibraryRoutes {
       'model': manifest['model'],
       'credits': manifest['credits'] ?? const <Object>[],
       'sizeBytes': item.sizeBytes,
+      // İçindeki kayıtların adresine `?v=` olarak eklenir; uzun önbellek.
+      'version': versionOf(item),
       'createdAt': item.createdAt.toUtc().toIso8601String(),
       'updatedAt': item.updatedAt.toUtc().toIso8601String(),
     };
@@ -189,12 +194,27 @@ class LibraryRoutes {
   }
 
   // Dosyanın özeti değişmedikçe içeriği de değişmez; ETag olarak yeterli.
-  static Map<String, String> _cacheHeaders(LibraryItemRow item) => {
+  //
+  // Adreste dosyanın özeti varsa (`?v=`, [versionOf]) o adresin içeriği hiç
+  // değişmez: şablon güncellenince özet, dolayısıyla adres de değişir. Bu
+  // yüzden bir yıl ve `immutable`; tarayıcı ve WebView yeniden sormaz.
+  // Özetsiz ya da eski özetli adres eskisi gibi beş dakika.
+  static Map<String, String> _cacheHeaders(
+    LibraryItemRow item, {
+    bool pinned = false,
+  }) => {
     'etag': '"${item.sha256}"',
-    'cache-control': item.templateKey != null
-        ? 'public, max-age=300'
-        : 'private, max-age=300',
+    'cache-control':
+        '${item.templateKey != null ? 'public' : 'private'}, '
+        '${pinned ? 'max-age=31536000, immutable' : 'max-age=300'}',
   };
+
+  /// Adresteki sürüm: dosya özetinin ilk 16 hanesi. Uygulama kayıt
+  /// adreslerine `?v=` olarak ekler.
+  static String versionOf(LibraryItemRow item) => item.sha256.substring(0, 16);
+
+  static bool _isPinned(Request request, LibraryItemRow item) =>
+      request.url.queryParameters['v'] == versionOf(item);
 
   /// Kayıtlar kullanıcının yüklediği dosyadan geliyor. İçinde betikli bir
   /// SVG ya da XML olabilir; adres doğrudan açılsa bile tarayıcı onu
@@ -208,8 +228,10 @@ class LibraryRoutes {
   static bool _notModified(Request request, LibraryItemRow item) =>
       request.headers['if-none-match'] == '"${item.sha256}"';
 
-  static Response _notModifiedResponse(LibraryItemRow item) =>
-      Response.notModified(headers: _cacheHeaders(item));
+  static Response _notModifiedResponse(
+    LibraryItemRow item, {
+    bool pinned = false,
+  }) => Response.notModified(headers: _cacheHeaders(item, pinned: pinned));
 
   static String _attachment(LibraryItemRow item) {
     final ascii = item.title.replaceAll(RegExp(r'[^A-Za-z0-9 _-]'), '_');

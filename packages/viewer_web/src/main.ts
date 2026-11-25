@@ -141,9 +141,6 @@ const params = new URLSearchParams(location.search);
 if (params.has("embed")) document.body.classList.add("embed");
 
 const model = params.get("model") ?? "./models/bicycle.glb";
-// Android: adres cihazdaki yerel sunucuda kalır, token yalnız modeli
-// isterken başlıkta sunucuya gider.
-viewer.setAuthorization(params.get("auth"));
 // İlerleme her kare değil, yüzde birlik adımlarla gider.
 let sent = -1;
 function progress(fraction: number): void {

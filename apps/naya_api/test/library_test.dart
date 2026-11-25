@@ -264,6 +264,34 @@ void main() {
       );
       expect(second.statusCode, 304);
     });
+
+    test('adreste güncel sürüm varsa bir yıl ve immutable', () async {
+      final item = await readJson(
+        await server.send('GET', '/api/library/$templateId'),
+      );
+      final version = item['version']! as String;
+      expect(version, hasLength(16));
+
+      final pinned = await server.send(
+        'GET',
+        '/api/library/$templateId/entries/map/parts.json?v=$version',
+      );
+      expect(pinned.statusCode, 200);
+      expect(
+        pinned.headers['cache-control'],
+        'public, max-age=31536000, immutable',
+      );
+
+      // Sürümsüz ya da eski sürümlü adres kısa önbellekte kalır; şablon
+      // güncellenince eski adresin içeriği değişmiş olur.
+      for (final query in ['', '?v=0000000000000000']) {
+        final plain = await server.send(
+          'GET',
+          '/api/library/$templateId/entries/map/parts.json$query',
+        );
+        expect(plain.headers['cache-control'], 'public, max-age=300');
+      }
+    });
   });
 
   group('silme', () {
