@@ -136,21 +136,61 @@ void main() {
       expect(systemQuestion.options.keys, contains('none'));
     });
 
-    test('belirti yetmiyorsa önce soru', () async {
+    test('belirti yetmiyorsa önce soru, sistem tahmini yine gelir', () async {
+      final decider = _ScriptedDecider([
+        const DecisionAnswers(
+          choices: {
+            'intent': {'diagnose': 0.8, 'general': 0.2},
+          },
+          yes: {'sufficient': 0.2},
+        ),
+        const DecisionAnswers(
+          choices: {
+            'system': {'drive': 0.6, 'brakes': 0.3, 'none': 0.1},
+          },
+        ),
+      ]);
       final result = await DiagnosisFlow(
         catalog: catalog,
-        decider: _ScriptedDecider([
+        decider: decider,
+      ).run('Bisiklet garip.');
+      expect(result.decision, DiagnosisDecision.needsInfo);
+      expect(result.candidates, isEmpty);
+      // Modelde nereye bakıldığı görünsün diye sistemler döner.
+      expect(result.systems.first.id, 'drive');
+      expect(decider.asked, hasLength(2));
+    });
+
+    test(
+      'soru cevaplandıysa yeterlilik düşük olsa da parçaya geçilir',
+      () async {
+        final decider = _ScriptedDecider([
           const DecisionAnswers(
             choices: {
               'intent': {'diagnose': 0.8, 'general': 0.2},
             },
-            yes: {'sufficient': 0.2},
+            yes: {'sufficient': 0.3},
           ),
-        ]),
-      ).run('Bisiklet garip.');
-      expect(result.decision, DiagnosisDecision.needsInfo);
-      expect(result.candidates, isEmpty);
-    });
+          const DecisionAnswers(
+            choices: {
+              'system': {'drive': 0.8, 'none': 0.2},
+            },
+          ),
+          const DecisionAnswers(
+            choices: {
+              'part:drive': {'drive.chain': 0.9, 'none': 0.1},
+            },
+          ),
+          const DecisionAnswers(choices: {}),
+        ]);
+        final result = await DiagnosisFlow(
+          catalog: catalog,
+          decider: decider,
+        ).run('Zincir sesi geliyor.', earlierMessages: ['Bisiklet garip.']);
+        expect(result.decision, isNot(DiagnosisDecision.needsInfo));
+        expect(result.candidates.first.partId, 'drive.chain');
+      },
+    );
 
     test('teşhis istenmiyorsa durur', () async {
       final result = await DiagnosisFlow(
