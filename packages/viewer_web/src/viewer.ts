@@ -5,7 +5,9 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 
-import { explodeOffsets, groupNodes, type PartsMap } from "./assembly";
+import { groupNodes, type PartsMap } from "./assembly";
+import { makeGrid, planExplode, voxelize } from "./explode";
+import type { CheckedPart } from "./explodeCheck";
 import { Glow, scanBand } from "./glow";
 
 CameraControls.install({ THREE });
@@ -17,6 +19,12 @@ interface Part {
   home: THREE.Vector3;
   /** Parçalara ayırırken gideceği yer, modelin yerel koordinatlarında. */
   away: THREE.Vector3;
+  /**
+   * Ayırma ilerlemesinin (0-1) hangi aralığında hareket ettiği. Dıştaki
+   * parçalar önce kalkar, içtekiler onların açtığı yoldan sonra çıkar.
+   */
+  start: number;
+  end: number;
   glow: Glow;
   /** `normal`: kendi malzemesinin parlayabilen kopyası. */
   meshes: { mesh: THREE.Mesh; normal: THREE.Material | THREE.Material[] }[];
@@ -55,6 +63,14 @@ interface Intro {
 }
 
 const easeOutExpo = (t: number) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
+const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+/** [value] ilerlemesinde parçanın yeri. */
+function pose(part: Part, value: number): void {
+  const span = Math.max(part.end - part.start, 1e-6);
+  const t = easeInOut(THREE.MathUtils.clamp((value - part.start) / span, 0, 1));
+  part.node.position.lerpVectors(part.home, part.away, t);
+}
 
 /**
  * Seçili parça dışındakiler bu "CAD" görünümüne geçer: açık gri, yarı saydam.
@@ -109,6 +125,7 @@ export class NayaViewer {
   private ground: THREE.Mesh | null = null;
   private explodeTarget = 0;
   private explodeValue = 0;
+  private explodeLayers = 0;
   private xray = false;
 
   constructor(private readonly options: ViewerOptions) {
@@ -244,10 +261,32 @@ export class NayaViewer {
   /** Parçalar [amount] kadar açıkken modelin kapladığı kutu. */
   private boxAt(amount: number): THREE.Box3 {
     const now = this.parts.map((p) => p.node.position.clone());
-    for (const part of this.parts) part.node.position.lerpVectors(part.home, part.away, amount);
+    for (const part of this.parts) pose(part, amount);
     const box = new THREE.Box3().setFromObject(this.model!);
     this.parts.forEach((part, i) => part.node.position.copy(now[i]));
     return box;
+  }
+
+  /**
+   * Parçaların toplu yeri, açılmış yeri ve ayırmanın her anındaki kayması.
+   * Geliştirirken `explodeReport()` denetimi kullanır.
+   */
+  explodeTrack(): { level: THREE.Object3D | null; parts: CheckedPart[] } {
+    const level = this.parts[0]?.node.parent ?? null;
+    const parts = this.parts.map((part) => ({
+      id: part.id,
+      node: part.node,
+      home: part.home,
+      away: part.away,
+      offsetAt: (value: number) => {
+        const now = part.node.position.clone();
+        pose(part, value);
+        const offset = part.node.position.clone().sub(part.home);
+        part.node.position.copy(now);
+        return offset;
+      },
+    }));
+    return { level, parts };
   }
 
   setXray(enabled: boolean): void {
@@ -394,14 +433,15 @@ export class NayaViewer {
 
     // Parçalara ayırma yumuşakça hedefe yaklaşır; açılış sürerken parçaları
     // o yönetir.
-    const next = THREE.MathUtils.damp(this.explodeValue, this.explodeTarget, 6, delta);
+    // Katmanlar sırayla oynar; süre katman sayısıyla uzar ama 2,6 sn'yi geçmez.
+    const seconds = THREE.MathUtils.clamp(0.6 + 0.2 * this.explodeLayers, 0.9, 2.6);
+    const gap = this.explodeTarget - this.explodeValue;
+    const next = this.explodeValue + Math.sign(gap) * Math.min(Math.abs(gap), delta / seconds);
     if (this.intro) {
       this.stepIntro();
-    } else if (Math.abs(next - this.explodeValue) > 1e-4) {
+    } else if (Math.abs(gap) > 1e-6) {
       this.explodeValue = next;
-      for (const part of this.parts) {
-        part.node.position.lerpVectors(part.home, part.away, this.explodeValue);
-      }
+      for (const part of this.parts) pose(part, this.explodeValue);
     }
     if (this.scanning) this.stepScan();
     this.renderer.render(this.scene, this.camera);
@@ -437,9 +477,7 @@ export class NayaViewer {
     const intro = this.intro;
     if (!intro) return;
     this.intro = null;
-    for (const part of this.parts) {
-      part.node.position.lerpVectors(part.home, part.away, this.explodeValue);
-    }
+    for (const part of this.parts) pose(part, this.explodeValue);
     this.refreshMaterials();
     intro.done();
   }
@@ -504,36 +542,35 @@ export class NayaViewer {
       level = level.children[0];
     }
 
-    const modelBox = new THREE.Box3().setFromObject(model);
-    const size = modelBox.getSize(new THREE.Vector3()).length();
-    const center = level.worldToLocal(modelBox.getCenter(new THREE.Vector3()));
-
     const nodes = level.children.map((node, i) => ({ id: node.name || `part-${i}`, node }));
-    const boxes = new Map<string, THREE.Box3>();
-    const placed = nodes.map(({ id, node }) => {
+    level.updateWorldMatrix(true, false);
+    const toLocal = level.matrixWorld.clone().invert();
+    const box = new THREE.Box3();
+    for (const { node } of nodes) {
       // Kutuyu modelin yerel koordinatlarına çevir. Üst düğüm döndürülmüş
       // olabilir; sekiz köşeyi ayrı ayrı çevirip yeniden kutu kur.
-      const box = new THREE.Box3().setFromObject(node);
-      const corners = [0, 1, 2, 3, 4, 5, 6, 7].map((i) =>
-        level.worldToLocal(
+      const world = new THREE.Box3().setFromObject(node);
+      for (let i = 0; i < 8; i++) {
+        box.expandByPoint(
           new THREE.Vector3(
-            i & 1 ? box.max.x : box.min.x,
-            i & 2 ? box.max.y : box.min.y,
-            i & 4 ? box.max.z : box.min.z,
-          ),
-        ),
-      );
-      const local = new THREE.Box3().setFromPoints(corners);
-      boxes.set(id, local);
-      return { id, center: local.getCenter(new THREE.Vector3()) };
-    });
-    const offsets = explodeOffsets(
-      placed,
-      groupNodes(map, nodes.map((n) => n.id)),
-      center,
-      size,
-      boxes,
+            i & 1 ? world.max.x : world.min.x,
+            i & 2 ? world.max.y : world.min.y,
+            i & 4 ? world.max.z : world.min.z,
+          ).applyMatrix4(toLocal),
+        );
+      }
+    }
+    const grid = makeGrid(box);
+    const shapes = nodes.map(({ id, node }) => voxelize(id, node, toLocal, grid));
+    const plan = planExplode(
+      grid,
+      shapes,
+      groupNodes(
+        map,
+        nodes.map((n) => n.id),
+      ),
     );
+    this.explodeLayers = plan.layers;
 
     return nodes.map(({ id, node }) => {
       const glow = new Glow(this.glowColor);
@@ -549,8 +586,9 @@ export class NayaViewer {
         meshes.push({ mesh: child, normal });
       });
       const home = node.position.clone();
-      const away = home.clone().add(offsets.get(id)!);
-      return { id, node, home, away, glow, meshes };
+      const { offset, start, end } = plan.stages.get(id)!;
+      const away = home.clone().add(offset);
+      return { id, node, home, away, start, end, glow, meshes };
     });
   }
 

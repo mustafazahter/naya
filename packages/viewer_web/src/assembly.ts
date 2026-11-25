@@ -1,5 +1,3 @@
-import * as THREE from "three";
-
 /** `map/parts.json` içinden viewer'ın kullandığı kısım. */
 export interface PartsMap {
   parts: { id: string; parent?: string; meshNodes?: string[] }[];
@@ -40,73 +38,3 @@ export function groupNodes(map: PartsMap | null, nodes: string[]): Map<string, s
   }
   return groups;
 }
-
-interface Placed {
-  id: string;
-  /** Parçanın merkezi, modelin yerel koordinatlarında. */
-  center: THREE.Vector3;
-}
-
-/**
- * Parçalara ayırırken her parçanın kayacağı yer (yerel koordinatlarda).
- *
- * İki adım: önce her grup modelin merkezinden dışarı kayar, sonra grubun
- * içindeki parçalar grubun merkezinden açılır. Tekerlek gibi iç içe
- * parçaların merkezleri aynı olduğunda açılma yönü grubun en ince yatay ekseni
- * (tekerlekte aks) olur ve parçalar o eksen boyunca sıralanır.
- */
-export function explodeOffsets(
-  parts: Placed[],
-  groups: Map<string, string>,
-  modelCenter: THREE.Vector3,
-  modelSize: number,
-  boxes: Map<string, THREE.Box3>,
-): Map<string, THREE.Vector3> {
-  const members = new Map<string, Placed[]>();
-  for (const part of parts) {
-    const group = groups.get(part.id) ?? part.id;
-    if (!members.has(group)) members.set(group, []);
-    members.get(group)!.push(part);
-  }
-
-  const offsets = new Map<string, THREE.Vector3>();
-  for (const list of members.values()) {
-    const groupBox = new THREE.Box3();
-    for (const p of list) groupBox.union(boxes.get(p.id)!);
-    const groupCenter = groupBox.getCenter(new THREE.Vector3());
-    const groupSize = groupBox.getSize(new THREE.Vector3());
-
-    const out = groupCenter.clone().sub(modelCenter);
-    if (out.lengthSq() < 1e-8) out.set(0, 1, 0);
-    const groupMove = out.clone().normalize().multiplyScalar(out.length() * 0.55 + modelSize * 0.04);
-
-    const thinHorizontal = groupSize.x <= groupSize.z ? new THREE.Vector3(1, 0, 0) : new THREE.Vector3(0, 0, 1);
-    const span = groupSize.length();
-    // İç içe parçalar (merkezi grubun merkezine çok yakın) kendi aralarında
-    // sıralanır. Sıra bütün grubun içinden sayılırsa, çok üyeli bir grupta
-    // (arabanın gövdesi) tek bir iç içe parça metrelerce uzağa kayar.
-    // Sıra parçaların eksen üzerindeki konumuna göre: soldaki sola, sağdaki
-    // sağa açılır. Dosya sırasıyla dizilince sol koltuk sağa, sağ koltuk sola
-    // kayıp üst üste biniyordu.
-    const nested = list
-      .filter((p) => p.center.distanceTo(groupCenter) < span * 0.12)
-      .sort((a, b) => a.center.dot(thinHorizontal) - b.center.dot(thinHorizontal));
-    list.forEach((part) => {
-      const inside = part.center.clone().sub(groupCenter);
-      let move: THREE.Vector3;
-      if (list.length === 1) {
-        move = new THREE.Vector3();
-      } else if (nested.includes(part)) {
-        // İç içe parça: ince yatay eksen boyunca sıraya diz. Dikey eksende
-        // dizilirse kabindeki koltuk tavanı delip yukarı çıkıyordu.
-        const i = nested.indexOf(part);
-        move = thinHorizontal.clone().multiplyScalar((i - (nested.length - 1) / 2) * span * 0.18);
-      } else {
-        move = inside.clone().normalize().multiplyScalar(inside.length() * 0.5 + span * 0.05);
-      }
-      offsets.set(part.id, groupMove.clone().add(move));
-    });
-  }
-  return offsets;
-}
-

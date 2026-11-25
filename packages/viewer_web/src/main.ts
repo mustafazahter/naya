@@ -122,7 +122,16 @@ window.addEventListener("message", (e: MessageEvent<ViewerCommand>) => {
 });
 
 // Geliştirirken tarayıcı konsolundan denemek için.
-if (import.meta.env.DEV) (window as unknown as { viewer: NayaViewer }).viewer = viewer;
+if (import.meta.env.DEV) {
+  const dev = window as unknown as { viewer: NayaViewer; explodeReport: () => Promise<unknown> };
+  dev.viewer = viewer;
+  // Parçalara ayırmada birbirine giren parçaları listeler.
+  dev.explodeReport = async () => {
+    const { explodeReport } = await import("./explodeCheck");
+    const { level, parts } = viewer.explodeTrack();
+    return level ? explodeReport(parts, level) : [];
+  };
+}
 
 const params = new URLSearchParams(location.search);
 // Uygulamanın içinde düğmeleri ve etiketleri Flutter çiziyor.
