@@ -219,6 +219,18 @@ void main() {
       expect(ai.decisions, hasLength(1));
       final prompt = ai.chats.single.last.content;
       expect(prompt, contains('tek bir soru'));
+      // Soru sorulurken en olası bölge de anlatılsın.
+      expect(prompt, contains('En olası sistemler: '));
+    });
+
+    test('belirti hiçbir sisteme uymuyorsa bölge tahmin edilmez', () async {
+      ai
+        ..vague = true
+        ..unrelated = true;
+      await diagnose('Ekranda garip bir yazı var.');
+      final prompt = ai.chats.single.last.content;
+      expect(prompt, contains('hiçbir sistemiyle açıkça eşleşmedi'));
+      expect(prompt, isNot(contains('En olası sistemler')));
     });
 
     test('Jev\'e giden sistem sorusunda "hiçbiri" var', () async {

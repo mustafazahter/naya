@@ -407,7 +407,14 @@ class Assistant {
       'parantezle yaz, örneğin [DMC-...]; bu kodlar kullanıcıya bağlantı '
       'olarak gösterilir, metinde ayrıca anma. Olasılıkları değiştirme; '
       'sana verilen yüzdeleri kullan. Tehlike varsa en başta, sakin ama '
-      'açık söyle.';
+      'açık söyle. "Yardımcı olamıyorum", "üzgünüm" deyip bırakma: emin '
+      'olmasan da belirtinin en olası hangi bölge ya da sistemle ilgili '
+      'olduğunu söyle, dokümanlardaki olası nedenleri ve kullanıcının '
+      'yapabileceği bir iki kontrolü kısaca öner, gerekirse sonra '
+      'netleştirici soruyu sor. Ama teşhis sonucu belirtinin hiçbir sistemle '
+      'eşleşmediğini söylüyorsa ya da anlatılan bu ürünle ilgisizse tahmin '
+      'uydurma: bunun bu üründe bir karşılığı görünmediğini açıkça söyle ve '
+      'neyi kastettiğini sor.';
 
   /// Teşhis sonucunu sohbet modeline anlatan özet ve ondan ne istendiği.
   static String _diagnosisBrief(
@@ -417,6 +424,29 @@ class Assistant {
     String percent(double p) => '%${(p * 100).round()}';
     String name(String partId) => catalog.part(partId)?.name ?? partId;
     final lines = <String>['Teşhis sonucu:'];
+    // Parça seçilemese de sistem tahmini varsa söylenir: yapay zekâ en
+    // azından hangi bölgeye bakılacağını anlatabilsin.
+    // "Hiçbiri" öndeyse ya da en olası sistem bile zayıfsa bölge söylenmez;
+    // yapay zekâ zorla tahmin uydurmasın.
+    final noneFirst =
+        result.systems.isNotEmpty &&
+        result.systems.first.id == DiagnosisFlow.none;
+    final systems = [
+      for (final s in result.systems)
+        if (s.id != DiagnosisFlow.none && s.probability >= 0.15) s,
+    ];
+    final weak = systems.isEmpty || systems.first.probability < 0.3;
+    if (noneFirst || (result.systems.isNotEmpty && weak)) {
+      lines.add(
+        'Belirti bu ürünün hiçbir sistemiyle açıkça eşleşmedi; bölge ya da '
+        'neden tahmin etme.',
+      );
+    } else if (systems.isNotEmpty) {
+      lines.add(
+        'En olası sistemler: '
+        '${systems.take(3).map((s) => '${name(s.id)} ${percent(s.probability)}').join(', ')}',
+      );
+    }
     for (final c in result.candidates.take(3)) {
       lines.add('- ${name(c.partId)}: ${percent(c.probability)}');
     }
@@ -441,13 +471,17 @@ class Assistant {
         'En olası parçayı, nedenini ve ne yapılması gerektiğini birkaç '
             'cümleyle anlat.',
       DiagnosisDecision.ambiguous || DiagnosisDecision.uncertain =>
-        'Sonuç kesin değil. Adayları kısaca söyle ve aralarında ayırt etmek '
-            'için kullanıcıya tek bir netleştirici soru sor.',
+        'Sonuç kesin değil. Adayları ya da en olası bölgeyi kısaca söyle, '
+            'dokümanlardaki olası nedenleri ve yapılabilecek bir iki kontrolü '
+            'öner, sonra aralarında ayırt etmek için tek bir netleştirici '
+            'soru sor.',
       DiagnosisDecision.needsInfo =>
-        'Anlatılanlar teşhis için henüz yetmiyor. Önce bir cümleyle neye '
-            'benzediğini söyle, sonra sorunu netleştirmek için kullanıcıya '
-            'tek bir soru sor (ne zaman oluyor, nereden ses geliyor gibi); '
-            'soruyu doğrudan sor, "tek soru" gibi bir başlık koyma.',
+        'Anlatılanlar teşhis için henüz yetmiyor. Önce belirtinin en olası '
+            'hangi bölge ya da sistemle ilgili olduğunu ve dokümanlara göre '
+            'olası nedenlerini bir iki cümleyle söyle, sonra sorunu '
+            'netleştirmek için kullanıcıya tek bir soru sor (ne zaman oluyor, '
+            'nereden ses geliyor gibi); soruyu doğrudan sor, "tek soru" gibi '
+            'bir başlık koyma.',
       DiagnosisDecision.notDiagnosis =>
         'Kullanıcı bir arıza anlatmıyor; sorusunu dokümana dayanarak '
             'cevapla.',
