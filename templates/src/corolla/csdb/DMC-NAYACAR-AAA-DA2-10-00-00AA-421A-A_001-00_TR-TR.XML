@@ -42,16 +42,27 @@
             <isolationStep id="stp-0003">
               <action>Debriyaj hidroliği deposunun seviyesini kontrol edin.</action>
               <isolationStepQuestion>Seviye düşük mü?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-hydraulic"/><noAnswer nextActionRefId="end-clutch"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-hydraulic"/><noAnswer nextActionRefId="stp-0005"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0004">
               <action>Şanzıman yağı seviyesini kontrol edin.</action>
               <isolationStepQuestion>Seviye düşük mü?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-oil"/><noAnswer nextActionRefId="end-shop"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-oil"/><noAnswer nextActionRefId="stp-0006"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
-            <isolationProcedureEnd id="end-clutch"><action>Debriyaj balatası aşınmış ya da ayarsız; debriyaj setinin değişimi için yetkili servise başvurun.</action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-hydraulic"><action>Hidrolik kaçağını bulun, hidroliği tamamlayın ve havasını alın.</action></isolationProcedureEnd>
+            <isolationStep id="stp-0005">
+              <action>Debriyaj pedalının serbest boşluğunu ölçün.</action>
+              <isolationStepQuestion>Pedal 5-15 mm boşluktan sonra direnç göstermiyor ya da yavaşça yere iniyor mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-hydraulic"/><noAnswer nextActionRefId="end-clutch"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0006">
+              <action>Vites kolunu boşta sağa sola oynatın.</action>
+              <isolationStepQuestion>Kolda fazla boşluk var ya da vitesler belirsiz mi?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-linkage"/><noAnswer nextActionRefId="end-shop"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationProcedureEnd id="end-clutch"><action>Debriyaj balatası aşınmış ya da baskı zayıf; debriyaj setini değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA2" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-hydraulic"><action>Kaçak yapan ana ya da tali merkezi değiştirin, sonra havasını alın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA2" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-oil"><action>Şanzıman yağını tamamlayın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA2" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-linkage"><action>Vites kolu burçlarını ve kumanda tellerini kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA2" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-shop"><action>Senkromeç aşınmış olabilir; yetkili servise başvurun.</action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

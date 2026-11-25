@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYACAR-AAA-D000000-0-NAYA0-00002-A-001-01 SYSTEM "ICN-NAYACAR-AAA-D000000-0-NAYA0-00002-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="9" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Emisyon kontrolü</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Karter havalandırması (PCV): karterde biriken gazlar PCV valfi üzerinden emme manifolduna çekilip yakılır.</para>
+        <para>Yakıt buharı kontrolü (EVAP): depodaki benzin buharı aktif karbon kanisterinde tutulur; motor çalışırken boşaltma valfi (VSV) açılır ve buhar emmeye çekilir.</para>
+        <para>Üç yollu katalitik konvertör CO, HC ve NOx'i zararsız gazlara çevirir. Konvertörün önündeki ve arkasındaki oksijen sensörleriyle motor beyni karışımı ve konvertörün verimini izler.</para>
+        <para>1ZZ-FE'de egzoz gazı geri dönüş (EGR) valfi yoktur; NOx, supap zamanlaması ve konvertörle düşürülür.</para>
+      </levelledPara>
+      <figure id="fig-0002"><title>Motor bölmesi</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure>
+    </description>
+  </content>
+</dmodule>

@@ -259,13 +259,19 @@ void main() {
     test('sistemler', () {
       expect(corolla.systems.map((s) => s.id), [
         'body',
+        'interior',
         'engine',
         'cooling',
-        'battery',
+        'fuel',
+        'exhaust',
+        'ignition',
+        'engine_control',
+        'electrical',
+        'lighting',
+        'hvac',
         'drivetrain',
         'brakes',
         'chassis',
-        'exhaust',
         'wheels',
       ]);
     });
@@ -304,6 +310,40 @@ void main() {
       expect(result.top!.partId, 'brakes.front.pads');
       expect(result.fault!.id, 'f.pads.worn');
       expect(result.procedure, 'DMC-NAYACAR-AAA-DA3-10-00-00AA-921A-A');
+    });
+
+    test('trafikte hararet: radyatör fanı ve fan değişimi', () async {
+      final result = await DiagnosisFlow(
+        catalog: corolla,
+        decider: _ScriptedDecider([
+          _diagnose,
+          const DecisionAnswers(
+            choices: {
+              'system': {'cooling': 0.8, 'engine': 0.1, 'none': 0.1},
+            },
+          ),
+          const DecisionAnswers(
+            choices: {
+              'part:cooling': {
+                'cooling.fan': 0.7,
+                'cooling.thermostat': 0.2,
+                'none': 0.1,
+              },
+            },
+          ),
+          const DecisionAnswers(
+            choices: {
+              'fault': {'f.fan.inoperative': 0.8, 'none': 0.2},
+            },
+            yes: {'danger': 0.6},
+          ),
+        ]),
+      ).run('Trafikte hararet yükseliyor, yolda düzeliyor.');
+
+      expect(result.decision, DiagnosisDecision.focus);
+      expect(result.top!.partId, 'cooling.fan');
+      expect(result.fault!.id, 'f.fan.inoperative');
+      expect(result.procedure, 'DMC-NAYACAR-AAA-DA1-40-00-05AA-920A-A');
     });
   });
   group('Leopard 2A6 kataloğu', () {

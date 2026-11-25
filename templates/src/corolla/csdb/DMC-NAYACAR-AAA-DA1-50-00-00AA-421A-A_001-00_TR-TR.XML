@@ -37,17 +37,23 @@
             <isolationStep id="stp-0002">
               <action>Devri değiştirmeyen silindirin bobinini başka bir silindirinkiyle yer değiştirin.</action>
               <isolationStepQuestion>Tekleme bobinle birlikte yer değiştirdi mi?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-coil"/><noAnswer nextActionRefId="end-plug"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-coil"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0003">
               <action>Hava filtresini çıkarın ve kontrol edin.</action>
               <isolationStepQuestion>Filtre çok kirli mi?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-filter"/><noAnswer nextActionRefId="end-shop"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-filter"/><noAnswer nextActionRefId="end-mil"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
-            <isolationProcedureEnd id="end-coil"><action>Ateşleme bobini arızalı; bobini değiştirin.</action></isolationProcedureEnd>
+            <isolationStep id="stp-0004">
+              <action>O silindirin bujisini söküp bakın.</action>
+              <isolationStepQuestion>Buji aşınmış, islenmiş ya da yağlanmış mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-plug"/><noAnswer nextActionRefId="end-injector"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationProcedureEnd id="end-coil"><action>Ateşleme bobini arızalı; bobini değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-plug"><action>Bujiyi değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-injector"><action>Kıvılcım sağlam: o silindirin enjektörünü ve kompresyonunu kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="7" subSubSystemCode="0" assyCode="00" disassyCode="02" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-filter"><action>Hava filtresini değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="6" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-shop"><action>Enjektör, yakıt basıncı ya da sensör arızası olabilir; arıza kodlarını okutmak için yetkili servise başvurun.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-mil"><action>Tekleme belirli bir silindirde değil: arıza kodlarını okuyun. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="8" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="421" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
         </isolationProcedure>

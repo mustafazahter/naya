@@ -31,13 +31,9 @@
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Motor yağı seviyesini kontrol edin. Her 10 000 km'de ya da yılda bir yağı ve filtreyi değiştirin.</para></proceduralStep>
-        <proceduralStep><para>Soğutma suyu seviyesini genleşme kabındaki FULL ve LOW çizgileri arasında tutun.</para></proceduralStep>
-        <proceduralStep><para>Fren hidroliği seviyesini ve balata kalınlığını kontrol edin.</para></proceduralStep>
-        <proceduralStep><para>Lastik basınçlarını ve diş derinliğini ölçün.</para></proceduralStep>
-        <proceduralStep><para>Akünün kutup başlarında oksitlenme olup olmadığına bakın.</para></proceduralStep>
-        <proceduralStep><para>Farları, stop lambalarını ve sinyalleri yakarak kontrol edin.</para></proceduralStep>
-        <proceduralStep><para>Her 40 000 km'de hava filtresini, her 100 000 km'de bujileri değiştirin.</para></proceduralStep>
+        <proceduralStep><title>Her 10 000 km'de ya da yılda bir</title><proceduralStep><para>Motor yağını ve yağ filtresini değiştirin.</para></proceduralStep><proceduralStep><para>Soğutma suyu, fren hidroliği, direksiyon yağı ve cam suyu seviyelerini kontrol edin.</para></proceduralStep><proceduralStep><para>Lastik basınçlarını, diş derinliğini ve balata kalınlığını kontrol edin; lastikleri çapraz değiştirin.</para></proceduralStep><proceduralStep><para>Akü kutup başlarını, kayışı ve hortumları gözden geçirin.</para></proceduralStep><proceduralStep><para>Bütün lambaları, korna ve silecekleri çalıştırarak deneyin.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Her 40 000 km'de</title><proceduralStep><para>Hava filtresini değiştirin.</para></proceduralStep><proceduralStep><para>Şanzıman yağını, aks mili körüklerini ve süspansiyon burçlarını kontrol edin.</para></proceduralStep><proceduralStep><para>Fren hidroliğini değiştirin (en geç iki yılda bir).</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Her 100 000 km'de</title><proceduralStep><para>İridyum bujileri değiştirin.</para></proceduralStep><proceduralStep><para>Supap boşluğunu kontrol edin.</para></proceduralStep><proceduralStep><para>Soğutma suyunu değiştirin (her 40 000 km'de ya da iki yılda bir).</para></proceduralStep></proceduralStep>
       </mainProcedure>
       <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
     </procedure>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dmodule [
 <!NOTATION JPEG SYSTEM "JPEG">
-<!ENTITY ICN-NAYACAR-AAA-D000000-0-NAYA0-00002-A-001-01 SYSTEM "ICN-NAYACAR-AAA-D000000-0-NAYA0-00002-A-001-01.JPG" NDATA JPEG>
+<!ENTITY ICN-NAYACAR-AAA-D000000-0-NAYA0-00010-A-001-01 SYSTEM "ICN-NAYACAR-AAA-D000000-0-NAYA0-00010-A-001-01.JPG" NDATA JPEG>
 ]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
@@ -35,7 +35,7 @@
         <reqSafety><safetyRqmts><warning><warningAndCautionPara>Motor sıcakken radyatör kapağını açmayın; basınçlı sıcak su fışkırabilir.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Motor soğukken genleşme kabındaki seviyenin FULL ve LOW çizgileri arasında olduğunu kontrol edin.</para><figure id="fig-0002"><title>Motor bölmesi</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00002-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Motor soğukken genleşme kabındaki seviyenin FULL ve LOW çizgileri arasında olduğunu kontrol edin.</para><figure id="fig-0010"><title>Soğutma sistemi: radyatör, fan ve hortumlar</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00010-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Radyatörü, hortumları ve su pompası çevresini kaçak ve beyaz tortu izine karşı kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Hortumları elle sıkın; sertleşmiş, çatlamış ya da şişmiş hortumu değiştirin.</para></proceduralStep>
         <proceduralStep><para>Radyatör peteklerinin önünü kapatan yaprak ve böcekleri temizleyin.</para></proceduralStep>

@@ -9,20 +9,56 @@
       "text": "Marş ağır dönüyor"
     },
     {
+      "id": "sym.click_no_crank",
+      "text": "Marşa basınca yalnız tık sesi geliyor"
+    },
+    {
+      "id": "sym.cranks_no_start",
+      "text": "Marş dönüyor ama motor ateş almıyor"
+    },
+    {
+      "id": "sym.hard_start_hot",
+      "text": "Motor sıcakken zor çalışıyor"
+    },
+    {
+      "id": "sym.hard_start_cold",
+      "text": "Motor soğukken zor çalışıyor"
+    },
+    {
+      "id": "sym.stall",
+      "text": "Motor seyir halinde ya da durunca stop ediyor"
+    },
+    {
       "id": "sym.misfire",
       "text": "Motor tekliyor ya da rölantide titriyor"
+    },
+    {
+      "id": "sym.rough_idle",
+      "text": "Rölanti devri dalgalı, çok yüksek ya da çok düşük"
     },
     {
       "id": "sym.power_loss",
       "text": "Motor çekmiyor, hızlanmıyor"
     },
     {
-      "id": "sym.overheat",
-      "text": "Hararet göstergesi yükseliyor"
+      "id": "sym.hesitation",
+      "text": "Gaza basınca motor bir an duraksıyor"
     },
     {
-      "id": "sym.coolant_loss",
-      "text": "Soğutma suyu eksiliyor"
+      "id": "sym.fuel_consumption",
+      "text": "Yakıt tüketimi arttı"
+    },
+    {
+      "id": "sym.mil",
+      "text": "Motor arıza lambası yanıyor"
+    },
+    {
+      "id": "sym.fuel_smell",
+      "text": "Benzin kokusu geliyor"
+    },
+    {
+      "id": "sym.black_smoke",
+      "text": "Egzozdan siyah duman çıkıyor"
     },
     {
       "id": "sym.white_smoke",
@@ -33,6 +69,22 @@
       "text": "Egzozdan mavi duman çıkıyor, motor yağ eksiltiyor"
     },
     {
+      "id": "sym.engine_rattle",
+      "text": "Soğuk çalıştırmada motordan şıkırtı geliyor"
+    },
+    {
+      "id": "sym.valve_tick",
+      "text": "Motorun üstünden devirle hızlanan tıkırtı geliyor"
+    },
+    {
+      "id": "sym.engine_vibration",
+      "text": "Motor rölantide gövdeyi titretiyor; vites değiştirirken vuruyor"
+    },
+    {
+      "id": "sym.belt_squeal",
+      "text": "Motorun önünden kayış ötmesi geliyor"
+    },
+    {
       "id": "sym.oil_light",
       "text": "Yağ lambası yanıyor"
     },
@@ -41,20 +93,60 @@
       "text": "Aracın altına yağ damlıyor"
     },
     {
-      "id": "sym.engine_rattle",
-      "text": "Soğuk çalıştırmada motordan şıkırtı geliyor"
+      "id": "sym.burning_oil_smell",
+      "text": "Kaputun altından yanık yağ kokusu geliyor"
+    },
+    {
+      "id": "sym.overheat",
+      "text": "Hararet göstergesi yükseliyor"
+    },
+    {
+      "id": "sym.overheat_idle",
+      "text": "Trafikte ve rölantide hararet yapıyor, yolda düzeliyor"
+    },
+    {
+      "id": "sym.coolant_loss",
+      "text": "Soğutma suyu eksiliyor"
+    },
+    {
+      "id": "sym.slow_warmup",
+      "text": "Motor geç ısınıyor, hararet göstergesi düşük kalıyor"
+    },
+    {
+      "id": "sym.heater_cold",
+      "text": "Kalorifer ısıtmıyor"
     },
     {
       "id": "sym.exhaust_noise",
       "text": "Egzozdan yüksek ya da üfleme sesi geliyor"
     },
     {
+      "id": "sym.manifold_tick",
+      "text": "Soğukken motordan ısınınca azalan tik tik sesi geliyor"
+    },
+    {
+      "id": "sym.rotten_egg",
+      "text": "Egzozdan çürük yumurta kokusu geliyor"
+    },
+    {
+      "id": "sym.underbody_rattle",
+      "text": "Aracın altından tıngırtı geliyor"
+    },
+    {
       "id": "sym.clutch_slip",
       "text": "Gaza basınca devir yükseliyor ama araç hızlanmıyor"
     },
     {
+      "id": "sym.clutch_pedal",
+      "text": "Debriyaj pedalı yere iniyor ya da süngerimsi"
+    },
+    {
       "id": "sym.hard_shift",
       "text": "Vites zor geçiyor ya da cızırdıyor"
+    },
+    {
+      "id": "sym.vague_shift",
+      "text": "Vites kolu boşluklu, vitesler belirsiz"
     },
     {
       "id": "sym.turn_click",
@@ -77,6 +169,26 @@
       "text": "Fren pedalı çok sert"
     },
     {
+      "id": "sym.pedal_soft",
+      "text": "Fren pedalı yumuşak ya da yavaşça yere iniyor"
+    },
+    {
+      "id": "sym.brake_pull",
+      "text": "Frenlerken araç bir yana çekiyor"
+    },
+    {
+      "id": "sym.hot_wheel",
+      "text": "Bir tekerlek aşırı ısınıyor, yanık kokusu geliyor"
+    },
+    {
+      "id": "sym.handbrake",
+      "text": "El freni tutmuyor ya da kol çok yukarı çıkıyor"
+    },
+    {
+      "id": "sym.brake_fluid_low",
+      "text": "Fren hidroliği eksiliyor"
+    },
+    {
       "id": "sym.bounce",
       "text": "Araç tümseklerde fazla zıplıyor"
     },
@@ -85,8 +197,20 @@
       "text": "Tümseklerde önden vuruntu sesi geliyor"
     },
     {
+      "id": "sym.rear_knock",
+      "text": "Tümseklerde arkadan vuruntu sesi geliyor"
+    },
+    {
+      "id": "sym.rattle_bumps",
+      "text": "Bozuk yolda önden takırtı geliyor"
+    },
+    {
       "id": "sym.pull",
       "text": "Araç bir yana çekiyor"
+    },
+    {
+      "id": "sym.wander",
+      "text": "Direksiyon boşluklu, araç yolda yalpalıyor"
     },
     {
       "id": "sym.tire_wear",
@@ -101,67 +225,143 @@
       "text": "Belli bir hızda direksiyon titriyor"
     },
     {
+      "id": "sym.wheel_hum",
+      "text": "Tekerlekten hızla artan uğultu geliyor"
+    },
+    {
+      "id": "sym.heavy_steering",
+      "text": "Direksiyon ağır dönüyor"
+    },
+    {
+      "id": "sym.steering_whine",
+      "text": "Direksiyon çevrilirken inilti geliyor"
+    },
+    {
+      "id": "sym.ps_fluid_low",
+      "text": "Direksiyon yağı eksiliyor, aracın önünde kırmızımsı yağ lekesi var"
+    },
+    {
+      "id": "sym.heavy_at_idle",
+      "text": "Direksiyon rölantide ağır, devir artınca hafifliyor"
+    },
+    {
       "id": "sym.dim_lights",
       "text": "Farlar sönük yanıyor"
+    },
+    {
+      "id": "sym.battery_light",
+      "text": "Şarj lambası yanıyor"
+    },
+    {
+      "id": "sym.battery_drain",
+      "text": "Akü sık sık boşalıyor"
+    },
+    {
+      "id": "sym.bulbs_blow",
+      "text": "Ampuller sık sık yanıyor"
     },
     {
       "id": "sym.headlight_out",
       "text": "Farlardan biri yanmıyor"
     },
     {
+      "id": "sym.brake_light",
+      "text": "Stop lambaları yanmıyor ya da sürekli yanıyor"
+    },
+    {
+      "id": "sym.turn_fast",
+      "text": "Sinyal hızlı çakıyor ya da hiç çakmıyor"
+    },
+    {
+      "id": "sym.fog_out",
+      "text": "Sis lambası yanmıyor ya da içine su girmiş"
+    },
+    {
+      "id": "sym.circuit_dead",
+      "text": "Bir elektrikli donanım hiç çalışmıyor"
+    },
+    {
+      "id": "sym.intermittent",
+      "text": "Elektrikli donanımlar ara sıra kesiliyor"
+    },
+    {
+      "id": "sym.horn",
+      "text": "Korna çalmıyor"
+    },
+    {
+      "id": "sym.gauges",
+      "text": "Göstergeler çalışmıyor ya da yanlış gösteriyor"
+    },
+    {
+      "id": "sym.window",
+      "text": "Elektrikli cam inip kalkmıyor ya da yavaş gidiyor"
+    },
+    {
+      "id": "sym.door_lock",
+      "text": "Kapı merkezi kilitle kilitlenmiyor"
+    },
+    {
       "id": "sym.wiper_streak",
       "text": "Silecekler camda iz bırakıyor"
+    },
+    {
+      "id": "sym.wiper_dead",
+      "text": "Silecekler çalışmıyor ya da yerine dönmüyor"
+    },
+    {
+      "id": "sym.washer",
+      "text": "Cam suyu fışkırmıyor"
+    },
+    {
+      "id": "sym.water_leak",
+      "text": "Kapı kenarından içeri su giriyor"
+    },
+    {
+      "id": "sym.windshield_crack",
+      "text": "Ön camda çatlak ya da taş izi var"
+    },
+    {
+      "id": "sym.hood",
+      "text": "Kaput açılmıyor ya da tam kapanmıyor"
+    },
+    {
+      "id": "sym.mirror",
+      "text": "Dış ayna camı kırık ya da gevşek"
+    },
+    {
+      "id": "sym.rust",
+      "text": "Kapı altlarında ve davlumbazlarda pas var"
+    },
+    {
+      "id": "sym.belt",
+      "text": "Emniyet kemeri sarmıyor ya da kilitlenmiyor"
+    },
+    {
+      "id": "sym.seat",
+      "text": "Sürücü koltuğu kaymıyor ya da kilitlenmiyor"
+    },
+    {
+      "id": "sym.srs",
+      "text": "SRS lambası yanık kalıyor"
+    },
+    {
+      "id": "sym.ac_warm",
+      "text": "Klima soğutmuyor"
+    },
+    {
+      "id": "sym.ac_noise",
+      "text": "Klima açılınca motordan ses geliyor"
+    },
+    {
+      "id": "sym.blower",
+      "text": "Kalorifer fanı çalışmıyor ya da yalnız en yüksek kademede çalışıyor"
+    },
+    {
+      "id": "sym.fogging",
+      "text": "Camlar buğulanıyor, içeride tatlı bir koku var"
     }
   ],
   "faults": [
-    {
-      "id": "f.battery.flat",
-      "part": "battery",
-      "symptoms": [
-        "sym.no_start",
-        "sym.slow_crank",
-        "sym.dim_lights"
-      ],
-      "cause": "Akü boşalmış ya da ömrünü doldurmuş.",
-      "severity": 2,
-      "isolation": "DMC-NAYACAR-AAA-DA6-10-00-00AA-300A-A",
-      "repair": "DMC-NAYACAR-AAA-DA6-10-00-00AA-920A-A"
-    },
-    {
-      "id": "f.plugs.worn",
-      "part": "engine.spark_plugs",
-      "symptoms": [
-        "sym.misfire",
-        "sym.power_loss"
-      ],
-      "cause": "Bujilerin elektrotları aşınmış ya da islenmiş; kıvılcım zayıf.",
-      "severity": 1,
-      "isolation": "DMC-NAYACAR-AAA-DA1-50-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA1-50-00-00AA-920A-A"
-    },
-    {
-      "id": "f.coils.failed",
-      "part": "engine.coils",
-      "symptoms": [
-        "sym.misfire",
-        "sym.power_loss"
-      ],
-      "cause": "Bir ateşleme bobini arızalı; o silindir çalışmıyor.",
-      "severity": 2,
-      "isolation": "DMC-NAYACAR-AAA-DA1-50-00-00AA-421A-A"
-    },
-    {
-      "id": "f.air_filter.clogged",
-      "part": "engine.air_filter",
-      "symptoms": [
-        "sym.power_loss",
-        "sym.misfire"
-      ],
-      "cause": "Hava filtresi tıkanmış; motor yeterince hava alamıyor.",
-      "severity": 1,
-      "isolation": "DMC-NAYACAR-AAA-DA1-50-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA1-60-00-00AA-920A-A"
-    },
     {
       "id": "f.head_gasket.blown",
       "part": "engine.head_gasket",
@@ -187,6 +387,135 @@
       "isolation": "DMC-NAYACAR-AAA-DA1-10-00-00AA-361A-A"
     },
     {
+      "id": "f.timing_chain.stretched",
+      "part": "engine.timing_chain",
+      "symptoms": [
+        "sym.engine_rattle",
+        "sym.power_loss"
+      ],
+      "cause": "Triger zinciri uzamış ya da gergisi yağ basıncını tutamıyor. Zincir atlarsa supaplar pistonlara çarpar.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA1-20-00-00AA-300A-A"
+    },
+    {
+      "id": "f.valves.clearance",
+      "part": "engine.valves",
+      "symptoms": [
+        "sym.valve_tick",
+        "sym.rough_idle"
+      ],
+      "cause": "Supap boşluğu açılmış ya da kapanmış; supap ya tıkırdıyor ya da tam kapanmıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-10-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-10-00-00AA-271A-A"
+    },
+    {
+      "id": "f.head_cover.gasket",
+      "part": "engine.head_cover",
+      "symptoms": [
+        "sym.oil_leak",
+        "sym.burning_oil_smell"
+      ],
+      "cause": "Supap kapağı contası sertleşmiş; yağ egzoz manifolduna damlıyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-30-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-10-00-01AA-920A-A"
+    },
+    {
+      "id": "f.crank_seal.leak",
+      "part": "engine.timing_cover",
+      "symptoms": [
+        "sym.oil_leak"
+      ],
+      "cause": "Ön krank keçesi sızdırıyor; yağ kasnağın arkasından damlıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-30-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-20-00-00AA-920A-A"
+    },
+    {
+      "id": "f.mounts.worn",
+      "part": "engine.mounts",
+      "symptoms": [
+        "sym.engine_vibration"
+      ],
+      "cause": "Motor takozunun lastiği yırtılmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-10-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-00-00-00AA-920A-A"
+    },
+    {
+      "id": "f.drive_belt.worn",
+      "part": "engine.drive_belt",
+      "symptoms": [
+        "sym.belt_squeal",
+        "sym.battery_light"
+      ],
+      "cause": "Aksesuar kayışı gevşemiş ya da kanalları çatlamış.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA6-30-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-00-00-01AA-920A-A"
+    },
+    {
+      "id": "f.oil.low",
+      "part": "engine.oil_pan",
+      "symptoms": [
+        "sym.oil_light",
+        "sym.oil_leak",
+        "sym.engine_rattle"
+      ],
+      "cause": "Motor yağı eksik ya da yağ değişimi gecikmiş; karter tapasından ya da contasından sızıntı olabilir.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA1-30-00-00AA-300A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-30-00-00AA-241A-A"
+    },
+    {
+      "id": "f.oil_pump.worn",
+      "part": "engine.oil_pump",
+      "symptoms": [
+        "sym.oil_light",
+        "sym.engine_rattle"
+      ],
+      "cause": "Yağ pompası aşınmış ya da emiş süzgeci tıkanmış; yağ basıncı düşük.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA1-30-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-30-00-01AA-920A-A"
+    },
+    {
+      "id": "f.oil_switch.faulty",
+      "part": "engine.oil_pressure_switch",
+      "symptoms": [
+        "sym.oil_light"
+      ],
+      "cause": "Yağ basınç müşiri arızalı; basınç yeterliyken lamba yanıyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-30-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-30-00-00AA-920A-A"
+    },
+    {
+      "id": "f.intake.gasket",
+      "part": "engine.intake",
+      "symptoms": [
+        "sym.rough_idle",
+        "sym.mil"
+      ],
+      "cause": "Emme manifoldu contası hava kaçırıyor; karışım fakirleşiyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-01AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-60-00-01AA-920A-A"
+    },
+    {
+      "id": "f.exhaust_manifold.leak",
+      "part": "engine.exhaust_manifold",
+      "symptoms": [
+        "sym.manifold_tick",
+        "sym.exhaust_noise"
+      ],
+      "cause": "Egzoz manifoldu contası üflüyor ya da manifold çatlamış.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-60-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-60-00-02AA-920A-A"
+    },
+    {
       "id": "f.water_pump.leak",
       "part": "engine.water_pump",
       "symptoms": [
@@ -204,44 +533,685 @@
       "symptoms": [
         "sym.overheat"
       ],
-      "cause": "Radyatör petekleri tıkanmış ya da fan çalışmıyor.",
+      "cause": "Radyatör petekleri içeriden tortuyla ya da dışarıdan kirle tıkanmış.",
       "severity": 2,
       "isolation": "DMC-NAYACAR-AAA-DA1-40-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA1-40-00-00AA-300A-A"
+      "repair": "DMC-NAYACAR-AAA-DA1-40-00-03AA-920A-A"
     },
     {
-      "id": "f.oil.low",
-      "part": "engine.oil_pan",
+      "id": "f.radiator_cap.faulty",
+      "part": "cooling.radiator",
       "symptoms": [
-        "sym.oil_light",
-        "sym.oil_leak",
-        "sym.engine_rattle"
+        "sym.coolant_loss",
+        "sym.overheat"
       ],
-      "cause": "Motor yağı eksik ya da yağ değişimi gecikmiş; karter tapasından ya da contasından sızıntı olabilir.",
-      "severity": 3,
-      "isolation": "DMC-NAYACAR-AAA-DA1-30-00-00AA-300A-A",
-      "repair": "DMC-NAYACAR-AAA-DA1-30-00-00AA-241A-A"
+      "cause": "Radyatör kapağı basınç tutmuyor; su kaynayıp genleşme kabından taşıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-40-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-40-00-04AA-920A-A"
     },
     {
-      "id": "f.timing_chain.stretched",
-      "part": "engine.timing_chain",
+      "id": "f.fan.inoperative",
+      "part": "cooling.fan",
       "symptoms": [
-        "sym.engine_rattle",
-        "sym.power_loss"
+        "sym.overheat_idle"
       ],
-      "cause": "Triger zinciri uzamış ya da gergisi yağ basıncını tutamıyor. Zincir atlarsa supaplar pistonlara çarpar.",
+      "cause": "Radyatör fanı, rölesi ya da fan müşiri arızalı; fan devreye girmiyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-40-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-40-00-05AA-920A-A"
+    },
+    {
+      "id": "f.hoses.cracked",
+      "part": "cooling.hoses",
+      "symptoms": [
+        "sym.coolant_loss",
+        "sym.overheat"
+      ],
+      "cause": "Radyatör hortumu çatlamış ya da kelepçesi gevşemiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-40-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-40-00-02AA-920A-A"
+    },
+    {
+      "id": "f.thermostat.stuck_open",
+      "part": "cooling.thermostat",
+      "symptoms": [
+        "sym.slow_warmup",
+        "sym.heater_cold",
+        "sym.fuel_consumption"
+      ],
+      "cause": "Termostat açık kalmış; motor çalışma sıcaklığına gelmiyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-40-00-01AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-40-00-01AA-920A-A"
+    },
+    {
+      "id": "f.thermostat.stuck_closed",
+      "part": "cooling.thermostat",
+      "symptoms": [
+        "sym.overheat"
+      ],
+      "cause": "Termostat kapalı kalmış; su radyatöre gitmiyor.",
       "severity": 3,
-      "isolation": "DMC-NAYACAR-AAA-DA1-20-00-00AA-300A-A"
+      "isolation": "DMC-NAYACAR-AAA-DA1-40-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-40-00-01AA-920A-A"
+    },
+    {
+      "id": "f.fuel_pump.failed",
+      "part": "fuel.pump",
+      "symptoms": [
+        "sym.cranks_no_start",
+        "sym.stall"
+      ],
+      "cause": "Yakıt pompası çalışmıyor ya da basınç veremiyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA1-70-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-70-00-00AA-920A-A"
+    },
+    {
+      "id": "f.fuel_filter.clogged",
+      "part": "fuel.filter",
+      "symptoms": [
+        "sym.power_loss",
+        "sym.hesitation"
+      ],
+      "cause": "Yakıt filtresi tıkanmış; yükte yeterli yakıt gelmiyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-70-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-70-00-01AA-920A-A"
+    },
+    {
+      "id": "f.fuel_regulator.faulty",
+      "part": "fuel.pump",
+      "symptoms": [
+        "sym.hard_start_hot",
+        "sym.black_smoke"
+      ],
+      "cause": "Pompa modülündeki basınç regülatörü basıncı tutamıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-70-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-70-00-04AA-920A-A"
+    },
+    {
+      "id": "f.injectors.clogged",
+      "part": "fuel.injectors",
+      "symptoms": [
+        "sym.misfire",
+        "sym.rough_idle",
+        "sym.hard_start_hot"
+      ],
+      "cause": "Bir enjektör tıkanmış ya da damlatıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-50-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-70-00-02AA-920A-A"
+    },
+    {
+      "id": "f.fuel_cap.seal",
+      "part": "fuel.cap",
+      "symptoms": [
+        "sym.mil",
+        "sym.fuel_smell"
+      ],
+      "cause": "Depo kapağının contası sızdırıyor; EVAP sistemi kaçak algılıyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-90-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-70-00-03AA-920A-A"
+    },
+    {
+      "id": "f.air_filter.clogged",
+      "part": "engine.air_filter",
+      "symptoms": [
+        "sym.power_loss",
+        "sym.fuel_consumption"
+      ],
+      "cause": "Hava filtresi tıkanmış; motor yeterince hava alamıyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-50-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-60-00-00AA-920A-A"
+    },
+    {
+      "id": "f.throttle.dirty",
+      "part": "exhaust.throttle_body",
+      "symptoms": [
+        "sym.rough_idle",
+        "sym.stall"
+      ],
+      "cause": "Gaz kelebeğinin kenarında karbon birikmiş; rölantide hava yetmiyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-01AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-60-00-00AA-250A-A"
     },
     {
       "id": "f.exhaust.leak",
-      "part": "exhaust",
+      "part": "exhaust.muffler",
       "symptoms": [
         "sym.exhaust_noise"
       ],
-      "cause": "Egzoz borusu delinmiş ya da susturucu askısı kopmuş.",
+      "cause": "Susturucu delinmiş ya da askısı kopmuş.",
       "severity": 1,
-      "isolation": "DMC-NAYACAR-AAA-DA1-60-00-00AA-300A-A"
+      "isolation": "DMC-NAYACAR-AAA-DA1-60-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-60-00-03AA-920A-A"
+    },
+    {
+      "id": "f.front_pipe.gasket",
+      "part": "exhaust.pipe",
+      "symptoms": [
+        "sym.exhaust_noise"
+      ],
+      "cause": "Ön boru flanş contası üflüyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-60-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-60-00-05AA-920A-A"
+    },
+    {
+      "id": "f.catalyst.clogged",
+      "part": "exhaust.catalyst",
+      "symptoms": [
+        "sym.power_loss",
+        "sym.rotten_egg",
+        "sym.underbody_rattle"
+      ],
+      "cause": "Katalitik konvertörün içi dağılmış ya da erimiş; egzoz tıkanıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-60-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-60-00-04AA-920A-A"
+    },
+    {
+      "id": "f.pcv.clogged",
+      "part": "exhaust.pcv",
+      "symptoms": [
+        "sym.oil_leak",
+        "sym.rough_idle"
+      ],
+      "cause": "PCV valfi tıkanmış; karter basıncı yükseliyor ve keçeler sızdırıyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-30-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-90-00-00AA-920A-A"
+    },
+    {
+      "id": "f.evap.purge",
+      "part": "exhaust.evap",
+      "symptoms": [
+        "sym.mil",
+        "sym.fuel_smell"
+      ],
+      "cause": "EVAP boşaltma valfi açık kalmış ya da kanister hortumu çatlak.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-90-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-90-00-01AA-920A-A"
+    },
+    {
+      "id": "f.plugs.worn",
+      "part": "engine.spark_plugs",
+      "symptoms": [
+        "sym.misfire",
+        "sym.power_loss",
+        "sym.hard_start_cold"
+      ],
+      "cause": "Bujilerin elektrotları aşınmış ya da islenmiş; kıvılcım zayıf.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-50-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-50-00-00AA-920A-A"
+    },
+    {
+      "id": "f.coils.failed",
+      "part": "engine.coils",
+      "symptoms": [
+        "sym.misfire",
+        "sym.mil"
+      ],
+      "cause": "Bir ateşleme bobini arızalı; o silindir çalışmıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-50-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-50-00-01AA-920A-A"
+    },
+    {
+      "id": "f.maf.dirty",
+      "part": "engine_control.maf",
+      "symptoms": [
+        "sym.hesitation",
+        "sym.stall",
+        "sym.mil"
+      ],
+      "cause": "Hava akış ölçerin teli kirlenmiş; motor beyni havayı eksik ölçüyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-80-00-00AA-250A-A"
+    },
+    {
+      "id": "f.o2.failed",
+      "part": "engine_control.o2_front",
+      "symptoms": [
+        "sym.fuel_consumption",
+        "sym.mil",
+        "sym.black_smoke"
+      ],
+      "cause": "Ön oksijen sensörü yaşlanmış; karışım düzeltmesi yapılamıyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-80-00-01AA-920A-A"
+    },
+    {
+      "id": "f.ect.failed",
+      "part": "engine_control.ect",
+      "symptoms": [
+        "sym.hard_start_cold",
+        "sym.black_smoke",
+        "sym.gauges"
+      ],
+      "cause": "Su sıcaklık sensörü yanlış değer veriyor; motor beyni karışımı yanlış hesaplıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-80-00-02AA-920A-A"
+    },
+    {
+      "id": "f.ckp.failed",
+      "part": "engine_control.ckp",
+      "symptoms": [
+        "sym.cranks_no_start",
+        "sym.stall"
+      ],
+      "cause": "Krank konum sensörü arızalı; motor ısınınca stop ediyor ya da hiç kıvılcım yok.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-80-00-03AA-920A-A"
+    },
+    {
+      "id": "f.cmp.failed",
+      "part": "engine_control.cmp",
+      "symptoms": [
+        "sym.mil",
+        "sym.hard_start_hot"
+      ],
+      "cause": "Eksantrik konum sensörü arızalı; marş uzun basıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-80-00-04AA-920A-A"
+    },
+    {
+      "id": "f.tps.failed",
+      "part": "engine_control.tps",
+      "symptoms": [
+        "sym.hesitation",
+        "sym.rough_idle"
+      ],
+      "cause": "Gaz kelebeği konum sensörünün izi aşınmış; sinyal atlıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-80-00-05AA-920A-A"
+    },
+    {
+      "id": "f.iscv.sticking",
+      "part": "engine_control.iscv",
+      "symptoms": [
+        "sym.rough_idle",
+        "sym.stall"
+      ],
+      "cause": "Rölanti ayar valfi karbonla sıkışmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-01AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-80-00-06AA-920A-A"
+    },
+    {
+      "id": "f.knock.failed",
+      "part": "engine_control.knock",
+      "symptoms": [
+        "sym.mil",
+        "sym.power_loss"
+      ],
+      "cause": "Vuruntu sensörü arızalı; motor beyni avansı güvenlik için geri alıyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA1-80-00-07AA-920A-A"
+    },
+    {
+      "id": "f.ecu.power",
+      "part": "engine_control.ecu",
+      "symptoms": [
+        "sym.no_start",
+        "sym.mil"
+      ],
+      "cause": "Motor beyninin beslemesi ya da toprağı kesik.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA1-80-00-00AA-421A-A"
+    },
+    {
+      "id": "f.battery.flat",
+      "part": "battery",
+      "symptoms": [
+        "sym.no_start",
+        "sym.slow_crank",
+        "sym.dim_lights"
+      ],
+      "cause": "Akü boşalmış ya da ömrünü doldurmuş.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA6-10-00-00AA-300A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.alternator.failed",
+      "part": "electrical.alternator",
+      "symptoms": [
+        "sym.battery_light",
+        "sym.dim_lights",
+        "sym.battery_drain",
+        "sym.bulbs_blow"
+      ],
+      "cause": "Alternatör şarj etmiyor (kömür ya da diyot arızası) ya da içindeki regülatör aşırı şarj ediyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA6-30-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-30-00-00AA-920A-A"
+    },
+    {
+      "id": "f.starter.failed",
+      "part": "electrical.starter",
+      "symptoms": [
+        "sym.click_no_crank",
+        "sym.no_start"
+      ],
+      "cause": "Marş motorunun otomatiği ya da kömürleri aşınmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA6-40-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-40-00-00AA-920A-A"
+    },
+    {
+      "id": "f.ignition_switch.faulty",
+      "part": "electrical.ignition_switch",
+      "symptoms": [
+        "sym.no_start",
+        "sym.intermittent"
+      ],
+      "cause": "Kontak anahtarının elektrik bloğu ya da marş rölesi arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA6-40-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-40-00-01AA-920A-A"
+    },
+    {
+      "id": "f.fuse.blown",
+      "part": "electrical.fuses",
+      "symptoms": [
+        "sym.circuit_dead"
+      ],
+      "cause": "Devrenin sigortası atmış ya da rölesi arızalı.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA6-60-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-60-00-00AA-300A-A"
+    },
+    {
+      "id": "f.ground.corroded",
+      "part": "electrical.wiring",
+      "symptoms": [
+        "sym.intermittent",
+        "sym.dim_lights",
+        "sym.slow_crank"
+      ],
+      "cause": "Toprak bağlantısı oksitlenmiş ya da gevşemiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA6-60-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-60-00-00AA-250A-A"
+    },
+    {
+      "id": "f.horn.failed",
+      "part": "electrical.horn",
+      "symptoms": [
+        "sym.horn"
+      ],
+      "cause": "Korna, korna rölesi ya da direksiyondaki kontak arızalı.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA6-80-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-80-00-00AA-920A-A"
+    },
+    {
+      "id": "f.cluster.failed",
+      "part": "electrical.cluster",
+      "symptoms": [
+        "sym.gauges"
+      ],
+      "cause": "Gösterge panelinin baskılı devresinde lehim çatlamış ya da lambaları yanmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA6-50-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-50-00-00AA-920A-A"
+    },
+    {
+      "id": "f.window.regulator",
+      "part": "body.window_regulators",
+      "symptoms": [
+        "sym.window"
+      ],
+      "cause": "Cam krikosunun teli kopmuş ya da motoru zayıflamış.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA6-70-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA0-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.door_lock.motor",
+      "part": "body.door_locks",
+      "symptoms": [
+        "sym.door_lock"
+      ],
+      "cause": "Kapı kilit motoru ya da mekanizması arızalı.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA6-70-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA0-10-00-01AA-920A-A"
+    },
+    {
+      "id": "f.headlight.bulb",
+      "part": "body.headlights",
+      "symptoms": [
+        "sym.headlight_out"
+      ],
+      "cause": "Far ampulü yanmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA6-20-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-20-00-00AA-920A-A"
+    },
+    {
+      "id": "f.taillight.bulb",
+      "part": "body.taillights",
+      "symptoms": [
+        "sym.brake_light",
+        "sym.turn_fast"
+      ],
+      "cause": "Arka lamba ampulü yanmış ya da duyu oksitlenmiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA6-20-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-20-00-01AA-920A-A"
+    },
+    {
+      "id": "f.brake_switch.faulty",
+      "part": "lighting.brake_switch",
+      "symptoms": [
+        "sym.brake_light"
+      ],
+      "cause": "Stop lambası müşiri ayarsız ya da arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA6-20-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-20-00-00AA-271A-A"
+    },
+    {
+      "id": "f.flasher.failed",
+      "part": "lighting.flasher",
+      "symptoms": [
+        "sym.turn_fast"
+      ],
+      "cause": "Sinyal rölesi arızalı.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA6-20-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-20-00-02AA-920A-A"
+    },
+    {
+      "id": "f.foglight.water",
+      "part": "lighting.foglights",
+      "symptoms": [
+        "sym.fog_out"
+      ],
+      "cause": "Sis lambasının contası bozulmuş; içine su girip ampulü yakmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA6-20-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA6-20-00-03AA-920A-A"
+    },
+    {
+      "id": "f.wipers.worn",
+      "part": "body.wipers",
+      "symptoms": [
+        "sym.wiper_streak"
+      ],
+      "cause": "Silecek lastikleri sertleşmiş.",
+      "severity": 1,
+      "repair": "DMC-NAYACAR-AAA-DA0-40-00-00AA-920A-A"
+    },
+    {
+      "id": "f.wiper_motor.failed",
+      "part": "body.wiper_motor",
+      "symptoms": [
+        "sym.wiper_dead"
+      ],
+      "cause": "Silecek motoru ya da park anahtarı arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA0-40-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA0-40-00-01AA-920A-A"
+    },
+    {
+      "id": "f.washer.pump",
+      "part": "body.washer",
+      "symptoms": [
+        "sym.washer"
+      ],
+      "cause": "Cam suyu pompası arızalı ya da memeler tıkalı.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA0-40-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA0-40-00-02AA-920A-A"
+    },
+    {
+      "id": "f.door.seal",
+      "part": "body.door_seals",
+      "symptoms": [
+        "sym.water_leak"
+      ],
+      "cause": "Kapı fitili sertleşmiş ya da yırtılmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA0-10-00-00AA-300A-A",
+      "repair": "DMC-NAYACAR-AAA-DA0-10-00-02AA-920A-A"
+    },
+    {
+      "id": "f.windshield.crack",
+      "part": "body.windshield",
+      "symptoms": [
+        "sym.windshield_crack"
+      ],
+      "cause": "Taş çarpmasıyla camda çatlak ya da çukur oluşmuş.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA0-40-00-00AA-300A-A",
+      "repair": "DMC-NAYACAR-AAA-DA0-40-00-03AA-920A-A"
+    },
+    {
+      "id": "f.hood.latch",
+      "part": "body.hood",
+      "symptoms": [
+        "sym.hood"
+      ],
+      "cause": "Kaput kilidi kirlenmiş ya da ayarsız; açma teli gerilmiş.",
+      "severity": 1,
+      "repair": "DMC-NAYACAR-AAA-DA0-20-00-00AA-271A-A"
+    },
+    {
+      "id": "f.mirror.glass",
+      "part": "body.mirrors",
+      "symptoms": [
+        "sym.mirror"
+      ],
+      "cause": "Ayna camı kırılmış ya da tutucusundan çıkmış.",
+      "severity": 1,
+      "repair": "DMC-NAYACAR-AAA-DA0-50-00-00AA-920A-A"
+    },
+    {
+      "id": "f.body.rust",
+      "part": "body.shell",
+      "symptoms": [
+        "sym.rust"
+      ],
+      "cause": "Boya altına su girmiş; sac paslanıyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA0-00-00-00AA-300A-A"
+    },
+    {
+      "id": "f.seat_belt.retractor",
+      "part": "interior.seat_belts",
+      "symptoms": [
+        "sym.belt"
+      ],
+      "cause": "Emniyet kemeri makarası arızalı ya da kayış kirlenmiş.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA0-60-00-00AA-300A-A",
+      "repair": "DMC-NAYACAR-AAA-DA0-60-00-00AA-920A-A"
+    },
+    {
+      "id": "f.seat.runner",
+      "part": "interior.seat_front_r",
+      "symptoms": [
+        "sym.seat"
+      ],
+      "cause": "Koltuk rayı kirlenmiş ya da kilit mandalı aşınmış.",
+      "severity": 2,
+      "repair": "DMC-NAYACAR-AAA-DA0-60-00-01AA-920A-A"
+    },
+    {
+      "id": "f.srs.fault",
+      "part": "interior.srs",
+      "symptoms": [
+        "sym.srs"
+      ],
+      "cause": "Hava yastığı sisteminde kayıtlı arıza var (bağlantı, çarpma sensörü ya da spiral kablo).",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA0-60-00-00AA-421A-A"
+    },
+    {
+      "id": "f.ac.leak",
+      "part": "hvac.condenser",
+      "symptoms": [
+        "sym.ac_warm"
+      ],
+      "cause": "Kondenser ya da rakorlar sızdırıyor; soğutucu akışkan eksik.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA7-20-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA7-20-00-01AA-920A-A"
+    },
+    {
+      "id": "f.ac.compressor",
+      "part": "hvac.compressor",
+      "symptoms": [
+        "sym.ac_warm",
+        "sym.ac_noise"
+      ],
+      "cause": "Kompresör kavraması devreye girmiyor ya da kompresör aşınmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA7-20-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA7-20-00-00AA-920A-A"
+    },
+    {
+      "id": "f.blower.failed",
+      "part": "hvac.blower",
+      "symptoms": [
+        "sym.blower"
+      ],
+      "cause": "Kalorifer fan motoru ya da fan direnci arızalı.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA7-10-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA7-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.heater_core.leak",
+      "part": "hvac.heater_core",
+      "symptoms": [
+        "sym.fogging",
+        "sym.coolant_loss",
+        "sym.heater_cold"
+      ],
+      "cause": "Kalorifer peteği sızdırıyor; soğutma suyu kabine buharlaşıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA7-10-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA7-10-00-01AA-920A-A"
     },
     {
       "id": "f.clutch.worn",
@@ -251,7 +1221,20 @@
       ],
       "cause": "Debriyaj balatası aşınmış.",
       "severity": 2,
-      "isolation": "DMC-NAYACAR-AAA-DA2-10-00-00AA-421A-A"
+      "isolation": "DMC-NAYACAR-AAA-DA2-10-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA2-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.clutch.hydraulic",
+      "part": "drivetrain.clutch_hydraulics",
+      "symptoms": [
+        "sym.clutch_pedal",
+        "sym.hard_shift"
+      ],
+      "cause": "Debriyaj ana ya da tali merkezi kaçırıyor; sistemde hava var.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA2-10-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA2-10-00-01AA-920A-A"
     },
     {
       "id": "f.transaxle.oil_low",
@@ -265,6 +1248,17 @@
       "repair": "DMC-NAYACAR-AAA-DA2-10-00-00AA-300A-A"
     },
     {
+      "id": "f.shift_linkage.worn",
+      "part": "drivetrain.shift_linkage",
+      "symptoms": [
+        "sym.vague_shift"
+      ],
+      "cause": "Vites kolu burçları ya da kumanda tellerinin uçları aşınmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA2-10-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA2-10-00-01AA-271A-A"
+    },
+    {
       "id": "f.driveshaft.boot",
       "part": "drivetrain.driveshafts",
       "symptoms": [
@@ -272,7 +1266,8 @@
       ],
       "cause": "Aks mili körüğü yırtılmış; aks kafası aşınmış.",
       "severity": 2,
-      "isolation": "DMC-NAYACAR-AAA-DA2-20-00-00AA-300A-A"
+      "isolation": "DMC-NAYACAR-AAA-DA2-20-00-00AA-300A-A",
+      "repair": "DMC-NAYACAR-AAA-DA2-20-00-00AA-920A-A"
     },
     {
       "id": "f.pads.worn",
@@ -295,7 +1290,32 @@
       ],
       "cause": "Ön diskler eğrilmiş ya da MIN kalınlığın altına inmiş.",
       "severity": 2,
-      "isolation": "DMC-NAYACAR-AAA-DA3-10-00-00AA-361A-A"
+      "isolation": "DMC-NAYACAR-AAA-DA3-10-00-00AA-361A-A",
+      "repair": "DMC-NAYACAR-AAA-DA3-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.caliper.sticking",
+      "part": "brakes.front.calipers",
+      "symptoms": [
+        "sym.brake_pull",
+        "sym.hot_wheel"
+      ],
+      "cause": "Ön kaliper pistonu ya da kılavuz pimleri sıkışmış.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA3-10-00-01AA-920A-A"
+    },
+    {
+      "id": "f.rear_pads.worn",
+      "part": "brakes.rear.pads",
+      "symptoms": [
+        "sym.brake_noise",
+        "sym.handbrake"
+      ],
+      "cause": "Arka balatalar aşınma sınırına gelmiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA3-20-00-00AA-921A-A"
     },
     {
       "id": "f.booster.vacuum",
@@ -307,7 +1327,41 @@
       "cause": "Fren servosu vakum almıyor; hortum çatlak ya da diyafram yırtık.",
       "severity": 3,
       "isolation": "DMC-NAYACAR-AAA-DA3-00-00-00AA-421A-A",
-      "repair": "DMC-NAYACAR-AAA-DA3-30-00-00AA-300A-A"
+      "repair": "DMC-NAYACAR-AAA-DA3-30-00-02AA-920A-A"
+    },
+    {
+      "id": "f.master.internal",
+      "part": "brakes.master_cylinder",
+      "symptoms": [
+        "sym.pedal_soft"
+      ],
+      "cause": "Ana merkezin keçeleri içeriden kaçırıyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA3-30-00-00AA-920A-A"
+    },
+    {
+      "id": "f.brake_lines.leak",
+      "part": "brakes.lines",
+      "symptoms": [
+        "sym.pedal_soft",
+        "sym.brake_fluid_low"
+      ],
+      "cause": "Fren hortumu çatlamış ya da borusu paslanıp delinmiş.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA3-30-00-01AA-920A-A"
+    },
+    {
+      "id": "f.parking.adjust",
+      "part": "brakes.parking",
+      "symptoms": [
+        "sym.handbrake"
+      ],
+      "cause": "El freni teli gerilmiş ya da ayarı bozulmuş.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA3-20-00-00AA-300A-A",
+      "repair": "DMC-NAYACAR-AAA-DA3-40-00-00AA-271A-A"
     },
     {
       "id": "f.strut.worn",
@@ -328,13 +1382,81 @@
         "sym.knock",
         "sym.pull"
       ],
-      "cause": "Salıncak burcu ya da rotil aşınmış.",
+      "cause": "Salıncak burcu aşınmış.",
       "severity": 2,
       "isolation": "DMC-NAYACAR-AAA-DA4-00-00-00AA-421A-A"
     },
     {
+      "id": "f.ball_joint.worn",
+      "part": "chassis.control_arm",
+      "symptoms": [
+        "sym.knock",
+        "sym.wander"
+      ],
+      "cause": "Ön alt rotilde boşluk var.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA4-00-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA4-10-00-01AA-920A-A"
+    },
+    {
+      "id": "f.stabilizer.links",
+      "part": "chassis.stabilizer_front",
+      "symptoms": [
+        "sym.rattle_bumps"
+      ],
+      "cause": "Viraj demiri bağlantı çubuklarının mafsalları aşınmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYACAR-AAA-DA4-00-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA4-10-00-02AA-920A-A"
+    },
+    {
+      "id": "f.wheel_bearing.front",
+      "part": "chassis.wheel_bearing_front",
+      "symptoms": [
+        "sym.wheel_hum"
+      ],
+      "cause": "Ön tekerlek rulmanı aşınmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA4-00-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA5-20-00-00AA-920A-A"
+    },
+    {
+      "id": "f.wheel_bearing.rear",
+      "part": "chassis.wheel_bearing_rear",
+      "symptoms": [
+        "sym.wheel_hum"
+      ],
+      "cause": "Arka tekerlek rulmanı aşınmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA4-00-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA5-20-00-01AA-920A-A"
+    },
+    {
+      "id": "f.rear_strut.worn",
+      "part": "chassis.strut_rear",
+      "symptoms": [
+        "sym.bounce",
+        "sym.rear_knock"
+      ],
+      "cause": "Arka amortisör yağını kaçırmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA4-20-00-00AA-300A-A",
+      "repair": "DMC-NAYACAR-AAA-DA4-20-00-00AA-920A-A"
+    },
+    {
+      "id": "f.rear_arms.bushing",
+      "part": "chassis.arms_rear",
+      "symptoms": [
+        "sym.rear_knock",
+        "sym.tire_wear"
+      ],
+      "cause": "Arka salıncak ya da çeki kolu burcu aşınmış; arka toplama bozuluyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA4-20-00-00AA-300A-A"
+    },
+    {
       "id": "f.alignment",
-      "part": "chassis.steering_rack",
+      "part": "chassis.front_alignment",
       "symptoms": [
         "sym.pull",
         "sym.tire_wear"
@@ -343,6 +1465,42 @@
       "severity": 1,
       "isolation": "DMC-NAYACAR-AAA-DA4-00-00-00AA-421A-A",
       "repair": "DMC-NAYACAR-AAA-DA4-30-00-00AA-271A-A"
+    },
+    {
+      "id": "f.tie_rod.worn",
+      "part": "chassis.tie_rods",
+      "symptoms": [
+        "sym.wander",
+        "sym.tire_wear"
+      ],
+      "cause": "Rot başında boşluk var.",
+      "severity": 3,
+      "isolation": "DMC-NAYACAR-AAA-DA4-00-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA4-30-00-00AA-920A-A"
+    },
+    {
+      "id": "f.power_steering.leak",
+      "part": "chassis.power_steering",
+      "symptoms": [
+        "sym.ps_fluid_low",
+        "sym.heavy_steering"
+      ],
+      "cause": "Direksiyon yağı eksik; hortum ya da rakor sızdırıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA4-30-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA4-30-00-02AA-920A-A"
+    },
+    {
+      "id": "f.power_steering.pump",
+      "part": "chassis.power_steering",
+      "symptoms": [
+        "sym.steering_whine",
+        "sym.heavy_at_idle"
+      ],
+      "cause": "Hidrolik direksiyon pompası aşınmış; yağ seviyesi doğruyken basınç vermiyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYACAR-AAA-DA4-30-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA4-30-00-01AA-920A-A"
     },
     {
       "id": "f.tire.puncture",
@@ -364,27 +1522,8 @@
       ],
       "cause": "Tekerlek balansı bozulmuş.",
       "severity": 1,
-      "isolation": "DMC-NAYACAR-AAA-DA4-00-00-00AA-421A-A"
-    },
-    {
-      "id": "f.headlight.bulb",
-      "part": "body.headlights",
-      "symptoms": [
-        "sym.headlight_out"
-      ],
-      "cause": "Far ampulü yanmış.",
-      "severity": 1,
-      "repair": "DMC-NAYACAR-AAA-DA6-20-00-00AA-920A-A"
-    },
-    {
-      "id": "f.wipers.worn",
-      "part": "body.wipers",
-      "symptoms": [
-        "sym.wiper_streak"
-      ],
-      "cause": "Silecek lastikleri sertleşmiş.",
-      "severity": 1,
-      "repair": "DMC-NAYACAR-AAA-DA0-40-00-00AA-920A-A"
+      "isolation": "DMC-NAYACAR-AAA-DA4-00-00-00AA-421A-A",
+      "repair": "DMC-NAYACAR-AAA-DA5-10-00-00AA-271A-A"
     }
   ]
 }

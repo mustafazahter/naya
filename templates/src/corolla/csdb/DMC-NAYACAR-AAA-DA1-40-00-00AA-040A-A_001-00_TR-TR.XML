@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYACAR-AAA-D000000-0-NAYA0-00010-A-001-01 SYSTEM "ICN-NAYACAR-AAA-D000000-0-NAYA0-00010-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Soğutma sistemi</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Su pompası soğutma suyunu motorun su ceketlerinde dolaştırır. Termostat 80-84 °C'de açılmaya başlar, 95 °C'de tam açıktır; su bundan sonra radyatörden geçerek soğur.</para>
+        <para>Radyatör kapağı sistemi 74-103 kPa basınçta tutar; böylece su 100 °C'nin üstünde kaynamaz. Isınan suyun fazlası genleşme kabına gider, soğuyunca geri çekilir.</para>
+        <para>Elektrikli fan, su sıcaklığı yükselince ya da klima çalışınca devreye girer.</para>
+      </levelledPara>
+      <figure id="fig-0010"><title>Soğutma sistemi: radyatör, fan ve hortumlar</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00010-A-001-01"/></figure>
+      <levelledPara>
+        <title>Bakım</title>
+        <para>Bu dönemin antifrizi her 40 000 km'de ya da iki yılda bir değiştirilir. Karışım %50 antifriz, %50 saf sudur.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

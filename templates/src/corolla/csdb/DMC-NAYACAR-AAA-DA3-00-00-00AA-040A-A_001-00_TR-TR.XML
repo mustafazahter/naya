@@ -29,13 +29,14 @@
     <description>
       <levelledPara>
         <title>Genel</title>
-        <para>Fren pedalına basılınca fren servosu kuvveti artırır, ana merkez hidroliği dört tekerleğin frenlerine iletir.</para>
+        <para>Fren pedalına basılınca fren servosu kuvveti artırır, ana merkez hidroliği çapraz bağlı iki devreyle dört tekerleğin frenlerine iletir.</para>
         <para>Kaliperdeki piston balataları diske bastırır; sürtünme aracı yavaşlatır.</para>
+        <para>El freni arka kaliperleri telle çalıştırır.</para>
       </levelledPara>
       <figure id="fig-0004"><title>Ön fren ve süspansiyon</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00004-A-001-01"/></figure>
       <levelledPara>
         <title>Aşınma</title>
-        <para>Balatalar ve diskler kullanıldıkça incelir. Frenleme sırasında ağırlık öne aktarıldığı için ön frenler daha hızlı aşınır.</para>
+        <para>Balatalar ve diskler kullanıldıkça incelir. Frenleme sırasında ağırlık öne aktarıldığı için ön frenler daha hızlı aşınır. Balatanın en az kalınlığı 1 mm'dir.</para>
         <para>Fren hidroliği zamanla nem çeker; iki yılda bir değiştirilmelidir.</para>
       </levelledPara>
     </description>

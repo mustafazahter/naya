@@ -37,22 +37,35 @@
             <isolationStep id="stp-0002">
               <action>Radyatörü, hortumları ve su pompasını kaçağa karşı kontrol edin.</action>
               <isolationStepQuestion>Bir kaçak izi var mı?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-leak"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0005"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0003">
               <action>Motoru rölantide ısıtın ve fanın devreye girip girmediğini izleyin.</action>
               <isolationStepQuestion>Fan çalışıyor mu?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0004"/><noAnswer nextActionRefId="end-fan"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0006"/><noAnswer nextActionRefId="end-fan"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0004">
               <action>Motor çalışırken genleşme kabında sürekli kabarcık çıkıp çıkmadığına bakın.</action>
               <isolationStepQuestion>Sürekli kabarcık var mı?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-gasket"/><noAnswer nextActionRefId="end-thermostat"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-gasket"/><noAnswer nextActionRefId="end-cap"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
-            <isolationProcedureEnd id="end-leak"><action>Kaçağı giderin; su pompasından sızıyorsa pompayı değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-fan"><action>Fan sigortasını, rölesini ve fan motorunu kontrol edin.</action></isolationProcedureEnd>
+            <isolationStep id="stp-0005">
+              <action>Kaçağın yerini bulun.</action>
+              <isolationStepQuestion>Kaçak su pompasının tahliye deliğinden mi geliyor?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-pump"/><noAnswer nextActionRefId="end-hose"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0006">
+              <action>Motor ısındıktan sonra radyatörün üst hortumunu elle yoklayın (dikkatli olun).</action>
+              <isolationStepQuestion>Üst hortum soğuk mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-thermostat"/><noAnswer nextActionRefId="end-radiator"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationProcedureEnd id="end-pump"><action>Su pompası keçesi sızdırıyor; pompayı değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-hose"><action>Çatlak hortumu ya da gevşek kelepçeyi yenileyin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="02" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-fan"><action>Fan sigortasını, rölesini ve müşirini kontrol edin; fan motoru dönmüyorsa değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="05" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-gasket"><action>Yanma gazı soğutma suyuna karışıyor: silindir kapak contası yanmış olabilir. Önce kompresyonu ölçün. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="361" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-thermostat"><action>Termostat kapalı kalmış ya da radyatör tıkanmış olabilir; ikisini de kontrol edin, sonra sistemin havasını alın.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-cap"><action>Görünür kaçak yok: sistemi basınç testiyle deneyin; kapak basınç tutmuyorsa kapağı değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="04" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-thermostat"><action>Termostat kapalı kalmış; termostatı değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-radiator"><action>Su dolaşıyor ama soğumuyor: radyatör petekleri tıkanmış olabilir. Radyatörü kontrol edin, gerekirse değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="03" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
         </isolationProcedure>

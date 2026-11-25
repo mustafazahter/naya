@@ -29,18 +29,19 @@
     <description>
       <levelledPara>
         <title>Genel</title>
-        <para>1ZZ-FE alüminyum bloklu, dört silindirli bir benzinli motordur. Silindir kapağında iki eksantrik mili ve silindir başına dört supap vardır.</para>
+        <para>1ZZ-FE alüminyum bloklu, dört silindirli bir benzinli motordur. Silindir kapağında iki eksantrik mili ve silindir başına dört supap vardır. Supap boşluğu ayar pullarıyla ayarlanır; hidrolik itici yoktur.</para>
         <para>Krank mili pistonlardan gelen gidip gelme hareketini dönme hareketine çevirir. Eksantrik milleri krank miline triger zinciriyle bağlıdır.</para>
       </levelledPara>
       <figure id="fig-0003"><title>1ZZ-FE motor</title><graphic infoEntityIdent="ICN-NAYACAR-AAA-D000000-0-NAYA0-00003-A-001-01"/></figure>
       <levelledPara>
         <title>Çalışma</title>
-        <para>Emme manifoldundan gelen hava yakıtla karışır, silindirde sıkıştırılır ve bujinin kıvılcımıyla yanar. Yanmış gazlar egzoz manifoldundan çıkar.</para>
-        <para>Her silindirin kendi ateşleme bobini vardır; bobin bujinin üstüne oturur.</para>
+        <para>Emme manifoldundan gelen hava enjektörlerin püskürttüğü yakıtla karışır, silindirde sıkıştırılır ve bujinin kıvılcımıyla yanar. Yanmış gazlar egzoz manifoldundan çıkar.</para>
+        <para>Her silindirin kendi ateşleme bobini vardır; bobin bujinin üstüne oturur. Ateşleme sırası 1-3-4-2.</para>
       </levelledPara>
       <levelledPara>
         <title>Bakım</title>
         <para>Triger zinciri motor ömrü boyunca çalışacak şekilde tasarlanmıştır; düzenli değişimi yoktur. Zincirin ömrü yağın temizliğine bağlıdır.</para>
+        <para>Aksesuarlar (alternatör, hidrolik direksiyon pompası, klima kompresörü) krank kasnağından kanallı kayışla döner.</para>
       </levelledPara>
     </description>
   </content>

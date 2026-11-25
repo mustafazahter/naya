@@ -73,6 +73,7 @@ void main() {
       'Süspansiyon ve direksiyon',
       'Tekerlekler',
       'Elektrik ve aydınlatma',
+      'Isıtma ve klima',
     ],
   );
 
