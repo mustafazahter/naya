@@ -74,16 +74,112 @@ class NayaDatabase extends _$NayaDatabase {
       tokenize = 'unicode61 remove_diacritics 2'
     )''');
 
+  /// Açılışta veritabanını ve arama dizinini denetler. Arama dizini
+  /// (`dm_chunks`) bozuksa silip boş olarak yeniden kurar; içi sonra
+  /// `LibraryService.indexMissing` ile baştan dolar. Ana tablolardaki bir
+  /// bozulma burada onarılmaz, yalnız sonuçta bildirilir (yedekten dönmek
+  /// insan kararı).
+  Future<IntegrityReport> checkIntegrity() async {
+    String? problem;
+    try {
+      final rows = await customSelect('PRAGMA quick_check').get();
+      final lines = [for (final row in rows) row.data.values.first.toString()];
+      if (lines.length != 1 || lines.single != 'ok') {
+        problem = lines.take(5).join('; ');
+      }
+    } on Object catch (e) {
+      problem = '$e';
+    }
+    try {
+      await customStatement(
+        "INSERT INTO dm_chunks(dm_chunks) VALUES('integrity-check')",
+      );
+      return IntegrityReport(problem: problem, searchRebuilt: false);
+    } on Object catch (e) {
+      // Yalnız bozulmada yeniden kur. Kilit gibi geçici bir hatada dizin
+      // sağlamdır; silmek bütün DM'leri boşuna yeniden dizinletir.
+      if (!isCorruption(e)) {
+        return IntegrityReport(problem: problem ?? '$e', searchRebuilt: false);
+      }
+      await _dropSearchIndex();
+      await _createSearchIndex();
+      return IntegrityReport(
+        problem: problem,
+        searchRebuilt: true,
+        searchProblem: '$e',
+      );
+    }
+  }
+
+  /// SQLite'ın bozulma hataları: SQLITE_CORRUPT (11) ve FTS'in
+  /// SQLITE_CORRUPT_VTAB'ı (267). Hata başka bir isolate'tan sarılı
+  /// gelebildiği için metinden bakılır.
+  static bool isCorruption(Object error) {
+    final text = '$error';
+    return text.contains('malformed') ||
+        text.contains('(code 11)') ||
+        text.contains('(code 267)') ||
+        text.contains('SQLITE_CORRUPT');
+  }
+
+  /// Bozuk FTS tablosu bazen `DROP TABLE` ile de silinemez; o zaman
+  /// şemadaki kayıtları doğrudan kaldırılır (SQLite belgelerindeki yol).
+  Future<void> _dropSearchIndex() async {
+    try {
+      await customStatement('DROP TABLE IF EXISTS dm_chunks');
+      return;
+    } on Object {
+      // Aşağıdaki yola düş.
+    }
+    await customStatement('PRAGMA writable_schema = ON');
+    try {
+      await customStatement(
+        "DELETE FROM sqlite_schema WHERE name = 'dm_chunks' "
+        "OR name LIKE 'dm\\_chunks\\_%' ESCAPE '\\'",
+      );
+    } finally {
+      await customStatement('PRAGMA writable_schema = OFF');
+    }
+    await customStatement('VACUUM');
+  }
+
   /// SQLite'ın kendi yedek komutu: o anki tutarlı bir kopyayı [path]'e
   /// yazar. Yazma sürerken de güvenle çalışır.
   Future<void> vacuumInto(String path) =>
       customStatement('VACUUM INTO ?', [path]);
 
   static void _configure(Database db) {
-    // WAL: okumalar yazmayı, yazma okumaları bekletmiyor.
+    // DELETE (WAL değil): yayında eski ve yeni sunucu aynı ağ diskindeki
+    // dosyayı kısa süre birlikte açıyor. WAL'ın paylaşılan bellek dosyası
+    // ağ diskinde iki süreç arasında güvenli değil ve FTS dizinini bozdu.
     // busy_timeout: yedek alınırken gelen yazma hemen hata vermesin.
-    db.execute('PRAGMA journal_mode = WAL');
-    db.execute('PRAGMA foreign_keys = ON');
+    // Kip değişimi kilit ister: eski sunucu dosyayı hâlâ tutuyorsa bu
+    // açılışta WAL kalır, bir sonraki açılışta değişir; açılış düşmez.
     db.execute('PRAGMA busy_timeout = 5000');
+    try {
+      final mode = db.select('PRAGMA journal_mode = DELETE').first.values.first;
+      if (mode != 'delete' && mode != 'memory') {
+        stderr.writeln('Günlük kipi değişmedi, şimdilik $mode');
+      }
+    } on Object catch (e) {
+      stderr.writeln('Günlük kipi değiştirilemedi: $e');
+    }
+    db.execute('PRAGMA foreign_keys = ON');
   }
+}
+
+/// [NayaDatabase.checkIntegrity] sonucu.
+class IntegrityReport {
+  const IntegrityReport({
+    required this.problem,
+    required this.searchRebuilt,
+    this.searchProblem,
+  });
+
+  /// `PRAGMA quick_check` bir sorun bulduysa ilk satırları; yoksa `null`.
+  final String? problem;
+
+  /// Arama dizini bozuk bulunup boş olarak yeniden kuruldu mu.
+  final bool searchRebuilt;
+  final String? searchProblem;
 }

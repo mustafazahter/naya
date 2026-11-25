@@ -124,7 +124,7 @@ class NayaApi {
     return pipeline.addHandler(app);
   }
 
-  /// Açılış işleri: admin hesabı, şablonlar, ilk yedek ve günlük
+  /// Açılış işleri: veritabanı denetimi, admin hesabı, şablonlar, ilk yedek ve günlük
   /// zamanlayıcı.
   Future<void> start() async {
     final email = config.adminEmail;
@@ -137,6 +137,29 @@ class NayaApi {
         stderr.writeln('Admin hesabı hazırlanamadı: ${e.message}');
       }
     }
+    final IntegrityReport integrity;
+    try {
+      integrity = await db.checkIntegrity();
+    } on Object catch (e) {
+      // Onarım yarıda kalsa da sunucu açılsın; arama boş döner.
+      stderr.writeln('Veritabanı denetimi yapılamadı: $e');
+      return _startRest();
+    }
+    if (integrity.problem != null) {
+      stderr.writeln(
+        'Veritabanı denetimi sorun buldu: ${integrity.problem} '
+        '(yedekler: ${config.backupDir})',
+      );
+    }
+    if (integrity.searchRebuilt) {
+      stderr.writeln(
+        'Arama dizini bozuktu, yeniden kuruluyor: ${integrity.searchProblem}',
+      );
+    }
+    await _startRest();
+  }
+
+  Future<void> _startRest() async {
     await importTemplates();
     final indexed = await library.indexMissing();
     if (indexed > 0) stdout.writeln('Arama dizinine eklendi: $indexed dosya');
