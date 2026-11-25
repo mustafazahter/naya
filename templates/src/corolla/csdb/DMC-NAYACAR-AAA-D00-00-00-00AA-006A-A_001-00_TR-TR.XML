@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="006" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Toyota Corolla E100</techName><infoName>Terimler sözlüğü</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Motor</title>
+        <para>Terimler:<randomList><listItem><para>DOHC: silindir kapağında iki eksantrik mili; biri emme, biri egzoz supaplarını açar.</para></listItem><listItem><para>VVT-i: emme eksantriğinin açılış zamanını motor beyninin yağ basıncıyla değiştirdiği düzen.</para></listItem><listItem><para>Kompresyon: pistonun sıkıştırdığı havanın basıncı; düşükse segman, supap ya da conta sorunu vardır.</para></listItem><listItem><para>Segman: pistonun çevresindeki halka; yanma basıncını tutar, yağı silindirden sıyırır.</para></listItem><listItem><para>Supap boşluğu: eksantrik ile supap iticisi arasındaki küçük boşluk.</para></listItem><listItem><para>Triger zinciri: krank milinden eksantrik millerine hareket aktaran zincir.</para></listItem><listItem><para>Karter: motorun altındaki yağ haznesi.</para></listItem><listItem><para>Hararet: motorun aşırı ısınması.</para></listItem><listItem><para>Termostat: soğutma suyunun radyatöre gidişini sıcaklığa göre açıp kapayan valf.</para></listItem><listItem><para>Genleşme kabı: ısınıp genleşen soğutma suyunun toplandığı plastik kap.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Motor yönetimi ve emisyon</title>
+        <para>Terimler:<randomList><listItem><para>ECM (motor beyni): sensörleri okuyup yakıtı ve ateşlemeyi yöneten elektronik ünite.</para></listItem><listItem><para>MAF: motora giren havanın miktarını ölçen sensör.</para></listItem><listItem><para>TPS: gaz kelebeğinin açıklığını ölçen sensör.</para></listItem><listItem><para>ISCV: rölanti devrini ayarlayan hava valfi.</para></listItem><listItem><para>CKP ve CMP: krank ve eksantrik mili konum sensörleri.</para></listItem><listItem><para>ECT: soğutma suyu sıcaklık sensörü.</para></listItem><listItem><para>Oksijen (lambda) sensörü: egzozdaki oksijeni ölçen sensör.</para></listItem><listItem><para>Arıza lambası (MIL): motor beyni bir arıza kaydedince yanan "check engine" lambası.</para></listItem><listItem><para>EVAP: depodaki benzin buharını toplayıp yakan sistem.</para></listItem><listItem><para>PCV: karter gazlarını emmeye geri gönderen valf.</para></listItem><listItem><para>Katalitik konvertör: egzozdaki zararlı gazları dönüştüren parça.</para></listItem><listItem><para>Rölanti: motorun gaza basılmadan çalıştığı devir.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Güç aktarma, fren ve şasi</title>
+        <para>Terimler:<randomList><listItem><para>Debriyaj rulmanı: pedala basınca baskının yayına bastıran rulman.</para></listItem><listItem><para>Ana merkez ve tali merkez: pedal kuvvetini hidroliğe ve hidrolikten çatala çeviren silindirler.</para></listItem><listItem><para>Aks kafası: aks milinin ucundaki sabit hızlı mafsal.</para></listItem><listItem><para>Körük: mafsalın yağını tutan, kiri dışarıda bırakan lastik kılıf.</para></listItem><listItem><para>Kaliper: balataları diske bastıran pistonlu gövde.</para></listItem><listItem><para>Fren servosu: vakumla pedal kuvvetini artıran düzen.</para></listItem><listItem><para>Hava alma: fren ya da debriyaj hidroliğindeki havayı boşaltma işlemi.</para></listItem><listItem><para>Amortisör: yayın salınımını söndüren parça.</para></listItem><listItem><para>Salıncak: tekerleği kasaya bağlayan kol.</para></listItem><listItem><para>Rotil: salıncak ile aks taşıyıcısı arasındaki mafsal.</para></listItem><listItem><para>Rot başı: direksiyon kremayerini tekerleğe bağlayan mafsal.</para></listItem><listItem><para>Rot ayarı (ön düzen): tekerlek açılarının ayarı.</para></listItem><listItem><para>Balans: tekerleğin ağırlık dağılımının eşitlenmesi.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Elektrik ve klima</title>
+        <para>Terimler:<randomList><listItem><para>Alternatör: motor çalışırken elektrik üreten ve aküyü dolduran makine.</para></listItem><listItem><para>Otomatik (marş otomatiği): marş dişlisini iten ve marş akımını açan elektromıknatıs.</para></listItem><listItem><para>Müşir: basınç ya da konuma göre bir devreyi açıp kapayan anahtar.</para></listItem><listItem><para>Röle: küçük bir akımla büyük bir akımı açıp kapayan anahtar.</para></listItem><listItem><para>Toprak: akımın kasaya dönüş bağlantısı.</para></listItem><listItem><para>Park akımı: araç kapalıyken aküden çekilen küçük akım.</para></listItem><listItem><para>SRS: hava yastığı ve kemer gerdirici sistemi.</para></listItem><listItem><para>Kondenser ve evaporatör: klima akışkanının ısı attığı ve ısı aldığı petekler.</para></listItem><listItem><para>R-134a: bu araçtaki klima soğutucu akışkanı.</para></listItem></randomList></para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

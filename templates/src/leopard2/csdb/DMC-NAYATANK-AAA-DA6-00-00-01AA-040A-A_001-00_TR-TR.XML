@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA6" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Hidrolik sistem</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Basınç kaynağı</title>
+        <para>Hidrolik ünite depodaki yağı pompayla basınçlandırır. Akümülatör basınçlı yağı depolar; düzen ani güç istediğinde yağı pompadan önce akümülatör verir ve pompa daha az çalışır.</para>
+        <para>Filtre yağdaki parçacıkları tutar; tıkanınca göstergesi bunu belirtir. Kirli ya da köpüklü yağ düzeni yavaşlatır ve pompayı aşındırır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Hortumlar</title>
+        <para>Yağ hortumlar ve borularla kule tahriklerine ve diğer tüketicilere gider. Basınçlı hattaki küçük bir sızıntı bile tehlikelidir: yüksek basınçlı yağ deriyi delebilir. Kaçak, sistem basınçsızken ve gözle aranır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

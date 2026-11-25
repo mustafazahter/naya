@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="006" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Leopard 2A6</techName><infoName>Terimler sözlüğü</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Güç paketi ve aktarma</title>
+        <para>Terimler:<randomList><listItem><para>Güç paketi: motor, şanzıman ve soğutma düzeninin birlikte değiştirilen bloğu.</para></listItem><listItem><para>Turboşarj: egzoz gazıyla dönüp emme havasını sıkıştıran kompresör.</para></listItem><listItem><para>Ön temizleyici: hava filtresinden önce iri tozu ayıran düzen.</para></listItem><listItem><para>Su ayırıcı: yakıttaki suyu ayırıp haznesinde toplayan filtre.</para></listItem><listItem><para>Hava alma: yakıt ya da hidrolik sisteme giren havanın boşaltılması.</para></listItem><listItem><para>Son dişli: şanzımandan yürütücü dişliye gücü ileten dişli kutusu.</para></listItem><listItem><para>Yavaşlatıcı: şanzımandaki, tankı aşınmasız yavaşlatan düzen.</para></listItem><listItem><para>Servis freni: sürüşte kullanılan ana fren.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Yürüyen takım</title>
+        <para>Terimler:<randomList><listItem><para>Palet: tabanların pim ve bağlantı parçalarıyla birleştiği sonsuz zincir.</para></listItem><listItem><para>Palet tabanı: paletin yere basan lastik yastığı.</para></listItem><listItem><para>Bağlantı parçası: iki palet halkasını uçlarından birleştiren parça; kama cıvatasıyla sıkılır.</para></listItem><listItem><para>Yürütücü dişli: paleti çeken dişli tekerlek.</para></listItem><listItem><para>Avara tekerleği: paleti yönlendiren ve germeye yarayan tekerlek.</para></listItem><listItem><para>Gerdirme tertibatı: avarayı itip palet gerginliğini ayarlayan düzen.</para></listItem><listItem><para>Yol tekerleği: tankın ağırlığını palete veren tekerlek.</para></listItem><listItem><para>Bandaj: yol tekerleğinin çevresindeki lastik kaplama.</para></listItem><listItem><para>Destek makarası: paletin üst kolunu taşıyan küçük makara.</para></listItem><listItem><para>Salıncak kolu: yol tekerleğini gövdeye bağlayan kol.</para></listItem><listItem><para>Burulma çubuğu: burularak yay görevi gören çelik çubuk.</para></listItem><listItem><para>Palet atma: paletin dişliden ya da tekerleklerden çıkması.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Gövde, kule ve donanım</title>
+        <para>Terimler:<randomList><listItem><para>Kule yatağı: kulenin üstünde döndüğü büyük rulman.</para></listItem><listItem><para>Kule kilidi: kuleyi gövdeye göre sabitleyen kilit.</para></listItem><listItem><para>Periskop: kapalı kapaktan dışarıyı görmeye yarayan aynalı optik.</para></listItem><listItem><para>Namlu ağzı kapağı: topun ağzını toz ve sudan koruyan kılıf.</para></listItem><listItem><para>Toz körüğü: top kalkanı ile kule arasındaki esnek kılıf.</para></listItem><listItem><para>Yan etek: paletin üstünü örten zırhlı panel.</para></listItem><listItem><para>Takviye prizi: dışarıdan elektrik almaya ya da vermeye yarayan priz.</para></listItem><listItem><para>Ana şalter: akülerle araç arasındaki ana bağlantıyı açıp kesen şalter.</para></listItem><listItem><para>NBC: nükleer, biyolojik ve kimyasal tehditlere karşı koruma.</para></listItem><listItem><para>Aşırı basınç: mürettebat bölmesinin içini dış havadan biraz yüksek basınçta tutma.</para></listItem><listItem><para>Gresörlük: gres pompasının takıldığı küçük yağlama nipeli.</para></listItem><listItem><para>Bakım kaydı: yapılan her kontrolün ve bulunan eksiğin yazıldığı kayıt.</para></listItem></randomList></para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

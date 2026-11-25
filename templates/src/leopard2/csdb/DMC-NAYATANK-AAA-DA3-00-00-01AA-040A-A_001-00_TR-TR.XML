@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA3" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Yürüyen takım</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Palet</title>
+        <para>Her yanda bir palet, tabanları birbirine bağlayan pimler ve bağlantı parçalarıyla oluşan sonsuz bir zincirdir. Arkadaki yürütücü dişli paleti çeker; öndeki avara tekerleği paleti yönlendirir ve gerdirme tertibatıyla gerginliğini ayarlar.</para>
+        <para>Palet kullanıldıkça uzar ve gevşer. Gevşek palet sarkar, vuruntu yapar ve sert dönüşte atabilir; aşırı gergin palet rulmanları ve dişlileri hızla aşındırır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Tekerlekler ve süspansiyon</title>
+        <para>Yol tekerlekleri tankın ağırlığını paletin alt koluna verir. Her tekerlek bir salıncak koluna bağlıdır; salıncak kolu gövde boyunca uzanan bir burulma çubuğunu burarak yay görevi görür.</para>
+        <para>Amortisörler bazı tekerleklerin salınımını söndürür. Destek makaraları paletin üst kolunu taşır. Tekerleklerin lastik bandajları sarsıntıyı azaltır.</para>
+        <para>Göbekler ve kollar gresle yağlanır. Rulmanı bozulan göbek sürüşten sonra diğerlerinden sıcak olur; bu, en erken uyarıdır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

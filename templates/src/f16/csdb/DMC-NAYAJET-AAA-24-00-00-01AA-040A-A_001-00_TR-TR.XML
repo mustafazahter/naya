@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="24" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Elektrik gücü</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Kaynaklar</title>
+        <para>Ana jeneratör motorun aksesuar dişli kutusundan döner ve uçağın elektriğini üretir. Ana jeneratör kaybedilirse yedek jeneratör ve gerektiğinde acil güç ünitesi devreye girer.</para>
+        <para>Akü çalıştırma ve acil durum içindir. Yerde dış güç prizinden uçağa elektrik verilebilir.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Dağıtım</title>
+        <para>Elektrik baralar üzerinden sistemlere dağıtılır; önemli sistemler birden çok kaynaktan beslenebilen baralara bağlıdır. Kablo demetleri yapıya kelepçelerle tutturulur; sürtünme ve nem, ara ara gelen arızaların başlıca nedenidir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

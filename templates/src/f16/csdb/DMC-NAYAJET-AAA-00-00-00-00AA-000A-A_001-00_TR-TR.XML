@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="000" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>F-16F</techName><infoName>Bakım takvimi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Kullanım</title>
+        <para>Takvim, muayene türlerinde hangi sistemlere bakılacağını özetler. Aralıklar uçuş saatine, takvime ve olaylara bağlıdır; kesin aralıklar uçağın kendi bakım programındadır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Her uçuştan önce</title>
+        <para>Uçuş öncesi muayenede bakılır:<randomList><listItem><para>Koruyucu kılıflar, emniyet pimleri ve hava alığının temizliği.</para></listItem><listItem><para>Lastikler, frenlerin aşınma pimleri, dikmelerin boyu ve yuvalardaki sızıntı izi.</para></listItem><listItem><para>Hidrolik, yağ ve oksijen göstergeleri; yakıt örneğinde su.</para></listItem><listItem><para>Kumanda yüzeyleri, erişim panelleri ve bağlantı elemanları.</para></listItem><listItem><para>Kanopi, conta ve kokpitte gevşek eşya.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Her uçuştan sonra</title>
+        <para>Uçuş sonrası muayenede bakılır:<randomList><listItem><para>Lüle, art yakıcı ve motor çevresinde yeni iz ya da hasar.</para></listItem><listItem><para>Lastik ve fren aşınması, sıcak fren varsa soğuma.</para></listItem><listItem><para>Talaş algılayıcı ve filtre göstergeleri.</para></listItem><listItem><para>Pilotun bildirdiği arızaların kayda geçirilmesi.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Dönemsel (faz) muayene</title>
+        <para>Bakım programına göre:<randomList><listItem><para>Yapı ve korozyon muayenesi, panellerin içi.</para></listItem><listItem><para>Motor boroskop muayenesi ve yağ analizi.</para></listItem><listItem><para>Hidrolik ve motor yakıt filtrelerinin değişimi.</para></listItem><listItem><para>Uçuş kumanda, iniş takımı açma-kapama ve fren çalışma testleri.</para></listItem><listItem><para>Yangın algılama, ışıklar ve hava verileri testleri.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Olaya bağlı muayeneler</title>
+        <para>Gerektiğinde:<randomList><listItem><para>Sert iniş, yıldırım çarpması, aşırı egzoz sıcaklığı ve yabancı cisim yutma sonrasında özel muayene.</para></listItem><listItem><para>Uzun süre bekleyen uçakta depolama ve yeniden hizmete alma işlemleri.</para></listItem></randomList></para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

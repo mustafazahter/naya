@@ -2838,6 +2838,26 @@
         "inspect": "DMC-NAYACAR-AAA-DA5-10-00-00AA-300A-A",
         "replace": "DMC-NAYACAR-AAA-DA5-00-00-00AA-920A-A"
       }
+    },
+    {
+      "id": "hvac.evaporator",
+      "name": "Evaporatör ve drenaj hortumu",
+      "parent": "hvac",
+      "sns": "DA7-20",
+      "meshNodes": [
+        "dashboard"
+      ],
+      "zone": "z.cabin",
+      "function": "Gösterge panelinin arkasında; kabine giren havayı soğutur, yoğuşan suyu hortumla araç altına atar.",
+      "ipd": {
+        "dmc": "DMC-NAYACAR-AAA-D00-00-00-01AA-941A-A",
+        "figure": "01",
+        "item": "145"
+      },
+      "procedures": {
+        "clean": "DMC-NAYACAR-AAA-DA7-20-00-00AA-250A-A",
+        "isolate": "DMC-NAYACAR-AAA-DA7-20-00-01AA-421A-A"
+      }
     }
   ]
 }

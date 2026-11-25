@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA2" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Güç aktarma</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Debriyaj</title>
+        <para>Debriyaj, motorun volanı ile şanzımanın giriş mili arasındadır. Baskı plakasının diyafram yayı balatayı volana sıkıştırır; motorun dönüşü böylece şanzımana geçer.</para>
+        <para>Pedala basınca debriyaj ana merkezi hidroliği tali merkeze iter; tali merkez çatalı, çatal da debriyaj rulmanını yaya bastırır. Yay gevşer, balata serbest kalır ve vites değiştirilebilir.</para>
+        <para>Balata aşındıkça kavrama noktası yükselir; sonunda gaza basınca devir artar ama araç hızlanmaz (patinaj).</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Şanzıman ve aks milleri</title>
+        <para>Beş ileri manuel şanzıman motorla aynı blokta, enine durur; diferansiyel de içindedir. Dişliler senkromeçlerle sessizce kavrar.</para>
+        <para>İki aks mili diferansiyelden ön tekerleklere gider. Uçlarındaki sabit hızlı mafsallar (aks kafaları) tekerlek dönerken ve süspansiyon çalışırken gücü kesintisiz iletir. Mafsalların yağı körüklerin içindedir; körük yırtılırsa yağ kaçar, kum girer ve kafa aşınır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

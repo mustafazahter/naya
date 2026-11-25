@@ -40,7 +40,7 @@
         <proceduralStep><para>Seviye alt işaretteyse yağ doldurma kapağından az az yağ ekleyin. İki işaret arası yaklaşık 1 litredir.</para></proceduralStep>
         <proceduralStep><para>Motorun altında, karterde ve yağ filtresi çevresinde kaçak izi olup olmadığına bakın.</para></proceduralStep>
       </mainProcedure>
-      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="241" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>
   </content>
 </dmodule>

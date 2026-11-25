@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="7" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Yakıt sistemi</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Depodan enjektöre</title>
+        <para>Yakıt pompası deponun içindedir ve kontak açılınca birkaç saniye çalışıp hattı basınçlandırır; motor dönmeye başlayınca sürekli çalışır.</para>
+        <para>Pompa modülündeki basınç regülatörü fazla yakıtı depoya geri bırakır; motora tek bir hat gider (geri dönüşsüz sistem). Yakıt filtresi kiri enjektörlere ulaşmadan tutar.</para>
+        <para>Her silindirin emme kanalında bir enjektör vardır. Motor beyni enjektörü kısa süre açar; açık kalma süresi ne kadar uzunsa o kadar yakıt püskürür.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Yakıt buharı</title>
+        <para>Depoda oluşan benzin buharı dışarı atılmaz; kanisterdeki aktif kömürde toplanır. Motor çalışırken boşaltma valfi açılır ve bu buhar emmeye çekilip yakılır.</para>
+        <para>Depo kapağı contası sızdırırsa sistem kaçak görür ve arıza lambası yanabilir; araç çevresinde benzin kokusu duyulur.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Yakıt göstergesi</title>
+        <para>Depodaki şamandıralı seviye algılayıcısı yakıt seviyesine göre direncini değiştirir; gösterge bu direnci ibreye çevirir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

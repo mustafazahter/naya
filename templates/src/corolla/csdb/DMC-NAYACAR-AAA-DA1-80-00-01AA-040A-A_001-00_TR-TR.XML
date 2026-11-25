@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="8" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Motor yönetimi</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Sensörler, beyin, sürücüler</title>
+        <para>Motor beyni (ECM) sensörlerden gelen bilgiyi okur, yakıtı ve ateşlemeyi hesaplar, sonra enjektörleri, bobinleri, rölanti valfini ve VVT-i valfini sürer.</para>
+        <para>Başlıca sensörler: hava akış ölçer (giren hava), gaz kelebeği konum sensörü (pedalın ne kadar basıldığı), su sıcaklık sensörü (motorun ısısı), krank ve eksantrik konum sensörleri (devir ve piston yeri), oksijen sensörü (karışımın zenginliği) ve vuruntu sensörü.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Arıza lambası</title>
+        <para>Motor beyni sensörlerin değerlerini sürekli denetler. Bir değer beklenen aralığın dışında kalırsa arıza kodu kaydeder ve arıza lambasını yakar. Kod, teşhis soketinden okunur.</para>
+        <para>Kritik bir sensör bozulursa motor beyni yedek değerlerle çalışır; motor çalışır ama çekişi ve tüketimi bozulur.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

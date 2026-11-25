@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="006" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="24"/>
+        <dmTitle><techName>Bisiklet</techName><infoName>Terimler sözlüğü</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Kadro, çatal ve kumanda</title>
+        <para>Terimler:<randomList><listItem><para>Furç: çatal boğazının kadro içinde döndüğü rulman takımı.</para></listItem><listItem><para>Gidon boğazı (stem): gidonu çatal boğazına bağlayan parça.</para></listItem><listItem><para>İç boru ve alt bacak: yaylı çatalın kayan ve sabit boruları.</para></listItem><listItem><para>Ön yük: çatal yayının önceden sıkıştırılması.</para></listItem><listItem><para>Çökme (sag): sürücü binince çatalın kendiliğinden çöktüğü miktar.</para></listItem><listItem><para>Toz keçesi: iç boruyu silerek kiri dışarıda tutan keçe.</para></listItem><listItem><para>Elcik: gidonun tutulan lastik kaplaması.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Aktarma organları</title>
+        <para>Terimler:<randomList><listItem><para>Aynakol: pedal kolları ve ön dişlilerin (aynaların) takımı.</para></listItem><listItem><para>Orta göbek: pedal kollarını taşıyan milli rulman kartuşu.</para></listItem><listItem><para>Kaset: arka göbekteki dişliler takımı.</para></listItem><listItem><para>Serbest çark gövdesi: kasetin takıldığı, yalnız ileri yönde kavrayan göbek parçası.</para></listItem><listItem><para>Vites değiştirici (aktarıcı): zinciri dişliler arasında kaydıran düzen.</para></listItem><listItem><para>Vites askısı: arka vites değiştiriciyi kadroya bağlayan, darbede eğilen parça.</para></listItem><listItem><para>Makara: arka vites değiştiricideki iki küçük dişli tekerlek.</para></listItem><listItem><para>Limit vidası: vites değiştiricinin gidebileceği en uç konumu sınırlayan vida.</para></listItem><listItem><para>Zincir uzaması: pim ve makaraların aşınmasıyla zincirin boyunun artması.</para></listItem><listItem><para>Kilit bakla (hızlı bakla): zinciri aletsiz birleştiren bakla.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Fren ve tekerlek</title>
+        <para>Terimler:<randomList><listItem><para>Kaliper: balataları diske bastıran fren gövdesi.</para></listItem><listItem><para>Adaptör: kaliperi kadroya ya da çatala bağlayan ara parça.</para></listItem><listItem><para>Balata: diske sürtünerek bisikleti yavaşlatan parça.</para></listItem><listItem><para>Alıştırma: yeni balatanın diske ilk frenlemelerle oturtulması.</para></listItem><listItem><para>Jant bandı: jant içindeki tel deliklerini örten bant.</para></listItem><listItem><para>Sibop: iç lastiğin hava valfi.</para></listItem><listItem><para>Yılan ısırığı: düşük basınçta iç lastikte oluşan iki yan yana delik.</para></listItem><listItem><para>Yalpa: tekerleğin dönerken yana sallanması.</para></listItem><listItem><para>Tel gerginliği: tellerin ne kadar gergin olduğu; jantın düzgünlüğünü belirler.</para></listItem><listItem><para>Koni: göbek rulmanının bilyalarını yerinde tutan somun.</para></listItem><listItem><para>Çabuk sökme mandalı: tekerleği aletsiz sıkıp bırakan mandal.</para></listItem></randomList></para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

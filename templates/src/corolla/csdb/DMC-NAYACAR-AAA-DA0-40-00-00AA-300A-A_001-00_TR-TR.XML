@@ -40,7 +40,7 @@
         <proceduralStep><para>Çatlak ya da sürücü görüş alanındaki taş izi varsa cam değiştirilmelidir.</para></proceduralStep>
         <proceduralStep><para>Cam kenarındaki contada su sızıntısı olup olmadığını yağmur sonrasında kontrol edin.</para></proceduralStep>
       </mainProcedure>
-      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA0" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="03" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>
   </content>
 </dmodule>

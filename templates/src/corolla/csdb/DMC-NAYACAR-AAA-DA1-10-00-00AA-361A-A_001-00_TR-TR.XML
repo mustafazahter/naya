@@ -37,7 +37,7 @@
         <proceduralStep><para>Standart değer 1,5 MPa, en düşük değer 1,0 MPa'dır. Silindirler arasındaki fark 0,1 MPa'yı geçmemelidir.</para></proceduralStep>
         <proceduralStep><para>Değer düşükse buji yuvasından bir çay kaşığı motor yağı koyup yeniden ölçün. Değer yükselirse segmanlar, yükselmezse supaplar ya da silindir kapak contası sızdırıyordur.</para></proceduralStep>
       </mainProcedure>
-      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>
   </content>
 </dmodule>

@@ -167,6 +167,614 @@
     {
       "id": "sym.cassette_wobble",
       "text": "Kaset göbek üzerinde oynuyor, arkadan tıkırtı geliyor"
+    },
+    {
+      "id": "sym.rear_wheel_shift",
+      "text": "Arka tekerlek kadroda kayıyor, pedala yüklenince yamuluyor"
+    },
+    {
+      "id": "sym.saddle_creak",
+      "text": "Sele raylarından ya da sele kelepçesinden gıcırtı geliyor"
+    },
+    {
+      "id": "sym.chainring_click",
+      "text": "Her pedal turunda aynakoldan tık sesi geliyor"
+    },
+    {
+      "id": "sym.frame.crack.1",
+      "text": "Kadronun kaynak yerinde boyada ince bir çizgi var, gittikçe uzuyor"
+    },
+    {
+      "id": "sym.frame.crack.2",
+      "text": "Ayağa kalkıp pedal basınca kadrodan çıt sesi geliyor"
+    },
+    {
+      "id": "sym.headset.loose.1",
+      "text": "Ön freni sıkıp bisikleti ileri geri itince gidon tarafından tık tık ses geliyor"
+    },
+    {
+      "id": "sym.headset.loose.2",
+      "text": "Kasislerde ön taraftan takırtı geliyor, gidon boğazı oynuyor gibi"
+    },
+    {
+      "id": "sym.headset.worn.1",
+      "text": "Gidonu çevirince ortada bir yerde tık diye oturuyor"
+    },
+    {
+      "id": "sym.headset.worn.2",
+      "text": "Düz giderken gidon kendiliğinden bir noktada duruyor"
+    },
+    {
+      "id": "sym.fork.worn.1",
+      "text": "Çatal çökerken içinden tok bir vuruntu geliyor"
+    },
+    {
+      "id": "sym.fork.worn.2",
+      "text": "Ön tekerleği tutup sallayınca çatal bacaklarında boşluk var"
+    },
+    {
+      "id": "sym.fork.seals.1",
+      "text": "Çatalın toz keçesinin çevresinde yağlı kir birikiyor"
+    },
+    {
+      "id": "sym.fork.seals.2",
+      "text": "Çatal iç borusunda her sürüşten sonra yağ izi kalıyor"
+    },
+    {
+      "id": "sym.fork.stanchion.1",
+      "text": "Çatal iç borusunda tırnağa takılan bir çizik var"
+    },
+    {
+      "id": "sym.fork.stanchion.2",
+      "text": "Çizik olan yerden yağ sızıyor"
+    },
+    {
+      "id": "sym.fork.preload.1",
+      "text": "Çatal küçük bir düşüşte sonuna kadar çöküp dibe vuruyor"
+    },
+    {
+      "id": "sym.fork.preload.2",
+      "text": "Çatal çok sert, hiç çalışmıyor gibi"
+    },
+    {
+      "id": "sym.stem.loose.1",
+      "text": "Ön tekerlek düz giderken gidon yamuk duruyor"
+    },
+    {
+      "id": "sym.stem.loose.2",
+      "text": "Gidona yüklenince gidon boğazıyla birlikte dönüyor"
+    },
+    {
+      "id": "sym.bar.damaged.1",
+      "text": "Gidonun kelepçe kenarında çizik ve çatlak var"
+    },
+    {
+      "id": "sym.bar.damaged.2",
+      "text": "Düşüşten sonra gidon eğildi"
+    },
+    {
+      "id": "sym.grips.worn.1",
+      "text": "Elcikler yağmurda gidonda dönüyor"
+    },
+    {
+      "id": "sym.grips.worn.2",
+      "text": "Elciklerin lastiği yırtılmış ve kaygan"
+    },
+    {
+      "id": "sym.shifter.faulty.1",
+      "text": "Vites koluna basıyorum ama tık gelmiyor, kol boşa gidiyor"
+    },
+    {
+      "id": "sym.shifter.faulty.2",
+      "text": "Vites kolu basılı kalıyor, geri dönmüyor"
+    },
+    {
+      "id": "sym.brake_lever.sticky.1",
+      "text": "Fren kolunu bırakınca yavaşça yerine dönüyor"
+    },
+    {
+      "id": "sym.brake_lever.sticky.2",
+      "text": "Fren kolu düşüşten sonra eğildi ve takılıyor"
+    },
+    {
+      "id": "sym.seatpost.slip.1",
+      "text": "Sürerken sele yavaş yavaş aşağı iniyor"
+    },
+    {
+      "id": "sym.seatpost.slip.2",
+      "text": "Sele yüksekliği her sürüşte değişiyor"
+    },
+    {
+      "id": "sym.seatpost.creak.1",
+      "text": "Selede otururken sele borusunun kadroya girdiği yerden gıcırtı geliyor"
+    },
+    {
+      "id": "sym.seatpost.creak.2",
+      "text": "Ayakta pedal çevirince ses kesiliyor, oturunca başlıyor"
+    },
+    {
+      "id": "sym.post_head.loose.1",
+      "text": "Sele burnu aşağı ya da yukarı düştü"
+    },
+    {
+      "id": "sym.post_head.loose.2",
+      "text": "Sele kasiste geriye yattı"
+    },
+    {
+      "id": "sym.chain.worn.1",
+      "text": "Yokuşta pedala yüklenince zincir tak diye boşa kaçıyor"
+    },
+    {
+      "id": "sym.chain.worn.2",
+      "text": "Zincir çok eski, ölçer takınca tam oturuyor"
+    },
+    {
+      "id": "sym.chain.worn.3",
+      "text": "Zincir aynakolun dişlerinden ileri doğru kalkıyor"
+    },
+    {
+      "id": "sym.chain.dry.1",
+      "text": "Pedal çevirirken zincirden cızırtı geliyor"
+    },
+    {
+      "id": "sym.chain.dry.2",
+      "text": "Yağmurdan sonra zincir paslanmış ve gıcırdıyor"
+    },
+    {
+      "id": "sym.chain.stiff_link.1",
+      "text": "Arka makaralardan geçerken zincir her turda bir kez sıçrıyor"
+    },
+    {
+      "id": "sym.chain.stiff_link.2",
+      "text": "Pedalı geri çevirince zincirde bir bakla kıvrık kalıyor"
+    },
+    {
+      "id": "sym.cassette.worn.1",
+      "text": "Yeni zincir taktım, en çok kullandığım viteste zincir atlıyor"
+    },
+    {
+      "id": "sym.cassette.worn.2",
+      "text": "Kasetin dişleri sivri ve köpek balığı yüzgeci gibi"
+    },
+    {
+      "id": "sym.lockring.loose.1",
+      "text": "Arka dişliler göbek üzerinde elle oynatılınca sallanıyor"
+    },
+    {
+      "id": "sym.lockring.loose.2",
+      "text": "Kaset tarafından tıkırtı geliyor, kilit somunu gevşek"
+    },
+    {
+      "id": "sym.crankset.worn_teeth.1",
+      "text": "Ön aynanın dişleri sivrilmiş, zincir dişliden düşüyor"
+    },
+    {
+      "id": "sym.crankset.worn_teeth.2",
+      "text": "Zincir yeni olmasına rağmen ön aynadan kayıyor"
+    },
+    {
+      "id": "sym.crank.loose.1",
+      "text": "Pedal kolu milde oynuyor, her turda tık sesi geliyor"
+    },
+    {
+      "id": "sym.crank.loose.2",
+      "text": "Pedal kolunun cıvatası gevşemiş, kol sallanıyor"
+    },
+    {
+      "id": "sym.bottom_bracket.worn.1",
+      "text": "Pedal kollarını yanlara itince orta göbekte boşluk var"
+    },
+    {
+      "id": "sym.bottom_bracket.worn.2",
+      "text": "Pedalı çevirirken orta göbekten hırıltı ve tıkırtı geliyor"
+    },
+    {
+      "id": "sym.front_derailleur.misadjusted.1",
+      "text": "Ön vites büyük aynaya çıkmıyor"
+    },
+    {
+      "id": "sym.front_derailleur.misadjusted.2",
+      "text": "Ön viteste zincir içe ya da dışa düşüyor"
+    },
+    {
+      "id": "sym.front_derailleur.position.1",
+      "text": "Ön vites değiştiricinin kafesi zincire sürtüyor, her turda ses var"
+    },
+    {
+      "id": "sym.front_derailleur.position.2",
+      "text": "Ön vites kafesi eğri duruyor"
+    },
+    {
+      "id": "sym.rear_derailleur.misadjusted.1",
+      "text": "Arka vitesler bir sonraki dişliye geç geçiyor, iki dişli arasında kalıyor"
+    },
+    {
+      "id": "sym.rear_derailleur.misadjusted.2",
+      "text": "Arkada vites kendi kendine atlıyor, tıkırdıyor"
+    },
+    {
+      "id": "sym.rear_derailleur.limit.1",
+      "text": "En hafif viteste zincir tellere doğru kaçıyor"
+    },
+    {
+      "id": "sym.rear_derailleur.limit.2",
+      "text": "En ağır viteste zincir kasetten kadroya düşüyor"
+    },
+    {
+      "id": "sym.rear_derailleur.damaged.1",
+      "text": "Arka vites değiştirici düşüşten sonra içe doğru eğildi"
+    },
+    {
+      "id": "sym.rear_derailleur.damaged.2",
+      "text": "Vites değiştiricinin kafesi yamuk ve zincir gevşek kalıyor"
+    },
+    {
+      "id": "sym.hanger.bent.1",
+      "text": "Bisiklet yan yattıktan sonra vitesler bozuldu"
+    },
+    {
+      "id": "sym.hanger.bent.2",
+      "text": "Arkadan bakınca vites değiştirici kasetle aynı hizada değil"
+    },
+    {
+      "id": "sym.jockey.worn.1",
+      "text": "Arka vites değiştiricinin küçük tekerleklerinin dişleri aşınmış"
+    },
+    {
+      "id": "sym.jockey.worn.2",
+      "text": "Makaralardan hırıltı geliyor"
+    },
+    {
+      "id": "sym.pedal.bearing.1",
+      "text": "Pedalın kendisi aks üzerinde yanlara oynuyor"
+    },
+    {
+      "id": "sym.pedal.bearing.2",
+      "text": "Pedala basınca pedaldan tıkırtı geliyor"
+    },
+    {
+      "id": "sym.pedal_bearings.dry.1",
+      "text": "Pedalı elle çevirince takılarak, kumlu gibi dönüyor"
+    },
+    {
+      "id": "sym.pedal_bearings.dry.2",
+      "text": "Pedal elle çevrilince hemen duruyor"
+    },
+    {
+      "id": "sym.shift_cable.stretched.1",
+      "text": "Yeni bisiklette birkaç hafta sonra vitesler kaymaya başladı"
+    },
+    {
+      "id": "sym.shift_cable.stretched.2",
+      "text": "Vites ayarı sürekli bozuluyor"
+    },
+    {
+      "id": "sym.shift_cable_rear.frayed.1",
+      "text": "Arka vites kolunda tel ucunun lifleri dağılmış"
+    },
+    {
+      "id": "sym.shift_cable_rear.frayed.2",
+      "text": "Arka vites kolu çok sert basıyor"
+    },
+    {
+      "id": "sym.shift_cable_front.dirty.1",
+      "text": "Ön vites kolu sert ve vites geç değişiyor"
+    },
+    {
+      "id": "sym.shift_cable_front.dirty.2",
+      "text": "Ön vites telinin kılıfı çamurlu ve paslı"
+    },
+    {
+      "id": "sym.brake_front.pads_worn.1",
+      "text": "Ön frenden demir sürtme sesi geliyor"
+    },
+    {
+      "id": "sym.brake_front.pads_worn.2",
+      "text": "Ön fren kolunu gidona kadar sıkmak gerekiyor"
+    },
+    {
+      "id": "sym.brake_front.contaminated.1",
+      "text": "Ön fren zincir yağı bulaştıktan sonra tutmuyor ve ötüyor"
+    },
+    {
+      "id": "sym.brake_front.contaminated.2",
+      "text": "Ön fren ıslakken korna gibi ötüyor"
+    },
+    {
+      "id": "sym.brake_front.rotor_bent.1",
+      "text": "Ön tekerlek dönerken diskten şı şı diye sürtme sesi geliyor"
+    },
+    {
+      "id": "sym.brake_front.rotor_bent.2",
+      "text": "Ön disk dönerken kaliperin içinde yalpalıyor"
+    },
+    {
+      "id": "sym.brake_front.rotor_worn.1",
+      "text": "Ön disk incelmiş ve kenarında basamak oluşmuş"
+    },
+    {
+      "id": "sym.brake_front.rotor_worn.2",
+      "text": "Ön balatalar yeni ama fren yine zayıf"
+    },
+    {
+      "id": "sym.brake_front.caliper_misaligned.1",
+      "text": "Ön teker elle çevrilince balata diske hafifçe sürtüyor"
+    },
+    {
+      "id": "sym.brake_front.caliper_misaligned.2",
+      "text": "Ön tekerleği söküp taktıktan sonra fren sürtmeye başladı"
+    },
+    {
+      "id": "sym.brake_front.adapter_loose.1",
+      "text": "Ön freni sıkınca çatal tarafında kaliper oynuyor, tok ses geliyor"
+    },
+    {
+      "id": "sym.brake_front.adapter_loose.2",
+      "text": "Ön kaliperin cıvatası gevşemiş"
+    },
+    {
+      "id": "sym.brake_rear.pads_worn.1",
+      "text": "Arka frenden metal sürtme sesi geliyor"
+    },
+    {
+      "id": "sym.brake_rear.pads_worn.2",
+      "text": "Arka fren kolu gidona kadar geliyor"
+    },
+    {
+      "id": "sym.brake_rear.contaminated.1",
+      "text": "Arka fren yağlanmış gibi kaygan ve ötüyor"
+    },
+    {
+      "id": "sym.brake_rear.contaminated.2",
+      "text": "Zinciri yağlarken arka diske yağ sıçradı, fren tutmuyor"
+    },
+    {
+      "id": "sym.brake_rear.rotor_bent.1",
+      "text": "Arka tekerlek dönerken diskten sürtme sesi geliyor"
+    },
+    {
+      "id": "sym.brake_rear.rotor_bent.2",
+      "text": "Arka disk düşüşten sonra eğildi"
+    },
+    {
+      "id": "sym.brake_rear.rotor_worn.1",
+      "text": "Arka disk çok incelmiş, kenarında çıkıntı var"
+    },
+    {
+      "id": "sym.brake_rear.rotor_worn.2",
+      "text": "Arka balatalar değişti ama arka fren hâlâ zayıf"
+    },
+    {
+      "id": "sym.brake_rear.caliper_misaligned.1",
+      "text": "Arka teker elle çevrilince balata diske sürtüyor"
+    },
+    {
+      "id": "sym.brake_rear.caliper_misaligned.2",
+      "text": "Arka tekerlek takıldıktan sonra arka fren sürtmeye başladı"
+    },
+    {
+      "id": "sym.brake_cable.stretched.1",
+      "text": "İki fren kolu da her hafta biraz daha gidona yaklaşıyor"
+    },
+    {
+      "id": "sym.brake_cable.stretched.2",
+      "text": "Fren kolu boşluğu yeni bisiklette çabuk arttı"
+    },
+    {
+      "id": "sym.brake_cable_front.frayed.1",
+      "text": "Ön fren teli kaliper ucunda dağılmış"
+    },
+    {
+      "id": "sym.brake_cable_front.frayed.2",
+      "text": "Ön fren kolu ağır çekiliyor ve geç dönüyor"
+    },
+    {
+      "id": "sym.brake_cable_rear.frayed.1",
+      "text": "Arka fren teli paslanmış ve kılıfta sürtüyor"
+    },
+    {
+      "id": "sym.brake_cable_rear.frayed.2",
+      "text": "Arka fren kolu ağır çekiliyor ve geç dönüyor"
+    },
+    {
+      "id": "sym.tube_front.puncture.1",
+      "text": "Ön lastik bir anda indi"
+    },
+    {
+      "id": "sym.tube_front.puncture.2",
+      "text": "Ön lastiğe diken batmış"
+    },
+    {
+      "id": "sym.tube_rear.puncture.1",
+      "text": "Arka lastik bir anda indi"
+    },
+    {
+      "id": "sym.tube_rear.puncture.2",
+      "text": "Arka lastikte çivi ya da cam parçası var"
+    },
+    {
+      "id": "sym.rim.out_of_true.1",
+      "text": "Arka tekerlek dönerken yanlara sallanıyor"
+    },
+    {
+      "id": "sym.rim.out_of_true.2",
+      "text": "Arka jant fren diskine göre değil, kadroya göre yalpalıyor"
+    },
+    {
+      "id": "sym.spokes.loose.1",
+      "text": "Arka tekerlekteki teller elle sıkınca gevşek geliyor"
+    },
+    {
+      "id": "sym.spokes.loose.2",
+      "text": "Arka tekerlekten tıkırtı ve tel çınlaması geliyor"
+    },
+    {
+      "id": "sym.spokes_front.broken.1",
+      "text": "Ön tekerlekte bir tel kopmuş, sarkıyor"
+    },
+    {
+      "id": "sym.spokes_front.broken.2",
+      "text": "Ön jant birden eğildi ve çatala yaklaşıyor"
+    },
+    {
+      "id": "sym.rim_tape.shifted.1",
+      "text": "Arka iç lastik hep jant tarafından deliniyor"
+    },
+    {
+      "id": "sym.rim_tape.shifted.2",
+      "text": "Arka iç lastiğin iç yüzünde küçük kesikler var"
+    },
+    {
+      "id": "sym.valve_front.leak.1",
+      "text": "Ön lastik birkaç günde iniyor, sibopta sabun köpürüyor"
+    },
+    {
+      "id": "sym.valve_front.leak.2",
+      "text": "Ön sibobun ucu eğilmiş ve hava kaçırıyor"
+    },
+    {
+      "id": "sym.tire_front.pressure_low.1",
+      "text": "Ön iç lastikte yan yana iki delik var"
+    },
+    {
+      "id": "sym.tire_front.pressure_low.2",
+      "text": "Taşa çarptıktan sonra ön lastik indi"
+    },
+    {
+      "id": "sym.tire_front.worn.1",
+      "text": "Ön lastiğin tırtılları yok olmuş, virajda kayıyor"
+    },
+    {
+      "id": "sym.tire_front.worn.2",
+      "text": "Ön lastik inceldi, içinden bez görünüyor"
+    },
+    {
+      "id": "sym.tire_rear.damaged.1",
+      "text": "Arka lastiğin yanağında kesik var, iç lastik dışarı fışkırıyor"
+    },
+    {
+      "id": "sym.tire_rear.damaged.2",
+      "text": "Arka lastikte bir yer balon gibi şişmiş"
+    },
+    {
+      "id": "sym.hub_front.play.1",
+      "text": "Ön tekerleği tutup yanlara sallayınca boşluk var"
+    },
+    {
+      "id": "sym.hub_front.play.2",
+      "text": "Ön göbek tarafından tıkırtı geliyor"
+    },
+    {
+      "id": "sym.qr_front.loose.1",
+      "text": "Ön tekerlek çatalda oynuyor, mandal kolay kapanıyor"
+    },
+    {
+      "id": "sym.qr_front.loose.2",
+      "text": "Ön tekerlek mandalı açık kalmış gibi"
+    },
+    {
+      "id": "sym.hub_rear.worn.1",
+      "text": "Arka tekerleği elle çevirince göbekten hışırtı geliyor"
+    },
+    {
+      "id": "sym.hub_rear.worn.2",
+      "text": "Arka göbekte boşluk var ve kaset sallanıyor"
+    },
+    {
+      "id": "sym.freehub.slipping.1",
+      "text": "Pedala basıyorum, pedal boşa dönüyor, bisiklet gitmiyor"
+    },
+    {
+      "id": "sym.freehub.slipping.2",
+      "text": "Pedal bazen kavrıyor bazen boşa kaçıyor, soğukta daha kötü"
+    },
+    {
+      "id": "sym.qr_rear.loose.1",
+      "text": "Ayağa kalkıp pedal basınca arka tekerlek kayıp frene sürtüyor"
+    },
+    {
+      "id": "sym.qr_rear.loose.2",
+      "text": "Arka tekerlek mandalı gevşek kapatılmış"
+    },
+    {
+      "id": "sym.hub_front.dry.1",
+      "text": "Ön tekerleği elle çevirince göbekten hışırtı geliyor"
+    },
+    {
+      "id": "sym.hub_front.dry.2",
+      "text": "Ön tekerlek elle çevrilince çabuk duruyor"
+    },
+    {
+      "id": "sym.valve_rear.leak.1",
+      "text": "Arka lastik birkaç günde iniyor, delik bulamıyorum"
+    },
+    {
+      "id": "sym.valve_rear.leak.2",
+      "text": "Arka sibobun dibinden hava kaçıyor"
+    },
+    {
+      "id": "sym.tire_rear.worn.1",
+      "text": "Arka lastik yokuşta patinaj yapıyor, tırtılları aşınmış"
+    },
+    {
+      "id": "sym.tire_rear.worn.2",
+      "text": "Arka lastiğin ortası düzleşmiş"
+    },
+    {
+      "id": "sym.rim_front.out_of_true.1",
+      "text": "Ön tekerlek dönerken yanlara sallanıyor"
+    },
+    {
+      "id": "sym.rim_front.out_of_true.2",
+      "text": "Çukura girdikten sonra ön jant eğildi"
+    },
+    {
+      "id": "sym.rim_tape_front.shifted.1",
+      "text": "Ön iç lastik hep jant tarafından deliniyor"
+    },
+    {
+      "id": "sym.rim_tape_front.shifted.2",
+      "text": "Ön jantta tel deliği açıkta kalmış"
+    },
+    {
+      "id": "sym.tire_rear.pressure_low.1",
+      "text": "Arka iç lastikte yan yana iki küçük delik var"
+    },
+    {
+      "id": "sym.tire_rear.pressure_low.2",
+      "text": "Kaldırımdan inince arka lastik indi"
+    },
+    {
+      "id": "sym.brake_rear.adapter_loose.1",
+      "text": "Arka freni sıkınca kaliper oynuyor, tok bir ses geliyor"
+    },
+    {
+      "id": "sym.brake_rear.adapter_loose.2",
+      "text": "Arka kaliperin bağlantı cıvatası gevşemiş"
+    },
+    {
+      "id": "sym.chainring.bolts.1",
+      "text": "Aynakoldan her turda tık sesi geliyor"
+    },
+    {
+      "id": "sym.chainring.bolts.2",
+      "text": "Ön aynalar birbirine göre oynuyor"
+    },
+    {
+      "id": "sym.spokes_rear.broken.1",
+      "text": "Arka tekerlekte bir tel kopmuş, jant fren diskine doğru eğildi"
+    },
+    {
+      "id": "sym.spokes_rear.broken.2",
+      "text": "Arka tekerlekten çınlama geldi, sonra tekerlek yalpalamaya başladı"
+    },
+    {
+      "id": "sym.saddle.creak.1",
+      "text": "Selede otururken selenin altından gıcırtı geliyor"
+    },
+    {
+      "id": "sym.saddle.creak.2",
+      "text": "Seleyi bastırınca raylardan ses geliyor"
     }
   ],
   "faults": [
@@ -175,7 +783,9 @@
       "part": "frame",
       "symptoms": [
         "sym.frame_crack",
-        "sym.bar_creak"
+        "sym.bar_creak",
+        "sym.frame.crack.1",
+        "sym.frame.crack.2"
       ],
       "cause": "Kadroda kaynak yerinde ya da boruda çatlak var.",
       "severity": 4,
@@ -186,7 +796,9 @@
       "part": "fork.headset",
       "symptoms": [
         "sym.headset_play",
-        "sym.fork_knock"
+        "sym.fork_knock",
+        "sym.headset.loose.1",
+        "sym.headset.loose.2"
       ],
       "cause": "Furç gevşemiş.",
       "severity": 3,
@@ -197,7 +809,9 @@
       "id": "f.headset.worn",
       "part": "fork.headset",
       "symptoms": [
-        "sym.steering_notchy"
+        "sym.steering_notchy",
+        "sym.headset.worn.1",
+        "sym.headset.worn.2"
       ],
       "cause": "Furç rulmanları ya da kapları çukurlaşmış.",
       "severity": 2,
@@ -209,7 +823,9 @@
       "part": "fork.lowers",
       "symptoms": [
         "sym.fork_knock",
-        "sym.fork_sticky"
+        "sym.fork_sticky",
+        "sym.fork.worn.1",
+        "sym.fork.worn.2"
       ],
       "cause": "Çatal burçları aşınmış ya da alt bacak yağı azalmış.",
       "severity": 3,
@@ -221,7 +837,9 @@
       "part": "fork.seals",
       "symptoms": [
         "sym.fork_leak",
-        "sym.fork_sticky"
+        "sym.fork_sticky",
+        "sym.fork.seals.1",
+        "sym.fork.seals.2"
       ],
       "cause": "Toz keçeleri sertleşmiş ya da kir tutmuş; yağ sızdırıyor.",
       "severity": 2,
@@ -232,7 +850,9 @@
       "id": "f.fork.stanchion",
       "part": "fork.stanchions",
       "symptoms": [
-        "sym.fork_leak"
+        "sym.fork_leak",
+        "sym.fork.stanchion.1",
+        "sym.fork.stanchion.2"
       ],
       "cause": "İç boruda çizik var; keçeyi kesiyor.",
       "severity": 3,
@@ -242,7 +862,9 @@
       "id": "f.fork.preload",
       "part": "fork.spring",
       "symptoms": [
-        "sym.fork_bottom"
+        "sym.fork_bottom",
+        "sym.fork.preload.1",
+        "sym.fork.preload.2"
       ],
       "cause": "Ön yük sürücü ağırlığına göre az ayarlanmış.",
       "severity": 1,
@@ -254,7 +876,9 @@
       "part": "cockpit.stem",
       "symptoms": [
         "sym.bar_slip",
-        "sym.headset_play"
+        "sym.headset_play",
+        "sym.stem.loose.1",
+        "sym.stem.loose.2"
       ],
       "cause": "Gidon boğazı cıvataları gevşemiş.",
       "severity": 4,
@@ -265,7 +889,9 @@
       "id": "f.bar.damaged",
       "part": "cockpit.bar",
       "symptoms": [
-        "sym.bar_creak"
+        "sym.bar_creak",
+        "sym.bar.damaged.1",
+        "sym.bar.damaged.2"
       ],
       "cause": "Gidon kelepçe kenarında çizilmiş ya da çatlamış.",
       "severity": 4,
@@ -275,7 +901,9 @@
       "id": "f.grips.worn",
       "part": "cockpit.grips",
       "symptoms": [
-        "sym.grip_slip"
+        "sym.grip_slip",
+        "sym.grips.worn.1",
+        "sym.grips.worn.2"
       ],
       "cause": "Elcikler aşınmış ya da yağlanmış.",
       "severity": 1,
@@ -286,7 +914,9 @@
       "part": "cockpit.shifters",
       "symptoms": [
         "sym.shifter_no_return",
-        "sym.shift_slow"
+        "sym.shift_slow",
+        "sym.shifter.faulty.1",
+        "sym.shifter.faulty.2"
       ],
       "cause": "Vites kolunun içindeki mandal mekanizması arızalı.",
       "severity": 2,
@@ -297,7 +927,9 @@
       "id": "f.brake_lever.sticky",
       "part": "cockpit.brake_levers",
       "symptoms": [
-        "sym.lever_no_return"
+        "sym.lever_no_return",
+        "sym.brake_lever.sticky.1",
+        "sym.brake_lever.sticky.2"
       ],
       "cause": "Fren kolu pivotu kurumuş ya da bükülmüş.",
       "severity": 3,
@@ -308,17 +940,22 @@
       "id": "f.seatpost.slip",
       "part": "seat.post",
       "symptoms": [
-        "sym.saddle_slip"
+        "sym.saddle_slip",
+        "sym.seatpost.slip.1",
+        "sym.seatpost.slip.2"
       ],
       "cause": "Sele borusu kelepçesi yeterince sıkılmamış.",
       "severity": 1,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-40-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA0-40-00-00AA-271A-A"
     },
     {
       "id": "f.seatpost.creak",
       "part": "seat.post",
       "symptoms": [
-        "sym.seat_creak"
+        "sym.seat_creak",
+        "sym.seatpost.creak.1",
+        "sym.seatpost.creak.2"
       ],
       "cause": "Sele borusu kuru ya da kirli; kadro içinde gıcırdıyor.",
       "severity": 1,
@@ -329,10 +966,13 @@
       "id": "f.post_head.loose",
       "part": "seat.post_head",
       "symptoms": [
-        "sym.saddle_tilt"
+        "sym.saddle_tilt",
+        "sym.post_head.loose.1",
+        "sym.post_head.loose.2"
       ],
       "cause": "Sele kelepçesinin cıvatası gevşemiş.",
       "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-40-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA0-40-00-01AA-271A-A"
     },
     {
@@ -340,7 +980,10 @@
       "part": "drive.chain",
       "symptoms": [
         "sym.chain_skip",
-        "sym.chain_noise"
+        "sym.chain_noise",
+        "sym.chain.worn.1",
+        "sym.chain.worn.2",
+        "sym.chain.worn.3"
       ],
       "cause": "Zincir aşınıp uzamış; dişlilere tam oturmuyor.",
       "severity": 2,
@@ -351,7 +994,9 @@
       "id": "f.chain.dry",
       "part": "drive.chain",
       "symptoms": [
-        "sym.chain_noise"
+        "sym.chain_noise",
+        "sym.chain.dry.1",
+        "sym.chain.dry.2"
       ],
       "cause": "Zincir kurumuş ya da kirlenmiş.",
       "severity": 1,
@@ -363,7 +1008,9 @@
       "part": "drive.chain",
       "symptoms": [
         "sym.chain_skip",
-        "sym.shift_noise"
+        "sym.shift_noise",
+        "sym.chain.stiff_link.1",
+        "sym.chain.stiff_link.2"
       ],
       "cause": "Zincirde sıkışmış bir bakla var; makaralardan geçerken atlıyor.",
       "severity": 2,
@@ -374,7 +1021,9 @@
       "id": "f.cassette.worn",
       "part": "drive.cassette",
       "symptoms": [
-        "sym.chain_skip"
+        "sym.chain_skip",
+        "sym.cassette.worn.1",
+        "sym.cassette.worn.2"
       ],
       "cause": "Kaset dişlileri aşınmış; yeni zincir en çok kullanılan dişlide atlıyor.",
       "severity": 2,
@@ -386,7 +1035,9 @@
       "part": "drive.lockring",
       "symptoms": [
         "sym.cassette_wobble",
-        "sym.shift_noise"
+        "sym.shift_noise",
+        "sym.lockring.loose.1",
+        "sym.lockring.loose.2"
       ],
       "cause": "Kaset kilit somunu gevşemiş.",
       "severity": 2,
@@ -397,7 +1048,9 @@
       "part": "drive.chainrings",
       "symptoms": [
         "sym.chain_skip",
-        "sym.chain_drop"
+        "sym.chain_drop",
+        "sym.crankset.worn_teeth.1",
+        "sym.crankset.worn_teeth.2"
       ],
       "cause": "Aynakol dişleri sivrilmiş.",
       "severity": 2,
@@ -409,7 +1062,9 @@
       "part": "drive.crank_arms",
       "symptoms": [
         "sym.pedal_play",
-        "sym.crank_creak"
+        "sym.crank_creak",
+        "sym.crank.loose.1",
+        "sym.crank.loose.2"
       ],
       "cause": "Pedal kolu cıvatası gevşemiş; kol kare milde oynuyor.",
       "severity": 3,
@@ -421,7 +1076,9 @@
       "part": "drive.bottom_bracket",
       "symptoms": [
         "sym.crank_creak",
-        "sym.pedal_play"
+        "sym.pedal_play",
+        "sym.bottom_bracket.worn.1",
+        "sym.bottom_bracket.worn.2"
       ],
       "cause": "Orta göbek rulmanları aşınmış ya da gevşemiş.",
       "severity": 2,
@@ -433,7 +1090,9 @@
       "part": "drive.front_derailleur",
       "symptoms": [
         "sym.front_shift",
-        "sym.chain_drop"
+        "sym.chain_drop",
+        "sym.front_derailleur.misadjusted.1",
+        "sym.front_derailleur.misadjusted.2"
       ],
       "cause": "Ön vites değiştiricinin limit vidaları ya da tel gerginliği ayarsız.",
       "severity": 1,
@@ -444,7 +1103,9 @@
       "id": "f.front_derailleur.position",
       "part": "drive.front_derailleur",
       "symptoms": [
-        "sym.fd_rub"
+        "sym.fd_rub",
+        "sym.front_derailleur.position.1",
+        "sym.front_derailleur.position.2"
       ],
       "cause": "Ön vites değiştiricinin yüksekliği ya da açısı aynaya göre bozuk.",
       "severity": 1,
@@ -455,7 +1116,9 @@
       "part": "drive.rear_derailleur",
       "symptoms": [
         "sym.shift_slow",
-        "sym.shift_noise"
+        "sym.shift_noise",
+        "sym.rear_derailleur.misadjusted.1",
+        "sym.rear_derailleur.misadjusted.2"
       ],
       "cause": "Vites teli gerginliği ya da limit vidaları ayarsız.",
       "severity": 1,
@@ -466,7 +1129,9 @@
       "id": "f.rear_derailleur.limit",
       "part": "drive.rear_derailleur",
       "symptoms": [
-        "sym.chain_drop"
+        "sym.chain_drop",
+        "sym.rear_derailleur.limit.1",
+        "sym.rear_derailleur.limit.2"
       ],
       "cause": "Limit vidaları ayarsız; zincir en küçük ya da en büyük dişliden dışarı kaçıyor.",
       "severity": 3,
@@ -478,7 +1143,9 @@
       "part": "drive.rear_derailleur",
       "symptoms": [
         "sym.shift_slow",
-        "sym.chain_drop"
+        "sym.chain_drop",
+        "sym.rear_derailleur.damaged.1",
+        "sym.rear_derailleur.damaged.2"
       ],
       "cause": "Arka vites değiştiricinin kafesi bükülmüş ya da yayı zayıflamış.",
       "severity": 3,
@@ -491,7 +1158,9 @@
       "symptoms": [
         "sym.shift_noise",
         "sym.chain_drop",
-        "sym.shift_slow"
+        "sym.shift_slow",
+        "sym.hanger.bent.1",
+        "sym.hanger.bent.2"
       ],
       "cause": "Vites askısı darbe sonucu bükülmüş.",
       "severity": 3,
@@ -503,7 +1172,9 @@
       "part": "drive.jockey_wheels",
       "symptoms": [
         "sym.shift_noise",
-        "sym.chain_noise"
+        "sym.chain_noise",
+        "sym.jockey.worn.1",
+        "sym.jockey.worn.2"
       ],
       "cause": "Makara dişleri aşınmış ya da yatağı kurumuş.",
       "severity": 1,
@@ -515,7 +1186,9 @@
       "part": "drive.pedals",
       "symptoms": [
         "sym.pedal_play",
-        "sym.crank_creak"
+        "sym.crank_creak",
+        "sym.pedal.bearing.1",
+        "sym.pedal.bearing.2"
       ],
       "cause": "Pedal rulmanı aşınmış ya da pedal kola tam sıkılmamış.",
       "severity": 2,
@@ -526,7 +1199,9 @@
       "id": "f.pedal_bearings.dry",
       "part": "drive.pedal_bearings",
       "symptoms": [
-        "sym.pedal_rough"
+        "sym.pedal_rough",
+        "sym.pedal_bearings.dry.1",
+        "sym.pedal_bearings.dry.2"
       ],
       "cause": "Pedal rulmanlarının gresi kurumuş ya da içine su girmiş.",
       "severity": 1,
@@ -537,7 +1212,9 @@
       "part": "drive.shift_cables",
       "symptoms": [
         "sym.shift_slow",
-        "sym.front_shift"
+        "sym.front_shift",
+        "sym.shift_cable.stretched.1",
+        "sym.shift_cable.stretched.2"
       ],
       "cause": "Vites teli esnemiş ya da kılıfı kirlenmiş.",
       "severity": 1,
@@ -549,7 +1226,9 @@
       "part": "drive.shift_cable_rear",
       "symptoms": [
         "sym.shift_stiff",
-        "sym.shift_slow"
+        "sym.shift_slow",
+        "sym.shift_cable_rear.frayed.1",
+        "sym.shift_cable_rear.frayed.2"
       ],
       "cause": "Arka vites teli paslanmış ya da lifleri kopmaya başlamış.",
       "severity": 2,
@@ -561,7 +1240,9 @@
       "part": "drive.shift_cable_front",
       "symptoms": [
         "sym.shift_stiff",
-        "sym.front_shift"
+        "sym.front_shift",
+        "sym.shift_cable_front.dirty.1",
+        "sym.shift_cable_front.dirty.2"
       ],
       "cause": "Ön vites teli kılıf içinde kirlenmiş, sürtünüyor.",
       "severity": 1,
@@ -574,7 +1255,9 @@
       "symptoms": [
         "sym.brake_weak",
         "sym.brake_squeal",
-        "sym.lever_travel"
+        "sym.lever_travel",
+        "sym.brake_front.pads_worn.1",
+        "sym.brake_front.pads_worn.2"
       ],
       "cause": "Ön balatalar aşınmış.",
       "severity": 4,
@@ -586,7 +1269,9 @@
       "part": "brakes.front.pads",
       "symptoms": [
         "sym.brake_weak",
-        "sym.brake_squeal"
+        "sym.brake_squeal",
+        "sym.brake_front.contaminated.1",
+        "sym.brake_front.contaminated.2"
       ],
       "cause": "Ön disk ya da balatalar yağlanmış.",
       "severity": 4,
@@ -597,7 +1282,9 @@
       "id": "f.brake_front.rotor_bent",
       "part": "brakes.front.rotor",
       "symptoms": [
-        "sym.brake_rub"
+        "sym.brake_rub",
+        "sym.brake_front.rotor_bent.1",
+        "sym.brake_front.rotor_bent.2"
       ],
       "cause": "Ön disk eğrilmiş.",
       "severity": 2,
@@ -609,7 +1296,9 @@
       "part": "brakes.front.rotor",
       "symptoms": [
         "sym.brake_weak",
-        "sym.lever_travel"
+        "sym.lever_travel",
+        "sym.brake_front.rotor_worn.1",
+        "sym.brake_front.rotor_worn.2"
       ],
       "cause": "Ön disk 1,5 mm'nin altına incelmiş.",
       "severity": 4,
@@ -621,7 +1310,9 @@
       "part": "brakes.front",
       "symptoms": [
         "sym.brake_rub",
-        "sym.lever_travel"
+        "sym.lever_travel",
+        "sym.brake_front.caliper_misaligned.1",
+        "sym.brake_front.caliper_misaligned.2"
       ],
       "cause": "Ön kaliper diske ortalı değil ya da balata boşluğu fazla.",
       "severity": 2,
@@ -632,7 +1323,9 @@
       "id": "f.brake_front.adapter_loose",
       "part": "brakes.front.adapter",
       "symptoms": [
-        "sym.brake_clunk"
+        "sym.brake_clunk",
+        "sym.brake_front.adapter_loose.1",
+        "sym.brake_front.adapter_loose.2"
       ],
       "cause": "Ön kaliper adaptörünün cıvataları gevşemiş.",
       "severity": 4,
@@ -643,7 +1336,9 @@
       "id": "f.tube_front.puncture",
       "part": "wheel.front.tube",
       "symptoms": [
-        "sym.flat"
+        "sym.flat",
+        "sym.tube_front.puncture.1",
+        "sym.tube_front.puncture.2"
       ],
       "cause": "Ön iç lastik delinmiş.",
       "severity": 3,
@@ -656,7 +1351,9 @@
       "symptoms": [
         "sym.brake_weak",
         "sym.brake_squeal",
-        "sym.lever_travel"
+        "sym.lever_travel",
+        "sym.brake_rear.pads_worn.1",
+        "sym.brake_rear.pads_worn.2"
       ],
       "cause": "Arka balatalar aşınmış.",
       "severity": 4,
@@ -668,7 +1365,9 @@
       "part": "brakes.rear.pads",
       "symptoms": [
         "sym.brake_weak",
-        "sym.brake_squeal"
+        "sym.brake_squeal",
+        "sym.brake_rear.contaminated.1",
+        "sym.brake_rear.contaminated.2"
       ],
       "cause": "Arka disk ya da balatalar yağlanmış.",
       "severity": 4,
@@ -679,7 +1378,9 @@
       "id": "f.brake_rear.rotor_bent",
       "part": "brakes.rear.rotor",
       "symptoms": [
-        "sym.brake_rub"
+        "sym.brake_rub",
+        "sym.brake_rear.rotor_bent.1",
+        "sym.brake_rear.rotor_bent.2"
       ],
       "cause": "Arka disk eğrilmiş.",
       "severity": 2,
@@ -691,7 +1392,9 @@
       "part": "brakes.rear.rotor",
       "symptoms": [
         "sym.brake_weak",
-        "sym.lever_travel"
+        "sym.lever_travel",
+        "sym.brake_rear.rotor_worn.1",
+        "sym.brake_rear.rotor_worn.2"
       ],
       "cause": "Arka disk 1,5 mm'nin altına incelmiş.",
       "severity": 4,
@@ -703,7 +1406,9 @@
       "part": "brakes.rear",
       "symptoms": [
         "sym.brake_rub",
-        "sym.lever_travel"
+        "sym.lever_travel",
+        "sym.brake_rear.caliper_misaligned.1",
+        "sym.brake_rear.caliper_misaligned.2"
       ],
       "cause": "Arka kaliper diske ortalı değil ya da balata boşluğu fazla.",
       "severity": 2,
@@ -714,7 +1419,9 @@
       "id": "f.tube_rear.puncture",
       "part": "wheel.rear.tube",
       "symptoms": [
-        "sym.flat"
+        "sym.flat",
+        "sym.tube_rear.puncture.1",
+        "sym.tube_rear.puncture.2"
       ],
       "cause": "Arka iç lastik delinmiş.",
       "severity": 3,
@@ -726,7 +1433,9 @@
       "part": "brakes.cables",
       "symptoms": [
         "sym.lever_travel",
-        "sym.brake_weak"
+        "sym.brake_weak",
+        "sym.brake_cable.stretched.1",
+        "sym.brake_cable.stretched.2"
       ],
       "cause": "Fren teli esnemiş; kol boşluğu artmış.",
       "severity": 4,
@@ -738,7 +1447,9 @@
       "part": "brakes.cable_front",
       "symptoms": [
         "sym.lever_no_return",
-        "sym.brake_weak"
+        "sym.brake_weak",
+        "sym.brake_cable_front.frayed.1",
+        "sym.brake_cable_front.frayed.2"
       ],
       "cause": "Ön fren teli paslanmış ya da kılıfı ezilmiş; tel sürtünüyor.",
       "severity": 4,
@@ -750,7 +1461,9 @@
       "part": "brakes.cable_rear",
       "symptoms": [
         "sym.lever_no_return",
-        "sym.brake_weak"
+        "sym.brake_weak",
+        "sym.brake_cable_rear.frayed.1",
+        "sym.brake_cable_rear.frayed.2"
       ],
       "cause": "Arka fren teli paslanmış ya da kılıfı ezilmiş; tel sürtünüyor.",
       "severity": 4,
@@ -762,7 +1475,9 @@
       "part": "wheel.rear.rim",
       "symptoms": [
         "sym.wobble",
-        "sym.brake_rub"
+        "sym.brake_rub",
+        "sym.rim.out_of_true.1",
+        "sym.rim.out_of_true.2"
       ],
       "cause": "Arka jant eğrilmiş.",
       "severity": 2,
@@ -774,7 +1489,9 @@
       "part": "wheel.rear.spokes",
       "symptoms": [
         "sym.wobble",
-        "sym.spoke_ping"
+        "sym.spoke_ping",
+        "sym.spokes.loose.1",
+        "sym.spokes.loose.2"
       ],
       "cause": "Arka tekerlekte teller gevşemiş.",
       "severity": 2,
@@ -786,7 +1503,9 @@
       "part": "wheel.front.spokes",
       "symptoms": [
         "sym.spoke_ping",
-        "sym.wobble"
+        "sym.wobble",
+        "sym.spokes_front.broken.1",
+        "sym.spokes_front.broken.2"
       ],
       "cause": "Ön tekerlekte tel kopmuş.",
       "severity": 3,
@@ -798,7 +1517,9 @@
       "part": "wheel.rear.rim_tape",
       "symptoms": [
         "sym.flat",
-        "sym.slow_leak"
+        "sym.slow_leak",
+        "sym.rim_tape.shifted.1",
+        "sym.rim_tape.shifted.2"
       ],
       "cause": "Jant bandı kaymış; tel delikleri iç lastiği deliyor.",
       "severity": 2,
@@ -809,7 +1530,9 @@
       "id": "f.valve_front.leak",
       "part": "wheel.front.valve",
       "symptoms": [
-        "sym.slow_leak"
+        "sym.slow_leak",
+        "sym.valve_front.leak.1",
+        "sym.valve_front.leak.2"
       ],
       "cause": "Sibop içi gevşemiş ya da contası bozulmuş.",
       "severity": 2,
@@ -821,7 +1544,9 @@
       "part": "wheel.front.tire",
       "symptoms": [
         "sym.pinch_flat",
-        "sym.flat"
+        "sym.flat",
+        "sym.tire_front.pressure_low.1",
+        "sym.tire_front.pressure_low.2"
       ],
       "cause": "Lastik basıncı düşük kalmış; iç lastik darbede jantla taş arasında sıkışıyor.",
       "severity": 2,
@@ -832,7 +1557,9 @@
       "id": "f.tire_front.worn",
       "part": "wheel.front.tire",
       "symptoms": [
-        "sym.tire_wear"
+        "sym.tire_wear",
+        "sym.tire_front.worn.1",
+        "sym.tire_front.worn.2"
       ],
       "cause": "Ön lastiğin tırtılları aşınmış.",
       "severity": 2,
@@ -843,7 +1570,9 @@
       "part": "wheel.rear.tire",
       "symptoms": [
         "sym.tire_damage",
-        "sym.flat"
+        "sym.flat",
+        "sym.tire_rear.damaged.1",
+        "sym.tire_rear.damaged.2"
       ],
       "cause": "Arka lastiğin yanağı kesilmiş ya da kabarmış.",
       "severity": 3,
@@ -854,7 +1583,9 @@
       "id": "f.hub_front.play",
       "part": "wheel.front.bearings",
       "symptoms": [
-        "sym.wheel_play"
+        "sym.wheel_play",
+        "sym.hub_front.play.1",
+        "sym.hub_front.play.2"
       ],
       "cause": "Ön göbek rulmanında boşluk var.",
       "severity": 3,
@@ -865,7 +1596,9 @@
       "id": "f.qr_front.loose",
       "part": "wheel.front.qr",
       "symptoms": [
-        "sym.wheel_play"
+        "sym.wheel_play",
+        "sym.qr_front.loose.1",
+        "sym.qr_front.loose.2"
       ],
       "cause": "Ön çabuk sökme mandalı gevşek kapatılmış.",
       "severity": 4,
@@ -877,7 +1610,9 @@
       "part": "wheel.rear.bearings",
       "symptoms": [
         "sym.hub_rough",
-        "sym.wheel_play"
+        "sym.wheel_play",
+        "sym.hub_rear.worn.1",
+        "sym.hub_rear.worn.2"
       ],
       "cause": "Arka göbek rulmanlarının gresi kurumuş, koni ve bilyalar aşınmış.",
       "severity": 2,
@@ -888,11 +1623,161 @@
       "id": "f.freehub.slipping",
       "part": "wheel.rear.freehub",
       "symptoms": [
-        "sym.freehub_slip"
+        "sym.freehub_slip",
+        "sym.freehub.slipping.1",
+        "sym.freehub.slipping.2"
       ],
       "cause": "Serbest çark gövdesinin tırnakları tutmuyor.",
       "severity": 3,
       "isolation": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-300A-A"
+    },
+    {
+      "id": "f.qr_rear.loose",
+      "part": "wheel.rear.qr",
+      "symptoms": [
+        "sym.rear_wheel_shift",
+        "sym.wheel_play",
+        "sym.qr_rear.loose.1",
+        "sym.qr_rear.loose.2"
+      ],
+      "cause": "Arka çabuk sökme mandalı gevşek kapatılmış; tekerlek pedal kuvvetiyle kayıyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-271A-A"
+    },
+    {
+      "id": "f.hub_front.dry",
+      "part": "wheel.front.bearings",
+      "symptoms": [
+        "sym.hub_rough",
+        "sym.hub_front.dry.1",
+        "sym.hub_front.dry.2"
+      ],
+      "cause": "Ön göbek rulmanlarının gresi kurumuş ya da içine su girmiş.",
+      "severity": 1,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-241A-A"
+    },
+    {
+      "id": "f.valve_rear.leak",
+      "part": "wheel.rear.valve",
+      "symptoms": [
+        "sym.slow_leak",
+        "sym.valve_rear.leak.1",
+        "sym.valve_rear.leak.2"
+      ],
+      "cause": "Arka sibobun içi gevşemiş ya da sibop dibinden kaçırıyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-10-00-02AA-921A-A"
+    },
+    {
+      "id": "f.tire_rear.worn",
+      "part": "wheel.rear.tire",
+      "symptoms": [
+        "sym.tire_wear",
+        "sym.tire_rear.worn.1",
+        "sym.tire_rear.worn.2"
+      ],
+      "cause": "Arka lastiğin tırtılları aşınmış; çekiş azalmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-10-00-01AA-921A-A"
+    },
+    {
+      "id": "f.rim_front.out_of_true",
+      "part": "wheel.front.rim",
+      "symptoms": [
+        "sym.wobble",
+        "sym.rim_front.out_of_true.1",
+        "sym.rim_front.out_of_true.2"
+      ],
+      "cause": "Ön jant darbeyle eğrilmiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-271A-A"
+    },
+    {
+      "id": "f.rim_tape_front.shifted",
+      "part": "wheel.front.rim_tape",
+      "symptoms": [
+        "sym.flat",
+        "sym.rim_tape_front.shifted.1",
+        "sym.rim_tape_front.shifted.2"
+      ],
+      "cause": "Ön jant bandı kaymış; tel deliği iç lastiği içeriden kesiyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.tire_rear.pressure_low",
+      "part": "wheel.rear.tire",
+      "symptoms": [
+        "sym.pinch_flat",
+        "sym.flat",
+        "sym.tire_rear.pressure_low.1",
+        "sym.tire_rear.pressure_low.2"
+      ],
+      "cause": "Arka lastik düşük basınçla sürülmüş; iç lastik darbede jantla taş arasında sıkışıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-210A-A"
+    },
+    {
+      "id": "f.brake_rear.adapter_loose",
+      "part": "brakes.rear.adapter",
+      "symptoms": [
+        "sym.brake_clunk",
+        "sym.brake_rear.adapter_loose.1",
+        "sym.brake_rear.adapter_loose.2"
+      ],
+      "cause": "Arka kaliper adaptörünün cıvataları gevşemiş.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA2-10-00-01AA-920A-A"
+    },
+    {
+      "id": "f.chainring.bolts",
+      "part": "drive.chainrings",
+      "symptoms": [
+        "sym.chainring_click",
+        "sym.crank_creak",
+        "sym.chainring.bolts.1",
+        "sym.chainring.bolts.2"
+      ],
+      "cause": "Aynakol cıvataları gevşemiş; aynalar birbirine göre oynuyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A"
+    },
+    {
+      "id": "f.spokes_rear.broken",
+      "part": "wheel.rear.spokes",
+      "symptoms": [
+        "sym.spoke_ping",
+        "sym.wobble",
+        "sym.brake_rub",
+        "sym.spokes_rear.broken.1",
+        "sym.spokes_rear.broken.2"
+      ],
+      "cause": "Arka tekerlekte tel kopmuş; jant kopan telin karşı yanına eğilmiş.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-921A-A"
+    },
+    {
+      "id": "f.saddle.creak",
+      "part": "seat.saddle",
+      "symptoms": [
+        "sym.saddle_creak",
+        "sym.saddle.creak.1",
+        "sym.saddle.creak.2"
+      ],
+      "cause": "Sele rayları ile kelepçe arasındaki temas kurumuş ya da kirlenmiş.",
+      "severity": 1,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-40-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA0-40-00-01AA-271A-A"
     }
   ]
 }

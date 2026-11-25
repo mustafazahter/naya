@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="72" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Motor</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Turbofan</title>
+        <para>Fan havayı emer; havanın bir kısmı motorun çevresindeki baypas kanalından geçer, kalanı kompresörde sıkıştırılır. Sıkışan havaya yanma odasında yakıt püskürtülüp yakılır.</para>
+        <para>Sıcak gaz önce yüksek basınç türbinini, sonra alçak basınç türbinini döndürür. Türbinler aynı milden kompresörü ve fanı çevirir. Kalan gaz lüleden hızla çıkıp itki üretir.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Art yakıcı ve lüle</title>
+        <para>Art yakıcı, türbinden çıkan gaza ve baypas havasına yeniden yakıt püskürterek itkiyi artırır. Alev tutucu alevin yerinde kalmasını sağlar; astar art yakıcı gövdesini ısıdan korur.</para>
+        <para>Lüle yaprakları eyleyicilerle açılıp kapanır; art yakıcı çalışırken lüle açılır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Kontrol ve izleme</title>
+        <para>Motor yakıt kontrol ünitesi gaz kolu konumuna ve motorun durumuna göre yakıtı ayarlar. Değişken stator kanatları kompresörde havanın akışını devire göre düzenler.</para>
+        <para>Egzoz sıcaklığı, devir, yağ basıncı ve titreşim izlenir. Yağdaki metal parçacığı talaş algılayıcısı yakalar; yatak aşınmasının erken işaretidir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

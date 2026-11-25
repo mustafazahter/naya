@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="030" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Leopard 2A6</techName><infoName>Sıvılar ve kapasiteler</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Bu şablonda sıvıların tipi, sınıfı ve miktarı verilmez. Her sıvının tipini ve miktarını aracın teknik el kitabından ve birliğin onaylı malzeme listesinden alın; farklı sıvıları karıştırmayın.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Sıvılar ve nereye bakılır</title>
+        <para>Tankta kullanılan sıvılar:<randomList><listItem><para>Yakıt: motor ve ısıtıcı aynı tanklardan beslenir. İkmalde yalnız onaylı yakıt kullanılır; yakıtta su olup olmadığı filtrenin su haznesinden izlenir.</para></listItem><listItem><para>Motor yağı: seviye güç paketindeki çubukla ya da göstergeyle motor durmuşken ve tank düz zemindeyken okunur.</para></listItem><listItem><para>Şanzıman yağı: seviye el kitabında belirtilen sıcaklıkta ve koşulda okunur; soğuk ve sıcak okuma farklıdır.</para></listItem><listItem><para>Son dişli yağı: her yanda ayrı; doldurma ve kontrol tapası yürütücü dişlinin iç tarafındadır.</para></listItem><listItem><para>Soğutma sıvısı: genleşme kabında, motor soğukken okunur; antifriz koruması mevsime göre denetlenir.</para></listItem><listItem><para>Hidrolik yağı: hidrolik ünitesinin deposunda, düzen basınçsızken okunur.</para></listItem><listItem><para>Gres: yürüyen takım, kule yatağı ve kapak menteşeleri için yağlama çizelgesindeki gres.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Uyarılar</title>
+        <para>Sıcak motorda soğutma kabının kapağını açmayın; basınçlı ve kaynar sıvı fışkırır.</para>
+        <para>Dökülen yakıt ve yağı hemen temizleyin; güç paketi bölmesinde yangın riski oluşturur.</para>
+        <para>Kullanılmış yağ ve filtreler ayrı toplanır ve yönergeye göre teslim edilir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

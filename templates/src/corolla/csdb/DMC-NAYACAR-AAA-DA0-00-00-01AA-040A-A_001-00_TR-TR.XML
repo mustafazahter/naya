@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA0" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Gövde</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Taşıyıcı kasa</title>
+        <para>Gövde, sacların kaynakla birleştirildiği tek parça bir kasadır. Motor, süspansiyon ve koltuklar doğrudan bu kasaya bağlanır; ayrı bir şasi yoktur. Bu yüzden kasadaki pas ya da çarpma hasarı yalnız görüntüyü değil, aracın dayanımını da etkiler.</para>
+        <para>Kapı direkleri, tavan kenarları ve taban kirişleri yolcu bölmesini korur; ön ve arka bölüm ise çarpışmada ezilerek enerjiyi emer.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Kapılar ve camlar</title>
+        <para>Kapılar menteşelerle kasaya asılır; gergi kolu kapıyı açık konumda tutar. Kapının içindeki cam krikosu, elektrik motoruyla bir tel ya da kol düzeneğini çekerek camı indirip kaldırır.</para>
+        <para>Fitiller kapı ile kasa arasındaki boşluğu kapatır; su, toz ve rüzgâr sesi böylece içeri girmez. Kapının altındaki tahliye delikleri içeri sızan suyu dışarı atar; tıkanırlarsa kapının içi paslanır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Silecekler ve cam suyu</title>
+        <para>Silecek motoru, kaputun arkasındaki bölmede bir kol düzeneğini döndürür; iki silecek kolu buna bağlıdır. Motorun içindeki park anahtarı, düğme kapatılınca kolları camın altına getirip durdurur.</para>
+        <para>Cam suyu pompası depodaki suyu memelerden cama püskürtür.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

@@ -42,12 +42,18 @@
             <isolationStep id="stp-0003">
               <action>Yağın rengine ve kokusuna bakın.</action>
               <isolationStepQuestion>Yağ süt gibi açık renkli ya da yakıt kokulu mu?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-contaminated"/><noAnswer nextActionRefId="end-sensor"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-contaminated"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0004">
+              <action>Bakım kaydından son yağ değişimine bakın; yağın koyuluğunu ve kokusunu kontrol edin.</action>
+              <isolationStepQuestion>Değişim zamanı geçmiş ya da yağ çok koyu ve yanık kokulu mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-change"/><noAnswer nextActionRefId="end-sensor"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-leak"><action>Sızıntının yerini belirleyin; yağ soğutucusu ya da conta sızdırıyorsa bildirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-fill"><action>Yağı tamamlayın ve motoru yeniden deneyin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-contaminated"><action>Yağa soğutma sıvısı ya da yakıt karışmış; motoru çalıştırmayın. Soğutma sıvısı seviyesini kontrol edip yetkili bakım birimine bildirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-sensor"><action>Seviye ve yağ normal: basınç algılayıcısı ya da yağ pompası arızalı olabilir; bildirin.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-change"><action>Motor yağını ve yağ filtrelerini değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="241" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-sensor"><action>Seviye ve yağ normal: uyarı lambası ve gösterge devresini sınayın. Devre sağlamsa basınç algılayıcısı ya da yağ pompası arızalı olabilir; motoru çalıştırmayın ve bildirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA4" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="320" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
         </isolationProcedure>

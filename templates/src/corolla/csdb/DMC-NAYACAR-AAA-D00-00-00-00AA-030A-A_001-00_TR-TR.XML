@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="030" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Toyota Corolla E100</techName><infoName>Sıvılar ve kapasiteler</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Motor yağı</title>
+        <para>Tip: 5W-30, üreticinin önerdiği API sınıfında.</para>
+        <para>Miktar: filtreyle birlikte yaklaşık 3,7 litre. Doldurduktan sonra seviyeyi yağ çubuğuyla doğrulayın; çubuğun iki işareti arasında olmalı.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Soğutma suyu</title>
+        <para>Tip: etilen glikol esaslı, silikatsız uzun ömürlü antifriz; saf suyla %50 karışım.</para>
+        <para>Miktar: sistem yaklaşık 6 litre. Genleşme kabında seviye motor soğukken FULL ile LOW çizgileri arasında olmalı.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Şanzıman yağı (manuel)</title>
+        <para>Tip: API GL-4 ya da GL-5, SAE 75W-90.</para>
+        <para>Miktar: yaklaşık 1,9 litre; seviye doldurma tapasının alt kenarında olmalı.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Fren ve debriyaj hidroliği</title>
+        <para>Tip: DOT 3 ya da DOT 4; ikisini karıştırmayın. Debriyaj aynı depoyu ya da aynı tip hidroliği kullanır.</para>
+        <para>Miktar: üretici değerine bakın; depoda seviye MIN ile MAX arasında olmalı.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Hidrolik direksiyon yağı</title>
+        <para>Tip: ATF Dexron II ya da Dexron III.</para>
+        <para>Miktar: üretici değerine bakın; depodaki çubuğun ya da çizgilerin arasında olmalı.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Yakıt</title>
+        <para>Kurşunsuz benzin, en az 91 oktan (RON).</para>
+        <para>Depo hacmi: yaklaşık 50 litre.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Klima</title>
+        <para>Soğutucu akışkan: R-134a.</para>
+        <para>Dolum miktarı ve kompresör yağı: üretici değerine bakın (kaput altındaki etikette yazar). Dolumu yalnız klima servisi yapar.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Cam suyu</title>
+        <para>Su ve cam suyu katkısı; kışın donmaya dayanıklı katkı. Depo hacmi: üretici değerine bakın.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Lastik basıncı</title>
+        <para>175/65 R14 lastik için ön ve arka 2,2 bar (soğuk lastikte). Yüklü araç ya da farklı ölçü için kapı direğindeki etikete bakın.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

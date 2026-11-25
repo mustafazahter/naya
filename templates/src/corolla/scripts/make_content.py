@@ -213,6 +213,7 @@ BODY_CHECK = dm(
     ])
 
 DOORS = dm(
+    next=code('DA0', '1', '920', '02'),
     code=code('DA0', '1', '300'), tech='Kapılar',
     supplies=[('Beyaz gres', None)],
     steps=[
@@ -284,6 +285,7 @@ HOOD_LATCH = dm(
     ])
 
 WINDSHIELD_CHECK = dm(
+    next=code('DA0', '4', '920', '03'),
     code=code('DA0', '4', '300'), tech='Ön cam', figure=1,
     steps=[
         'Camı içeriden ve dışarıdan, sürücünün görüş alanından başlayarak '
@@ -410,6 +412,7 @@ MIRROR = dm(
     ])
 
 BELT_CHECK = dm(
+    next=code('DA0', '6', '920'),
     code=code('DA0', '6', '300'), tech='Emniyet kemerleri', figure=7,
     steps=[
         'Kemeri sonuna kadar çekin; kayışta yırtık, kesik ve renk solması '
@@ -546,6 +549,7 @@ ENGINE_ISOLATE = dm(
     })
 
 COMPRESSION = dm(
+    next=code('DA1', '1', '920'),
     code=code('DA1', '1', '361'), tech='Silindirler',
     info='Kompresyon ölçümü',
     tools=[('Kompresyon ölçer', 1), ('Buji anahtarı, 16 mm', 1)],
@@ -782,6 +786,7 @@ OIL_CHANGE = dm(
     ])
 
 OIL_CHECK = dm(
+    next=code('DA1', '3', '241'),
     code=code('DA1', '3', '300'), tech='Motor yağı', info='Seviye kontrolü',
     figure=2, conditions=['Araç düz zeminde; motor durdurulalı 5 dakika '
                           'olmuş.'],
@@ -2021,6 +2026,7 @@ LINKAGE = dm(
     ])
 
 DRIVESHAFT = dm(
+    next=code('DA2', '2', '920'),
     code=code('DA2', '2', '300'), tech='Aks milleri', figure=4,
     steps=[
         'Direksiyonu tam sola çevirin; sağ aks milinin tekerlek tarafındaki '
@@ -2153,6 +2159,7 @@ PADS = dm(
     ])
 
 DISCS = dm(
+    next=code('DA3', '1', '920'),
     code=code('DA3', '1', '361'), tech='Ön fren diskleri', info='Ölçüm',
     figure=4,
     tools=[('Mikrometre', 1), ('Komparatör saat', 1)],
@@ -2203,6 +2210,7 @@ CALIPER = dm(
     next=code('DA3', '3', '210'))
 
 REAR_BRAKES = dm(
+    next=code('DA3', '4', '271'),
     code=code('DA3', '2', '300'), tech='Arka frenler', figure=8,
     steps=[
         'Aracın arkasını kaldırın ve tekerlekleri sökün.',
@@ -2351,6 +2359,7 @@ PARKING = dm(
 # ===========================================================================
 
 SUSPENSION_CHECK = dm(
+    next=code('DA4', '1', '920'),
     code=code('DA4', '1', '300'), tech='Ön süspansiyon', figure=4,
     steps=[
         'Aracın ön köşesine bastırıp bırakın. Gövde bir kez inip kalkarak '
@@ -2418,6 +2427,7 @@ STAB_LINK = dm(
     ])
 
 REAR_SUSPENSION = dm(
+    next=code('DA4', '2', '920'),
     code=code('DA4', '2', '300'), tech='Arka süspansiyon', figure=8,
     steps=[
         'Aracın arka köşesine bastırıp bırakın; birden çok salınım '
@@ -2649,6 +2659,7 @@ PS_PUMP = dm(
 # ===========================================================================
 
 TIRES = dm(
+    next=code('DA5', '0', '920'),
     code=code('DA5', '1', '300'), tech='Lastikler', figure=6,
     tools=[('Lastik basınç ölçer', 1), ('Diş derinliği ölçer', 1)],
     conditions=['Lastikler soğuk (araç en az 3 saat durmuş).'],
@@ -2748,6 +2759,7 @@ ELECTRICAL = dm(
     ])
 
 BATTERY_CHECK = dm(
+    next=code('DA6', '1', '920'),
     code=code('DA6', '1', '300'), tech='Akü', figure=11,
     tools=[('Voltmetre', 1)],
     warnings=['Akü patlayıcı hidrojen gazı çıkarır; yakınında kıvılcım '
@@ -3379,6 +3391,1199 @@ COMPRESSOR = dm(
     ],
     next=code('DA7', '2', '300'))
 
+# ===========================================================================
+# Çalışma ilkesi
+# ===========================================================================
+#
+# Her sistemin kökü için sade bir çalışma anlatımı. Sistemde zaten bir tanım
+# DM'i varsa bu anlatım ona dokunmadan yanına '01' sökme koduyla eklenir.
+
+HOW = 'Çalışma ilkesi'
+
+dm(code=code('DA0', info='040', disassy='01'), tech='Gövde', info=HOW,
+   description=[
+       ('Taşıyıcı kasa', [
+           'Gövde, sacların kaynakla birleştirildiği tek parça bir kasadır. '
+           'Motor, süspansiyon ve koltuklar doğrudan bu kasaya bağlanır; '
+           'ayrı bir şasi yoktur. Bu yüzden kasadaki pas ya da çarpma '
+           'hasarı yalnız görüntüyü değil, aracın dayanımını da etkiler.',
+           'Kapı direkleri, tavan kenarları ve taban kirişleri yolcu '
+           'bölmesini korur; ön ve arka bölüm ise çarpışmada ezilerek '
+           'enerjiyi emer.',
+       ]),
+       ('Kapılar ve camlar', [
+           'Kapılar menteşelerle kasaya asılır; gergi kolu kapıyı açık '
+           'konumda tutar. Kapının içindeki cam krikosu, elektrik motoruyla '
+           'bir tel ya da kol düzeneğini çekerek camı indirip kaldırır.',
+           'Fitiller kapı ile kasa arasındaki boşluğu kapatır; su, toz ve '
+           'rüzgâr sesi böylece içeri girmez. Kapının altındaki tahliye '
+           'delikleri içeri sızan suyu dışarı atar; tıkanırlarsa kapının '
+           'içi paslanır.',
+       ]),
+       ('Silecekler ve cam suyu', [
+           'Silecek motoru, kaputun arkasındaki bölmede bir kol düzeneğini '
+           'döndürür; iki silecek kolu buna bağlıdır. Motorun içindeki park '
+           'anahtarı, düğme kapatılınca kolları camın altına getirip '
+           'durdurur.',
+           'Cam suyu pompası depodaki suyu memelerden cama püskürtür.',
+       ]),
+   ])
+
+dm(code=code('DA0', '7', '040'), tech='Kabin', info=HOW,
+   description=[
+       ('Koltuklar ve kemerler', [
+           'Ön koltuklar raylar üzerinde ileri geri kayar; kol bırakılınca '
+           'mandal raydaki deliklerden birine girip koltuğu kilitler.',
+           'Emniyet kemeri makarası yaylı bir mile sarılıdır. Ani '
+           'yavaşlamada ya da kayış hızla çekildiğinde içindeki atalet '
+           'kilidi makarayı durdurur; normal çekişte kayış serbest akar.',
+       ]),
+       ('Hava yastığı', [
+           'Çarpma sensörleri ani yavaşlamayı ölçer. Eşik aşılırsa SRS '
+           'kontrol ünitesi şişiricideki ateşleyiciyi tetikler ve yastık '
+           'saniyenin çok küçük bir bölümünde dolar. Direksiyondaki spiral '
+           'kablo, direksiyon dönerken de yastıkla bağlantıyı korur.',
+           'Kontak açılınca SRS lambası birkaç saniye yanıp söner; sistem '
+           'kendini denetlemiştir. Lamba sönmüyorsa sistem kayıtlı bir arıza '
+           'görmüştür ve çarpmada yastık açılmayabilir.',
+       ]),
+       ('Pedallar ve döşeme', [
+           'Gaz pedalı bir tel ile gaz kelebeğini açar. Fren pedalı servo '
+           'üzerinden ana merkezi iter; debriyaj pedalı debriyaj ana '
+           'merkezini iter.',
+           'Halı ve döşemelerin altındaki ses yalıtımı yol ve motor sesini '
+           'azaltır. Halının ıslanması genellikle bir fitil, kalorifer '
+           'peteği ya da klima drenaj hortumu sorununun işaretidir.',
+       ]),
+   ])
+
+dm(code=code('DA1', info='040', disassy='01'), tech='Motor', info=HOW,
+   description=[
+       ('Dört zamanlı çevrim', [
+           'Her silindirde piston dört hareketle bir iş çevrimi tamamlar: '
+           'emme supabı açıkken aşağı inerek hava ve yakıt karışımını '
+           'emer, yukarı çıkarak sıkıştırır, buji kıvılcımıyla yanan '
+           'karışımın itişiyle aşağı iner, son olarak egzoz supabı açıkken '
+           'yanmış gazı dışarı iter.',
+           'Pistonların aşağı yukarı hareketi biyeller üzerinden krank '
+           'milini döndürür. Dört silindir sırayla ateşlenir; böylece krank '
+           'mili düzgün döner.',
+       ]),
+       ('Supaplar ve zamanlama', [
+           'İki eksantrik mili silindir kapağındadır (DOHC); biri emme, '
+           'diğeri egzoz supaplarını açar. Her silindirde dört supap '
+           'vardır.',
+           'Krank mili eksantrik millerini triger zinciriyle döndürür. '
+           'Zincir gergisi motor yağının basıncıyla çalışır; bu yüzden yağ '
+           'eksik ya da eskiyse ilk çalıştırmada zincir sesi duyulabilir.',
+           'VVT-i düzeni, motor beyninin komutuyla emme eksantriğini yağ '
+           'basıncıyla biraz ileri ya da geri çevirir; motor düşük devirde '
+           'daha çekişli, yüksek devirde daha verimli çalışır.',
+       ]),
+       ('Yağlama', [
+           'Krank milinden tahrik alan yağ pompası karterdeki yağı süzgeçten '
+           'emer, filtreden geçirip yataklara, eksantriklere ve zincir '
+           'gergisine basar. Yağ basınç müşiri basınç düşerse göstergedeki '
+           'yağ lambasını yakar.',
+           'Yağ lambası yağın miktarını değil basıncını gösterir. Lamba '
+           'yandığında motor hemen durdurulmalıdır; yağ seviyesi ise ancak '
+           'yağ çubuğuyla anlaşılır.',
+       ]),
+   ])
+
+dm(code=code('DA1', '4', '040', '01'), tech='Soğutma sistemi', info=HOW,
+   description=[
+       ('Suyun dolaşımı', [
+           'Su pompası aksesuar kayışıyla döner ve soğutma suyunu motor '
+           'bloğundaki kanallardan geçirir. Su motorun ısısını alıp '
+           'radyatöre taşır; radyatörde peteklerden geçen hava suyu soğutur.',
+           'Termostat motor soğukken kapalıdır; su yalnız motor içinde '
+           'döner ve motor çabuk ısınır. Çalışma sıcaklığına gelince '
+           'termostat açılır ve su radyatöre gider. Termostat kapalı '
+           'kalırsa motor hararet yapar; açık kalırsa motor geç ısınır ve '
+           'kalorifer zayıf ısıtır.',
+       ]),
+       ('Basınç ve genleşme', [
+           'Radyatör kapağı sistemi basınç altında tutar; basınç suyun '
+           'kaynama noktasını yükseltir. Isınan su genleşince fazlası '
+           'genleşme kabına geçer, motor soğuyunca geri emilir.',
+           'Kapak basınç tutmuyorsa su kaynayıp kaptan taşar ve zamanla '
+           'eksilir. Sıcak motorda kapak açılmamalıdır; basınçlı ve kaynar '
+           'su fışkırır.',
+       ]),
+       ('Fan', [
+           'Araç yoldayken radyatörden yeterli hava geçer. Trafikte ve '
+           'rölantide ise elektrikli fan devreye girer: su sıcaklığı '
+           'yükselince fan müşiri ya da motor beyni fan rölesini çeker. '
+           'Fan çalışmazsa araç yolda normal, trafikte hararet yapar.',
+       ]),
+   ])
+
+dm(code=code('DA1', '7', '040', '01'), tech='Yakıt sistemi', info=HOW,
+   description=[
+       ('Depodan enjektöre', [
+           'Yakıt pompası deponun içindedir ve kontak açılınca birkaç '
+           'saniye çalışıp hattı basınçlandırır; motor dönmeye başlayınca '
+           'sürekli çalışır.',
+           'Pompa modülündeki basınç regülatörü fazla yakıtı depoya geri '
+           'bırakır; motora tek bir hat gider (geri dönüşsüz sistem). '
+           'Yakıt filtresi kiri enjektörlere ulaşmadan tutar.',
+           'Her silindirin emme kanalında bir enjektör vardır. Motor beyni '
+           'enjektörü kısa süre açar; açık kalma süresi ne kadar uzunsa o '
+           'kadar yakıt püskürür.',
+       ]),
+       ('Yakıt buharı', [
+           'Depoda oluşan benzin buharı dışarı atılmaz; kanisterdeki aktif '
+           'kömürde toplanır. Motor çalışırken boşaltma valfi açılır ve bu '
+           'buhar emmeye çekilip yakılır.',
+           'Depo kapağı contası sızdırırsa sistem kaçak görür ve arıza '
+           'lambası yanabilir; araç çevresinde benzin kokusu duyulur.',
+       ]),
+       ('Yakıt göstergesi', [
+           'Depodaki şamandıralı seviye algılayıcısı yakıt seviyesine göre '
+           'direncini değiştirir; gösterge bu direnci ibreye çevirir.',
+       ]),
+   ])
+
+dm(code=code('DA1', '6', '040'), tech='Emme, egzoz ve emisyon', info=HOW,
+   description=[
+       ('Emme', [
+           'Motor havayı hava filtresinden emer. Hava akış ölçer (MAF) '
+           'geçen havanın miktarını ölçer; motor beyni yakıtı bu ölçüme '
+           'göre hesaplar. Filtreden sonra ölçülmeden içeri giren hava '
+           '(yırtık körük, çatlak vakum hortumu) karışımı fakirleştirir.',
+           'Gaz kelebeği gaz teliyle açılır ve motora giren havayı ayarlar. '
+           'Rölantide kelebek kapalıdır; motorun gereken havayı rölanti '
+           'ayar valfi (ISCV) bir yan kanaldan verir.',
+       ]),
+       ('Egzoz', [
+           'Yanmış gaz egzoz manifoldundan çıkar, ön borudan katalitik '
+           'konvertöre, oradan orta boru ve susturucuya geçer. Lastik '
+           'askılar hattı kasaya titreşimsiz bağlar.',
+           'Hattaki bir kaçak sesi artırır ve oksijen sensörünün '
+           'ölçümünü bozabilir. Egzoz gazı zehirlidir; kaçak kabine '
+           'sızarsa tehlikelidir.',
+       ]),
+       ('Emisyon kontrolü', [
+           'Ön oksijen sensörü egzozdaki oksijeni ölçer; motor beyni '
+           'karışımı buna göre sürekli düzeltir. Katalitik konvertör '
+           'zararlı gazları daha zararsız gazlara çevirir; içi kızgın '
+           'çalışır.',
+           'PCV valfi karterde biriken gazları emmeye geri gönderip yakar. '
+           'Valf tıkanırsa karter basıncı artar ve keçeler yağ kaçırır.',
+       ]),
+   ])
+
+dm(code=code('DA1', '5', '040'), tech='Ateşleme sistemi', info=HOW,
+   description=[
+       ('Kıvılcım', [
+           'Her bujinin üstünde kendi ateşleme bobini vardır; buji kablosu '
+           'yoktur. Bobin aküdeki 12 voltu binlerce volta yükseltir ve '
+           'bujinin uçları arasında kıvılcım atlatır.',
+           'Motor beyni krank ve eksantrik konum sensörlerinden pistonların '
+           'yerini bilir; her bobini doğru anda tetikler.',
+       ]),
+       ('Avans ve vuruntu', [
+           'Kıvılcım, piston en üste varmadan biraz önce atılır (avans). '
+           'Devir arttıkça avans artar. Vuruntu sensörü motordan gelen '
+           'vuruntu titreşimini algılarsa motor beyni avansı geri alır; '
+           'motoru korur ama güç biraz düşer.',
+       ]),
+       ('Aşınma', [
+           'Bujinin elektrotları zamanla aşınır; aralık büyüdükçe kıvılcım '
+           'zayıflar ve motor özellikle yükte ya da soğukken tekler. Bir '
+           'bobin bozulursa o silindir hiç çalışmaz; motor belirgin biçimde '
+           'sarsılır.',
+       ]),
+   ])
+
+dm(code=code('DA1', '8', '040', '01'), tech='Motor yönetimi', info=HOW,
+   description=[
+       ('Sensörler, beyin, sürücüler', [
+           'Motor beyni (ECM) sensörlerden gelen bilgiyi okur, yakıtı ve '
+           'ateşlemeyi hesaplar, sonra enjektörleri, bobinleri, rölanti '
+           'valfini ve VVT-i valfini sürer.',
+           'Başlıca sensörler: hava akış ölçer (giren hava), gaz kelebeği '
+           'konum sensörü (pedalın ne kadar basıldığı), su sıcaklık sensörü '
+           '(motorun ısısı), krank ve eksantrik konum sensörleri (devir ve '
+           'piston yeri), oksijen sensörü (karışımın zenginliği) ve vuruntu '
+           'sensörü.',
+       ]),
+       ('Arıza lambası', [
+           'Motor beyni sensörlerin değerlerini sürekli denetler. Bir değer '
+           'beklenen aralığın dışında kalırsa arıza kodu kaydeder ve arıza '
+           'lambasını yakar. Kod, teşhis soketinden okunur.',
+           'Kritik bir sensör bozulursa motor beyni yedek değerlerle '
+           'çalışır; motor çalışır ama çekişi ve tüketimi bozulur.',
+       ]),
+   ])
+
+dm(code=code('DA6', info='040', disassy='01'), tech='Elektrik sistemi',
+   info=HOW,
+   description=[
+       ('Akü ve şarj', [
+           'Akü motoru çalıştıracak akımı ve motor dururken gereken '
+           'elektriği verir. Motor çalışınca alternatör kayışla döner, '
+           'bütün tüketicileri besler ve aküyü yeniden doldurur. '
+           'Alternatörün içindeki regülatör gerilimi sabit tutar.',
+           'Şarj lambası kontak açıkken yanar, motor çalışınca söner. '
+           'Seyirde yanarsa alternatör şarj etmiyordur; araç bir süre '
+           'aküyle gider, sonra durur.',
+       ]),
+       ('Marş', [
+           'Kontak anahtarı marş konumuna gelince marş motorunun otomatiği '
+           'çeker: hem marş dişlisini volana iter hem de motora büyük akımı '
+           'verir. Akü zayıfsa marş ağır döner ya da yalnız otomatiğin tık '
+           'sesi duyulur.',
+       ]),
+       ('Sigortalar ve topraklar', [
+           'Her devrenin bir sigortası vardır; kısa devrede sigorta erir '
+           've kabloyu korur. Kaput altında ve sürücü tarafında birer '
+           'sigorta ve röle kutusu bulunur.',
+           'Akımın dönüş yolu kasadır; toprak kabloları akünün eksi '
+           'kutbunu kasaya ve motora bağlar. Oksitlenmiş bir toprak '
+           'bağlantısı sönük farlara, ağır marşa ve ara sıra kesilen '
+           'donanımlara yol açar.',
+       ]),
+   ])
+
+dm(code=code('DA6', '2', '040'), tech='Aydınlatma ve sinyal', info=HOW,
+   description=[
+       ('Farlar ve lambalar', [
+           'Far ve lambalar akımı far anahtarı ve röleler üzerinden alır. '
+           'Kısa ve uzun far aynı ampulün iki ayrı telidir; uzun far teli '
+           'yandığında kısa far çalışmaya devam edebilir.',
+           'Far camı zamanla güneşten sararır ve ışığı dağıtır. Far '
+           'yüksekliği yanlış ayarlanırsa yol az aydınlanır ya da karşıdan '
+           'gelen sürücüler kamaşır.',
+       ]),
+       ('Sinyal ve stop', [
+           'Sinyal rölesi (flaşör) akımı aç kapa yaparak lambaları '
+           'çaktırır. Bir sinyal ampulü yanarsa devrenin direnci değişir ve '
+           'o taraftaki sinyal hızlı çakar; bu, sürücüye ampulün yandığını '
+           'haber verir.',
+           'Stop lambası müşiri fren pedalının üstündedir; pedala basınca '
+           'devreyi kapatır. Ayarı bozulursa stoplar yanmaz ya da sürekli '
+           'yanar.',
+       ]),
+   ])
+
+dm(code=code('DA7', info='040', disassy='01'), tech='Isıtma ve klima',
+   info=HOW,
+   description=[
+       ('Isıtma', [
+           'Kalorifer, motorun sıcak soğutma suyunu gösterge panelinin '
+           'arkasındaki küçük bir peteğe (kalorifer peteği) gönderir. '
+           'Kalorifer fanı havayı bu petekten geçirip kabine üfler. Motor '
+           'ısınmadan kalorifer ısıtmaz.',
+           'Fan hızları bir direnç bloğuyla ayarlanır. Direnç bozulursa '
+           'fan çoğunlukla yalnız en yüksek kademede çalışır.',
+       ]),
+       ('Klima', [
+           'Kompresör, elektromanyetik kavraması devreye girince kayışla '
+           'döner ve soğutucu akışkanı (R-134a) sıkıştırır. Sıcak akışkan '
+           'radyatörün önündeki kondenserde soğuyup sıvılaşır, genleşme '
+           'valfinden geçerek kabin içindeki evaporatörde buharlaşır ve '
+           'havayı soğutur.',
+           'Evaporatörde havadaki nem yoğuşur; bu su bir drenaj hortumuyla '
+           'aracın altına akar. Araç altına damlayan temiz su bu yüzden '
+           'normaldir. Hortum tıkanırsa su kabine taşar.',
+           'Akışkan eksildiğinde kompresör devreye girmez ya da klima '
+           'serin esmez. Sistemin dolumu özel cihaz ister.',
+       ]),
+   ])
+
+dm(code=code('DA2', '0', '040'), tech='Güç aktarma', info=HOW,
+   description=[
+       ('Debriyaj', [
+           'Debriyaj, motorun volanı ile şanzımanın giriş mili arasındadır. '
+           'Baskı plakasının diyafram yayı balatayı volana sıkıştırır; '
+           'motorun dönüşü böylece şanzımana geçer.',
+           'Pedala basınca debriyaj ana merkezi hidroliği tali merkeze '
+           'iter; tali merkez çatalı, çatal da debriyaj rulmanını yaya '
+           'bastırır. Yay gevşer, balata serbest kalır ve vites '
+           'değiştirilebilir.',
+           'Balata aşındıkça kavrama noktası yükselir; sonunda gaza '
+           'basınca devir artar ama araç hızlanmaz (patinaj).',
+       ]),
+       ('Şanzıman ve aks milleri', [
+           'Beş ileri manuel şanzıman motorla aynı blokta, enine durur; '
+           'diferansiyel de içindedir. Dişliler senkromeçlerle sessizce '
+           'kavrar.',
+           'İki aks mili diferansiyelden ön tekerleklere gider. Uçlarındaki '
+           'sabit hızlı mafsallar (aks kafaları) tekerlek dönerken ve '
+           'süspansiyon çalışırken gücü kesintisiz iletir. Mafsalların '
+           'yağı körüklerin içindedir; körük yırtılırsa yağ kaçar, kum '
+           'girer ve kafa aşınır.',
+       ]),
+   ])
+
+dm(code=code('DA3', info='040', disassy='01'), tech='Fren sistemi', info=HOW,
+   description=[
+       ('Pedaldan tekerleğe', [
+           'Fren pedalı vakumlu fren servosunu iter. Servo, motorun emme '
+           'vakumunu kullanarak sürücünün kuvvetini katlar ve ana merkezi '
+           'iter.',
+           'Ana merkez fren hidroliğini borular ve esnek hortumlarla '
+           'kaliperlere basar. Hidrolik sıkıştırılamaz; pedaldaki kuvvet '
+           'böylece dört tekerleğe aynı anda ulaşır. Sistemde hava varsa '
+           'hava sıkışır ve pedal süngerimsi olur.',
+           'Kaliperdeki piston balatayı diske bastırır; sürtünme aracı '
+           'yavaşlatır ve hareketi ısıya çevirir.',
+       ]),
+       ('Hidrolik ve bakım', [
+           'Fren hidroliği havadaki nemi zamanla emer. Nemli hidroliğin '
+           'kaynama noktası düşer; uzun yokuş inişlerinde kaynayıp kabarcık '
+           'yapar ve pedal birden yumuşar. Bu yüzden hidrolik belirli '
+           'aralıklarla değiştirilir.',
+           'Balatalar aşındıkça depodaki seviye biraz düşer; bu normaldir. '
+           'Seviye hızlı düşüyorsa sistemde kaçak vardır.',
+       ]),
+       ('El freni', [
+           'El freni kolu teller üzerinden arka frenleri mekanik olarak '
+           'sıkar; hidrolikten bağımsızdır. Teller gerildikçe kol daha '
+           'yukarı çıkar; teller paslanırsa fren çözülmez.',
+       ]),
+   ])
+
+dm(code=code('DA4', '0', '040'), tech='Süspansiyon ve direksiyon', info=HOW,
+   description=[
+       ('Süspansiyon', [
+           'Her tekerlek bir helezon yay ve amortisörle taşınır '
+           '(MacPherson tipi). Yay aracın ağırlığını taşır ve darbeyi '
+           'emer; amortisör yayın salınımını yağ direnciyle söndürür. '
+           'Amortisör bitince araç tümseklerden sonra birkaç kez zıplar.',
+           'Salıncaklar tekerleği kasaya bağlar; lastik burçlar titreşimi '
+           'süzer. Rotil, salıncağı aks taşıyıcısına bağlayan mafsaldır. '
+           'Viraj demiri virajda gövdenin yana yatmasını azaltır.',
+       ]),
+       ('Direksiyon', [
+           'Direksiyon mili kremayer kutusundaki pinyon dişlisini döndürür; '
+           'pinyon kremayeri sağa sola iter, rot milleri ve rot başları da '
+           'tekerlekleri çevirir.',
+           'Hidrolik direksiyon pompası kayışla döner ve kremayerdeki '
+           'pistona yağ basarak direksiyonu hafifletir. Pompa motor '
+           'devriyle döndüğü için yağ eksikse direksiyon özellikle '
+           'rölantide ağırlaşır ve inler.',
+       ]),
+       ('Ön düzen', [
+           'Tekerleklerin açıları (toplama, kamber) aracın düz gitmesini '
+           've lastiklerin düzgün aşınmasını sağlar. Çukura sert girmek ya '
+           'da aşınmış burç ve rot başları ayarı bozar.',
+       ]),
+   ])
+
+dm(code=code('DA5', '0', '040'), tech='Tekerlekler', info=HOW,
+   description=[
+       ('Lastik ve jant', [
+           'Lastik, içindeki basınçlı havayla aracı taşır; yolla temas '
+           'eden tek parça odur. Basınç düşükse lastiğin kenarları ezilir, '
+           'ısınır ve dış kenarlardan aşınır; yakıt tüketimi ve direksiyon '
+           'ağırlığı artar. Basınç fazlaysa orta kısım aşınır ve yol '
+           'tutuşu azalır.',
+           'Balans ağırlıkları tekerleğin ağırlık dağılımını eşitler. Balans '
+           'bozulursa belli bir hızda direksiyon titrer.',
+       ]),
+       ('Göbek ve rulman', [
+           'Tekerlek bijonlarla göbeğe bağlanır; göbek rulmanların üstünde '
+           'döner. Aşınmış rulman hızla artan bir uğultu çıkarır; ses '
+           'virajda yük bir yana binince değişir.',
+       ]),
+   ])
+
+# ===========================================================================
+# Bakım takvimi, sıvılar ve terimler
+# ===========================================================================
+
+SEE_MAKER = 'üretici değerine bakın'
+
+dm(code=code('D00', info='000'), tech='Toyota Corolla E100',
+   info='Bakım takvimi',
+   description=[
+       ('Kullanım', [
+           'Aralıklar normal kullanım içindir: kilometre ya da süreden '
+           'hangisi önce dolarsa. Kısa mesafe, tozlu yol, sürekli şehir içi '
+           'ya da çekme gibi ağır kullanımda yağ ve filtre aralıklarını '
+           'kısaltın.',
+           'Kesin aralıklar için aracın kendi bakım kitapçığına bakın; '
+           'aşağıdaki liste şablondaki kontrol ve değiştirme DM\'leriyle '
+           'uyumlu genel bir plandır.',
+       ]),
+       ('Her yakıt alımında ya da haftada bir', [
+           ('Sürücünün yapacağı kontroller:', [
+               'Lastiklerin gözle durumu ve basıncı.',
+               'Motor yağı seviyesi (yağ çubuğuyla, motor durmuş ve araç '
+               'düz zeminde).',
+               'Genleşme kabındaki soğutma suyu seviyesi (motor soğukken).',
+               'Cam suyu seviyesi, lambalar ve sinyaller.',
+           ]),
+       ]),
+       ('Her 10 000 km\'de ya da yılda bir', [
+           ('Yapılacaklar:', [
+               'Motor yağını ve yağ filtresini değiştirin.',
+               'Fren hidroliği ve direksiyon yağı seviyesini, fren '
+               'balatalarını ve disklerini kontrol edin.',
+               'Lastikleri çapraz değiştirin; diş derinliğini ve düzensiz '
+               'aşınmayı kontrol edin.',
+               'Aksesuar kayışını, radyatör hortumlarını ve akü kutup '
+               'başlarını gözden geçirin.',
+               'Silecek lastiklerini, kornayı ve bütün lambaları deneyin.',
+               'Egzoz hattını, aks mili körüklerini ve süspansiyonu araç '
+               'altından gözden geçirin.',
+           ]),
+       ]),
+       ('Her 20 000 km\'de', [
+           ('Yapılacaklar:', [
+               'Hava filtresini temizleyin ya da kontrol edin; tozlu yolda '
+               'daha sık.',
+               'El freni ayarını ve kol hareketini kontrol edin.',
+               'Kapı menteşelerini, kilitleri ve kaput kilidini yağlayın.',
+           ]),
+       ]),
+       ('Her 40 000 km\'de ya da iki yılda bir', [
+           ('Yapılacaklar:', [
+               'Hava filtresini değiştirin.',
+               'Fren hidroliğini değiştirin (kilometreden bağımsız olarak '
+               'en geç iki yılda bir).',
+               'Soğutma suyunu değiştirin.',
+               'Şanzıman yağı seviyesini ve kaçak olup olmadığını kontrol '
+               'edin.',
+               'Ön düzeni ve rot başlarını kontrol ettirin.',
+           ]),
+       ]),
+       ('Her 100 000 km\'de', [
+           ('Yapılacaklar:', [
+               'İridyum bujileri değiştirin.',
+               'Supap boşluğunu kontrol edin.',
+               'Yakıt filtresinin ve pompa modülünün durumunu, motorun '
+               'yükteki çekişine bakarak değerlendirin.',
+           ]),
+       ]),
+       ('Takvime bağlı olmayanlar', [
+           'Triger zinciri periyodik olarak değiştirilmez; zincir sesi '
+           'duyulursa kontrol edilir.',
+           'Akü ömrü kullanım ve iklime bağlıdır; marş ağırlaşınca ve her '
+           'kış öncesinde test edin.',
+           'Klima her ay birkaç dakika çalıştırılmalıdır; keçeler kurumaz '
+           've kompresör yağlanır.',
+       ]),
+   ])
+
+dm(code=code('D00', info='030'), tech='Toyota Corolla E100',
+   info='Sıvılar ve kapasiteler',
+   description=[
+       ('Motor yağı', [
+           'Tip: 5W-30, üreticinin önerdiği API sınıfında.',
+           'Miktar: filtreyle birlikte yaklaşık 3,7 litre. Doldurduktan '
+           'sonra seviyeyi yağ çubuğuyla doğrulayın; çubuğun iki işareti '
+           'arasında olmalı.',
+       ]),
+       ('Soğutma suyu', [
+           'Tip: etilen glikol esaslı, silikatsız uzun ömürlü antifriz; '
+           'saf suyla %50 karışım.',
+           'Miktar: sistem yaklaşık 6 litre. Genleşme kabında seviye motor '
+           'soğukken FULL ile LOW çizgileri arasında olmalı.',
+       ]),
+       ('Şanzıman yağı (manuel)', [
+           'Tip: API GL-4 ya da GL-5, SAE 75W-90.',
+           'Miktar: yaklaşık 1,9 litre; seviye doldurma tapasının alt '
+           'kenarında olmalı.',
+       ]),
+       ('Fren ve debriyaj hidroliği', [
+           'Tip: DOT 3 ya da DOT 4; ikisini karıştırmayın. Debriyaj aynı '
+           'depoyu ya da aynı tip hidroliği kullanır.',
+           f'Miktar: {SEE_MAKER}; depoda seviye MIN ile MAX arasında '
+           'olmalı.',
+       ]),
+       ('Hidrolik direksiyon yağı', [
+           'Tip: ATF Dexron II ya da Dexron III.',
+           f'Miktar: {SEE_MAKER}; depodaki çubuğun ya da çizgilerin '
+           'arasında olmalı.',
+       ]),
+       ('Yakıt', [
+           'Kurşunsuz benzin, en az 91 oktan (RON).',
+           'Depo hacmi: yaklaşık 50 litre.',
+       ]),
+       ('Klima', [
+           'Soğutucu akışkan: R-134a.',
+           f'Dolum miktarı ve kompresör yağı: {SEE_MAKER} (kaput altındaki '
+           'etikette yazar). Dolumu yalnız klima servisi yapar.',
+       ]),
+       ('Cam suyu', [
+           f'Su ve cam suyu katkısı; kışın donmaya dayanıklı katkı. Depo '
+           f'hacmi: {SEE_MAKER}.',
+       ]),
+       ('Lastik basıncı', [
+           '175/65 R14 lastik için ön ve arka 2,2 bar (soğuk lastikte). '
+           'Yüklü araç ya da farklı ölçü için kapı direğindeki etikete '
+           'bakın.',
+       ]),
+   ])
+
+dm(code=code('D00', info='006'), tech='Toyota Corolla E100',
+   info='Terimler sözlüğü',
+   description=[
+       ('Motor', [
+           ('Terimler:', [
+               'DOHC: silindir kapağında iki eksantrik mili; biri emme, '
+               'biri egzoz supaplarını açar.',
+               'VVT-i: emme eksantriğinin açılış zamanını motor beyninin '
+               'yağ basıncıyla değiştirdiği düzen.',
+               'Kompresyon: pistonun sıkıştırdığı havanın basıncı; düşükse '
+               'segman, supap ya da conta sorunu vardır.',
+               'Segman: pistonun çevresindeki halka; yanma basıncını tutar, '
+               'yağı silindirden sıyırır.',
+               'Supap boşluğu: eksantrik ile supap iticisi arasındaki küçük '
+               'boşluk.',
+               'Triger zinciri: krank milinden eksantrik millerine hareket '
+               'aktaran zincir.',
+               'Karter: motorun altındaki yağ haznesi.',
+               'Hararet: motorun aşırı ısınması.',
+               'Termostat: soğutma suyunun radyatöre gidişini sıcaklığa '
+               'göre açıp kapayan valf.',
+               'Genleşme kabı: ısınıp genleşen soğutma suyunun toplandığı '
+               'plastik kap.',
+           ]),
+       ]),
+       ('Motor yönetimi ve emisyon', [
+           ('Terimler:', [
+               'ECM (motor beyni): sensörleri okuyup yakıtı ve ateşlemeyi '
+               'yöneten elektronik ünite.',
+               'MAF: motora giren havanın miktarını ölçen sensör.',
+               'TPS: gaz kelebeğinin açıklığını ölçen sensör.',
+               'ISCV: rölanti devrini ayarlayan hava valfi.',
+               'CKP ve CMP: krank ve eksantrik mili konum sensörleri.',
+               'ECT: soğutma suyu sıcaklık sensörü.',
+               'Oksijen (lambda) sensörü: egzozdaki oksijeni ölçen sensör.',
+               'Arıza lambası (MIL): motor beyni bir arıza kaydedince '
+               'yanan "check engine" lambası.',
+               'EVAP: depodaki benzin buharını toplayıp yakan sistem.',
+               'PCV: karter gazlarını emmeye geri gönderen valf.',
+               'Katalitik konvertör: egzozdaki zararlı gazları dönüştüren '
+               'parça.',
+               'Rölanti: motorun gaza basılmadan çalıştığı devir.',
+           ]),
+       ]),
+       ('Güç aktarma, fren ve şasi', [
+           ('Terimler:', [
+               'Debriyaj rulmanı: pedala basınca baskının yayına bastıran '
+               'rulman.',
+               'Ana merkez ve tali merkez: pedal kuvvetini hidroliğe ve '
+               'hidrolikten çatala çeviren silindirler.',
+               'Aks kafası: aks milinin ucundaki sabit hızlı mafsal.',
+               'Körük: mafsalın yağını tutan, kiri dışarıda bırakan lastik '
+               'kılıf.',
+               'Kaliper: balataları diske bastıran pistonlu gövde.',
+               'Fren servosu: vakumla pedal kuvvetini artıran düzen.',
+               'Hava alma: fren ya da debriyaj hidroliğindeki havayı '
+               'boşaltma işlemi.',
+               'Amortisör: yayın salınımını söndüren parça.',
+               'Salıncak: tekerleği kasaya bağlayan kol.',
+               'Rotil: salıncak ile aks taşıyıcısı arasındaki mafsal.',
+               'Rot başı: direksiyon kremayerini tekerleğe bağlayan '
+               'mafsal.',
+               'Rot ayarı (ön düzen): tekerlek açılarının ayarı.',
+               'Balans: tekerleğin ağırlık dağılımının eşitlenmesi.',
+           ]),
+       ]),
+       ('Elektrik ve klima', [
+           ('Terimler:', [
+               'Alternatör: motor çalışırken elektrik üreten ve aküyü '
+               'dolduran makine.',
+               'Otomatik (marş otomatiği): marş dişlisini iten ve marş '
+               'akımını açan elektromıknatıs.',
+               'Müşir: basınç ya da konuma göre bir devreyi açıp kapayan '
+               'anahtar.',
+               'Röle: küçük bir akımla büyük bir akımı açıp kapayan '
+               'anahtar.',
+               'Toprak: akımın kasaya dönüş bağlantısı.',
+               'Park akımı: araç kapalıyken aküden çekilen küçük akım.',
+               'SRS: hava yastığı ve kemer gerdirici sistemi.',
+               'Kondenser ve evaporatör: klima akışkanının ısı attığı ve '
+               'ısı aldığı petekler.',
+               'R-134a: bu araçtaki klima soğutucu akışkanı.',
+           ]),
+       ]),
+   ])
+
+# ===========================================================================
+# Ek arızalar: arıza bulma ve onarım
+# ===========================================================================
+
+# Fren hidroliği
+BRAKE_FLUID_ISO = dm(
+    code=code('DA3', '3', '421'), tech='Fren hidroliği', info='Arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA3-101',
+        'descr': 'Uzun ya da sık frenlemeden sonra pedal yumuşuyor, fren '
+                 'zayıflıyor; dinlenince düzeliyor.',
+        'steps': [
+            ('stp-0001', 'Fren hidroliği deposundaki seviyeye ve tekerlek '
+             'iç yüzlerine bakın.', 'Seviye MIN altında ya da bir '
+             'tekerlekte ıslaklık var mı?', 'end-leak', 'stp-0002'),
+            ('stp-0002', 'Hidroliğin rengine bakın ve son değişim tarihini '
+             'bakım kaydından bulun.', 'Hidrolik koyu renkli ya da iki '
+             'yıldan eski mi?', 'end-old', 'stp-0003'),
+            ('stp-0003', 'Motor çalışırken pedala sabit kuvvetle 30 saniye '
+             'basın.', 'Pedal yavaşça yere iniyor mu?', 'end-master',
+             'end-pads'),
+        ],
+        'ends': [
+            ('end-leak', 'Hidrolik kaçıyor; boru ve hortumları kontrol '
+             'edin.', BRAKE_HOSE),
+            ('end-old', 'Hidrolik nem çekmiş; değiştirin ve sistemin '
+             'havasını alın.', BRAKE_BLEED),
+            ('end-master', 'Ana merkez içeriden kaçırıyor.', MASTER),
+            ('end-pads', 'Hidrolik sağlam; balata ve diskleri kontrol '
+             'edin.', DISCS),
+        ],
+    })
+
+# Akü kutup başları ve park akımı
+BATTERY_ISO = dm(
+    code=code('DA6', '1', '421'), tech='Akü', info='Arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA6-101',
+        'descr': 'Marş ağır dönüyor ya da araç birkaç gün durunca '
+                 'çalışmıyor.',
+        'steps': [
+            ('stp-0001', 'Akü kutup başlarına ve kablo pabuçlarına bakın.',
+             'Kutuplarda beyaz ya da yeşilimsi toz var ya da pabuç '
+             'elle oynuyor mu?', 'end-terminals', 'stp-0002'),
+            ('stp-0002', 'Aküyü şarj edip motor dururken gerilimini ölçün; '
+             'sonra bir gece bekletip yeniden ölçün.', 'Gerilim bir '
+             'gecede belirgin düştü mü?', 'stp-0003', 'end-battery'),
+            ('stp-0003', 'Akü yeni ya da test cihazında sağlam görünüyor '
+             'mu, kontrol edin.', 'Akü sağlam mı?', 'end-drain',
+             'end-battery'),
+        ],
+        'ends': [
+            ('end-terminals', 'Kutup başlarını temizleyin ve sıkın.',
+             code('DA6', '1', '250')),
+            ('end-drain', 'Araç kapalıyken akü boşalıyor; park akımını '
+             'ölçün.', code('DA6', '6', '361')),
+            ('end-battery', 'Aküyü test edin; ömrünü doldurduysa '
+             'değiştirin.', BATTERY),
+        ],
+    })
+
+dm(code=code('DA6', '1', '250'), tech='Akü kutup başları',
+   tools=[('Lokma takımı', 1), ('Tel fırça', 1)],
+   supplies=[('Karbonat ve ılık su', None), ('Kutup başı gresi', None)],
+   warnings=['Akü asidi yakıcıdır; gözlük ve eldiven takın. Akünün '
+             'yanında kıvılcım çıkarmayın.'],
+   steps=[
+       'Kontağı kapatın ve anahtarı çıkarın.',
+       'Önce eksi (–), sonra artı (+) kablonun pabucunu gevşetip çıkarın.',
+       'Kutup başlarını ve pabuçların içini tel fırçayla parlak metal '
+       'görünene kadar temizleyin. Beyaz toz varsa karbonatlı ılık suyla '
+       'çözün, sonra kurulayın.',
+       'Pabuçlarda çatlak ya da kablonun içinde yeşil oksit varsa kabloyu '
+       'değiştirin.',
+       'Önce artı, sonra eksi kabloyu takın ve somunları elle '
+       'oynamayacak kadar sıkın.',
+       'Kutup başlarına ince bir kat gres sürün.',
+       'Motoru çalıştırın; marşın normal döndüğünü ve şarj lambasının '
+       'söndüğünü doğrulayın.',
+   ])
+
+dm(code=code('DA6', '6', '361'), tech='Park akımı', info='Ölçüm',
+   tools=[('Multimetre', 1), ('Lokma takımı', 1)],
+   conditions=['Akü dolu; bütün kapılar, bagaj ve kaput kapalı (kaput '
+               'müşiri varsa basılı).'],
+   steps=[
+       'Kontağı kapatın, anahtarı çıkarın ve bütün tüketicileri kapatın.',
+       'Akünün eksi kablosunu sökün; multimetreyi akım ölçme konumunda '
+       'eksi kutup ile kablo pabucu arasına bağlayın.',
+       'Araçtaki modüllerin uyku konumuna geçmesi için birkaç dakika '
+       'bekleyin. Ölçülen akım birkaç on miliamperi geçmemeli; kesin sınır '
+       'için üretici değerine bakın.',
+       'Akım yüksekse sigortaları birer birer çıkarın; akımın düştüğü '
+       'sigorta kaçağın olduğu devredir.',
+       'O devrede sık rastlananlara bakın: bagaj ya da torpido lambasının '
+       'yanık kalması, sonradan takılmış teyp, alarm ya da kablo, '
+       'yapışmış bir röle.',
+       'Kaçağı giderin, sigortaları yerine takın ve akımı yeniden ölçün.',
+   ])
+
+# Soğutma suyu
+COOLANT_ISO = dm(
+    code=code('DA1', '4', '421', '02'), tech='Soğutma suyu',
+    info='Arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA1-101',
+        'descr': 'Soğutma suyu paslı, bulanık ya da yağlı görünüyor.',
+        'steps': [
+            ('stp-0001', 'Motor soğukken genleşme kabındaki ve radyatör '
+             'boğazındaki suya bakın.', 'Suyun üstünde yağ ya da köpük '
+             'var mı?', 'end-gasket', 'stp-0002'),
+            ('stp-0002', 'Suyun rengine ve son değişim tarihine bakın.',
+             'Su kahverengi, paslı ya da tortulu mu, ya da değişim zamanı '
+             'geçmiş mi?', 'end-change', 'end-ok'),
+        ],
+        'ends': [
+            ('end-gasket', 'Suya yağ karışıyor: kompresyon ölçümüyle '
+             'silindir kapak contasını kontrol edin.', COMPRESSION),
+            ('end-change', 'Soğutma suyunu boşaltın, sistemi yıkayın ve '
+             'yeni antifrizle doldurun.', COOLANT_CHANGE),
+            ('end-ok', 'Su temiz: soğutma sistemini genel olarak kontrol '
+             'edin.', COOLING_CHECK),
+        ],
+    })
+
+# Debriyaj rulmanı
+CLUTCH_NOISE_ISO = dm(
+    code=code('DA2', '1', '421', '01'), tech='Debriyaj', info='Ses: arıza '
+    'bulma',
+    isolation={
+        'fault': 'NAYACAR-DA2-101',
+        'descr': 'Debriyaj pedalına basınca ya da bırakırken şanzımandan '
+                 'ses geliyor.',
+        'steps': [
+            ('stp-0001', 'Motor rölantide, vites boştayken pedala yavaşça '
+             'basın ve dinleyin.', 'Pedala basınca vınlama ya da cızırtı '
+             'başlıyor mu?', 'end-bearing', 'stp-0002'),
+            ('stp-0002', 'Pedalı bırakıp vites boşta dinleyin.', 'Ses '
+             'pedal bırakıkken var, basınca kesiliyor mu?', 'end-gearbox',
+             'end-pedal'),
+        ],
+        'ends': [
+            ('end-bearing', 'Debriyaj rulmanı aşınmış; debriyaj seti '
+             'değişiminde rulmanı da değiştirin.', CLUTCH_SET),
+            ('end-gearbox', 'Ses şanzıman giriş mili rulmanından olabilir; '
+             'şanzıman yağını kontrol edin.', GEARBOX),
+            ('end-pedal', 'Ses pedal ya da merkezlerden geliyor; hidrolik '
+             'sistemi kontrol edin.', CLUTCH_BLEED),
+        ],
+    })
+
+# Şanzıman yağ kaçağı
+TRANSAXLE_LEAK_ISO = dm(
+    code=code('DA2', '2', '421'), tech='Şanzıman ve aks keçeleri',
+    info='Yağ kaçağı: arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA2-102',
+        'descr': 'Şanzımanın altına ya da aks mili çıkışına yağ sızıyor.',
+        'steps': [
+            ('stp-0001', 'Şanzımanı temizleyip kısa bir sürüşten sonra '
+             'yağın nereden geldiğine bakın.', 'Yağ aks milinin şanzımana '
+             'girdiği yerden mi geliyor?', 'end-seal', 'stp-0002'),
+            ('stp-0002', 'Şanzıman ile motor arasındaki birleşme yerine '
+             'bakın.', 'Yağ motor ile şanzıman arasından mı damlıyor?',
+             'end-crank', 'end-level'),
+        ],
+        'ends': [
+            ('end-seal', 'Aks keçesi sızdırıyor; değiştirin.',
+             code('DA2', '2', '920', '01')),
+            ('end-crank', 'Arka krank keçesi ya da şanzıman giriş keçesi '
+             'olabilir; debriyaj değişiminde kontrol edin.', CLUTCH_SET),
+            ('end-level', 'Kaynak tapalardan ya da kapaktan olabilir; '
+             'şanzıman yağını kontrol edin.', GEARBOX),
+        ],
+    })
+
+dm(code=code('DA2', '2', '920', '01'), tech='Aks keçesi',
+   tools=[('Kriko ve sehpa', 1), ('Lokma takımı', 1),
+          ('Keçe sökme aleti', 1), ('Keçe çakma aparatı', 1)],
+   supplies=[('Şanzıman yağı', None)],
+   spares=[('Aks keçesi', 1), ('Aks mili somunu', 1)],
+   conditions=['Araç kaldırılmış ve sehpaya alınmış; ilgili ön tekerlek '
+               'sökülmüş.'],
+   steps=[
+       'Aks mili somununu sökün; rot başını ve alt rotili ayırarak aks '
+       'taşıyıcısını dışarı açın.',
+       'Aks milini şanzımandan çekin; çıkış ağzının altına yağ kabı koyun.',
+       'Eski keçeyi yuvasını çizmeden sökün; yuvayı temizleyin.',
+       'Yeni keçenin dudağını yağlayın ve aparatla yuvasına düz çakın.',
+       'Aks milini keçeye zarar vermeden yerine takın; kilit halkasının '
+       'oturduğunu çekerek doğrulayın.',
+       'Rotili, rot başını ve aks somununu üretici torkunda sıkın; '
+       'somunu emniyetleyin.',
+       'Şanzıman yağını doldurma tapasının alt kenarına kadar tamamlayın.',
+       'Deneme sürüşünden sonra keçe çevresini kontrol edin.',
+   ])
+
+# Rölanti ve gaz teli
+IDLE_HIGH_ISO = dm(
+    code=code('DA1', '6', '421', '01'), tech='Emme sistemi',
+    info='Yüksek rölanti: arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA1-102',
+        'descr': 'Motor ısındıktan sonra da rölanti yüksek kalıyor ya da '
+                 'gaz pedalı bırakılınca devir geç düşüyor.',
+        'steps': [
+            ('stp-0001', 'Motor durmuşken gaz pedalına basıp bırakın; gaz '
+             'kelebeği tarafında telin hareketini izleyin.', 'Kelebek tam '
+             'kapanmıyor ya da tel takılıyor mu?', 'end-cable', 'stp-0002'),
+            ('stp-0002', 'Motor rölantideyken emme manifolduna bağlı vakum '
+             'hortumlarını dinleyin ve elle yoklayın.', 'Tıslama sesi, '
+             'çatlak ya da yerinden çıkmış hortum var mı?', 'end-vacuum',
+             'stp-0003'),
+            ('stp-0003', 'Gaz kelebeği gövdesinin içine bakın.', 'Kelebek '
+             'kenarında kalın karbon birikintisi var mı?', 'end-throttle',
+             'end-iscv'),
+        ],
+        'ends': [
+            ('end-cable', 'Gaz telini ayarlayın ya da değiştirin.',
+             code('DA1', '6', '271')),
+            ('end-vacuum', 'Çatlak vakum hortumunu değiştirin.',
+             code('DA1', '6', '920', '06')),
+            ('end-throttle', 'Gaz kelebeğini temizleyin.', THROTTLE),
+            ('end-iscv', 'Rölanti ayar devresini inceleyin.', IDLE_ISO),
+        ],
+    })
+
+dm(code=code('DA1', '6', '271'), tech='Gaz teli',
+   tools=[('Açık ağızlı anahtar takımı', 1)],
+   supplies=[('Kuru tel yağlayıcısı', None)],
+   steps=[
+       'Motor dururken gaz kelebeğindeki makaraya ve gaz teline bakın; '
+       'telin kılıfında ezik, kırık ya da pas arayın.',
+       'Gaz pedalını bırakıkken telde hafif bir boşluk olmalı; kelebek '
+       'tam kapalı durmalı.',
+       'Kılıfın ayar somunlarını gevşetip boşluğu ayarlayın; tel gergin '
+       'olmamalı, aşırı da sarkmamalı. Somunları sıkın.',
+       'Pedala sonuna kadar basın; kelebeğin tam açıldığını görün.',
+       'Tel kılıfın içinde takılıyorsa ya da tel ucu dağılmışsa teli '
+       'değiştirin; yağlayıcıyı yalnız kılıfın ağzına uygulayın.',
+       'Motoru çalıştırın; direksiyon tam sağa ve sola çevrilirken '
+       'rölantinin değişmediğini doğrulayın.',
+   ])
+
+dm(code=code('DA1', '6', '920', '06'), tech='Vakum hortumları',
+   tools=[('Pense', 1), ('Tornavida takımı', 1)],
+   spares=[('Vakum hortumu', None)],
+   conditions=['Motor soğuk.'],
+   steps=[
+       'Emme manifoldu, fren servosu, PCV valfi ve EVAP boşaltma valfi '
+       'çevresindeki hortumları sırayla kontrol edin.',
+       'Hortumu bükün; sertleşmiş, çatlamış ya da ağzı yarılmışsa '
+       'değiştirin.',
+       'Hortumu aynı iç çapta ve aynı uzunlukta yenisiyle değiştirin; '
+       'kelepçeleri yerine takın.',
+       'Hortumun geçtiği yolu koruyun; sıcak egzoz parçalarına '
+       'değmemeli.',
+       'Motoru çalıştırın; tıslama sesinin kesildiğini ve rölantinin '
+       'düzeldiğini doğrulayın. Arıza lambası yanıyorsa kodu silip deneme '
+       'sürüşü yapın.',
+   ])
+
+# Farlar
+HEADLIGHT_ISO = dm(
+    code=code('DA6', '2', '421', '01'), tech='Farlar',
+    info='Zayıf aydınlatma: arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA6-102',
+        'descr': 'Farlar yanıyor ama yolu zayıf aydınlatıyor ya da '
+                 'karşıdan gelenler selektör yapıyor.',
+        'steps': [
+            ('stp-0001', 'Far camlarına gündüz bakın.', 'Camlar sararmış, '
+             'matlaşmış ya da içi buğulu mu?', 'end-lens', 'stp-0002'),
+            ('stp-0002', 'Aracı düz zeminde bir duvara karşı durdurup '
+             'kısa farları yakın.', 'İki farın ışığı farklı yükseklikte ya '
+             'da çok yukarıda/aşağıda mı?', 'end-aim', 'stp-0003'),
+            ('stp-0003', 'Motor çalışırken far soketindeki gerilimi '
+             'ölçün.', 'Gerilim aküdeki gerilimden belirgin düşük mü?',
+             'end-ground', 'end-bulb'),
+        ],
+        'ends': [
+            ('end-lens', 'Far camlarını temizleyip parlatın.',
+             code('DA6', '2', '250')),
+            ('end-aim', 'Far yüksekliğini ayarlayın.',
+             code('DA6', '2', '271', '01')),
+            ('end-ground', 'Toprak bağlantılarını temizleyin.', GROUND),
+            ('end-bulb', 'Ampuller yaşlanmış olabilir; ikisini birlikte '
+             'değiştirin.', HEADLIGHT),
+        ],
+    })
+
+dm(code=code('DA6', '2', '250'), tech='Far camları',
+   supplies=[('Far parlatma pastası', None), ('Maskeleme bandı', None),
+             ('UV dayanımlı şeffaf koruyucu', None)],
+   steps=[
+       'Farı ve çevresini yıkayıp kurulayın; çevresindeki boyayı '
+       'maskeleme bandıyla koruyun.',
+       'Sararmış yüzeyi pastayla, üreticinin talimatına göre ve ince '
+       'zımparadan kalına gitmeden parlatın.',
+       'Cam şeffaflaşınca temizleyin ve UV dayanımlı koruyucuyu sürün; '
+       'koruyucu sürülmezse sararma kısa sürede geri gelir.',
+       'İçi buğulu ya da su almış farı parlatmak düzeltmez; far '
+       'gövdesinin contasını kontrol edin ya da farı değiştirin.',
+       'Farları yakıp ışığın düzgün dağıldığını doğrulayın.',
+   ])
+
+dm(code=code('DA6', '2', '271', '01'), tech='Far yüksekliği',
+   tools=[('Tornavida takımı', 1), ('Şerit metre', 1)],
+   conditions=['Araç düz zeminde, lastik basınçları doğru, depo dolu, '
+               'sürücü koltuğunda bir kişi ya da eşdeğer ağırlık.'],
+   steps=[
+       'Aracı düz bir duvara dik ve belirli bir uzaklıkta durdurun; '
+       'mesafe ve kesim çizgisinin yüksekliği için üretici değerine '
+       'bakın.',
+       'Far merkezlerinin yüksekliğini ölçüp duvarda işaretleyin.',
+       'Kısa farları yakın; bir farı kapatarak diğerini ayarlayın.',
+       'Farın arkasındaki dikey ayar vidasıyla ışığın üst sınırını '
+       'işaretin biraz altına, yatay vidasıyla da doğru konuma getirin.',
+       'Diğer far için aynısını yapın.',
+       'Gece kısa bir sürüşle yolun aydınlandığını ve karşıdan gelenlerin '
+       'kamaşmadığını doğrulayın.',
+   ])
+
+# Bagaj
+TRUNK_ISO = dm(
+    code=code('DA0', '2', '421'), tech='Bagaj', info='Su girmesi: arıza '
+    'bulma',
+    isolation={
+        'fault': 'NAYACAR-DA0-101',
+        'descr': 'Bagaj tabanında ya da stepne yuvasında su birikiyor.',
+        'steps': [
+            ('stp-0001', 'Bagaj kapağı fitiline bakın.', 'Fitil yırtık, '
+             'ezilmiş ya da yerinden çıkmış mı?', 'end-seal', 'stp-0002'),
+            ('stp-0002', 'Arka lambaları içeriden söküp contalarına ve '
+             'çevrelerine bakın.', 'Lamba contası bozuk ya da çevresinde '
+             'su izi var mı?', 'end-lamp', 'end-body'),
+        ],
+        'ends': [
+            ('end-seal', 'Bagaj kapağı fitilini değiştirin.',
+             code('DA0', '2', '920')),
+            ('end-lamp', 'Arka lambayı sökün, contasını yenileyip takın.',
+             TAIL_BULB),
+            ('end-body', 'Gövde ek yerlerine ve pasa bakın.', BODY_CHECK),
+        ],
+    })
+
+dm(code=code('DA0', '2', '920'), tech='Bagaj kapağı fitili',
+   supplies=[('Fitil için kauçuk koruyucu', None)],
+   spares=[('Bagaj kapağı fitili', 1)],
+   steps=[
+       'Bagajı boşaltın; tabandaki suyu alın ve halıyı kurumaya çıkarın.',
+       'Eski fitili köşesinden başlayarak flanştan çekip çıkarın.',
+       'Flanşı temizleyin; pas varsa giderip boyayla kapatın.',
+       'Yeni fitili ek yeri alt ortaya gelecek biçimde elle bastırarak '
+       'takın; köşelerde gerdirmeyin.',
+       'Kapağı kapatın; bir kâğıt şeridi fitil ile kapak arasına sıkıştırıp '
+       'çekin; her noktada direnç hissedilmeli.',
+       'Bagaj kapağını hortumla ıslatıp içeride su olmadığını doğrulayın.',
+   ])
+
+# Yakıt göstergesi
+FUEL_GAUGE_ISO = dm(
+    code=code('DA1', '7', '421', '01'), tech='Yakıt göstergesi',
+    info='Arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA1-103',
+        'descr': 'Yakıt göstergesi yanlış gösteriyor, takılıyor ya da hep '
+                 'dolu/boş gösteriyor.',
+        'steps': [
+            ('stp-0001', 'Kontağı açın ve diğer ibrelere bakın.', 'Su '
+             'sıcaklık ibresi de yanlış ya da hiç oynamıyor mu?',
+             'end-cluster', 'stp-0002'),
+            ('stp-0002', 'Arka koltuğun altından seviye algılayıcısının '
+             'soketine ulaşın ve soketi kontrol edin.', 'Soket oksitli ya '
+             'da kablo kopuk mu?', 'end-wiring', 'end-sender'),
+        ],
+        'ends': [
+            ('end-cluster', 'Gösterge panelini kontrol edin.', CLUSTER_ISO),
+            ('end-wiring', 'Soketi ve toprak bağlantısını temizleyin.',
+             GROUND),
+            ('end-sender', 'Yakıt seviye algılayıcısını değiştirin.',
+             code('DA1', '7', '920', '05')),
+        ],
+    })
+
+dm(code=code('DA1', '7', '920', '05'), tech='Yakıt seviye algılayıcısı',
+   tools=[('Tornavida takımı', 1), ('Multimetre', 1)],
+   spares=[('Yakıt seviye algılayıcısı', 1), ('Kapak contası', 1)],
+   conditions=['Depodaki yakıt yarının altında; motor soğuk.'],
+   warnings=['Benzin buharı yanıcıdır. İyi havalandırılan yerde çalışın; '
+             'kıvılcım ve açık alevden uzak durun. Akünün eksi kutbunu '
+             'sökün.'],
+   steps=[
+       'Arka koltuk minderini kaldırın ve servis kapağını açın.',
+       'Algılayıcının soketini çıkarın; şamandırayı elle hareket '
+       'ettirirken direncin boştan doluya düzgün değiştiğini ölçün. '
+       'Değer atlıyor ya da kopuyorsa algılayıcı arızalıdır.',
+       'Algılayıcıyı depodan çıkarın; şamandıra kolunu eğmeden dışarı '
+       'alın.',
+       'Yeni algılayıcıyı yeni contayla takın.',
+       'Soketi takın, akü kutbunu bağlayın ve kontağı açarak ibreyi '
+       'izleyin. Yakıt aldıktan sonra göstergenin yükseldiğini doğrulayın.',
+       'Benzin kokusu olmadığını kontrol edip kapağı ve minderi yerine '
+       'takın.',
+   ])
+
+# Evaporatör
+EVAPORATOR_ISO = dm(
+    code=code('DA7', '2', '421', '01'), tech='Evaporatör ve drenaj',
+    info='Arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA7-101',
+        'descr': 'Klima çalışırken yolcu tarafında halı ıslanıyor ya da '
+                 'havalandırmadan küf kokusu geliyor.',
+        'steps': [
+            ('stp-0001', 'Klima birkaç dakika çalıştıktan sonra aracın '
+             'altına bakın.', 'Drenaj hortumundan su damlıyor mu?',
+             'stp-0002', 'end-drain'),
+            ('stp-0002', 'Halıdaki suyun kokusuna ve camlara bakın.',
+             'Su tatlımsı kokuyor ya da camlar yağlı buğulanıyor mu?',
+             'end-heater', 'end-clean'),
+        ],
+        'ends': [
+            ('end-drain', 'Drenaj hortumu tıkalı; temizleyin.',
+             code('DA7', '2', '250')),
+            ('end-heater', 'Su soğutma suyudur; kalorifer peteğini '
+             'kontrol edin.', HEATER_CORE),
+            ('end-clean', 'Drenaj açık: evaporatörü dezenfekte edin.',
+             code('DA7', '2', '250')),
+        ],
+    })
+
+dm(code=code('DA7', '2', '250'), tech='Evaporatör ve drenaj hortumu',
+   tools=[('Esnek plastik çubuk', 1)],
+   supplies=[('Evaporatör temizleme köpüğü', None)],
+   steps=[
+       'Drenaj hortumunun ucunu araç altında, torpidonun hizasında, '
+       'motor bölmesi ile kabin arasındaki duvarda bulun.',
+       'Hortumun ağzını kontrol edin; çamur, yaprak ya da böcek yuvası '
+       'varsa esnek bir çubukla dikkatlice açın. Sert tel kullanmayın; '
+       'evaporatör delinebilir.',
+       'Su akınca halıyı kaldırıp kurutun; köpük yalıtım ıslandıysa '
+       'kurumadan halıyı yerine koymayın.',
+       'Küf kokusu varsa temizleme köpüğünü üreticinin talimatına göre '
+       'drenaj ya da hava girişinden uygulayın ve süresi kadar bekletin.',
+       'Klimayı çalıştırıp fanı en yüksekte birkaç dakika çalıştırın; '
+       'kokunun azaldığını ve drenajdan su aktığını doğrulayın.',
+       'Kokunun dönmemesi için park etmeden birkaç dakika önce klimayı '
+       'kapatıp fanı çalıştırın; evaporatör kurur.',
+   ])
+
+# Kapı menteşeleri
+DOOR_HINGE_ISO = dm(
+    code=code('DA0', '1', '421'), tech='Kapılar', info='Ses ve sarkma: '
+    'arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA0-102',
+        'descr': 'Kapı açılıp kapanırken gıcırdıyor, açık durmuyor ya da '
+                 'kapanırken takılıyor.',
+        'steps': [
+            ('stp-0001', 'Kapıyı açıp ucundan hafifçe yukarı kaldırın.',
+             'Menteşede gözle görülür boşluk var mı?', 'end-hinge',
+             'stp-0002'),
+            ('stp-0002', 'Kapıyı yavaşça açıp kapatarak dinleyin.', 'Ses '
+             'menteşeden ya da gergi kolundan mı geliyor?', 'end-lube',
+             'end-lock'),
+        ],
+        'ends': [
+            ('end-hinge', 'Menteşe pimi ya da burcu aşınmış; kapıları '
+             'kontrol edin.', DOORS),
+            ('end-lube', 'Menteşeleri ve gergiyi yağlayın.',
+             code('DA0', '1', '241')),
+            ('end-lock', 'Ses kilitten geliyor; kapı kilidini kontrol '
+             'edin.', LOCK),
+        ],
+    })
+
+dm(code=code('DA0', '1', '241'), tech='Kapı menteşeleri ve gergileri',
+   info='Yağlama',
+   supplies=[('Beyaz lityum gres', None), ('Temizlik bezi', None)],
+   steps=[
+       'Kapıyı tam açın; menteşelerdeki ve gergi kolundaki eski kiri '
+       'silin.',
+       'Menteşe pimlerine ve gergi kolunun makarasına ince bir kat gres '
+       'sürün.',
+       'Kapıyı birkaç kez açıp kapatarak gresi dağıtın; fazlasını silin.',
+       'Kilit dilini ve karşılık parçasını da az miktarda yağlayın.',
+       'Kapı ses yapmadan açılıp her kademede durmalı. Boşluk varsa '
+       'menteşe pimini değiştirin.',
+   ])
+
+# El freni
+PARKING_STICK_ISO = dm(
+    code=code('DA3', '4', '421'), tech='El freni', info='Arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA3-102',
+        'descr': 'El freni indirildiği hâlde arka tekerlek frenli kalıyor '
+                 'ya da el freni tutmuyor.',
+        'steps': [
+            ('stp-0001', 'El freni kolunu indirin, aracı kaldırıp arka '
+             'tekerlekleri elle çevirin.', 'Bir tekerlek frenli mi '
+             'kalıyor?', 'stp-0002', 'stp-0003'),
+            ('stp-0002', 'Araç altından el freni telini izleyin.', 'Tel '
+             'kılıfı paslı ya da tel kılıfın içinde takılıyor mu?',
+             'end-cable', 'end-caliper'),
+            ('stp-0003', 'El freni kolunu çekerek tık sayısını sayın.',
+             'Kol olağandan çok yukarı çıkıyor mu?', 'end-adjust',
+             'end-pads'),
+        ],
+        'ends': [
+            ('end-cable', 'El freni telini değiştirin.',
+             code('DA3', '4', '920')),
+            ('end-caliper', 'Arka kaliperde sıkışma olabilir; arka frenleri '
+             'kontrol edin.', REAR_BRAKES),
+            ('end-adjust', 'El frenini ayarlayın.', PARKING),
+            ('end-pads', 'Arka balataları kontrol edin.', REAR_PADS),
+        ],
+    })
+
+dm(code=code('DA3', '4', '920'), tech='El freni teli',
+   tools=[('Kriko ve sehpa', 1), ('Lokma takımı', 1), ('Pense', 1)],
+   spares=[('El freni teli', 1)],
+   conditions=['Araç kaldırılmış ve sehpaya alınmış; tekerlekler takozlu; '
+               'el freni indirilmiş.'],
+   steps=[
+       'Kabinde el freni kolundaki ayar somununu gevşetin.',
+       'Telin ucunu arka frendeki koldan ayırın; kılıfın tutucu '
+       'kelepçelerini sökün.',
+       'Teli kasa üzerindeki tutuculardan çıkarın ve eşitleyiciden '
+       'ayırın.',
+       'Yeni teli aynı yoldan geçirip tutuculara takın; egzoza ve hareketli '
+       'parçalara değmediğini kontrol edin.',
+       'Ucunu arka fren koluna bağlayın.',
+       'El frenini ayarlayın: kol üretici değerindeki tık sayısında tam '
+       'tutmalı, indirildiğinde tekerlekler serbest dönmeli.',
+   ])
+
+# Lastik basıncı
+TIRE_PRESSURE_ISO = dm(
+    code=code('DA5', '1', '421'), tech='Lastikler', info='Düzensiz aşınma: '
+    'arıza bulma',
+    isolation={
+        'fault': 'NAYACAR-DA5-101',
+        'descr': 'Lastikler düzensiz aşınıyor, direksiyon ağır ya da araç '
+                 'yolda yüzüyor gibi.',
+        'steps': [
+            ('stp-0001', 'Soğuk lastiklerde basıncı ölçün.', 'Basınç '
+             'etiketteki değerden belirgin düşük ya da yüksek mi?',
+             'end-pressure', 'stp-0002'),
+            ('stp-0002', 'Lastiklerin aşınma biçimine bakın.', 'Aşınma '
+             'yalnız iç ya da dış kenarda mı?', 'end-alignment',
+             'end-tires'),
+        ],
+        'ends': [
+            ('end-pressure', 'Lastik basıncını ayarlayın.',
+             code('DA5', '1', '210')),
+            ('end-alignment', 'Ön düzeni kontrol ettirin.', ALIGNMENT),
+            ('end-tires', 'Lastikleri muayene edin.', TIRES),
+        ],
+    })
+
+dm(code=code('DA5', '1', '210'), tech='Lastik basıncı', info='İkmal',
+   tools=[('Lastik basınç ölçeri', 1), ('Hava kompresörü', 1)],
+   conditions=['Lastikler soğuk: araç en az üç saat durmuş ya da en fazla '
+               'birkaç kilometre gitmiş.'],
+   steps=[
+       'Sibop kapağını çıkarın ve basınç ölçeri sibopa dik bastırın.',
+       'Okunan değeri kapı direğindeki etiketle karşılaştırın; bu araç '
+       'için ön ve arka 2,2 bar.',
+       'Basınç düşükse hava basın, yüksekse sibopun iğnesine bastırarak '
+       'hava boşaltın; her seferinde yeniden ölçün.',
+       'Sibopa sabunlu su sürün; kabarcık çıkıyorsa sibop iğnesi '
+       'kaçırıyordur.',
+       'Stepneyi de kontrol edin ve sibop kapaklarını takın.',
+       'Bir hafta sonra yeniden ölçün; bir lastik yine inmişse delik ya da '
+       'jant kaçağı için lastiği muayene edin.',
+   ])
+
 # --- Parça haritası --------------------------------------------------------
 
 # Düğümü olmayan parçalar içinde bulundukları düğüme bağlı. Bir düğüme
@@ -3938,6 +5143,14 @@ for wid, wname, wnode, wzone in [
          'Lastik, çelik jant ve göbek kapağı.',
          {'inspect': TIRES, 'replace': WHEEL})
 
+
+# Ek arızalar için parça. Dosyanın sonunda: var olan parçaların IPD sırası
+# değişmez.
+part('hvac.evaporator', 'Evaporatör ve drenaj hortumu', 'hvac', 'DA7-20',
+     ['dashboard'], 'z.cabin', 'Gösterge panelinin arkasında; kabine '
+     'giren havayı soğutur, yoğuşan suyu hortumla araç altına atar.',
+     {'clean': code('DA7', '2', '250'), 'isolate': EVAPORATOR_ISO})
+
 ZONES = [
     ('z.front', 'Ön', None), ('z.engine', 'Motor bölmesi', 'z.front'),
     ('z.cabin', 'Kabin', None), ('z.rear', 'Arka', None),
@@ -4394,6 +5607,103 @@ FAULTS = [
 ]
 
 
+# Ek arızaların belirtileri ve arızaları.
+SYMPTOMS += [
+    ('sym.brake_fade', 'Uzun yokuş inişinde ya da sık frenlemede pedal '
+     'yumuşuyor'),
+    ('sym.battery_terminals', 'Akü kutup başlarında beyaz ya da yeşil toz '
+     'var'),
+    ('sym.flat_after_parking', 'Araç birkaç gün durunca akü bitiyor'),
+    ('sym.dirty_coolant', 'Soğutma suyu paslı ya da bulanık görünüyor'),
+    ('sym.clutch_bearing_noise', 'Debriyaja basınca şanzımandan vınlama '
+     'geliyor'),
+    ('sym.gearbox_leak', 'Şanzımanın altından ya da aks mili çıkışından '
+     'yağ sızıyor'),
+    ('sym.high_idle', 'Motor ısındıktan sonra da rölanti yüksek kalıyor'),
+    ('sym.sticky_pedal', 'Gaz pedalı sert, takılıyor ya da geç geri '
+     'geliyor'),
+    ('sym.hiss', 'Motor çalışırken kaputun altından tıslama geliyor'),
+    ('sym.weak_headlights', 'Farlar yanıyor ama yolu zayıf aydınlatıyor'),
+    ('sym.yellow_lens', 'Far camları sararmış ya da matlaşmış'),
+    ('sym.glare', 'Karşıdan gelenler kısa farda bile selektör yapıyor'),
+    ('sym.trunk_water', 'Bagaj tabanında ya da stepne yuvasında su '
+     'birikiyor'),
+    ('sym.fuel_gauge', 'Yakıt göstergesi yanlış gösteriyor ya da '
+     'takılıyor'),
+    ('sym.wet_floor', 'Klima çalışırken yolcu tarafındaki halı ıslanıyor'),
+    ('sym.musty_smell', 'Havalandırmadan küf ya da rutubet kokusu geliyor'),
+    ('sym.door_creak', 'Kapı açılıp kapanırken gıcırdıyor'),
+    ('sym.handbrake_drag', 'El freni indirildiği hâlde arka tekerlek frenli '
+     'kalıyor'),
+    ('sym.tire_pressure', 'Lastikler sık sık hava eksiltiyor, basınç '
+     'düşük'),
+]
+
+FAULTS += [
+    ('f.brake_fluid.old', 'brakes.master_cylinder',
+     ['sym.brake_fade', 'sym.pedal_soft'],
+     'Fren hidroliği nem çekmiş; kaynama noktası düştüğü için ısınınca '
+     'kabarcık yapıyor.', 3, BRAKE_FLUID_ISO, BRAKE_BLEED),
+    ('f.battery.terminals', 'battery',
+     ['sym.battery_terminals', 'sym.slow_crank'],
+     'Akü kutup başları oksitlenmiş ya da pabuç gevşek; marş akımı '
+     'geçemiyor.', 1, BATTERY_ISO, code('DA6', '1', '250')),
+    ('f.battery.drain', 'electrical.wiring',
+     ['sym.flat_after_parking', 'sym.battery_drain'],
+     'Araç kapalıyken bir devre akım çekiyor (yanık kalan lamba, yapışık '
+     'röle, sonradan takılmış donanım).', 2, BATTERY_ISO,
+     code('DA6', '6', '361')),
+    ('f.coolant.old', 'cooling.tank', ['sym.dirty_coolant'],
+     'Antifrizin koruyucu katkıları tükenmiş; sistemde pas ve tortu '
+     'oluşuyor.', 2, COOLANT_ISO, COOLANT_CHANGE),
+    ('f.clutch.release_bearing', 'drivetrain.clutch',
+     ['sym.clutch_bearing_noise'],
+     'Debriyaj rulmanı aşınmış; pedala basınca ses yapıyor.', 2,
+     CLUTCH_NOISE_ISO, CLUTCH_SET),
+    ('f.transaxle.seal', 'drivetrain.transaxle', ['sym.gearbox_leak'],
+     'Aks keçesi sertleşmiş; şanzıman yağı aks mili çıkışından sızıyor.',
+     2, TRANSAXLE_LEAK_ISO, code('DA2', '2', '920', '01')),
+    ('f.throttle_cable.sticking', 'exhaust.throttle_body',
+     ['sym.high_idle', 'sym.sticky_pedal'],
+     'Gaz teli kılıfında paslanmış ya da ayarı gergin; kelebek tam '
+     'kapanmıyor.', 3, IDLE_HIGH_ISO, code('DA1', '6', '271')),
+    ('f.vacuum_hose.leak', 'engine.intake',
+     ['sym.high_idle', 'sym.hiss', 'sym.mil'],
+     'Emme manifolduna bağlı bir vakum hortumu çatlamış; ölçülmeyen hava '
+     'giriyor.', 2, IDLE_HIGH_ISO, code('DA1', '6', '920', '06')),
+    ('f.headlight.lens', 'body.headlights',
+     ['sym.weak_headlights', 'sym.yellow_lens'],
+     'Far camları güneşten sararmış; ışık dağılıyor.', 1, HEADLIGHT_ISO,
+     code('DA6', '2', '250')),
+    ('f.headlight.aim', 'body.headlights',
+     ['sym.weak_headlights', 'sym.glare'],
+     'Far yükseklik ayarı bozulmuş.', 2, HEADLIGHT_ISO,
+     code('DA6', '2', '271', '01')),
+    ('f.trunk.seal', 'body.trunk', ['sym.trunk_water'],
+     'Bagaj kapağı fitili sertleşmiş ya da yırtılmış.', 1, TRUNK_ISO,
+     code('DA0', '2', '920')),
+    ('f.fuel_gauge.sender', 'fuel.tank', ['sym.fuel_gauge'],
+     'Depodaki yakıt seviye algılayıcısının direnç izi aşınmış.', 1,
+     FUEL_GAUGE_ISO, code('DA1', '7', '920', '05')),
+    ('f.evaporator.drain', 'hvac.evaporator', ['sym.wet_floor'],
+     'Evaporatör drenaj hortumu tıkanmış; yoğuşan su kabine taşıyor.', 1,
+     EVAPORATOR_ISO, code('DA7', '2', '250')),
+    ('f.evaporator.mould', 'hvac.evaporator', ['sym.musty_smell'],
+     'Evaporatörün üstünde küf ve bakteri üremiş.', 1, EVAPORATOR_ISO,
+     code('DA7', '2', '250')),
+    ('f.door.hinge', 'body.door_fr', ['sym.door_creak'],
+     'Kapı menteşeleri ve gergisi kurumuş ya da aşınmış.', 1,
+     DOOR_HINGE_ISO, code('DA0', '1', '241')),
+    ('f.parking.cable_seized', 'brakes.parking',
+     ['sym.handbrake_drag', 'sym.hot_wheel'],
+     'El freni teli kılıfında paslanmış; fren çözülmüyor.', 2,
+     PARKING_STICK_ISO, code('DA3', '4', '920')),
+    ('f.tire.pressure', 'wheels.tires',
+     ['sym.tire_pressure', 'sym.heavy_steering', 'sym.tire_wear'],
+     'Lastik basıncı düşük; lastik kenarlarından aşınıyor, yakıt '
+     'tüketimi artıyor.', 2, TIRE_PRESSURE_ISO, code('DA5', '1', '210')),
+]
+
 SPARE_PARTS = {
     'Silindir kapak contası': 'engine.head_gasket',
     'Supap kapağı contası': 'engine.head_cover',
@@ -4477,6 +5787,549 @@ SPARE_PARTS = {
 }
 
 
+# --- Söyleyişler ------------------------------------------------------------
+#
+# Sürücünün arızayı kendi sözleriyle anlatışı; teşhis serbest metni bunlarla
+# eşleştirir. Her metin arızaya bir belirti olarak eklenir
+# (`Content.add_phrasings`).
+
+PHRASINGS = {
+    # Motor
+    'f.head_gasket.blown': [
+        'Egzozdan tatlı kokulu beyaz buhar çıkıyor, motor ısınınca da '
+        'kesilmiyor',
+        'Radyatör kapağını açınca suyun içinde kabarcık ya da yağ görünüyor',
+        'Yağ çubuğundaki yağ sütlü kahve gibi açık renkli olmuş',
+    ],
+    'f.pistons.rings_worn': [
+        'İki yağ değişimi arasında motor yağı tamamlamak zorunda kalıyorum',
+        'Gaza basınca egzozdan mavimsi duman çıkıyor',
+        'Motor eskisi gibi çekmiyor, yokuşta zorlanıyor',
+    ],
+    'f.timing_chain.stretched': [
+        'Sabah ilk çalıştırmada motorun önünden birkaç saniye zincir '
+        'şakırtısı geliyor',
+        'Rölantide motorun yanından hışırtılı zincir sesi geliyor',
+    ],
+    'f.valves.clearance': [
+        'Motorun üstünden dikiş makinesi gibi tıkırtı geliyor',
+        'Gaz verdikçe tıkırtı da hızlanıyor',
+    ],
+    'f.head_cover.gasket': [
+        'Motorun üstü, supap kapağının kenarı yağlanmış',
+        'Motor ısınınca kaputun altından duman ve yanık yağ kokusu çıkıyor',
+    ],
+    'f.crank_seal.leak': [
+        'Motorun sağ önünden, kasnağın arkasından yağ sızıyor',
+        'Kayış ve kasnak yağlı görünüyor',
+    ],
+    'f.mounts.worn': [
+        'Rölantide direksiyon ve koltuk titriyor',
+        'Kalkışta ve vites değiştirirken motor tak diye vuruyor',
+        'Gaza basıp bırakınca önden tok bir vuruntu geliyor',
+    ],
+    'f.drive_belt.worn': [
+        'Soğuk sabahlarda çalıştırınca kayış cıyaklıyor',
+        'Direksiyonu sonuna kadar çevirince önden kayış ötüyor',
+        'Kayışın üstünde çatlaklar var, parlamış görünüyor',
+    ],
+    'f.oil.low': [
+        'Yağ çubuğunda yağ en alt çizginin altında',
+        'Virajda ya da frenlemede yağ lambası bir an yanıp sönüyor',
+        'Uzun süredir yağ değiştirilmedi, yağ kapkara ve kıvamsız',
+    ],
+    'f.oil_pump.worn': [
+        'Yağ seviyesi tam ama motor ısınınca rölantide yağ lambası '
+        'titreşerek yanıyor',
+        'Sıcak motorda rölantide yağ lambası yanıyor, gaz verince sönüyor',
+    ],
+    'f.oil_switch.faulty': [
+        'Yağ lambası yanıyor ama motordan hiç ses yok, yağ da tam',
+        'Yağ basınç müşirinin çevresi yağlı',
+    ],
+    'f.intake.gasket': [
+        'Motor rölantide dengesiz, sanki hava kaçırıyor',
+        'Emme manifoldunun kenarına sprey sıkınca devir değişiyor',
+    ],
+    'f.exhaust_manifold.leak': [
+        'Soğuk çalıştırınca motorun önünden tıkır tıkır üfleme sesi geliyor, '
+        'ısınınca azalıyor',
+        'Kaputu açınca egzoz kokusu geliyor',
+    ],
+    'f.water_pump.leak': [
+        'Motorun yanından, kayış tarafından su damlıyor',
+        'Su pompasının altında pembe ya da yeşil kurumuş antifriz izi var',
+        'Kayış tarafından hafif bir uğultu ya da hırıltı geliyor',
+    ],
+    'f.radiator.clogged': [
+        'Yazın yokuşta ve uzun yolda hararet yapıyor',
+        'Radyatörün petekleri ezik, kirli ya da böcekle dolu',
+        'Fan çalışıyor ama hararet yine de düşmüyor',
+    ],
+    'f.radiator_cap.faulty': [
+        'Genleşme kabı motor ısınınca taşıyor, su yere dökülüyor',
+        'Radyatör kapağının lastiği çatlamış ya da sertleşmiş',
+        'Hortumlar motor sıcakken bile yumuşak, şişmiyor',
+    ],
+    'f.fan.inoperative': [
+        'Trafikte beklerken hararet ibresi çıkıyor, fan hiç dönmüyor',
+        'Klimayı açınca bile fan çalışmıyor',
+        'Uzun yolda sorun yok ama şehir içinde ısınıyor',
+    ],
+    'f.hoses.cracked': [
+        'Radyatör hortumunun kelepçesinden su sızıyor',
+        'Hortumun üzerinde çatlak var, sıkınca hışırdıyor',
+        'Motor ısınınca kaputun altından buhar çıkıyor',
+    ],
+    'f.thermostat.stuck_open': [
+        'Kışın hararet ibresi ortaya hiç gelmiyor',
+        'Yolda giderken hararet ibresi düşüyor',
+        'Kalorifer ancak uzun sürüşten sonra ılık üflüyor',
+    ],
+    'f.thermostat.stuck_closed': [
+        'Motor çalıştıktan kısa süre sonra hararet ibresi hızla '
+        'yükseliyor',
+        'Motor ısınmış ama radyatörün üst hortumu soğuk kalıyor',
+    ],
+    'f.fuel_pump.failed': [
+        'Kontağı açınca arka koltuğun altından pompanın vızıltısı gelmiyor',
+        'Yolda giderken motor bir anda kesildi, marş dönüyor ama çalışmıyor',
+        'Depo neredeyse boşken uzun süre sürünce motor tekliyor',
+    ],
+    'f.fuel_filter.clogged': [
+        'Otobanda hızlanırken motor nefessiz kalıyor, bocalıyor',
+        'Düşük devirde iyi ama tam gazda güç düşüyor',
+    ],
+    'f.fuel_regulator.faulty': [
+        'Sıcak motor stop edince bir süre çalışmak istemiyor, uzun marş '
+        'basıyor',
+        'Yakıt kokusu ve egzozdan kara is geliyor',
+    ],
+    'f.injectors.clogged': [
+        'Motor bir silindiri eksikmiş gibi sarsılıyor',
+        'Rölantide motor kesik kesik çalışıyor, gaz verince toparlanıyor',
+        'Yakıt kalitesiz bir istasyondan alındıktan sonra motor tekliyor',
+    ],
+    'f.fuel_cap.seal': [
+        'Yakıt aldıktan sonra arıza lambası yandı',
+        'Depo kapağının çevresinden benzin kokusu geliyor',
+        'Depo kapağı tık sesi çıkarmadan kapanıyor',
+    ],
+    'f.air_filter.clogged': [
+        'Hava filtresi kapkara ve toz dolu',
+        'Tozlu yolda gittikten sonra araç halsizleşti',
+    ],
+    'f.throttle.dirty': [
+        'Arabayı durdurunca motor stop etmeye yatıyor, devir çok düşüyor',
+        'Klimayı açınca rölanti düşüp araç sarsılıyor',
+    ],
+    'f.exhaust.leak': [
+        'Arka taraftan motosiklet gibi gürültülü egzoz sesi geliyor',
+        'Susturucunun üzerinde delik ya da pas var',
+        'Egzoz ucu aşağı sarkmış, askısı kopmuş',
+    ],
+    'f.front_pipe.gasket': [
+        'Aracın ön altından, motorun hemen arkasından pırpır üfleme sesi '
+        'geliyor',
+        'Gaz verince ön taraftan egzoz üflüyor, kabinde egzoz kokusu var',
+    ],
+    'f.catalyst.clogged': [
+        'Araç yokuşta hiç çekmiyor, tam gazda bile hızlanmıyor',
+        'Uzun sürüşten sonra araç altından aşırı sıcaklık hissediliyor',
+        'Katalizörü elle vurunca içinden taş gibi ses geliyor',
+    ],
+    'f.pcv.clogged': [
+        'Yağ çubuğu yuvasından ve keçelerden yağ fışkırıyor',
+        'Hava filtresi kutusunun içi yağlanmış',
+    ],
+    'f.evap.purge': [
+        'Yakıt aldıktan hemen sonra motor zor çalışıyor',
+        'Motor bölmesinde ve araç çevresinde hafif benzin kokusu var, depo '
+        'kapağı sağlam',
+    ],
+    'f.plugs.worn': [
+        'Soğuk havada motor ilk seferde çalışmıyor, öksürüyor',
+        'Yükte gaza basınca motor tekliyor, titriyor',
+        'Bujiler uzun zamandır değişmedi, yakıt tüketimi arttı',
+    ],
+    'f.coils.failed': [
+        'Arıza lambası yanıp sönüyor ve motor sarsılıyor',
+        'Motor üç silindirle çalışıyor gibi, rölantide çok titriyor',
+        'Yağmurlu havada motor tekliyor',
+    ],
+    'f.maf.dirty': [
+        'Kalkışta gaza basınca araç tıkanıyor, sonra toparlanıyor',
+        'Motor durunca kendi kendine stop ediyor, arıza lambası yanıyor',
+    ],
+    'f.o2.failed': [
+        'Yakıt tüketimi birden arttı, egzoz zengin kokuyor',
+        'Muayenede egzoz emisyonundan kaldı',
+    ],
+    'f.ect.failed': [
+        'Motor sıcakken bile soğuk çalıştırma gibi yüksek devirde '
+        'çalışıyor',
+        'Hararet göstergesi motor ısınmış olmasına rağmen hiç oynamıyor',
+        'Fan sürekli çalışıyor ya da hiç çalışmıyor',
+    ],
+    'f.ckp.failed': [
+        'Motor ısınınca yolda aniden stop ediyor, soğuyunca yeniden '
+        'çalışıyor',
+        'Marş dönüyor ama devir saati hiç kıpırdamıyor',
+    ],
+    'f.cmp.failed': [
+        'Marşa uzun basmak gerekiyor, motor geç ateş alıyor',
+        'Arıza lambası yanıyor ama motor normal çalışıyor gibi',
+    ],
+    'f.tps.failed': [
+        'Gaz pedalına hafifçe basınca araç silkeleniyor',
+        'Belli bir pedal konumunda motor bir anda tekliyor',
+    ],
+    'f.iscv.sticking': [
+        'Rölanti bir yükselip bir düşüyor, araç inip çıkıyor',
+        'Soğukken rölanti yükselmiyor, motor stop ediyor',
+    ],
+    'f.knock.failed': [
+        'Yokuşta motor tıkırdıyor ve araç halsiz',
+        'Arıza lambası yanıyor ve araç eskisinden güçsüz',
+    ],
+    'f.ecu.power': [
+        'Kontağı açınca göstergedeki arıza lambası hiç yanmıyor',
+        'Marş dönüyor ama ne enjektör ne kıvılcım var',
+    ],
+    'f.battery.flat': [
+        'Sabah araç çalışmadı, marş ağır ağır döndü',
+        'Kontağı açınca göstergeler sönük yanıyor, korna zayıf',
+        'Akü dört beş yaşında, soğuk havada zorlanıyor',
+    ],
+    'f.alternator.failed': [
+        'Yolda giderken şarj lambası yandı, farlar giderek sönükleşti',
+        'Gece far yakınca göstergeler kararıyor',
+        'Alternatör tarafından uğultu ya da yanık kokusu geliyor',
+    ],
+    'f.starter.failed': [
+        'Anahtarı çevirince marş motoru tık ediyor ama dönmüyor',
+        'Marş bazen basıyor bazen basmıyor, akü dolu',
+        'Marşa basınca metal sürtme ya da vınlama sesi geliyor',
+    ],
+    'f.ignition_switch.faulty': [
+        'Anahtarı çevirince hiçbir şey olmuyor, göstergeler de yanmıyor',
+        'Yolda giderken kontak kesilir gibi motor bir an duruyor',
+        'Anahtar yuvada oynayınca radyo ve göstergeler gidip geliyor',
+    ],
+    'f.fuse.blown': [
+        'Çakmak ya da radyo bir anda tamamen kesildi',
+        'Bir donanım kapanıp bir daha hiç açılmadı',
+    ],
+    'f.ground.corroded': [
+        'Gaz verince farlar parlıyor, rölantide kararıyor',
+        'Gösterge ibreleri farlar yanınca oynuyor',
+        'Motorla kasa arasındaki toprak kablosu yeşillenmiş',
+    ],
+    'f.horn.failed': [
+        'Korna düğmesine basınca ses gelmiyor',
+        'Korna bazen boğuk ve kesik çalıyor',
+    ],
+    'f.cluster.failed': [
+        'Hız göstergesi ya da devir saati ara sıra düşüyor',
+        'Gösterge panelinin bir kısmı karanlık kalıyor',
+        'İbreler titriyor ya da sıfıra düşüp geri geliyor',
+    ],
+    'f.window.regulator': [
+        'Cam düğmesine basınca motor sesi geliyor ama cam inmiyor',
+        'Cam yamuk iniyor, kapının içinden tıkırtı geliyor',
+        'Cam çok yavaş kalkıyor, elle yardım etmek gerekiyor',
+    ],
+    'f.door_lock.motor': [
+        'Bir kapı uzaktan kumandayla kilitlenmiyor, diğerleri kilitleniyor',
+        'Kilitlerken kapının içinden vızıltı geliyor ama pim inmiyor',
+    ],
+    'f.headlight.bulb': [
+        'Kısa farlardan biri yanmıyor, tek gözlü gidiyorum',
+        'Uzun far yanıyor ama kısa far yanmıyor',
+    ],
+    'f.taillight.bulb': [
+        'Arkadaki araç uyardı, bir stop lambası yanmıyormuş',
+        'Park lambası bir tarafta yanmıyor',
+    ],
+    'f.brake_switch.faulty': [
+        'Frene basmasam da stop lambaları yanık kalıyor',
+        'Frene basınca hiçbir stop lambası yanmıyor',
+    ],
+    'f.flasher.failed': [
+        'Sinyal kolunu indirince sinyal yanıyor ama çakmıyor',
+        'Dörtlüler ve sinyaller hiç çalışmıyor, tık sesi de yok',
+    ],
+    'f.foglight.water': [
+        'Sis farının içinde su damlacıkları ve buğu var',
+        'Sis lambası yağmurdan sonra yanmaz oldu',
+    ],
+    'f.wipers.worn': [
+        'Silecekler gıcırdıyor ve camda çizgi bırakıyor',
+        'Yağmurda silecek geçince cam bulanık kalıyor',
+    ],
+    'f.wiper_motor.failed': [
+        'Silecek düğmesini açınca hiçbir şey olmuyor',
+        'Silecekler kapatınca camın ortasında kalıyor',
+        'Silecekler yalnız hızlı kademede çalışıyor',
+    ],
+    'f.washer.pump': [
+        'Cam suyu düğmesine basınca pompa vızıldıyor ama su gelmiyor',
+        'Depoda su var ama hiç ses gelmiyor, su fışkırmıyor',
+    ],
+    'f.door.seal': [
+        'Yağmurda ya da yıkamada kapı kenarından ıslaklık geliyor',
+        'Otobanda kapı kenarından rüzgâr uğultusu geliyor',
+    ],
+    'f.windshield.crack': [
+        'Camda taş vurmuş bir yıldız izi var, büyüyor',
+        'Ön camda boydan boya çatlak oluştu',
+    ],
+    'f.hood.latch': [
+        'Kaput açma kolunu çekiyorum ama kaput kalkmıyor',
+        'Kaputu kapatınca bir tarafı havada kalıyor',
+    ],
+    'f.mirror.glass': [
+        'Yan aynanın camı yerinden düştü',
+        'Ayna camı titriyor, arkayı göremiyorum',
+    ],
+    'f.body.rust': [
+        'Boyada kabarcıklar var, altından pas çıkıyor',
+        'Çamurluk kenarında pas deliği açılmış',
+    ],
+    'f.seat_belt.retractor': [
+        'Emniyet kemeri geri sarmıyor, gevşek kalıyor',
+        'Kemer çekince takılıyor, hiç uzamıyor',
+        'Kemer tokası kilitlenmiyor ya da kendiliğinden açılıyor',
+    ],
+    'f.seat.runner': [
+        'Koltuk frenlemede ileri kayıyor',
+        'Koltuğu ayarlamak için kolu çekiyorum ama koltuk kıpırdamıyor',
+    ],
+    'f.srs.fault': [
+        'Göstergedeki hava yastığı lambası hiç sönmüyor',
+        'Direksiyonu çevirince korna ya da hava yastığı lambası gidip '
+        'geliyor',
+    ],
+    'f.ac.leak': [
+        'Klima ilk yazdan beri gittikçe daha az soğutuyor',
+        'Klima düğmesine basınca kompresör hiç devreye girmiyor',
+        'Klima borularının rakorlarında yağlı leke var',
+    ],
+    'f.ac.compressor': [
+        'Klimayı açınca motordan takırtı ya da öğütme sesi geliyor',
+        'Klima açılınca kayış bağırıyor',
+        'Klima bazen soğutuyor bazen sıcak üflüyor',
+    ],
+    'f.blower.failed': [
+        'Kalorifer fanı ilk üç kademede çalışmıyor, sadece son kademede '
+        'esiyor',
+        'Fan düğmesinin hiçbir konumunda havalandırmadan hava gelmiyor',
+    ],
+    'f.heater_core.leak': [
+        'Ön camın içi yağlı gibi buğulanıyor, silince lekeli kalıyor',
+        'Yolcu tarafındaki halı ıslak ve tatlı kokuyor',
+        'Kalorifer açınca içeride antifriz kokusu var',
+    ],
+    # Güç aktarma
+    'f.clutch.worn': [
+        'Yokuşta gaza basınca devir yükseliyor ama araba gitmiyor',
+        'Debriyaj çok yukarıdan tutuyor',
+        'Debriyaj kaçırırken yanık balata kokusu geliyor',
+    ],
+    'f.clutch.hydraulic': [
+        'Debriyaj pedalı basınca yerde kalıyor, geri gelmiyor',
+        'Debriyaj pedalına birkaç kez pompalamak gerekiyor',
+        'Pedalın arkasında, halıda hidrolik lekesi var',
+    ],
+    'f.transaxle.oil_low': [
+        'Soğukken vitesler zor geçiyor, ısınınca düzeliyor',
+        'Şanzımandan hızla artan bir uğultu geliyor',
+    ],
+    'f.shift_linkage.worn': [
+        'Vites kolu yerinde sallanıyor, hangi viteste olduğumu '
+        'anlayamıyorum',
+        'Vites kendi kendine boşa çıkıyor',
+    ],
+    'f.driveshaft.boot': [
+        'Park ederken direksiyon tam kırıkken tık tık ses geliyor',
+        'Jantın iç tarafına siyah gres sıçramış',
+    ],
+    # Fren
+    'f.pads.worn': [
+        'Frene basınca önden demir demire sürtme sesi geliyor',
+        'Frenler eskisi kadar tutmuyor, pedala daha çok basıyorum',
+        'Fren balatası uyarı sacı ciyaklıyor',
+    ],
+    'f.discs.warped': [
+        'Otobandan inerken frene basınca direksiyon sallanıyor',
+        'Fren pedalı frenlerken titreşiyor, tıkırdıyor',
+    ],
+    'f.caliper.sticking': [
+        'Uzun yoldan sonra bir jant çok sıcak, yanık kokusu geliyor',
+        'Araç frenlemeden sonra bir yana çekiyor ve yavaş ilerliyor',
+    ],
+    'f.rear_pads.worn': [
+        'Arka taraftan frenlerken sürtme sesi geliyor',
+        'El freni eskisi kadar tutmuyor, kol çok yukarı çıkıyor',
+    ],
+    'f.booster.vacuum': [
+        'Fren pedalı taş gibi sert, aracı durdurmak için çok basmak '
+        'gerekiyor',
+        'Frene basınca pedal tarafından tıslama geliyor',
+        'Motor kapalıyken pedal normal, çalışınca da hiç yumuşamıyor',
+    ],
+    'f.master.internal': [
+        'Kırmızı ışıkta pedala basılı tutunca pedal yavaşça aşağı iniyor',
+        'Fren hidroliği eksilmiyor ama pedal yine de yere iniyor',
+    ],
+    'f.brake_lines.leak': [
+        'Fren hidroliği deposu sürekli eksiliyor',
+        'Tekerleklerden birinin iç tarafı ıslak ve yağlı',
+        'Fren uyarı lambası yanıyor, pedal boşa basıyor gibi',
+    ],
+    'f.parking.adjust': [
+        'El freni çekili olduğu hâlde yokuşta araç kayıyor',
+        'El freni kolunu sonuna kadar çekmek gerekiyor',
+    ],
+    # Süspansiyon ve direksiyon
+    'f.strut.worn': [
+        'Ön taraf tümseklerden sonra salınmaya devam ediyor',
+        'Ön amortisörün gövdesi yağlı',
+        'Frende aracın burnu fazla dalıyor',
+    ],
+    'f.control_arm.bushing': [
+        'Frenlerken ve kalkışta önden tok bir vuruntu geliyor',
+        'Direksiyon frenlerken bir yana kaçıyor',
+    ],
+    'f.ball_joint.worn': [
+        'Ön tekerlekten kasise girerken tak sesi geliyor',
+        'Direksiyon çevirirken önden gıcırtı geliyor',
+    ],
+    'f.stabilizer.links': [
+        'Arnavut kaldırımında önden takır takır ses geliyor',
+        'Virajda araç fazla yatıyor ve önden tıkırtı geliyor',
+    ],
+    'f.wheel_bearing.front': [
+        'Hız arttıkça önden uçak sesi gibi uğultu geliyor',
+        'Sola dönerken uğultu azalıyor, sağa dönerken artıyor ya da tersi',
+        'Ön tekerleği elle sallayınca boşluk hissediliyor',
+    ],
+    'f.wheel_bearing.rear': [
+        'Arka taraftan hızla artan uğultu geliyor, arka koltukta daha çok '
+        'duyuluyor',
+        'Arka tekerleği elle çevirince hırıltı geliyor',
+    ],
+    'f.rear_strut.worn': [
+        'Arka taraf tümseklerden sonra sekiyor',
+        'Yüklüyken arka taraf fazla çöküyor',
+    ],
+    'f.rear_arms.bushing': [
+        'Arkadan kasislerde tok vuruntu geliyor',
+        'Arka lastiklerin iç kenarı hızla aşınıyor',
+    ],
+    'f.alignment': [
+        'Direksiyonu düz tutunca araç sağa ya da sola kayıyor',
+        'Düz yolda direksiyon yamuk duruyor',
+        'Ön lastiklerin kenarları tırtıklı aşınmış',
+    ],
+    'f.tie_rod.worn': [
+        'Direksiyonda ortada boşluk var, araç yolda kendi kendine kayıyor',
+        'Bozuk yolda direksiyon elimde tıkırdıyor',
+    ],
+    'f.power_steering.leak': [
+        'Direksiyon yağı deposu sürekli boşalıyor',
+        'Park ederken direksiyon taş gibi ağırlaşıyor',
+    ],
+    'f.power_steering.pump': [
+        'Direksiyonu çevirince motorun önünden uğultu ve inleme geliyor',
+        'Soğukken direksiyon ağır, ısınınca biraz düzeliyor',
+    ],
+    # Tekerlekler
+    'f.tire.puncture': [
+        'Lastiğe çivi batmış, her gün biraz daha iniyor',
+        'Sabah bir lastik tamamen inik çıktı',
+    ],
+    'f.tire.balance': [
+        'Otobanda belli bir hızda direksiyon titriyor, sonra geçiyor',
+        'Lastik değişiminden sonra direksiyonda titreme başladı',
+    ],
+    # Ek arızalar
+    'f.brake_fluid.old': [
+        'Dağ yolundan inerken fren pedalı birden boşaldı, dinlenince '
+        'düzeldi',
+        'Fren hidroliği koyu kahverengi olmuş',
+        'Fren hidroliği yıllardır değişmedi',
+    ],
+    'f.battery.terminals': [
+        'Akü başlarında beyaz kabuk var, marş bazen hiç basmıyor',
+        'Akü kablosunu oynatınca araç çalışıyor',
+    ],
+    'f.battery.drain': [
+        'Araç bir hafta durunca akü tamamen bitiyor',
+        'Yeni akü taktım ama birkaç gün sonra yine boşaldı',
+        'Bagaj ya da torpido lambası kapanmıyor gibi',
+    ],
+    'f.coolant.old': [
+        'Genleşme kabındaki su kahverengi ve paslı',
+        'Antifriz yıllardır değişmedi, su gibi renksiz',
+    ],
+    'f.clutch.release_bearing': [
+        'Debriyaja basınca şanzımandan vınlama geliyor, bırakınca kesiliyor',
+        'Debriyaj pedalına basılıyken şanzımandan hırıltı geliyor',
+    ],
+    'f.transaxle.seal': [
+        'Ön tekerleğin iç tarafına doğru şanzıman yağı sızıyor',
+        'Park ettiğim yerde motorun sol altında yağ lekesi var',
+    ],
+    'f.throttle_cable.sticking': [
+        'Gazdan ayağımı çekince devir hemen düşmüyor',
+        'Gaz pedalı takılıp bir anda boşalıyor',
+    ],
+    'f.vacuum_hose.leak': [
+        'Rölanti yüksek ve kaputun altından ince bir ıslık sesi geliyor',
+        'Bir hortum yerinden çıkmış, motor fazla devirde çalışıyor',
+    ],
+    'f.headlight.lens': [
+        'Gece far ışığı yolda dağınık ve sarımsı',
+        'Farların camı bulanık, cilalasam da geçmiyor',
+    ],
+    'f.headlight.aim': [
+        'Farlar yola değil ağaçlara vuruyor',
+        'Farlar çok aşağıya bakıyor, uzağı göremiyorum',
+    ],
+    'f.trunk.seal': [
+        'Yağmurdan sonra bagajda su birikiyor',
+        'Stepnenin çevresinde paslı su var',
+    ],
+    'f.fuel_gauge.sender': [
+        'Depo doluyken yakıt ibresi yarımı gösteriyor',
+        'Yakıt ibresi virajlarda sallanıyor, benzin bitti sandım',
+        'Yakıt lambası depo yarıyken yanıyor',
+    ],
+    'f.evaporator.drain': [
+        'Klimayı açınca torpidonun altından su damlıyor',
+        'Yazın yolcu tarafındaki paspas su dolu',
+    ],
+    'f.evaporator.mould': [
+        'Klimayı ilk açınca havalandırmadan kötü, ekşi bir koku geliyor',
+        'Havalandırma ıslak çorap gibi kokuyor',
+    ],
+    'f.door.hinge': [
+        'Sürücü kapısı açılırken gıcırdıyor',
+        'Kapı açık konumda durmuyor, kendiliğinden kapanıyor',
+    ],
+    'f.parking.cable_seized': [
+        'El frenini indirdim ama araç geri çekiyor gibi',
+        'Uzun süre park ettikten sonra el freni çözülmedi',
+        'Arka jantlardan biri yolda çok ısınıyor',
+    ],
+    'f.tire.pressure': [
+        'Lastikler biraz basık görünüyor, direksiyon ağırlaştı',
+        'Yakıt tüketimi arttı ve araç yolda yüzüyor gibi',
+    ],
+}
+
+
 def node_owner_check():
     """Her düğüme dokununca kendi parçası açılmalı.
 
@@ -4513,6 +6366,7 @@ def node_owner_check():
 
 
 C.zones, C.symptoms, C.faults = ZONES, SYMPTOMS, FAULTS
+C.add_phrasings(PHRASINGS)
 C.spare_parts = SPARE_PARTS
 for name in SPARE_PARTS.values():
     C.part_number(name)

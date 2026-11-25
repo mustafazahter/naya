@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA6" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Elektrik sistemi</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Akü ve şarj</title>
+        <para>Akü motoru çalıştıracak akımı ve motor dururken gereken elektriği verir. Motor çalışınca alternatör kayışla döner, bütün tüketicileri besler ve aküyü yeniden doldurur. Alternatörün içindeki regülatör gerilimi sabit tutar.</para>
+        <para>Şarj lambası kontak açıkken yanar, motor çalışınca söner. Seyirde yanarsa alternatör şarj etmiyordur; araç bir süre aküyle gider, sonra durur.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Marş</title>
+        <para>Kontak anahtarı marş konumuna gelince marş motorunun otomatiği çeker: hem marş dişlisini volana iter hem de motora büyük akımı verir. Akü zayıfsa marş ağır döner ya da yalnız otomatiğin tık sesi duyulur.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Sigortalar ve topraklar</title>
+        <para>Her devrenin bir sigortası vardır; kısa devrede sigorta erir ve kabloyu korur. Kaput altında ve sürücü tarafında birer sigorta ve röle kutusu bulunur.</para>
+        <para>Akımın dönüş yolu kasadır; toprak kabloları akünün eksi kutbunu kasaya ve motora bağlar. Oksitlenmiş bir toprak bağlantısı sönük farlara, ağır marşa ve ara sıra kesilen donanımlara yol açar.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

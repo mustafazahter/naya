@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA4" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Elektrik sistemi</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Güç kaynakları</title>
+        <para>Aküler motoru çalıştırır ve motor dururken telsiz, iç haberleşme ve lambaları besler. Ana şalter akülerin bütün araçla bağlantısını keser.</para>
+        <para>Motor çalışırken jeneratör bütün tüketicileri besler ve aküleri doldurur. Şarj göstergesi jeneratörün çalıştığını gösterir.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Dağıtım ve koruma</title>
+        <para>Akım, sigorta ve devre kesici panolarından devrelere dağılır. Kablo demetleri gövde içinde kanallardan geçer; konnektörler sızdırmazdır. Sürtünen ya da nem alan bir konnektör kesik kesik arızalara yol açar.</para>
+        <para>Takviye prizi, akü boşaldığında başka bir araçtan ya da kaynaktan güç almayı sağlar; aynı priz başka araca takviye vermek için de kullanılır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Göstergeler</title>
+        <para>Algılayıcılar sıcaklık, basınç ve seviye bilgisini sürücü gösterge paneline gönderir. Bir uyarı yandığında önce gerçek arıza düşünülür; devre arızası ancak seviye ve ölçümler normal çıkınca aranır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

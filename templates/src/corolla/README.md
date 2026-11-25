@@ -5,8 +5,8 @@ Toyota Corolla E100 (1991-1997) dört kapılı sedan. Gövde ve şasi E100 kasay
 ```
 corolla/
 ├── naya.json      manifest (bütünlük özetleri paketlerken eklenir)
-├── csdb/          S1000D Issue 5.0: 164 DM, PM, DML, 11 çizim
-├── map/           parts.json (144 parça), faults.json (100 arıza, 90 belirti), zones.json
+├── csdb/          S1000D Issue 5.0: 208 DM, PM, DML, 11 çizim
+├── map/           parts.json (145 parça), faults.json (117 arıza, 386 belirti), zones.json
 ├── model/         product.glb (90 düğüm)
 └── scripts/       modeli kuran, içeriği ve çizimleri üreten betikler
 ```
@@ -32,11 +32,11 @@ DM'ler, PM, DML ve `map/` altındaki dosyalar `scripts/make_content.py` ile tek 
 cd templates/src/corolla/scripts && python3 make_content.py
 ```
 
-Betik çalışırken şunları da denetler: her DMC başvurusu tanımlı bir DM'e gidiyor, aynı DMC iki kez tanımlanmıyor, her belirti bir arızada kullanılıyor ve modeldeki her düğüme dokununca o düğümün kendi parçası açılıyor. Var olan DMC'ler korunur; teşhis geçmişi ve testler onlara bağlı.
+Betik çalışırken şunları da denetler: her DMC başvurusu tanımlı bir DM'e gidiyor, aynı DMC iki kez tanımlanmıyor, her belirti bir arızada kullanılıyor, her arızanın arıza bulma DM'i onarım DM'ine götürüyor, iki arıza aynı belirti kümesini taşımıyor ve modeldeki her düğüme dokununca o düğümün kendi parçası açılıyor. Var olan DMC'ler korunur; teşhis geçmişi ve testler onlara bağlı.
 
 | SNS | Sistem |
 | --- | --- |
-| `D00` | Araç (genel tanım, periyodik bakım, parça kataloğu, iş kuralları) |
+| `D00` | Araç (genel tanım, periyodik bakım, bakım takvimi, sıvılar ve kapasiteler, terimler sözlüğü, parça kataloğu, iş kuralları) |
 | `DA0` | Gövde (`-10` kapılar, `-20` kaput ve bagaj, `-30` tamponlar ve ızgara, `-40` camlar ve silecekler, `-50` aynalar, `-60` koltuklar, kemerler ve hava yastığı, `-70` iç döşeme) |
 | `DA1` | Motor (`-10` blok, kapak ve pistonlar, `-20` triger, `-30` yağlama, `-40` soğutma, `-50` ateşleme, `-60` emme ve egzoz, `-70` yakıt, `-80` motor yönetimi, `-90` emisyon kontrolü) |
 | `DA2` | Güç aktarma (`-10` şanzıman ve debriyaj, `-20` aks milleri) |
@@ -47,6 +47,8 @@ Betik çalışırken şunları da denetler: her DMC başvurusu tanımlı bir DM'
 | `DA7` | Isıtma ve klima (`-10` kalorifer ve fan, `-20` klima) |
 
 Teşhiste sorulan sistemler parça ağacının kökleridir: gövde, kabin, motor, soğutma, yakıt, emme-egzoz-emisyon, ateşleme, motor yönetimi, elektrik, aydınlatma, ısıtma-klima, güç aktarma, fren, süspansiyon-direksiyon, tekerlekler. Her arızanın belirtileri, bir arıza bulma DM'i (evet/hayır adımlı) ve bir onarım ya da değiştirme DM'i vardır; prosedürlerde alet, sarf malzemesi ve yedek parça listeleri, uyarılar ve sıkma torkları yer alır. Yedek parçalar IPD'deki parça numarasıyla eşleşir. Miktarı bilinmeyen sarf malzemeleri "Gerektiği kadar" yazılır.
+
+Her kök sistemin bir "Çalışma ilkesi" DM'i (bilgi kodu 040) var; sistemde zaten bir tanım DM'i varsa anlatım onun yanına `01` sökme koduyla eklenir. Arızaların belirtilerine, sürücünün arızayı kendi sözleriyle anlatışı da eklenir ("kaputtan tatlı bir koku geliyor", "frenden demir sesi geliyor"); teşhis serbest metni bu söyleyişlerle eşleştirir. Söyleyişler betikteki `PHRASINGS` tablosunda, her biri arızaya ayrı bir belirti olarak yazılır. Kesin değerinden emin olunmayan miktarlar için "üretici değerine bakın" yazılır.
 
 Veriler yayımlanmış 1ZZ-FE ve E100 servis bilgilerinden (servis el kitabı alıntıları, kullanıcı el kitapları, motor teknik veri sayfaları) derlendi. Değerler eğitim ve teşhis amaçlıdır; gerçek bir araçta üreticinin el kitabına bakılmalıdır. Bu donanımda ABS yok; 1ZZ-FE'de EGR valfi bulunmaz.
 

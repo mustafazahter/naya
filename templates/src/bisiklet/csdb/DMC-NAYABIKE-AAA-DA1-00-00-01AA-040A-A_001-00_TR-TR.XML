@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="24"/>
+        <dmTitle><techName>Aktarma organları</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Pedaldan tekerleğe</title>
+        <para>Pedallar pedal kollarını, kollar orta göbekteki mili döndürür. Aynalar zinciri çeker; zincir arka kasetteki dişliyi, kaset de serbest çark gövdesi üzerinden arka tekerleği döndürür.</para>
+        <para>Serbest çark gövdesindeki tırnaklar yalnız pedal ileri çevrilince kavrar; pedal durunca tekerlek serbest döner ve tıkırtı duyulur.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Vitesler</title>
+        <para>Arka vites değiştirici zinciri kasetteki dişliler arasında, ön vites değiştirici aynalar arasında kaydırır. Küçük ön ayna ile büyük arka dişli en hafif, büyük ön ayna ile küçük arka dişli en ağır vitestir.</para>
+        <para>Limit vidaları zincirin en dıştaki dişlilerden dışarı kaçmasını önler. Tel gerginliği her tıkın tam bir dişliye denk gelmesini sağlar. Vites askısı darbede eğilerek kadroyu korur; eğilince vitesler bozulur.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Aşınma</title>
+        <para>Zincirin pimleri ve makaraları aşındıkça zincir uzar. Uzamış zincir dişlileri de aşındırır; zincir zamanında değişirse kaset ve aynalar çok daha uzun dayanır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

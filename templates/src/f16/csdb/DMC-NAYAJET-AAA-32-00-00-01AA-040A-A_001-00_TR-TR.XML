@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="32" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>İniş takımı</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Dikmeler</title>
+        <para>Ana ve burun iniş takımlarının dikmeleri azot ve hidrolik sıvısıyla dolu amortisörlerdir; inişte darbeyi emerler. Dikme normalden kısa duruyorsa azot ya da sıvı kaybı vardır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Açma-kapama ve kilitler</title>
+        <para>Takımlar hidrolik eyleyicilerle açılıp kapanır; açık ve kapalı konumda mekanik kilitlerle tutulur. Kilit algılayıcıları kokpitteki konum ışıklarını yakar.</para>
+        <para>Yer/hava algılayıcıları uçağın yerde mi havada mı olduğunu bildirir; birçok sistem bu bilgiye göre çalışır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Fren ve yönlendirme</title>
+        <para>Ana tekerleklerdeki çok diskli frenler hidrolikle sıkışır. Kilitlenme önleyici sistem tekerlek hızını izleyip patinajı önler. Burun tekerleği yönlendirmesi yerde pedallarla çalışır.</para>
+        <para>Ağır frenlemeden sonra fren ve tekerlek çok ısınır; tekerlekteki ısı sigortası tapaları lastiğin patlamasını önlemek için erir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

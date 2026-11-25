@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="006" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>F-16F</techName><infoName>Terimler sözlüğü</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Motor</title>
+        <para>Terimler:<randomList><listItem><para>Turbofan: havanın bir kısmını çekirdeğin çevresinden geçiren jet motoru.</para></listItem><listItem><para>Baypas: çekirdek motorun çevresinden geçen hava.</para></listItem><listItem><para>Art yakıcı: türbin çıkışında yeniden yakıt yakarak itkiyi artıran bölüm.</para></listItem><listItem><para>Alev tutucu: art yakıcıda alevin yerinde kalmasını sağlayan halkalar.</para></listItem><listItem><para>Lüle: motor çıkışında açılıp kapanan yapraklı ağız.</para></listItem><listItem><para>Boroskop: motorun içini sökmeden görmeye yarayan esnek kamera.</para></listItem><listItem><para>Talaş algılayıcı: yağdaki metal parçacıkları tutan mıknatıslı tıpa.</para></listItem><listItem><para>Aksesuar dişli kutusu: pompaları, jeneratörü ve çalıştırıcıyı motora bağlayan dişli kutusu.</para></listItem><listItem><para>JFS: ana motoru çalıştıran küçük jet yakıtlı türbin.</para></listItem><listItem><para>Bleed: motor kompresöründen alınan basınçlı hava.</para></listItem><listItem><para>FOD: motora ya da uçağa zarar veren yabancı cisim.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Uçuş kumandaları ve yapı</title>
+        <para>Terimler:<randomList><listItem><para>Fly-by-wire: kumandaların elektrik sinyaliyle çalışması.</para></listItem><listItem><para>Flaperon: hem flap hem kanatçık görevi gören yüzey.</para></listItem><listItem><para>Hücum kenarı flapı: kanadın ön kenarındaki hareketli yüzey.</para></listItem><listItem><para>Eyleyici: kumanda yüzeyini hareket ettiren hidrolik silindir.</para></listItem><listItem><para>Hücum açısı: kanadın hava akımına göre açısı.</para></listItem><listItem><para>Pitot tüpü ve statik port: hız ve yükseklik için basınç alan girişler.</para></listItem><listItem><para>Radom: radarı örten burun kapağı.</para></listItem><listItem><para>Konformal tank: gövdeye yapışık biçimde takılan yakıt tankı.</para></listItem><listItem><para>Statik boşaltıcı: statik elektriği havaya boşaltan çubuk.</para></listItem><listItem><para>Korozyon: metalin nem ve tuzla bozulması.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>İniş takımı ve yer işleri</title>
+        <para>Terimler:<randomList><listItem><para>Dikme: iniş takımının amortisörlü bacağı.</para></listItem><listItem><para>Tork kolu: dikmenin dönmesini önleyen makaslı kol.</para></listItem><listItem><para>Anti-skid: frenlemede tekerleğin kilitlenmesini önleyen sistem.</para></listItem><listItem><para>Isı sigortası tapası: aşırı ısınan tekerlekte eriyip havayı boşaltan tapa.</para></listItem><listItem><para>Yer/hava algılayıcısı: uçağın yerde olduğunu bildiren anahtar.</para></listItem><listItem><para>Emniyet pimi: yerde bir düzenin yanlışlıkla çalışmasını önleyen kırmızı bayraklı pim.</para></listItem><listItem><para>Takoz ve topraklama: uçağın kaymasını ve statik boşalmayı önleyen yer önlemleri.</para></listItem><listItem><para>Faz muayenesi: belirli uçuş saatlerinde yapılan kapsamlı dönemsel muayene.</para></listItem></randomList></para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

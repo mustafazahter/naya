@@ -559,6 +559,70 @@ class Content:
             refs += [(str(d['code']), e[2]) for e in iso['ends'] if e[2]]
         for where, dmc in refs:
             assert str(dmc) in defined, f'{where}: {dmc} tanımlı değil'
+        self.check_fault_paths()
+        self.check_symptoms()
+
+    def check_fault_paths(self):
+        """Her arızanın arıza bulma DM'i onarım DM'ine götürmeli: arıza
+        bulma DM'inin sonlarından biri ya da kontrol prosedürünün "sonraki
+        işlem"i onarım DM'i olmalı. Yoksa kullanıcı teşhisten onarıma
+        ulaşamaz; üretim durur."""
+        by_code = {str(d['code']): d for d in self.dms}
+        problems = []
+        for fid, _, _, _, _, isolation, repair in self.faults:
+            if not isolation or not repair or str(isolation) == str(repair):
+                continue
+            d = by_code[str(isolation)]
+            if 'isolation' in d:
+                targets = [e[2] for e in d['isolation']['ends'] if e[2]]
+            else:
+                nxt = d.get('next')
+                targets = (nxt if isinstance(nxt, list)
+                           else [nxt] if nxt else [])
+            if str(repair) not in {str(x) for x in targets}:
+                problems.append(f'{fid}: {isolation} → {repair} yolu yok')
+        assert not problems, '\n'.join(problems)
+
+    def check_symptoms(self):
+        """Belirti listesi tek olmalı: aynı belirti kümesine sahip iki arıza
+        teşhiste birbirinden ayrılamaz."""
+        seen = {}
+        for fid, _, syms, *_ in self.faults:
+            key = frozenset(syms)
+            assert key not in seen, \
+                f'{fid} ile {seen[key]} aynı belirtileri taşıyor'
+            seen[key] = fid
+
+    def add_phrasings(self, table):
+        """Arızalara gündelik söyleyişler ekler: {arıza: [metin...]}.
+
+        Kullanıcı arızayı kendi sözleriyle anlatır ("kaputtan tatlı bir
+        koku geliyor", "frenden demir sesi geliyor"); teşhis serbest metni
+        ne kadar çok söyleyişle karşılaştırabilirse o kadar iyi eşleştirir.
+        Her metin bir belirti olur ve arızanın belirtilerine eklenir. Aynı
+        metin başka bir arızada da geçiyorsa tek belirti olarak paylaşılır.
+        Kimlikler arızanın kimliğinden türetilir: f.oil.low → sym.oil.low.1.
+        """
+        by_text = {text: sid for sid, text in self.symptoms}
+        faults = {f[0]: i for i, f in enumerate(self.faults)}
+        for fid, texts in table.items():
+            if fid not in faults:
+                raise KeyError(f'söyleyiş tablosunda bilinmeyen arıza: {fid}')
+            i = faults[fid]
+            fault = list(self.faults[i])
+            syms = list(fault[2])
+            base = 'sym.' + fid.removeprefix('f.')
+            for n, text in enumerate(texts, 1):
+                sid = by_text.get(text)
+                if sid is None:
+                    sid = f'{base}.{n}'
+                    assert sid not in {s[0] for s in self.symptoms}, sid
+                    self.symptoms.append((sid, text))
+                    by_text[text] = sid
+                if sid not in syms:
+                    syms.append(sid)
+            fault[2] = syms
+            self.faults[i] = tuple(fault)
 
     def write(self):
         self.check()

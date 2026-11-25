@@ -40,7 +40,7 @@
         <proceduralStep><para>Direksiyon tam kırıkken aracı yavaşça sürün. Tıkırtı sesi dış aks kafasının (homokinetik mafsal) aşındığını gösterir.</para></proceduralStep>
         <proceduralStep><para>Yırtık körük hemen değiştirilmelidir; içine giren toz ve su mafsalı kısa sürede bozar.</para></proceduralStep>
       </mainProcedure>
-      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA2" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>
   </content>
 </dmodule>

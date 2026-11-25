@@ -37,6 +37,11 @@
             <isolationStep id="stp-0002">
               <action>Yalnız park freni tutmuyorsa park freni bağlantısını kontrol edin.</action>
               <isolationStepQuestion>Sorun yalnız park freninde mi?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-park"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0004">
+              <action>Kısa bir sürüşten sonra yanık balata kokusu olup olmadığına, park freni uyarısının sürüşte yanıp yanmadığına ve park freni kolunun tam inip inmediğine bakın.</action>
+              <isolationStepQuestion>Park freni tam çözülmüyor mu?</isolationStepQuestion>
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-park"/><noAnswer nextActionRefId="stp-0003"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0003">

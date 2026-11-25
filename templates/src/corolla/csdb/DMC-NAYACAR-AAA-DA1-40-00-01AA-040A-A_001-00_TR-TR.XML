@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Soğutma sistemi</techName><infoName>Çalışma ilkesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Suyun dolaşımı</title>
+        <para>Su pompası aksesuar kayışıyla döner ve soğutma suyunu motor bloğundaki kanallardan geçirir. Su motorun ısısını alıp radyatöre taşır; radyatörde peteklerden geçen hava suyu soğutur.</para>
+        <para>Termostat motor soğukken kapalıdır; su yalnız motor içinde döner ve motor çabuk ısınır. Çalışma sıcaklığına gelince termostat açılır ve su radyatöre gider. Termostat kapalı kalırsa motor hararet yapar; açık kalırsa motor geç ısınır ve kalorifer zayıf ısıtır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Basınç ve genleşme</title>
+        <para>Radyatör kapağı sistemi basınç altında tutar; basınç suyun kaynama noktasını yükseltir. Isınan su genleşince fazlası genleşme kabına geçer, motor soğuyunca geri emilir.</para>
+        <para>Kapak basınç tutmuyorsa su kaynayıp kaptan taşar ve zamanla eksilir. Sıcak motorda kapak açılmamalıdır; basınçlı ve kaynar su fışkırır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Fan</title>
+        <para>Araç yoldayken radyatörden yeterli hava geçer. Trafikte ve rölantide ise elektrikli fan devreye girer: su sıcaklığı yükselince fan müşiri ya da motor beyni fan rölesini çeker. Fan çalışmazsa araç yolda normal, trafikte hararet yapar.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

@@ -39,7 +39,7 @@
         <proceduralStep><para>Kanopi çerçevesinin kilit pimlerini ve menteşesini kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Kanopi contasında yırtık ya da sertleşme olup olmadığını kontrol edin; bozuk conta kokpit basıncını tutmaz.</para></proceduralStep>
       </mainProcedure>
-      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="56" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="250" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>
   </content>
 </dmodule>

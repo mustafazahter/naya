@@ -1478,7 +1478,11 @@ OIL_ISOLATE = dm(
              'Belirgin bir yağ sızıntısı var mı?', 'end-leak', 'end-fill'),
             ('stp-0003', 'Yağın rengine ve kokusuna bakın.',
              'Yağ süt gibi açık renkli ya da yakıt kokulu mu?',
-             'end-contaminated', 'end-sensor'),
+             'end-contaminated', 'stp-0004'),
+            ('stp-0004', 'Bakım kaydından son yağ değişimine bakın; yağın '
+             'koyuluğunu ve kokusunu kontrol edin.',
+             'Değişim zamanı geçmiş ya da yağ çok koyu ve yanık kokulu mu?',
+             'end-change', 'end-sensor'),
         ],
         'ends': [
             ('end-leak', 'Sızıntının yerini belirleyin; yağ soğutucusu ya '
@@ -1489,8 +1493,12 @@ OIL_ISOLATE = dm(
              'karışmış; motoru çalıştırmayın. Soğutma sıvısı seviyesini '
              'kontrol edip yetkili bakım birimine bildirin.',
              code('DA1', '3', '300')),
-            ('end-sensor', 'Seviye ve yağ normal: basınç algılayıcısı ya da '
-             'yağ pompası arızalı olabilir; bildirin.', None),
+            ('end-change', 'Motor yağını ve yağ filtrelerini değiştirin.',
+             code('DA1', '2', '241')),
+            ('end-sensor', 'Seviye ve yağ normal: uyarı lambası ve gösterge '
+             'devresini sınayın. Devre sağlamsa basınç algılayıcısı ya da yağ '
+             'pompası arızalı olabilir; motoru çalıştırmayın ve bildirin.',
+             code('DA4', '4', '320')),
         ],
     })
 
@@ -1778,7 +1786,11 @@ BRAKE_ISOLATE = dm(
              'stp-0002'),
             ('stp-0002', 'Yalnız park freni tutmuyorsa park freni '
              'bağlantısını kontrol edin.', 'Sorun yalnız park freninde mi?',
-             'end-park', 'stp-0003'),
+             'end-park', 'stp-0004'),
+            ('stp-0004', 'Kısa bir sürüşten sonra yanık balata kokusu olup '
+             'olmadığına, park freni uyarısının sürüşte yanıp yanmadığına '
+             've park freni kolunun tam inip inmediğine bakın.',
+             'Park freni tam çözülmüyor mu?', 'end-park', 'stp-0003'),
             ('stp-0003', 'Palet gerginliğini iki yanda karşılaştırın.',
              'İki paletin gerginliği belirgin farklı mı?', 'end-track',
              'end-service'),
@@ -2133,7 +2145,10 @@ STARTER_ISOLATE = dm(
              'konumunda olduğunu kontrol edin.', 'Seçici doğru konumda mı?',
              'stp-0003', 'end-neutral'),
             ('stp-0003', 'Marşa basarken marş motoru bölgesini dinleyin.',
-             'Yalnız tık sesi mi geliyor?', 'end-cables', 'end-starter'),
+             'Yalnız tık sesi mi geliyor?', 'stp-0004', 'end-starter'),
+            ('stp-0004', 'Takviyeyle çalıştırma denendiyse takviye prizine '
+             'bakın.', 'Takviye prizi ısınmış, kararmış ya da içinde kir ve '
+             'pas var mı?', 'end-slave', 'end-cables'),
         ],
         'ends': [
             ('end-master', 'Ana şalteri ve akü bağlantılarını kontrol edin.',
@@ -2143,6 +2158,8 @@ STARTER_ISOLATE = dm(
             ('end-cables', 'Marş motoru kablolarını ve bağlantılarını '
              'kontrol edin; gerekiyorsa takviyeyle çalıştırın.',
              code('DA4', '3', '310')),
+            ('end-slave', 'Takviye prizini muayene edin ve temizleyin.',
+             code('DA4', '4', '310', '01')),
             ('end-starter', 'Marş motoru ya da rölesi arızalı olabilir; '
              'yetkili bakım birimine bildirin.', None),
         ],
@@ -2386,15 +2403,26 @@ HYD_ISOLATE = dm(
              'bakın.', 'Görünür bir kaçak var mı?', 'end-hose', 'end-fill'),
             ('stp-0003', 'Filtre tıkanıklık göstergesine bakın.',
              'Gösterge tıkanıklığı gösteriyor mu?', 'end-filter',
-             'end-service'),
+             'stp-0004'),
+            ('stp-0004', 'Depodaki yağın rengine bakın.',
+             'Yağ bulanık, köpüklü ya da koyulaşmış mı?', 'end-filter',
+             'stp-0005'),
+            ('stp-0005', 'Motor çalışırken hidrolik ünitesini dinleyin; '
+             'düzen kullanılmadığı hâlde pompa sık sık devreye giriyor mu, '
+             'ona bakın.', 'Pompa sık sık devreye giriyor ya da hiç '
+             'durmuyor mu?', 'end-accumulator', 'end-service'),
         ],
         'ends': [
             ('end-hose', 'Kaçak yapan hortumu ya da bağlantıyı değiştirin.',
              code('DA6', '2', '920')),
             ('end-fill', 'Hidrolik yağını tamamlayın ve seviyeyi izleyin.',
              code('DA6', '1', '300')),
-            ('end-filter', 'Hidrolik filtre elemanını değiştirin.',
+            ('end-filter', 'Hidrolik filtre elemanını değiştirin. Yağ '
+             'bulanık ya da köpüklüyse bunu da kayda geçirip bildirin.',
              code('DA6', '1', '920')),
+            ('end-accumulator', 'Akümülatör ön dolumunu yitirmiş olabilir; '
+             'akümülatöre dışarıdan bakın ve bildirin.',
+             code('DA6', '1', '310')),
             ('end-service', 'Pompa ya da akümülatör arızalı olabilir; '
              'yetkili bakım birimine bildirin.', None),
         ],
@@ -2535,17 +2563,22 @@ NBC_ISOLATE = dm(
             ('stp-0002', 'Filtre göstergesine bakın.',
              'Gösterge değişim bölgesinde mi?', 'end-filter', 'stp-0003'),
             ('stp-0003', 'Üniteyi çalıştırıp fanı dinleyin.',
-             'Fan sesi yok ya da sürtünme sesi mi var?', 'end-fan',
-             'end-fuse'),
+             'Fan hiç dönmüyor ve ses gelmiyor mu?', 'end-fuse', 'stp-0004'),
+            ('stp-0004', 'Fan dönerken sesi dinleyin.',
+             'Sürtünme, vınlama ya da titreşim sesi var mı?', 'end-fan',
+             'end-check'),
         ],
         'ends': [
             ('end-grille', 'Izgarayı temizleyin.', code('DA7', '1', '300')),
             ('end-filter', 'NBC filtre elemanını değiştirin.',
              code('DA7', '1', '920')),
-            ('end-fan', 'Fan arızalı olabilir; yetkili bakım birimine '
-             'bildirin.', None),
-            ('end-fuse', 'Ünitenin sigortasını ve kablosunu kontrol edin.',
+            ('end-fan', 'Fan rulmanı ya da kanadı arızalı olabilir; üniteyi '
+             'kapatın ve yetkili bakım birimine bildirin.', None),
+            ('end-fuse', 'Ünitenin sigortasını ve kablosunu kontrol edin; '
+             'sigorta sağlamsa fan motoru arızalı olabilir, bildirin.',
              code('DA4', '4', '920')),
+            ('end-check', 'Hava kanallarını ve ünitenin çalışmasını '
+             'kontrol edin.', code('DA7', '1', '300')),
         ],
     })
 
@@ -2730,21 +2763,37 @@ EXTERIOR_ISOLATE = dm(
     info='Hasar ve eksik: arıza bulma',
     isolation={
         'fault': 'NAYATANK-DA0-003',
-        'descr': 'Yan etek, çamurluk, çeki halatı ya da dış kutularda '
-                 'hasar ya da eksik var.',
+        'descr': 'Yan etek, çamurluk, çeki halatı, motor güvertesi '
+                 'kapakları, dış kutular, kule sepeti ya da antenlerde hasar '
+                 'ya da eksik var.',
         'steps': [
             ('stp-0001', 'Hasarlı parçanın yan etek paneli olup olmadığına '
              'bakın.', 'Yan etek paneli eğilmiş ya da gevşek mi?',
              'end-skirt', 'stp-0002'),
-            ('stp-0002', 'Çeki halatlarını ve kancaları kontrol edin.',
-             'Halatta kopuk tel ya da ezilme var mı?', 'end-cable',
-             'end-hull'),
+            ('stp-0002', 'Çeki halatlarını, kancaları ve çeki demirini '
+             'kontrol edin.', 'Halatta kopuk tel ya da ezilme, demirde '
+             'eksik pim ya da çatlak var mı?', 'end-cable', 'stp-0003'),
+            ('stp-0003', 'Motor güvertesi kapaklarının kilitlerine bakın.',
+             'Kapak kilitlenmiyor ya da sürüşte takırdıyor mu?', 'end-deck',
+             'stp-0004'),
+            ('stp-0004', 'Çamurluk üstündeki kutulara ve kutu kapaklarına '
+             'bakın.', 'Kutu ezik, kapağı açılıyor ya da kilidi kayıp mı?',
+             'end-fender', 'stp-0005'),
+            ('stp-0005', 'Kule arka sepetine ve antenlere bakın.',
+             'Sepet eğilmiş, kayışı kopmuş ya da anten kırık mı?',
+             'end-turret', 'end-hull'),
         ],
         'ends': [
             ('end-skirt', 'Paneli muayene edin; gerekiyorsa değiştirin.',
              code('DA0', '5', '920')),
             ('end-cable', 'Halatı ayırın ve muayene edin.',
              code('DA0', '4', '310')),
+            ('end-deck', 'Motor güvertesi kapaklarını ve kilitlerini muayene '
+             'edin.', code('DA0', '3', '310')),
+            ('end-fender', 'Çamurlukları ve dış kutuları muayene edin.',
+             code('DA0', '5', '310')),
+            ('end-turret', 'Kule üstü donanımını muayene edin.',
+             code('DA0', '2', '310')),
             ('end-hull', 'Gövde ve kapakları muayene edin.',
              code('DA0', '1', '310')),
         ],
@@ -2763,18 +2812,514 @@ WEAPON_EXT_ISOLATE = dm(
              'Kapak yırtık ya da kayıp mı?', 'end-cover', 'stp-0002'),
             ('stp-0002', 'Sis bombası atıcılarına dışarıdan bakın.',
              'Atıcı ezik ya da koruyucu kapak eksik mi?', 'end-smoke',
-             'end-mount'),
+             'stp-0003'),
+            ('stp-0003', 'Top kalkanı ile kule arasındaki toz körüğüne '
+             'bakın.', 'Körük yırtık, çatlak ya da yerinden çıkmış mı?',
+             'end-boot', 'end-mount'),
         ],
         'ends': [
             ('end-cover', 'Namlu ağzı kapağını değiştirin.',
              code('DA5', '1', '920')),
             ('end-smoke', 'Atıcıları muayene edin ve silah sorumlusuna '
              'bildirin.', code('DA5', '4', '310')),
+            ('end-boot', 'Ana topun dış muayenesini yapın ve körük hasarını '
+             'silah sorumlusuna bildirin.', code('DA5', '1', '310')),
             ('end-mount', 'Makineli tüfek kundağını muayene edin.',
              code('DA5', '3', '310')),
         ],
     })
 
+
+# --- Arıza bulmanın götürdüğü ek prosedürler ---------------------------------
+
+WARNING_CIRCUIT = dm(
+    code=code('DA4', '4', '320'), tech='Uyarı lambaları ve gösterge devresi',
+    info='Çalışma testi',
+    tools=[('Multimetre', 1)],
+    conditions=[PARKED, 'Ana şalter açık; motor durdurulmuş.', NO_VALUES],
+    steps=[
+        'Gösterge panelindeki lamba sınama düğmesine basın; bütün uyarı '
+        'lambalarının yandığını kontrol edin. Yanmayan lambanın ampulünü '
+        'ya da ışık birimini değiştirin.',
+        'Şüpheli uyarının algılayıcısına gidin; konnektörünü ayırıp '
+        'temas yüzeylerinde nem, oksit ya da eğilmiş pim arayın.',
+        'Konnektör ayrıkken uyarının davranışını izleyin. Uyarı sönüyor ya '
+        'da yanıyorsa devre çalışıyordur; algılayıcının kendisini '
+        'el kitabındaki yolla ölçün.',
+        'Algılayıcı ile gösterge paneli arasındaki kablo demetini sürtünme '
+        've ezilmeye karşı gözden geçirin.',
+        'Konnektörü temizleyip takın; uyarıyı motor çalışırken yeniden '
+        'izleyin.',
+        'Devre ve algılayıcı sağlamsa ama uyarı sürüyorsa gerçek bir '
+        'arıza vardır: motoru çalıştırmayın ve yetkili bakım birimine '
+        'bildirin.',
+    ])
+
+SLAVE_SOCKET = dm(
+    code=code('DA4', '4', '310', '01'), tech='Takviye prizi',
+    info='Gözle muayene ve temizlik',
+    tools=[('Tel fırça', 1), ('El feneri', 1)],
+    supplies=[('Kontak temizleyici', None), ('Kontak gresi', None)],
+    conditions=[PARKED, 'Ana şalter kapalı.'],
+    warnings=['Takviye prizinde akülerin tam akımı vardır. Ana şalter '
+              'kapalıyken çalışın; metal aleti iki kontağa birden '
+              'değdirmeyin.'],
+    steps=[
+        'Priz kapağını açın; kapağın contasına ve menteşesine bakın.',
+        'Kontaklarda kararma, erime izi, pas ya da kir arayın.',
+        'Kiri ve pası tel fırçayla, kontak temizleyiciyle giderin; '
+        'kurumasını bekleyin.',
+        'Kontaklara ince bir kat kontak gresi sürün.',
+        'Erime izi ya da gevşek kontak varsa prizi kullanmayın; yetkili '
+        'bakım birimine bildirin.',
+        'Kapağı kapatın ve kilitlendiğini kontrol edin.',
+    ])
+
+ACCUMULATOR_CHECK = dm(
+    code=code('DA6', '1', '310'), tech='Hidrolik akümülatörü',
+    info='Gözle muayene',
+    tools=[('El feneri', 1)],
+    conditions=[PARKED, WEAPONS_SAFE, 'Hidrolik sistem basınçsız.',
+                NO_VALUES],
+    warnings=['Akümülatör, düzen kapalıyken de basınç taşır. Dolum '
+              'vanasını ve bağlantılarını açmayın; ön dolum işini yalnız '
+              'yetkili bakım birimi yapar.'],
+    steps=[
+        'Akümülatör gövdesine ezik, çizik ve pas izine karşı bakın.',
+        'Bağlantı rakorlarında ve dolum vanasında yağ izi arayın.',
+        'Bağlantı kelepçelerinin sıkı ve hasarsız olduğunu kontrol edin.',
+        'Hidrolik düzeni çalıştırıp pompanın ne sıklıkla devreye girdiğini '
+        'mürettebatın gözlemiyle karşılaştırın; sık devreye giriyorsa '
+        'ön dolum kaybı olabilir.',
+        'Bulguları bakım kaydına yazın ve yetkili bakım birimine bildirin.',
+    ])
+
+# --- Avara ve yürütücü dişli -------------------------------------------------
+
+DRIVE_IDLER_ISOLATE = dm(
+    code=code('DA3', '3', '421'), tech='Avara tekerlekleri ve yürütücü '
+    'dişliler', info='Arıza bulma',
+    isolation={
+        'fault': 'NAYATANK-DA3-101',
+        'descr': 'Avara ya da yürütücü dişli tarafından ses geliyor, göbek '
+                 'ısınıyor ya da dişli çemberi oynuyor.',
+        'steps': [
+            ('stp-0001', 'Sürüşten hemen sonra avara ve yürütücü dişli '
+             'göbeklerine elinizin tersiyle yaklaşıp iki yanı '
+             'karşılaştırın.', 'Bir göbek diğerinden belirgin sıcak mı?',
+             'stp-0002', 'stp-0003'),
+            ('stp-0002', 'Sıcak göbeğin gresörlüğüne ve keçesine bakın.',
+             'Gres kaçağı ya da kuru gresörlük var mı?', 'end-grease',
+             'end-bearing'),
+            ('stp-0003', 'Yürütücü dişli çemberinin cıvatalarına ve '
+             'dişlerine bakın.', 'Cıvata gevşek ya da eksik, dişler '
+             'sivrilmiş mi?', 'end-ring', 'end-tension'),
+        ],
+        'ends': [
+            ('end-grease', 'Avara göbeğini ve gerdirme tertibatını '
+             'gresleyin; sürüşten sonra sıcaklığı yeniden karşılaştırın.',
+             IDLER_GREASE),
+            ('end-bearing', 'Rulman aşınmış olabilir; tankı kullanmayın ve '
+             'yetkili bakım birimine bildirin.', None),
+            ('end-ring', 'Dişli çemberini muayene edin; gerekiyorsa '
+             'değiştirin.', SPROCKET_RING),
+            ('end-tension', 'Palet gerginliğini kontrol edin.',
+             TRACK_TENSION),
+        ],
+    })
+
+# --- Çalışma ilkesi ----------------------------------------------------------
+#
+# Her sistem kökü için sade bir çalışma anlatımı. Değer yazılmaz; sistemde
+# zaten bir tanım DM'i varsa bu anlatım yanına '01' sökme koduyla eklenir.
+
+HOW = 'Çalışma ilkesi'
+
+dm(code=code('DA0', '1', '040'), tech='Gövde', info=HOW,
+   description=[
+       ('Gövdenin görevi', [
+           'Gövde zırh plakalarının kaynakla birleştirildiği kapalı bir '
+           'kutudur. Önde sürücü bölmesi, ortada kule altındaki savaş '
+           'bölmesi, arkada güç paketi bölmesi bulunur; bölmeleri yangın '
+           'perdesi ayırır.',
+           'Yürüyen takımın salıncak kolları, burulma çubukları ve son '
+           'dişliler gövdeye bağlanır; gövde bütün yükü taşır.',
+       ]),
+       ('Kapaklar ve sızdırmazlık', [
+           'Sürücü kapağı ve taban kaçış kapağı contalarla kapanır. '
+           'Contalar suyu, tozu ve NBC koruma sırasında iç basıncı tutar; '
+           'conta yırtılırsa yağmurda ya da yıkamada gövdede su birikir.',
+           'Gövde boşaltma tapaları biriken suyu ve yıkama suyunu dışarı '
+           'almak içindir; her açılıştan sonra contalarıyla sıkıca '
+           'kapatılmalıdır.',
+       ]),
+       ('Dış donanım', [
+           'Yan etekler paletin üst kolunu ve yol tekerleklerini toz, çamur '
+           've darbeye karşı örter. Çamurluk üstündeki kutular aletleri ve '
+           'teçhizatı taşır. Çeki kancaları ve halatlar kurtarma içindir.',
+       ]),
+   ])
+
+dm(code=code('DA0', '2', '040'), tech='Kule', info=HOW,
+   description=[
+       ('Kule yatağı', [
+           'Kule, gövdenin tavanındaki büyük çaplı bir rulmanlı yatağın '
+           'üstünde döner. Yatağın contası tozu ve suyu dışarıda tutar; '
+           'yatak belirli aralıklarla greslenir.',
+           'Yatak çevresine taş, kum ya da buz sıkışırsa kule o noktada '
+           'zorlanır ya da gıcırdar. Kule kilidi yürüyüşte ve bakımda '
+           'kuleyi sabitler.',
+       ]),
+       ('Tahrik', [
+           'Kule ve top, hidrolik ya da elektrikli tahrik düzenleriyle '
+           'döndürülür ve yükseltilir; güç kesilince elle çalıştırma '
+           'düzeniyle hareket ettirilebilir. Tahriklerin bakımı silah '
+           'sorumlusunun izniyle yapılır.',
+       ]),
+       ('Kule üstü', [
+           'Komutan ve yükleyici kapakları, periskoplar, nişancı ve komutan '
+           'optikleri, antenler, sis bombası atıcıları ve arka sepet '
+           'kulenin üstündedir. Optiklerin koruyucu kapakları camları '
+           'taş ve tozdan korur.',
+       ]),
+   ])
+
+dm(code=code('DA1', info='040', disassy='01'), tech='Güç paketi', info=HOW,
+   description=[
+       ('Tek blok halinde güç', [
+           'Güç paketi, motorun, şanzımanın ve soğutma düzeninin birlikte '
+           'sökülüp takılabilen bir bloğudur. Arızalı bir güç paketi '
+           'sahada bütün olarak değiştirilir; tank kısa sürede yeniden '
+           'kullanılabilir.',
+       ]),
+       ('Motor', [
+           'Motor turboşarjlı bir dizel motordur. Hava filtrelerinden geçen '
+           'hava turboşarjlarla sıkıştırılıp silindirlere basılır; yakıt '
+           'yüksek basınçla püskürtülür ve sıkışmanın ısısıyla tutuşur. '
+           'Bujisi yoktur.',
+           'Motor kontrol ünitesi algılayıcılardan gelen bilgiyle yakıtı '
+           'ayarlar ve bir sorun görürse sürücüye uyarı verir.',
+       ]),
+       ('Soğutma ve hava', [
+           'Soğutma sıvısı motorun ısısını radyatörlere taşır; fanlar '
+           'motor güvertesinin ızgaralarından havayı çekerek radyatörlerden '
+           'geçirir. Izgaralar ya da petekler tıkanırsa motor sıcaklığı '
+           'yükselir.',
+           'Ön temizleyici havadaki iri tozu ayırıp dışarı atar; ince tozu '
+           'filtre elemanları tutar. Tozlu arazide filtre göstergesi daha '
+           'sık izlenir.',
+       ]),
+       ('Şanzıman ve frenler', [
+           'Şanzıman motorun gücünü iki yandaki son dişlilere ve '
+           'yürütücü dişlilere iletir; tankın dönüşünü de iki paletin hızını '
+           'farklılaştırarak sağlar. Servis frenleri ve yavaşlatıcı '
+           'şanzımanın içindedir.',
+       ]),
+   ])
+
+dm(code=code('DA1', '5', '040'), tech='Yakıt sistemi', info=HOW,
+   description=[
+       ('Yakıtın yolu', [
+           'Yakıt gövdedeki tanklarda durur. Besleme pompası yakıtı '
+           'tanklardan çeker, su ayırıcılı filtreden geçirip enjeksiyon '
+           'sistemine gönderir.',
+           'Su yakıttan ağırdır; filtrenin altındaki haznede toplanır ve '
+           'buradan boşaltılır. Hazne dolarsa su motora gider; motor '
+           'tekler ya da durur.',
+       ]),
+       ('Hava alma', [
+           'Yakıt tamamen bittiğinde ya da filtre değiştirildiğinde '
+           'sisteme hava girer. Dizel motor havalı yakıtla çalışmaz; '
+           'sistemin havası el kitabındaki yolla alınmadan motor ateş '
+           'almaz.',
+       ]),
+       ('Temizlik', [
+           'Doldurma kapaklarının contaları yakıta su ve toz girmesini '
+           'önler. İkmalden önce kapak çevresi temizlenir; ikmalde temiz '
+           'kap ve hortum kullanılır.',
+       ]),
+   ])
+
+dm(code=code('DA3', info='040', disassy='01'), tech='Yürüyen takım',
+   info=HOW,
+   description=[
+       ('Palet', [
+           'Her yanda bir palet, tabanları birbirine bağlayan pimler ve '
+           'bağlantı parçalarıyla oluşan sonsuz bir zincirdir. Arkadaki '
+           'yürütücü dişli paleti çeker; öndeki avara tekerleği paleti '
+           'yönlendirir ve gerdirme tertibatıyla gerginliğini ayarlar.',
+           'Palet kullanıldıkça uzar ve gevşer. Gevşek palet sarkar, '
+           'vuruntu yapar ve sert dönüşte atabilir; aşırı gergin palet '
+           'rulmanları ve dişlileri hızla aşındırır.',
+       ]),
+       ('Tekerlekler ve süspansiyon', [
+           'Yol tekerlekleri tankın ağırlığını paletin alt koluna verir. '
+           'Her tekerlek bir salıncak koluna bağlıdır; salıncak kolu gövde '
+           'boyunca uzanan bir burulma çubuğunu burarak yay görevi görür.',
+           'Amortisörler bazı tekerleklerin salınımını söndürür. Destek '
+           'makaraları paletin üst kolunu taşır. Tekerleklerin lastik '
+           'bandajları sarsıntıyı azaltır.',
+           'Göbekler ve kollar gresle yağlanır. Rulmanı bozulan göbek '
+           'sürüşten sonra diğerlerinden sıcak olur; bu, en erken uyarıdır.',
+       ]),
+   ])
+
+dm(code=code('DA4', info='040', disassy='01'), tech='Elektrik sistemi',
+   info=HOW,
+   description=[
+       ('Güç kaynakları', [
+           'Aküler motoru çalıştırır ve motor dururken telsiz, iç '
+           'haberleşme ve lambaları besler. Ana şalter akülerin bütün '
+           'araçla bağlantısını keser.',
+           'Motor çalışırken jeneratör bütün tüketicileri besler ve aküleri '
+           'doldurur. Şarj göstergesi jeneratörün çalıştığını gösterir.',
+       ]),
+       ('Dağıtım ve koruma', [
+           'Akım, sigorta ve devre kesici panolarından devrelere dağılır. '
+           'Kablo demetleri gövde içinde kanallardan geçer; konnektörler '
+           'sızdırmazdır. Sürtünen ya da nem alan bir konnektör kesik kesik '
+           'arızalara yol açar.',
+           'Takviye prizi, akü boşaldığında başka bir araçtan ya da '
+           'kaynaktan güç almayı sağlar; aynı priz başka araca takviye '
+           'vermek için de kullanılır.',
+       ]),
+       ('Göstergeler', [
+           'Algılayıcılar sıcaklık, basınç ve seviye bilgisini sürücü '
+           'gösterge paneline gönderir. Bir uyarı yandığında önce gerçek '
+           'arıza düşünülür; devre arızası ancak seviye ve ölçümler normal '
+           'çıkınca aranır.',
+       ]),
+   ])
+
+dm(code=code('DA6', info='040', disassy='01'), tech='Hidrolik sistem',
+   info=HOW,
+   description=[
+       ('Basınç kaynağı', [
+           'Hidrolik ünite depodaki yağı pompayla basınçlandırır. '
+           'Akümülatör basınçlı yağı depolar; düzen ani güç istediğinde '
+           'yağı pompadan önce akümülatör verir ve pompa daha az çalışır.',
+           'Filtre yağdaki parçacıkları tutar; tıkanınca göstergesi bunu '
+           'belirtir. Kirli ya da köpüklü yağ düzeni yavaşlatır ve pompayı '
+           'aşındırır.',
+       ]),
+       ('Hortumlar', [
+           'Yağ hortumlar ve borularla kule tahriklerine ve diğer '
+           'tüketicilere gider. Basınçlı hattaki küçük bir sızıntı bile '
+           'tehlikelidir: yüksek basınçlı yağ deriyi delebilir. Kaçak, '
+           'sistem basınçsızken ve gözle aranır.',
+       ]),
+   ])
+
+dm(code=code('DA7', info='040', disassy='01'),
+   tech='Mürettebat bölmesi donanımı', info=HOW,
+   description=[
+       ('Havalandırma ve NBC koruma', [
+           'Ünite dış havayı ızgaradan emer, filtre elemanından geçirip '
+           'mürettebat bölmesine basar. Bölmedeki hafif aşırı basınç, '
+           'kirli havanın kapak aralıklarından içeri sızmasını önler.',
+           'Filtre doldukça hava akışı azalır; gösterge değişim bölgesine '
+           'gelince eleman değiştirilir.',
+       ]),
+       ('Yangın söndürme', [
+           'Algılayıcılar güç paketi bölmesinde ve mürettebat bölmesinde '
+           'yangını algılar; sistem söndürücü tüplerini kendiliğinden ya da '
+           'elle boşaltır. El tipi söndürücüler küçük yangınlar içindir.',
+           'Sistemin arıza uyarısı yanarsa tank koruması azalmış demektir; '
+           'uyarı giderilmeden göreve çıkılmaz.',
+       ]),
+       ('Isıtıcı', [
+           'Yakıtla çalışan ısıtıcı mürettebat bölmesini ısıtır. Hava '
+           'girişi ve egzozu açık olmalıdır; tıkanırsa ısıtıcı ateş almaz '
+           'ya da duman yapar.',
+       ]),
+   ])
+
+dm(code=code('D00', '4', '040', '01'), tech='Alet ve teçhizat', info=HOW,
+   description=[
+       ('Yerleşim', [
+           'Araç alet takımı, palet aletleri ve kurtarma teçhizatının her '
+           'parçasının tankta belirli bir yeri vardır; yerleşim çizelgesi '
+           'aracın el kitabındadır. Parçalar yürüyüşte ses yapmayacak ve '
+           'düşmeyecek biçimde bağlanır.',
+       ]),
+       ('Sayım', [
+           'Aletler görev öncesinde ve haftalık bakımda sayılır. Eksik ya da '
+           'hasarlı alet bakım kaydına yazılır. Palet aletleri olmadan '
+           'palet gerginliği ayarlanamaz ve palet bağlantısı sökülemez; bu '
+           'yüzden sahada en önemli aletlerdir.',
+       ]),
+   ])
+
+# --- Bakım takvimi, sıvılar ve terimler --------------------------------------
+#
+# Askerî araçlarda aralık, miktar ve tip değerleri yazılmaz; neye, ne zaman
+# ve nasıl bakılacağı anlatılır.
+
+dm(code=code('D00', info='000'), tech='Leopard 2A6', info='Bakım takvimi',
+   description=[
+       ('Kullanım', [
+           'Takvim, bakım düzeylerinde hangi sistemlere bakılacağını özetler. '
+           'Aralıklar çalışma saatine, kilometreye ve takvime bağlıdır; '
+           'kesin aralıklar aracın kendi bakım çizelgesindedir.',
+           'Tozlu, çamurlu, çok sıcak ya da çok soğuk koşullarda filtre, '
+           'gresleme ve temizlik daha sık yapılır.',
+       ]),
+       ('Her kullanımdan önce', [
+           ('Mürettebat bakar:', [
+               'Motor yağı, soğutma sıvısı, şanzıman yağı ve hidrolik yağı '
+               'seviyeleri.',
+               'Güç paketi bölmesinin altında ve tank çevresinde sızıntı '
+               'izi.',
+               'Palet gerginliği, palet bağlantı parçaları ve yol '
+               'tekerleği bandajları.',
+               'Hava filtresi göstergesi ve yakıt filtresinin su haznesi.',
+               'Lambalar, iç haberleşme, optik camları ve kapak contaları.',
+               'Yangın söndürme sisteminde uyarı olmaması ve el tipi '
+               'söndürücüler.',
+           ]),
+       ]),
+       ('Molalarda ve görev sonunda', [
+           ('Mürettebat bakar:', [
+               'Yol tekerleği, avara ve yürütücü dişli göbeklerinin iki '
+               'yanda karşılaştırmalı sıcaklığı.',
+               'Motor güvertesi ızgaralarındaki yaprak ve çamur.',
+               'Yeni sızıntı, gevşek bağlantı ve kopuk palet tabanı.',
+               'Görev sonunda yakıt ikmali, temizlik ve bulunan eksiklerin '
+               'kaydı.',
+           ]),
+       ]),
+       ('Haftalık', [
+           ('Yapılacaklar:', [
+               'Yürüyen takımın gresörlükleri, kapak menteşeleri ve sürüş '
+               'kumandaları.',
+               'Akülerin durumu, kutup başları ve kablo bağlantıları.',
+               'Kule yatağı çevresinin temizliği; kule kilidinin çalışması.',
+               'Alet ve teçhizat sayımı.',
+           ]),
+       ]),
+       ('Aylık', [
+           ('Yapılacaklar:', [
+               'Kablo demetleri, konnektörler ve takviye prizi.',
+               'Hidrolik hortumları, akümülatörün dışı ve filtre göstergesi.',
+               'NBC filtre göstergesi ve havalandırma ızgarası.',
+               'Isıtıcının hava girişi ve egzozu.',
+               'Gövde boşaltma tapaları ve korozyon kontrolü.',
+           ]),
+       ]),
+       ('Dönemsel bakım', [
+           ('Yetkili bakım birimiyle:', [
+               'Motor yağı ve yağ filtreleri, şanzıman yağı ve filtresi, son '
+               'dişli yağı değişimi.',
+               'Soğutma sıvısının değişimi ve antifriz koruma kontrolü.',
+               'Hava filtresi elemanlarının ve yakıt filtresinin değişimi.',
+               'Kule yatağının greslenmesi ve tahriklerin muayenesi.',
+               'Güç paketinin çalışma testi ve kayıtlardaki uyarıların '
+               'gözden geçirilmesi.',
+           ]),
+       ]),
+   ])
+
+dm(code=code('D00', info='030'), tech='Leopard 2A6',
+   info='Sıvılar ve kapasiteler',
+   description=[
+       ('Genel', [
+           'Bu şablonda sıvıların tipi, sınıfı ve miktarı verilmez. Her '
+           'sıvının tipini ve miktarını aracın teknik el kitabından ve '
+           'birliğin onaylı malzeme listesinden alın; farklı sıvıları '
+           'karıştırmayın.',
+       ]),
+       ('Sıvılar ve nereye bakılır', [
+           ('Tankta kullanılan sıvılar:', [
+               'Yakıt: motor ve ısıtıcı aynı tanklardan beslenir. İkmalde '
+               'yalnız onaylı yakıt kullanılır; yakıtta su olup olmadığı '
+               'filtrenin su haznesinden izlenir.',
+               'Motor yağı: seviye güç paketindeki çubukla ya da göstergeyle '
+               'motor durmuşken ve tank düz zemindeyken okunur.',
+               'Şanzıman yağı: seviye el kitabında belirtilen sıcaklıkta ve '
+               'koşulda okunur; soğuk ve sıcak okuma farklıdır.',
+               'Son dişli yağı: her yanda ayrı; doldurma ve kontrol tapası '
+               'yürütücü dişlinin iç tarafındadır.',
+               'Soğutma sıvısı: genleşme kabında, motor soğukken okunur; '
+               'antifriz koruması mevsime göre denetlenir.',
+               'Hidrolik yağı: hidrolik ünitesinin deposunda, düzen '
+               'basınçsızken okunur.',
+               'Gres: yürüyen takım, kule yatağı ve kapak menteşeleri için '
+               'yağlama çizelgesindeki gres.',
+           ]),
+       ]),
+       ('Uyarılar', [
+           'Sıcak motorda soğutma kabının kapağını açmayın; basınçlı ve '
+           'kaynar sıvı fışkırır.',
+           'Dökülen yakıt ve yağı hemen temizleyin; güç paketi bölmesinde '
+           'yangın riski oluşturur.',
+           'Kullanılmış yağ ve filtreler ayrı toplanır ve yönergeye göre '
+           'teslim edilir.',
+       ]),
+   ])
+
+dm(code=code('D00', info='006'), tech='Leopard 2A6', info='Terimler sözlüğü',
+   description=[
+       ('Güç paketi ve aktarma', [
+           ('Terimler:', [
+               'Güç paketi: motor, şanzıman ve soğutma düzeninin birlikte '
+               'değiştirilen bloğu.',
+               'Turboşarj: egzoz gazıyla dönüp emme havasını sıkıştıran '
+               'kompresör.',
+               'Ön temizleyici: hava filtresinden önce iri tozu ayıran '
+               'düzen.',
+               'Su ayırıcı: yakıttaki suyu ayırıp haznesinde toplayan '
+               'filtre.',
+               'Hava alma: yakıt ya da hidrolik sisteme giren havanın '
+               'boşaltılması.',
+               'Son dişli: şanzımandan yürütücü dişliye gücü ileten '
+               'dişli kutusu.',
+               'Yavaşlatıcı: şanzımandaki, tankı aşınmasız yavaşlatan '
+               'düzen.',
+               'Servis freni: sürüşte kullanılan ana fren.',
+           ]),
+       ]),
+       ('Yürüyen takım', [
+           ('Terimler:', [
+               'Palet: tabanların pim ve bağlantı parçalarıyla birleştiği '
+               'sonsuz zincir.',
+               'Palet tabanı: paletin yere basan lastik yastığı.',
+               'Bağlantı parçası: iki palet halkasını uçlarından birleştiren '
+               'parça; kama cıvatasıyla sıkılır.',
+               'Yürütücü dişli: paleti çeken dişli tekerlek.',
+               'Avara tekerleği: paleti yönlendiren ve germeye yarayan '
+               'tekerlek.',
+               'Gerdirme tertibatı: avarayı itip palet gerginliğini ayarlayan '
+               'düzen.',
+               'Yol tekerleği: tankın ağırlığını palete veren tekerlek.',
+               'Bandaj: yol tekerleğinin çevresindeki lastik kaplama.',
+               'Destek makarası: paletin üst kolunu taşıyan küçük makara.',
+               'Salıncak kolu: yol tekerleğini gövdeye bağlayan kol.',
+               'Burulma çubuğu: burularak yay görevi gören çelik çubuk.',
+               'Palet atma: paletin dişliden ya da tekerleklerden çıkması.',
+           ]),
+       ]),
+       ('Gövde, kule ve donanım', [
+           ('Terimler:', [
+               'Kule yatağı: kulenin üstünde döndüğü büyük rulman.',
+               'Kule kilidi: kuleyi gövdeye göre sabitleyen kilit.',
+               'Periskop: kapalı kapaktan dışarıyı görmeye yarayan aynalı '
+               'optik.',
+               'Namlu ağzı kapağı: topun ağzını toz ve sudan koruyan kılıf.',
+               'Toz körüğü: top kalkanı ile kule arasındaki esnek kılıf.',
+               'Yan etek: paletin üstünü örten zırhlı panel.',
+               'Takviye prizi: dışarıdan elektrik almaya ya da vermeye '
+               'yarayan priz.',
+               'Ana şalter: akülerle araç arasındaki ana bağlantıyı açıp '
+               'kesen şalter.',
+               'NBC: nükleer, biyolojik ve kimyasal tehditlere karşı koruma.',
+               'Aşırı basınç: mürettebat bölmesinin içini dış havadan biraz '
+               'yüksek basınçta tutma.',
+               'Gresörlük: gres pompasının takıldığı küçük yağlama nipeli.',
+               'Bakım kaydı: yapılan her kontrolün ve bulunan eksiğin '
+               'yazıldığı kayıt.',
+           ]),
+       ]),
+   ])
 
 # --- Parça haritası --------------------------------------------------------
 
@@ -3557,6 +4102,82 @@ FAULTS = [
 ]
 
 # Yedek parça adı → IPD'deki parça.
+
+# Ek arızaların belirtileri ve arızaları.
+SYMPTOMS += [
+    ('sym.idler_hot', 'Avara ya da yürütücü dişli göbeği sürüşten sonra çok '
+     'sıcak'),
+    ('sym.sprocket_bolt', 'Yürütücü dişli çemberinde gevşek ya da eksik '
+     'cıvata var'),
+    ('sym.slave_socket', 'Takviye prizi kararmış, paslı ya da kontakları '
+     'gevşek'),
+    ('sym.false_warning', 'Uyarı yanıyor ama seviye ve ölçümler normal'),
+    ('sym.pump_cycling', 'Hidrolik pompa düzen kullanılmadan sık sık '
+     'devreye giriyor'),
+    ('sym.deck_hatch', 'Motor güvertesi kapağı kilitlenmiyor ya da sürüşte '
+     'takırdıyor'),
+    ('sym.box_damaged', 'Çamurluk üstündeki kutu ezik ya da kapağı '
+     'açılıyor'),
+    ('sym.antenna', 'Anten kırık ya da eğilmiş'),
+    ('sym.gun_boot', 'Top kalkanındaki toz körüğü yırtık ya da yerinden '
+     'çıkmış'),
+    ('sym.nbc_fan_dead', 'Havalandırma fanı hiç dönmüyor, ses gelmiyor'),
+    ('sym.old_oil', 'Motor yağı çok koyu ve yanık kokulu, değişim zamanı '
+     'geçmiş'),
+    ('sym.park_brake_drag', 'Park freni indirildiği hâlde tank zor yürüyor'),
+    ('sym.hydraulic_foam', 'Hidrolik yağı bulanık ya da köpüklü'),
+]
+
+FAULTS += [
+    ('f.idler.bearing', 'idlers', ['sym.idler_hot', 'sym.track_noise'],
+     'Avara tekerleği göbeği yeterince greslenmemiş ya da rulmanı '
+     'aşınmaya başlamış.', 2, DRIVE_IDLER_ISOLATE, IDLER_GREASE),
+    ('f.sprocket.bolts', 'sprockets.rings',
+     ['sym.sprocket_bolt', 'sym.track_noise'],
+     'Yürütücü dişli çemberinin bağlantı cıvataları gevşemiş.', 3,
+     DRIVE_IDLER_ISOLATE, SPROCKET_RING),
+    ('f.slave_socket.dirty', 'electrical.slave_socket',
+     ['sym.slave_socket', 'sym.click_no_crank'],
+     'Takviye prizinin kontakları kirlenmiş ya da oksitlenmiş; takviye '
+     'akımı geçmiyor.', 1, STARTER_ISOLATE, SLAVE_SOCKET),
+    ('f.warning.circuit', 'electrical.instruments',
+     ['sym.false_warning', 'sym.oil_pressure'],
+     'Uyarı devresinde konnektör nem almış ya da algılayıcı arızalı; '
+     'uyarı gerçek bir durumu göstermiyor.', 2, OIL_ISOLATE,
+     WARNING_CIRCUIT),
+    ('f.accumulator.precharge', 'hydraulics.accumulator',
+     ['sym.pump_cycling', 'sym.hydraulic_slow'],
+     'Hidrolik akümülatörü ön dolumunu yitirmiş; pompa sürekli devreye '
+     'giriyor.', 2, HYD_ISOLATE, ACCUMULATOR_CHECK),
+    ('f.deck_hatch.latch', 'hull.engine_deck.hatches', ['sym.deck_hatch'],
+     'Motor güvertesi kapağının kilidi kirlenmiş ya da ayarı bozulmuş.', 1,
+     EXTERIOR_ISOLATE, DECK_HATCHES),
+    ('f.fender_box.damaged', 'hull.fenders', ['sym.box_damaged'],
+     'Çamurluk üstündeki kutu çarpmayla ezilmiş ya da kilidi kopmuş.', 1,
+     EXTERIOR_ISOLATE, SKIRT_CHECK),
+    ('f.antenna.broken', 'turret.antennas', ['sym.antenna'],
+     'Anten dala ya da engele çarpıp kırılmış.', 1, EXTERIOR_ISOLATE,
+     TURRET_CHECK),
+    ('f.gun_boot.torn', 'turret.main_gun.boot', ['sym.gun_boot'],
+     'Top kalkanı toz körüğü yırtılmış; içeri toz ve su giriyor.', 2,
+     WEAPON_EXT_ISOLATE, GUN_CHECK),
+    ('f.nbc.fan_power', 'crew.nbc',
+     ['sym.nbc_fan_dead', 'sym.weak_ventilation'],
+     'Havalandırma ünitesinin sigortası atmış ya da besleme kablosu '
+     'kopuk.', 2, NBC_ISOLATE, FUSE),
+    ('f.oil.old', 'engine.oil', ['sym.old_oil'],
+     'Motor yağının değişim zamanı geçmiş; yağ yorulmuş ve kirlenmiş.', 2,
+     OIL_ISOLATE, OIL_CHANGE),
+    ('f.parking_brake.drag', 'transmission.parking_brake',
+     ['sym.park_brake_drag'],
+     'Park freni bağlantısı tam çözülmüyor; fren sürtüyor.', 2,
+     BRAKE_ISOLATE, CONTROLS_CHECK),
+    ('f.hydraulic.contaminated', 'hydraulics.unit',
+     ['sym.hydraulic_foam', 'sym.hydraulic_slow'],
+     'Hidrolik yağına su ya da hava karışmış; filtre çabuk doluyor.', 2,
+     HYD_ISOLATE, HYD_FILTER),
+]
+
 SPARE_PARTS = {
     'Güç paketi, yedek': 'powerpack',
     'Motor yağ filtresi elemanı': 'engine.oil',
@@ -3582,6 +4203,389 @@ SPARE_PARTS = {
     'El tipi yangın söndürücü': 'crew.extinguishers',
 }
 
+
+# --- Söyleyişler ------------------------------------------------------------
+#
+# Mürettebatın arızayı kendi sözleriyle anlatışı; teşhis serbest metni
+# bunlarla eşleştirir. Her metin arızaya bir belirti olarak eklenir
+# (`Content.add_phrasings`).
+
+PHRASINGS = {
+    # Elektrik
+    'f.batteries.flat': [
+        'Sabah ana şalteri açtım, göstergeler zayıf yandı ve marş dönmedi',
+        'Soğuk gecenin ardından motor marşta zorlandı',
+        'Akü göstergesi düşük gösteriyor, telsiz kendi kendine kapanıyor',
+    ],
+    'f.batteries.terminals': [
+        'Akü kutup başlarında beyaz kabuk var',
+        'Akü kablosu oynatınca marş basıyor',
+    ],
+    'f.generator.failed': [
+        'Motor çalışırken şarj uyarısı yanık kalıyor',
+        'Uzun sürüşten sonra aküler yine boş çıkıyor',
+        'Motor bölmesinden yanık kablo kokusu geldi, şarj göstergesi düştü',
+    ],
+    'f.electrical.drain': [
+        'Tank birkaç gün durunca ana şalter kapalı olmasına rağmen aküler '
+        'bitiyor',
+        'Ana şalteri kapattıktan sonra bir lamba ya da cihaz yanık kalıyor',
+    ],
+    'f.harness.chafed': [
+        'Arazide sarsıntıda bazı lambalar ve cihazlar kesilip geliyor',
+        'Kablo demetinin üstünde aşınmış izolasyon gördüm',
+        'Bir konnektörün içi nemli ve yeşillenmiş',
+    ],
+    'f.fuse.blown': [
+        'Bir gruptaki bütün lambalar aynı anda söndü',
+        'Devre kesici attı, yeniden basınca yine atıyor',
+    ],
+    'f.starter.failed': [
+        'Marş düğmesine basınca motor bölmesinden tek bir tık geliyor, '
+        'aküler dolu',
+        'Marş motoru boşta vınlıyor ama motoru çevirmiyor',
+    ],
+    'f.master_switch': [
+        'Ana şalteri açınca tankta hiçbir şey yanmıyor',
+        'Ana şalter açılıyor ama elektrik gidip geliyor',
+    ],
+    'f.instruments.gauge': [
+        'Sürücü panelindeki bir ibre hep sıfırda kalıyor',
+        'Göstergelerden biri titriyor ya da saçma değer gösteriyor',
+    ],
+    'f.lights.bulb': [
+        'Farlardan biri yanmıyor',
+        'Ön köşe lambası yanmıyor, ampul kararmış',
+    ],
+    'f.taillight.damaged': [
+        'Arka lambanın camı kırılmış, içine su dolmuş',
+        'Arka lambalar çarpmadan sonra yanmaz oldu',
+    ],
+    'f.intercom.headset': [
+        'Başlıktan arkadaşları duyamıyorum, sadece cızırtı var',
+        'Kabloyu oynatınca iç haberleşme bir gelip bir gidiyor',
+        'Bir mürettebat yerinin mikrofonu ses iletmiyor',
+    ],
+    # Yakıt ve güç paketi
+    'f.fuel.water': [
+        'Yakıt filtresinin su haznesi suyla dolu',
+        'Yağmurlu günlerden sonra motor tekliyor ve güç düşüyor',
+        'İkmalden sonra motor kesik kesik çalışmaya başladı',
+    ],
+    'f.fuel.filter_clogged': [
+        'Yokuşta tam gazda motor boğuluyor, tank hız almıyor',
+        'Yakıt filtresi uzun süredir değişmedi, motor yükte bocalıyor',
+    ],
+    'f.fuel.air': [
+        'Yakıt bitince ikmal yaptık ama motor bir türlü ateş almıyor',
+        'Filtre değişiminden sonra motor çalışıp duruyor',
+    ],
+    'f.fuel.leak': [
+        'Güç paketi bölmesinde mazot kokusu var',
+        'Yakıt borusunun bağlantısında ıslaklık ve damla var',
+    ],
+    'f.fuel.cap_seal': [
+        'Doldurma kapağının contası yırtılmış ya da yerinden çıkmış',
+        'Yıkamadan sonra yakıt filtresinde su birikti',
+    ],
+    'f.injection.fault': [
+        'Motor yükte kara duman atıyor ve sarsılıyor',
+        'Rölantide motor düzensiz vuruyor, bir silindir eksik gibi',
+    ],
+    'f.air_filter.clogged': [
+        'Tozlu arazide hava filtresi göstergesi kırmızıya geçti',
+        'Hızlanırken egzozdan yoğun kara duman çıkıyor',
+    ],
+    'f.precleaner.blocked': [
+        'Toz atma çıkışından toz çıkmıyor, filtre göstergesi hemen '
+        'kırmızıya geçiyor',
+        'Ön temizleyicinin girişi çamurla tıkanmış',
+    ],
+    'f.intake.leak': [
+        'Hava kanalının kelepçesi gevşek, iç tarafta toz izi var',
+        'Hava filtresinden sonraki kanalda yırtık gördüm',
+    ],
+    'f.turbo.leak': [
+        'Gaza basınca güç paketinden yüksek bir ıslık geliyor',
+        'Turboşarj bağlantısında yağlı is izi var, tank çekmiyor',
+    ],
+    'f.engine.control': [
+        'Motor arıza uyarısı yandı, motor güç kesip yavaş moda geçti',
+        'Uyarı yanınca motor devri yükselmiyor',
+    ],
+    'f.engine.oil_burning': [
+        'Egzozdan mavimsi duman çıkıyor, yağ seviyesi hızla düşüyor',
+        'Uzun rölantiden sonra gaza basınca mavi duman bulutu çıkıyor',
+    ],
+    'f.engine.coolant_in_oil': [
+        'Yağ çubuğundaki yağ süt gibi açık renkli',
+        'Soğutma sıvısı eksiliyor ama hiçbir yerde sızıntı yok',
+        'Motor ısınmış olmasına rağmen egzozdan beyaz buhar çıkıyor',
+    ],
+    'f.mounts.worn': [
+        'Rölantide bütün gövde titriyor, eskisinden çok daha fazla',
+        'Kalkışta ve durmada güç paketi bölmesinden tok bir vuruntu geliyor',
+    ],
+    'f.oil.low': [
+        'Yağ basıncı uyarısı virajda ya da eğimde yanıp sönüyor',
+        'Yağ seviyesi alt işaretin altında',
+        'Tankın durduğu yerde yağ lekesi kalıyor',
+    ],
+    'f.oil_cooler.leak': [
+        'Yağ soğutucusunun bağlantılarından yağ sızıyor',
+        'Radyatörlerin yanında yağlı toz birikmiş',
+    ],
+    'f.exhaust.leak': [
+        'Egzoz kelepçesinin çevresinde kara kurum izi var',
+        'Güç paketinden üfleme ve pırpır sesi geliyor',
+    ],
+    'f.grilles.blocked': [
+        'Ormanlık arazide motor sıcaklığı yükseldi, güverte ızgaraları '
+        'yaprakla dolu',
+        'Çamurlu arazi sonrası ızgaralar çamurla kaplanmış, sıcaklık '
+        'artıyor',
+    ],
+    'f.radiator.dirty': [
+        'Izgaralar temiz ama radyatör petekleri tozla kaplı, sıcaklık '
+        'yüksek',
+        'Uzun süre tozlu yolda gittikten sonra motor ısınmaya başladı',
+    ],
+    'f.fan.drive': [
+        'Soğutma fanlarından biri dönmüyor, diğeri dönüyor',
+        'Sıcaklık yükseliyor ve fan sesi her zamankinden zayıf',
+    ],
+    'f.fan.blade': [
+        'Fan tarafından vuruntu ve titreşim geliyor',
+        'Fan kanadında kırık ya da eğiklik gördüm',
+    ],
+    'f.coolant.leak': [
+        'Soğutma hortumunun kelepçesinden sıvı damlıyor',
+        'Güç paketi bölmesinde tatlımsı soğutma sıvısı kokusu var',
+    ],
+    'f.coolant.old': [
+        'Soğutma sıvısı paslı ve tortulu görünüyor',
+        'Antifriz koruması soğuk hava için yetersiz çıktı',
+    ],
+    # Güç aktarma
+    'f.transmission.oil': [
+        'Vitesler soğukken sert ve gecikmeli geçiyor',
+        'Şanzıman yağı koyu ve yanık kokulu',
+    ],
+    'f.transmission.leak': [
+        'Şanzımanın tapasının çevresinde yağ var',
+        'Güç paketinin altında, şanzıman tarafında yağ birikiyor',
+    ],
+    'f.transmission.cooler': [
+        'Uzun sürüşte şanzıman sıcaklık uyarısı yandı',
+        'Şanzıman yağ soğutucusunun petekleri kirle kaplanmış',
+    ],
+    'f.controls.stiff': [
+        'Vites seçici ve direksiyon kumandası çok zor hareket ediyor',
+        'Sürüş kumandası bir noktada takılıyor',
+    ],
+    'f.brakes.worn': [
+        'Frene basınca tank geç ve uzun mesafede duruyor',
+        'Frenlerken tank bir yana dönüyor',
+        'Frenlerden yanık kokusu geliyor',
+    ],
+    'f.parking_brake': [
+        'Park freni çekili olduğu hâlde tank eğimde kayıyor',
+        'Park freni kolu sonuna kadar gidiyor ama tutmuyor',
+    ],
+    'f.final_drive.seal': [
+        'Yürütücü dişlinin iç tarafı yağlı ve tozla kaplı',
+        'Son dişli tarafından öğütme sesi geliyor',
+    ],
+    # Yürüyen takım
+    'f.track.slack': [
+        'Palet üst kolda belirgin şekilde sarkıyor',
+        'Sert dönüşte palet atmak üzereydi',
+        'Palet gerdirme ayarı kısa sürede yeniden gevşiyor',
+    ],
+    'f.pads.worn': [
+        'Palet tabanlarının lastiği aşınmış, bazıları kopmuş',
+        'Asfaltta giderken titreşim ve uğultu arttı',
+    ],
+    'f.track.connector': [
+        'Palet bağlantı parçalarından biri dışarı çıkmış',
+        'Bağlantı parçasının kama cıvatası gevşemiş ya da düşmüş',
+    ],
+    'f.wheel.bearing': [
+        'Molada bir yol tekerleğinin göbeği elle dokunulamayacak kadar sıcak',
+        'Bir yol tekerleğinden hırıltı geliyor, göbekten gres sızıyor',
+    ],
+    'f.wheel.tyre': [
+        'Yol tekerleğinin lastik bandajı parça parça kopuyor',
+        'Tekerlek bandajında derin yarık ve kopuk var',
+    ],
+    'f.damper.leak': [
+        'Amortisörün gövdesi yağlı, tank engebede sekiyor',
+        'Tank engebeden sonra uzun süre yalpalamaya devam ediyor',
+    ],
+    'f.torsion_bar.broken': [
+        'Bir yol tekerleği yerden kalkmış ya da diğerlerinden yukarıda '
+        'duruyor',
+        'Düz zeminde tank bir köşeye doğru çökük',
+    ],
+    'f.arm.bearing': [
+        'Salıncak kolunun yatağından gıcırtı geliyor',
+        'Salıncak kolunun gresörlüğü kuru, gres almıyor',
+    ],
+    'f.support_roller': [
+        'Destek makarası dönmüyor, palet üstünde sürtüyor',
+        'Destek makarasının lastiği kopmuş',
+    ],
+    'f.sprocket.worn': [
+        'Yürütücü dişlinin dişleri sivrilmiş, palet dişliden atlıyor',
+        'Palet dişliye otururken takırtı geliyor',
+    ],
+    # Gövde ve kule
+    'f.hatch.seal': [
+        'Yağmurdan ya da yıkamadan sonra sürücü bölmesinde su var',
+        'Kapak contası yırtık ve sertleşmiş',
+    ],
+    'f.hatch.stiff': [
+        'Sürücü kapağı çok zor açılıyor',
+        'Kapak kapanıyor ama kilidi kavramıyor',
+    ],
+    'f.skirt_l.damaged': [
+        'Sol yan etek çarpmadan sonra içe doğru eğildi',
+        'Sol yan eteğin cıvatası kopmuş, panel sallanıyor',
+    ],
+    'f.skirt_r.damaged': [
+        'Sağ yan etek çarpmadan sonra içe doğru eğildi',
+        'Sağ yan eteğin cıvatası kopmuş, panel sallanıyor',
+    ],
+    'f.tow_cable.worn': [
+        'Çeki halatında kopuk teller dışarı çıkmış',
+        'Çeki halatı ezilmiş ve bükülmüş',
+    ],
+    'f.turret_ring.debris': [
+        'Kule döndürürken bir noktada takılıyor',
+        'Kule yatağının çevresine taş ve kum sıkışmış',
+        'Soğuk havada kule dönmüyor, yatak çevresinde buz var',
+    ],
+    'f.turret_ring.grease': [
+        'Kule dönerken gıcırtı ve kuru sürtme sesi geliyor',
+        'Kule yatağının greslenmesi uzun süredir yapılmadı',
+    ],
+    'f.optics.dirty': [
+        'Nişancı optiğinden bakınca görüntü bulanık',
+        'Optik camında çamur ve toz var',
+    ],
+    'f.optics.moisture': [
+        'Komutan periskobunun içi buğulu, silince geçmiyor',
+        'Optiğin içinde damlacıklar var',
+    ],
+    'f.periscope.cracked': [
+        'Periskop camında taş izi ve çatlak var',
+        'Kapak periskobundan bakınca görüntüde çizgi var',
+    ],
+    'f.muzzle_cover.lost': [
+        'Namlu ağzı kapağı yerinde yok',
+        'Namlu ağzı kapağı yırtılmış, ağız açıkta',
+    ],
+    'f.smoke_tube.damaged': [
+        'Sis bombası atıcısı dala çarpıp ezilmiş',
+        'Atıcının koruyucu kapağı düşmüş',
+    ],
+    # Hidrolik ve mürettebat bölmesi
+    'f.hydraulic.low': [
+        'Hidrolik depo göstergesinde seviye düşük',
+        'Kule ve hidrolik düzen eskisinden yavaş tepki veriyor',
+    ],
+    'f.hydraulic.hose': [
+        'Hidrolik hortumunun rakorunda yağ damlası var',
+        'Hortumun dış kılıfı çatlamış ve yağlı',
+    ],
+    'f.hydraulic.filter': [
+        'Hidrolik filtre göstergesi tıkanıklık gösteriyor',
+        'Filtre değişimi gecikti, düzen ağır çalışıyor',
+    ],
+    'f.nbc.filter': [
+        'NBC filtre göstergesi değişim bölgesinde',
+        'Havalandırma çalışıyor ama içeri çok az hava geliyor',
+    ],
+    'f.nbc.intake': [
+        'Havalandırma giriş ızgarası çamur ve yaprakla dolu',
+        'Fan sesi normal ama hava akışı zayıf',
+    ],
+    'f.fire.detector': [
+        'Yangın sistemi arıza uyarısı yanıyor, tüpler dolu',
+        'Algılayıcının üstü yağ ve tozla kaplı',
+    ],
+    'f.fire.bottle': [
+        'Söndürücü tüpünün göstergesi düşük',
+        'Yangın sistemi arıza veriyor ve bir tüpün dolumu eksik',
+    ],
+    'f.extinguisher.low': [
+        'El tipi söndürücünün ibresi kırmızı bölgede',
+        'El söndürücüsü kullanıldı, yeniden doldurulmadı',
+    ],
+    'f.heater.blocked': [
+        'Isıtıcı çalışıp birkaç dakika sonra sönüyor',
+        'Isıtıcının egzozundan yoğun beyaz duman çıkıyor, girişi karla dolu',
+    ],
+    'f.heater.fuel': [
+        'Isıtıcı ateş almıyor, yakıt kokusu geliyor',
+        'Isıtıcının yakıt hortumunda kabarcık ve sızıntı var',
+    ],
+    # Ek arızalar
+    'f.idler.bearing': [
+        'Molada avara tekerleğinin göbeği diğer yandan çok daha sıcak',
+        'Ön taraftan, avaradan hırıltı geliyor',
+    ],
+    'f.sprocket.bolts': [
+        'Yürütücü dişli tarafından tıkırtı geliyor, bir cıvata eksik',
+        'Dişli çemberi göbeğe göre oynuyor',
+    ],
+    'f.slave_socket.dirty': [
+        'Takviye kablosunu taktık ama tank çalışmadı',
+        'Takviye prizinin içi kararmış ve yanık kokuyor',
+    ],
+    'f.warning.circuit': [
+        'Yağ basıncı uyarısı yanıyor ama yağ seviyesi tam ve motor sessiz',
+        'Uyarı lambası arazide sarsıntıyla yanıp sönüyor',
+    ],
+    'f.accumulator.precharge': [
+        'Hidrolik pompa düzen kullanılmadığı hâlde sürekli çalışıp duruyor',
+        'Kule hareketi başlangıçta sert, sonra yavaşlıyor',
+    ],
+    'f.deck_hatch.latch': [
+        'Güç paketi kapağı arazide takırdıyor',
+        'Motor güvertesi kapağının kilidi kapanmıyor',
+    ],
+    'f.fender_box.damaged': [
+        'Çamurluktaki alet kutusunun kapağı yolda açılıyor',
+        'Dış kutu çarpmadan sonra ezildi',
+    ],
+    'f.antenna.broken': [
+        'Ağaç dalına çarpınca anten kırıldı',
+        'Anten eğilmiş, telsiz çekmiyor',
+    ],
+    'f.gun_boot.torn': [
+        'Top kalkanının kenarındaki körük yırtılmış',
+        'Körük yerinden çıkmış, aralıktan toz giriyor',
+    ],
+    'f.nbc.fan_power': [
+        'Havalandırmayı açınca fan hiç çalışmıyor',
+        'Havalandırma ünitesinden ne ses ne hava geliyor',
+    ],
+    'f.oil.old': [
+        'Motor yağı kapkara ve yanık kokuyor',
+        'Yağ değişimi bakım kaydına göre çoktan geçmiş',
+    ],
+    'f.parking_brake.drag': [
+        'Park frenini indirdim ama tank frenli gibi zor yürüyor',
+        'Kısa sürüşten sonra fren tarafından yanık balata kokusu geliyor',
+    ],
+    'f.hydraulic.contaminated': [
+        'Hidrolik yağı süt gibi bulanık görünüyor',
+        'Depoda hidrolik yağı köpüklü',
+    ],
+}
+
 C.zones, C.symptoms, C.faults = ZONES, SYMPTOMS, FAULTS
+C.add_phrasings(PHRASINGS)
 C.spare_parts = SPARE_PARTS
 C.write()
