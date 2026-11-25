@@ -12,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>İç lastik</techName><infoName>Yama ve değiştirme</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -29,17 +29,17 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="seq-0001"><name>Lastik sökme levyesi (2 adet)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-TIRE-LEVERS</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="seq-0002"><name>Manometreli pompa</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-PUMP</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Lastik sökme levyesi (2 adet)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-TIRE-LEVERS</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Manometreli pompa</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-PUMP</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0003"><name>Yama takımı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-PATCH</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="spa-0001"><name>İç lastik</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-WH-320</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>İç lastik</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-WH-320</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Tekerleği sökün ve iç lastikteki havayı tamamen boşaltın.</para><figure id="fig-0005"><title>Arka tekerlek</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure>
-</proceduralStep>
+        <proceduralStep><para>Tekerleği sökün ve iç lastikteki havayı tamamen boşaltın.</para><figure id="fig-0005"><title>Arka tekerlek</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Levyeleri sibobun karşısından lastik ile jant arasına sokun ve lastiğin bir yanını janttan çıkarın.</para></proceduralStep>
         <proceduralStep><para>İç lastiği çıkarın. Lastiğin içini parmakla yoklayarak batan cismi bulun ve çıkarın.</para></proceduralStep>
         <proceduralStep><para>İç lastiği hafifçe şişirip deliği bulun. Küçük deliği yama ile kapatın; büyük yırtıkta iç lastiği değiştirin.</para></proceduralStep>
+        <proceduralStep><para>Jant bandının bütün tel deliklerini örttüğünü kontrol edin.</para></proceduralStep>
         <proceduralStep><para>İç lastiği hafif şişirip önce sibobu jant deliğine sokarak yerleştirin.</para></proceduralStep>
         <proceduralStep><para>Lastiği elle janta geçirin. İç lastiğin lastik ile jant arasına sıkışmadığını kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Lastiği basınç aralığında şişirin ve tekerleği takın.</para></proceduralStep>

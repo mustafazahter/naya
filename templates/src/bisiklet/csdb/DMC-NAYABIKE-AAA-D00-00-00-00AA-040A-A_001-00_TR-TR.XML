@@ -12,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Bisiklet</techName><infoName>Tanım</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -35,27 +35,17 @@
       <figure id="fig-0001"><title>Bisiklet, sağdan görünüş</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure>
       <levelledPara>
         <title>Ana bölümler</title>
-        <para>Bisiklet dört ana sistemden oluşur.</para>
-        <levelledPara>
-          <title>Kadro, çatal ve kumanda</title>
-          <para>Kadro bütün parçaları taşır. Yaylı çatal ön tekerleği tutar ve yoldan gelen darbeyi sönümler. Gidonda elcikler, fren kolları ve tetik vites kolları vardır.</para>
-        </levelledPara>
-        <levelledPara>
-          <title>Aktarma organları</title>
-          <para>Pedallardan gelen güç, üç aynalı aynakol, zincir ve sekiz dişli kaset üzerinden arka tekerleğe aktarılır. Ön ve arka vites değiştiriciler zinciri dişliler arasında kaydırır.</para>
-        </levelledPara>
-        <levelledPara>
-          <title>Fren sistemi</title>
-          <para>Her iki tekerlekte 160 mm disk ve mekanik kaliper vardır. Fren kolu çekilince tel kaliperdeki balataları diske bastırır.</para>
-        </levelledPara>
-        <levelledPara>
-          <title>Tekerlekler</title>
-          <para>Tekerlekler jant, teller, çabuk sökme mandallı göbek, iç lastik ve dış lastikten oluşur.</para>
-        </levelledPara>
+        <para>Bisiklet dört ana sistemden oluşur:<randomList><listItem><para>Kadro, çatal ve kumanda: kadro bütün parçaları taşır; yaylı çatal ön tekerleği tutar ve yoldan gelen darbeyi sönümler; gidonda elcikler, fren kolları ve tetik vites kolları vardır.</para></listItem><listItem><para>Aktarma organları: pedallardan gelen güç üç aynalı aynakol, zincir ve sekiz dişli kaset üzerinden arka tekerleğe aktarılır. Ön ve arka vites değiştiriciler zinciri dişliler arasında kaydırır.</para></listItem><listItem><para>Fren sistemi: her iki tekerlekte 160 mm disk ve mekanik kaliper vardır. Fren kolu çekilince tel kaliperdeki balataları diske bastırır.</para></listItem><listItem><para>Tekerlekler: jant, teller, çabuk sökme mandallı göbek, iç lastik ve dış lastik.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Teknik veriler</title>
+        <para>Ana ölçüler ve parçalar:<randomList><listItem><para>Tekerlek: 27,5" (ETRTO 584), lastik 27,5 × 2,25 (57-584).</para></listItem><listItem><para>Lastik basıncı: lastiğin yanağında yazan aralıkta; bu ölçüde genellikle 2,0-3,5 bar (30-50 psi).</para></listItem><listItem><para>Sibop: otomobil tipi (Schrader).</para></listItem><listItem><para>Vites: önde 3 ayna (22-32-42 diş), arkada 8 dişli kaset (11-32 diş); zincir 8 vites, 116 bakla.</para></listItem><listItem><para>Fren: mekanik disk, 160 mm 6 cıvatalı disk, organik balata.</para></listItem><listItem><para>Çatal: yaylı, 100 mm yol, ön yük ayarlı.</para></listItem><listItem><para>Orta göbek: kare milli kartuş, BSA 68 mm gövde.</para></listItem><listItem><para>Sele borusu: 27,2 mm, çabuk sökme kelepçeli.</para></listItem></randomList></para>
+        <para>Sıkma torkları ayrı bir DM'de toplanmıştır.</para>
       </levelledPara>
       <levelledPara>
         <title>Güvenlik</title>
         <para>Her sürüşten önce fren kollarını sıkın ve lastik basıncına bakın. Frenler tutmuyorsa bisiklete binmeyin.</para>
+        <para>Karbon ya da alüminyum parçalarda çatlak, ezik ya da derin çizik varsa parçayı kullanmayın; bu parçalar uyarı vermeden kırılabilir.</para>
       </levelledPara>
     </description>
   </content>

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYABIKE-AAA-D000000-0-NAYA0-00014-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-D000000-0-NAYA0-00014-A-001-01.JPG" NDATA JPEG>
+]>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
   <identAndStatusSection>
     <dmAddress>
@@ -8,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Ön vites değiştirici</techName><infoName>Ayar</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -25,12 +29,13 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="seq-0001"><name>Alyan anahtar takımı (2-8 mm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-HEX</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="seq-0002"><name>Bakım sehpası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-STAND</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Alyan anahtar takımı (2-8 mm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-HEX</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Bakım sehpası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-STAND</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0003"><name>Tork anahtarı (2-60 Nm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-TORQUE</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
         <reqSafety><noSafety/></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
+        <proceduralStep><para>Kafesin dış plakası en büyük aynanın dişlerinin 1-3 mm üstünde ve aynaya paralel olmalıdır; değilse kelepçeyi gevşetip düzeltin ve 5-7 Nm ile sıkın.</para><figure id="fig-0014"><title>Ön vites değiştirici</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00014-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Zinciri en küçük aynaya ve arkada en büyük dişliye alın.</para></proceduralStep>
         <proceduralStep><para>Alt limit vidasını (L) zincirle iç kafes plakası arasında 0,5 mm boşluk kalacak şekilde ayarlayın.</para></proceduralStep>
         <proceduralStep><para>Zinciri en büyük aynaya ve arkada en küçük dişliye alın.</para></proceduralStep>

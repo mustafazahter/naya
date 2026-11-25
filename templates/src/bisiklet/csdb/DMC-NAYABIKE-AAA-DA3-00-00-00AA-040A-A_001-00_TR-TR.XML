@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYABIKE-AAA-D000000-0-NAYA0-00005-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-D000000-0-NAYA0-00005-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA3" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="24"/>
+        <dmTitle><techName>Tekerlekler</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Genel</title>
+        <para>Tekerlekler 27,5" (584 mm) çift cidarlı alüminyum jant, 32 adet 2 mm paslanmaz tel, rulmanlı göbek, iç lastik ve dış lastikten oluşur. Göbekler çabuk sökme mandalıyla çatala ve kadroya bağlanır.</para>
+        <para>Arka göbekte kasetin oturduğu serbest çark (freehub) gövdesi vardır. Disk, her iki göbeğe altı cıvatayla bağlanır.</para>
+      </levelledPara>
+      <figure id="fig-0005"><title>Arka tekerlek</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00005-A-001-01"/></figure>
+      <levelledPara>
+        <title>Lastik basıncı</title>
+        <para>Basınç lastik yanağında yazan aralıkta tutulur. Hafif sürücüler ve yumuşak zemin için alt sınıra, ağır sürücüler ve sert zemin için üst sınıra yakın değer seçilir. Basınç düşükse iç lastik jantla taş arasında sıkışıp iki yan yana delik açılır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Tel gerginliği</title>
+        <para>Teller jantı göbeğe gergin olarak bağlar. Tel gerginliği eşit değilse jant yanlara yalpalar. Gerginlik, aynı taraftaki teller arasında ortalamadan %20'den fazla sapmamalıdır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

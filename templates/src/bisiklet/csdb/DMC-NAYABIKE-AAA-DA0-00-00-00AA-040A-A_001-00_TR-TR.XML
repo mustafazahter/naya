@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYABIKE-AAA-D000000-0-NAYA0-00001-A-001-01 SYSTEM "ICN-NAYABIKE-AAA-D000000-0-NAYA0-00001-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA0" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="24"/>
+        <dmTitle><techName>Kadro, çatal ve kumanda</techName><infoName>Tanım</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Bütün bisikletler</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Kadro</title>
+        <para>Kadro 6061 alüminyum borulardan kaynaklıdır. Baş borusunda furç, orta göbek gövdesinde (BSA, 68 mm) orta göbek, sele borusunda sele borusu ve ön vites değiştirici kelepçesi yer alır.</para>
+        <para>Arka vites değiştirici, kadroya değiştirilebilir bir vites askısıyla bağlanır. Askı darbede kadrodan önce bükülerek kadroyu korur.</para>
+        <para>Fren ve vites kabloları üst boru boyunca kılıflı olarak gider.</para>
+      </levelledPara>
+      <figure id="fig-0001"><title>Bisiklet, sağdan görünüş</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00001-A-001-01"/></figure>
+      <levelledPara>
+        <title>Çatal ve furç</title>
+        <para>Yaylı çatalın 100 mm yolu vardır; ön yük düğmesiyle sertliği ayarlanır. Çatal boğazı baş borusu içinde furç rulmanlarıyla döner.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Gidon ve kumanda</title>
+        <para>Düz gidon, gidon boğazıyla (stem) çatal boğazına bağlanır. Gidonda elcikler, iki fren kolu ve iki tetik vites kolu vardır: sol kollar ön fren ve ön vites değiştiriciyi, sağ kollar arka fren ve arka vites değiştiriciyi kumanda eder.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Sele</title>
+        <para>Sele, tek cıvatalı kelepçeyle 27,2 mm sele borusuna bağlanır. Sele borusu kadroya çabuk sökme kelepçesiyle sıkılır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

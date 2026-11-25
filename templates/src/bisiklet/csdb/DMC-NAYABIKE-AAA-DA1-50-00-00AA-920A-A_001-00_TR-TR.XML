@@ -8,7 +8,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Pedallar</techName><infoName>Sökme ve takma</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -25,14 +25,14 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="seq-0001"><name>15 mm pedal anahtarı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-PEDAL-WRENCH</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
-        <reqSupplies><noSupplies/></reqSupplies>
-        <reqSpares><spareDescrGroup><spareDescr id="spa-0001"><name>Pedal takımı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-DR-500</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
-        <reqSafety><noSafety/></reqSafety>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>15 mm pedal anahtarı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-PEDAL-WRENCH</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Tork anahtarı (2-60 Nm)</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-TORQUE</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Bisiklet gresi</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-SP-GREASE</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Pedal takımı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-DR-500</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Sol pedal ters dişlidir. Sağ pedal saat yönünün tersine, sol pedal saat yönünde çevrilerek sökülür.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
         <proceduralStep><para>Pedal anahtarını pedal milinin düz yüzeylerine takın.</para></proceduralStep>
-        <proceduralStep><caution><warningAndCautionPara>Sol pedal ters dişlidir. Sağ pedal saat yönünün tersine, sol pedal saat yönünde çevrilerek sökülür.</warningAndCautionPara></caution><para>Pedalları sökün.</para></proceduralStep>
+        <proceduralStep><para>Pedalları sökün.</para></proceduralStep>
         <proceduralStep><para>Pedal mili dişlerine ince bir kat gres sürün.</para></proceduralStep>
         <proceduralStep><para>R işaretli pedalı sağ kola, L işaretli pedalı sol kola elle başlatıp takın; dişler zorlanmadan girmelidir.</para></proceduralStep>
         <proceduralStep><para>Pedalları 35 Nm ile sıkın.</para></proceduralStep>

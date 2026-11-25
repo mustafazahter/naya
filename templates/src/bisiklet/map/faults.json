@@ -25,12 +25,28 @@
       "text": "Ön vites (aynakol) değişmiyor"
     },
     {
+      "id": "sym.shift_stiff",
+      "text": "Vites kolu sert çalışıyor"
+    },
+    {
+      "id": "sym.shifter_no_return",
+      "text": "Vites kolu yerine dönmüyor ya da tıklamıyor"
+    },
+    {
+      "id": "sym.fd_rub",
+      "text": "Ön vites değiştiricinin kafesi zincire sürtüyor"
+    },
+    {
       "id": "sym.brake_weak",
       "text": "Fren yeterince tutmuyor"
     },
     {
       "id": "sym.lever_travel",
       "text": "Fren kolu gidona kadar geliyor"
+    },
+    {
+      "id": "sym.lever_no_return",
+      "text": "Fren kolu bırakınca yerine dönmüyor"
     },
     {
       "id": "sym.brake_squeal",
@@ -41,8 +57,28 @@
       "text": "Tekerlek dönerken diskten sürtünme sesi geliyor"
     },
     {
+      "id": "sym.brake_clunk",
+      "text": "Frenlerken kaliperden tok bir ses geliyor ya da kaliper oynuyor"
+    },
+    {
       "id": "sym.flat",
       "text": "Lastik iniyor"
+    },
+    {
+      "id": "sym.slow_leak",
+      "text": "Lastik birkaç günde yavaş yavaş iniyor"
+    },
+    {
+      "id": "sym.pinch_flat",
+      "text": "İç lastikte yan yana iki küçük delik var"
+    },
+    {
+      "id": "sym.tire_wear",
+      "text": "Lastik tırtılları aşınmış, viraj ve frenlemede kayıyor"
+    },
+    {
+      "id": "sym.tire_damage",
+      "text": "Lastik yanağında kesik ya da kabarma var"
     },
     {
       "id": "sym.wobble",
@@ -53,6 +89,18 @@
       "text": "Tekerlek yanlara oynuyor"
     },
     {
+      "id": "sym.spoke_ping",
+      "text": "Sürüşte tellerden çınlama sesi geliyor ya da tel kopmuş"
+    },
+    {
+      "id": "sym.hub_rough",
+      "text": "Tekerlek elle çevrilince göbekten hışırtı geliyor"
+    },
+    {
+      "id": "sym.freehub_slip",
+      "text": "Pedala basınca pedal boşa dönüyor, tekerlek itilmiyor"
+    },
+    {
       "id": "sym.crank_creak",
       "text": "Pedala basarken orta göbekten gıcırtı geliyor"
     },
@@ -61,19 +109,232 @@
       "text": "Pedal ya da pedal kolu boşluk yapıyor"
     },
     {
+      "id": "sym.pedal_rough",
+      "text": "Pedal elle çevrilince takılarak dönüyor"
+    },
+    {
       "id": "sym.fork_knock",
       "text": "Çatal çökerken vuruntu sesi geliyor"
+    },
+    {
+      "id": "sym.fork_leak",
+      "text": "Çatal iç borusunda yağ halkası kalıyor"
+    },
+    {
+      "id": "sym.fork_sticky",
+      "text": "Çatal küçük darbelerde çökmüyor, takılarak çalışıyor"
+    },
+    {
+      "id": "sym.fork_bottom",
+      "text": "Çatal dibe vuruyor ya da çok yumuşak"
     },
     {
       "id": "sym.headset_play",
       "text": "Ön fren sıkılıyken gidon ileri geri oynuyor"
     },
     {
+      "id": "sym.steering_notchy",
+      "text": "Gidon döndürülürken belli bir noktada takılıyor"
+    },
+    {
+      "id": "sym.bar_slip",
+      "text": "Gidon ya da gidon boğazı yerinden kayıyor"
+    },
+    {
+      "id": "sym.bar_creak",
+      "text": "Gidona yüklenince gıcırtı geliyor"
+    },
+    {
+      "id": "sym.grip_slip",
+      "text": "Elcikler gidon üzerinde dönüyor"
+    },
+    {
       "id": "sym.saddle_slip",
       "text": "Sele sürüşte aşağı kayıyor"
+    },
+    {
+      "id": "sym.saddle_tilt",
+      "text": "Sele öne ya da arkaya yatıyor"
+    },
+    {
+      "id": "sym.seat_creak",
+      "text": "Selede otururken gıcırtı geliyor"
+    },
+    {
+      "id": "sym.frame_crack",
+      "text": "Kadroda boya çatlağı ya da ezik görünüyor"
+    },
+    {
+      "id": "sym.cassette_wobble",
+      "text": "Kaset göbek üzerinde oynuyor, arkadan tıkırtı geliyor"
     }
   ],
   "faults": [
+    {
+      "id": "f.frame.crack",
+      "part": "frame",
+      "symptoms": [
+        "sym.frame_crack",
+        "sym.bar_creak"
+      ],
+      "cause": "Kadroda kaynak yerinde ya da boruda çatlak var.",
+      "severity": 4,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.headset.loose",
+      "part": "fork.headset",
+      "symptoms": [
+        "sym.headset_play",
+        "sym.fork_knock"
+      ],
+      "cause": "Furç gevşemiş.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-300A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-271A-A"
+    },
+    {
+      "id": "f.headset.worn",
+      "part": "fork.headset",
+      "symptoms": [
+        "sym.steering_notchy"
+      ],
+      "cause": "Furç rulmanları ya da kapları çukurlaşmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA0-20-00-01AA-920A-A"
+    },
+    {
+      "id": "f.fork.worn",
+      "part": "fork.lowers",
+      "symptoms": [
+        "sym.fork_knock",
+        "sym.fork_sticky"
+      ],
+      "cause": "Çatal burçları aşınmış ya da alt bacak yağı azalmış.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-241A-A"
+    },
+    {
+      "id": "f.fork.seals",
+      "part": "fork.seals",
+      "symptoms": [
+        "sym.fork_leak",
+        "sym.fork_sticky"
+      ],
+      "cause": "Toz keçeleri sertleşmiş ya da kir tutmuş; yağ sızdırıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-921A-A"
+    },
+    {
+      "id": "f.fork.stanchion",
+      "part": "fork.stanchions",
+      "symptoms": [
+        "sym.fork_leak"
+      ],
+      "cause": "İç boruda çizik var; keçeyi kesiyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-421A-A"
+    },
+    {
+      "id": "f.fork.preload",
+      "part": "fork.spring",
+      "symptoms": [
+        "sym.fork_bottom"
+      ],
+      "cause": "Ön yük sürücü ağırlığına göre az ayarlanmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA0-20-00-01AA-271A-A"
+    },
+    {
+      "id": "f.stem.loose",
+      "part": "cockpit.stem",
+      "symptoms": [
+        "sym.bar_slip",
+        "sym.headset_play"
+      ],
+      "cause": "Gidon boğazı cıvataları gevşemiş.",
+      "severity": 4,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-30-00-00AA-300A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA0-30-00-00AA-300A-A"
+    },
+    {
+      "id": "f.bar.damaged",
+      "part": "cockpit.bar",
+      "symptoms": [
+        "sym.bar_creak"
+      ],
+      "cause": "Gidon kelepçe kenarında çizilmiş ya da çatlamış.",
+      "severity": 4,
+      "isolation": "DMC-NAYABIKE-AAA-DA0-30-00-00AA-300A-A"
+    },
+    {
+      "id": "f.grips.worn",
+      "part": "cockpit.grips",
+      "symptoms": [
+        "sym.grip_slip"
+      ],
+      "cause": "Elcikler aşınmış ya da yağlanmış.",
+      "severity": 1,
+      "repair": "DMC-NAYABIKE-AAA-DA0-30-00-00AA-921A-A"
+    },
+    {
+      "id": "f.shifter.faulty",
+      "part": "cockpit.shifters",
+      "symptoms": [
+        "sym.shifter_no_return",
+        "sym.shift_slow"
+      ],
+      "cause": "Vites kolunun içindeki mandal mekanizması arızalı.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-60-00-00AA-920A-A"
+    },
+    {
+      "id": "f.brake_lever.sticky",
+      "part": "cockpit.brake_levers",
+      "symptoms": [
+        "sym.lever_no_return"
+      ],
+      "cause": "Fren kolu pivotu kurumuş ya da bükülmüş.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-920A-A"
+    },
+    {
+      "id": "f.seatpost.slip",
+      "part": "seat.post",
+      "symptoms": [
+        "sym.saddle_slip"
+      ],
+      "cause": "Sele borusu kelepçesi yeterince sıkılmamış.",
+      "severity": 1,
+      "repair": "DMC-NAYABIKE-AAA-DA0-40-00-00AA-271A-A"
+    },
+    {
+      "id": "f.seatpost.creak",
+      "part": "seat.post",
+      "symptoms": [
+        "sym.seat_creak"
+      ],
+      "cause": "Sele borusu kuru ya da kirli; kadro içinde gıcırdıyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYABIKE-AAA-D00-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA0-40-00-00AA-241A-A"
+    },
+    {
+      "id": "f.post_head.loose",
+      "part": "seat.post_head",
+      "symptoms": [
+        "sym.saddle_tilt"
+      ],
+      "cause": "Sele kelepçesinin cıvatası gevşemiş.",
+      "severity": 2,
+      "repair": "DMC-NAYABIKE-AAA-DA0-40-00-01AA-271A-A"
+    },
     {
       "id": "f.chain.worn",
       "part": "drive.chain",
@@ -94,7 +355,7 @@
       ],
       "cause": "Zincir kurumuş ya da kirlenmiş.",
       "severity": 1,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-361A-A",
+      "isolation": "DMC-NAYABIKE-AAA-D00-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-241A-A"
     },
     {
@@ -106,7 +367,7 @@
       ],
       "cause": "Zincirde sıkışmış bir bakla var; makaralardan geçerken atlıyor.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-361A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-241A-A"
     },
     {
@@ -117,19 +378,77 @@
       ],
       "cause": "Kaset dişlileri aşınmış; yeni zincir en çok kullanılan dişlide atlıyor.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-361A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA1-10-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-30-00-00AA-920A-A"
     },
     {
+      "id": "f.lockring.loose",
+      "part": "drive.lockring",
+      "symptoms": [
+        "sym.cassette_wobble",
+        "sym.shift_noise"
+      ],
+      "cause": "Kaset kilit somunu gevşemiş.",
+      "severity": 2,
+      "repair": "DMC-NAYABIKE-AAA-DA1-30-00-00AA-300A-A"
+    },
+    {
       "id": "f.crankset.worn_teeth",
-      "part": "drive.crankset",
+      "part": "drive.chainrings",
       "symptoms": [
         "sym.chain_skip",
         "sym.chain_drop"
       ],
       "cause": "Aynakol dişleri sivrilmiş.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A"
+      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-20-00-02AA-921A-A"
+    },
+    {
+      "id": "f.crank.loose",
+      "part": "drive.crank_arms",
+      "symptoms": [
+        "sym.pedal_play",
+        "sym.crank_creak"
+      ],
+      "cause": "Pedal kolu cıvatası gevşemiş; kol kare milde oynuyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-920A-A"
+    },
+    {
+      "id": "f.bottom_bracket.worn",
+      "part": "drive.bottom_bracket",
+      "symptoms": [
+        "sym.crank_creak",
+        "sym.pedal_play"
+      ],
+      "cause": "Orta göbek rulmanları aşınmış ya da gevşemiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-20-00-01AA-920A-A"
+    },
+    {
+      "id": "f.front_derailleur.misadjusted",
+      "part": "drive.front_derailleur",
+      "symptoms": [
+        "sym.front_shift",
+        "sym.chain_drop"
+      ],
+      "cause": "Ön vites değiştiricinin limit vidaları ya da tel gerginliği ayarsız.",
+      "severity": 1,
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-271A-A"
+    },
+    {
+      "id": "f.front_derailleur.position",
+      "part": "drive.front_derailleur",
+      "symptoms": [
+        "sym.fd_rub"
+      ],
+      "cause": "Ön vites değiştiricinin yüksekliği ya da açısı aynaya göre bozuk.",
+      "severity": 1,
+      "repair": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-271A-A"
     },
     {
       "id": "f.rear_derailleur.misadjusted",
@@ -140,7 +459,7 @@
       ],
       "cause": "Vites teli gerginliği ya da limit vidaları ayarsız.",
       "severity": 1,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-310A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-271A-A"
     },
     {
@@ -151,7 +470,20 @@
       ],
       "cause": "Limit vidaları ayarsız; zincir en küçük ya da en büyük dişliden dışarı kaçıyor.",
       "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-271A-A"
+    },
+    {
+      "id": "f.rear_derailleur.damaged",
+      "part": "drive.rear_derailleur",
+      "symptoms": [
+        "sym.shift_slow",
+        "sym.chain_drop"
+      ],
+      "cause": "Arka vites değiştiricinin kafesi bükülmüş ya da yayı zayıflamış.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-920A-A"
     },
     {
       "id": "f.hanger.bent",
@@ -163,40 +495,20 @@
       ],
       "cause": "Vites askısı darbe sonucu bükülmüş.",
       "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-310A-A"
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-40-00-01AA-921A-A"
     },
     {
-      "id": "f.shift_cable.stretched",
-      "part": "drive.shift_cables",
+      "id": "f.jockey.worn",
+      "part": "drive.jockey_wheels",
       "symptoms": [
-        "sym.shift_slow",
-        "sym.front_shift"
+        "sym.shift_noise",
+        "sym.chain_noise"
       ],
-      "cause": "Vites teli esnemiş ya da kılıfı kirlenmiş.",
+      "cause": "Makara dişleri aşınmış ya da yatağı kurumuş.",
       "severity": 1,
-      "repair": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-271A-A"
-    },
-    {
-      "id": "f.front_derailleur.misadjusted",
-      "part": "drive.front_derailleur",
-      "symptoms": [
-        "sym.front_shift",
-        "sym.chain_drop"
-      ],
-      "cause": "Ön vites değiştiricinin limit vidaları ya da tel gerginliği ayarsız.",
-      "severity": 1,
-      "repair": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-271A-A"
-    },
-    {
-      "id": "f.bottom_bracket.worn",
-      "part": "drive.bottom_bracket",
-      "symptoms": [
-        "sym.crank_creak",
-        "sym.pedal_play"
-      ],
-      "cause": "Orta göbek rulmanları aşınmış ya da gevşemiş.",
-      "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA1-20-00-00AA-300A-A"
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-40-00-02AA-921A-A"
     },
     {
       "id": "f.pedal.bearing",
@@ -207,7 +519,54 @@
       ],
       "cause": "Pedal rulmanı aşınmış ya da pedal kola tam sıkılmamış.",
       "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-D00-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA1-50-00-00AA-920A-A"
+    },
+    {
+      "id": "f.pedal_bearings.dry",
+      "part": "drive.pedal_bearings",
+      "symptoms": [
+        "sym.pedal_rough"
+      ],
+      "cause": "Pedal rulmanlarının gresi kurumuş ya da içine su girmiş.",
+      "severity": 1,
+      "repair": "DMC-NAYABIKE-AAA-DA1-50-00-00AA-241A-A"
+    },
+    {
+      "id": "f.shift_cable.stretched",
+      "part": "drive.shift_cables",
+      "symptoms": [
+        "sym.shift_slow",
+        "sym.front_shift"
+      ],
+      "cause": "Vites teli esnemiş ya da kılıfı kirlenmiş.",
+      "severity": 1,
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-40-00-00AA-271A-A"
+    },
+    {
+      "id": "f.shift_cable_rear.frayed",
+      "part": "drive.shift_cable_rear",
+      "symptoms": [
+        "sym.shift_stiff",
+        "sym.shift_slow"
+      ],
+      "cause": "Arka vites teli paslanmış ya da lifleri kopmaya başlamış.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-60-00-00AA-921A-A"
+    },
+    {
+      "id": "f.shift_cable_front.dirty",
+      "part": "drive.shift_cable_front",
+      "symptoms": [
+        "sym.shift_stiff",
+        "sym.front_shift"
+      ],
+      "cause": "Ön vites teli kılıf içinde kirlenmiş, sürtünüyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYABIKE-AAA-DA1-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA1-60-00-00AA-241A-A"
     },
     {
       "id": "f.brake_front.pads_worn",
@@ -243,7 +602,19 @@
       "cause": "Ön disk eğrilmiş.",
       "severity": 2,
       "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
-      "repair": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-300A-A"
+      "repair": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-271A-A"
+    },
+    {
+      "id": "f.brake_front.rotor_worn",
+      "part": "brakes.front.rotor",
+      "symptoms": [
+        "sym.brake_weak",
+        "sym.lever_travel"
+      ],
+      "cause": "Ön disk 1,5 mm'nin altına incelmiş.",
+      "severity": 4,
+      "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-920A-A"
     },
     {
       "id": "f.brake_front.caliper_misaligned",
@@ -258,6 +629,17 @@
       "repair": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-271A-A"
     },
     {
+      "id": "f.brake_front.adapter_loose",
+      "part": "brakes.front.adapter",
+      "symptoms": [
+        "sym.brake_clunk"
+      ],
+      "cause": "Ön kaliper adaptörünün cıvataları gevşemiş.",
+      "severity": 4,
+      "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA2-10-00-01AA-920A-A"
+    },
+    {
       "id": "f.tube_front.puncture",
       "part": "wheel.front.tube",
       "symptoms": [
@@ -265,7 +647,7 @@
       ],
       "cause": "Ön iç lastik delinmiş.",
       "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-920A-A"
     },
     {
@@ -302,7 +684,19 @@
       "cause": "Arka disk eğrilmiş.",
       "severity": 2,
       "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
-      "repair": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-300A-A"
+      "repair": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-271A-A"
+    },
+    {
+      "id": "f.brake_rear.rotor_worn",
+      "part": "brakes.rear.rotor",
+      "symptoms": [
+        "sym.brake_weak",
+        "sym.lever_travel"
+      ],
+      "cause": "Arka disk 1,5 mm'nin altına incelmiş.",
+      "severity": 4,
+      "isolation": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA2-20-00-00AA-920A-A"
     },
     {
       "id": "f.brake_rear.caliper_misaligned",
@@ -324,7 +718,7 @@
       ],
       "cause": "Arka iç lastik delinmiş.",
       "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A",
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
       "repair": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-920A-A"
     },
     {
@@ -340,6 +734,30 @@
       "repair": "DMC-NAYABIKE-AAA-DA2-00-00-00AA-271A-A"
     },
     {
+      "id": "f.brake_cable_front.frayed",
+      "part": "brakes.cable_front",
+      "symptoms": [
+        "sym.lever_no_return",
+        "sym.brake_weak"
+      ],
+      "cause": "Ön fren teli paslanmış ya da kılıfı ezilmiş; tel sürtünüyor.",
+      "severity": 4,
+      "isolation": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-921A-A"
+    },
+    {
+      "id": "f.brake_cable_rear.frayed",
+      "part": "brakes.cable_rear",
+      "symptoms": [
+        "sym.lever_no_return",
+        "sym.brake_weak"
+      ],
+      "cause": "Arka fren teli paslanmış ya da kılıfı ezilmiş; tel sürtünüyor.",
+      "severity": 4,
+      "isolation": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA2-30-00-00AA-921A-A"
+    },
+    {
       "id": "f.rim.out_of_true",
       "part": "wheel.rear.rim",
       "symptoms": [
@@ -348,60 +766,133 @@
       ],
       "cause": "Arka jant eğrilmiş.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A"
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-271A-A"
     },
     {
       "id": "f.spokes.loose",
       "part": "wheel.rear.spokes",
       "symptoms": [
-        "sym.wobble"
+        "sym.wobble",
+        "sym.spoke_ping"
       ],
       "cause": "Arka tekerlekte teller gevşemiş.",
       "severity": 2,
-      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A"
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-271A-A"
+    },
+    {
+      "id": "f.spokes_front.broken",
+      "part": "wheel.front.spokes",
+      "symptoms": [
+        "sym.spoke_ping",
+        "sym.wobble"
+      ],
+      "cause": "Ön tekerlekte tel kopmuş.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-20-00-00AA-921A-A"
+    },
+    {
+      "id": "f.rim_tape.shifted",
+      "part": "wheel.rear.rim_tape",
+      "symptoms": [
+        "sym.flat",
+        "sym.slow_leak"
+      ],
+      "cause": "Jant bandı kaymış; tel delikleri iç lastiği deliyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-920A-A"
+    },
+    {
+      "id": "f.valve_front.leak",
+      "part": "wheel.front.valve",
+      "symptoms": [
+        "sym.slow_leak"
+      ],
+      "cause": "Sibop içi gevşemiş ya da contası bozulmuş.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-10-00-02AA-921A-A"
+    },
+    {
+      "id": "f.tire_front.pressure_low",
+      "part": "wheel.front.tire",
+      "symptoms": [
+        "sym.pinch_flat",
+        "sym.flat"
+      ],
+      "cause": "Lastik basıncı düşük kalmış; iç lastik darbede jantla taş arasında sıkışıyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-10-00-00AA-210A-A"
+    },
+    {
+      "id": "f.tire_front.worn",
+      "part": "wheel.front.tire",
+      "symptoms": [
+        "sym.tire_wear"
+      ],
+      "cause": "Ön lastiğin tırtılları aşınmış.",
+      "severity": 2,
+      "repair": "DMC-NAYABIKE-AAA-DA3-10-00-01AA-921A-A"
+    },
+    {
+      "id": "f.tire_rear.damaged",
+      "part": "wheel.rear.tire",
+      "symptoms": [
+        "sym.tire_damage",
+        "sym.flat"
+      ],
+      "cause": "Arka lastiğin yanağı kesilmiş ya da kabarmış.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-10-00-01AA-921A-A"
     },
     {
       "id": "f.hub_front.play",
-      "part": "wheel.front.hub",
+      "part": "wheel.front.bearings",
       "symptoms": [
         "sym.wheel_play"
       ],
-      "cause": "Ön göbek rulmanında boşluk var ya da çabuk sökme mandalı gevşek.",
+      "cause": "Ön göbek rulmanında boşluk var.",
       "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-300A-A",
-      "repair": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-720A-A"
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-271A-A"
     },
     {
-      "id": "f.headset.loose",
-      "part": "fork.headset",
+      "id": "f.qr_front.loose",
+      "part": "wheel.front.qr",
       "symptoms": [
-        "sym.headset_play",
-        "sym.fork_knock"
+        "sym.wheel_play"
       ],
-      "cause": "Furç gevşemiş.",
-      "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-300A-A",
-      "repair": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-271A-A"
+      "cause": "Ön çabuk sökme mandalı gevşek kapatılmış.",
+      "severity": 4,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-271A-A"
     },
     {
-      "id": "f.fork.worn",
-      "part": "fork",
+      "id": "f.hub_rear.worn",
+      "part": "wheel.rear.bearings",
       "symptoms": [
-        "sym.fork_knock"
+        "sym.hub_rough",
+        "sym.wheel_play"
       ],
-      "cause": "Çatal burçları aşınmış ya da yağı azalmış.",
-      "severity": 3,
-      "isolation": "DMC-NAYABIKE-AAA-DA0-20-00-00AA-300A-A"
+      "cause": "Arka göbek rulmanlarının gresi kurumuş, koni ve bilyalar aşınmış.",
+      "severity": 2,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-00-00-00AA-421A-A",
+      "repair": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-241A-A"
     },
     {
-      "id": "f.seatpost.slip",
-      "part": "seat.post",
+      "id": "f.freehub.slipping",
+      "part": "wheel.rear.freehub",
       "symptoms": [
-        "sym.saddle_slip"
+        "sym.freehub_slip"
       ],
-      "cause": "Sele borusu kelepçesi yeterince sıkılmamış.",
-      "severity": 1,
-      "repair": "DMC-NAYABIKE-AAA-DA0-40-00-00AA-271A-A"
+      "cause": "Serbest çark gövdesinin tırnakları tutmuyor.",
+      "severity": 3,
+      "isolation": "DMC-NAYABIKE-AAA-DA3-30-00-00AA-300A-A"
     }
   ]
 }

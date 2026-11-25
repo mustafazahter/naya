@@ -12,7 +12,7 @@
         <issueInfo issueNumber="001" inWork="00"/>
       </dmIdent>
       <dmAddressItems>
-        <issueDate year="2026" month="11" day="07"/>
+        <issueDate year="2026" month="11" day="24"/>
         <dmTitle><techName>Vites askısı</techName><infoName>Gözle kontrol</infoName></dmTitle>
       </dmAddressItems>
     </dmAddress>
@@ -29,19 +29,18 @@
     <procedure>
       <preliminaryRqmts>
         <reqCondGroup><noConds/></reqCondGroup>
-        <reqSupportEquips><noSupportEquips/></reqSupportEquips>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Vites askısı hizalama aparatı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NB-TL-HANGER</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
         <reqSupplies><noSupplies/></reqSupplies>
         <reqSpares><noSpares/></reqSpares>
-        <reqSafety><noSafety/></reqSafety>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Eğri askıyla büyük dişliye geçmek vites değiştiricinin tellere kaçmasına ve tekerleğin kilitlenmesine yol açabilir.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
       </preliminaryRqmts>
       <mainProcedure>
-        <proceduralStep><para>Zinciri en büyük arka dişliye alın.</para><figure id="fig-0004"><title>Arka vites değiştirici</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00004-A-001-01"/></figure>
-</proceduralStep>
+        <proceduralStep><para>Zinciri en büyük arka dişliye alın.</para><figure id="fig-0004"><title>Arka vites değiştirici</title><graphic infoEntityIdent="ICN-NAYABIKE-AAA-D000000-0-NAYA0-00004-A-001-01"/></figure></proceduralStep>
         <proceduralStep><para>Bisikletin arkasından bakın: vites değiştiricinin iki makarası dişliyle aynı düzlemde olmalıdır.</para></proceduralStep>
-        <proceduralStep><para>Makaralar içe doğru eğikse askı bükülmüştür. Askı yetkili serviste düzeltilmeli ya da değiştirilmelidir.</para></proceduralStep>
-        <proceduralStep><warning><warningAndCautionPara>Eğri askıyla büyük dişliye geçmek vites değiştiricinin tellere kaçmasına ve tekerleğin kilitlenmesine yol açabilir.</warningAndCautionPara></warning><para>Uyarıya uyduğunuzu kontrol edin.</para></proceduralStep>
+        <proceduralStep><para>Makaralar içe doğru eğikse askı bükülmüştür. Hizalama aparatıyla jantın dört noktasında ölçerek düzeltin; fark 4 mm'nin altında olmalıdır.</para></proceduralStep>
+        <proceduralStep><para>Askıda çatlak varsa ya da düzeltme tutmuyorsa askıyı değiştirin.</para></proceduralStep>
       </mainProcedure>
-      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYABIKE" systemDiffCode="AAA" systemCode="DA1" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="271" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>
   </content>
 </dmodule>
