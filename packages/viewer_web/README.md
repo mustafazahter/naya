@@ -28,7 +28,6 @@ Android'de `file://` kullanılmıyor, çünkü viewer ES modülü olarak derleni
 | --- | --- |
 | `embed` | Uygulama içi görünüm: düğmeler ve etiketler gizlenir, onları Flutter çizer. |
 | `model=<yol>` | Yüklenecek `.glb`. Varsayılan `./models/bicycle.glb`. |
-| `map=<yol>` | Montaj ağacı (`map/parts.json`). Verilmezse modelin yanında aynı adla `.parts.json` aranır (`bicycle.glb` → `bicycle.parts.json`); yoksa parçalar merkezden açılır. |
 | `focus=<düğüm>` | Model yüklenince kamera bu parçaya yaklaşır, diğerleri saydamlaşır. Teşhiste kullanılıyor. |
 
 ## Köprü
@@ -39,8 +38,8 @@ Mesajların tipleri `src/bridge.ts` dosyasında; Flutter tarafı `apps/naya/lib/
 
 | Komut | Alanlar | Ne yapar |
 | --- | --- | --- |
-| `load` | `url`, isteğe bağlı `map` | Başka bir modeli yükler. |
-| `explode` | `amount` (0-1) | Parçaları montaj ağacına göre açar: önce gruplar (aktarma organları, tekerlekler...) modelin merkezinden, sonra grubun içindeki parçalar grubun merkezinden ayrılır. İç içe parçalar (lastik, jant, göbek) aks boyunca sıralanır. Kamera açılmış modele göre geri çekilir. |
+| `load` | `url` (eski sürümlerin gönderdiği `map` yok sayılır) | Başka bir modeli yükler. |
+| `explode` | `amount` (0-1) | Gövde dışındaki bütün parçaları dışarı açar; açılmış hâlde hiçbiri birbirine değmez (bkz. [Parçalara ayırma](#parçalara-ayırma)). Kamera açılmış modele göre geri çekilir. |
 | `focus` | `part` | Kamerayı parçaya yaklaştırır, diğerlerini saydam gri yapar. |
 | `isolate` | `part` ya da `null` | Yalnız parçayı gösterir, kamera ona uçar; `null` bütün modeli geri getirir. |
 | `xray` | `enabled` | Bütün modeli yarı saydam yapar. |
@@ -57,6 +56,23 @@ Mesajların tipleri `src/bridge.ts` dosyasında; Flutter tarafı `apps/naya/lib/
 | `scanDone` | | Tarama animasyonu bitti. |
 
 Düğüm adlarında nokta yok (three.js siliyor); parça kimliğiyle eşleşme `map/parts.json`'daki `meshNodes` alanıyla yapılır.
+
+## Parçalara ayırma
+
+Plan model yüklenirken bir kez kurulur (`src/explode.ts`), ayrı bir iş parçacığında (`src/explodeWorker.ts`; açılamazsa sayfanın kendisinde). Plan kurulurken eski model ekranda kalır.
+
+Doğrusal, merkezden dışarı, katman katman:
+
+1. C, bütün modelin kutusunun merkezi. Her parça (ve `src/pieces.ts`'in ayırdığı sağ/sol kısım) C'den kendi merkezine uzanan doğru boyunca gider; merkezi C'ye modelin en uzun kenarının %2'sinden yakınsa yukarı.
+2. Tekerlek gibi yuvarlak, yassı bir parça; merkezi onunkine yakın ve kutusu onun içinde kalan parçalarla (jant, göbek, disk, kaliper) bir takımdır. Takım ortak merkezinin doğrusunda birlikte gider; kendi içinde aks (en ince eksen) boyunca içten dışa, birbirine değmeyecek eşit aralıkla yan yana dizilir: göbek, disk, jant, iç lastik, dış lastik.
+3. Kat d: parçayı kutusunun içine alan (kutusunun %85'i onun içinde) daha büyük parça sayısı. Kasa 0, döşeme 1, koltuk 2...
+4. Yol: k · r + (L − d + 1) · Δ. r merkeze uzaklığı, L en büyük kat. Dış kat içindekinden bir Δ daha uzağa gider: x, 2x, 3x. Bu ilk yol modelin en uzun kenarının %38'ini geçmez.
+5. k ve Δ (Δ, en uzun kenarın %2'sinin katları): değen en az ikili kalan, eşitse açılmış kutusu en küçük olan.
+6. Kalan değmeler içten dışa çözülür: her takım, kendinden içteki takımlara değmeyene kadar kendi doğrusunda biraz daha ilerler. Dış kat içtekinden geri kalmaz; gerekirse sınırı aşar (kasa, içindeki her şeyin üstüne çıkmak zorunda).
+7. Zemin: açılmış bütün parçalar birlikte, en alttaki zemine oturacak kadar kaydırılır; tek tek parça kırpılmaz.
+8. Animasyon: bütün parçalar aynı anda, kendi doğrusunda, yumuşak geçişle hareket eder; yaklaşık 2,5 sn. Kamera açılmış modelin kutusunu kadraja alır.
+
+Geliştirirken tarayıcı konsolunda `await explodeReport()` açılmış hâlde birbirine değen parçaları listeler (yalnız `npm run dev`'de); `viewer.explodeTrack()` k ve Δ'yı verir. Ayrı yerlere giden iki parça hiçbir hücrede buluşmamalı; toplu hâlde birbirine dayananlar da açılınca ayrılmış olmalı. Boş liste beklenir.
 
 ## Efektler nasıl çiziliyor
 

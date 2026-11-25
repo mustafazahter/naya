@@ -91,7 +91,7 @@ window.addEventListener("message", (e: MessageEvent<ViewerCommand>) => {
   const command = e.data;
   switch (command?.type) {
     case "load":
-      void viewer.load(command.url, command.map);
+      viewer.load(command.url).catch(() => send({ type: "loadFailed" }));
       break;
     case "scan":
       partBox.hidden = true;
@@ -122,7 +122,16 @@ window.addEventListener("message", (e: MessageEvent<ViewerCommand>) => {
 });
 
 // Geliştirirken tarayıcı konsolundan denemek için.
-if (import.meta.env.DEV) (window as unknown as { viewer: NayaViewer }).viewer = viewer;
+if (import.meta.env.DEV) {
+  const dev = window as unknown as { viewer: NayaViewer; explodeReport: () => Promise<unknown> };
+  dev.viewer = viewer;
+  // Parçalara ayırmada birbirine giren parçaları listeler.
+  dev.explodeReport = async () => {
+    const { explodeReport } = await import("./explodeCheck");
+    const { level, parts } = viewer.explodeTrack();
+    return level ? explodeReport(parts, level) : [];
+  };
+}
 
 const params = new URLSearchParams(location.search);
 // Uygulamanın içinde düğmeleri ve etiketleri Flutter çiziyor.
@@ -140,8 +149,10 @@ function progress(fraction: number): void {
 }
 
 viewer
-  .load(model, params.get("map") ?? undefined, progress)
+  .load(model, progress)
   .then(async (parts) => {
+    // Bu yükleme yerine daha yenisi istendi; hazır sinyalini o verir.
+    if (parts === null) return;
     status.textContent = `${parts.length} parça · sürükle: döndür · tekerlek/iki parmak: yakınlaş`;
     send({ type: "ready" });
     await viewer.introduce();
