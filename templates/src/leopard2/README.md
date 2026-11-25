@@ -5,8 +5,8 @@ Leopard 2A6 ana muharebe tankı. İçerik yalnız genel bakım bilgisidir: periy
 ```
 leopard2/
 ├── naya.json      manifest (bütünlük özetleri paketlerken eklenir)
-├── csdb/          S1000D Issue 5.0: 138 DM, PM, DML, 16 çizim
-├── map/           parts.json (108 parça), faults.json (74 arıza, 67 belirti), zones.json
+├── csdb/          S1000D Issue 5.0: 154 DM, PM, DML, 16 çizim
+├── map/           parts.json (108 parça), faults.json (87 arıza, 263 belirti), zones.json
 ├── model/         product.glb
 └── scripts/       modeli kuran, içeriği ve çizimleri üreten betikler
 ```
@@ -30,7 +30,7 @@ cd templates/src/leopard2/scripts && python3 make_content.py
 
 | SNS | Sistem |
 | --- | --- |
-| `D00` | Araç (genel tanım, güvenlik uyarıları, günlük kontrol, parça kataloğu, iş kuralları; `-10` periyodik bakım: görev öncesi, sırası ve sonrası, haftalık, aylık, soğuk hava; `-20` yağlama çizelgesi ve gresleme; `-30` yıkama, iç temizlik, korozyon koruma; `-40` alet ve teçhizat) |
+| `D00` | Araç (genel tanım, güvenlik uyarıları, günlük kontrol, bakım takvimi, sıvılar, terimler sözlüğü, parça kataloğu, iş kuralları; `-10` periyodik bakım: görev öncesi, sırası ve sonrası, haftalık, aylık, soğuk hava; `-20` yağlama çizelgesi ve gresleme; `-30` yıkama, iç temizlik, korozyon koruma; `-40` alet ve teçhizat) |
 | `DA0` | Gövde ve kule (`-10` gövde ve kapaklar, `-20` kule, `-30` motor güvertesi, `-40` çekme ve kurtarma, `-50` yan etekler ve çamurluklar, `-60` kule yatağı ve tahrik) |
 | `DA1` | Güç paketi (`-10` motor, `-20` yağlama, `-30` soğutma, `-40` hava emme ve egzoz, `-50` yakıt) |
 | `DA2` | Güç aktarma (`-10` şanzıman, `-20` son dişliler, `-30` frenler, `-40` sürüş kumandaları) |
@@ -41,6 +41,8 @@ cd templates/src/leopard2/scripts && python3 make_content.py
 | `DA7` | Mürettebat bölmesi donanımı (`-10` havalandırma ve NBC koruma, `-20` yangın söndürme, `-30` ısıtıcı) |
 
 Her arızanın belirtileri, bir arıza bulma DM'i (`421`) ve bir onarım ya da bakım DM'i var. Mevcut DM'lerin kodları değişmez; aynı sistem, alt sistem ve bilgi kodunda ikinci bir DM ayrıştırma koduyla (`01`, `02`…) ayrılır.
+
+Her kök sistemin bir "Nasıl çalışır" DM'i (bilgi kodu 040) var. Arızaların belirtilerine mürettebatın arızayı kendi sözleriyle anlatışı da eklenir ("molada bir göbek çok sıcak", "kule bir noktada takılıyor"); teşhis serbest metni bu söyleyişlerle eşleştirir. Söyleyişler betikteki `PHRASINGS` tablosundadır. Bakım takvimi ve sıvılar DM'leri yalnız neye, ne zaman ve nasıl bakılacağını anlatır; aralık, tip ve miktar yazılmaz.
 
 Çizimler (`ICN-…-0000N-…JPG`) modelden `scripts/render_icn.py` ile üretilir; konusu olan parçalar turuncu. PNG'ler `sips` ile JPEG'e çevrilir (betiğin başındaki komut).
 

@@ -37,10 +37,16 @@
             <isolationStep id="stp-0002">
               <action>Sis bombası atıcılarına dışarıdan bakın.</action>
               <isolationStepQuestion>Atıcı ezik ya da koruyucu kapak eksik mi?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-smoke"/><noAnswer nextActionRefId="end-mount"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-smoke"/><noAnswer nextActionRefId="stp-0003"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0003">
+              <action>Top kalkanı ile kule arasındaki toz körüğüne bakın.</action>
+              <isolationStepQuestion>Körük yırtık, çatlak ya da yerinden çıkmış mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-boot"/><noAnswer nextActionRefId="end-mount"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-cover"><action>Namlu ağzı kapağını değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA5" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-smoke"><action>Atıcıları muayene edin ve silah sorumlusuna bildirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA5" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-boot"><action>Ana topun dış muayenesini yapın ve körük hasarını silah sorumlusuna bildirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA5" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-mount"><action>Makineli tüfek kundağını muayene edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA5" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

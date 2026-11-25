@@ -25,7 +25,7 @@
     <faultIsolation>
       <faultIsolationProcedure>
         <fault faultCode="NAYATANK-DA0-003"/>
-        <faultDescr><descr>Yan etek, çamurluk, çeki halatı ya da dış kutularda hasar ya da eksik var.</descr></faultDescr>
+        <faultDescr><descr>Yan etek, çamurluk, çeki halatı, motor güvertesi kapakları, dış kutular, kule sepeti ya da antenlerde hasar ya da eksik var.</descr></faultDescr>
         <isolationProcedure>
           <preliminaryRqmts><reqCondGroup><noConds/></reqCondGroup><reqSupportEquips><noSupportEquips/></reqSupportEquips><reqSupplies><noSupplies/></reqSupplies><reqSpares><noSpares/></reqSpares><reqSafety><noSafety/></reqSafety></preliminaryRqmts>
           <isolationMainProcedure>
@@ -35,12 +35,30 @@
               <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-skirt"/><noAnswer nextActionRefId="stp-0002"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationStep id="stp-0002">
-              <action>Çeki halatlarını ve kancaları kontrol edin.</action>
-              <isolationStepQuestion>Halatta kopuk tel ya da ezilme var mı?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-cable"/><noAnswer nextActionRefId="end-hull"/></yesNoAnswer></isolationStepAnswer>
+              <action>Çeki halatlarını, kancaları ve çeki demirini kontrol edin.</action>
+              <isolationStepQuestion>Halatta kopuk tel ya da ezilme, demirde eksik pim ya da çatlak var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-cable"/><noAnswer nextActionRefId="stp-0003"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0003">
+              <action>Motor güvertesi kapaklarının kilitlerine bakın.</action>
+              <isolationStepQuestion>Kapak kilitlenmiyor ya da sürüşte takırdıyor mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-deck"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0004">
+              <action>Çamurluk üstündeki kutulara ve kutu kapaklarına bakın.</action>
+              <isolationStepQuestion>Kutu ezik, kapağı açılıyor ya da kilidi kayıp mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-fender"/><noAnswer nextActionRefId="stp-0005"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0005">
+              <action>Kule arka sepetine ve antenlere bakın.</action>
+              <isolationStepQuestion>Sepet eğilmiş, kayışı kopmuş ya da anten kırık mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-turret"/><noAnswer nextActionRefId="end-hull"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-skirt"><action>Paneli muayene edin; gerekiyorsa değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA0" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-cable"><action>Halatı ayırın ve muayene edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA0" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-deck"><action>Motor güvertesi kapaklarını ve kilitlerini muayene edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA0" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-fender"><action>Çamurlukları ve dış kutuları muayene edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA0" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-turret"><action>Kule üstü donanımını muayene edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA0" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-hull"><action>Gövde ve kapakları muayene edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA0" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

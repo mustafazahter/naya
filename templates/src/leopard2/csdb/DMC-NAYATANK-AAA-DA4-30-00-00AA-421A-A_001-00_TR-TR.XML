@@ -42,11 +42,17 @@
             <isolationStep id="stp-0003">
               <action>Marşa basarken marş motoru bölgesini dinleyin.</action>
               <isolationStepQuestion>Yalnız tık sesi mi geliyor?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-cables"/><noAnswer nextActionRefId="end-starter"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="stp-0004"/><noAnswer nextActionRefId="end-starter"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0004">
+              <action>Takviyeyle çalıştırma denendiyse takviye prizine bakın.</action>
+              <isolationStepQuestion>Takviye prizi ısınmış, kararmış ya da içinde kir ve pas var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-slave"/><noAnswer nextActionRefId="end-cables"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-master"><action>Ana şalteri ve akü bağlantılarını kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA4" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-neutral"><action>Vites seçiciyi çalıştırma konumuna alın ve yeniden deneyin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA2" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-cables"><action>Marş motoru kablolarını ve bağlantılarını kontrol edin; gerekiyorsa takviyeyle çalıştırın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA4" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-slave"><action>Takviye prizini muayene edin ve temizleyin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA4" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-starter"><action>Marş motoru ya da rölesi arızalı olabilir; yetkili bakım birimine bildirin.</action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Alet ve teçhizat</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Yerleşim</title>
+        <para>Araç alet takımı, palet aletleri ve kurtarma teçhizatının her parçasının tankta belirli bir yeri vardır; yerleşim çizelgesi aracın el kitabındadır. Parçalar yürüyüşte ses yapmayacak ve düşmeyecek biçimde bağlanır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Sayım</title>
+        <para>Aletler görev öncesinde ve haftalık bakımda sayılır. Eksik ya da hasarlı alet bakım kaydına yazılır. Palet aletleri olmadan palet gerginliği ayarlanamaz ve palet bağlantısı sökülemez; bu yüzden sahada en önemli aletlerdir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

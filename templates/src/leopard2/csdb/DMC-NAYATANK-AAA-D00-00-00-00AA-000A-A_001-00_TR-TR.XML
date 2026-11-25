@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="000" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Leopard 2A6</techName><infoName>Bakım takvimi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Kullanım</title>
+        <para>Takvim, bakım düzeylerinde hangi sistemlere bakılacağını özetler. Aralıklar çalışma saatine, kilometreye ve takvime bağlıdır; kesin aralıklar aracın kendi bakım çizelgesindedir.</para>
+        <para>Tozlu, çamurlu, çok sıcak ya da çok soğuk koşullarda filtre, gresleme ve temizlik daha sık yapılır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Her kullanımdan önce</title>
+        <para>Mürettebat bakar:<randomList><listItem><para>Motor yağı, soğutma sıvısı, şanzıman yağı ve hidrolik yağı seviyeleri.</para></listItem><listItem><para>Güç paketi bölmesinin altında ve tank çevresinde sızıntı izi.</para></listItem><listItem><para>Palet gerginliği, palet bağlantı parçaları ve yol tekerleği bandajları.</para></listItem><listItem><para>Hava filtresi göstergesi ve yakıt filtresinin su haznesi.</para></listItem><listItem><para>Lambalar, iç haberleşme, optik camları ve kapak contaları.</para></listItem><listItem><para>Yangın söndürme sisteminde uyarı olmaması ve el tipi söndürücüler.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Molalarda ve görev sonunda</title>
+        <para>Mürettebat bakar:<randomList><listItem><para>Yol tekerleği, avara ve yürütücü dişli göbeklerinin iki yanda karşılaştırmalı sıcaklığı.</para></listItem><listItem><para>Motor güvertesi ızgaralarındaki yaprak ve çamur.</para></listItem><listItem><para>Yeni sızıntı, gevşek bağlantı ve kopuk palet tabanı.</para></listItem><listItem><para>Görev sonunda yakıt ikmali, temizlik ve bulunan eksiklerin kaydı.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Haftalık</title>
+        <para>Yapılacaklar:<randomList><listItem><para>Yürüyen takımın gresörlükleri, kapak menteşeleri ve sürüş kumandaları.</para></listItem><listItem><para>Akülerin durumu, kutup başları ve kablo bağlantıları.</para></listItem><listItem><para>Kule yatağı çevresinin temizliği; kule kilidinin çalışması.</para></listItem><listItem><para>Alet ve teçhizat sayımı.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Aylık</title>
+        <para>Yapılacaklar:<randomList><listItem><para>Kablo demetleri, konnektörler ve takviye prizi.</para></listItem><listItem><para>Hidrolik hortumları, akümülatörün dışı ve filtre göstergesi.</para></listItem><listItem><para>NBC filtre göstergesi ve havalandırma ızgarası.</para></listItem><listItem><para>Isıtıcının hava girişi ve egzozu.</para></listItem><listItem><para>Gövde boşaltma tapaları ve korozyon kontrolü.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Dönemsel bakım</title>
+        <para>Yetkili bakım birimiyle:<randomList><listItem><para>Motor yağı ve yağ filtreleri, şanzıman yağı ve filtresi, son dişli yağı değişimi.</para></listItem><listItem><para>Soğutma sıvısının değişimi ve antifriz koruma kontrolü.</para></listItem><listItem><para>Hava filtresi elemanlarının ve yakıt filtresinin değişimi.</para></listItem><listItem><para>Kule yatağının greslenmesi ve tahriklerin muayenesi.</para></listItem><listItem><para>Güç paketinin çalışma testi ve kayıtlardaki uyarıların gözden geçirilmesi.</para></listItem></randomList></para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

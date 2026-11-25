@@ -41,13 +41,19 @@
             </isolationStep>
             <isolationStep id="stp-0003">
               <action>Üniteyi çalıştırıp fanı dinleyin.</action>
-              <isolationStepQuestion>Fan sesi yok ya da sürtünme sesi mi var?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-fan"/><noAnswer nextActionRefId="end-fuse"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepQuestion>Fan hiç dönmüyor ve ses gelmiyor mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-fuse"/><noAnswer nextActionRefId="stp-0004"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0004">
+              <action>Fan dönerken sesi dinleyin.</action>
+              <isolationStepQuestion>Sürtünme, vınlama ya da titreşim sesi var mı?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-fan"/><noAnswer nextActionRefId="end-check"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-grille"><action>Izgarayı temizleyin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA7" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-filter"><action>NBC filtre elemanını değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA7" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-fan"><action>Fan arızalı olabilir; yetkili bakım birimine bildirin.</action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-fuse"><action>Ünitenin sigortasını ve kablosunu kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA4" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-fan"><action>Fan rulmanı ya da kanadı arızalı olabilir; üniteyi kapatın ve yetkili bakım birimine bildirin.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-fuse"><action>Ünitenin sigortasını ve kablosunu kontrol edin; sigorta sağlamsa fan motoru arızalı olabilir, bildirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA4" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-check"><action>Hava kanallarını ve ünitenin çalışmasını kontrol edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA7" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="300" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
         </isolationProcedure>

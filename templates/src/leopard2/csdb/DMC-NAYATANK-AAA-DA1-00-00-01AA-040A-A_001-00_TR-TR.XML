@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA1" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Güç paketi</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Tek blok halinde güç</title>
+        <para>Güç paketi, motorun, şanzımanın ve soğutma düzeninin birlikte sökülüp takılabilen bir bloğudur. Arızalı bir güç paketi sahada bütün olarak değiştirilir; tank kısa sürede yeniden kullanılabilir.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Motor</title>
+        <para>Motor turboşarjlı bir dizel motordur. Hava filtrelerinden geçen hava turboşarjlarla sıkıştırılıp silindirlere basılır; yakıt yüksek basınçla püskürtülür ve sıkışmanın ısısıyla tutuşur. Bujisi yoktur.</para>
+        <para>Motor kontrol ünitesi algılayıcılardan gelen bilgiyle yakıtı ayarlar ve bir sorun görürse sürücüye uyarı verir.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Soğutma ve hava</title>
+        <para>Soğutma sıvısı motorun ısısını radyatörlere taşır; fanlar motor güvertesinin ızgaralarından havayı çekerek radyatörlerden geçirir. Izgaralar ya da petekler tıkanırsa motor sıcaklığı yükselir.</para>
+        <para>Ön temizleyici havadaki iri tozu ayırıp dışarı atar; ince tozu filtre elemanları tutar. Tozlu arazide filtre göstergesi daha sık izlenir.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Şanzıman ve frenler</title>
+        <para>Şanzıman motorun gücünü iki yandaki son dişlilere ve yürütücü dişlilere iletir; tankın dönüşünü de iki paletin hızını farklılaştırarak sağlar. Servis frenleri ve yavaşlatıcı şanzımanın içindedir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

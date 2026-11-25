@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA4" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="320" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Uyarı lambaları ve gösterge devresi</techName><infoName>Çalışma testi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Tank düz zeminde, motor durdurulmuş, park freni çekili.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Ana şalter açık; motor durdurulmuş.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Ölçü ve ayar değerleri bu şablonda verilmez; aracın kendi teknik el kitabındaki değerleri kullanın.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Multimetre</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-034</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSpares><noSpares/></reqSpares>
+        <reqSafety><noSafety/></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Gösterge panelindeki lamba sınama düğmesine basın; bütün uyarı lambalarının yandığını kontrol edin. Yanmayan lambanın ampulünü ya da ışık birimini değiştirin.</para></proceduralStep>
+        <proceduralStep><para>Şüpheli uyarının algılayıcısına gidin; konnektörünü ayırıp temas yüzeylerinde nem, oksit ya da eğilmiş pim arayın.</para></proceduralStep>
+        <proceduralStep><para>Konnektör ayrıkken uyarının davranışını izleyin. Uyarı sönüyor ya da yanıyorsa devre çalışıyordur; algılayıcının kendisini el kitabındaki yolla ölçün.</para></proceduralStep>
+        <proceduralStep><para>Algılayıcı ile gösterge paneli arasındaki kablo demetini sürtünme ve ezilmeye karşı gözden geçirin.</para></proceduralStep>
+        <proceduralStep><para>Konnektörü temizleyip takın; uyarıyı motor çalışırken yeniden izleyin.</para></proceduralStep>
+        <proceduralStep><para>Devre ve algılayıcı sağlamsa ama uyarı sürüyorsa gerçek bir arıza vardır: motoru çalıştırmayın ve yetkili bakım birimine bildirin.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

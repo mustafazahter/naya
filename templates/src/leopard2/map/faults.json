@@ -267,6 +267,790 @@
     {
       "id": "sym.smoke_tube_damage",
       "text": "Sis bombası atıcısı ezik ya da koruyucu kapağı eksik"
+    },
+    {
+      "id": "sym.idler_hot",
+      "text": "Avara ya da yürütücü dişli göbeği sürüşten sonra çok sıcak"
+    },
+    {
+      "id": "sym.sprocket_bolt",
+      "text": "Yürütücü dişli çemberinde gevşek ya da eksik cıvata var"
+    },
+    {
+      "id": "sym.slave_socket",
+      "text": "Takviye prizi kararmış, paslı ya da kontakları gevşek"
+    },
+    {
+      "id": "sym.false_warning",
+      "text": "Uyarı yanıyor ama seviye ve ölçümler normal"
+    },
+    {
+      "id": "sym.pump_cycling",
+      "text": "Hidrolik pompa düzen kullanılmadan sık sık devreye giriyor"
+    },
+    {
+      "id": "sym.deck_hatch",
+      "text": "Motor güvertesi kapağı kilitlenmiyor ya da sürüşte takırdıyor"
+    },
+    {
+      "id": "sym.box_damaged",
+      "text": "Çamurluk üstündeki kutu ezik ya da kapağı açılıyor"
+    },
+    {
+      "id": "sym.antenna",
+      "text": "Anten kırık ya da eğilmiş"
+    },
+    {
+      "id": "sym.gun_boot",
+      "text": "Top kalkanındaki toz körüğü yırtık ya da yerinden çıkmış"
+    },
+    {
+      "id": "sym.nbc_fan_dead",
+      "text": "Havalandırma fanı hiç dönmüyor, ses gelmiyor"
+    },
+    {
+      "id": "sym.old_oil",
+      "text": "Motor yağı çok koyu ve yanık kokulu, değişim zamanı geçmiş"
+    },
+    {
+      "id": "sym.park_brake_drag",
+      "text": "Park freni indirildiği hâlde tank zor yürüyor"
+    },
+    {
+      "id": "sym.hydraulic_foam",
+      "text": "Hidrolik yağı bulanık ya da köpüklü"
+    },
+    {
+      "id": "sym.batteries.flat.1",
+      "text": "Sabah ana şalteri açtım, göstergeler zayıf yandı ve marş dönmedi"
+    },
+    {
+      "id": "sym.batteries.flat.2",
+      "text": "Soğuk gecenin ardından motor marşta zorlandı"
+    },
+    {
+      "id": "sym.batteries.flat.3",
+      "text": "Akü göstergesi düşük gösteriyor, telsiz kendi kendine kapanıyor"
+    },
+    {
+      "id": "sym.batteries.terminals.1",
+      "text": "Akü kutup başlarında beyaz kabuk var"
+    },
+    {
+      "id": "sym.batteries.terminals.2",
+      "text": "Akü kablosu oynatınca marş basıyor"
+    },
+    {
+      "id": "sym.generator.failed.1",
+      "text": "Motor çalışırken şarj uyarısı yanık kalıyor"
+    },
+    {
+      "id": "sym.generator.failed.2",
+      "text": "Uzun sürüşten sonra aküler yine boş çıkıyor"
+    },
+    {
+      "id": "sym.generator.failed.3",
+      "text": "Motor bölmesinden yanık kablo kokusu geldi, şarj göstergesi düştü"
+    },
+    {
+      "id": "sym.electrical.drain.1",
+      "text": "Tank birkaç gün durunca ana şalter kapalı olmasına rağmen aküler bitiyor"
+    },
+    {
+      "id": "sym.electrical.drain.2",
+      "text": "Ana şalteri kapattıktan sonra bir lamba ya da cihaz yanık kalıyor"
+    },
+    {
+      "id": "sym.harness.chafed.1",
+      "text": "Arazide sarsıntıda bazı lambalar ve cihazlar kesilip geliyor"
+    },
+    {
+      "id": "sym.harness.chafed.2",
+      "text": "Kablo demetinin üstünde aşınmış izolasyon gördüm"
+    },
+    {
+      "id": "sym.harness.chafed.3",
+      "text": "Bir konnektörün içi nemli ve yeşillenmiş"
+    },
+    {
+      "id": "sym.fuse.blown.1",
+      "text": "Bir gruptaki bütün lambalar aynı anda söndü"
+    },
+    {
+      "id": "sym.fuse.blown.2",
+      "text": "Devre kesici attı, yeniden basınca yine atıyor"
+    },
+    {
+      "id": "sym.starter.failed.1",
+      "text": "Marş düğmesine basınca motor bölmesinden tek bir tık geliyor, aküler dolu"
+    },
+    {
+      "id": "sym.starter.failed.2",
+      "text": "Marş motoru boşta vınlıyor ama motoru çevirmiyor"
+    },
+    {
+      "id": "sym.master_switch.1",
+      "text": "Ana şalteri açınca tankta hiçbir şey yanmıyor"
+    },
+    {
+      "id": "sym.master_switch.2",
+      "text": "Ana şalter açılıyor ama elektrik gidip geliyor"
+    },
+    {
+      "id": "sym.instruments.gauge.1",
+      "text": "Sürücü panelindeki bir ibre hep sıfırda kalıyor"
+    },
+    {
+      "id": "sym.instruments.gauge.2",
+      "text": "Göstergelerden biri titriyor ya da saçma değer gösteriyor"
+    },
+    {
+      "id": "sym.lights.bulb.1",
+      "text": "Farlardan biri yanmıyor"
+    },
+    {
+      "id": "sym.lights.bulb.2",
+      "text": "Ön köşe lambası yanmıyor, ampul kararmış"
+    },
+    {
+      "id": "sym.taillight.damaged.1",
+      "text": "Arka lambanın camı kırılmış, içine su dolmuş"
+    },
+    {
+      "id": "sym.taillight.damaged.2",
+      "text": "Arka lambalar çarpmadan sonra yanmaz oldu"
+    },
+    {
+      "id": "sym.intercom.headset.1",
+      "text": "Başlıktan arkadaşları duyamıyorum, sadece cızırtı var"
+    },
+    {
+      "id": "sym.intercom.headset.2",
+      "text": "Kabloyu oynatınca iç haberleşme bir gelip bir gidiyor"
+    },
+    {
+      "id": "sym.intercom.headset.3",
+      "text": "Bir mürettebat yerinin mikrofonu ses iletmiyor"
+    },
+    {
+      "id": "sym.fuel.water.1",
+      "text": "Yakıt filtresinin su haznesi suyla dolu"
+    },
+    {
+      "id": "sym.fuel.water.2",
+      "text": "Yağmurlu günlerden sonra motor tekliyor ve güç düşüyor"
+    },
+    {
+      "id": "sym.fuel.water.3",
+      "text": "İkmalden sonra motor kesik kesik çalışmaya başladı"
+    },
+    {
+      "id": "sym.fuel.filter_clogged.1",
+      "text": "Yokuşta tam gazda motor boğuluyor, tank hız almıyor"
+    },
+    {
+      "id": "sym.fuel.filter_clogged.2",
+      "text": "Yakıt filtresi uzun süredir değişmedi, motor yükte bocalıyor"
+    },
+    {
+      "id": "sym.fuel.air.1",
+      "text": "Yakıt bitince ikmal yaptık ama motor bir türlü ateş almıyor"
+    },
+    {
+      "id": "sym.fuel.air.2",
+      "text": "Filtre değişiminden sonra motor çalışıp duruyor"
+    },
+    {
+      "id": "sym.fuel.leak.1",
+      "text": "Güç paketi bölmesinde mazot kokusu var"
+    },
+    {
+      "id": "sym.fuel.leak.2",
+      "text": "Yakıt borusunun bağlantısında ıslaklık ve damla var"
+    },
+    {
+      "id": "sym.fuel.cap_seal.1",
+      "text": "Doldurma kapağının contası yırtılmış ya da yerinden çıkmış"
+    },
+    {
+      "id": "sym.fuel.cap_seal.2",
+      "text": "Yıkamadan sonra yakıt filtresinde su birikti"
+    },
+    {
+      "id": "sym.injection.fault.1",
+      "text": "Motor yükte kara duman atıyor ve sarsılıyor"
+    },
+    {
+      "id": "sym.injection.fault.2",
+      "text": "Rölantide motor düzensiz vuruyor, bir silindir eksik gibi"
+    },
+    {
+      "id": "sym.air_filter.clogged.1",
+      "text": "Tozlu arazide hava filtresi göstergesi kırmızıya geçti"
+    },
+    {
+      "id": "sym.air_filter.clogged.2",
+      "text": "Hızlanırken egzozdan yoğun kara duman çıkıyor"
+    },
+    {
+      "id": "sym.precleaner.blocked.1",
+      "text": "Toz atma çıkışından toz çıkmıyor, filtre göstergesi hemen kırmızıya geçiyor"
+    },
+    {
+      "id": "sym.precleaner.blocked.2",
+      "text": "Ön temizleyicinin girişi çamurla tıkanmış"
+    },
+    {
+      "id": "sym.intake.leak.1",
+      "text": "Hava kanalının kelepçesi gevşek, iç tarafta toz izi var"
+    },
+    {
+      "id": "sym.intake.leak.2",
+      "text": "Hava filtresinden sonraki kanalda yırtık gördüm"
+    },
+    {
+      "id": "sym.turbo.leak.1",
+      "text": "Gaza basınca güç paketinden yüksek bir ıslık geliyor"
+    },
+    {
+      "id": "sym.turbo.leak.2",
+      "text": "Turboşarj bağlantısında yağlı is izi var, tank çekmiyor"
+    },
+    {
+      "id": "sym.engine.control.1",
+      "text": "Motor arıza uyarısı yandı, motor güç kesip yavaş moda geçti"
+    },
+    {
+      "id": "sym.engine.control.2",
+      "text": "Uyarı yanınca motor devri yükselmiyor"
+    },
+    {
+      "id": "sym.engine.oil_burning.1",
+      "text": "Egzozdan mavimsi duman çıkıyor, yağ seviyesi hızla düşüyor"
+    },
+    {
+      "id": "sym.engine.oil_burning.2",
+      "text": "Uzun rölantiden sonra gaza basınca mavi duman bulutu çıkıyor"
+    },
+    {
+      "id": "sym.engine.coolant_in_oil.1",
+      "text": "Yağ çubuğundaki yağ süt gibi açık renkli"
+    },
+    {
+      "id": "sym.engine.coolant_in_oil.2",
+      "text": "Soğutma sıvısı eksiliyor ama hiçbir yerde sızıntı yok"
+    },
+    {
+      "id": "sym.engine.coolant_in_oil.3",
+      "text": "Motor ısınmış olmasına rağmen egzozdan beyaz buhar çıkıyor"
+    },
+    {
+      "id": "sym.mounts.worn.1",
+      "text": "Rölantide bütün gövde titriyor, eskisinden çok daha fazla"
+    },
+    {
+      "id": "sym.mounts.worn.2",
+      "text": "Kalkışta ve durmada güç paketi bölmesinden tok bir vuruntu geliyor"
+    },
+    {
+      "id": "sym.oil.low.1",
+      "text": "Yağ basıncı uyarısı virajda ya da eğimde yanıp sönüyor"
+    },
+    {
+      "id": "sym.oil.low.2",
+      "text": "Yağ seviyesi alt işaretin altında"
+    },
+    {
+      "id": "sym.oil.low.3",
+      "text": "Tankın durduğu yerde yağ lekesi kalıyor"
+    },
+    {
+      "id": "sym.oil_cooler.leak.1",
+      "text": "Yağ soğutucusunun bağlantılarından yağ sızıyor"
+    },
+    {
+      "id": "sym.oil_cooler.leak.2",
+      "text": "Radyatörlerin yanında yağlı toz birikmiş"
+    },
+    {
+      "id": "sym.exhaust.leak.1",
+      "text": "Egzoz kelepçesinin çevresinde kara kurum izi var"
+    },
+    {
+      "id": "sym.exhaust.leak.2",
+      "text": "Güç paketinden üfleme ve pırpır sesi geliyor"
+    },
+    {
+      "id": "sym.grilles.blocked.1",
+      "text": "Ormanlık arazide motor sıcaklığı yükseldi, güverte ızgaraları yaprakla dolu"
+    },
+    {
+      "id": "sym.grilles.blocked.2",
+      "text": "Çamurlu arazi sonrası ızgaralar çamurla kaplanmış, sıcaklık artıyor"
+    },
+    {
+      "id": "sym.radiator.dirty.1",
+      "text": "Izgaralar temiz ama radyatör petekleri tozla kaplı, sıcaklık yüksek"
+    },
+    {
+      "id": "sym.radiator.dirty.2",
+      "text": "Uzun süre tozlu yolda gittikten sonra motor ısınmaya başladı"
+    },
+    {
+      "id": "sym.fan.drive.1",
+      "text": "Soğutma fanlarından biri dönmüyor, diğeri dönüyor"
+    },
+    {
+      "id": "sym.fan.drive.2",
+      "text": "Sıcaklık yükseliyor ve fan sesi her zamankinden zayıf"
+    },
+    {
+      "id": "sym.fan.blade.1",
+      "text": "Fan tarafından vuruntu ve titreşim geliyor"
+    },
+    {
+      "id": "sym.fan.blade.2",
+      "text": "Fan kanadında kırık ya da eğiklik gördüm"
+    },
+    {
+      "id": "sym.coolant.leak.1",
+      "text": "Soğutma hortumunun kelepçesinden sıvı damlıyor"
+    },
+    {
+      "id": "sym.coolant.leak.2",
+      "text": "Güç paketi bölmesinde tatlımsı soğutma sıvısı kokusu var"
+    },
+    {
+      "id": "sym.coolant.old.1",
+      "text": "Soğutma sıvısı paslı ve tortulu görünüyor"
+    },
+    {
+      "id": "sym.coolant.old.2",
+      "text": "Antifriz koruması soğuk hava için yetersiz çıktı"
+    },
+    {
+      "id": "sym.transmission.oil.1",
+      "text": "Vitesler soğukken sert ve gecikmeli geçiyor"
+    },
+    {
+      "id": "sym.transmission.oil.2",
+      "text": "Şanzıman yağı koyu ve yanık kokulu"
+    },
+    {
+      "id": "sym.transmission.leak.1",
+      "text": "Şanzımanın tapasının çevresinde yağ var"
+    },
+    {
+      "id": "sym.transmission.leak.2",
+      "text": "Güç paketinin altında, şanzıman tarafında yağ birikiyor"
+    },
+    {
+      "id": "sym.transmission.cooler.1",
+      "text": "Uzun sürüşte şanzıman sıcaklık uyarısı yandı"
+    },
+    {
+      "id": "sym.transmission.cooler.2",
+      "text": "Şanzıman yağ soğutucusunun petekleri kirle kaplanmış"
+    },
+    {
+      "id": "sym.controls.stiff.1",
+      "text": "Vites seçici ve direksiyon kumandası çok zor hareket ediyor"
+    },
+    {
+      "id": "sym.controls.stiff.2",
+      "text": "Sürüş kumandası bir noktada takılıyor"
+    },
+    {
+      "id": "sym.brakes.worn.1",
+      "text": "Frene basınca tank geç ve uzun mesafede duruyor"
+    },
+    {
+      "id": "sym.brakes.worn.2",
+      "text": "Frenlerken tank bir yana dönüyor"
+    },
+    {
+      "id": "sym.brakes.worn.3",
+      "text": "Frenlerden yanık kokusu geliyor"
+    },
+    {
+      "id": "sym.parking_brake.1",
+      "text": "Park freni çekili olduğu hâlde tank eğimde kayıyor"
+    },
+    {
+      "id": "sym.parking_brake.2",
+      "text": "Park freni kolu sonuna kadar gidiyor ama tutmuyor"
+    },
+    {
+      "id": "sym.final_drive.seal.1",
+      "text": "Yürütücü dişlinin iç tarafı yağlı ve tozla kaplı"
+    },
+    {
+      "id": "sym.final_drive.seal.2",
+      "text": "Son dişli tarafından öğütme sesi geliyor"
+    },
+    {
+      "id": "sym.track.slack.1",
+      "text": "Palet üst kolda belirgin şekilde sarkıyor"
+    },
+    {
+      "id": "sym.track.slack.2",
+      "text": "Sert dönüşte palet atmak üzereydi"
+    },
+    {
+      "id": "sym.track.slack.3",
+      "text": "Palet gerdirme ayarı kısa sürede yeniden gevşiyor"
+    },
+    {
+      "id": "sym.pads.worn.1",
+      "text": "Palet tabanlarının lastiği aşınmış, bazıları kopmuş"
+    },
+    {
+      "id": "sym.pads.worn.2",
+      "text": "Asfaltta giderken titreşim ve uğultu arttı"
+    },
+    {
+      "id": "sym.track.connector.1",
+      "text": "Palet bağlantı parçalarından biri dışarı çıkmış"
+    },
+    {
+      "id": "sym.track.connector.2",
+      "text": "Bağlantı parçasının kama cıvatası gevşemiş ya da düşmüş"
+    },
+    {
+      "id": "sym.wheel.bearing.1",
+      "text": "Molada bir yol tekerleğinin göbeği elle dokunulamayacak kadar sıcak"
+    },
+    {
+      "id": "sym.wheel.bearing.2",
+      "text": "Bir yol tekerleğinden hırıltı geliyor, göbekten gres sızıyor"
+    },
+    {
+      "id": "sym.wheel.tyre.1",
+      "text": "Yol tekerleğinin lastik bandajı parça parça kopuyor"
+    },
+    {
+      "id": "sym.wheel.tyre.2",
+      "text": "Tekerlek bandajında derin yarık ve kopuk var"
+    },
+    {
+      "id": "sym.damper.leak.1",
+      "text": "Amortisörün gövdesi yağlı, tank engebede sekiyor"
+    },
+    {
+      "id": "sym.damper.leak.2",
+      "text": "Tank engebeden sonra uzun süre yalpalamaya devam ediyor"
+    },
+    {
+      "id": "sym.torsion_bar.broken.1",
+      "text": "Bir yol tekerleği yerden kalkmış ya da diğerlerinden yukarıda duruyor"
+    },
+    {
+      "id": "sym.torsion_bar.broken.2",
+      "text": "Düz zeminde tank bir köşeye doğru çökük"
+    },
+    {
+      "id": "sym.arm.bearing.1",
+      "text": "Salıncak kolunun yatağından gıcırtı geliyor"
+    },
+    {
+      "id": "sym.arm.bearing.2",
+      "text": "Salıncak kolunun gresörlüğü kuru, gres almıyor"
+    },
+    {
+      "id": "sym.support_roller.1",
+      "text": "Destek makarası dönmüyor, palet üstünde sürtüyor"
+    },
+    {
+      "id": "sym.support_roller.2",
+      "text": "Destek makarasının lastiği kopmuş"
+    },
+    {
+      "id": "sym.sprocket.worn.1",
+      "text": "Yürütücü dişlinin dişleri sivrilmiş, palet dişliden atlıyor"
+    },
+    {
+      "id": "sym.sprocket.worn.2",
+      "text": "Palet dişliye otururken takırtı geliyor"
+    },
+    {
+      "id": "sym.hatch.seal.1",
+      "text": "Yağmurdan ya da yıkamadan sonra sürücü bölmesinde su var"
+    },
+    {
+      "id": "sym.hatch.seal.2",
+      "text": "Kapak contası yırtık ve sertleşmiş"
+    },
+    {
+      "id": "sym.hatch.stiff.1",
+      "text": "Sürücü kapağı çok zor açılıyor"
+    },
+    {
+      "id": "sym.hatch.stiff.2",
+      "text": "Kapak kapanıyor ama kilidi kavramıyor"
+    },
+    {
+      "id": "sym.skirt_l.damaged.1",
+      "text": "Sol yan etek çarpmadan sonra içe doğru eğildi"
+    },
+    {
+      "id": "sym.skirt_l.damaged.2",
+      "text": "Sol yan eteğin cıvatası kopmuş, panel sallanıyor"
+    },
+    {
+      "id": "sym.skirt_r.damaged.1",
+      "text": "Sağ yan etek çarpmadan sonra içe doğru eğildi"
+    },
+    {
+      "id": "sym.skirt_r.damaged.2",
+      "text": "Sağ yan eteğin cıvatası kopmuş, panel sallanıyor"
+    },
+    {
+      "id": "sym.tow_cable.worn.1",
+      "text": "Çeki halatında kopuk teller dışarı çıkmış"
+    },
+    {
+      "id": "sym.tow_cable.worn.2",
+      "text": "Çeki halatı ezilmiş ve bükülmüş"
+    },
+    {
+      "id": "sym.turret_ring.debris.1",
+      "text": "Kule döndürürken bir noktada takılıyor"
+    },
+    {
+      "id": "sym.turret_ring.debris.2",
+      "text": "Kule yatağının çevresine taş ve kum sıkışmış"
+    },
+    {
+      "id": "sym.turret_ring.debris.3",
+      "text": "Soğuk havada kule dönmüyor, yatak çevresinde buz var"
+    },
+    {
+      "id": "sym.turret_ring.grease.1",
+      "text": "Kule dönerken gıcırtı ve kuru sürtme sesi geliyor"
+    },
+    {
+      "id": "sym.turret_ring.grease.2",
+      "text": "Kule yatağının greslenmesi uzun süredir yapılmadı"
+    },
+    {
+      "id": "sym.optics.dirty.1",
+      "text": "Nişancı optiğinden bakınca görüntü bulanık"
+    },
+    {
+      "id": "sym.optics.dirty.2",
+      "text": "Optik camında çamur ve toz var"
+    },
+    {
+      "id": "sym.optics.moisture.1",
+      "text": "Komutan periskobunun içi buğulu, silince geçmiyor"
+    },
+    {
+      "id": "sym.optics.moisture.2",
+      "text": "Optiğin içinde damlacıklar var"
+    },
+    {
+      "id": "sym.periscope.cracked.1",
+      "text": "Periskop camında taş izi ve çatlak var"
+    },
+    {
+      "id": "sym.periscope.cracked.2",
+      "text": "Kapak periskobundan bakınca görüntüde çizgi var"
+    },
+    {
+      "id": "sym.muzzle_cover.lost.1",
+      "text": "Namlu ağzı kapağı yerinde yok"
+    },
+    {
+      "id": "sym.muzzle_cover.lost.2",
+      "text": "Namlu ağzı kapağı yırtılmış, ağız açıkta"
+    },
+    {
+      "id": "sym.smoke_tube.damaged.1",
+      "text": "Sis bombası atıcısı dala çarpıp ezilmiş"
+    },
+    {
+      "id": "sym.smoke_tube.damaged.2",
+      "text": "Atıcının koruyucu kapağı düşmüş"
+    },
+    {
+      "id": "sym.hydraulic.low.1",
+      "text": "Hidrolik depo göstergesinde seviye düşük"
+    },
+    {
+      "id": "sym.hydraulic.low.2",
+      "text": "Kule ve hidrolik düzen eskisinden yavaş tepki veriyor"
+    },
+    {
+      "id": "sym.hydraulic.hose.1",
+      "text": "Hidrolik hortumunun rakorunda yağ damlası var"
+    },
+    {
+      "id": "sym.hydraulic.hose.2",
+      "text": "Hortumun dış kılıfı çatlamış ve yağlı"
+    },
+    {
+      "id": "sym.hydraulic.filter.1",
+      "text": "Hidrolik filtre göstergesi tıkanıklık gösteriyor"
+    },
+    {
+      "id": "sym.hydraulic.filter.2",
+      "text": "Filtre değişimi gecikti, düzen ağır çalışıyor"
+    },
+    {
+      "id": "sym.nbc.filter.2",
+      "text": "Havalandırma çalışıyor ama içeri çok az hava geliyor"
+    },
+    {
+      "id": "sym.nbc.intake.1",
+      "text": "Havalandırma giriş ızgarası çamur ve yaprakla dolu"
+    },
+    {
+      "id": "sym.nbc.intake.2",
+      "text": "Fan sesi normal ama hava akışı zayıf"
+    },
+    {
+      "id": "sym.fire.detector.1",
+      "text": "Yangın sistemi arıza uyarısı yanıyor, tüpler dolu"
+    },
+    {
+      "id": "sym.fire.detector.2",
+      "text": "Algılayıcının üstü yağ ve tozla kaplı"
+    },
+    {
+      "id": "sym.fire.bottle.1",
+      "text": "Söndürücü tüpünün göstergesi düşük"
+    },
+    {
+      "id": "sym.fire.bottle.2",
+      "text": "Yangın sistemi arıza veriyor ve bir tüpün dolumu eksik"
+    },
+    {
+      "id": "sym.extinguisher.low.1",
+      "text": "El tipi söndürücünün ibresi kırmızı bölgede"
+    },
+    {
+      "id": "sym.extinguisher.low.2",
+      "text": "El söndürücüsü kullanıldı, yeniden doldurulmadı"
+    },
+    {
+      "id": "sym.heater.blocked.1",
+      "text": "Isıtıcı çalışıp birkaç dakika sonra sönüyor"
+    },
+    {
+      "id": "sym.heater.blocked.2",
+      "text": "Isıtıcının egzozundan yoğun beyaz duman çıkıyor, girişi karla dolu"
+    },
+    {
+      "id": "sym.heater.fuel.1",
+      "text": "Isıtıcı ateş almıyor, yakıt kokusu geliyor"
+    },
+    {
+      "id": "sym.heater.fuel.2",
+      "text": "Isıtıcının yakıt hortumunda kabarcık ve sızıntı var"
+    },
+    {
+      "id": "sym.idler.bearing.1",
+      "text": "Molada avara tekerleğinin göbeği diğer yandan çok daha sıcak"
+    },
+    {
+      "id": "sym.idler.bearing.2",
+      "text": "Ön taraftan, avaradan hırıltı geliyor"
+    },
+    {
+      "id": "sym.sprocket.bolts.1",
+      "text": "Yürütücü dişli tarafından tıkırtı geliyor, bir cıvata eksik"
+    },
+    {
+      "id": "sym.sprocket.bolts.2",
+      "text": "Dişli çemberi göbeğe göre oynuyor"
+    },
+    {
+      "id": "sym.slave_socket.dirty.1",
+      "text": "Takviye kablosunu taktık ama tank çalışmadı"
+    },
+    {
+      "id": "sym.slave_socket.dirty.2",
+      "text": "Takviye prizinin içi kararmış ve yanık kokuyor"
+    },
+    {
+      "id": "sym.warning.circuit.1",
+      "text": "Yağ basıncı uyarısı yanıyor ama yağ seviyesi tam ve motor sessiz"
+    },
+    {
+      "id": "sym.warning.circuit.2",
+      "text": "Uyarı lambası arazide sarsıntıyla yanıp sönüyor"
+    },
+    {
+      "id": "sym.accumulator.precharge.1",
+      "text": "Hidrolik pompa düzen kullanılmadığı hâlde sürekli çalışıp duruyor"
+    },
+    {
+      "id": "sym.accumulator.precharge.2",
+      "text": "Kule hareketi başlangıçta sert, sonra yavaşlıyor"
+    },
+    {
+      "id": "sym.deck_hatch.latch.1",
+      "text": "Güç paketi kapağı arazide takırdıyor"
+    },
+    {
+      "id": "sym.deck_hatch.latch.2",
+      "text": "Motor güvertesi kapağının kilidi kapanmıyor"
+    },
+    {
+      "id": "sym.fender_box.damaged.1",
+      "text": "Çamurluktaki alet kutusunun kapağı yolda açılıyor"
+    },
+    {
+      "id": "sym.fender_box.damaged.2",
+      "text": "Dış kutu çarpmadan sonra ezildi"
+    },
+    {
+      "id": "sym.antenna.broken.1",
+      "text": "Ağaç dalına çarpınca anten kırıldı"
+    },
+    {
+      "id": "sym.antenna.broken.2",
+      "text": "Anten eğilmiş, telsiz çekmiyor"
+    },
+    {
+      "id": "sym.gun_boot.torn.1",
+      "text": "Top kalkanının kenarındaki körük yırtılmış"
+    },
+    {
+      "id": "sym.gun_boot.torn.2",
+      "text": "Körük yerinden çıkmış, aralıktan toz giriyor"
+    },
+    {
+      "id": "sym.nbc.fan_power.1",
+      "text": "Havalandırmayı açınca fan hiç çalışmıyor"
+    },
+    {
+      "id": "sym.nbc.fan_power.2",
+      "text": "Havalandırma ünitesinden ne ses ne hava geliyor"
+    },
+    {
+      "id": "sym.oil.old.1",
+      "text": "Motor yağı kapkara ve yanık kokuyor"
+    },
+    {
+      "id": "sym.oil.old.2",
+      "text": "Yağ değişimi bakım kaydına göre çoktan geçmiş"
+    },
+    {
+      "id": "sym.parking_brake.drag.1",
+      "text": "Park frenini indirdim ama tank frenli gibi zor yürüyor"
+    },
+    {
+      "id": "sym.parking_brake.drag.2",
+      "text": "Kısa sürüşten sonra fren tarafından yanık balata kokusu geliyor"
+    },
+    {
+      "id": "sym.hydraulic.contaminated.1",
+      "text": "Hidrolik yağı süt gibi bulanık görünüyor"
+    },
+    {
+      "id": "sym.hydraulic.contaminated.2",
+      "text": "Depoda hidrolik yağı köpüklü"
     }
   ],
   "faults": [
@@ -276,7 +1060,10 @@
       "symptoms": [
         "sym.no_start",
         "sym.slow_crank",
-        "sym.dim_lights"
+        "sym.dim_lights",
+        "sym.batteries.flat.1",
+        "sym.batteries.flat.2",
+        "sym.batteries.flat.3"
       ],
       "cause": "Aküler boşalmış ya da ömrünü doldurmuş.",
       "severity": 2,
@@ -288,7 +1075,9 @@
       "part": "electrical.batteries",
       "symptoms": [
         "sym.slow_crank",
-        "sym.click_no_crank"
+        "sym.click_no_crank",
+        "sym.batteries.terminals.1",
+        "sym.batteries.terminals.2"
       ],
       "cause": "Akü kutup başları oksitlenmiş ya da gevşemiş.",
       "severity": 1,
@@ -300,7 +1089,10 @@
       "part": "engine.generator",
       "symptoms": [
         "sym.dim_lights",
-        "sym.no_charge"
+        "sym.no_charge",
+        "sym.generator.failed.1",
+        "sym.generator.failed.2",
+        "sym.generator.failed.3"
       ],
       "cause": "Jeneratör aküleri şarj etmiyor.",
       "severity": 2,
@@ -311,7 +1103,9 @@
       "id": "f.electrical.drain",
       "part": "electrical.harness",
       "symptoms": [
-        "sym.battery_drain"
+        "sym.battery_drain",
+        "sym.electrical.drain.1",
+        "sym.electrical.drain.2"
       ],
       "cause": "Bir devre motor dururken akım çekiyor.",
       "severity": 1,
@@ -323,7 +1117,10 @@
       "part": "electrical.harness",
       "symptoms": [
         "sym.intermittent_electric",
-        "sym.circuit_dead"
+        "sym.circuit_dead",
+        "sym.harness.chafed.1",
+        "sym.harness.chafed.2",
+        "sym.harness.chafed.3"
       ],
       "cause": "Kablo demeti sürtünmüş ya da konnektör gevşemiş.",
       "severity": 2,
@@ -335,7 +1132,9 @@
       "part": "electrical.fuses",
       "symptoms": [
         "sym.circuit_dead",
-        "sym.light_out"
+        "sym.light_out",
+        "sym.fuse.blown.1",
+        "sym.fuse.blown.2"
       ],
       "cause": "Devrenin sigortası atmış.",
       "severity": 1,
@@ -347,7 +1146,9 @@
       "part": "engine.starter",
       "symptoms": [
         "sym.click_no_crank",
-        "sym.no_start"
+        "sym.no_start",
+        "sym.starter.failed.1",
+        "sym.starter.failed.2"
       ],
       "cause": "Marş motoru ya da rölesi arızalı.",
       "severity": 2,
@@ -359,7 +1160,9 @@
       "part": "electrical.master_switch",
       "symptoms": [
         "sym.no_power",
-        "sym.no_start"
+        "sym.no_start",
+        "sym.master_switch.1",
+        "sym.master_switch.2"
       ],
       "cause": "Ana şalter ya da akü rölesi temas etmiyor.",
       "severity": 2,
@@ -370,7 +1173,9 @@
       "id": "f.instruments.gauge",
       "part": "electrical.instruments",
       "symptoms": [
-        "sym.gauge_dead"
+        "sym.gauge_dead",
+        "sym.instruments.gauge.1",
+        "sym.instruments.gauge.2"
       ],
       "cause": "Gösterge ya da algılayıcı bağlantısı arızalı.",
       "severity": 1,
@@ -381,7 +1186,9 @@
       "id": "f.lights.bulb",
       "part": "electrical.headlights",
       "symptoms": [
-        "sym.light_out"
+        "sym.light_out",
+        "sym.lights.bulb.1",
+        "sym.lights.bulb.2"
       ],
       "cause": "Ampul yanmış ya da soket oksitlenmiş.",
       "severity": 1,
@@ -392,7 +1199,9 @@
       "id": "f.taillight.damaged",
       "part": "electrical.taillights",
       "symptoms": [
-        "sym.light_out"
+        "sym.light_out",
+        "sym.taillight.damaged.1",
+        "sym.taillight.damaged.2"
       ],
       "cause": "Arka lamba grubu kırılmış ya da içine su girmiş.",
       "severity": 1,
@@ -403,7 +1212,10 @@
       "id": "f.intercom.headset",
       "part": "electrical.intercom",
       "symptoms": [
-        "sym.intercom_silent"
+        "sym.intercom_silent",
+        "sym.intercom.headset.1",
+        "sym.intercom.headset.2",
+        "sym.intercom.headset.3"
       ],
       "cause": "Başlık ya da kumanda kutusu kablosu arızalı.",
       "severity": 1,
@@ -416,7 +1228,10 @@
       "symptoms": [
         "sym.water_in_fuel",
         "sym.power_loss",
-        "sym.no_start"
+        "sym.no_start",
+        "sym.fuel.water.1",
+        "sym.fuel.water.2",
+        "sym.fuel.water.3"
       ],
       "cause": "Yakıta su karışmış; filtre ve su ayırıcı dolmuş.",
       "severity": 2,
@@ -428,7 +1243,9 @@
       "part": "fuel.filter",
       "symptoms": [
         "sym.power_loss",
-        "sym.rough_running"
+        "sym.rough_running",
+        "sym.fuel.filter_clogged.1",
+        "sym.fuel.filter_clogged.2"
       ],
       "cause": "Yakıt filtresi elemanı tortuyla tıkanmış.",
       "severity": 2,
@@ -440,7 +1257,9 @@
       "part": "fuel.pump",
       "symptoms": [
         "sym.hard_start_after_refuel",
-        "sym.rough_running"
+        "sym.rough_running",
+        "sym.fuel.air.1",
+        "sym.fuel.air.2"
       ],
       "cause": "Yakıt sistemine hava girmiş.",
       "severity": 1,
@@ -451,7 +1270,9 @@
       "id": "f.fuel.leak",
       "part": "fuel.lines",
       "symptoms": [
-        "sym.fuel_smell"
+        "sym.fuel_smell",
+        "sym.fuel.leak.1",
+        "sym.fuel.leak.2"
       ],
       "cause": "Yakıt borusu ya da bağlantısı sızdırıyor.",
       "severity": 3,
@@ -462,7 +1283,9 @@
       "id": "f.fuel.cap_seal",
       "part": "fuel.caps",
       "symptoms": [
-        "sym.water_in_fuel"
+        "sym.water_in_fuel",
+        "sym.fuel.cap_seal.1",
+        "sym.fuel.cap_seal.2"
       ],
       "cause": "Doldurma kapağının contası bozuk; yakıta su giriyor.",
       "severity": 1,
@@ -474,7 +1297,9 @@
       "part": "fuel.injection",
       "symptoms": [
         "sym.black_smoke",
-        "sym.rough_running"
+        "sym.rough_running",
+        "sym.injection.fault.1",
+        "sym.injection.fault.2"
       ],
       "cause": "Enjeksiyon sisteminde arıza var.",
       "severity": 3,
@@ -487,7 +1312,9 @@
       "symptoms": [
         "sym.air_filter_light",
         "sym.power_loss",
-        "sym.black_smoke"
+        "sym.black_smoke",
+        "sym.air_filter.clogged.1",
+        "sym.air_filter.clogged.2"
       ],
       "cause": "Hava filtresi elemanları tozla tıkanmış.",
       "severity": 1,
@@ -498,7 +1325,9 @@
       "id": "f.precleaner.blocked",
       "part": "air_filters.precleaner",
       "symptoms": [
-        "sym.air_filter_light"
+        "sym.air_filter_light",
+        "sym.precleaner.blocked.1",
+        "sym.precleaner.blocked.2"
       ],
       "cause": "Ön temizleyici ya da toz atma çıkışı tıkanmış.",
       "severity": 1,
@@ -510,7 +1339,9 @@
       "part": "air_filters.ducts",
       "symptoms": [
         "sym.dust_intake",
-        "sym.power_loss"
+        "sym.power_loss",
+        "sym.intake.leak.1",
+        "sym.intake.leak.2"
       ],
       "cause": "Hava emme kanalı yırtık ya da kelepçesi gevşek; filtrelenmemiş hava giriyor.",
       "severity": 3,
@@ -523,7 +1354,9 @@
       "symptoms": [
         "sym.whistle",
         "sym.power_loss",
-        "sym.black_smoke"
+        "sym.black_smoke",
+        "sym.turbo.leak.1",
+        "sym.turbo.leak.2"
       ],
       "cause": "Turboşarj hava bağlantısında kaçak var.",
       "severity": 2,
@@ -535,7 +1368,9 @@
       "part": "engine.control",
       "symptoms": [
         "sym.engine_warning",
-        "sym.power_loss"
+        "sym.power_loss",
+        "sym.engine.control.1",
+        "sym.engine.control.2"
       ],
       "cause": "Motor kontrol ünitesi ya da bir algılayıcı arızalı.",
       "severity": 2,
@@ -546,7 +1381,9 @@
       "id": "f.engine.oil_burning",
       "part": "engine",
       "symptoms": [
-        "sym.blue_smoke"
+        "sym.blue_smoke",
+        "sym.engine.oil_burning.1",
+        "sym.engine.oil_burning.2"
       ],
       "cause": "Motor yağ yakıyor; turboşarj keçeleri ya da segmanlar aşınmış olabilir.",
       "severity": 3,
@@ -559,7 +1396,10 @@
       "symptoms": [
         "sym.milky_oil",
         "sym.white_smoke",
-        "sym.coolant_loss"
+        "sym.coolant_loss",
+        "sym.engine.coolant_in_oil.1",
+        "sym.engine.coolant_in_oil.2",
+        "sym.engine.coolant_in_oil.3"
       ],
       "cause": "Soğutma sıvısı yağa ya da yanma odasına geçiyor.",
       "severity": 3,
@@ -570,7 +1410,9 @@
       "id": "f.mounts.worn",
       "part": "powerpack.mounts",
       "symptoms": [
-        "sym.powerpack_vibration"
+        "sym.powerpack_vibration",
+        "sym.mounts.worn.1",
+        "sym.mounts.worn.2"
       ],
       "cause": "Güç paketi bağlantı takozları çatlamış ya da ayrılmış.",
       "severity": 2,
@@ -582,7 +1424,10 @@
       "part": "engine.oil",
       "symptoms": [
         "sym.oil_pressure",
-        "sym.oil_leak"
+        "sym.oil_leak",
+        "sym.oil.low.1",
+        "sym.oil.low.2",
+        "sym.oil.low.3"
       ],
       "cause": "Motor yağı eksik ya da bir conta sızdırıyor.",
       "severity": 3,
@@ -593,7 +1438,9 @@
       "id": "f.oil_cooler.leak",
       "part": "engine.oil_cooler",
       "symptoms": [
-        "sym.oil_leak"
+        "sym.oil_leak",
+        "sym.oil_cooler.leak.1",
+        "sym.oil_cooler.leak.2"
       ],
       "cause": "Motor yağ soğutucusu ya da bağlantısı sızdırıyor.",
       "severity": 2,
@@ -605,7 +1452,9 @@
       "part": "exhaust",
       "symptoms": [
         "sym.exhaust_soot",
-        "sym.whistle"
+        "sym.whistle",
+        "sym.exhaust.leak.1",
+        "sym.exhaust.leak.2"
       ],
       "cause": "Egzoz borusu çatlamış ya da kelepçesi gevşemiş.",
       "severity": 2,
@@ -616,7 +1465,9 @@
       "id": "f.grilles.blocked",
       "part": "hull.engine_deck.grilles",
       "symptoms": [
-        "sym.overheat"
+        "sym.overheat",
+        "sym.grilles.blocked.1",
+        "sym.grilles.blocked.2"
       ],
       "cause": "Motor güvertesi ızgaraları yaprak ya da çamurla tıkanmış.",
       "severity": 2,
@@ -627,7 +1478,9 @@
       "id": "f.radiator.dirty",
       "part": "cooling.radiators",
       "symptoms": [
-        "sym.overheat"
+        "sym.overheat",
+        "sym.radiator.dirty.1",
+        "sym.radiator.dirty.2"
       ],
       "cause": "Radyatör petekleri toz ve kirle kaplanmış.",
       "severity": 2,
@@ -638,7 +1491,9 @@
       "id": "f.fan.drive",
       "part": "cooling.fan_drive",
       "symptoms": [
-        "sym.overheat"
+        "sym.overheat",
+        "sym.fan.drive.1",
+        "sym.fan.drive.2"
       ],
       "cause": "Soğutma fanlarından biri dönmüyor; fan tahriki arızalı.",
       "severity": 3,
@@ -650,7 +1505,9 @@
       "part": "cooling.fans",
       "symptoms": [
         "sym.overheat",
-        "sym.powerpack_vibration"
+        "sym.powerpack_vibration",
+        "sym.fan.blade.1",
+        "sym.fan.blade.2"
       ],
       "cause": "Fan kanadı kırılmış ya da eğilmiş.",
       "severity": 2,
@@ -662,7 +1519,9 @@
       "part": "cooling.hoses",
       "symptoms": [
         "sym.coolant_loss",
-        "sym.overheat"
+        "sym.overheat",
+        "sym.coolant.leak.1",
+        "sym.coolant.leak.2"
       ],
       "cause": "Soğutma hortumu ya da kelepçesi sızdırıyor.",
       "severity": 2,
@@ -673,7 +1532,9 @@
       "id": "f.coolant.old",
       "part": "cooling.coolant",
       "symptoms": [
-        "sym.overheat"
+        "sym.overheat",
+        "sym.coolant.old.1",
+        "sym.coolant.old.2"
       ],
       "cause": "Soğutma sıvısı eskimiş ya da antifriz oranı bozulmuş.",
       "severity": 1,
@@ -684,7 +1545,9 @@
       "id": "f.transmission.oil",
       "part": "transmission.oil",
       "symptoms": [
-        "sym.shift"
+        "sym.shift",
+        "sym.transmission.oil.1",
+        "sym.transmission.oil.2"
       ],
       "cause": "Şanzıman yağı eksik ya da eskimiş.",
       "severity": 2,
@@ -696,7 +1559,9 @@
       "part": "transmission",
       "symptoms": [
         "sym.trans_leak",
-        "sym.shift"
+        "sym.shift",
+        "sym.transmission.leak.1",
+        "sym.transmission.leak.2"
       ],
       "cause": "Şanzıman contası ya da tapası sızdırıyor.",
       "severity": 2,
@@ -707,7 +1572,9 @@
       "id": "f.transmission.cooler",
       "part": "transmission.oil_cooler",
       "symptoms": [
-        "sym.trans_temp"
+        "sym.trans_temp",
+        "sym.transmission.cooler.1",
+        "sym.transmission.cooler.2"
       ],
       "cause": "Şanzıman yağ soğutucusu kirli ya da sızdırıyor.",
       "severity": 2,
@@ -719,7 +1586,9 @@
       "part": "transmission.controls",
       "symptoms": [
         "sym.steering_stiff",
-        "sym.shift"
+        "sym.shift",
+        "sym.controls.stiff.1",
+        "sym.controls.stiff.2"
       ],
       "cause": "Kumanda bağlantıları kurumuş ya da kirlenmiş.",
       "severity": 1,
@@ -731,7 +1600,10 @@
       "part": "transmission.brakes",
       "symptoms": [
         "sym.brake_weak",
-        "sym.pull"
+        "sym.pull",
+        "sym.brakes.worn.1",
+        "sym.brakes.worn.2",
+        "sym.brakes.worn.3"
       ],
       "cause": "Servis frenleri aşınmış ya da bir yandaki fren sürtüyor.",
       "severity": 3,
@@ -742,7 +1614,9 @@
       "id": "f.parking_brake",
       "part": "transmission.parking_brake",
       "symptoms": [
-        "sym.park_brake"
+        "sym.park_brake",
+        "sym.parking_brake.1",
+        "sym.parking_brake.2"
       ],
       "cause": "Park freni kumandası ya da bağlantısı ayarını kaybetmiş.",
       "severity": 2,
@@ -754,7 +1628,9 @@
       "part": "transmission.final_drives",
       "symptoms": [
         "sym.sprocket_leak",
-        "sym.track_noise"
+        "sym.track_noise",
+        "sym.final_drive.seal.1",
+        "sym.final_drive.seal.2"
       ],
       "cause": "Son dişli keçesi sızdırıyor; yağ eksilirse dişliler aşınır.",
       "severity": 2,
@@ -766,7 +1642,10 @@
       "part": "idlers.tensioner",
       "symptoms": [
         "sym.track_slack",
-        "sym.track_noise"
+        "sym.track_noise",
+        "sym.track.slack.1",
+        "sym.track.slack.2",
+        "sym.track.slack.3"
       ],
       "cause": "Palet gerginliği azalmış; gerdirme tertibatı ayarını kaybetmiş olabilir.",
       "severity": 3,
@@ -778,7 +1657,9 @@
       "part": "tracks.pads",
       "symptoms": [
         "sym.vibration",
-        "sym.track_noise"
+        "sym.track_noise",
+        "sym.pads.worn.1",
+        "sym.pads.worn.2"
       ],
       "cause": "Palet tabanları aşınmış ya da kopmuş.",
       "severity": 1,
@@ -790,7 +1671,9 @@
       "part": "tracks.connectors",
       "symptoms": [
         "sym.loose_connector",
-        "sym.track_noise"
+        "sym.track_noise",
+        "sym.track.connector.1",
+        "sym.track.connector.2"
       ],
       "cause": "Palet bağlantı parçasının kama cıvatası gevşemiş.",
       "severity": 3,
@@ -802,7 +1685,9 @@
       "part": "road_wheels.hubs",
       "symptoms": [
         "sym.hot_hub",
-        "sym.track_noise"
+        "sym.track_noise",
+        "sym.wheel.bearing.1",
+        "sym.wheel.bearing.2"
       ],
       "cause": "Yol tekerleği rulmanı aşınmış ya da göbekte yağ kalmamış.",
       "severity": 2,
@@ -814,7 +1699,9 @@
       "part": "road_wheels",
       "symptoms": [
         "sym.rubber_loss",
-        "sym.vibration"
+        "sym.vibration",
+        "sym.wheel.tyre.1",
+        "sym.wheel.tyre.2"
       ],
       "cause": "Yol tekerleğinin lastik bandajı parçalanıyor.",
       "severity": 2,
@@ -825,7 +1712,9 @@
       "id": "f.damper.leak",
       "part": "suspension.dampers",
       "symptoms": [
-        "sym.pitching"
+        "sym.pitching",
+        "sym.damper.leak.1",
+        "sym.damper.leak.2"
       ],
       "cause": "Amortisör yağını kaçırmış; sönümleme yok.",
       "severity": 2,
@@ -837,7 +1726,9 @@
       "part": "suspension.torsion_bars",
       "symptoms": [
         "sym.wheel_height",
-        "sym.pitching"
+        "sym.pitching",
+        "sym.torsion_bar.broken.1",
+        "sym.torsion_bar.broken.2"
       ],
       "cause": "Burulma çubuğu kırılmış.",
       "severity": 3,
@@ -848,7 +1739,9 @@
       "id": "f.arm.bearing",
       "part": "suspension.arms",
       "symptoms": [
-        "sym.track_noise"
+        "sym.track_noise",
+        "sym.arm.bearing.1",
+        "sym.arm.bearing.2"
       ],
       "cause": "Salıncak kolu yatağı greslenmemiş ve aşınmaya başlamış.",
       "severity": 1,
@@ -859,7 +1752,9 @@
       "id": "f.support_roller",
       "part": "suspension.support_rollers",
       "symptoms": [
-        "sym.roller_wear"
+        "sym.roller_wear",
+        "sym.support_roller.1",
+        "sym.support_roller.2"
       ],
       "cause": "Destek makarası dönmüyor ya da bandajı kopmuş.",
       "severity": 1,
@@ -871,7 +1766,9 @@
       "part": "sprockets.rings",
       "symptoms": [
         "sym.track_slack",
-        "sym.track_noise"
+        "sym.track_noise",
+        "sym.sprocket.worn.1",
+        "sym.sprocket.worn.2"
       ],
       "cause": "Yürütücü dişli dişleri aşınmış; palet atlıyor.",
       "severity": 2,
@@ -882,7 +1779,9 @@
       "id": "f.hatch.seal",
       "part": "hull.hatch_seals",
       "symptoms": [
-        "sym.water_in_hull"
+        "sym.water_in_hull",
+        "sym.hatch.seal.1",
+        "sym.hatch.seal.2"
       ],
       "cause": "Kapak contası yırtılmış ya da sertleşmiş.",
       "severity": 1,
@@ -893,7 +1792,9 @@
       "id": "f.hatch.stiff",
       "part": "hull.driver_hatch",
       "symptoms": [
-        "sym.hatch_stiff"
+        "sym.hatch_stiff",
+        "sym.hatch.stiff.1",
+        "sym.hatch.stiff.2"
       ],
       "cause": "Kapak menteşesi ve kilidi kurumuş ya da kirlenmiş.",
       "severity": 1,
@@ -904,7 +1805,9 @@
       "id": "f.skirt_l.damaged",
       "part": "hull.side_skirt_l",
       "symptoms": [
-        "sym.skirt_damaged"
+        "sym.skirt_damaged",
+        "sym.skirt_l.damaged.1",
+        "sym.skirt_l.damaged.2"
       ],
       "cause": "Sol yan etek paneli çarpmayla eğilmiş ya da cıvatası kopmuş.",
       "severity": 1,
@@ -915,7 +1818,9 @@
       "id": "f.skirt_r.damaged",
       "part": "hull.side_skirt_r",
       "symptoms": [
-        "sym.skirt_damaged"
+        "sym.skirt_damaged",
+        "sym.skirt_r.damaged.1",
+        "sym.skirt_r.damaged.2"
       ],
       "cause": "Sağ yan etek paneli çarpmayla eğilmiş ya da cıvatası kopmuş.",
       "severity": 1,
@@ -926,7 +1831,9 @@
       "id": "f.tow_cable.worn",
       "part": "hull.towing.cables",
       "symptoms": [
-        "sym.tow_cable_damaged"
+        "sym.tow_cable_damaged",
+        "sym.tow_cable.worn.1",
+        "sym.tow_cable.worn.2"
       ],
       "cause": "Çeki halatının telleri kopmuş ya da halat ezilmiş.",
       "severity": 2,
@@ -938,7 +1845,10 @@
       "part": "turret.ring",
       "symptoms": [
         "sym.turret_stiff",
-        "sym.turret_noise"
+        "sym.turret_noise",
+        "sym.turret_ring.debris.1",
+        "sym.turret_ring.debris.2",
+        "sym.turret_ring.debris.3"
       ],
       "cause": "Kule yatağı çevresine taş, kum ya da buz sıkışmış.",
       "severity": 2,
@@ -949,7 +1859,9 @@
       "id": "f.turret_ring.grease",
       "part": "turret.ring",
       "symptoms": [
-        "sym.turret_noise"
+        "sym.turret_noise",
+        "sym.turret_ring.grease.1",
+        "sym.turret_ring.grease.2"
       ],
       "cause": "Kule yatağının greslemesi gecikmiş.",
       "severity": 1,
@@ -960,7 +1872,9 @@
       "id": "f.optics.dirty",
       "part": "turret.optics",
       "symptoms": [
-        "sym.blurry_optics"
+        "sym.blurry_optics",
+        "sym.optics.dirty.1",
+        "sym.optics.dirty.2"
       ],
       "cause": "Optik camı kirli ya da nemlenmiş.",
       "severity": 1,
@@ -971,7 +1885,9 @@
       "id": "f.optics.moisture",
       "part": "turret.optics.commander",
       "symptoms": [
-        "sym.optics_fog"
+        "sym.optics_fog",
+        "sym.optics.moisture.1",
+        "sym.optics.moisture.2"
       ],
       "cause": "Optiğin içine nem girmiş.",
       "severity": 2,
@@ -983,7 +1899,9 @@
       "part": "turret.periscopes",
       "symptoms": [
         "sym.periscope_cracked",
-        "sym.blurry_optics"
+        "sym.blurry_optics",
+        "sym.periscope.cracked.1",
+        "sym.periscope.cracked.2"
       ],
       "cause": "Periskop camı taş çarpmasıyla çatlamış.",
       "severity": 1,
@@ -994,7 +1912,9 @@
       "id": "f.muzzle_cover.lost",
       "part": "turret.main_gun.muzzle_cover",
       "symptoms": [
-        "sym.muzzle_cover"
+        "sym.muzzle_cover",
+        "sym.muzzle_cover.lost.1",
+        "sym.muzzle_cover.lost.2"
       ],
       "cause": "Namlu ağzı koruyucu kapağı yırtılmış ya da kaybolmuş.",
       "severity": 1,
@@ -1005,7 +1925,9 @@
       "id": "f.smoke_tube.damaged",
       "part": "turret.smoke_dischargers",
       "symptoms": [
-        "sym.smoke_tube_damage"
+        "sym.smoke_tube_damage",
+        "sym.smoke_tube.damaged.1",
+        "sym.smoke_tube.damaged.2"
       ],
       "cause": "Atıcının dış gövdesi dalla ya da çarpmayla ezilmiş, koruyucu kapağı düşmüş.",
       "severity": 2,
@@ -1016,7 +1938,9 @@
       "id": "f.hydraulic.low",
       "part": "hydraulics.unit",
       "symptoms": [
-        "sym.hydraulic_slow"
+        "sym.hydraulic_slow",
+        "sym.hydraulic.low.1",
+        "sym.hydraulic.low.2"
       ],
       "cause": "Hidrolik yağı eksik.",
       "severity": 2,
@@ -1028,7 +1952,9 @@
       "part": "hydraulics.hoses",
       "symptoms": [
         "sym.hydraulic_leak",
-        "sym.hydraulic_slow"
+        "sym.hydraulic_slow",
+        "sym.hydraulic.hose.1",
+        "sym.hydraulic.hose.2"
       ],
       "cause": "Hidrolik hortumu ya da rakoru sızdırıyor.",
       "severity": 3,
@@ -1039,7 +1965,9 @@
       "id": "f.hydraulic.filter",
       "part": "hydraulics.filter",
       "symptoms": [
-        "sym.hydraulic_slow"
+        "sym.hydraulic_slow",
+        "sym.hydraulic.filter.1",
+        "sym.hydraulic.filter.2"
       ],
       "cause": "Hidrolik filtre elemanı tıkanmış.",
       "severity": 1,
@@ -1051,7 +1979,8 @@
       "part": "crew.nbc_filter",
       "symptoms": [
         "sym.nbc_filter_light",
-        "sym.weak_ventilation"
+        "sym.weak_ventilation",
+        "sym.nbc.filter.2"
       ],
       "cause": "NBC filtre elemanı dolmuş.",
       "severity": 2,
@@ -1062,7 +1991,9 @@
       "id": "f.nbc.intake",
       "part": "crew.nbc",
       "symptoms": [
-        "sym.weak_ventilation"
+        "sym.weak_ventilation",
+        "sym.nbc.intake.1",
+        "sym.nbc.intake.2"
       ],
       "cause": "Havalandırma giriş ızgarası tıkanmış.",
       "severity": 1,
@@ -1073,7 +2004,9 @@
       "id": "f.fire.detector",
       "part": "crew.fire_detectors",
       "symptoms": [
-        "sym.fire_system_warning"
+        "sym.fire_system_warning",
+        "sym.fire.detector.1",
+        "sym.fire.detector.2"
       ],
       "cause": "Yangın algılayıcısı kirlenmiş ya da kablosu hasarlı.",
       "severity": 2,
@@ -1084,7 +2017,9 @@
       "id": "f.fire.bottle",
       "part": "crew.fire_bottles",
       "symptoms": [
-        "sym.fire_system_warning"
+        "sym.fire_system_warning",
+        "sym.fire.bottle.1",
+        "sym.fire.bottle.2"
       ],
       "cause": "Söndürücü tüpünün dolumu düşmüş.",
       "severity": 3,
@@ -1095,7 +2030,9 @@
       "id": "f.extinguisher.low",
       "part": "crew.extinguishers",
       "symptoms": [
-        "sym.extinguisher_low"
+        "sym.extinguisher_low",
+        "sym.extinguisher.low.1",
+        "sym.extinguisher.low.2"
       ],
       "cause": "El tipi söndürücü kullanılmış ya da basıncı düşmüş.",
       "severity": 2,
@@ -1107,7 +2044,9 @@
       "part": "crew.heater",
       "symptoms": [
         "sym.heater_no_start",
-        "sym.heater_smoke"
+        "sym.heater_smoke",
+        "sym.heater.blocked.1",
+        "sym.heater.blocked.2"
       ],
       "cause": "Isıtıcının hava girişi ya da egzozu kar veya çamurla tıkanmış.",
       "severity": 1,
@@ -1118,12 +2057,190 @@
       "id": "f.heater.fuel",
       "part": "crew.heater",
       "symptoms": [
-        "sym.heater_no_start"
+        "sym.heater_no_start",
+        "sym.heater.fuel.1",
+        "sym.heater.fuel.2"
       ],
       "cause": "Isıtıcının yakıt bağlantısında hava ya da sızıntı var.",
       "severity": 1,
       "isolation": "DMC-NAYATANK-AAA-DA7-30-00-00AA-421A-A",
       "repair": "DMC-NAYATANK-AAA-DA7-30-00-00AA-310A-A"
+    },
+    {
+      "id": "f.idler.bearing",
+      "part": "idlers",
+      "symptoms": [
+        "sym.idler_hot",
+        "sym.track_noise",
+        "sym.idler.bearing.1",
+        "sym.idler.bearing.2"
+      ],
+      "cause": "Avara tekerleği göbeği yeterince greslenmemiş ya da rulmanı aşınmaya başlamış.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA3-30-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA3-30-00-00AA-240A-A"
+    },
+    {
+      "id": "f.sprocket.bolts",
+      "part": "sprockets.rings",
+      "symptoms": [
+        "sym.sprocket_bolt",
+        "sym.track_noise",
+        "sym.sprocket.bolts.1",
+        "sym.sprocket.bolts.2"
+      ],
+      "cause": "Yürütücü dişli çemberinin bağlantı cıvataları gevşemiş.",
+      "severity": 3,
+      "isolation": "DMC-NAYATANK-AAA-DA3-30-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA3-30-00-00AA-920A-A"
+    },
+    {
+      "id": "f.slave_socket.dirty",
+      "part": "electrical.slave_socket",
+      "symptoms": [
+        "sym.slave_socket",
+        "sym.click_no_crank",
+        "sym.slave_socket.dirty.1",
+        "sym.slave_socket.dirty.2"
+      ],
+      "cause": "Takviye prizinin kontakları kirlenmiş ya da oksitlenmiş; takviye akımı geçmiyor.",
+      "severity": 1,
+      "isolation": "DMC-NAYATANK-AAA-DA4-30-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA4-40-00-01AA-310A-A"
+    },
+    {
+      "id": "f.warning.circuit",
+      "part": "electrical.instruments",
+      "symptoms": [
+        "sym.false_warning",
+        "sym.oil_pressure",
+        "sym.warning.circuit.1",
+        "sym.warning.circuit.2"
+      ],
+      "cause": "Uyarı devresinde konnektör nem almış ya da algılayıcı arızalı; uyarı gerçek bir durumu göstermiyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA1-20-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA4-40-00-00AA-320A-A"
+    },
+    {
+      "id": "f.accumulator.precharge",
+      "part": "hydraulics.accumulator",
+      "symptoms": [
+        "sym.pump_cycling",
+        "sym.hydraulic_slow",
+        "sym.accumulator.precharge.1",
+        "sym.accumulator.precharge.2"
+      ],
+      "cause": "Hidrolik akümülatörü ön dolumunu yitirmiş; pompa sürekli devreye giriyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA6-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA6-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.deck_hatch.latch",
+      "part": "hull.engine_deck.hatches",
+      "symptoms": [
+        "sym.deck_hatch",
+        "sym.deck_hatch.latch.1",
+        "sym.deck_hatch.latch.2"
+      ],
+      "cause": "Motor güvertesi kapağının kilidi kirlenmiş ya da ayarı bozulmuş.",
+      "severity": 1,
+      "isolation": "DMC-NAYATANK-AAA-DA0-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA0-30-00-00AA-310A-A"
+    },
+    {
+      "id": "f.fender_box.damaged",
+      "part": "hull.fenders",
+      "symptoms": [
+        "sym.box_damaged",
+        "sym.fender_box.damaged.1",
+        "sym.fender_box.damaged.2"
+      ],
+      "cause": "Çamurluk üstündeki kutu çarpmayla ezilmiş ya da kilidi kopmuş.",
+      "severity": 1,
+      "isolation": "DMC-NAYATANK-AAA-DA0-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA0-50-00-00AA-310A-A"
+    },
+    {
+      "id": "f.antenna.broken",
+      "part": "turret.antennas",
+      "symptoms": [
+        "sym.antenna",
+        "sym.antenna.broken.1",
+        "sym.antenna.broken.2"
+      ],
+      "cause": "Anten dala ya da engele çarpıp kırılmış.",
+      "severity": 1,
+      "isolation": "DMC-NAYATANK-AAA-DA0-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA0-20-00-00AA-310A-A"
+    },
+    {
+      "id": "f.gun_boot.torn",
+      "part": "turret.main_gun.boot",
+      "symptoms": [
+        "sym.gun_boot",
+        "sym.gun_boot.torn.1",
+        "sym.gun_boot.torn.2"
+      ],
+      "cause": "Top kalkanı toz körüğü yırtılmış; içeri toz ve su giriyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA5-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA5-10-00-00AA-310A-A"
+    },
+    {
+      "id": "f.nbc.fan_power",
+      "part": "crew.nbc",
+      "symptoms": [
+        "sym.nbc_fan_dead",
+        "sym.weak_ventilation",
+        "sym.nbc.fan_power.1",
+        "sym.nbc.fan_power.2"
+      ],
+      "cause": "Havalandırma ünitesinin sigortası atmış ya da besleme kablosu kopuk.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA7-10-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA4-40-00-00AA-920A-A"
+    },
+    {
+      "id": "f.oil.old",
+      "part": "engine.oil",
+      "symptoms": [
+        "sym.old_oil",
+        "sym.oil.old.1",
+        "sym.oil.old.2"
+      ],
+      "cause": "Motor yağının değişim zamanı geçmiş; yağ yorulmuş ve kirlenmiş.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA1-20-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA1-20-00-00AA-241A-A"
+    },
+    {
+      "id": "f.parking_brake.drag",
+      "part": "transmission.parking_brake",
+      "symptoms": [
+        "sym.park_brake_drag",
+        "sym.parking_brake.drag.1",
+        "sym.parking_brake.drag.2"
+      ],
+      "cause": "Park freni bağlantısı tam çözülmüyor; fren sürtüyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA2-30-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA2-40-00-00AA-310A-A"
+    },
+    {
+      "id": "f.hydraulic.contaminated",
+      "part": "hydraulics.unit",
+      "symptoms": [
+        "sym.hydraulic_foam",
+        "sym.hydraulic_slow",
+        "sym.hydraulic.contaminated.1",
+        "sym.hydraulic.contaminated.2"
+      ],
+      "cause": "Hidrolik yağına su ya da hava karışmış; filtre çabuk doluyor.",
+      "severity": 2,
+      "isolation": "DMC-NAYATANK-AAA-DA6-00-00-00AA-421A-A",
+      "repair": "DMC-NAYATANK-AAA-DA6-10-00-00AA-920A-A"
     }
   ]
 }

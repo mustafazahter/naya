@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA4" subSystemCode="4" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Takviye prizi</techName><infoName>Gözle muayene ve temizlik</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Tank düz zeminde, motor durdurulmuş, park freni çekili.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Ana şalter kapalı.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Tel fırça</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-020</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>El feneri</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-035</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Kontak temizleyici</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-014</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr><supplyDescr id="sp-0002"><name>Kontak gresi</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-015</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
+        <reqSpares><noSpares/></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Takviye prizinde akülerin tam akımı vardır. Ana şalter kapalıyken çalışın; metal aleti iki kontağa birden değdirmeyin.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Priz kapağını açın; kapağın contasına ve menteşesine bakın.</para></proceduralStep>
+        <proceduralStep><para>Kontaklarda kararma, erime izi, pas ya da kir arayın.</para></proceduralStep>
+        <proceduralStep><para>Kiri ve pası tel fırçayla, kontak temizleyiciyle giderin; kurumasını bekleyin.</para></proceduralStep>
+        <proceduralStep><para>Kontaklara ince bir kat kontak gresi sürün.</para></proceduralStep>
+        <proceduralStep><para>Erime izi ya da gevşek kontak varsa prizi kullanmayın; yetkili bakım birimine bildirin.</para></proceduralStep>
+        <proceduralStep><para>Kapağı kapatın ve kilitlendiğini kontrol edin.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

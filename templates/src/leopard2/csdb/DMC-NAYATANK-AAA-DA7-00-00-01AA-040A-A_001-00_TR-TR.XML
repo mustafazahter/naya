@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="DA7" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Mürettebat bölmesi donanımı</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Leopard 2A6 ana muharebe tankı</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYATANK" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Havalandırma ve NBC koruma</title>
+        <para>Ünite dış havayı ızgaradan emer, filtre elemanından geçirip mürettebat bölmesine basar. Bölmedeki hafif aşırı basınç, kirli havanın kapak aralıklarından içeri sızmasını önler.</para>
+        <para>Filtre doldukça hava akışı azalır; gösterge değişim bölgesine gelince eleman değiştirilir.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Yangın söndürme</title>
+        <para>Algılayıcılar güç paketi bölmesinde ve mürettebat bölmesinde yangını algılar; sistem söndürücü tüplerini kendiliğinden ya da elle boşaltır. El tipi söndürücüler küçük yangınlar içindir.</para>
+        <para>Sistemin arıza uyarısı yanarsa tank koruması azalmış demektir; uyarı giderilmeden göreve çıkılmaz.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Isıtıcı</title>
+        <para>Yakıtla çalışan ısıtıcı mürettebat bölmesini ısıtır. Hava girişi ve egzozu açık olmalıdır; tıkanırsa ısıtıcı ateş almaz ya da duman yapar.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>
