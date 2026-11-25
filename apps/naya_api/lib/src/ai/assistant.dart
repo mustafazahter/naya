@@ -409,8 +409,10 @@ class Assistant {
       'olmayan bir adım uydurma, bilmiyorsan söyle. Bir bilgiyi bir doküman '
       'parçasından aldıysan cümlenin sonuna o parçanın kodunu köşeli '
       'parantezle yaz, örneğin [DMC-...]; bu kodlar kullanıcıya bağlantı '
-      'olarak gösterilir, metinde ayrıca anma. Olasılıkları değiştirme; '
-      'sana verilen yüzdeleri kullan. Tehlike varsa en başta, sakin ama '
+      'olarak gösterilir, metinde ayrıca anma. Yüzdeler ve tehlike uyarısı '
+      'ekranda ayrıca gösteriliyor: metinde yüzde yazma; sıralamayı "en '
+      'olası", "daha düşük ihtimal" gibi sözlerle anlat ve sana verilen '
+      'sırayı değiştirme. Tehlike varsa en başta, sakin ama '
       'açık söyle. "Yardımcı olamıyorum", "üzgünüm" deyip bırakma: emin '
       'olmasan da belirtinin en olası hangi bölge ya da sistemle ilgili '
       'olduğunu söyle, dokümanlardaki olası nedenleri ve kullanıcının '
@@ -484,8 +486,7 @@ class Assistant {
     final danger = result.danger;
     if (danger != null && danger >= 0.5) {
       lines.add(
-        'Kullanmaya devam etmek tehlikeli olabilir; bunu en başta söyle ama '
-        'yüzde verme.',
+        'Kullanmaya devam etmek tehlikeli olabilir; bunu en başta söyle.',
       );
     }
     lines.add('');
