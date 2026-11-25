@@ -402,7 +402,8 @@ class Assistant {
       'konuş: sıcak ama abartısız, kısa cümleler, gereksiz giriş ve kapanış '
       'yok. Kullanıcıya hep "sen" diye hitap et. "Teşhis için tek soru:", '
       '"Netleştirmek için tek soru:", "Sonuç:", "Kaynaklar:" gibi kalıp '
-      'başlıklar ve rapor dili kullanma; "tek soru" sözünü hiç yazma. Soru soracaksan soruyu doğrudan, '
+      'başlıklar ve rapor dili kullanma; "tek soru" sözünü hiç yazma. '
+      'Soru soracaksan soruyu doğrudan, '
       'gündelik dille sor. Gerekirse kısa bir madde listesi ya da bir iki '
       'kelimeyi **kalın** yazabilirsin; başlık kullanma. Yalnız sana '
       'verilen doküman parçalarına ve teşhis sonucuna dayan; dokümanda '
@@ -442,7 +443,10 @@ class Assistant {
         if (s.id != DiagnosisFlow.none && s.probability >= 0.15) s,
     ];
     final weak = systems.isEmpty || systems.first.probability < 0.3;
-    final unmatched = noneFirst || (result.systems.isNotEmpty && weak);
+    // Soru soran (arıza anlatmayan) kullanıcıya "doğru ürün mü" denmez.
+    final unmatched =
+        result.decision != DiagnosisDecision.notDiagnosis &&
+        (noneFirst || (result.systems.isNotEmpty && weak));
     if (unmatched) {
       // Adaylar, prosedür ve tehlike de gönderilmez: düşük yüzdeli bir
       // aday listesi görünce yapay zekâ yine kontrol ve değer öneriyor.
