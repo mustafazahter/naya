@@ -40,7 +40,7 @@ Mesajların tipleri `src/bridge.ts` dosyasında; Flutter tarafı `apps/naya/lib/
 | Komut | Alanlar | Ne yapar |
 | --- | --- | --- |
 | `load` | `url`, isteğe bağlı `map` | Başka bir modeli yükler. |
-| `explode` | `amount` (0-1) | Parçaları dıştan içe, birbirine değmeden söker (bkz. [Parçalara ayırma](#parçalara-ayırma)). Kamera açılmış modele göre geri çekilir. |
+| `explode` | `amount` (0-1) | Gövde dışındaki bütün parçaları dışarı açar; açılmış hâlde hiçbiri birbirine değmez (bkz. [Parçalara ayırma](#parçalara-ayırma)). Kamera açılmış modele göre geri çekilir. |
 | `focus` | `part` | Kamerayı parçaya yaklaştırır, diğerlerini saydam gri yapar. |
 | `isolate` | `part` ya da `null` | Yalnız parçayı gösterir, kamera ona uçar; `null` bütün modeli geri getirir. |
 | `xray` | `enabled` | Bütün modeli yarı saydam yapar. |
@@ -60,15 +60,16 @@ Düğüm adlarında nokta yok (three.js siliyor); parça kimliğiyle eşleşme `
 
 ## Parçalara ayırma
 
-Plan model yüklenirken bir kez kurulur (`src/explode.ts`), sayfa donmasın diye ayrı bir iş parçacığında (`src/explodeWorker.ts`; açılamazsa sayfanın kendisinde). Büyük modelde masaüstünde 1-2 sn sürer; model bu sırada yüklenmiş sayılmaz, eski model ekranda kalır.
+Plan model yüklenirken bir kez kurulur (`src/explode.ts`), ayrı bir iş parçacığında (`src/explodeWorker.ts`; açılamazsa sayfanın kendisinde). Plan kurulurken eski model ekranda kalır.
 
-- **Hiçbir parça başka bir parçaya girmez ya da değmez.** En büyük parça (kasa, gövde, kadro) yerinde kalır, diğerleri dıştan içe sırayla sökülür. Her parça eksen yönlerinden birine gider; önü kapalıysa önce kısa bir adım atar (biraz kalkıp yana kayar). Yolu açık değilse o yöne gitmez; hiçbir yoldan çıkamayan parça yerinde kalır. Kabinin içindeki koltuklar, zincirin sardığı arka tekerlek, kabloların bağladığı gidon bu yüzden yerinde durur: tavanı delip çıkmaktansa toplu hâlde kalırlar.
-- **Yol üç yolla denetlenir.** Işınlar: her parça için x, y, z boyunca her pikselden geçen ışının yüzeyi kestiği derinlikler; kayan parça aynı ışında önündeki bir noktaya varınca durur. Değme sayısı: modellerde birçok parça toplu hâlde birbirine biraz girer (kapı kasaya, döşeme tavana); bu kesişmelerin çevresinde ışınlar yerine iki parçanın ince hücrelerde kaç yerde değdiği sayılır ve yol boyunca bu sayı artamaz. Vardığı yer: açılmış hâlde her parçanın çevresinde en az bir hücre boşluk kalır, hiçbir parça zeminin altına inmez.
+- **Her parça açılır.** Yalnız en büyük kabuk (kasa, gövde, kadro) yerinde kalır. Diğer her parça modelin merkezinden dışarı, kendi boyuyla orantılı bir mesafe gider: modelin boyunun %5'i, artı kutusunun köşegeninin yarısına yakın, artı merkezden uzaklığının bir kısmı. Küçük parça az, büyük parça çok gider; açılmış model dengeli durur.
+- **Yön.** Gövdenin dış yüzündeki parça (kapı, tampon, tekerlek) çoğunlukla tek eksen boyunca açılır. Gövdenin içindeki parça (koltuk, motor) yukarı ve biraz dışarı çıkar, yelpaze gibi açılır. Hiçbir parça aşağı gitmez, zeminin altına inmez.
+- **Takımlar.** Montaj ağacında bir arada duran grup (bisiklet tekerleği) ve kutusu başka bir parçanın içinde kalan parçalar (jant içindeki disk, kaliper, göbek) önce takımla birlikte çıkar, sonra aks boyunca içten dışa sıralanır: göbek, disk, kaliper, jant, lastik.
 - **Sağ ve sol kısımlar ayrı açılır.** Modelde tek düğüm olan sağ ve sol amortisör, iki ön disk gibi aralarında boşluk olan parçalar yüklenirken kısımlarına bölünür (`src/pieces.ts`); her kısım kendi yanına gider. Seçme, parlama ve ad parçanın kendisinde kalır.
-- **Gruplar.** Montaj ağacındaki bir arada duran grup (bisiklet tekerleği) önce bütün olarak çıkar, sonra üyeleri aks boyunca açılır. Çıkamayan parçalardan kutusu başka birinin içinde kalanlar (tekerlek, disk, kaliper, göbek) birlikte denenir.
-- **Sıra ve süre.** Önündeki parçayı aynı yöne iterek çıkan parça onu ileri taşır (kapak, eksantrik mili, silindir kapağı sırası korunur). Süpürdüğü alan bir öncekinkine değen hareket onun bitmesini bekler, değmeyenler aynı anda oynar; animasyon en çok 3 sn sürer.
+- **Açılmış hâlde hiçbir parça başka bir parçaya değmez.** Değen iki parçadan biri kendi yönünde biraz daha ileri itilir, değme kalmayana kadar: aynı yöne gidenlerden dıştaki (sıra bozulmasın), ayrı yönlere gidenlerden küçük olan. Animasyon sırasında parçalar birbirinin içinden geçebilir.
+- **Animasyon.** Dıştakiler önce kalkar, içtekiler arkadan gelir; yaklaşık 2,5 sn sürer. Kamera açılmış modelin tamamını kadraja alır.
 
-Geliştirirken tarayıcı konsolunda `await explodeReport()` ayırmanın yirmi anında (0,05 arayla) birbirine giren parçaları listeler (yalnız `npm run dev`'de). Toplu hâlde zaten birbirine değen iki parça, değdikleri hücre sayısı artmadıkça sayılmaz. Boş liste beklenir.
+Geliştirirken tarayıcı konsolunda `await explodeReport()` açılmış hâlde birbirine giren ya da değen parçaları listeler (yalnız `npm run dev`'de). Toplu hâlde zaten birbirine değen iki parça, değdikleri hücre sayısı artmadıkça sayılmaz. Boş liste beklenir.
 
 ## Efektler nasıl çiziliyor
 
