@@ -29,7 +29,7 @@
     <description>
       <levelledPara>
         <title>Genel</title>
-        <para>F-16 elektrikli (fly-by-wire) kumandalı ilk savaş uçaklarından biridir. Pilotun kumandası uçuş kumanda bilgisayarına gider; bilgisayar kumanda yüzeylerinin hidrolik eyleyicilerini çalıştırır.</para>
+        <para>F-16'nın uçuş kumandası elektriklidir (fly-by-wire). Pilotun kumandası uçuş kumanda bilgisayarına gider; bilgisayar kumanda yüzeylerinin hidrolik eyleyicilerini çalıştırır.</para>
       </levelledPara>
       <figure id="fig-0004"><title>Uçuş kumanda yüzeyleri</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00004-A-001-01"/></figure>
       <levelledPara>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYAJET-AAA-D000000-0-NAYA0-00014-A-001-01 SYSTEM "ICN-NAYAJET-AAA-D000000-0-NAYA0-00014-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="29" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Hidrolik pompası</techName><infoName>Değiştirme</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Uçak takozlu ve topraklı; iniş takımı emniyet pimleri ve fırlatma koltuğu emniyet pimleri takılı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Motor durdurulmuş, ana şalter kapalı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Elektrik gücü kesik; ilgili devre kesiciler açık ve etiketli.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Hidrolik sistemlerde basınç yok.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqSupportEquips><noSupportEquips/></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Hidrolik pompası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-29-20-065</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSafety><noSafety/></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><title>Sökme</title><figure id="fig-0014"><title>Aksesuar dişli kutusu</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00014-A-001-01"/></figure><proceduralStep><para>Sistemin basıncını boşaltın.</para></proceduralStep><proceduralStep><para>Basınç, emme ve kaçak hatlarını ayırın; açıklıkları kapatın.</para></proceduralStep><proceduralStep><para>Pompayı destekleyerek bağlantılarını sökün ve dişli kutusundan çıkarın.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Takma</title><proceduralStep><para>Pompanın tahrik milini ve contasını kontrol edin.</para></proceduralStep><proceduralStep><para>Pompayı yerine oturtun. Bağlantı elemanlarını el kitabındaki torkta sıkın ve emniyetleyin.</para></proceduralStep><proceduralStep><para>Hatları yeni contalarla bağlayın, depoyu doldurun ve sistemin havasını alın.</para></proceduralStep></proceduralStep>
+        <proceduralStep><para>Yer hidrolik gücüyle sistemi basınçlandırın, sızıntı kontrolü yapın ve sonucu kayda geçirin.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

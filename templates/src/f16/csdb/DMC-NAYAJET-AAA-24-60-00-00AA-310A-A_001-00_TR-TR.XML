@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="24" subSystemCode="6" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Kablo demetleri</techName><infoName>Gözle muayene</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Uçak takozlu ve topraklı; iniş takımı emniyet pimleri ve fırlatma koltuğu emniyet pimleri takılı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Motor durdurulmuş, ana şalter kapalı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Elektrik gücü kesik; ilgili devre kesiciler açık ve etiketli.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>El feneri</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-007</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSpares><noSpares/></reqSpares>
+        <reqSafety><noSafety/></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Kablo demetlerini yapıya ya da hatlara sürtünme, ezilme ve yalıtım hasarı açısından muayene edin.</para></proceduralStep>
+        <proceduralStep><para>Kelepçelerin ve destek parçalarının yerinde olduğunu kontrol edin.</para></proceduralStep>
+        <proceduralStep><para>Isı kaynaklarının yakınındaki kablolarda renk değişimi arayın.</para></proceduralStep>
+        <proceduralStep><para>Topraklama şeritlerini ve bağlantılarını kontrol edin.</para></proceduralStep>
+        <proceduralStep><para>Hasarlı kabloyu onarım için kayda geçirin.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="20" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

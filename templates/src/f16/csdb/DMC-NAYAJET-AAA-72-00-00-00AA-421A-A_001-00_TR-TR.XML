@@ -37,10 +37,16 @@
             <isolationStep id="stp-0002">
               <action>Çalıştırma sırasında ateşleyicilerin çıtırtısını yetkili personel eşliğinde dinleyin.</action>
               <isolationStepQuestion>Ateşleyiciler çalışıyor mu?</isolationStepQuestion>
-              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-nozzles"/><noAnswer nextActionRefId="end-igniters"/></yesNoAnswer></isolationStepAnswer>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-nozzles"/><noAnswer nextActionRefId="stp-0003"/></yesNoAnswer></isolationStepAnswer>
+            </isolationStep>
+            <isolationStep id="stp-0003">
+              <action>Ateşleme ünitesinin çıkışını yetkili motor personeline el kitabındaki yöntemle kontrol ettirin.</action>
+              <isolationStepQuestion>Ünite yüksek gerilim üretiyor mu?</isolationStepQuestion>
+              <isolationStepAnswer><yesNoAnswer><yesAnswer nextActionRefId="end-igniters"/><noAnswer nextActionRefId="end-unit"/></yesNoAnswer></isolationStepAnswer>
             </isolationStep>
             <isolationProcedureEnd id="end-fuel"><action>Yakıt ikmali yapın ya da valf konumlarını düzeltin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="28" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="210" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
-            <isolationProcedureEnd id="end-igniters"><action>Ateşleyiciler ya da ateşleme ünitesi arızalı olabilir; motor personeline bildirin.</action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-igniters"><action>Ünite sağlam: ateşleyicileri değiştirin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="74" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
+            <isolationProcedureEnd id="end-unit"><action>Ateşleme ünitesi arızalı: üniteyi değiştirtin ve ateşleme sistemini test edin. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="74" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="320" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
             <isolationProcedureEnd id="end-nozzles"><action>Ateşleme var ama motor tutmuyor: yakıt enjektörleri tıkalı olabilir; boroskop muayenesi yaptırın. <dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="72" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></action></isolationProcedureEnd>
           </isolationMainProcedure>
           <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>

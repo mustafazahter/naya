@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dmodule [
+<!NOTATION JPEG SYSTEM "JPEG">
+<!ENTITY ICN-NAYAJET-AAA-D000000-0-NAYA0-00016-A-001-01 SYSTEM "ICN-NAYAJET-AAA-D000000-0-NAYA0-00016-A-001-01.JPG" NDATA JPEG>
+]>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="25" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="310" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Kokpit</techName><infoName>Kokpit muayenesi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Uçak takozlu ve topraklı; iniş takımı emniyet pimleri ve fırlatma koltuğu emniyet pimleri takılı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Motor durdurulmuş, ana şalter kapalı.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>El feneri</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-007</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSpares><noSpares/></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Koltuk emniyet pimleri takılı olmadan kokpite girmeyin.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Koltukların altını ve konsol aralarını gevşek eşya için el feneriyle kontrol edin; kumanda yollarına sıkışan eşya tehlikelidir.</para><figure id="fig-0016"><title>Kokpit ve fırlatma koltukları</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00016-A-001-01"/></figure></proceduralStep>
+        <proceduralStep><para>Gösterge ve ekran camlarında çatlak olup olmadığına bakın.</para></proceduralStep>
+        <proceduralStep><para>Anahtar ve düğmelerin koruyucu kapaklarını kontrol edin.</para></proceduralStep>
+        <proceduralStep><para>Yan kumanda kolunun, gaz kolunun ve pedalların serbest olduğunu kontrol edin.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

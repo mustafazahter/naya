@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="28" subSystemCode="3" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Yakıt pompası</techName><infoName>Değiştirme</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><reqCondNoRef><reqCond>Uçak takozlu ve topraklı; iniş takımı emniyet pimleri ve fırlatma koltuğu emniyet pimleri takılı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Motor durdurulmuş, ana şalter kapalı.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Elektrik gücü kesik; ilgili devre kesiciler açık ve etiketli.</reqCond></reqCondNoRef><reqCondNoRef><reqCond>Tank boşaltılmış.</reqCond></reqCondNoRef></reqCondGroup>
+        <reqSupportEquips><noSupportEquips/></reqSupportEquips>
+        <reqSupplies><noSupplies/></reqSupplies>
+        <reqSpares><spareDescrGroup><spareDescr id="pt-0001"><name>Yakıt pompası</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-28-30-060</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></spareDescr></spareDescrGroup></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Yakıt buharı yanıcı ve zehirlidir; tank içine yalnız havalandırma ve ölçüm yapıldıktan sonra girilir.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><title>Sökme</title><proceduralStep><para>Tankı boşaltın ve havalandırın; tank girişi gerekiyorsa kapalı alan emniyet kurallarını uygulayın.</para></proceduralStep><proceduralStep><para>Pompanın elektrik konnektörünü ve yakıt hatlarını ayırın.</para></proceduralStep><proceduralStep><para>Bağlantı elemanlarını sökün ve pompayı çıkarın.</para></proceduralStep></proceduralStep>
+        <proceduralStep><title>Takma</title><proceduralStep><para>Yeni pompayı yeni contayla yerleştirin. Bağlantı elemanlarını el kitabındaki torkta sıkın ve emniyetleyin.</para></proceduralStep><proceduralStep><para>Hatları ve konnektörü bağlayın.</para></proceduralStep><proceduralStep><para>Tankı doldurun ve bağlantıları sızıntı açısından kontrol edin.</para></proceduralStep></proceduralStep>
+        <proceduralStep><para>Takılan parçanın çalışma testini uçağın kendi teknik el kitabına göre yapın ve sonucu kayda geçirin.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>
