@@ -58,4 +58,17 @@ void main() {
     expect(await search.search('item', 'balata'), hasLength(1));
     expect((await db.checkIntegrity()).searchRebuilt, isFalse);
   });
+
+  test('yalnız bozulma hatası dizini sildirir, kilit hatası sildirmez', () {
+    expect(
+      NayaDatabase.isCorruption(
+        'SqliteException(267): database disk image is malformed',
+      ),
+      isTrue,
+    );
+    expect(
+      NayaDatabase.isCorruption('SqliteException(5): database is locked'),
+      isFalse,
+    );
+  });
 }

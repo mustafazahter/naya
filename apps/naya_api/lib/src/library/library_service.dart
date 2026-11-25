@@ -125,8 +125,8 @@ class LibraryService {
     if (search == null) return 0;
     var count = 0;
     for (final item in await _db.select(_db.libraryItems).get()) {
-      if (await search.isIndexed(item.id)) continue;
       try {
+        if (await search.isIndexed(item.id)) continue;
         await search.index(item.id, await open(item));
         count++;
       } on Object catch (e) {

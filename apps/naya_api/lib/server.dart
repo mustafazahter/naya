@@ -137,7 +137,14 @@ class NayaApi {
         stderr.writeln('Admin hesabı hazırlanamadı: ${e.message}');
       }
     }
-    final integrity = await db.checkIntegrity();
+    final IntegrityReport integrity;
+    try {
+      integrity = await db.checkIntegrity();
+    } on Object catch (e) {
+      // Onarım yarıda kalsa da sunucu açılsın; arama boş döner.
+      stderr.writeln('Veritabanı denetimi yapılamadı: $e');
+      return _startRest();
+    }
     if (integrity.problem != null) {
       stderr.writeln(
         'Veritabanı denetimi sorun buldu: ${integrity.problem} '
@@ -149,6 +156,10 @@ class NayaApi {
         'Arama dizini bozuktu, yeniden kuruluyor: ${integrity.searchProblem}',
       );
     }
+    await _startRest();
+  }
+
+  Future<void> _startRest() async {
     await importTemplates();
     final indexed = await library.indexMissing();
     if (indexed > 0) stdout.writeln('Arama dizinine eklendi: $indexed dosya');

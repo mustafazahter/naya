@@ -96,6 +96,11 @@ class NayaDatabase extends _$NayaDatabase {
       );
       return IntegrityReport(problem: problem, searchRebuilt: false);
     } on Object catch (e) {
+      // Yalnız bozulmada yeniden kur. Kilit gibi geçici bir hatada dizin
+      // sağlamdır; silmek bütün DM'leri boşuna yeniden dizinletir.
+      if (!isCorruption(e)) {
+        return IntegrityReport(problem: problem ?? '$e', searchRebuilt: false);
+      }
       await _dropSearchIndex();
       await _createSearchIndex();
       return IntegrityReport(
@@ -104,6 +109,17 @@ class NayaDatabase extends _$NayaDatabase {
         searchProblem: '$e',
       );
     }
+  }
+
+  /// SQLite'ın bozulma hataları: SQLITE_CORRUPT (11) ve FTS'in
+  /// SQLITE_CORRUPT_VTAB'ı (267). Hata başka bir isolate'tan sarılı
+  /// gelebildiği için metinden bakılır.
+  static bool isCorruption(Object error) {
+    final text = '$error';
+    return text.contains('malformed') ||
+        text.contains('(code 11)') ||
+        text.contains('(code 267)') ||
+        text.contains('SQLITE_CORRUPT');
   }
 
   /// Bozuk FTS tablosu bazen `DROP TABLE` ile de silinemez; o zaman
