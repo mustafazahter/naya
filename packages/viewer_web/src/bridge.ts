@@ -8,6 +8,7 @@ export interface WeightedPart {
 }
 
 export type ViewerCommand =
+  // map: uygulamanın eski sürümleri gönderir; artık kullanılmıyor.
   | { type: "load"; url: string; map?: string }
   | { type: "scan"; id: number; parts: WeightedPart[] }
   | { type: "highlight"; parts: WeightedPart[] }
