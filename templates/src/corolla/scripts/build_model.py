@@ -12,7 +12,7 @@ nesne. Bu betik:
    (adacık) ayırır; her adacık malzemesine ve konumuna göre kendi düğümüne
    gider (silecekler, koltuklar, gösterge paneli, genleşme kabı...).
 4. Kabin içinden görünen boyalı sac yüzlerin birkaç milimetre içine döşeme
-   renginde bir kopya koyar; camdan bakınca içerisi kırmızı görünmez.
+   renginde bir kopya koyar; camdan bakınca içerisi boyalı görünmez.
 5. Eski düşük ayrıntılı motoru (4A-GE) çıkarır, şanzımanı ondan ayırıp
    tutar, yerine 1ZZ-FE'yi koyar.
 6. Kaynakta olmayan lastik, jant, egzoz, katalitik konvertör, yakıt deposu,
@@ -190,7 +190,7 @@ BELT_LINE = 0.88  # bunun üstü tavan döşemesi, altı yan döşeme
 # açık görünür. Bu yüzden değerler gerçek renklerden koyu seçildi.
 # anahtar: (renk, pürüzlülük, metal, saydamlık)
 PALETTE = {
-    'paint': ((0.30, 0.012, 0.016), 0.32, 0.0, 1),
+    'paint': ((0.40, 0.32, 0.20), 0.32, 0.0, 1),  # bej
     'trim': ((0.018, 0.018, 0.02), 0.6, 0.0, 1),
     'rubber': ((0.014, 0.014, 0.014), 0.9, 0.0, 1),
     'chrome': ((0.8, 0.81, 0.83), 0.12, 1.0, 1),
