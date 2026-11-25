@@ -161,6 +161,9 @@ class Assistant {
               ChatMessage(
                 'user',
                 '${_diagnosisBrief(catalog, result)}\n\n'
+                    '${earlierMessages.isEmpty ? '' : 'Kullanıcının daha önce '
+                              'yazdıkları (bunlarda cevaplanmış bir şeyi '
+                              'yeniden sorma):\n${earlierMessages.map((m) => '- $m').join('\n')}\n\n'}'
                     'Kullanıcının mesajı: $message\n\n'
                     'Doküman parçaları:\n${context.text}',
               ),
@@ -397,16 +400,20 @@ class Assistant {
       'Sen NAYA uygulamasında $product için deneyimli, sakin bir bakım '
       'ustasısın. Karşındakiyle doğal Türkçeyle, iki kişinin konuştuğu gibi '
       'konuş: sıcak ama abartısız, kısa cümleler, gereksiz giriş ve kapanış '
-      'yok. "Teşhis için tek soru:", "Sonuç:", "Kaynaklar:" gibi kalıp '
-      'başlıklar ve rapor dili kullanma. Soru soracaksan soruyu doğrudan, '
+      'yok. Kullanıcıya hep "sen" diye hitap et. "Teşhis için tek soru:", '
+      '"Netleştirmek için tek soru:", "Sonuç:", "Kaynaklar:" gibi kalıp '
+      'başlıklar ve rapor dili kullanma; "tek soru" sözünü hiç yazma. '
+      'Soru soracaksan soruyu doğrudan, '
       'gündelik dille sor. Gerekirse kısa bir madde listesi ya da bir iki '
       'kelimeyi **kalın** yazabilirsin; başlık kullanma. Yalnız sana '
       'verilen doküman parçalarına ve teşhis sonucuna dayan; dokümanda '
       'olmayan bir adım uydurma, bilmiyorsan söyle. Bir bilgiyi bir doküman '
       'parçasından aldıysan cümlenin sonuna o parçanın kodunu köşeli '
       'parantezle yaz, örneğin [DMC-...]; bu kodlar kullanıcıya bağlantı '
-      'olarak gösterilir, metinde ayrıca anma. Olasılıkları değiştirme; '
-      'sana verilen yüzdeleri kullan. Tehlike varsa en başta, sakin ama '
+      'olarak gösterilir, metinde ayrıca anma. Yüzdeler ve tehlike uyarısı '
+      'ekranda ayrıca gösteriliyor: metinde yüzde yazma; sıralamayı "en '
+      'olası", "daha düşük ihtimal" gibi sözlerle anlat ve sana verilen '
+      'sırayı değiştirme. Tehlike varsa en başta, sakin ama '
       'açık söyle. "Yardımcı olamıyorum", "üzgünüm" deyip bırakma: emin '
       'olmasan da belirtinin en olası hangi bölge ya da sistemle ilgili '
       'olduğunu söyle, dokümanlardaki olası nedenleri ve kullanıcının '
@@ -436,24 +443,45 @@ class Assistant {
         if (s.id != DiagnosisFlow.none && s.probability >= 0.15) s,
     ];
     final weak = systems.isEmpty || systems.first.probability < 0.3;
-    if (noneFirst || (result.systems.isNotEmpty && weak)) {
-      lines.add(
-        'Belirti bu ürünün hiçbir sistemiyle açıkça eşleşmedi; bölge ya da '
-        'neden tahmin etme.',
-      );
+    // Soru soran (arıza anlatmayan) kullanıcıya "doğru ürün mü" denmez.
+    final unmatched =
+        result.decision != DiagnosisDecision.notDiagnosis &&
+        (noneFirst || (result.systems.isNotEmpty && weak));
+    if (unmatched) {
+      // Adaylar, prosedür ve tehlike de gönderilmez: düşük yüzdeli bir
+      // aday listesi görünce yapay zekâ yine kontrol ve değer öneriyor.
+      lines
+        ..add('Belirti bu ürünün hiçbir sistemiyle açıkça eşleşmedi.')
+        ..add('')
+        ..add(
+          'Anlatılanın bu üründe bir karşılığı görünmediğini bir iki cümleyle '
+          'açıkça söyle. Kullanılan sözler başka türden bir araca ya da ürüne '
+          'aitse (örneğin otomobilde palet, kule) bunu belirt ve doğru ürünün '
+          'seçili olup olmadığını sor; değilse neyi kastettiğini sor. Bölge, '
+          'neden, kontrol, değer ya da tehlike uyarısı yazma; bu ürünün '
+          'parçalarından söz etme.',
+        );
+      return lines.join('\n');
     } else if (systems.isNotEmpty) {
       lines.add(
         'En olası sistemler: '
         '${systems.take(3).map((s) => '${name(s.id)} ${percent(s.probability)}').join(', ')}',
       );
     }
+    if (result.candidates.isNotEmpty) {
+      lines.add('Aday parçalar (parçanın arızalı olma olasılığı):');
+    }
     for (final c in result.candidates.take(3)) {
       lines.add('- ${name(c.partId)}: ${percent(c.probability)}');
     }
     final fault = result.fault == null ? null : catalog.fault(result.fault!.id);
     if (fault != null) {
+      // Arıza yüzdesi parça yüzdesinden ayrı; parça adı yazılmazsa yapay
+      // zekâ ikisini karıştırıp aynı parçaya iki ayrı yüzde veriyor.
       lines.add(
-        'En olası arıza: ${fault.cause} (${percent(result.fault!.probability)})',
+        'En olası arıza (${name(fault.part)} parçasında, bu parça arızalıysa '
+        'nedeninin bu olma olasılığı ${percent(result.fault!.probability)}): '
+        '${fault.cause}',
       );
     }
     if (result.procedure != null) {
@@ -462,7 +490,7 @@ class Assistant {
     final danger = result.danger;
     if (danger != null && danger >= 0.5) {
       lines.add(
-        'Kullanmaya devam etmek tehlikeli olabilir (${percent(danger)}).',
+        'Kullanmaya devam etmek tehlikeli olabilir; bunu en başta söyle.',
       );
     }
     lines.add('');
@@ -473,8 +501,8 @@ class Assistant {
       DiagnosisDecision.ambiguous || DiagnosisDecision.uncertain =>
         'Sonuç kesin değil. Adayları ya da en olası bölgeyi kısaca söyle, '
             'dokümanlardaki olası nedenleri ve yapılabilecek bir iki kontrolü '
-            'öner, sonra aralarında ayırt etmek için tek bir netleştirici '
-            'soru sor.',
+            'öner, sonra aralarında ayırt etmek için bir soru sor; soruyu '
+            'başlıksız, doğrudan yaz.',
       DiagnosisDecision.needsInfo =>
         'Anlatılanlar teşhis için henüz yetmiyor. Önce belirtinin en olası '
             'hangi bölge ya da sistemle ilgili olduğunu ve dokümanlara göre '
