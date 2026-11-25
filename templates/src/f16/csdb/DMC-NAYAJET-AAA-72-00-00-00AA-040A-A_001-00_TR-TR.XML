@@ -31,7 +31,7 @@
         <title>Genel</title>
         <para>Turbofan motorda hava önce fandan geçer. Havanın bir kısmı çekirdeğe girer, bir kısmı çekirdeğin çevresinden dolaşan baypas kanalından geçer.</para>
         <para>Çekirdekte alçak ve yüksek basınç kompresörleri havayı sıkıştırır. Yanma odasında yakıt yakılır; sıcak gaz yüksek ve alçak basınç türbinlerini döndürür. Türbinler miller üzerinden kompresörleri ve fanı çevirir.</para>
-        <para>Art yakıcı, türbinden çıkan gaza yeniden yakıt püskürterek kısa süreli ek itki sağlar. Lüle çıkış alanını itki ihtiyacına göre açar ve kapatır.</para>
+        <para>Art yakıcı, türbinden çıkan gaza yeniden yakıt püskürterek yakan bölümdür. Lüle, çıkış alanını motorun çalışma durumuna göre açar ve kapatır.</para>
       </levelledPara>
       <figure id="fig-0006"><title>Turbofan motor</title><graphic infoEntityIdent="ICN-NAYAJET-AAA-D000000-0-NAYA0-00006-A-001-01"/></figure>
       <levelledPara>

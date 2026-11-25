@@ -5,7 +5,7 @@
 ```
 f16/
 ├── naya.json      manifest (bütünlük özetleri paketlerken eklenir)
-├── csdb/          S1000D Issue 5.0: 150 DM, PM, DML, 16 çizim
+├── csdb/          S1000D Issue 5.0: 154 DM, PM, DML, 16 çizim
 ├── map/           parts.json (117 parça), faults.json (87 arıza, 73 belirti), zones.json
 ├── model/         product.glb
 └── scripts/       modeli kuran, içeriği ve çizimleri üreten betikler

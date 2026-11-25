@@ -179,12 +179,12 @@ AIRCRAFT = dm(
     description=[
         ('Genel', [
             'F-16, General Dynamics (bugün Lockheed Martin) tarafından '
-            'geliştirilen tek motorlu, çok rollü bir savaş uçağıdır. Block 60 '
+            'geliştirilen tek motorlu bir askerî uçaktır. Block 60 '
             'sürümünün tek kişilik olanı E, iki kişilik olanı F adını taşır; '
             'F\'de ön ve arka kokpit art arda dizilidir.',
             'Block 60 sürümünde gövdenin üstünde iki yanda konformal yakıt '
-            'tankları bulunur; bu tanklar menzili artırır ve dış yük '
-            'istasyonlarını boş bırakır.',
+            'tankları bulunur; bu tanklar gövde içi tanklara ek yakıt '
+            'taşır ve onlarla birlikte doldurulup muayene edilir.',
         ]),
         ('Sistemler', [
             'Gövde: tek parça kanat-gövde birleşimi, burunda radom, gövdenin '
@@ -276,8 +276,8 @@ CONTROLS = dm(
     code=code('27'), tech='Uçuş kumandaları', figure=4,
     description=[
         ('Genel', [
-            'F-16 elektrikli (fly-by-wire) kumandalı ilk savaş uçaklarından '
-            'biridir. Pilotun kumandası uçuş kumanda bilgisayarına gider; '
+            'F-16\'nın uçuş kumandası elektriklidir (fly-by-wire). Pilotun '
+            'kumandası uçuş kumanda bilgisayarına gider; '
             'bilgisayar kumanda yüzeylerinin hidrolik eyleyicilerini '
             'çalıştırır.',
         ]),
@@ -401,8 +401,9 @@ HYD_ISOLATE = dm(
              'göstergesi arızalı olabilir; pompayı değiştirmeden önce '
              'hidrolik personeline gösterge devresini kontrol ettirin.',
              code('29', '2', '920')),
-            ('end-leak', 'Sızıntıyı kayda geçirin ve sızan parçayı '
-             'onartın; sonra sıvıyı tamamlayın.', code('29', '1', '300')),
+            ('end-leak', 'Sızan hattı, hortumu ya da bağlantıyı hat '
+             'muayenesiyle bulun ve onartın; sonra sıvıyı tamamlayın.',
+             code('29', '1', '310')),
             ('end-refill', 'Sıvıyı tamamlayın ve sonraki uçuşlarda seviyeyi '
              'izleyin.', code('29', '1', '300')),
         ],
@@ -624,9 +625,9 @@ ENGINE = dm(
             'Yanma odasında yakıt yakılır; sıcak gaz yüksek ve alçak basınç '
             'türbinlerini döndürür. Türbinler miller üzerinden kompresörleri '
             've fanı çevirir.',
-            'Art yakıcı, türbinden çıkan gaza yeniden yakıt püskürterek kısa '
-            'süreli ek itki sağlar. Lüle çıkış alanını itki ihtiyacına göre '
-            'açar ve kapatır.',
+            'Art yakıcı, türbinden çıkan gaza yeniden yakıt püskürterek '
+            'yakan bölümdür. Lüle, çıkış alanını motorun çalışma durumuna '
+            'göre açar ve kapatır.',
         ]),
         ('Aksesuar dişli kutusu', [
             'Motorun altındaki aksesuar dişli kutusu, yüksek basınç milinden '
@@ -652,14 +653,19 @@ ENGINE_ISOLATE = dm(
              'stp-0002', 'end-fuel'),
             ('stp-0002', 'Çalıştırma sırasında ateşleyicilerin çıtırtısını '
              'yetkili personel eşliğinde dinleyin.',
-             'Ateşleyiciler çalışıyor mu?', 'end-nozzles', 'end-igniters'),
+             'Ateşleyiciler çalışıyor mu?', 'end-nozzles', 'stp-0003'),
+            ('stp-0003', 'Ateşleme ünitesinin çıkışını yetkili motor '
+             'personeline el kitabındaki yöntemle kontrol ettirin.',
+             'Ünite yüksek gerilim üretiyor mu?', 'end-igniters',
+             'end-unit'),
         ],
         'ends': [
             ('end-fuel', 'Yakıt ikmali yapın ya da valf konumlarını '
              'düzeltin.', code('28', '1', '210')),
-            ('end-igniters', 'Ateşleyiciler ya da ateşleme ünitesi '
-             'arızalı olabilir; ateşleme sistemini test edin.',
-             code('74', '1', '320')),
+            ('end-igniters', 'Ünite sağlam: ateşleyicileri değiştirin.',
+             code('74', '1', '920')),
+            ('end-unit', 'Ateşleme ünitesi arızalı: üniteyi değiştirtin ve '
+             'ateşleme sistemini test edin.', code('74', '1', '320')),
             ('end-nozzles', 'Ateşleme var ama motor tutmuyor: yakıt '
              'enjektörleri tıkalı olabilir; boroskop muayenesi yaptırın.',
              code('72', '2', '310')),
@@ -1097,6 +1103,24 @@ ECS_PRESS_TEST = proc(
         'Basıncı boşaltın ve test setini sökün.',
     ])
 
+ECS_ISO = isolate(
+    code('21', info='421'), 'Klima sistemi',
+    'Kokpit sıcaklığı: arıza bulma', 'NAYAJET-21-001',
+    'Kokpit soğumuyor ya da aşırı ısınıyor; klima kanalı çevresinde ısı '
+    'izi var.',
+    [('Klima kanallarını ve kelepçelerini sızıntı ve ısı izi açısından '
+      'kontrol edin.', 'Kanal çatlak ya da kelepçe gevşek mi?',
+      'Kanalı onartın ve kanal muayenesini tamamlayın.',
+      code('21', '2', '310')),
+     ('Klima ünitesinin ısı değiştirici girişlerini ve su ayırıcısını '
+      'kontrol edin.', 'Giriş tıkalı ya da ünitede yağ izi var mı?',
+      'Klima ünitesini değiştirin.', code('21', '1', '920')),
+     ('Motordan gelen sıcak hava beslemesini kontrol edin.',
+      'Hava alma kanalı aşırı ısı uyarısı da var mı?',
+      'Hava alma sistemi arızasını arayın.', code('36', '1', '421'))],
+    ('Bulgu yok: klima ünitesini muayene edin ve sıcaklık kumandasını '
+     'yetkili personele kontrol ettirin.', code('21', '1', '310')))
+
 # Elektrik
 ELEC = dm(
     code=code('24'), tech='Elektrik gücü',
@@ -1192,6 +1216,49 @@ EXT_POWER = proc(
         'Ayırırken önce yer güç ünitesini kapatın, sonra fişi çıkarın.',
         'Priz kapağını kapatın.',
     ])
+
+EXT_POWER_CHECK = proc(
+    code('24', '4', '310'), 'Dış güç prizi',
+    tools=[('El feneri', 1)],
+    conditions=[SAFE, ENGINE_OFF, POWER_OFF, 'Yer güç ünitesi ayrılmış.'],
+    steps=[
+        'Priz kapağını açın; kapağın contasını ve kilidini kontrol edin.',
+        'Pinlerde yanık, ark izi, korozyon ve eğilme olup olmadığına bakın.',
+        'Prizin gövdeye bağlantısının sıkı, arkasındaki kabloların sağlam '
+        'olduğunu kontrol edin.',
+        'Hafif kirli pinleri konnektör temizleyiciyle temizleyin; yanık ya '
+        'da eğik pini olan prizi değiştirin.',
+    ])
+
+EXT_POWER_REPL = replace(
+    code('24', '4', '920'), 'Dış güç prizi',
+    removal=['Erişim panelini açın.', 'Prizin arkasındaki kablo '
+             'bağlantılarını etiketleyip ayırın.',
+             'Priz bağlantı elemanlarını sökün ve prizi çıkarın.'],
+    install=['Yeni prizi yerleştirin. ' + TORQUE,
+             'Kabloları etiketlerine göre bağlayın ve el kitabındaki torkta '
+             'sıkın.', 'Erişim panelini kapatın.'],
+    test='Yer güç ünitesini bağlayıp uçağa elektrik geldiğini kontrol edin; '
+         'sonucu kayda geçirin.',
+    spares=[('Dış güç prizi', 1)],
+    conditions=[SAFE, ENGINE_OFF, POWER_OFF, 'Yer güç ünitesi ayrılmış.'])
+
+EXT_POWER_ISO = isolate(
+    code('24', '4', '421'), 'Dış güç', 'Dış güç gelmiyor: arıza bulma',
+    'NAYAJET-24-003',
+    'Yer güç ünitesi bağlanınca uçağa elektrik gelmiyor ya da kesik kesik '
+    'geliyor.',
+    [('Yer güç ünitesinin çıkışını ve kablosunu kontrol edin.',
+      'Ünite ya da kablosu arızalı mı?',
+      'Başka bir yer güç ünitesiyle deneyin; arızalı üniteyi yer '
+      'ekipmanı bakımına gönderin.', None),
+     ('Dış güç prizini muayene edin.', 'Pinlerde yanık, korozyon ya da '
+      'eğilme var mı?', 'Prizi değiştirin.', code('24', '4', '920')),
+     ('Prizin arkasındaki kabloları ve konnektörleri kontrol edin.',
+      'Kablo ya da bağlantı hasarlı mı?', 'Kabloyu onarın.',
+      code('24', '6', '310'))],
+    ('Bulgu yok: elektrik dağıtımını kontrol edin.',
+     code('24', info='421')))
 
 EPU = proc(
     code('24', '5', '310'), 'Acil güç ünitesi', tools=[('El feneri', 1)],
@@ -2247,11 +2314,13 @@ ENGINE_VIB_ISO = isolate(
     'Motor titreşim göstergesi yüksek ya da pilot gövdede titreşim '
     'bildiriyor.',
     [('Fan kanatlarını hasar açısından muayene edin.',
-      'Kanatta çentik, eğilme ya da kopma var mı?', 'Fanı muayene edin; '
-      'hasar sınır dışındaysa motoru sökün.', code('72', '1', '310')),
+      'Kanatta çentik, eğilme ya da kopma var mı?', 'Yabancı cisim yutma '
+      'sonrası muayeneyi yapın; hasar sınır dışındaysa motoru çalıştırmayın.',
+      code('05', '2', '300', disassy='03')),
      ('Talaş algılayıcıyı ve yağ filtresini kontrol edin.',
-      'Metal parçacık var mı?', 'Yatak hasarı olabilir: yağ sistemini '
-      'inceleyin.', code('79', '1', '310')),
+      'Metal parçacık var mı?', 'Yatak hasarı olabilir: talaş algılayıcı '
+      'muayenesi ve yağ analiziyle doğrulayın; doğrulanırsa motoru sökün.',
+      code('72', info='520')),
      ('Motor bağlantılarını kontrol edin.', 'Bağlantıda boşluk ya da '
       'çatlak var mı?', 'Bağlantıları muayene edin.',
       code('72', info='310'))],
@@ -2432,6 +2501,9 @@ OIL_ISO = isolate(
     'göstergesi.',
     [('Yağ seviyesini kontrol edin.', 'Seviye düşük mü?', 'Yağı tamamlayın '
       've sızıntı arayın.', code('79', '1', '300')),
+     ('Aksesuar dişli kutusunun gövdesini ve tahrik mili contalarını '
+      'kontrol edin.', 'Yağ sızıntısı ya da çatlak var mı?',
+      'Dişli kutusunu muayene edin.', code('72', '6', '310')),
      ('Talaş algılayıcıyı çıkarıp kontrol edin.', 'Metal parçacık var mı?',
       'Talaş algılayıcı muayenesini tamamlayın ve yağ örneği alın.',
       code('79', '1', '310')),
@@ -2635,11 +2707,11 @@ part('engine.oil', 'Motor yağ sistemi', 'engine', '79-10',
      {'inspect': OIL_CHECK})
 part('engine.afterburner', 'Art yakıcı', 'engine', '72-50',
      ['afterburner'], 'z.engine',
-     'Türbin çıkışındaki gaza yeniden yakıt püskürterek ek itki sağlar.',
+     'Türbin çıkışındaki gaza yeniden yakıt püskürterek yakan bölüm.',
      {'inspect': NOZZLE})
 part('engine.nozzle', 'Egzoz lülesi', 'engine', '72-50', ['engine_nozzle'],
-     'z.tail', 'Çıkış alanını itki ihtiyacına göre değiştiren yapraklı '
-     'lüle.', {'inspect': NOZZLE, 'replace': NOZZLE_FLAP_REPL})
+     'z.tail', 'Çıkış alanını motorun çalışma durumuna göre değiştiren '
+     'yapraklı lüle.', {'inspect': NOZZLE, 'replace': NOZZLE_FLAP_REPL})
 
 # Gövde ve kapaklar
 part('airframe.structure', 'Gövde yapısı ve kaplama', 'airframe', '53-10',
@@ -2752,13 +2824,14 @@ part('gear.antiskid', 'Kilitlenme önleyici (anti-skid) sistem',
 # Klima
 part('ecs', 'Klima ve basınçlandırma', None, '21-00', ['fuselage'],
      'z.fuselage', 'Kokpiti ve elektronik bölmeleri soğutur, kokpiti '
-     'basınçlandırır.')
+     'basınçlandırır.', {'isolate': ECS_ISO})
 part('ecs.pack', 'Klima ünitesi', 'ecs', '21-10', ['fuselage'],
      'z.fuselage', 'Sıcak motor havasını soğutan ısı değiştiriciler ve '
-     'soğutma türbini.', {'inspect': ECS_PACK, 'replace': ECS_PACK_REPL})
+     'soğutma türbini.', {'inspect': ECS_PACK, 'isolate': ECS_ISO,
+                          'replace': ECS_PACK_REPL})
 part('ecs.ducts', 'Klima kanalları', 'ecs', '21-20', ['fuselage'],
      'z.fuselage', 'Şartlandırılmış havayı dağıtan kanallar ve valfler.',
-     {'inspect': ECS_DUCTS})
+     {'inspect': ECS_DUCTS, 'isolate': ECS_ISO})
 part('ecs.pressure', 'Basınç kontrol valfi', 'ecs', '21-30', ['cockpit'],
      'z.cockpit', 'Kokpit basıncını ayarlayan valf ve kanopi contası '
      'şişirme hattı.', {'inspect': ECS_PRESS_TEST})
@@ -2781,7 +2854,8 @@ part('electrical.battery', 'Akü', 'electrical', '24-30', ['fuselage'],
                  'replace': BATTERY_REPL})
 part('electrical.external', 'Dış güç prizi', 'electrical', '24-40',
      ['fuselage'], 'z.fuselage', 'Yerde uçağı yer güç ünitesinden besler.',
-     {'inspect': EXT_POWER})
+     {'inspect': EXT_POWER_CHECK, 'isolate': EXT_POWER_ISO,
+      'replace': EXT_POWER_REPL})
 part('electrical.epu', 'Acil güç ünitesi', 'electrical', '24-50',
      ['fuselage'], 'z.fuselage',
      'Motor ve jeneratörler devre dışı kalınca acil elektrik ve hidrolik '
@@ -3025,7 +3099,7 @@ FAULTS = [
      ENGINE_VIB_ISO, FOD_INGEST),
     ('f.hpc.erosion', 'engine.hpc', ['sym.power_loss', 'sym.egt_high'],
      'Kompresör kanatları aşınmış; motor verimi düşmüş.', 2,
-     ENGINE_EGT_ISO, BORESCOPE),
+     ENGINE_EGT_ISO, ENGINE_REMOVE),
     ('f.hpt.blade', 'engine.hpt', ['sym.egt_high', 'sym.engine_vibration'],
      'Yüksek basınç türbini kanatlarında yanma ya da kaplama kaybı.', 3,
      ENGINE_EGT_ISO, ENGINE_REMOVE),
@@ -3080,9 +3154,9 @@ FAULTS = [
     # Klima ve pnömatik
     ('f.ecs.pack', 'ecs.pack', ['sym.cockpit_temp'],
      'Klima ünitesinin ısı değiştiricisi tıkanmış ya da soğutma türbini '
-     'arızalı.', 2, BLEED_ISO, ECS_PACK_REPL),
+     'arızalı.', 2, ECS_ISO, ECS_PACK_REPL),
     ('f.ecs.duct', 'ecs.ducts', ['sym.cockpit_temp', 'sym.duct_hot'],
-     'Klima kanalı çatlamış ya da kelepçesi gevşemiş.', 2, BLEED_ISO,
+     'Klima kanalı çatlamış ya da kelepçesi gevşemiş.', 2, ECS_ISO,
      ECS_DUCTS),
     ('f.ecs.pressure', 'ecs.pressure', ['sym.canopy_seal'],
      'Basınç kontrol valfi ya da conta şişirme hattı arızalı.', 2,
@@ -3099,8 +3173,8 @@ FAULTS = [
      'Akü şarj tutmuyor ya da kutup başları korozyonlu.', 2, BATTERY_ISO,
      BATTERY_REPL),
     ('f.ext_power', 'electrical.external', ['sym.ext_power'],
-     'Dış güç prizinin pinleri yanmış ya da korozyonlu.', 1, ELEC_ISO,
-     EXT_POWER),
+     'Dış güç prizinin pinleri yanmış ya da korozyonlu.', 1,
+     EXT_POWER_ISO, EXT_POWER_REPL),
     ('f.wiring', 'electrical.wiring', ['sym.intermittent', 'sym.light_out'],
      'Kablo demeti yapıya sürtünüp yalıtımı aşınmış ya da konnektör '
      'gevşemiş.', 2, ELEC_ISO, WIRING),
@@ -3290,6 +3364,7 @@ SPARE_PARTS = {
     'Tekerlek freni': 'gear.brakes',
     'Kumanda eyleyicisi': 'flight_controls.actuators',
     'Klima ünitesi': 'ecs.pack',
+    'Dış güç prizi': 'electrical.external',
     'Ana jeneratör': 'electrical.generator',
     'Akü': 'electrical.battery',
     'Yangın algılayıcı halkası': 'fire.detectors',
@@ -3310,4 +3385,22 @@ SPARE_PARTS = {
 
 C.zones, C.symptoms, C.faults = ZONES, SYMPTOMS, FAULTS
 C.spare_parts = SPARE_PARTS
+def check_fault_paths():
+    """Her arızanın arıza bulma DM'i, sonlarından biriyle arızanın onarım
+    DM'ine ulaşmalı; yoksa teşhis kullanıcıyı onarıma götürmez. Arıza bulma
+    yerine doğrudan bir muayene DM'i verilmiş arızalar denetlenmez."""
+    dms = {str(d['code']): d for d in C.dms}
+    missing = []
+    for fid, _, _, _, _, isolation, repair in C.faults:
+        d = dms.get(str(isolation))
+        if not d or 'isolation' not in d:
+            continue
+        ends = {str(e[2]) for e in d['isolation']['ends'] if e[2]}
+        if str(repair) not in ends:
+            missing.append(f'{fid}: {isolation} onarım DM\'ine ({repair}) '
+                           'ulaşmıyor')
+    assert not missing, '\n'.join(missing)
+
+
+check_fault_paths()
 C.write()

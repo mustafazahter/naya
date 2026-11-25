@@ -339,7 +339,7 @@
       "cause": "Kompresör kanatları aşınmış; motor verimi düşmüş.",
       "severity": 2,
       "isolation": "DMC-NAYAJET-AAA-72-00-00-02AA-421A-A",
-      "repair": "DMC-NAYAJET-AAA-72-20-00-00AA-310A-A"
+      "repair": "DMC-NAYAJET-AAA-72-00-00-00AA-520A-A"
     },
     {
       "id": "f.hpt.blade",
@@ -555,7 +555,7 @@
       ],
       "cause": "Klima ünitesinin ısı değiştiricisi tıkanmış ya da soğutma türbini arızalı.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-36-10-00-00AA-421A-A",
+      "isolation": "DMC-NAYAJET-AAA-21-00-00-00AA-421A-A",
       "repair": "DMC-NAYAJET-AAA-21-10-00-00AA-920A-A"
     },
     {
@@ -567,7 +567,7 @@
       ],
       "cause": "Klima kanalı çatlamış ya da kelepçesi gevşemiş.",
       "severity": 2,
-      "isolation": "DMC-NAYAJET-AAA-36-10-00-00AA-421A-A",
+      "isolation": "DMC-NAYAJET-AAA-21-00-00-00AA-421A-A",
       "repair": "DMC-NAYAJET-AAA-21-20-00-00AA-310A-A"
     },
     {
@@ -635,8 +635,8 @@
       ],
       "cause": "Dış güç prizinin pinleri yanmış ya da korozyonlu.",
       "severity": 1,
-      "isolation": "DMC-NAYAJET-AAA-24-00-00-00AA-421A-A",
-      "repair": "DMC-NAYAJET-AAA-24-40-00-00AA-200A-A"
+      "isolation": "DMC-NAYAJET-AAA-24-40-00-00AA-421A-A",
+      "repair": "DMC-NAYAJET-AAA-24-40-00-00AA-920A-A"
     },
     {
       "id": "f.wiring",

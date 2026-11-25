@@ -971,7 +971,7 @@
         "afterburner"
       ],
       "zone": "z.engine",
-      "function": "Türbin çıkışındaki gaza yeniden yakıt püskürterek ek itki sağlar.",
+      "function": "Türbin çıkışındaki gaza yeniden yakıt püskürterek yakan bölüm.",
       "ipd": {
         "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
         "figure": "01",
@@ -990,7 +990,7 @@
         "engine_nozzle"
       ],
       "zone": "z.tail",
-      "function": "Çıkış alanını itki ihtiyacına göre değiştiren yapraklı lüle.",
+      "function": "Çıkış alanını motorun çalışma durumuna göre değiştiren yapraklı lüle.",
       "ipd": {
         "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
         "figure": "01",
@@ -1485,6 +1485,9 @@
         "dmc": "DMC-NAYAJET-AAA-00-00-00-01AA-941A-A",
         "figure": "01",
         "item": "074"
+      },
+      "procedures": {
+        "isolate": "DMC-NAYAJET-AAA-21-00-00-00AA-421A-A"
       }
     },
     {
@@ -1504,6 +1507,7 @@
       },
       "procedures": {
         "inspect": "DMC-NAYAJET-AAA-21-10-00-00AA-310A-A",
+        "isolate": "DMC-NAYAJET-AAA-21-00-00-00AA-421A-A",
         "replace": "DMC-NAYAJET-AAA-21-10-00-00AA-920A-A"
       }
     },
@@ -1523,7 +1527,8 @@
         "item": "076"
       },
       "procedures": {
-        "inspect": "DMC-NAYAJET-AAA-21-20-00-00AA-310A-A"
+        "inspect": "DMC-NAYAJET-AAA-21-20-00-00AA-310A-A",
+        "isolate": "DMC-NAYAJET-AAA-21-00-00-00AA-421A-A"
       }
     },
     {
@@ -1638,7 +1643,9 @@
         "item": "082"
       },
       "procedures": {
-        "inspect": "DMC-NAYAJET-AAA-24-40-00-00AA-200A-A"
+        "inspect": "DMC-NAYAJET-AAA-24-40-00-00AA-310A-A",
+        "isolate": "DMC-NAYAJET-AAA-24-40-00-00AA-421A-A",
+        "replace": "DMC-NAYAJET-AAA-24-40-00-00AA-920A-A"
       }
     },
     {
