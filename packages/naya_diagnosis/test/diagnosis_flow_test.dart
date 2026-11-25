@@ -208,6 +208,57 @@ void main() {
       expect(result.decision, DiagnosisDecision.notDiagnosis);
     });
 
+    test('başka ürünün parçası anlatılıyorsa parça aranmaz', () async {
+      final decider = _ScriptedDecider([
+        const DecisionAnswers(
+          choices: {
+            'intent': {'diagnose': 0.9, 'general': 0.1},
+          },
+          yes: {'sufficient': 0.7, 'fits': 0.1},
+        ),
+      ]);
+      final result = await DiagnosisFlow(
+        catalog: catalog,
+        decider: decider,
+      ).run('Paletin gergisi gevşedi, kule dönmüyor.');
+      expect(result.decision, DiagnosisDecision.uncertain);
+      expect(result.relevance, 0.1);
+      expect(result.systems, isEmpty);
+      expect(result.candidates, isEmpty);
+      // Sistem turu sorulmaz.
+      expect(decider.asked, hasLength(1));
+      expect(decider.asked.first.keys, contains('fits'));
+      final again = DiagnosisResult.fromJson(result.toJson());
+      expect(again.relevance, 0.1);
+    });
+
+    test('ürüne uygunluk eşiğin üstündeyse akış sürer', () async {
+      final decider = _ScriptedDecider([
+        const DecisionAnswers(
+          choices: {
+            'intent': {'diagnose': 0.9, 'general': 0.1},
+          },
+          yes: {'sufficient': 0.8, 'fits': 0.6},
+        ),
+        const DecisionAnswers(
+          choices: {
+            'system': {'drive': 0.9, 'none': 0.1},
+          },
+        ),
+        const DecisionAnswers(
+          choices: {
+            'part:drive': {'drive.chain': 0.9, 'none': 0.1},
+          },
+        ),
+        const DecisionAnswers(choices: {}),
+      ]);
+      final result = await DiagnosisFlow(
+        catalog: catalog,
+        decider: decider,
+      ).run('Zincir sesi geliyor.');
+      expect(result.candidates.first.partId, 'drive.chain');
+    });
+
     test('sistem turunda "hiçbiri" öndeyse parça seçilmez', () async {
       final result = await DiagnosisFlow(
         catalog: catalog,

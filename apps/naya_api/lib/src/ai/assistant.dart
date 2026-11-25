@@ -407,7 +407,9 @@ class Assistant {
       'gündelik dille sor. Gerekirse kısa bir madde listesi ya da bir iki '
       'kelimeyi **kalın** yazabilirsin; başlık kullanma. Yalnız sana '
       'verilen doküman parçalarına ve teşhis sonucuna dayan; dokümanda '
-      'olmayan bir adım uydurma, bilmiyorsan söyle. Bir bilgiyi bir doküman '
+      'olmayan bir adım uydurma, bilmiyorsan söyle. Doküman parçalarında '
+      'soruyla ilgisiz bilgiler de olabilir; yalnız sorulanla ilgili '
+      'olanları kullan. Bir bilgiyi bir doküman '
       'parçasından aldıysan cümlenin sonuna o parçanın kodunu köşeli '
       'parantezle yaz, örneğin [DMC-...]; bu kodlar kullanıcıya bağlantı '
       'olarak gösterilir, metinde ayrıca anma. Yüzdeler ve tehlike uyarısı '
@@ -443,10 +445,15 @@ class Assistant {
         if (s.id != DiagnosisFlow.none && s.probability >= 0.15) s,
     ];
     final weak = systems.isEmpty || systems.first.probability < 0.3;
+    // Karar modeli anlatılanın bu ürüne ait olmadığını söylediyse sistem
+    // turu yapılmamıştır.
+    final foreign =
+        result.relevance != null &&
+        result.relevance! < DiagnosisFlow.relevanceThreshold;
     // Soru soran (arıza anlatmayan) kullanıcıya "doğru ürün mü" denmez.
     final unmatched =
         result.decision != DiagnosisDecision.notDiagnosis &&
-        (noneFirst || (result.systems.isNotEmpty && weak));
+        (foreign || noneFirst || (result.systems.isNotEmpty && weak));
     if (unmatched) {
       // Adaylar, prosedür ve tehlike de gönderilmez: düşük yüzdeli bir
       // aday listesi görünce yapay zekâ yine kontrol ve değer öneriyor.

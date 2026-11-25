@@ -79,6 +79,7 @@ class DiagnosisResult {
     required this.intent,
     required this.decision,
     this.sufficiency,
+    this.relevance,
     this.systems = const [],
     this.candidates = const [],
     this.fault,
@@ -97,6 +98,7 @@ class DiagnosisResult {
       intent: DiagnosisIntent.values.byName(json['intent']! as String),
       decision: DiagnosisDecision.values.byName(json['decision']! as String),
       sufficiency: (json['sufficiency'] as num?)?.toDouble(),
+      relevance: (json['relevance'] as num?)?.toDouble(),
       systems: [for (final s in list('systems')) Scored.fromJson(s)],
       candidates: [
         for (final c in list('candidates')) PartCandidate.fromJson(c),
@@ -113,6 +115,10 @@ class DiagnosisResult {
 
   /// "Belirtiler yeterli mi?" sorusunda "evet" olasılığı.
   final double? sufficiency;
+
+  /// "Anlatılan bu ürüne ait mi?" sorusunda "evet" olasılığı. Düşükse
+  /// kullanıcı büyük ihtimalle yanlış ürünü seçmiş.
+  final double? relevance;
 
   /// Sistem turu, "hiçbiri" (`none`) dahil, en olası önce.
   final List<Scored> systems;
@@ -138,6 +144,7 @@ class DiagnosisResult {
     'intent': intent.name,
     'decision': decision.name,
     if (sufficiency != null) 'sufficiency': sufficiency,
+    if (relevance != null) 'relevance': relevance,
     'systems': [for (final s in systems) s.toJson()],
     'candidates': [for (final c in candidates) c.toJson()],
     if (fault != null) 'fault': fault!.toJson(),

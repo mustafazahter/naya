@@ -35,6 +35,9 @@ class DiagnosisFlow {
   /// "Belirtiler yeterli mi?" bunun altındaysa önce soru sorulur.
   static const sufficiencyThreshold = 0.5;
 
+  /// "Anlatılan bu ürüne ait mi?" bunun altındaysa parça aranmaz.
+  static const relevanceThreshold = 0.4;
+
   /// Sonuçta tutulan aday sayısı.
   static const keptCandidates = 10;
 
@@ -67,15 +70,35 @@ class DiagnosisFlow {
         'Anlatılanlar, sorunun hangi parçadan kaynaklandığını tahmin etmeye '
         'yetecek kadar belirti içeriyor mu?',
       ),
+      'fits': const YesNoQuestion(
+        'Anlatılan parçalar ve belirtiler bu ürünün kendisinde bulunabilir '
+        'mi? Başka türden bir araca ya da ürüne özgü parçalardan söz '
+        'ediyorsa (örneğin otomobilde palet ya da kule, bisiklette motor '
+        'yağı) hayır.',
+      ),
     });
     models.add(first.model);
     final intent = _intentOf(first.choices['intent'] ?? const {});
     final sufficiency = first.yes['sufficient'];
+    final relevance = first.yes['fits'];
     if (intent != DiagnosisIntent.diagnose) {
       return DiagnosisResult(
         intent: intent,
         decision: DiagnosisDecision.notDiagnosis,
         sufficiency: sufficiency,
+        relevance: relevance,
+        model: _modelOf(models),
+      );
+    }
+    // Başka bir ürünün parçası anlatılıyorsa (otomobilde palet) sistem
+    // turu yapılmaz: model yine de en yakın parçayı seçip yanlış bir aday
+    // çıkarıyor ("gergi" → kayış gerginliği).
+    if (relevance != null && relevance < relevanceThreshold) {
+      return DiagnosisResult(
+        intent: intent,
+        decision: DiagnosisDecision.uncertain,
+        sufficiency: sufficiency,
+        relevance: relevance,
         model: _modelOf(models),
       );
     }

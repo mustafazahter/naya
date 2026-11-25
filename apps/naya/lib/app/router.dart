@@ -200,6 +200,9 @@ class _WorkspaceRoute extends ConsumerWidget {
     final product = ref.watch(productLibraryProvider).value?.byId(productId);
     if (product != null) {
       return WorkspacePage(
+        // Adres başka bir ürüne geçince (geri/ileri, elle değiştirme)
+        // sayfa yeniden kurulur; yoksa 3B görüntüde eski ürün kalıyordu.
+        key: ValueKey(product.id),
         product: product,
         request: request,
         // Sorgu kalırsa aynı teşhis/parça yeniden açıldığında adres

@@ -41,6 +41,9 @@ class FakeAi implements AiProvider {
   /// Belirti hiçbir sisteme uymuyor mu ("hiçbiri" önde)?
   bool unrelated = false;
 
+  /// Anlatılan başka bir ürüne mi ait (bisiklette palet)?
+  bool foreign = false;
+
   @override
   Future<void> checkKey(String apiKey) async {
     checkedKeys.add(apiKey);
@@ -78,6 +81,8 @@ class FakeAi implements AiProvider {
           choices[key] = {'diagnose': 0.9, 'general': 0.1};
         case 'sufficient':
           yes[key] = vague ? 0.1 : 0.9;
+        case 'fits':
+          yes[key] = foreign ? 0.05 : 0.95;
         case 'system':
           choices[key] = unrelated
               ? {'none': 0.9, 'drive': 0.05, 'brakes': 0.05}
