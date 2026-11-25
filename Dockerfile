@@ -55,7 +55,8 @@ RUN cd apps/naya/build/web \
  && mkdir "v$v" && cp -r assets "v$v/assets" \
  && sed -i "s/flutter_bootstrap\.js/flutter_bootstrap.js?v=$v/" index.html \
  && sed -i "s/\"main\.dart\.js\"/\"main.dart.js?v=$v\"/g" flutter_bootstrap.js \
- && sed -i "s|_flutter.loader.load({|_flutter.loader.load({ config: { assetBase: \"v$v/\" },|" flutter_bootstrap.js \
+ && sed -i -e "s|_flutter\.loader\.load();|_flutter.loader.load({ config: { assetBase: \"v$v/\" } });|" \
+          -e "s|_flutter\.loader\.load({\$|_flutter.loader.load({ config: { assetBase: \"v$v/\" },|" flutter_bootstrap.js \
  && grep -q "flutter_bootstrap.js?v=$v" index.html \
  && grep -q "main.dart.js?v=$v" flutter_bootstrap.js \
  && grep -q "assetBase: \"v$v/\"" flutter_bootstrap.js \
