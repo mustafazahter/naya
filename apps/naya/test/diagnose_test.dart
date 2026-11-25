@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:naya/app/app.dart';
@@ -205,6 +206,44 @@ void main() {
         await tester.pump(const Duration(milliseconds: 300));
       }
       expect(find.byType(DataModulePage), findsOneWidget);
+    });
+
+    testWidgets('geniş ekranda parça kartı sohbetin yerine açılır', (
+      tester,
+    ) async {
+      await pump(
+        tester,
+        fakeApi(diagnose: (_) => jsonResponse(_chainRecord(), status: 201)),
+      );
+      await ask(tester, 'Zincir atlıyor.');
+      for (var i = 0; i < 3; i++) {
+        await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+        await tester.pump(const Duration(milliseconds: 300));
+      }
+
+      // Yarım yazılmış mesaj kart açılıp kapanınca kaybolmamalı.
+      await tester.enterText(find.byType(TextField), 'yarım soru');
+      await tester.tap(find.text('Parça kartı'));
+      await tester.pumpAndSettle();
+      // Kart sağ sütunda: üstte modeli karartan perde yok, sohbet gizli.
+      expect(find.text('Sohbete dön'), findsOneWidget);
+      expect(find.byType(TextField), findsNothing);
+      expect(find.byType(ModalBarrier), findsOneWidget); // yalnız sayfanınki
+
+      await tester.tap(find.text('Sohbete dön'));
+      await tester.pumpAndSettle();
+      expect(find.text('Sohbete dön'), findsNothing);
+      expect(find.byType(TextField), findsOneWidget);
+      expect(find.text('yarım soru'), findsOneWidget);
+      expect(find.text('Zincir aşınmış, değiştirin.'), findsOneWidget);
+
+      // Esc de kartı kapatır.
+      await tester.tap(find.text('Parça kartı'));
+      await tester.pumpAndSettle();
+      expect(find.text('Sohbete dön'), findsOneWidget);
+      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+      await tester.pumpAndSettle();
+      expect(find.text('Sohbete dön'), findsNothing);
     });
 
     testWidgets('soru sorulduysa cevap önceki mesajla gider', (tester) async {

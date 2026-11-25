@@ -23,5 +23,7 @@ export type ViewerEvent =
   | { type: "progress"; value: number }
   | { type: "loadFailed" }
   | { type: "partTap"; part: string | null }
+  /** Viewer'a odaklıyken Esc: uygulama açık kartı kapatır. */
+  | { type: "escape" }
   /** Yarıda kesilen tarama da biter; [id] hangi taramanın bittiğini söyler. */
   | { type: "scanDone"; id: number };
