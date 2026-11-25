@@ -123,6 +123,10 @@ BODY_RULES = [
 # göre. (merkez, yarı boyut) kutusuna düşen adacıklar o düğüme gider; sıra
 # önemli, ilk eşleşen alır. Hiçbir kutuya düşmeyenler atılır.
 BAY_PARTS = {
+    # Eski motorun egzoz ön borusu: birbirine bağlı olmayan tek yüzlü
+    # şeritler; arka yüzler çizilmeyince aracın altında iğne demeti gibi
+    # görünüyor. Egzoz `exhaust()` ile ayrıca kuruluyor; bu küme atılır.
+    'old_exhaust': ((-0.12, -1.05, 0.24), (0.05, 0.05, 0.06)),
     'battery': ((0.43, -1.67, 0.65), (0.16, 0.12, 0.13)),
     'steering_rack': ((0.01, -1.33, 0.41), (0.72, 0.06, 0.08)),
     'subframe_front': ((0.0, -1.44, 0.27), (0.51, 0.54, 0.06)),
@@ -594,9 +598,11 @@ def arch_liner(center, side):
 
 
 def fuel_tank():
-    """Arka koltuğun altında, taban sacının altında."""
-    tank = box((0.30, 0.32, 0.145), (0.66, 0.46, 0.09), 'chassis', 0.02)
-    neck = cylinder((0.58, 0.50, 0.17), (0.72, 0.95, 0.40), 0.022,
+    """Arka ayak boşluğunun altında, taban sacına gömülü: üstü halının
+    hemen altında, altı marşpiyelden yalnız birkaç santim aşağıda (yandan
+    bakınca sarkmasın). Arkası arka alt takımın önünde biter."""
+    tank = box((0.32, 0.30, 0.2145), (0.68, 0.52, 0.063), 'chassis', 0.02)
+    neck = cylinder((0.58, 0.50, 0.21), (0.72, 0.95, 0.40), 0.022,
                     'rubber', 12)
     return join([tank, neck], 'fuel_tank')
 
@@ -672,7 +678,8 @@ def main():
     bay = join([bake(m) for m in meshes_under(car['engbaycrap'])], 'bay')
     rules = [(name, None, b, None) for name, b in BAY_PARTS.items()]
     for name, faces in split(bay, rules, None).items():
-        nodes[name] = take_faces(bay, faces, name)
+        if name != 'old_exhaust':
+            nodes[name] = take_faces(bay, faces, name)
 
     # Göbek kapağı ve egzoz ucu kaynaktan alınır.
     hubcap = join([bake(m) for m in meshes_under(car['hubcap'])], 'hubcap')
