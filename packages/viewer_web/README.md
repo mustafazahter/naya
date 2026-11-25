@@ -40,7 +40,7 @@ Mesajların tipleri `src/bridge.ts` dosyasında; Flutter tarafı `apps/naya/lib/
 | Komut | Alanlar | Ne yapar |
 | --- | --- | --- |
 | `load` | `url`, isteğe bağlı `map` | Başka bir modeli yükler. |
-| `explode` | `amount` (0-1) | Parçaları montaj ağacına göre açar: önce gruplar (aktarma organları, tekerlekler...) modelin merkezinden, sonra grubun içindeki parçalar grubun merkezinden ayrılır. İç içe parçalar (lastik, jant, göbek) aks boyunca sıralanır. Kamera açılmış modele göre geri çekilir. |
+| `explode` | `amount` (0-1) | Parçaları dıştan içe, birbirine değmeden söker (bkz. [Parçalara ayırma](#parçalara-ayırma)). Kamera açılmış modele göre geri çekilir. |
 | `focus` | `part` | Kamerayı parçaya yaklaştırır, diğerlerini saydam gri yapar. |
 | `isolate` | `part` ya da `null` | Yalnız parçayı gösterir, kamera ona uçar; `null` bütün modeli geri getirir. |
 | `xray` | `enabled` | Bütün modeli yarı saydam yapar. |
@@ -57,6 +57,18 @@ Mesajların tipleri `src/bridge.ts` dosyasında; Flutter tarafı `apps/naya/lib/
 | `scanDone` | | Tarama animasyonu bitti. |
 
 Düğüm adlarında nokta yok (three.js siliyor); parça kimliğiyle eşleşme `map/parts.json`'daki `meshNodes` alanıyla yapılır.
+
+## Parçalara ayırma
+
+Plan model yüklenirken bir kez kurulur (`src/explode.ts`), sayfa donmasın diye ayrı bir iş parçacığında (`src/explodeWorker.ts`; açılamazsa sayfanın kendisinde). Büyük modelde masaüstünde 1-2 sn sürer; model bu sırada yüklenmiş sayılmaz, eski model ekranda kalır.
+
+- **Hiçbir parça başka bir parçaya girmez ya da değmez.** En büyük parça (kasa, gövde, kadro) yerinde kalır, diğerleri dıştan içe sırayla sökülür. Her parça eksen yönlerinden birine gider; önü kapalıysa önce kısa bir adım atar (biraz kalkıp yana kayar). Yolu açık değilse o yöne gitmez; hiçbir yoldan çıkamayan parça yerinde kalır. Kabinin içindeki koltuklar, zincirin sardığı arka tekerlek, kabloların bağladığı gidon bu yüzden yerinde durur: tavanı delip çıkmaktansa toplu hâlde kalırlar.
+- **Yol üç yolla denetlenir.** Işınlar: her parça için x, y, z boyunca her pikselden geçen ışının yüzeyi kestiği derinlikler; kayan parça aynı ışında önündeki bir noktaya varınca durur. Değme sayısı: modellerde birçok parça toplu hâlde birbirine biraz girer (kapı kasaya, döşeme tavana); bu kesişmelerin çevresinde ışınlar yerine iki parçanın ince hücrelerde kaç yerde değdiği sayılır ve yol boyunca bu sayı artamaz. Vardığı yer: açılmış hâlde her parçanın çevresinde en az bir hücre boşluk kalır, hiçbir parça zeminin altına inmez.
+- **Sağ ve sol kısımlar ayrı açılır.** Modelde tek düğüm olan sağ ve sol amortisör, iki ön disk gibi aralarında boşluk olan parçalar yüklenirken kısımlarına bölünür (`src/pieces.ts`); her kısım kendi yanına gider. Seçme, parlama ve ad parçanın kendisinde kalır.
+- **Gruplar.** Montaj ağacındaki bir arada duran grup (bisiklet tekerleği) önce bütün olarak çıkar, sonra üyeleri aks boyunca açılır. Çıkamayan parçalardan kutusu başka birinin içinde kalanlar (tekerlek, disk, kaliper, göbek) birlikte denenir.
+- **Sıra ve süre.** Önündeki parçayı aynı yöne iterek çıkan parça onu ileri taşır (kapak, eksantrik mili, silindir kapağı sırası korunur). Süpürdüğü alan bir öncekinkine değen hareket onun bitmesini bekler, değmeyenler aynı anda oynar; animasyon en çok 3 sn sürer.
+
+Geliştirirken tarayıcı konsolunda `await explodeReport()` ayırmanın yirmi anında (0,05 arayla) birbirine giren parçaları listeler (yalnız `npm run dev`'de). Toplu hâlde zaten birbirine değen iki parça, değdikleri hücre sayısı artmadıkça sayılmaz. Boş liste beklenir.
 
 ## Efektler nasıl çiziliyor
 
