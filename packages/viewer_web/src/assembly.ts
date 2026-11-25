@@ -52,7 +52,7 @@ interface Placed {
  *
  * İki adım: önce her grup modelin merkezinden dışarı kayar, sonra grubun
  * içindeki parçalar grubun merkezinden açılır. Tekerlek gibi iç içe
- * parçaların merkezleri aynı olduğunda açılma yönü grubun en ince ekseni
+ * parçaların merkezleri aynı olduğunda açılma yönü grubun en ince yatay ekseni
  * (tekerlekte aks) olur ve parçalar o eksen boyunca sıralanır.
  */
 export function explodeOffsets(
@@ -80,7 +80,7 @@ export function explodeOffsets(
     if (out.lengthSq() < 1e-8) out.set(0, 1, 0);
     const groupMove = out.clone().normalize().multiplyScalar(out.length() * 0.55 + modelSize * 0.04);
 
-    const thin = thinnestAxis(groupSize);
+    const thinHorizontal = groupSize.x <= groupSize.z ? new THREE.Vector3(1, 0, 0) : new THREE.Vector3(0, 0, 1);
     const span = groupSize.length();
     // İç içe parçalar (merkezi grubun merkezine çok yakın) kendi aralarında
     // sıralanır. Sıra bütün grubun içinden sayılırsa, çok üyeli bir grupta
@@ -92,9 +92,10 @@ export function explodeOffsets(
       if (list.length === 1) {
         move = new THREE.Vector3();
       } else if (nested.includes(part)) {
-        // İç içe parça: ince eksen boyunca sıraya diz.
+        // İç içe parça: ince yatay eksen boyunca sıraya diz. Dikey eksende
+        // dizilirse kabindeki koltuk tavanı delip yukarı çıkıyordu.
         const i = nested.indexOf(part);
-        move = thin.clone().multiplyScalar((i - (nested.length - 1) / 2) * span * 0.18);
+        move = thinHorizontal.clone().multiplyScalar((i - (nested.length - 1) / 2) * span * 0.18);
       } else {
         move = inside.clone().normalize().multiplyScalar(inside.length() * 0.5 + span * 0.05);
       }
@@ -104,8 +105,3 @@ export function explodeOffsets(
   return offsets;
 }
 
-function thinnestAxis(size: THREE.Vector3): THREE.Vector3 {
-  if (size.x <= size.y && size.x <= size.z) return new THREE.Vector3(1, 0, 0);
-  if (size.y <= size.z) return new THREE.Vector3(0, 1, 0);
-  return new THREE.Vector3(0, 0, 1);
-}

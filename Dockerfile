@@ -43,6 +43,15 @@ COPY --from=viewer /src/apps/naya/assets/viewer apps/naya/assets/viewer
 RUN flutter pub get
 # API adresi boş: uygulama açıldığı adresle konuşur (aynı servis).
 RUN cd apps/naya && flutter build web --release --dart-define=NAYA_API_URL=
+# Komuta'nın önündeki önbellek .js dosyalarını tarayıcıda saatlerce tutuyor;
+# index.html önbelleğe girmez. Her derlemede değişen bir sürüm eki, yeni
+# yayının kodunun hemen gelmesini sağlar.
+RUN cd apps/naya/build/web \
+ && v="$(cat main.dart.js flutter_bootstrap.js | sha1sum | cut -c1-10)" \
+ && sed -i "s/flutter_bootstrap\.js/flutter_bootstrap.js?v=$v/" index.html \
+ && sed -i "s/\"main\.dart\.js\"/\"main.dart.js?v=$v\"/g" flutter_bootstrap.js \
+ && grep -q "flutter_bootstrap.js?v=$v" index.html \
+ && grep -q "main.dart.js?v=$v" flutter_bootstrap.js
 RUN mkdir -p /out/templates \
  && for template in templates/src/*/; do \
       name="$(basename "$template")"; \
