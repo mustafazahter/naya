@@ -139,6 +139,22 @@ void main() {
       expect(find.text('Neyi inceliyoruz?'), findsOneWidget);
     });
 
+    testWidgets('adres başka ürüne geçince çalışma alanı yeniden kurulur', (
+      tester,
+    ) async {
+      useTallScreen(tester);
+      final router = await pumpApp(tester, location: '/urun/araba');
+      final first = tester.state(find.byType(WorkspacePage));
+      router.go('/urun/bisiklet');
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 600));
+      final page = tester.widget<WorkspacePage>(find.byType(WorkspacePage));
+      expect(page.product.id, 'bisiklet');
+      // Eski ürünün durumu (3B görüntü, sohbet) taşınmaz.
+      expect(tester.state(find.byType(WorkspacePage)), isNot(same(first)));
+      await tester.pumpWidget(const SizedBox());
+    });
+
     testWidgets('bilinmeyen ürün', (tester) async {
       useTallScreen(tester);
       await pumpApp(tester, location: '/urun/yok');

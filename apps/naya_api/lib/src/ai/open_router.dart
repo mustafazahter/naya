@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:naya_diagnosis/naya_diagnosis.dart';
@@ -34,6 +35,10 @@ class OpenRouterProvider implements AiProvider {
   /// Bir cevabın en fazla token'ı; geçmişte tekrar gönderildiği için
   /// bağlam şişmesin.
   static const maxAnswerTokens = 1500;
+
+  /// Düşünen modellerin cevaptan önce düşünmeye ayırabileceği token.
+  /// OpenRouter'da max_tokens düşünmeyi de kapsar; ikisi toplanıp gönderilir.
+  static const maxReasoningTokens = 1024;
 
   @override
   Future<void> checkKey(String apiKey) async {
@@ -193,7 +198,11 @@ class OpenRouterProvider implements AiProvider {
           ..body = jsonEncode({
             'model': model,
             'stream': true,
-            'max_tokens': maxAnswerTokens,
+            'max_tokens': maxAnswerTokens + maxReasoningTokens,
+            // Düşünen modellerde düşünme de max_tokens'tan yer; sınırsız
+            // bırakılınca karışık bir belirtide cevap yarıda kesiliyordu.
+            // Düşünmeyen modeller bu alanı yok sayar.
+            'reasoning': {'max_tokens': maxReasoningTokens},
             'messages': [for (final m in messages) m.toJson()],
           });
     final http.StreamedResponse response;
@@ -242,6 +251,9 @@ class OpenRouterProvider implements AiProvider {
         final choices = chunk['choices'];
         if (choices is! List || choices.isEmpty) continue;
         final first = choices.first;
+        if (first is Map && first['finish_reason'] == 'length') {
+          stderr.writeln('Sohbet cevabı token sınırında kesildi ($model).');
+        }
         final delta = first is Map ? first['delta'] : null;
         final content = delta is Map ? delta['content'] : null;
         if (content is String && content.isNotEmpty) yield content;
