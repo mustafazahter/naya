@@ -232,6 +232,33 @@ void main() {
       expect(again.relevance, 0.1);
     });
 
+    test('takip mesajında ürüne uygunluk akışı durdurmaz', () async {
+      final decider = _ScriptedDecider([
+        const DecisionAnswers(
+          choices: {
+            'intent': {'diagnose': 0.9, 'general': 0.1},
+          },
+          yes: {'sufficient': 0.8, 'fits': 0.2},
+        ),
+        const DecisionAnswers(
+          choices: {
+            'system': {'drive': 0.9, 'none': 0.1},
+          },
+        ),
+        const DecisionAnswers(
+          choices: {
+            'part:drive': {'drive.chain': 0.9, 'none': 0.1},
+          },
+        ),
+        const DecisionAnswers(choices: {}),
+      ]);
+      final result = await DiagnosisFlow(
+        catalog: catalog,
+        decider: decider,
+      ).run('Sıcakta da oluyor.', earlierMessages: ['Zincir sesi geliyor.']);
+      expect(result.candidates.first.partId, 'drive.chain');
+    });
+
     test('ürüne uygunluk eşiğin üstündeyse akış sürer', () async {
       final decider = _ScriptedDecider([
         const DecisionAnswers(

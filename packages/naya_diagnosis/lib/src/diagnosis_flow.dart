@@ -92,8 +92,12 @@ class DiagnosisFlow {
     }
     // Başka bir ürünün parçası anlatılıyorsa (otomobilde palet) sistem
     // turu yapılmaz: model yine de en yakın parçayı seçip yanlış bir aday
-    // çıkarıyor ("gergi" → kayış gerginliği).
-    if (relevance != null && relevance < relevanceThreshold) {
+    // çıkarıyor ("gergi" → kayış gerginliği). Yalnız ilk mesajda: kısa bir
+    // takip cevabı ("sıcakta da oluyor") ürün adı geçmediği için düşük
+    // çıkabilir.
+    if (earlierMessages.isEmpty &&
+        relevance != null &&
+        relevance < relevanceThreshold) {
       return DiagnosisResult(
         intent: intent,
         decision: DiagnosisDecision.uncertain,
