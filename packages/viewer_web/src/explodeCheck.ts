@@ -9,9 +9,10 @@ import { FINE, fineKey } from "./explode";
  * çalışır. Animasyon sırasında parçalar birbirinin içinden geçebilir;
  * varsayılan yalnız sonu denetler.
  *
- * Yalnız toplu hâle göre yeni olan değmeler sayılır: modelde zaten birbirine
- * dayanan iki parça (koltuk ve halı) yerinde kaldıkça çakışma sayılmaz;
- * ayrılırken değdikleri hücre sayısı da toplu hâldekini aşmamalı.
+ * Ayrı yerlere giden iki parça hiçbir hücrede buluşmamalı: toplu hâlde
+ * birbirine dayananlar da (koltuk ve halı) açılınca ayrılmış olmalı. Yalnız
+ * birlikte, aynı kadar kayan iki parçanın toplu hâlde zaten değdiği hücreler
+ * sayılmaz.
  */
 
 export interface CheckedPart {
@@ -44,13 +45,16 @@ export function explodeReport(parts: CheckedPart[], level: THREE.Object3D, momen
   const cells = parts.map((p) => surface(p.node, toLocal, cell));
   parts.forEach((p, i) => p.node.position.copy(saved[i]));
 
+  const shift = (n: number, value: number) => {
+    const o = parts[n].offsetAt(value).divideScalar(cell);
+    return [Math.round(o.x), Math.round(o.y), Math.round(o.z)];
+  };
   const count = (value: number) => {
     // Bir hücrede kaç parça varsa her ikilisi sayılır.
     const owners = new Map<number, number[]>();
     const pairs = new Map<string, number>();
-    parts.forEach((p, n) => {
-      const o = p.offsetAt(value).divideScalar(cell);
-      const [oi, oj, ok] = [Math.round(o.x), Math.round(o.y), Math.round(o.z)];
+    parts.forEach((_, n) => {
+      const [oi, oj, ok] = shift(n, value);
       const list = cells[n];
       for (let c = 0; c < list.length; c += 3) {
         const k = fineKey(list[c] + oi, list[c + 1] + oj, list[c + 2] + ok);
@@ -74,12 +78,10 @@ export function explodeReport(parts: CheckedPart[], level: THREE.Object3D, momen
   const worst = new Map<string, Clash>();
   for (const value of moments) {
     for (const [name, n] of count(value)) {
-      // Toplu hâlde birbirini kesen iki yüzey bir hücre kayınca kesişme
-      // çizgisinin hücre sayısı biraz oynar; bu oynama çakışma sayılmaz.
-      const before = home.get(name) ?? 0;
-      const extra = n - before;
-      if (extra < 3 + 0.1 * before) continue;
       const [a, b] = name.split("|").map(Number);
+      const together = shift(a, value).every((c, i) => c === shift(b, value)[i]);
+      const extra = together ? n - (home.get(name) ?? 0) : n;
+      if (extra < 1) continue;
       const previous = worst.get(name);
       if (!previous || previous.cells < extra) {
         worst.set(name, { a: parts[a].id, b: parts[b].id, at: value, cells: extra });

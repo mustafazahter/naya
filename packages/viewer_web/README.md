@@ -61,17 +61,18 @@ Düğüm adlarında nokta yok (three.js siliyor); parça kimliğiyle eşleşme `
 
 Plan model yüklenirken bir kez kurulur (`src/explode.ts`), ayrı bir iş parçacığında (`src/explodeWorker.ts`; açılamazsa sayfanın kendisinde). Plan kurulurken eski model ekranda kalır.
 
-Doğrusal, merkezden dışarı:
+Doğrusal, merkezden dışarı, katman katman:
 
-1. C, bütün modelin kutusunun merkezi.
-2. Her parça (ve `src/pieces.ts`'in ayırdığı sağ/sol kısım) için c kutusunun merkezi, v = c − C, r = |v|, yön u = v / r. r modelin en uzun kenarının %2'sinden küçükse u yukarı.
-3. Parçalar r'ye göre sıralanır, sıra 0..n−1.
-4. Parçanın yeni merkezi C + u · R, R = (1 + k) · r + s · sıra / (n − 1). Merkezden uzak parça her zaman daha uzağa gider; aralar uzaklıkla orantılı kalır. s küçük bir sıra payıdır (modelin en uzun kenarının %3'üyle başlar); iç içe, merkezleri neredeyse aynı yerdeki parçaları sırayla ayırır.
-5. k, açılmış hâlde hiçbir parçanın birbirine girmediği en küçük değerdir: 0,1'den 4'e 0,05 adımla taranır (değme k ile tek yönlü değişmiyor). 4'te bile değen kalırsa s iki katına çıkar ve yeniden taranır. Her modelin bir k'sı, bir s'si var.
-6. Zemin: açılmış bütün parçalar birlikte, en alttaki zemine oturacak kadar yukarı ya da aşağı kaydırılır; tek tek parça kırpılmaz.
-7. Animasyon: bütün parçalar aynı anda, kendi doğrusunda, yumuşak geçişle hareket eder; yaklaşık 2,5 sn. Kamera açılmış modelin kutusunu kadraja alır.
+1. C, bütün modelin kutusunun merkezi. Her parça (ve `src/pieces.ts`'in ayırdığı sağ/sol kısım) C'den kendi merkezine uzanan doğru boyunca gider; merkezi C'ye modelin en uzun kenarının %2'sinden yakınsa yukarı.
+2. Tekerlek gibi yuvarlak, yassı bir parça; merkezi onunkine yakın ve kutusu onun içinde kalan parçalarla (jant, göbek, disk, kaliper) bir takımdır. Takım ortak merkezinin doğrusunda birlikte gider; kendi içinde aks (en ince eksen) boyunca içten dışa, birbirine değmeyecek eşit aralıkla yan yana dizilir: göbek, disk, jant, iç lastik, dış lastik.
+3. Kat d: parçayı kutusunun içine alan (kutusunun %85'i onun içinde) daha büyük parça sayısı. Kasa 0, döşeme 1, koltuk 2...
+4. Yol: k · r + (L − d + 1) · Δ. r merkeze uzaklığı, L en büyük kat. Dış kat içindekinden bir Δ daha uzağa gider: x, 2x, 3x. Bu ilk yol modelin en uzun kenarının %38'ini geçmez.
+5. k ve Δ (Δ, en uzun kenarın %2'sinin katları): değen en az ikili kalan, eşitse açılmış kutusu en küçük olan.
+6. Kalan değmeler içten dışa çözülür: her takım, kendinden içteki takımlara değmeyene kadar kendi doğrusunda biraz daha ilerler. Dış kat içtekinden geri kalmaz; gerekirse sınırı aşar (kasa, içindeki her şeyin üstüne çıkmak zorunda).
+7. Zemin: açılmış bütün parçalar birlikte, en alttaki zemine oturacak kadar kaydırılır; tek tek parça kırpılmaz.
+8. Animasyon: bütün parçalar aynı anda, kendi doğrusunda, yumuşak geçişle hareket eder; yaklaşık 2,5 sn. Kamera açılmış modelin kutusunu kadraja alır.
 
-Geliştirirken tarayıcı konsolunda `await explodeReport()` açılmış hâlde birbirine giren parçaları listeler (yalnız `npm run dev`'de); `viewer.explodeTrack()` k ve s'yi verir. Toplu hâlde zaten birbirine değen iki parça, değdikleri hücre sayısı artmadıkça sayılmaz. Boş liste beklenir.
+Geliştirirken tarayıcı konsolunda `await explodeReport()` açılmış hâlde birbirine değen parçaları listeler (yalnız `npm run dev`'de); `viewer.explodeTrack()` k ve Δ'yı verir. Ayrı yerlere giden iki parça hiçbir hücrede buluşmamalı; toplu hâlde birbirine dayananlar da açılınca ayrılmış olmalı. Boş liste beklenir.
 
 ## Efektler nasıl çiziliyor
 
