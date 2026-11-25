@@ -40,7 +40,7 @@
         <proceduralStep><para>Aracı kaldırın, tekerleği üstten ve alttan tutup sallayın. Boşluk rotil ya da tekerlek rulmanı aşınmasını gösterir.</para></proceduralStep>
         <proceduralStep><para>Salıncak burçlarında ve viraj demiri lastiklerinde çatlak ve yırtık olup olmadığını kontrol edin.</para></proceduralStep>
       </mainProcedure>
-      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA4" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>
   </content>
 </dmodule>

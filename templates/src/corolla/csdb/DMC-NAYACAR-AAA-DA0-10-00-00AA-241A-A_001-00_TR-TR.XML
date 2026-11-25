@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA0" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="241" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Kapı menteşeleri ve gergileri</techName><infoName>Yağlama</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><noConds/></reqCondGroup>
+        <reqSupportEquips><noSupportEquips/></reqSupportEquips>
+        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Beyaz lityum gres</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-032</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr><supplyDescr id="sp-0002"><name>Temizlik bezi</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-033</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
+        <reqSpares><noSpares/></reqSpares>
+        <reqSafety><noSafety/></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Kapıyı tam açın; menteşelerdeki ve gergi kolundaki eski kiri silin.</para></proceduralStep>
+        <proceduralStep><para>Menteşe pimlerine ve gergi kolunun makarasına ince bir kat gres sürün.</para></proceduralStep>
+        <proceduralStep><para>Kapıyı birkaç kez açıp kapatarak gresi dağıtın; fazlasını silin.</para></proceduralStep>
+        <proceduralStep><para>Kilit dilini ve karşılık parçasını da az miktarda yağlayın.</para></proceduralStep>
+        <proceduralStep><para>Kapı ses yapmadan açılıp her kademede durmalı. Boşluk varsa menteşe pimini değiştirin.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

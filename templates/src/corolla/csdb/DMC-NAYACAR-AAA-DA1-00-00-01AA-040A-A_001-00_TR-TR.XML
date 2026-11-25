@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Motor</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Dört zamanlı çevrim</title>
+        <para>Her silindirde piston dört hareketle bir iş çevrimi tamamlar: emme supabı açıkken aşağı inerek hava ve yakıt karışımını emer, yukarı çıkarak sıkıştırır, buji kıvılcımıyla yanan karışımın itişiyle aşağı iner, son olarak egzoz supabı açıkken yanmış gazı dışarı iter.</para>
+        <para>Pistonların aşağı yukarı hareketi biyeller üzerinden krank milini döndürür. Dört silindir sırayla ateşlenir; böylece krank mili düzgün döner.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Supaplar ve zamanlama</title>
+        <para>İki eksantrik mili silindir kapağındadır (DOHC); biri emme, diğeri egzoz supaplarını açar. Her silindirde dört supap vardır.</para>
+        <para>Krank mili eksantrik millerini triger zinciriyle döndürür. Zincir gergisi motor yağının basıncıyla çalışır; bu yüzden yağ eksik ya da eskiyse ilk çalıştırmada zincir sesi duyulabilir.</para>
+        <para>VVT-i düzeni, motor beyninin komutuyla emme eksantriğini yağ basıncıyla biraz ileri ya da geri çevirir; motor düşük devirde daha çekişli, yüksek devirde daha verimli çalışır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Yağlama</title>
+        <para>Krank milinden tahrik alan yağ pompası karterdeki yağı süzgeçten emer, filtreden geçirip yataklara, eksantriklere ve zincir gergisine basar. Yağ basınç müşiri basınç düşerse göstergedeki yağ lambasını yakar.</para>
+        <para>Yağ lambası yağın miktarını değil basıncını gösterir. Lamba yandığında motor hemen durdurulmalıdır; yağ seviyesi ise ancak yağ çubuğuyla anlaşılır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

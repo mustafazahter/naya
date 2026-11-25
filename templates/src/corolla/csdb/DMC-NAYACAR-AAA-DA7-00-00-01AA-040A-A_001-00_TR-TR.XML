@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA7" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Isıtma ve klima</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Isıtma</title>
+        <para>Kalorifer, motorun sıcak soğutma suyunu gösterge panelinin arkasındaki küçük bir peteğe (kalorifer peteği) gönderir. Kalorifer fanı havayı bu petekten geçirip kabine üfler. Motor ısınmadan kalorifer ısıtmaz.</para>
+        <para>Fan hızları bir direnç bloğuyla ayarlanır. Direnç bozulursa fan çoğunlukla yalnız en yüksek kademede çalışır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Klima</title>
+        <para>Kompresör, elektromanyetik kavraması devreye girince kayışla döner ve soğutucu akışkanı (R-134a) sıkıştırır. Sıcak akışkan radyatörün önündeki kondenserde soğuyup sıvılaşır, genleşme valfinden geçerek kabin içindeki evaporatörde buharlaşır ve havayı soğutur.</para>
+        <para>Evaporatörde havadaki nem yoğuşur; bu su bir drenaj hortumuyla aracın altına akar. Araç altına damlayan temiz su bu yüzden normaldir. Hortum tıkanırsa su kabine taşar.</para>
+        <para>Akışkan eksildiğinde kompresör devreye girmez ya da klima serin esmez. Sistemin dolumu özel cihaz ister.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

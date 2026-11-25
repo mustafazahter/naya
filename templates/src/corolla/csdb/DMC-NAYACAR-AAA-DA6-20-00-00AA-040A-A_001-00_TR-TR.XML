@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA6" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Aydınlatma ve sinyal</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Farlar ve lambalar</title>
+        <para>Far ve lambalar akımı far anahtarı ve röleler üzerinden alır. Kısa ve uzun far aynı ampulün iki ayrı telidir; uzun far teli yandığında kısa far çalışmaya devam edebilir.</para>
+        <para>Far camı zamanla güneşten sararır ve ışığı dağıtır. Far yüksekliği yanlış ayarlanırsa yol az aydınlanır ya da karşıdan gelen sürücüler kamaşır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Sinyal ve stop</title>
+        <para>Sinyal rölesi (flaşör) akımı aç kapa yaparak lambaları çaktırır. Bir sinyal ampulü yanarsa devrenin direnci değişir ve o taraftaki sinyal hızlı çakar; bu, sürücüye ampulün yandığını haber verir.</para>
+        <para>Stop lambası müşiri fren pedalının üstündedir; pedala basınca devreyi kapatır. Ayarı bozulursa stoplar yanmaz ya da sürekli yanar.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

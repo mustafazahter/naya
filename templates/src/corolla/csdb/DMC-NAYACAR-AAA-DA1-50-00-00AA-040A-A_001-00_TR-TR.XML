@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA1" subSystemCode="5" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Ateşleme sistemi</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Kıvılcım</title>
+        <para>Her bujinin üstünde kendi ateşleme bobini vardır; buji kablosu yoktur. Bobin aküdeki 12 voltu binlerce volta yükseltir ve bujinin uçları arasında kıvılcım atlatır.</para>
+        <para>Motor beyni krank ve eksantrik konum sensörlerinden pistonların yerini bilir; her bobini doğru anda tetikler.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Avans ve vuruntu</title>
+        <para>Kıvılcım, piston en üste varmadan biraz önce atılır (avans). Devir arttıkça avans artar. Vuruntu sensörü motordan gelen vuruntu titreşimini algılarsa motor beyni avansı geri alır; motoru korur ama güç biraz düşer.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Aşınma</title>
+        <para>Bujinin elektrotları zamanla aşınır; aralık büyüdükçe kıvılcım zayıflar ve motor özellikle yükte ya da soğukken tekler. Bir bobin bozulursa o silindir hiç çalışmaz; motor belirgin biçimde sarsılır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

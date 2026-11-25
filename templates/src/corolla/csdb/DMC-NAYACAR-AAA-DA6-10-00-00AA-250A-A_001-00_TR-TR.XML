@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/proced.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA6" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="250" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Akü kutup başları</techName><infoName>Temizlik</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup><noConds/></reqCondGroup>
+        <reqSupportEquips><supportEquipDescrGroup><supportEquipDescr id="tl-0001"><name>Lokma takımı</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-002</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr><supportEquipDescr id="tl-0002"><name>Tel fırça</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-TL-072</partNumber></partAndSerialNumber></identNumber><reqQuantity unitOfMeasure="EA">1</reqQuantity></supportEquipDescr></supportEquipDescrGroup></reqSupportEquips>
+        <reqSupplies><supplyDescrGroup><supplyDescr id="sp-0001"><name>Karbonat ve ılık su</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-023</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr><supplyDescr id="sp-0002"><name>Kutup başı gresi</name><identNumber><manufacturerCode>NAYA0</manufacturerCode><partAndSerialNumber><partNumber>NC-SP-024</partNumber></partAndSerialNumber></identNumber><reqQuantity>Gerektiği kadar</reqQuantity></supplyDescr></supplyDescrGroup></reqSupplies>
+        <reqSpares><noSpares/></reqSpares>
+        <reqSafety><safetyRqmts><warning><warningAndCautionPara>Akü asidi yakıcıdır; gözlük ve eldiven takın. Akünün yanında kıvılcım çıkarmayın.</warningAndCautionPara></warning></safetyRqmts></reqSafety>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep><para>Kontağı kapatın ve anahtarı çıkarın.</para></proceduralStep>
+        <proceduralStep><para>Önce eksi (–), sonra artı (+) kablonun pabucunu gevşetip çıkarın.</para></proceduralStep>
+        <proceduralStep><para>Kutup başlarını ve pabuçların içini tel fırçayla parlak metal görünene kadar temizleyin. Beyaz toz varsa karbonatlı ılık suyla çözün, sonra kurulayın.</para></proceduralStep>
+        <proceduralStep><para>Pabuçlarda çatlak ya da kablonun içinde yeşil oksit varsa kabloyu değiştirin.</para></proceduralStep>
+        <proceduralStep><para>Önce artı, sonra eksi kabloyu takın ve somunları elle oynamayacak kadar sıkın.</para></proceduralStep>
+        <proceduralStep><para>Kutup başlarına ince bir kat gres sürün.</para></proceduralStep>
+        <proceduralStep><para>Motoru çalıştırın; marşın normal döndüğünü ve şarj lambasının söndüğünü doğrulayın.</para></proceduralStep>
+      </mainProcedure>
+      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+    </procedure>
+  </content>
+</dmodule>

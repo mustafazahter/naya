@@ -40,7 +40,7 @@
         <proceduralStep><para>Komparatörü diskin dış kenarından 10 mm içeride yüzeye dayayın ve diski bir tur çevirin. Salgı 0,05 mm'yi geçmemelidir.</para></proceduralStep>
         <proceduralStep><para>Yüzeyde derin çizik, çatlak ya da mavimsi renk değişimi varsa diski değiştirin.</para></proceduralStep>
       </mainProcedure>
-      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA3" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>
   </content>
 </dmodule>

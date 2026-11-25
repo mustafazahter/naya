@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="000" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Toyota Corolla E100</techName><infoName>Bakım takvimi</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Kullanım</title>
+        <para>Aralıklar normal kullanım içindir: kilometre ya da süreden hangisi önce dolarsa. Kısa mesafe, tozlu yol, sürekli şehir içi ya da çekme gibi ağır kullanımda yağ ve filtre aralıklarını kısaltın.</para>
+        <para>Kesin aralıklar için aracın kendi bakım kitapçığına bakın; aşağıdaki liste şablondaki kontrol ve değiştirme DM'leriyle uyumlu genel bir plandır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Her yakıt alımında ya da haftada bir</title>
+        <para>Sürücünün yapacağı kontroller:<randomList><listItem><para>Lastiklerin gözle durumu ve basıncı.</para></listItem><listItem><para>Motor yağı seviyesi (yağ çubuğuyla, motor durmuş ve araç düz zeminde).</para></listItem><listItem><para>Genleşme kabındaki soğutma suyu seviyesi (motor soğukken).</para></listItem><listItem><para>Cam suyu seviyesi, lambalar ve sinyaller.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Her 10 000 km'de ya da yılda bir</title>
+        <para>Yapılacaklar:<randomList><listItem><para>Motor yağını ve yağ filtresini değiştirin.</para></listItem><listItem><para>Fren hidroliği ve direksiyon yağı seviyesini, fren balatalarını ve disklerini kontrol edin.</para></listItem><listItem><para>Lastikleri çapraz değiştirin; diş derinliğini ve düzensiz aşınmayı kontrol edin.</para></listItem><listItem><para>Aksesuar kayışını, radyatör hortumlarını ve akü kutup başlarını gözden geçirin.</para></listItem><listItem><para>Silecek lastiklerini, kornayı ve bütün lambaları deneyin.</para></listItem><listItem><para>Egzoz hattını, aks mili körüklerini ve süspansiyonu araç altından gözden geçirin.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Her 20 000 km'de</title>
+        <para>Yapılacaklar:<randomList><listItem><para>Hava filtresini temizleyin ya da kontrol edin; tozlu yolda daha sık.</para></listItem><listItem><para>El freni ayarını ve kol hareketini kontrol edin.</para></listItem><listItem><para>Kapı menteşelerini, kilitleri ve kaput kilidini yağlayın.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Her 40 000 km'de ya da iki yılda bir</title>
+        <para>Yapılacaklar:<randomList><listItem><para>Hava filtresini değiştirin.</para></listItem><listItem><para>Fren hidroliğini değiştirin (kilometreden bağımsız olarak en geç iki yılda bir).</para></listItem><listItem><para>Soğutma suyunu değiştirin.</para></listItem><listItem><para>Şanzıman yağı seviyesini ve kaçak olup olmadığını kontrol edin.</para></listItem><listItem><para>Ön düzeni ve rot başlarını kontrol ettirin.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Her 100 000 km'de</title>
+        <para>Yapılacaklar:<randomList><listItem><para>İridyum bujileri değiştirin.</para></listItem><listItem><para>Supap boşluğunu kontrol edin.</para></listItem><listItem><para>Yakıt filtresinin ve pompa modülünün durumunu, motorun yükteki çekişine bakarak değerlendirin.</para></listItem></randomList></para>
+      </levelledPara>
+      <levelledPara>
+        <title>Takvime bağlı olmayanlar</title>
+        <para>Triger zinciri periyodik olarak değiştirilmez; zincir sesi duyulursa kontrol edilir.</para>
+        <para>Akü ömrü kullanım ve iklime bağlıdır; marş ağırlaşınca ve her kış öncesinde test edin.</para>
+        <para>Klima her ay birkaç dakika çalıştırılmalıdır; keçeler kurumaz ve kompresör yağlanır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

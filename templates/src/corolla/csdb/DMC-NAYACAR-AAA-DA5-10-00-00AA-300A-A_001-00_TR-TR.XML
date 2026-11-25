@@ -41,7 +41,7 @@
         <proceduralStep><para>Lastiğin üretim tarihini (DOT kodunun son dört hanesi: hafta ve yıl) okuyun; altı yaşını geçmiş lastik kauçuğu sertleştiği için değiştirilmelidir.</para></proceduralStep>
         <proceduralStep><para>Aşınma düzensizse (iç ya da dış kenar) ön düzen ayarı yaptırın.</para></proceduralStep>
       </mainProcedure>
-      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA5" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>
   </content>
 </dmodule>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA0" subSystemCode="7" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Kabin</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Koltuklar ve kemerler</title>
+        <para>Ön koltuklar raylar üzerinde ileri geri kayar; kol bırakılınca mandal raydaki deliklerden birine girip koltuğu kilitler.</para>
+        <para>Emniyet kemeri makarası yaylı bir mile sarılıdır. Ani yavaşlamada ya da kayış hızla çekildiğinde içindeki atalet kilidi makarayı durdurur; normal çekişte kayış serbest akar.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Hava yastığı</title>
+        <para>Çarpma sensörleri ani yavaşlamayı ölçer. Eşik aşılırsa SRS kontrol ünitesi şişiricideki ateşleyiciyi tetikler ve yastık saniyenin çok küçük bir bölümünde dolar. Direksiyondaki spiral kablo, direksiyon dönerken de yastıkla bağlantıyı korur.</para>
+        <para>Kontak açılınca SRS lambası birkaç saniye yanıp söner; sistem kendini denetlemiştir. Lamba sönmüyorsa sistem kayıtlı bir arıza görmüştür ve çarpmada yastık açılmayabilir.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Pedallar ve döşeme</title>
+        <para>Gaz pedalı bir tel ile gaz kelebeğini açar. Fren pedalı servo üzerinden ana merkezi iter; debriyaj pedalı debriyaj ana merkezini iter.</para>
+        <para>Halı ve döşemelerin altındaki ses yalıtımı yol ve motor sesini azaltır. Halının ıslanması genellikle bir fitil, kalorifer peteği ya da klima drenaj hortumu sorununun işaretidir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

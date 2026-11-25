@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="DA5" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Tekerlekler</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>Toyota Corolla E100, 1ZZ-FE motorlu</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYACAR" systemDiffCode="AAA" systemCode="D00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>Lastik ve jant</title>
+        <para>Lastik, içindeki basınçlı havayla aracı taşır; yolla temas eden tek parça odur. Basınç düşükse lastiğin kenarları ezilir, ısınır ve dış kenarlardan aşınır; yakıt tüketimi ve direksiyon ağırlığı artar. Basınç fazlaysa orta kısım aşınır ve yol tutuşu azalır.</para>
+        <para>Balans ağırlıkları tekerleğin ağırlık dağılımını eşitler. Balans bozulursa belli bir hızda direksiyon titrer.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Göbek ve rulman</title>
+        <para>Tekerlek bijonlarla göbeğe bağlanır; göbek rulmanların üstünde döner. Aşınmış rulman hızla artan bir uğultu çıkarır; ses virajda yük bir yana binince değişir.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

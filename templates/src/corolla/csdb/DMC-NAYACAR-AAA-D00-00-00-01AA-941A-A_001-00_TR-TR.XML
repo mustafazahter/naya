@@ -1036,6 +1036,13 @@
           <partSegment><itemIdentData><descrForPart>Sağ arka tekerlek</descrForPart></itemIdentData></partSegment>
         </itemSeqNumber>
       </catalogSeqNumber>
+      <catalogSeqNumber figureNumber="01" item="145" indenture="2">
+        <itemSeqNumber itemSeqNumberValue="00A">
+          <quantityPerNextHigherAssy>1</quantityPerNextHigherAssy>
+          <partRef manufacturerCodeValue="NAYA0" partNumberValue="NC-DA7-20-145"/>
+          <partSegment><itemIdentData><descrForPart>Evaporatör ve drenaj hortumu</descrForPart></itemIdentData></partSegment>
+        </itemSeqNumber>
+      </catalogSeqNumber>
     </illustratedPartsCatalog>
   </content>
 </dmodule>
