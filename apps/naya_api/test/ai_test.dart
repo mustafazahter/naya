@@ -155,11 +155,14 @@ void main() {
       item = await bicycleId();
     });
 
-    Future<Map<String, Object?>> diagnose(String message) async {
+    Future<Map<String, Object?>> diagnose(
+      String message, {
+      List<String> earlier = const [],
+    }) async {
       final response = await server.send(
         'POST',
         '/api/ai/diagnose',
-        json: {'item': item, 'message': message},
+        json: {'item': item, 'message': message, 'earlier': earlier},
         token: token,
       );
       final text = await response.readAsString();
@@ -232,6 +235,19 @@ void main() {
       final prompt = ai.chats.single.last.content;
       expect(prompt, contains('hiçbir sistemiyle açıkça eşleşmedi'));
       expect(prompt, isNot(contains('En olası sistemler')));
+      // Düşük yüzdeli adaylar da gitmez; gitse yapay zekâ kontrol öneriyor.
+      expect(prompt, isNot(contains('%')));
+      expect(prompt, contains('doğru ürünün seçili olup olmadığını'));
+    });
+
+    test('takip mesajında önceki mesajlar açıklamaya gider', () async {
+      await diagnose(
+        'Soğukken daha çok oluyor.',
+        earlier: ['Rölantide titriyor, arıza lambası yanıp sönüyor.'],
+      );
+      final prompt = ai.chats.single.last.content;
+      expect(prompt, contains('arıza lambası yanıp sönüyor'));
+      expect(prompt, contains('yeniden sorma'));
     });
 
     test('Jev\'e giden sistem sorusunda "hiçbiri" var', () async {
