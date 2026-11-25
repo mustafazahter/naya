@@ -159,11 +159,11 @@ void main() {
     });
 
     test('yapay zekâ "hiçbiri" dediyse sistem parlamaz', () {
-      final d = Diagnosis(
+      const d = Diagnosis(
         symptom: 'Garip bir koku var',
-        candidates: const [],
+        candidates: [],
         systemsScanned: 1,
-        systems: const [Scored('engine', 0.4)],
+        systems: [Scored('engine', 0.4)],
         noSystemFits: true,
         decision: DiagnosisDecision.uncertain,
       );
