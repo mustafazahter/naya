@@ -161,28 +161,82 @@ class ChatPanel extends StatelessWidget {
               onOpenHistory: onOpenHistory,
             ),
           Expanded(
-            // Ters liste: yeni mesaj ve akan cevap hep altta görünür;
-            // kullanıcı yukarı kaydırmadıkça ekran kendiliğinden takip eder.
-            // Sohbet boşken giriş metni baştan okunsun diye düz liste.
-            child: ListView(
+            child: _FollowingList(
               reverse: turns.isNotEmpty || diagnosing || notice != null,
-              padding: const EdgeInsets.fromLTRB(
-                NayaSpace.gutter,
-                NayaSpace.lg,
-                NayaSpace.gutter,
-                NayaSpace.lg,
-              ),
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: children,
-                ),
-              ],
+              sent: turns.whereType<UserTurn>().length,
+              children: children,
             ),
           ),
           _Composer(onSend: onSend, hint: hint, enabled: canSend && !_busy),
         ],
       ),
+    );
+  }
+}
+
+/// Sohbet listesi. Ters liste: yeni mesaj ve akan cevap hep altta görünür;
+/// kullanıcı yukarı kaydırmadıkça ekran kendiliğinden takip eder. Kullanıcı
+/// yukarıdayken yeni mesaj gönderirse liste alta döner; yoksa telefonda
+/// gönderilen soru ve cevabı ekranın dışında kalıyordu. Sohbet boşken giriş
+/// metni baştan okunsun diye düz liste.
+class _FollowingList extends StatefulWidget {
+  const _FollowingList({
+    required this.reverse,
+    required this.sent,
+    required this.children,
+  });
+
+  final bool reverse;
+
+  /// Kullanıcının gönderdiği mesaj sayısı; artınca alta dönülür.
+  final int sent;
+  final List<Widget> children;
+
+  @override
+  State<_FollowingList> createState() => _FollowingListState();
+}
+
+class _FollowingListState extends State<_FollowingList> {
+  final _scroll = ScrollController();
+
+  @override
+  void didUpdateWidget(_FollowingList old) {
+    super.didUpdateWidget(old);
+    if (widget.reverse && widget.sent > old.sent) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!_scroll.hasClients || _scroll.offset == 0) return;
+        _scroll.animateTo(
+          0,
+          duration: NayaMotion.base,
+          curve: Curves.easeOutCubic,
+        );
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      controller: _scroll,
+      reverse: widget.reverse,
+      padding: const EdgeInsets.fromLTRB(
+        NayaSpace.gutter,
+        NayaSpace.lg,
+        NayaSpace.gutter,
+        NayaSpace.lg,
+      ),
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: widget.children,
+        ),
+      ],
     );
   }
 }
