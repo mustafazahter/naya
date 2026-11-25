@@ -5,8 +5,8 @@
 ```
 f16/
 ├── naya.json      manifest (bütünlük özetleri paketlerken eklenir)
-├── csdb/          S1000D Issue 5.0: 154 DM, PM, DML, 16 çizim
-├── map/           parts.json (117 parça), faults.json (87 arıza, 73 belirti), zones.json
+├── csdb/          S1000D Issue 5.0: 176 DM, PM, DML, 16 çizim
+├── map/           parts.json (117 parça), faults.json (95 arıza, 271 belirti), zones.json
 ├── model/         product.glb
 └── scripts/       modeli kuran, içeriği ve çizimleri üreten betikler
 ```
@@ -32,7 +32,7 @@ Sistem kodları ATA 100 bölüm numaralarına benzer:
 
 | SNS | Sistem |
 | --- | --- |
-| `00` | Uçak (genel tanım, genel uyarılar, uçuş öncesi ve sonrası kontrol, parça kataloğu, iş kuralları) |
+| `00` | Uçak (genel tanım, genel uyarılar, uçuş öncesi ve sonrası kontrol, bakım takvimi, sıvılar, terimler sözlüğü, parça kataloğu, iş kuralları) |
 | `05` | Periyodik muayeneler (`-10` faz muayenesi, `-20` sert iniş, yıldırım, aşırı sıcaklık ve yabancı cisim sonrası) |
 | `07`, `09`, `10` | Krikolama; çekme; park, bağlama ve depolama |
 | `12` | İkmal ve servis (servis noktaları, uçak yıkama) |
@@ -58,7 +58,9 @@ Sistem kodları ATA 100 bölüm numaralarına benzer:
 | `73`, `74`, `77` | Motor yakıtı ve kontrolü; ateşleme; motor göstergeleri |
 | `79` | Motor yağı |
 
-Arıza bulma DM'leri belirtiden başlar, her adımda bir soru sorar ve onarım ya da değiştirme DM'ine yönlendirir. Her arızanın `faults.json`'da arıza bulma ve onarım DM'i var. Değiştirme DM'lerindeki yedek parçalar parça kataloğundaki numarayla eşleşir.
+Arıza bulma DM'leri belirtiden başlar, her adımda bir soru sorar ve onarım ya da değiştirme DM'ine yönlendirir. Her arızanın `faults.json`'da arıza bulma ve onarım DM'i var. Değiştirme DM'lerindeki yedek parçalar parça kataloğundaki numarayla eşleşir. Betik, her arızanın arıza bulma DM'inin onarım DM'ine götürdüğünü ve iki arızanın aynı belirti kümesini taşımadığını denetler.
+
+Her kök sistemin bir "Nasıl çalışır" DM'i (bilgi kodu 040) var. Arızaların belirtilerine pilotun ve teknisyenin arızayı kendi sözleriyle anlatışı da eklenir ("talaş ışığı yandı", "taksi sırasında burun tekerleği titriyor"); teşhis serbest metni bu söyleyişlerle eşleştirir. Söyleyişler betikteki `PHRASINGS` tablosundadır. Bakım takvimi ve sıvılar DM'leri yalnız neye, ne zaman ve nasıl bakılacağını anlatır; aralık, tip ve miktar yazılmaz.
 
 Çizimler (`ICN-…-0000N-…JPG`) modelden `scripts/render_icn.py` ile üretilir; konusu olan parçalar turuncu.
 

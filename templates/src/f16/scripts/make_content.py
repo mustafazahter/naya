@@ -269,7 +269,7 @@ dm(code=code('25', '1', '300'), tech='Fırlatma koltukları',
        'olmadığına bakın.',
        'Bulduğunuz eksikliği koltuk personeline bildirin; koltuğa müdahale '
        'etmeyin.',
-   ])
+   ], next=code('25', '3', '310'))
 
 # Uçuş kumandaları
 CONTROLS = dm(
@@ -467,7 +467,7 @@ MAIN_GEAR = dm(
         'Yan dikmeyi, kilit mekanizmasını ve hidrolik hatları kontrol edin.',
         'İniş takımı kapaklarının menteşelerini ve bağlantılarını kontrol '
         'edin.',
-    ])
+    ], next=code('32', '1', '210'))
 
 NOSE_GEAR = dm(
     code=code('32', '2', '310'), tech='Burun iniş takımı', figure=1,
@@ -494,7 +494,7 @@ TIRES = dm(
         'Diş derinliğini ve aşınma işaretlerini kontrol edin.',
         'Yanaklarda kesik, şişkinlik ya da kord görünmesi olup olmadığına '
         'bakın. Kord görünen lastiği değiştirin.',
-    ])
+    ], next=code('32', '4', '920'))
 
 WHEEL_CHANGE = dm(
     code=code('32', '4', '920'), tech='Tekerlek', figure=3,
@@ -528,7 +528,7 @@ BRAKES = dm(
         'olmadığını kontrol edin.',
         'Fren disklerinde aşırı ısınma izi (renk değişimi) olup olmadığına '
         'bakın.',
-    ])
+    ], next=code('32', '4', '920', '01'))
 
 HOOK = dm(
     code=code('32', '5', '310'), tech='Kuyruk kancası', figure=1,
@@ -552,7 +552,7 @@ RADOME = dm(
         'Yıldırım çarpması izlerine (yanık nokta, delik) dikkat edin; '
         'yıldırım koruma şeritlerinin yerinde olduğunu kontrol edin.',
         'Radom kilitlerinin kapalı olduğunu kontrol edin.',
-    ])
+    ], next=code('53', '2', '920'))
 
 INTAKE_CHECK = dm(
     code=code('53', '3', '310'), tech='Hava alığı',
@@ -599,7 +599,7 @@ CANOPY_CHECK = dm(
         'Kanopi çerçevesinin kilit pimlerini ve menteşesini kontrol edin.',
         'Kanopi contasında yırtık ya da sertleşme olup olmadığını kontrol '
         'edin; bozuk conta kokpit basıncını tutmaz.',
-    ])
+    ], next=code('56', '1', '250'))
 
 # Kanatlar ve kuyruk
 dm(code=code('57', info='310'), tech='Kanatlar ve kuyruk', figure=4,
@@ -719,7 +719,7 @@ NOZZLE = dm(
         'Alev tutucu halkalarında ve yakıt püskürtme halkalarında yanık izi '
         'olup olmadığını kontrol edin.',
         'Lüle eyleyicilerinde sızıntı olup olmadığına bakın.',
-    ])
+    ], next=[code('72', '5', '920'), code('72', '0', '520')])
 
 OIL_CHECK = dm(
     code=code('79', '1', '300'), tech='Motor yağı', info='Seviye kontrolü',
@@ -1328,7 +1328,7 @@ COCKPIT_CHECK = proc(
         'Anahtar ve düğmelerin koruyucu kapaklarını kontrol edin.',
         'Yan kumanda kolunun, gaz kolunun ve pedalların serbest olduğunu '
         'kontrol edin.',
-    ])
+    ], next=code('25', '3', '250'))
 
 # Yangından korunma
 FIRE = dm(
@@ -1663,7 +1663,7 @@ HYD_LINES = proc(
         'Hortumlarda çatlak, şişme ve dış örgü hasarı arayın.',
         'Filtrelerin tıkanma göstergelerine bakın.',
         'Sızıntının yerini ve şiddetini kayda geçirin.',
-    ])
+    ], next=code('29', '1', '921'))
 
 # İniş takımı
 RETRACT = proc(
@@ -1883,7 +1883,7 @@ PITOT = proc(
         'çizik olmadığını kontrol edin.',
         'Hücum açısı algılayıcılarının serbest döndüğünü ve hasarsız olduğunu '
         'kontrol edin.',
-    ])
+    ], next=code('34', '1', '920'))
 
 PITOT_HEAT = proc(
     code('34', '1', '320'), 'Pitot ısıtıcısı', info='Çalışma testi',
@@ -2513,6 +2513,508 @@ OIL_ISO = isolate(
     ('Bulgu yok: yağ basıncı algılayıcısını ve göstergesini kontrol edin.',
      code('77', '1', '310')))
 
+
+# --- Ek arıza bulma ----------------------------------------------------------
+
+BRAKE_HEAT_ISO = isolate(
+    code('32', '4', '421', '01'), 'Tekerlek frenleri',
+    'Aşırı ısınma: arıza bulma', 'NAYAJET-32-101',
+    'Taksiden ya da inişten sonra bir tekerlek ve fren aşırı sıcak; uçak '
+    'taksi sırasında bir yana çekiyor.',
+    [
+        ('Tekerleğe yan taraftan değil önden ya da arkadan yaklaşın; ısı '
+         'sigortası tapalarına ve lastiğe uzaktan bakın.',
+         'Isı sigortası tapası erimiş ya da lastik inmiş mi?',
+         'Tekerleği soğumaya bırakın, sonra tekerleği ve lastiği '
+         'değiştirin.', code('32', '4', '920')),
+        ('Fren soğuduktan sonra disklere ve fren gövdesine bakın.',
+         'Disklerde renk değişimi, çatlak ya da aşınma pimi sınırda mı?',
+         'Fren grubunu değiştirin.', code('32', '4', '920', '01')),
+        ('Uçağı çekerek tekerleğin serbest dönüp dönmediğini kontrol '
+         'edin.', 'Fren bırakıldığı hâlde tekerlek sürtüyor mu?',
+         'Fren grubu geri çekilmiyor; değiştirin.',
+         code('32', '4', '920', '01')),
+    ],
+    ('Fren ve tekerlek muayenesini yapın; ısınma pilot kullanımından '
+     'kaynaklanmış olabilir, kayda geçirin.', code('32', '4', '310')))
+
+INTAKE_ISO = isolate(
+    code('53', '3', '421'), 'Hava alığı', 'Arıza bulma', 'NAYAJET-53-101',
+    'Hava alığında yabancı cisim, kaplama hasarı ya da gevşek bağlantı '
+    'elemanı görüldü.',
+    [
+        ('Motor durmuşken hava alığına el feneriyle bakın; içeri '
+         'girmeden önce alığın emniyetini sağlayın.',
+         'Alıkta ya da fan önünde yabancı cisim ya da cisim izi var mı?',
+         'Yabancı cisim yutma muayenesini yapın.', code('05', '2', '300',
+                                                       '03')),
+        ('Alık kaplamasını ve bağlantı elemanlarını kontrol edin.',
+         'Gevşek, eksik bağlantı elemanı ya da kalkmış kaplama var mı?',
+         'Hava alığı muayenesini yapın ve eksikleri kayda geçirin.',
+         code('53', '3', '310')),
+    ],
+    ('Alık temiz: fan kanatlarına bakın.', code('72', '1', '310')))
+
+# --- Nasıl çalışır -----------------------------------------------------------
+#
+# Her sistem kökü için sade bir çalışma anlatımı. Değer ve iç yapı ayrıntısı
+# yazılmaz; sistemde zaten bir tanım DM'i varsa bu anlatım yanına '01' sökme
+# koduyla eklenir.
+
+HOW = 'Nasıl çalışır'
+
+dm(code=code('53', '1', '040'), tech='Gövde', info=HOW,
+   description=[
+       ('Yapı', [
+           'Gövde, çerçeveler ve kirişlerle taşınan, dış kaplaması perçin ve '
+           'vidalarla bağlanmış yarı monokok bir yapıdır. Kanatlar, kuyruk, '
+           'iniş takımı ve motor bağlantıları bu yapıya yük aktarır.',
+           'Erişim panelleri sistemlere ulaşmak için açılır. Her panelin '
+           'bağlantı elemanı tam ve doğru takılmalıdır; gevşek bir eleman '
+           'uçuşta kopup motora yabancı cisim olarak girebilir.',
+       ]),
+       ('Radom ve hava alığı', [
+           'Burundaki radom, içindeki anteni korurken radyo dalgalarını '
+           'geçiren özel bir kompozittir. Yüzeyindeki erozyon ve boya '
+           'hasarı hem yapıyı hem de sinyali bozar.',
+           'Hava alığı motorun havasını gövdenin altından alır. Alığın içi '
+           'düzgün ve temiz olmalıdır; içerideki her cisim doğrudan fana '
+           'gider.',
+       ]),
+       ('Korozyon', [
+           'Alüminyum yapı nem, tuz ve farklı metallerin teması nedeniyle '
+           'korozyona uğrar. Korozyon önce boya altında kabarma, beyaz toz '
+           'ya da bağlantı elemanı çevresinde iz olarak görülür.',
+       ]),
+   ])
+
+dm(code=code('25', '0', '040'), tech='Kokpit', info=HOW,
+   description=[
+       ('Yerleşim', [
+           'İki kişilik kokpitte ön ve arka koltuk, her birinin önünde '
+           'gösterge panelleri ve ekranlar, sağda yan kumanda kolu, solda '
+           'gaz kolu ve ayakta pedallar bulunur.',
+           'Yan kumanda kolu az hareket eder; pilotun uyguladığı kuvveti '
+           'elektrik sinyaline çevirip uçuş kumanda bilgisayarına gönderir.',
+       ]),
+       ('Fırlatma koltuğu', [
+           'Fırlatma koltuğu patlayıcı elemanlarla çalışır. Yerde emniyet '
+           'pimleri takılıdır; pimler yalnız uçuşa hazırlıkta yetkili kişi '
+           'tarafından çıkarılır. Koltuk çevresinde gevşek eşya, kumanda '
+           'hareketini kilitleyebilir.',
+       ]),
+       ('Kanopi', [
+           'Kanopi kokpiti kapatır; şişirilebilir conta kanopi ile gövde '
+           'arasını sızdırmaz yapar ve kokpitin basınçlanmasını sağlar. '
+           'Kanopi camı yalnız onaylı malzemeyle temizlenir; yanlış bez ya '
+           'da temizleyici camı çizer.',
+       ]),
+   ])
+
+dm(code=code('57', '1', '040'), tech='Kanatlar', info=HOW,
+   description=[
+       ('Kanat ve kumanda yüzeyleri', [
+           'Kanat taşımayı üretir. Arka kenardaki flaperonlar hem kanatçık '
+           'hem flap görevi görür: birlikte inip kalkarak taşımayı, ters '
+           'yönde hareket ederek yatışı değiştirir.',
+           'Hücum kenarı flapları kanadın ön kenarını uçuş koşuluna göre '
+           'aşağı indirir; yüksek hücum açısında havanın kanattan '
+           'kopmasını geciktirir. İki yanın flapı her zaman aynı konumda '
+           'olmalıdır.',
+       ]),
+       ('Statik boşaltıcılar', [
+           'Kanat ve kuyruk uçlarındaki ince çubuklar uçuşta gövdede biriken '
+           'statik elektriği havaya boşaltır; telsiz parazitini azaltır.',
+       ]),
+   ])
+
+dm(code=code('57', '2', '040'), tech='Kuyruk', info=HOW,
+   description=[
+       ('Kuyruk yüzeyleri', [
+           'Dikey kuyruk ve dümen uçağı yön ekseninde dengeler. Yatay '
+           'kuyruk iki parçadır ve her biri tümüyle döner; birlikte '
+           'dönünce burnu kaldırıp indirir, ters dönünce yatışa yardım '
+           'eder.',
+           'Hava frenleri kuyruğun iki yanındaki yaprakların açılmasıyla '
+           'uçağı yavaşlatır. Alt kuyruk kanatçıkları yön kararlılığına '
+           'katkı sağlar; yerde çarpmaya açıktır.',
+       ]),
+   ])
+
+dm(code=code('27', '0', '040', '01'), tech='Uçuş kumandaları', info=HOW,
+   description=[
+       ('Elektronik kumanda', [
+           'Kumanda yüzeyleri ile pilot arasında mekanik bağlantı yoktur. '
+           'Yan kumanda kolu ve pedallar sinyal üretir; uçuş kumanda '
+           'bilgisayarı bu sinyali uçuş koşuluyla birleştirip eyleyicilere '
+           'komut verir.',
+           'Bilgisayar ve algılayıcılar yedekli çalışır; biri arızalanınca '
+           'diğerleri devam eder ve pilota uyarı verilir. Yerde kendini '
+           'sınama testi bu yedekliliği denetler.',
+       ]),
+       ('Eyleyiciler', [
+           'Her kumanda yüzeyi hidrolik eyleyicilerle hareket eder; '
+           'eyleyiciler iki ayrı hidrolik sistemden beslenir. Eyleyici '
+           'konum algılayıcısı yüzeyin gerçek konumunu bilgisayara geri '
+           'bildirir.',
+       ]),
+   ])
+
+dm(code=code('28', '0', '040', '01'), tech='Yakıt sistemi', info=HOW,
+   description=[
+       ('Tanklar ve aktarma', [
+           'Yakıt gövde ve kanat içindeki tanklarda, konformal tanklarda ve '
+           'varsa dış tanklarda taşınır. Yakıt tanklardan bir besleme '
+           'tankına aktarılır; besleme tankındaki pompalar yakıtı motora '
+           'basar.',
+           'Aktarma, uçağın ağırlık merkezini dengede tutacak sırayla '
+           'yapılır. Valflerden biri yanlış konumda kalırsa tanklar arasında '
+           'dengesizlik oluşur.',
+       ]),
+       ('İkmal', [
+           'Yerde yakıt tek nokta ikmal ağzından basınçla doldurulur; '
+           'tanklar dolunca valfler kendiliğinden kapanır. Havada ikmal '
+           'ağzı gövdenin üstündedir.',
+           'Tanklarda yoğuşan su dibe çöker; boşaltma noktalarından alınan '
+           'yakıt örneğiyle izlenir.',
+       ]),
+       ('Miktar ölçümü', [
+           'Tanklardaki algılayıcılar yakıt miktarını ölçer; kokpitteki '
+           'gösterge toplam ve tank bazında miktarı gösterir.',
+       ]),
+   ])
+
+dm(code=code('29', '0', '040', '01'), tech='Hidrolik sistem', info=HOW,
+   description=[
+       ('İki bağımsız sistem', [
+           'Uçakta birbirinden bağımsız iki hidrolik sistem vardır. Her '
+           'sistemin motorun aksesuar dişli kutusundan dönen kendi pompası, '
+           'deposu, filtreleri ve akümülatörü bulunur.',
+           'Uçuş kumanda eyleyicileri iki sistemden birden beslenir; biri '
+           'kaybedilse de kumanda sürer. İniş takımı, frenler, burun '
+           'tekerleği yönlendirmesi ve hava frenleri sistemlerden birine '
+           'bağlıdır.',
+       ]),
+       ('Temizlik ve sızdırmazlık', [
+           'Hidrolik sıvısındaki parçacıkları filtreler tutar; filtre '
+           'göstergesi çıktıysa sistemde aşınma olabilir. Akümülatörler ani '
+           'ihtiyaçta basıncı destekler ve azotla ön doldurulmuştur.',
+           'Basınçlı hidrolik sıvısı deriyi delebilir; sızıntı yalnız sistem '
+           'basınçsızken aranır.',
+       ]),
+   ])
+
+dm(code=code('32', '0', '040', '01'), tech='İniş takımı', info=HOW,
+   description=[
+       ('Dikmeler', [
+           'Ana ve burun iniş takımlarının dikmeleri azot ve hidrolik '
+           'sıvısıyla dolu amortisörlerdir; inişte darbeyi emerler. Dikme '
+           'normalden kısa duruyorsa azot ya da sıvı kaybı vardır.',
+       ]),
+       ('Açma-kapama ve kilitler', [
+           'Takımlar hidrolik eyleyicilerle açılıp kapanır; açık ve kapalı '
+           'konumda mekanik kilitlerle tutulur. Kilit algılayıcıları '
+           'kokpitteki konum ışıklarını yakar.',
+           'Yer/hava algılayıcıları uçağın yerde mi havada mı olduğunu '
+           'bildirir; birçok sistem bu bilgiye göre çalışır.',
+       ]),
+       ('Fren ve yönlendirme', [
+           'Ana tekerleklerdeki çok diskli frenler hidrolikle sıkışır. '
+           'Kilitlenme önleyici sistem tekerlek hızını izleyip patinajı '
+           'önler. Burun tekerleği yönlendirmesi yerde pedallarla çalışır.',
+           'Ağır frenlemeden sonra fren ve tekerlek çok ısınır; tekerlekteki '
+           'ısı sigortası tapaları lastiğin patlamasını önlemek için erir.',
+       ]),
+   ])
+
+dm(code=code('32', '5', '040'), tech='Kuyruk kancası', info=HOW,
+   description=[
+       ('Görev', [
+           'Kuyruk kancası acil durumda pist sonundaki yakalama kablosuna '
+           'takılıp uçağı durdurmak içindir. Normal uçuşta yukarıda '
+           'kilitlidir; kokpitten indirilir.',
+           'Kancanın ucu kabloya temas eden aşınma parçasıdır; çentik ve '
+           'aşınma her kullanımdan sonra kontrol edilir.',
+       ]),
+   ])
+
+dm(code=code('72', '0', '040', '01'), tech='Motor', info=HOW,
+   description=[
+       ('Turbofan', [
+           'Fan havayı emer; havanın bir kısmı motorun çevresindeki baypas '
+           'kanalından geçer, kalanı kompresörde sıkıştırılır. Sıkışan '
+           'havaya yanma odasında yakıt püskürtülüp yakılır.',
+           'Sıcak gaz önce yüksek basınç türbinini, sonra alçak basınç '
+           'türbinini döndürür. Türbinler aynı milden kompresörü ve fanı '
+           'çevirir. Kalan gaz lüleden hızla çıkıp itki üretir.',
+       ]),
+       ('Art yakıcı ve lüle', [
+           'Art yakıcı, türbinden çıkan gaza ve baypas havasına yeniden '
+           'yakıt püskürterek itkiyi artırır. Alev tutucu alevin yerinde '
+           'kalmasını sağlar; astar art yakıcı gövdesini ısıdan korur.',
+           'Lüle yaprakları eyleyicilerle açılıp kapanır; art yakıcı '
+           'çalışırken lüle açılır.',
+       ]),
+       ('Kontrol ve izleme', [
+           'Motor yakıt kontrol ünitesi gaz kolu konumuna ve motorun '
+           'durumuna göre yakıtı ayarlar. Değişken stator kanatları '
+           'kompresörde havanın akışını devire göre düzenler.',
+           'Egzoz sıcaklığı, devir, yağ basıncı ve titreşim izlenir. Yağdaki '
+           'metal parçacığı talaş algılayıcısı yakalar; yatak aşınmasının '
+           'erken işaretidir.',
+       ]),
+   ])
+
+dm(code=code('21', '0', '040', '01'), tech='Klima ve basınçlandırma',
+   info=HOW,
+   description=[
+       ('Havanın yolu', [
+           'Motorun kompresöründen alınan sıcak ve basınçlı hava (bleed) '
+           'klima ünitesine gelir. Ünitede ısı değiştiricilerden ve '
+           'soğutma türbininden geçerek soğur; su ayırıcı havadaki nemi '
+           'alır.',
+           'Soğutulmuş hava kokpite, aviyonik cihazlara ve kanopi '
+           'contasına gider. Basınç kontrol valfi kokpit basıncını yüksekliğe '
+           'göre ayarlar.',
+       ]),
+       ('Belirtiler', [
+           'Kanallardan biri çatlarsa çevresinde ısı izi oluşur ve aşırı ısı '
+           'uyarısı yanabilir. Su ayırıcı tıkanırsa çıkışlardan buğu ya da su '
+           'damlası gelir.',
+       ]),
+   ])
+
+dm(code=code('24', '0', '040', '01'), tech='Elektrik gücü', info=HOW,
+   description=[
+       ('Kaynaklar', [
+           'Ana jeneratör motorun aksesuar dişli kutusundan döner ve '
+           'uçağın elektriğini üretir. Ana jeneratör kaybedilirse yedek '
+           'jeneratör ve gerektiğinde acil güç ünitesi devreye girer.',
+           'Akü çalıştırma ve acil durum içindir. Yerde dış güç prizinden '
+           'uçağa elektrik verilebilir.',
+       ]),
+       ('Dağıtım', [
+           'Elektrik baralar üzerinden sistemlere dağıtılır; önemli '
+           'sistemler birden çok kaynaktan beslenebilen baralara bağlıdır. '
+           'Kablo demetleri yapıya kelepçelerle tutturulur; sürtünme ve '
+           'nem, ara ara gelen arızaların başlıca nedenidir.',
+       ]),
+   ])
+
+dm(code=code('33', '0', '040', '01'), tech='Işıklar', info=HOW,
+   description=[
+       ('Dış ışıklar', [
+           'Seyir lambaları uçağın yönünü, çarpışma önleyici lamba varlığını '
+           'gösterir. Formasyon lambaları gece kol uçuşunda diğer uçağın '
+           'konumunu belli eder. İniş ve taksi lambaları burun iniş '
+           'takımındadır.',
+       ]),
+       ('Kokpit ışıkları', [
+           'Panel ve konsol aydınlatması parlaklık ayarıyla kısılır. Uyarı '
+           've ikaz ışıkları test düğmesiyle topluca denenir.',
+       ]),
+   ])
+
+dm(code=code('34', '0', '040'), tech='Hava verileri', info=HOW,
+   description=[
+       ('Basınç ölçümü', [
+           'Pitot tüpü uçağın ilerleyişiyle oluşan toplam basıncı, statik '
+           'portlar çevredeki hava basıncını alır. İkisinin farkından hız, '
+           'statik basınçtan yükseklik hesaplanır.',
+           'Pitot ya da statik port tıkanırsa hız ve yükseklik yanlış '
+           'okunur. Yerde koruyucu kılıflar takılı olur; uçuştan önce mutlaka '
+           'çıkarılır.',
+       ]),
+       ('Hücum açısı', [
+           'Hücum açısı algılayıcıları kanadın havaya göre açısını ölçer; '
+           'uçuş kumanda bilgisayarı bu bilgiyi sınırlamalarda kullanır. '
+           'Algılayıcı serbest dönmeli ve eğilmemiş olmalıdır.',
+           'Pitot ısıtıcısı buzlanmayı önler; yerde çalışırken çok ısınır.',
+       ]),
+   ])
+
+dm(code=code('35', '0', '040', '01'), tech='Oksijen sistemi', info=HOW,
+   description=[
+       ('Üretim ve dağıtım', [
+           'Oksijen üretim ünitesi motordan alınan havadan oksijeni ayırıp '
+           'regülatörlere gönderir. Regülatör oksijeni pilotun nefesine '
+           'göre maskeye verir.',
+           'Ünite arızalanırsa ya da acil durumda koltuktaki acil oksijen '
+           'tüpü kullanılır.',
+       ]),
+       ('Temizlik', [
+           'Oksijen bağlantılarına yağ ve gres değmemelidir; yağ oksijenle '
+           'yanabilir. Hortum ve maske bağlantıları çatlak ve gevşekliğe '
+           'karşı kontrol edilir.',
+       ]),
+   ])
+
+dm(code=code('26', '0', '040', '01'), tech='Yangından korunma', info=HOW,
+   description=[
+       ('Algılama', [
+           'Motor bölmesinde ve sıcak hava kanallarının çevresinde algılayıcı '
+           'halkalar bulunur. Halka belirli bir sıcaklığı görünce kokpitte '
+           'yangın ya da aşırı ısı uyarısı yanar.',
+           'Uyarı ışıkları ve algılama devresi kokpitteki test düğmesiyle '
+           'denenir. Ezilmiş bir halka ya da nem almış bir konnektör yerde '
+           'nedensiz uyarıya yol açar.',
+       ]),
+   ])
+
+dm(code=code('49', '0', '040', '01'), tech='Motor çalıştırma ünitesi',
+   info=HOW,
+   description=[
+       ('Çalıştırma', [
+           'Jet yakıtlı çalıştırıcı (JFS) küçük bir gaz türbinidir. '
+           'Kendisi çalıştırma akümülatörlerindeki basınçlı hidrolik '
+           'sıvısıyla döndürülür, denetim devresini akü besler. Çalışınca '
+           'aksesuar dişli kutusu üzerinden ana motoru döndürür.',
+           'Ana motor yeterli devre gelip ateş alınca çalıştırıcı ayrılır '
+           've durur. Akümülatörler motor çalışırken yeniden dolar.',
+       ]),
+   ])
+
+# --- Bakım takvimi, sıvılar ve terimler --------------------------------------
+#
+# Askerî uçakta aralık, miktar ve tip değerleri yazılmaz; neye, ne zaman ve
+# nasıl bakılacağı anlatılır.
+
+dm(code=code('00', info='000'), tech='F-16F', info='Bakım takvimi',
+   description=[
+       ('Kullanım', [
+           'Takvim, muayene türlerinde hangi sistemlere bakılacağını '
+           'özetler. Aralıklar uçuş saatine, takvime ve olaylara bağlıdır; '
+           'kesin aralıklar uçağın kendi bakım programındadır.',
+       ]),
+       ('Her uçuştan önce', [
+           ('Uçuş öncesi muayenede bakılır:', [
+               'Koruyucu kılıflar, emniyet pimleri ve hava alığının '
+               'temizliği.',
+               'Lastikler, frenlerin aşınma pimleri, dikmelerin boyu ve '
+               'yuvalardaki sızıntı izi.',
+               'Hidrolik, yağ ve oksijen göstergeleri; yakıt örneğinde su.',
+               'Kumanda yüzeyleri, erişim panelleri ve bağlantı '
+               'elemanları.',
+               'Kanopi, conta ve kokpitte gevşek eşya.',
+           ]),
+       ]),
+       ('Her uçuştan sonra', [
+           ('Uçuş sonrası muayenede bakılır:', [
+               'Lüle, art yakıcı ve motor çevresinde yeni iz ya da hasar.',
+               'Lastik ve fren aşınması, sıcak fren varsa soğuma.',
+               'Talaş algılayıcı ve filtre göstergeleri.',
+               'Pilotun bildirdiği arızaların kayda geçirilmesi.',
+           ]),
+       ]),
+       ('Dönemsel (faz) muayene', [
+           ('Bakım programına göre:', [
+               'Yapı ve korozyon muayenesi, panellerin içi.',
+               'Motor boroskop muayenesi ve yağ analizi.',
+               'Hidrolik ve motor yakıt filtrelerinin değişimi.',
+               'Uçuş kumanda, iniş takımı açma-kapama ve fren çalışma '
+               'testleri.',
+               'Yangın algılama, ışıklar ve hava verileri testleri.',
+           ]),
+       ]),
+       ('Olaya bağlı muayeneler', [
+           ('Gerektiğinde:', [
+               'Sert iniş, yıldırım çarpması, aşırı egzoz sıcaklığı ve '
+               'yabancı cisim yutma sonrasında özel muayene.',
+               'Uzun süre bekleyen uçakta depolama ve yeniden hizmete alma '
+               'işlemleri.',
+           ]),
+       ]),
+   ])
+
+dm(code=code('00', info='030'), tech='F-16F', info='Sıvılar ve kapasiteler',
+   description=[
+       ('Genel', [
+           'Bu şablonda sıvıların tipi, sınıfı ve miktarı verilmez. Her '
+           'sıvının tipini, miktarını ve servis yöntemini uçağın teknik el '
+           'kitabından alın; onaylı olmayan sıvı kullanmayın, farklı '
+           'sıvıları karıştırmayın.',
+       ]),
+       ('Servis edilen sıvılar ve gazlar', [
+           ('Uçakta servis edilenler:', [
+               'Yakıt: tek nokta ikmal ağzından basınçla; ikmalden sonra '
+               'tanklardan su örneği alınır.',
+               'Motor yağı: motorun yağ deposundan, el kitabındaki süre '
+               'içinde ve motor durduktan sonra kontrol edilir.',
+               'Hidrolik sıvısı: iki sistemin depolarından, sistem '
+               'basınçsızken; gösterge el kitabındaki koşulda okunur.',
+               'Dikme amortisörleri: azot ve hidrolik sıvısıyla; dikme boyu '
+               'uçak ağırlığına göre değerlendirilir.',
+               'Lastikler: azotla şişirilir; basınç lastik soğukken '
+               'ölçülür.',
+               'Akümülatörler: azot ön dolumu, sistem basınçsızken.',
+               'Acil oksijen ve acil güç ünitesi: yalnız yetkili ekiple ve '
+               'özel önlemlerle.',
+           ]),
+       ]),
+       ('Uyarılar', [
+           'Sıvıları servis ederken uçak topraklı olmalıdır.',
+           'Oksijen bağlantılarına yağ, gres ya da kirli el değmemelidir.',
+           'Dökülen yakıt, yağ ve hidrolik sıvısı hemen temizlenir.',
+       ]),
+   ])
+
+dm(code=code('00', info='006'), tech='F-16F', info='Terimler sözlüğü',
+   description=[
+       ('Motor', [
+           ('Terimler:', [
+               'Turbofan: havanın bir kısmını çekirdeğin çevresinden geçiren '
+               'jet motoru.',
+               'Baypas: çekirdek motorun çevresinden geçen hava.',
+               'Art yakıcı: türbin çıkışında yeniden yakıt yakarak itkiyi '
+               'artıran bölüm.',
+               'Alev tutucu: art yakıcıda alevin yerinde kalmasını sağlayan '
+               'halkalar.',
+               'Lüle: motor çıkışında açılıp kapanan yapraklı ağız.',
+               'Boroskop: motorun içini sökmeden görmeye yarayan esnek '
+               'kamera.',
+               'Talaş algılayıcı: yağdaki metal parçacıkları tutan mıknatıslı '
+               'tıpa.',
+               'Aksesuar dişli kutusu: pompaları, jeneratörü ve '
+               'çalıştırıcıyı motora bağlayan dişli kutusu.',
+               'JFS: ana motoru çalıştıran küçük jet yakıtlı türbin.',
+               'Bleed: motor kompresöründen alınan basınçlı hava.',
+               'FOD: motora ya da uçağa zarar veren yabancı cisim.',
+           ]),
+       ]),
+       ('Uçuş kumandaları ve yapı', [
+           ('Terimler:', [
+               'Fly-by-wire: kumandaların elektrik sinyaliyle çalışması.',
+               'Flaperon: hem flap hem kanatçık görevi gören yüzey.',
+               'Hücum kenarı flapı: kanadın ön kenarındaki hareketli yüzey.',
+               'Eyleyici: kumanda yüzeyini hareket ettiren hidrolik silindir.',
+               'Hücum açısı: kanadın hava akımına göre açısı.',
+               'Pitot tüpü ve statik port: hız ve yükseklik için basınç '
+               'alan girişler.',
+               'Radom: radarı örten burun kapağı.',
+               'Konformal tank: gövdeye yapışık biçimde takılan yakıt tankı.',
+               'Statik boşaltıcı: statik elektriği havaya boşaltan çubuk.',
+               'Korozyon: metalin nem ve tuzla bozulması.',
+           ]),
+       ]),
+       ('İniş takımı ve yer işleri', [
+           ('Terimler:', [
+               'Dikme: iniş takımının amortisörlü bacağı.',
+               'Tork kolu: dikmenin dönmesini önleyen makaslı kol.',
+               'Anti-skid: frenlemede tekerleğin kilitlenmesini önleyen '
+               'sistem.',
+               'Isı sigortası tapası: aşırı ısınan tekerlekte eriyip '
+               'havayı boşaltan tapa.',
+               'Yer/hava algılayıcısı: uçağın yerde olduğunu bildiren '
+               'anahtar.',
+               'Emniyet pimi: yerde bir düzenin yanlışlıkla çalışmasını '
+               'önleyen kırmızı bayraklı pim.',
+               'Takoz ve topraklama: uçağın kaymasını ve statik '
+               'boşalmayı önleyen yer önlemleri.',
+               'Faz muayenesi: belirli uçuş saatlerinde yapılan kapsamlı '
+               'dönemsel muayene.',
+           ]),
+       ]),
+   ])
 
 # --- Parça haritası --------------------------------------------------------
 
@@ -3359,6 +3861,54 @@ FAULTS = [
 ]
 
 # Yedek parça adı → IPD'deki parça.
+
+# Ek arızaların belirtileri ve arızaları.
+SYMPTOMS += [
+    ('sym.tire_cut', 'Lastikte kesik, şişlik ya da batmış yabancı cisim var'),
+    ('sym.hot_brake', 'Taksiden sonra bir fren ve tekerlek aşırı sıcak'),
+    ('sym.fuse_plug', 'Tekerlekteki ısı sigortası tapası erimiş, lastik '
+     'inmiş'),
+    ('sym.intake_damage', 'Hava alığında yabancı cisim, gevşek bağlantı '
+     'elemanı ya da kaplama hasarı var'),
+    ('sym.cockpit_mist', 'Klima çıkışlarından buğu ya da su damlası '
+     'geliyor'),
+    ('sym.battery_corrosion', 'Akü konnektöründe korozyon ya da yanık izi '
+     'var'),
+    ('sym.formation_light', 'Formasyon lambalarının bir bölümü yanmıyor'),
+    ('sym.paint_erosion', 'Hücum kenarlarında boya ve kaplama aşınmış'),
+]
+
+FAULTS += [
+    ('f.tire.cut', 'gear.wheels', ['sym.tire_cut', 'sym.tire_low'],
+     'Lastik yabancı cisimle kesilmiş ya da yanağı hasarlanmış.', 3,
+     code('32', '4', '300'), code('32', '4', '920')),
+    ('f.brakes.overheat', 'gear.brakes',
+     ['sym.hot_brake', 'sym.fuse_plug'],
+     'Ağır frenleme ya da sürtünen fren tekerleği aşırı ısıtmış; ısı '
+     'sigortası tapası erimiş.', 3, BRAKE_HEAT_ISO, code('32', '4', '920')),
+    ('f.brakes.drag', 'gear.brakes', ['sym.hot_brake', 'sym.pull'],
+     'Fren grubu bırakıldıktan sonra tam geri çekilmiyor; tekerlek '
+     'sürtüyor.', 2, BRAKE_HEAT_ISO, code('32', '4', '920', '01')),
+    ('f.intake.fod', 'airframe.intake', ['sym.intake_damage'],
+     'Hava alığına yabancı cisim girmiş ya da alıktaki bir bağlantı '
+     'elemanı gevşemiş.', 3, INTAKE_ISO, code('53', '3', '310')),
+    ('f.ecs.water', 'ecs.pack', ['sym.cockpit_mist', 'sym.cockpit_temp'],
+     'Klima ünitesinin su ayırıcısı tıkanmış; nem kokpite geliyor.', 1,
+     ECS_ISO, code('21', '1', '310')),
+    ('f.battery.connector', 'electrical.battery',
+     ['sym.battery_corrosion', 'sym.battery_low'],
+     'Akü konnektörü korozyona uğramış ya da gevşek; akım geçişi '
+     'zayıf.', 2, BATTERY_ISO, code('20', '2', '310')),
+    ('f.light.formation', 'lights.formation', ['sym.formation_light'],
+     'Formasyon lambası şeridi ya da bağlantısı arızalı.', 1, LIGHT_ISO,
+     code('33', '4', '920')),
+    ('f.paint.erosion', 'airframe.structure',
+     ['sym.paint_erosion', 'sym.corrosion'],
+     'Yağmur ve kum erozyonu hücum kenarlarındaki koruyucu kaplamayı '
+     'aşındırmış; altındaki metal açığa çıkıyor.', 1,
+     code('53', '1', '310'), code('20', '4', '250')),
+]
+
 SPARE_PARTS = {
     'Tekerlek, lastiğiyle': 'gear.wheels',
     'Tekerlek freni': 'gear.brakes',
@@ -3383,24 +3933,412 @@ SPARE_PARTS = {
     'Motor yağ filtresi elemanı': 'engine.oil_filter',
 }
 
+
+# --- Söyleyişler ------------------------------------------------------------
+#
+# Pilotun ve teknisyenin arızayı kendi sözleriyle anlatışı; teşhis serbest
+# metni bunlarla eşleştirir. Her metin arızaya bir belirti olarak eklenir
+# (`Content.add_phrasings`).
+
+PHRASINGS = {
+    # Motor
+    'f.igniters': [
+        'Çalıştırmada ateşleyicilerin çıtırtısı duyulmuyor',
+        'Motor dönüyor, yakıt geliyor ama alev almıyor',
+    ],
+    'f.fuel_nozzles': [
+        'Çalıştırmada motor geç ateş aldı ve egzoz sıcaklığı sıçradı',
+        'Rölantide egzoz sıcaklığı dalgalı, alev düzensiz gibi',
+    ],
+    'f.fan.fod': [
+        'Fan kanadının ucunda çentik gördüm',
+        'Uçuştan sonra fan önünde kuş kalıntısı ve kanatta ezik var',
+        'Motor titreşimi yabancı cisim yuttuktan sonra arttı',
+    ],
+    'f.hpc.erosion': [
+        'Aynı gaz konumunda itki eskisinden az, sıcaklık daha yüksek',
+        'Motor zamanla güç kaybetti, kalkış mesafesi uzadı',
+    ],
+    'f.hpt.blade': [
+        'Boroskopta türbin kanadında yanık ve kaplama kaybı görüldü',
+        'Egzoz sıcaklığı yüksek ve motor hafif titriyor',
+    ],
+    'f.oil.leak': [
+        'Motorun altında ve kaplamada yağ izi var',
+        'Her uçuştan sonra yağ tamamlamak gerekiyor',
+    ],
+    'f.afterburner': [
+        'Gaz kolunu art yakıcıya ittim ama art yakıcı yanmadı',
+        'Art yakıcı bir yanıp bir sönüyor',
+    ],
+    'f.nozzle.flaps': [
+        'Lüle yapraklarında çatlak ve yanık izi var',
+        'Lüle yaprağının kenarı kopmuş',
+    ],
+    'f.speed_brake': [
+        'Hava frenleri tam açılmıyor',
+        'Hava freni yaprakları kapanınca aralık kalıyor',
+    ],
+    'f.ab.fuel': [
+        'Art yakıcı geç yanıyor, yanınca da dengesiz',
+        'Art yakıcı bölgesinde yakıt kokusu ve ıslaklık var',
+    ],
+    'f.ab.liner': [
+        'Lülenin içinden bakınca astarda çatlak ve çökme görülüyor',
+        'Art yakıcı astarında renk değişimi ve yırtık var',
+    ],
+    'f.flameholder': [
+        'Art yakıcı yanıyor ama alev dengesiz, lülede yanık izleri var',
+        'Alev tutucu halkalarında yanma ve eğilme var',
+    ],
+    'f.nozzle.actuator': [
+        'Lüle konum uyarısı yandı, lüle tam açılmıyor',
+        'Lüle eyleyicisinin çevresinde hidrolik ya da yakıt izi var',
+    ],
+    'f.engine.bearing': [
+        'Talaş ışığı yandı ve motor titreşimi arttı',
+        'Yağ analizinde metal parçacık çıktı',
+    ],
+    'f.engine.mount': [
+        'Motor titreşimi gövdede hissediliyor, motor bağlantısında iz var',
+        'Motor bağlantı noktasında çatlak ya da boşluk görüldü',
+    ],
+    'f.engine.sensor': [
+        'Egzoz sıcaklığı göstergesi diğer göstergelerle uyuşmuyor',
+        'Bir motor göstergesi aniden sıfıra düşüp geri geliyor',
+    ],
+    'f.fuel_control': [
+        'Gaz kolunu sabit tutsam da motor devri iniş çıkış yapıyor',
+        'Motor gaz koluna geç ve düzensiz tepki veriyor',
+    ],
+    'f.engine.fuel_filter': [
+        'Motor yakıt filtresi göstergesi çıkmış',
+        'Yüksek güçte motor itkisi düşüyor, filtre değişimi gecikmiş',
+    ],
+    'f.vsv': [
+        'Gaz açarken motordan patlama sesi geldi',
+        'Hızlanmada motor tekledi ve itki düştü',
+    ],
+    'f.lpc.dirty': [
+        'Deniz kenarında uçtuktan sonra motor verimi düştü',
+        'Fan arkasındaki kanatlar kir ve tuzla kaplı',
+    ],
+    'f.ignition_unit': [
+        'Ateşleme testinde iki ateşleyici de çalışmıyor',
+        'Ateşleme ünitesinden ses gelmiyor, motor alev almıyor',
+    ],
+    'f.gearbox': [
+        'Aksesuar dişli kutusunun çevresinde yağ var ve talaş ışığı yandı',
+        'Dişli kutusundan farklı bir uğultu geliyor',
+    ],
+    'f.oil.filter': [
+        'Yağ filtresi tıkanma göstergesi dışarı çıkmış',
+        'Yağ basıncı uyarısı ve filtre göstergesi birlikte geldi',
+    ],
+    'f.oil.chip': [
+        'Talaş algılayıcının mıknatısında ince metal parçacıklar var',
+        'Uçuşta talaş ışığı yandı',
+    ],
+    'f.bleed.leak': [
+        'Hava alma kanalının çevresindeki boyada yanık ve renk değişimi '
+        'var',
+        'Yerde motor çalışırken aşırı ısı uyarısı yandı',
+    ],
+    # Hidrolik ve kumandalar
+    'f.hyd.leak': [
+        'Tekerlek yuvasında hidrolik sıvısı damlıyor',
+        'Uçuşta hidrolik basınç uyarısı yandı, yerde sıvı izi var',
+    ],
+    'f.hyd.pump': [
+        'Bir hidrolik sistemin basıncı motor çalışırken yükselmiyor',
+        'Hidrolik pompanın çevresinde sızıntı yok ama basınç düşük',
+    ],
+    'f.hyd.accumulator': [
+        'Akümülatör göstergesi ön dolumun düşük olduğunu gösteriyor',
+        'Sistem basınçsızken akümülatör göstergesi beklenenden düşük',
+    ],
+    'f.hyd.filter': [
+        'Hidrolik filtrenin tıkanma pimi dışarı çıkmış',
+        'Filtre göstergesi çıktı, sistemde aşınma şüphesi var',
+    ],
+    'f.hyd.reservoir': [
+        'Hidrolik depo seviyesi göstergesi düşük gösteriyor',
+        'Depo seviyesi sızıntı olmadan azalıyor gibi',
+    ],
+    'f.actuator': [
+        'Kumanda eyleyicisinin milinde hidrolik sıvısı var',
+        'Uçuş kumanda uyarısı yandı, eyleyici çevresi ıslak',
+    ],
+    'f.flcs.computer': [
+        'Kumanda sisteminin kendini sınama testi arıza verdi',
+        'Uçuş kumanda uyarısı yanıp sönüyor, sonra kendiliğinden '
+        'düzeliyor',
+    ],
+    'f.lef.drive': [
+        'Hücum kenarı flapları iki yanda farklı açıda duruyor',
+        'Hücum kenarı flap testi geçmiyor',
+    ],
+    'f.controls.play': [
+        'Yan kumanda kolu tabanında boşluk hissediliyor',
+        'Pedallarda oynama ve tıkırtı var',
+    ],
+    # Yakıt
+    'f.fuel.water': [
+        'Yakıt örneğinin dibinde su damlaları var',
+        'Örnek kabındaki yakıt bulanık',
+    ],
+    'f.cft.seal': [
+        'Konformal tankın gövdeyle birleştiği yerde yakıt izi var',
+        'Konformal tank bağlantısından yakıt kokusu geliyor',
+    ],
+    'f.fuel.pump': [
+        'Yakıt basıncı uyarısı yandı',
+        'Yakıt pompası çalıştırıldığında ses gelmiyor',
+    ],
+    'f.fuel.valve': [
+        'Uçuşta bir tank diğerlerinden hızlı boşaldı',
+        'Yakıt aktarması beklenen sırayla yapılmıyor',
+    ],
+    'f.fuel.qty': [
+        'Yakıt miktar göstergesi ikmalden sonra yanlış miktar gösteriyor',
+        'Toplam yakıt ile tankların toplamı tutmuyor',
+    ],
+    'f.fuel.spr': [
+        'Yerde ikmal çok yavaş gidiyor',
+        'İkmal tanklar dolmadan kendiliğinden kesiliyor',
+        'İkmal ağzının çevresinden yakıt sızıyor',
+    ],
+    'f.fuel.receptacle': [
+        'Havada ikmal ağzının kapağı tam kapanmıyor',
+        'Havada ikmal ağzının kilidi kavramıyor',
+    ],
+    # İniş takımı
+    'f.tire.worn': [
+        'Lastiğin aşınma işareti görünmüyor, sırtı düzleşmiş',
+        'Lastiğin bir bölgesi düz aşınmış',
+    ],
+    'f.tire.pressure': [
+        'Lastik basık görünüyor, basınç düşük ölçüldü',
+        'Lastik her gün biraz basınç kaybediyor',
+    ],
+    'f.brakes.worn': [
+        'Fren aşınma pimi gövdeyle aynı hizaya gelmiş',
+        'Frenler eskisi kadar tutmuyor, iniş koşusu uzadı',
+    ],
+    'f.brakes.leak': [
+        'Fren gövdesinin çevresi hidrolik sıvısıyla ıslak',
+        'Frenleme zayıf ve tekerlek iç tarafında sıvı izi var',
+    ],
+    'f.strut.service': [
+        'Ana iniş takımı dikmesi normalden kısa duruyor',
+        'Uçak bir yana yatık duruyor, dikmede sıvı izi var',
+    ],
+    'f.nose.torque_link': [
+        'Taksi sırasında burun tekerleği titriyor ve sallanıyor',
+        'Burun iniş takımının tork kolunda boşluk var',
+    ],
+    'f.gear.lock': [
+        'İniş takımı indirildi ama bir yeşil ışık yanmadı',
+        'Takım kapandıktan sonra konum ışığı kırmızı kalıyor',
+    ],
+    'f.gear.wow': [
+        'Yerdeyken uçak havadaymış gibi davranıyor, burun yönlendirmesi '
+        'çalışmıyor',
+        'Yer/hava anahtarı arızası nedeniyle bazı sistemler devreye '
+        'girmiyor',
+    ],
+    'f.gear.door': [
+        'İniş takımı kapağı kapanınca gövdeyle aynı hizaya gelmiyor',
+        'Takım kapağının menteşesinde boşluk var',
+    ],
+    'f.steering': [
+        'Burun tekerleği yönlendirmesi devreye girmiyor',
+        'Taksi sırasında burun tekerleği istemeden bir yana dönüyor',
+    ],
+    'f.antiskid': [
+        'Anti-skid uyarısı yandı',
+        'Frenlemede bir tekerlek kilitlenip lastikte düz iz bıraktı',
+    ],
+    'f.hook.wear': [
+        'Kuyruk kancasının ucunda derin çentik var',
+        'Kanca ucu aşınmış, yüzeyi düzleşmiş',
+    ],
+    # Gövde ve kanopi
+    'f.canopy.seal': [
+        'Kanopi contası şişmiyor, kenarında yırtık var',
+        'Uçuşta kanopi kenarından ıslık sesi geliyor',
+    ],
+    'f.ecs.pressure': [
+        'Kanopi contası sağlam ama kokpit basınçlanmıyor',
+        'Yükseldikçe kulaklarda basınç değişimi hissediliyor',
+    ],
+    'f.canopy.scratch': [
+        'Kanopi camında ince çizikler ve hare var',
+        'Güneşe karşı bakınca kanopiden görüş bulanık',
+    ],
+    'f.radome.erosion': [
+        'Radomun ucunda boya kalkmış, yüzey aşınmış',
+        'Radomda küçük yanık izi ya da delik var',
+    ],
+    'f.fasteners': [
+        'Erişim panelinde bir vida eksik',
+        'Panel kenarı kalkık, bağlantı elemanı gevşek',
+    ],
+    'f.corrosion': [
+        'Bağlantı elemanlarının çevresinde beyaz toz var',
+        'Boyanın altında kabarma ve çukurlanma görülüyor',
+    ],
+    'f.discharger': [
+        'Kanat ucundaki statik boşaltıcı kırılmış',
+        'Telsizde parazit arttı, bir boşaltıcı eksik',
+    ],
+    'f.ventral': [
+        'Alt kuyruk kanatçığında sürtme ve ezik izi var',
+        'Alt kanatçık yer ekipmanına çarpmış',
+    ],
+    # Klima ve elektrik
+    'f.ecs.pack': [
+        'Kokpit yerde ve alçak irtifada soğumuyor',
+        'Klima çıkışından sıcak hava geliyor',
+    ],
+    'f.ecs.duct': [
+        'Kokpit bir tarafta sıcak, klima akışı zayıf',
+        'Klima kanalının kelepçesi gevşek ve çevresinde ısı izi var',
+    ],
+    'f.gen.main': [
+        'Motor çalışırken ana jeneratör ışığı yanık kalıyor',
+        'Uçuşta ana jeneratör düştü, yedek jeneratör devraldı',
+    ],
+    'f.gen.standby': [
+        'Ana jeneratör çalışıyor ama yedek jeneratör ışığı yanıyor',
+        'Yedek jeneratör testi geçmiyor',
+    ],
+    'f.battery': [
+        'Akü gerilimi düşük, motor çalıştırıcısı devreye girmiyor',
+        'Akü uyarısı yanıyor ve uçak bekleyince akü boşalıyor',
+    ],
+    'f.ext_power': [
+        'Dış güç bağlandı ama uçağa elektrik gelmiyor',
+        'Dış güç fişini takınca prizde kıvılcım oldu',
+    ],
+    'f.wiring': [
+        'Bir sistem uçuşta arıza veriyor, yerde düzeliyor',
+        'Kablo demetinde sürtünme ve aşınmış yalıtım gördüm',
+    ],
+    'f.epu.leak': [
+        'Acil güç ünitesi bölmesinden keskin, amonyağa benzer koku geliyor',
+        'Acil güç ünitesinin altında sıvı izi var',
+    ],
+    'f.fire.detector': [
+        'Yerde nedensiz yangın uyarısı yandı, motor bölmesi soğuk',
+        'Algılayıcı halkasında ezilme ve nemli konnektör var',
+    ],
+    'f.fire.test': [
+        'Yangın uyarısı test düğmesine basınca ışıklar yanmıyor',
+        'Yangın testinde ışıklardan biri yanmıyor',
+    ],
+    # Kokpit
+    'f.harness': [
+        'Koltuk kemerinde yıpranma ve kesik var',
+        'Kemer tokası zor açılıyor',
+    ],
+    'f.seat.pins': [
+        'Koltuk emniyet piminin bayrağı yerinde yok',
+        'Koltuğun yanında düşmüş bir kalem ya da alet var',
+    ],
+    'f.displays': [
+        'Ekran camında silme izi ve çizik var',
+        'Gösterge camı tozlu, güneşte okunmuyor',
+    ],
+    # Işıklar, hava verileri, oksijen, çalıştırıcı
+    'f.light.position': [
+        'Sağ ya da sol seyir lambası yanmıyor',
+        'Seyir lambasının camı buğulu',
+    ],
+    'f.light.anticollision': [
+        'Çarpışma önleyici lamba çakmıyor',
+        'Çarpışma önleyici lamba sürekli yanıyor ama çakmıyor',
+    ],
+    'f.light.landing': [
+        'İniş lambası yanmıyor',
+        'Taksi lambası açılınca hemen sönüyor',
+    ],
+    'f.light.cockpit': [
+        'Panel aydınlatması gece yanmıyor',
+        'Parlaklık düğmesini çevirince panel ışıkları titriyor',
+    ],
+    'f.pitot.blocked': [
+        'Kalkış koşusunda hız göstergesi hareket etmedi',
+        'Pitot kılıfı çıkarılmadan uçağa yaklaşıldı, hız tutarsız',
+    ],
+    'f.pitot.heater': [
+        'Pitot ısıtma uyarısı yandı',
+        'Pitot ısıtıcısı yerde testte ısınmıyor',
+    ],
+    'f.static.blocked': [
+        'Yükseklik göstergesi tırmanışta değişmiyor',
+        'Statik portun üzerinde boya ya da bant kalmış',
+    ],
+    'f.aoa': [
+        'Hücum açısı algılayıcısı eğilmiş, elle çevirince takılıyor',
+        'Yer ekipmanı hücum açısı algılayıcısına çarpmış',
+    ],
+    'f.oxygen.hose': [
+        'Maskeye oksijen akışı zayıf, hortum bağlantısı gevşek',
+        'Oksijen hortumunda çatlak var',
+    ],
+    'f.oxygen.generator': [
+        'Oksijen uyarısı yandı, hortum ve maske sağlam',
+        'Oksijen üretim ünitesi testte uyarı veriyor',
+    ],
+    'f.oxygen.bottle': [
+        'Acil oksijen tüpünün göstergesi düşük bölgede',
+        'Acil oksijen tüpü basınç kaybetmiş',
+    ],
+    'f.jfs.unit': [
+        'Motor çalıştırıcısı dönüyor ama hızlanmıyor',
+        'Çalıştırıcı devreye giriyor sonra kendiliğinden kapanıyor',
+    ],
+    'f.jfs.accumulator': [
+        'Çalıştırma akümülatörleri dolmamış, çalıştırıcı hiç dönmüyor',
+        'Çalıştırma akümülatörünün göstergesi düşük',
+    ],
+    # Ek arızalar
+    'f.tire.cut': [
+        'Lastiğin yanağında kesik var, iç kat görünüyor',
+        'Lastiğe metal parça batmış',
+    ],
+    'f.brakes.overheat': [
+        'İnişten sonra tekerleklerden biri dumanlıyor',
+        'Isı sigortası tapası erimiş ve lastik inmiş',
+    ],
+    'f.brakes.drag': [
+        'Taksi sırasında uçak bir yana çekiyor ve fren sıcak',
+        'Uçağı çekerken tekerlek serbest dönmüyor',
+    ],
+    'f.intake.fod': [
+        'Hava alığının içinde vida ya da küçük parça buldum',
+        'Alık kaplamasında kalkmış bir parça var',
+    ],
+    'f.ecs.water': [
+        'Kokpitte klima çıkışından sis gibi buhar geliyor',
+        'Klima çıkışından su damlıyor',
+    ],
+    'f.battery.connector': [
+        'Akü konnektöründe yeşil ya da beyaz korozyon var',
+        'Akü fişi gevşek, yanık kokusu geliyor',
+    ],
+    'f.light.formation': [
+        'Formasyon lambalarının bir parçası karanlık kalıyor',
+        'Gece kol uçuşunda formasyon ışıkları zayıf görünüyor',
+    ],
+    'f.paint.erosion': [
+        'Kanat hücum kenarında boya kalkmış, metal görünüyor',
+        'Dikey kuyruğun ön kenarında kaplama aşınmış',
+    ],
+}
+
 C.zones, C.symptoms, C.faults = ZONES, SYMPTOMS, FAULTS
+C.add_phrasings(PHRASINGS)
 C.spare_parts = SPARE_PARTS
-def check_fault_paths():
-    """Her arızanın arıza bulma DM'i, sonlarından biriyle arızanın onarım
-    DM'ine ulaşmalı; yoksa teşhis kullanıcıyı onarıma götürmez. Arıza bulma
-    yerine doğrudan bir muayene DM'i verilmiş arızalar denetlenmez."""
-    dms = {str(d['code']): d for d in C.dms}
-    missing = []
-    for fid, _, _, _, _, isolation, repair in C.faults:
-        d = dms.get(str(isolation))
-        if not d or 'isolation' not in d:
-            continue
-        ends = {str(e[2]) for e in d['isolation']['ends'] if e[2]}
-        if str(repair) not in ends:
-            missing.append(f'{fid}: {isolation} onarım DM\'ine ({repair}) '
-                           'ulaşmıyor')
-    assert not missing, '\n'.join(missing)
-
-
-check_fault_paths()
 C.write()

@@ -36,7 +36,7 @@
         <proceduralStep><para>Filtrelerin tıkanma göstergelerine bakın.</para></proceduralStep>
         <proceduralStep><para>Sızıntının yerini ve şiddetini kayda geçirin.</para></proceduralStep>
       </mainProcedure>
-      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="29" subSystemCode="1" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="921" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>
   </content>
 </dmodule>

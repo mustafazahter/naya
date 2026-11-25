@@ -39,7 +39,7 @@
         <proceduralStep><para>Yıldırım çarpması izlerine (yanık nokta, delik) dikkat edin; yıldırım koruma şeritlerinin yerinde olduğunu kontrol edin.</para></proceduralStep>
         <proceduralStep><para>Radom kilitlerinin kapalı olduğunu kontrol edin.</para></proceduralStep>
       </mainProcedure>
-      <closeRqmts><reqCondGroup><noConds/></reqCondGroup></closeRqmts>
+      <closeRqmts><reqCondGroup><reqCondDm><reqCond>Sonraki işlem:</reqCond><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="53" subSystemCode="2" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="920" infoCodeVariant="A" itemLocationCode="A"/></dmRefIdent></dmRef></reqCondDm></reqCondGroup></closeRqmts>
     </procedure>
   </content>
 </dmodule>

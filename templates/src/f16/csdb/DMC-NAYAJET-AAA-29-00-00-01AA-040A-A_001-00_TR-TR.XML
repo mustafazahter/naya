@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="29" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="01" disassyCodeVariant="AA" infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="tr" countryIsoCode="TR"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2026" month="11" day="23"/>
+        <dmTitle><techName>Hidrolik sistem</techName><infoName>Nasıl çalışır</infoName></dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></responsiblePartnerCompany>
+      <originator enterpriseCode="NAYA0"><enterpriseName>NAYA</enterpriseName></originator>
+      <applic><displayText><simplePara>F-16F Block 60, iki kişilik</simplePara></displayText></applic>
+      <brexDmRef><dmRef><dmRefIdent><dmCode modelIdentCode="NAYAJET" systemDiffCode="AAA" systemCode="00" subSystemCode="0" subSubSystemCode="0" assyCode="00" disassyCode="00" disassyCodeVariant="AA" infoCode="022" infoCodeVariant="A" itemLocationCode="D"/></dmRefIdent></dmRef></brexDmRef>
+      <qualityAssurance><unverified/></qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>İki bağımsız sistem</title>
+        <para>Uçakta birbirinden bağımsız iki hidrolik sistem vardır. Her sistemin motorun aksesuar dişli kutusundan dönen kendi pompası, deposu, filtreleri ve akümülatörü bulunur.</para>
+        <para>Uçuş kumanda eyleyicileri iki sistemden birden beslenir; biri kaybedilse de kumanda sürer. İniş takımı, frenler, burun tekerleği yönlendirmesi ve hava frenleri sistemlerden birine bağlıdır.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Temizlik ve sızdırmazlık</title>
+        <para>Hidrolik sıvısındaki parçacıkları filtreler tutar; filtre göstergesi çıktıysa sistemde aşınma olabilir. Akümülatörler ani ihtiyaçta basıncı destekler ve azotla ön doldurulmuştur.</para>
+        <para>Basınçlı hidrolik sıvısı deriyi delebilir; sızıntı yalnız sistem basınçsızken aranır.</para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>
