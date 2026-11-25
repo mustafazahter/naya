@@ -91,7 +91,7 @@ window.addEventListener("message", (e: MessageEvent<ViewerCommand>) => {
   const command = e.data;
   switch (command?.type) {
     case "load":
-      void viewer.load(command.url);
+      viewer.load(command.url).catch(() => send({ type: "loadFailed" }));
       break;
     case "scan":
       partBox.hidden = true;
@@ -151,6 +151,8 @@ function progress(fraction: number): void {
 viewer
   .load(model, progress)
   .then(async (parts) => {
+    // Bu yükleme yerine daha yenisi istendi; hazır sinyalini o verir.
+    if (parts === null) return;
     status.textContent = `${parts.length} parça · sürükle: döndür · tekerlek/iki parmak: yakınlaş`;
     send({ type: "ready" });
     await viewer.introduce();

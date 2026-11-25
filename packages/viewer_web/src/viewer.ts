@@ -97,7 +97,10 @@ const reach = (part: Part) => Math.max(...part.pieces.map((p) => p.stage.offset.
 
 let worker: Worker | null = null;
 let requests = 0;
-const waiting = new Map<number, { request: PlanRequest; done: (plan: Plan) => void }>();
+const waiting = new Map<
+  number,
+  { request: PlanRequest; done: (plan: Plan) => void; fail: (error: unknown) => void }
+>();
 
 /**
  * Parçalara ayırma planı. Ayrı iş parçacığında kurulur; iş parçacığı
@@ -139,13 +142,22 @@ function planOf(request: PlanRequest): Promise<Plan> {
       ),
     });
   };
-  return new Promise((resolve) => {
-    waiting.set(id, { request, done: resolve });
+  return new Promise((resolve, reject) => {
+    waiting.set(id, { request, done: resolve, fail: reject });
     w.onerror = () => {
-      // İş parçacığı çalışmadı: bekleyenler burada kurulur.
-      worker = null;
-      for (const { request, done } of waiting.values()) done(local(request));
+      // İş parçacığı çalışmadı: bekleyenler burada kurulur. Burada da
+      // hata çıkarsa bekleyen yükleme askıda kalmasın, hata olarak dönsün.
+      w.terminate();
+      if (worker === w) worker = null;
+      const pending = [...waiting.values()];
       waiting.clear();
+      for (const { request, done, fail } of pending) {
+        try {
+          done(local(request));
+        } catch (e) {
+          fail(e);
+        }
+      }
     };
     w.postMessage({ ...request, id });
   });
@@ -207,6 +219,7 @@ export class NayaViewer {
   private explodeLayers = 0;
   /** Geliştirirken: planın k ve s değerleri. */
   private explodeScale = { factor: 0, spacing: 0 };
+  private pendingScale = { layers: 0, factor: 0, spacing: 0 };
   private loads = 0;
   private xray = false;
 
@@ -246,7 +259,9 @@ export class NayaViewer {
   private readonly sun: THREE.DirectionalLight;
 
   /** Modeli yükler; parçalara ayırma planı da burada kurulur. */
-  async load(url: string, onProgress?: (fraction: number) => void): Promise<string[]> {
+  async load(url: string, onProgress?: (fraction: number) => void): Promise<string[] | null> {
+    // Sıra numarası indirmeden önce alınır: en son istenen model kazanır.
+    const token = ++this.loads;
     const draco = new DRACOLoader().setDecoderPath(new URL("./draco/", document.baseURI).href);
     const loader = new GLTFLoader().setDRACOLoader(draco).setMeshoptDecoder(MeshoptDecoder);
     const gltf = await loader.loadAsync(url, (e) => {
@@ -254,14 +269,15 @@ export class NayaViewer {
       if (e.lengthComputable && e.total > 0) onProgress?.(e.loaded / e.total);
     });
     // Plan kurulurken eski model ekranda kalır. Bu sırada başka bir model
-    // istendiyse bu yükleme bırakılır.
-    const token = ++this.loads;
+    // istendiyse bu yükleme bırakılır (sonuç null).
+    if (token !== this.loads) return null;
     const model = gltf.scene;
     this.placeOnGround(model);
     const parts = await this.collectParts(model);
+    const scale = this.pendingScale;
     if (token !== this.loads) {
       disposeModel(model, this.ghost);
-      return [];
+      return null;
     }
 
     this.finishIntro();
@@ -279,6 +295,9 @@ export class NayaViewer {
     this.model = model;
     this.scene.add(model);
     this.parts = parts;
+    // Plan kurulurken başka yükleme başlamış olabilir; ölçü burada geçerli olur.
+    this.explodeLayers = scale.layers;
+    this.explodeScale = { factor: scale.factor, spacing: scale.spacing };
     this.addShadowCatcher(this.model);
     this.prepareBand(this.model);
     await this.frameModel(false);
@@ -327,6 +346,7 @@ export class NayaViewer {
    * geri çekilir ya da yaklaşır; açılan parçalar kadrajdan taşmaz.
    */
   explode(amount: number): void {
+    if (!Number.isFinite(amount)) return;
     const target = THREE.MathUtils.clamp(amount, 0, 1);
     if (Math.abs(target - this.explodeTarget) < 1e-3) return;
     this.finishIntro();
@@ -649,9 +669,11 @@ export class NayaViewer {
     // büyük parça (kasa, gövde) tek parça kalır.
     const longest = Math.max(...box.getSize(new THREE.Vector3()).toArray());
     const span = (node: THREE.Object3D) => new THREE.Box3().setFromObject(node).getSize(new THREE.Vector3()).length();
+    if (nodes.length === 0) throw new Error("Modelde parça yok");
     const biggest = nodes.reduce((a, b) => (span(b.node) > span(a.node) ? b : a)).node;
     const split = nodes.map(({ node }) => (node === biggest ? null : splitPieces(node, longest * 0.08)));
-    const pieceIds = nodes.map(({ id }, n) => split[n]?.map((_, k) => `${id}#${k}`) ?? [id]);
+    // Plan anahtarı sıra numarasıyla: aynı adlı iki düğüm tek plan paylaşmasın.
+    const pieceIds = nodes.map((_, n) => split[n]?.map((_, k) => `${n}#${k}`) ?? [`${n}`]);
 
     const plan = await planOf({
       box: [...box.min.toArray(), ...box.max.toArray()] as PlanRequest["box"],
@@ -659,8 +681,7 @@ export class NayaViewer {
         (split[n] ?? [node]).map((target, k) => ({ id: pieceIds[n][k], tris: triangles(target, toLocal) })),
       ),
     });
-    this.explodeLayers = plan.layers;
-    this.explodeScale = { factor: plan.factor, spacing: plan.spacing };
+    this.pendingScale = { layers: plan.layers, factor: plan.factor, spacing: plan.spacing };
 
     return nodes.map(({ id, node }, n) => {
       const glow = new Glow(this.glowColor);
