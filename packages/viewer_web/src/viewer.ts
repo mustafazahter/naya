@@ -5,7 +5,6 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 
-import { groupNodes, type PartsMap } from "./assembly";
 import { makeGrid, offsetAt, planExplode, shapeOf, triangles, type Plan, type Stage } from "./explode";
 import type { PlanReply, PlanRequest } from "./explodeWorker";
 import type { CheckedPart } from "./explodeCheck";
@@ -109,7 +108,7 @@ function planOf(request: PlanRequest): Promise<Plan> {
     const [x0, y0, z0, x1, y1, z1] = request.box;
     const grid = makeGrid(new THREE.Box3(new THREE.Vector3(x0, y0, z0), new THREE.Vector3(x1, y1, z1)));
     const shapes = request.pieces.map((p) => shapeOf(p.id, p.tris, grid));
-    return planExplode(grid, shapes, new Map(request.groups));
+    return planExplode(grid, shapes);
   };
   try {
     worker ??= new Worker(new URL("./explodeWorker.ts", import.meta.url), { type: "module" });
@@ -123,6 +122,8 @@ function planOf(request: PlanRequest): Promise<Plan> {
     waiting.delete(e.data.id);
     done?.({
       layers: e.data.layers,
+      factor: e.data.factor,
+      spacing: e.data.spacing,
       stages: new Map(
         e.data.stages.map(([key, stage]) => [
           key,
@@ -204,6 +205,8 @@ export class NayaViewer {
   private explodeTarget = 0;
   private explodeValue = 0;
   private explodeLayers = 0;
+  /** Geliştirirken: planın k ve s değerleri. */
+  private explodeScale = { factor: 0, spacing: 0 };
   private loads = 0;
   private xray = false;
 
@@ -242,31 +245,20 @@ export class NayaViewer {
 
   private readonly sun: THREE.DirectionalLight;
 
-  /**
-   * Modeli yükler. [mapUrl] verilirse ya da modelin yanında aynı adla
-   * `.parts.json` varsa montaj ağacı oradan okunur ve parçalara ayırma
-   * gruplara göre yapılır; yoksa her parça merkezden dışarı açılır.
-   */
-  async load(
-    url: string,
-    mapUrl?: string,
-    onProgress?: (fraction: number) => void,
-  ): Promise<string[]> {
+  /** Modeli yükler; parçalara ayırma planı da burada kurulur. */
+  async load(url: string, onProgress?: (fraction: number) => void): Promise<string[]> {
     const draco = new DRACOLoader().setDecoderPath(new URL("./draco/", document.baseURI).href);
     const loader = new GLTFLoader().setDRACOLoader(draco).setMeshoptDecoder(MeshoptDecoder);
-    const [gltf, map] = await Promise.all([
-      loader.loadAsync(url, (e) => {
-        // Sunucu boyut vermezse ilerleme bilinmez; çağıran tahmin eder.
-        if (e.lengthComputable && e.total > 0) onProgress?.(e.loaded / e.total);
-      }),
-      loadMap(mapUrl ?? url.replace(/\.glb$/i, ".parts.json")),
-    ]);
+    const gltf = await loader.loadAsync(url, (e) => {
+      // Sunucu boyut vermezse ilerleme bilinmez; çağıran tahmin eder.
+      if (e.lengthComputable && e.total > 0) onProgress?.(e.loaded / e.total);
+    });
     // Plan kurulurken eski model ekranda kalır. Bu sırada başka bir model
     // istendiyse bu yükleme bırakılır.
     const token = ++this.loads;
     const model = gltf.scene;
     this.placeOnGround(model);
-    const parts = await this.collectParts(model, map);
+    const parts = await this.collectParts(model);
     if (token !== this.loads) {
       disposeModel(model, this.ghost);
       return [];
@@ -362,7 +354,12 @@ export class NayaViewer {
    * Parçaların toplu yeri, açılmış yeri ve ayırmanın her anındaki kayması.
    * Geliştirirken `explodeReport()` denetimi kullanır.
    */
-  explodeTrack(): { level: THREE.Object3D | null; parts: CheckedPart[] } {
+  explodeTrack(): {
+    level: THREE.Object3D | null;
+    parts: CheckedPart[];
+    factor: number;
+    spacing: number;
+  } {
     const level = this.parts[0]?.node.parent ?? null;
     const parts = this.parts.flatMap((part) =>
       part.pieces.map((piece, k) => ({
@@ -372,7 +369,7 @@ export class NayaViewer {
         offsetAt: (value: number) => offsetAt(piece.stage, value, new THREE.Vector3()),
       })),
     );
-    return { level, parts };
+    return { level, parts, ...this.explodeScale };
   }
 
   setXray(enabled: boolean): void {
@@ -624,7 +621,7 @@ export class NayaViewer {
    * dışa aktarımda olur) onun içine iner; ilk dallanan seviyedeki her düğüm
    * bir parçadır.
    */
-  private async collectParts(model: THREE.Object3D, map: PartsMap | null): Promise<Part[]> {
+  private async collectParts(model: THREE.Object3D): Promise<Part[]> {
     let level: THREE.Object3D = model;
     while (level.children.length === 1 && !(level.children[0] instanceof THREE.Mesh)) {
       level = level.children[0];
@@ -649,28 +646,21 @@ export class NayaViewer {
       }
     }
     // Aralarında boşluk olan kısımlar (sağ ve sol amortisör) ayrı açılır. En
-    // büyük parça (kasa, gövde) yerinde kalacağı için bölünmez.
+    // büyük parça (kasa, gövde) tek parça kalır.
     const longest = Math.max(...box.getSize(new THREE.Vector3()).toArray());
     const span = (node: THREE.Object3D) => new THREE.Box3().setFromObject(node).getSize(new THREE.Vector3()).length();
     const biggest = nodes.reduce((a, b) => (span(b.node) > span(a.node) ? b : a)).node;
     const split = nodes.map(({ node }) => (node === biggest ? null : splitPieces(node, longest * 0.08)));
     const pieceIds = nodes.map(({ id }, n) => split[n]?.map((_, k) => `${id}#${k}`) ?? [id]);
-    const groups = groupNodes(
-      map,
-      nodes.map((n) => n.id),
-    );
-    nodes.forEach(({ id }, n) => {
-      if (split[n]) for (const piece of pieceIds[n]) groups.set(piece, groups.get(id) ?? id);
-    });
 
     const plan = await planOf({
       box: [...box.min.toArray(), ...box.max.toArray()] as PlanRequest["box"],
       pieces: nodes.flatMap(({ node }, n) =>
         (split[n] ?? [node]).map((target, k) => ({ id: pieceIds[n][k], tris: triangles(target, toLocal) })),
       ),
-      groups: [...groups],
     });
     this.explodeLayers = plan.layers;
+    this.explodeScale = { factor: plan.factor, spacing: plan.spacing };
 
     return nodes.map(({ id, node }, n) => {
       const glow = new Glow(this.glowColor);
@@ -874,17 +864,6 @@ function restingGlow(weight: number): number {
 }
 
 /** Montaj haritasını indirir; yoksa ya da bozuksa null. */
-async function loadMap(url: string): Promise<PartsMap | null> {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) return null;
-    const json = (await response.json()) as PartsMap;
-    return Array.isArray(json?.parts) ? json : null;
-  } catch {
-    return null;
-  }
-}
-
 /** Nesne ve bütün üst düğümleri görünür mü? */
 function isShown(object: THREE.Object3D): boolean {
   for (let o: THREE.Object3D | null = object; o; o = o.parent) {

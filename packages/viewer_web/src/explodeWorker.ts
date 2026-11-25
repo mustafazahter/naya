@@ -10,24 +10,27 @@ import { makeGrid, planExplode, shapeOf } from "./explode";
 export interface PlanRequest {
   box: [number, number, number, number, number, number];
   pieces: { id: string; tris: Float32Array }[];
-  groups: [string, string][];
 }
 
 /** Planın aktarılabilir hâli. */
 export interface PlanReply {
   stages: [string, { offset: number[]; moves: { start: number; end: number; points: number[][] }[] }][];
   layers: number;
+  factor: number;
+  spacing: number;
 }
 
 self.onmessage = (e: MessageEvent<PlanRequest & { id: number }>) => {
-  const { id, box, pieces, groups } = e.data;
+  const { id, box, pieces } = e.data;
   const grid = makeGrid(
     new THREE.Box3(new THREE.Vector3(box[0], box[1], box[2]), new THREE.Vector3(box[3], box[4], box[5])),
   );
   const shapes = pieces.map((p) => shapeOf(p.id, p.tris, grid));
-  const plan = planExplode(grid, shapes, new Map(groups));
+  const plan = planExplode(grid, shapes);
   const reply: PlanReply = {
     layers: plan.layers,
+    factor: plan.factor,
+    spacing: plan.spacing,
     stages: [...plan.stages].map(([id, stage]) => [
       id,
       {

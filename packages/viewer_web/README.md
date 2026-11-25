@@ -28,7 +28,6 @@ Android'de `file://` kullanılmıyor, çünkü viewer ES modülü olarak derleni
 | --- | --- |
 | `embed` | Uygulama içi görünüm: düğmeler ve etiketler gizlenir, onları Flutter çizer. |
 | `model=<yol>` | Yüklenecek `.glb`. Varsayılan `./models/bicycle.glb`. |
-| `map=<yol>` | Montaj ağacı (`map/parts.json`). Verilmezse modelin yanında aynı adla `.parts.json` aranır (`bicycle.glb` → `bicycle.parts.json`); yoksa parçalar merkezden açılır. |
 | `focus=<düğüm>` | Model yüklenince kamera bu parçaya yaklaşır, diğerleri saydamlaşır. Teşhiste kullanılıyor. |
 
 ## Köprü
@@ -39,7 +38,7 @@ Mesajların tipleri `src/bridge.ts` dosyasında; Flutter tarafı `apps/naya/lib/
 
 | Komut | Alanlar | Ne yapar |
 | --- | --- | --- |
-| `load` | `url`, isteğe bağlı `map` | Başka bir modeli yükler. |
+| `load` | `url` (eski sürümlerin gönderdiği `map` yok sayılır) | Başka bir modeli yükler. |
 | `explode` | `amount` (0-1) | Gövde dışındaki bütün parçaları dışarı açar; açılmış hâlde hiçbiri birbirine değmez (bkz. [Parçalara ayırma](#parçalara-ayırma)). Kamera açılmış modele göre geri çekilir. |
 | `focus` | `part` | Kamerayı parçaya yaklaştırır, diğerlerini saydam gri yapar. |
 | `isolate` | `part` ya da `null` | Yalnız parçayı gösterir, kamera ona uçar; `null` bütün modeli geri getirir. |
@@ -62,15 +61,17 @@ Düğüm adlarında nokta yok (three.js siliyor); parça kimliğiyle eşleşme `
 
 Plan model yüklenirken bir kez kurulur (`src/explode.ts`), ayrı bir iş parçacığında (`src/explodeWorker.ts`; açılamazsa sayfanın kendisinde). Plan kurulurken eski model ekranda kalır.
 
-- **Soğan gibi, katman katman.** Parça yüzünün baktığı yönde açılır: modelin bir yanına dayanan ve o yönde ince olan parça (kapı, çamurluk, tampon, tekerlek, kanat) o yana, diğerleri yukarı (kaput, kanopi, kasa, döşeme, koltuk). Sabit parça yok; en içteki çekirdek (taban, şasi) yerinde kalır.
-- **Sıra korunur.** Aynı yöne giden ve izdüşümleri örtüşen iki parçadan dıştaki: öbürünü kutusunun içine alan (kasa döşemeyi); biri öbürünün izdüşümünde kalıyorsa o yönde ucu ileride olan (kaput motoru, kanopi kokpiti, sele kadroyu); yoksa örtüşen sütunların çoğunda ileride olan. Dış kat içindekinden az gidemez; Corolla'da kasa en üste çıkar, altında döşeme ve tavan döşemesi, sonra koltuklar, en altta taban.
-- **Mesafe az.** Parçalar içten dışa yerleştirilir; her biri yerleşmiş parçalara değmeyene kadar gider, bundan fazla değil. Büyük parça kendi boyu kadar değil, ancak gereken kadar gider.
-- **Takımlar.** Tekerlek ve içindekiler (disk, kaliper, göbek) ile bisiklet tekerleği gibi üst üste duran gruplar aks boyunca içten dışa dizilip tek parça gibi açılır (göbek, disk, jant, lastik). Kuledeki top gibi büyük parçaya takılı küçük parçalar onunla gider; bisikletin kabloları kadroyla.
-- **Sağ ve sol kısımlar ayrı açılır.** Modelde tek düğüm olan sağ ve sol amortisör, iki ön disk gibi aralarında boşluk olan parçalar yüklenirken kısımlarına bölünür (`src/pieces.ts`); her kısım kendi yanına gider. Seçme, parlama ve ad parçanın kendisinde kalır.
-- **Açılmış hâlde hiçbir parça başka bir parçaya değmez**, hiçbiri zeminin altına inmez. Animasyon sırasında parçalar birbirinin içinden geçebilir.
-- **Animasyon.** Dış katlar önce kalkar, içtekiler arkadan gelir; yaklaşık 2,5 sn sürer. Kamera açılmış modelin tamamını kadraja alır.
+Doğrusal, merkezden dışarı:
 
-Geliştirirken tarayıcı konsolunda `await explodeReport()` açılmış hâlde birbirine giren ya da değen parçaları listeler (yalnız `npm run dev`'de). Toplu hâlde zaten birbirine değen iki parça, değdikleri hücre sayısı artmadıkça sayılmaz. Boş liste beklenir.
+1. C, bütün modelin kutusunun merkezi.
+2. Her parça (ve `src/pieces.ts`'in ayırdığı sağ/sol kısım) için c kutusunun merkezi, v = c − C, r = |v|, yön u = v / r. r modelin en uzun kenarının %2'sinden küçükse u yukarı.
+3. Parçalar r'ye göre sıralanır, sıra 0..n−1.
+4. Parçanın yeni merkezi C + u · R, R = (1 + k) · r + s · sıra / (n − 1). Merkezden uzak parça her zaman daha uzağa gider; aralar uzaklıkla orantılı kalır. s küçük bir sıra payıdır (modelin en uzun kenarının %3'üyle başlar); iç içe, merkezleri neredeyse aynı yerdeki parçaları sırayla ayırır.
+5. k, açılmış hâlde hiçbir parçanın birbirine girmediği en küçük değerdir: 0,1'den 4'e 0,05 adımla taranır (değme k ile tek yönlü değişmiyor). 4'te bile değen kalırsa s iki katına çıkar ve yeniden taranır. Her modelin bir k'sı, bir s'si var.
+6. Zemin: açılmış bütün parçalar birlikte, en alttaki zemine oturacak kadar yukarı ya da aşağı kaydırılır; tek tek parça kırpılmaz.
+7. Animasyon: bütün parçalar aynı anda, kendi doğrusunda, yumuşak geçişle hareket eder; yaklaşık 2,5 sn. Kamera açılmış modelin kutusunu kadraja alır.
+
+Geliştirirken tarayıcı konsolunda `await explodeReport()` açılmış hâlde birbirine giren parçaları listeler (yalnız `npm run dev`'de); `viewer.explodeTrack()` k ve s'yi verir. Toplu hâlde zaten birbirine değen iki parça, değdikleri hücre sayısı artmadıkça sayılmaz. Boş liste beklenir.
 
 ## Efektler nasıl çiziliyor
 

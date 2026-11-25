@@ -1,27 +1,12 @@
 import * as THREE from "three";
 
 /**
- * Parçalara ayırma planı: soğan gibi, katman katman.
+ * Parçalara ayırma planı: doğrusal, merkezden dışarı.
  *
- * - Yön: parça yüzünün baktığı yönde açılır. Modelin bir yanına dayanan ve o
- *   yönde ince olan parça (kapı, çamurluk, tampon, tekerlek, kanat) o yana;
- *   diğerleri yukarı (kaput, kanopi, kasa, döşeme, koltuk).
- * - Kat sırası: aynı yöne giden ve izdüşümleri örtüşen iki parçadan dıştaki
- *   şöyle bulunur: öbürünü kutusunun içine alan (kasa döşemeyi); biri
- *   öbürünün izdüşümünde kalıyorsa o yönde ucu ileride olan (kaput motoru,
- *   kanopi kokpiti, sele kadroyu); yoksa örtüşen sütunların çoğunda ileride
- *   olan.
- * - Mesafe: içten dışa yerleştirilir. Her parça içindekilerden en az onlar
- *   kadar gider (dış kat içtekinin önüne geçemez) ve yerleşmiş parçalara
- *   değmeyene kadar ilerler; bundan fazla gitmez. Taban yerde kalır,
- *   koltuklar biraz, döşeme daha çok, kasa en üste çıkar.
- * - Takım: tekerlek ve içindekiler (disk, kaliper, göbek), bisiklet
- *   tekerleği gibi üst üste duran gruplar aks boyunca içten dışa dizilip tek
- *   parça gibi açılır. Kuledeki top gibi büyük parçaya takılı küçük parçalar
- *   onunla gider; kablolar kadroyla.
- * - Açılmış hâlde hiçbir parça başka birine değmez, hiçbiri zeminin altına
- *   inmez. Animasyonda dış katlar önce kalkar; parçalar yolda birbirinin
- *   içinden geçebilir.
+ * Her parça modelin merkezinden kendi merkezine uzanan doğru boyunca dışarı
+ * gider; merkezden uzak olan her zaman daha uzağa varır. Açılmış hâlde hiçbir
+ * parça başka birine girmez; hepsi birlikte, aynı anda, kendi doğrusunda
+ * hareket eder.
  */
 
 export interface Grid {
@@ -65,6 +50,9 @@ export interface Stage {
 
 export interface Plan {
   stages: Map<string, Stage>;
+  /** Uzaklık katsayısı k ve sıra payı s (modelin en uzun kenarına oranla). */
+  factor: number;
+  spacing: number;
   /** Animasyonun süresini belirleyen adım sayısı. */
   layers: number;
 }
@@ -164,497 +152,122 @@ function fineOf(tris: Float32Array, size: number): Fine {
   return { i, j, k, keys: seen, min, max };
 }
 
-const volume = (b: THREE.Box3) => {
-  const s = b.getSize(new THREE.Vector3());
-  return Math.max(s.x, 1e-9) * Math.max(s.y, 1e-9) * Math.max(s.z, 1e-9);
-};
-const diagonal = (b: THREE.Box3) => b.getSize(new THREE.Vector3()).length();
-
-/** Birlikte, aynı yere giden parçalar; her birinin birim içindeki kayması. */
-interface Unit {
-  members: { shape: Shape; shift: THREE.Vector3 }[];
-  /** Kaymalarla birlikte, toplu hâldeki kutusu. */
-  box: THREE.Box3;
-  /** Kablolar hariç kutusu: kat sırası buna göre bulunur. */
-  core: THREE.Box3;
-  dir: THREE.Vector3;
-  /** Gittiği yönde ne kadar dışta: büyük olan dış kattır. */
-  key: number;
-  /** Gittiği mesafe. */
-  t: number;
-  placed: boolean;
-}
-
 /**
- * Planı kurar. [groups]: düğüm → montaj grubu (`groupNodes`).
+ * Planı kurar: her parça modelin merkezinden kendi merkezine uzanan doğru
+ * boyunca dışarı gider. Merkeze uzaklığı r olan parça (1 + k)·r + s·sıra
+ * uzaklığa varır; sıra parçaların merkeze yakınlıktan uzaklığa dizilişi.
+ * Böylece uzaktaki parça her zaman daha uzağa gider, aralar uzaklıkla
+ * orantılı kalır. k, açılmış hâlde hiçbir parçanın birbirine girmediği en
+ * küçük değerdir.
  */
-export function planExplode(grid: Grid, shapes: Shape[], groups: Map<string, string>): Plan {
+export function planExplode(grid: Grid, shapes: Shape[]): Plan {
   const stages = new Map<string, Stage>();
   for (const s of shapes) stages.set(s.id, { offset: new THREE.Vector3(), moves: [] });
-  if (shapes.length < 2) return { stages, layers: 0 };
+  if (shapes.length < 2) return { stages, layers: 0, factor: 0, spacing: 0 };
 
   const model = grid.box;
-  const middle = model.getCenter(new THREE.Vector3());
-  const half = model
-    .getSize(new THREE.Vector3())
-    .multiplyScalar(0.5)
-    .max(new THREE.Vector3(1e-6, 1e-6, 1e-6));
-  const longest = 2 * Math.max(half.x, half.y, half.z);
-  const gap = longest * 0.015;
-  const weight = (s: Shape) => s.fine.i.length * Math.cbrt(volume(s.box));
-  const insideOf = (s: Shape, host: Shape, share: number) => {
-    const common = s.box.clone().intersect(host.box);
-    return !common.isEmpty() && volume(common) >= share * volume(s.box);
-  };
+  const center = model.getCenter(new THREE.Vector3());
+  const size = model.getSize(new THREE.Vector3());
+  const longest = Math.max(size.x, size.y, size.z);
 
-  // Kablo gibi ince uzun parçalar, değdikleri en ağır parçayla (kadro)
-  // birlikte durur; açılınca havada asılı çizgiler gibi okunuyorlardı.
-  const wires = shapes.filter((s) => {
-    const across = diagonal(s.box) / grid.fine;
-    const cells = s.fine.i.length;
-    return diagonal(s.box) >= 0.3 * longest && cells < 0.045 * across * across && cells > 3 * across;
+  // Merkezden her parçanın merkezine: yön ve uzaklık. Merkezdeki parça yukarı.
+  const rays = shapes.map((shape) => {
+    const v = shape.box.getCenter(new THREE.Vector3()).sub(center);
+    const r = v.length();
+    return { shape, r, u: r < 0.02 * longest ? new THREE.Vector3(0, 1, 0) : v.divideScalar(r) };
   });
-  const rest = shapes.filter((s) => !wires.includes(s));
+  const order = [...rays].sort((a, b) => a.r - b.r);
+  const rank = new Map(order.map((ray, n) => [ray, n / (order.length - 1)]));
 
-  const units: Unit[] = [];
-  const unitOf = new Map<Shape, Unit>();
-  const add = (members: Unit["members"]) => {
-    const box = new THREE.Box3();
-    for (const m of members) box.union(m.shape.box.clone().translate(m.shift));
-    const unit: Unit = {
-      members,
-      box,
-      core: box.clone(),
-      dir: new THREE.Vector3(0, 1, 0),
-      key: 0,
-      t: 0,
-      placed: false,
-    };
-    units.push(unit);
-    for (const m of members) unitOf.set(m.shape, unit);
-    return unit;
-  };
-  const taken = new Set<Shape>();
-
-  // Tekerlek gibi bir arada, üst üste duran küçük takımlar: aks boyunca
-  // içten dışa sıralanır (göbek, disk, jant, lastik), sonra bir birim olarak
-  // açılır.
-  const stack = (list: Shape[]) => {
-    const box = union(list);
-    const extent = box.getSize(new THREE.Vector3());
-    // Aks: üyelerin merkezlerinin dizildiği eksen (motorun kademeleri);
-    // merkezler üst üste ise en ince eksen (tekerlek).
-    const spreads = [0, 1, 2].map((a) => {
-      const values = list.map((m) => m.box.getCenter(new THREE.Vector3()).getComponent(a));
-      return Math.max(...values) - Math.min(...values);
-    });
-    const widest = spreads.indexOf(Math.max(...spreads));
-    const axis =
-      spreads[widest] > 0.05 * diagonal(box)
-        ? widest
-        : extent.x <= extent.y && extent.x <= extent.z
-          ? 0
-          : extent.z <= extent.y
-            ? 2
-            : 1;
-    const dir = directionOf(box);
-    let sign = Math.sign(dir.getComponent(axis));
-    if (sign === 0)
-      sign =
-        Math.sign(box.getCenter(new THREE.Vector3()).getComponent(axis) - middle.getComponent(axis)) || 1;
-    const unit = Math.max(diagonal(box) * 0.02, grid.fine);
-    const rank = (s: Shape) =>
-      Math.round((s.box.getCenter(new THREE.Vector3()).getComponent(axis) * sign) / unit) * 1e6 +
-      diagonal(s.box);
-    const order = [...list].sort((a, b) => rank(a) - rank(b));
-    let at = 0;
-    const members = order.map((s, n) => {
-      if (n > 0) {
-        const before = order[n - 1].box.getSize(new THREE.Vector3()).getComponent(axis);
-        at += (before + s.box.getSize(new THREE.Vector3()).getComponent(axis)) / 2 + gap;
-      }
-      return { shape: s, shift: new THREE.Vector3().setComponent(axis, sign * at) };
-    });
-    for (const s of list) taken.add(s);
-    add(members).dir = dir;
-  };
-
-  const byGroup = new Map<string, Shape[]>();
-  for (const s of rest) {
-    const g = groups.get(s.id) ?? s.id;
-    if (!byGroup.has(g)) byGroup.set(g, []);
-    byGroup.get(g)!.push(s);
-  }
-  for (const list of byGroup.values()) {
-    if (list.length < 2 || !compact(list) || diagonal(union(list)) >= 0.6 * diagonal(model)) continue;
-    const box = union(list);
-    const center = box.getCenter(new THREE.Vector3());
-    const coaxial = list.every(
-      (s) => s.box.getCenter(new THREE.Vector3()).distanceTo(center) < 0.15 * diagonal(box),
-    );
-    if (coaxial) stack(list);
-  }
-  // Kutusu bir tekerleğin içinde kalanlar
-  // (disk, kaliper, göbek) onunla takım olur.
-  const loose = rest.filter((s) => !taken.has(s)).sort((a, b) => volume(b.box) - volume(a.box));
-  for (const host of loose) {
-    if (taken.has(host)) continue;
-    // Yalnız tekerlek gibi kap: yanı ince, öbür iki kenarı birbirine yakın.
-    const extent = host.box.getSize(new THREE.Vector3());
-    const sides = [extent.x, extent.y, extent.z].sort((a, b) => a - b);
-    const wheel =
-      extent.y > Math.min(extent.x, extent.z) && sides[1] > 0.8 * sides[2] && sides[0] < 0.7 * sides[1];
-    if (!wheel || diagonal(host.box) >= 0.3 * diagonal(model)) continue;
-    const inner = loose.filter(
-      (s) => s !== host && !taken.has(s) && volume(s.box) < volume(host.box) && insideOf(s, host, 0.85),
-    );
-    if (inner.length > 0) stack([host, ...inner]);
-  }
-  // Büyük grupta, ev sahibine (grubun en ağır üyesi) değen ya da hemen
-  // yanında duran, ondan çok küçük ve onun dışında kalan üye onunla birlikte
-  // gider: kuledeki top, makineli tüfek, nişangâhlar.
-  const rigid = new Map<Shape, Shape[]>();
-  for (const list of byGroup.values()) {
-    const free = list.filter((s) => !taken.has(s));
-    if (free.length < 2) continue;
-    const host = free.reduce((a, b) => (weight(b) > weight(a) ? b : a));
-    for (const s of free) {
-      if (s === host || insideOf(s, host, 0.7) || volume(s.box) >= 0.3 * volume(host.box)) continue;
-      // Kendi yanına açılan parça (yan etek) ev sahibine bağlanmaz.
-      if (directionOf(s.box).y === 0) continue;
-      const near = host.box
+  /** k ve s ile her parçanın yer değiştirmesi. */
+  const offsets = (k: number, s: number) =>
+    rays.map((ray) =>
+      ray.u
         .clone()
-        .expandByScalar(longest * 0.02)
-        .intersectsBox(s.box);
-      if (!near && !touches(s, host)) continue;
-      if (!rigid.has(host)) rigid.set(host, []);
-      rigid.get(host)!.push(s);
-      taken.add(s);
-    }
-  }
-  for (const s of rest) {
-    if (taken.has(s)) continue;
-    const extra = rigid.get(s) ?? [];
-    add([s, ...extra].map((shape) => ({ shape, shift: new THREE.Vector3() })));
-    for (const x of [s, ...extra]) taken.add(x);
-  }
-  for (const w of wires) {
-    const host = rest
-      .filter((s) => touches(w, s))
-      .reduce<Shape | null>((a, b) => (!a || weight(b) > weight(a) ? b : a), null);
-    const unit = host ? unitOf.get(host)! : add([]);
-    unit.members.push({ shape: w, shift: new THREE.Vector3() });
-    unit.box.union(w.box);
-    unitOf.set(w, unit);
-  }
+        .multiplyScalar((1 + k) * ray.r + s * rank.get(ray)!)
+        .sub(ray.u.clone().multiplyScalar(ray.r)),
+    );
 
-  /**
-   * Yön. Modelin bir yanına (sağ, sol, ön, arka) dayanan ve o yönde ince olan
-   * parça o yana açılır: kapı, çamurluk, tampon, tekerlek, kanat. Diğerleri
-   * yukarı: kasa en üste, altında döşeme, koltuklar, en altta taban.
-   */
-  function directionOf(box: THREE.Box3): THREE.Vector3 {
-    // Parça yüzünün baktığı yönde açılır. Yatay yassı parça (kaput, bagaj
-    // kapağı, kanopi) yukarı; ancak modelin bir yanından dışarı uzanan
-    // kanat gibi yassı parça o yana.
-    const extent = box.getSize(new THREE.Vector3());
-    const flat = extent.y < 0.3 * Math.min(extent.x, extent.z);
-    const tol = longest * 0.05;
-    let best: THREE.Vector3 | null = null;
-    let score = -1;
-    for (const a of [0, 2]) {
-      if (box.getSize(new THREE.Vector3()).getComponent(a) > 0.7 * half.getComponent(a)) continue;
-      const low = box.min.getComponent(a) - model.min.getComponent(a) <= tol;
-      const high = model.max.getComponent(a) - box.max.getComponent(a) <= tol;
-      if (low === high) continue;
-      // Yassı parça ancak o yanın en ucuna dayanıyorsa (kanat ucu) o yana.
-      if (
-        flat &&
-        Math.min(
-          box.min.getComponent(a) - model.min.getComponent(a),
-          model.max.getComponent(a) - box.max.getComponent(a),
-        ) >
-          longest * 0.015
-      )
-        continue;
-      const rel =
-        Math.abs(box.getCenter(new THREE.Vector3()).getComponent(a) - middle.getComponent(a)) /
-        half.getComponent(a);
-      if (rel > score) {
-        score = rel;
-        best = new THREE.Vector3().setComponent(a, high ? 1 : -1);
-      }
-    }
-    return best ?? new THREE.Vector3(0, 1, 0);
-  }
-
-  for (const u of units) {
-    if (u.members.length === 0) continue;
-    if (!u.members.some((m) => m.shift.lengthSq() > 0)) u.dir = directionOf(u.box);
-    const a = u.dir.x !== 0 ? 0 : u.dir.y !== 0 ? 1 : 2;
-    const sign = u.dir.getComponent(a);
-    const far = sign > 0 ? u.core.max.getComponent(a) : u.core.min.getComponent(a);
-    u.key = (sign * (far - middle.getComponent(a))) / half.getComponent(a);
-  }
-  const live = units.filter((u) => u.members.length > 0);
-
-  // Değme: iki birimin parçaları bir ince hücre payla değiyor mu.
-  const fineOff = (o: THREE.Vector3): [number, number, number] => [
+  // Değme: `explodeReport` ile aynı hücreler ve aynı kural, biraz daha sıkı:
+  // iki parçanın değdiği hücre sayısı toplu hâldekini aşmamalı.
+  const cellOf = (o: THREE.Vector3): [number, number, number] => [
     Math.round(o.x / grid.fine),
     Math.round(o.y / grid.fine),
     Math.round(o.z / grid.fine),
   ];
-  const NEAR: [number, number, number][] = [
-    [0, 0, 0],
-    [1, 0, 0],
-    [-1, 0, 0],
-    [0, 1, 0],
-    [0, -1, 0],
-    [0, 0, 1],
-    [0, 0, -1],
-  ];
-  const touch = (a: Shape, offA: THREE.Vector3, b: Shape, offB: THREE.Vector3): boolean => {
-    if (b.fine.i.length < a.fine.i.length) return touch(b, offB, a, offA);
-    const fa = fineOff(offA);
-    const fb = fineOff(offB);
+  const overlap = (a: Shape, offA: THREE.Vector3, b: Shape, offB: THREE.Vector3): number => {
+    if (b.fine.i.length < a.fine.i.length) return overlap(b, offB, a, offA);
+    const fa = cellOf(offA);
+    const fb = cellOf(offB);
     const di = fa[0] - fb[0];
     const dj = fa[1] - fb[1];
     const dk = fa[2] - fb[2];
     const A = a.fine;
     const B = b.fine;
+    let n = 0;
     for (let q = 0; q < A.i.length; q++) {
       const i = A.i[q] + di;
       const j = A.j[q] + dj;
       const k = A.k[q] + dk;
-      if (i < B.min[0] - 1 || i > B.max[0] + 1 || j < B.min[1] - 1 || j > B.max[1] + 1) continue;
-      if (k < B.min[2] - 1 || k > B.max[2] + 1) continue;
-      for (const [x, y, z] of NEAR) if (B.keys.has(fineKey(i + x, j + y, k + z))) return true;
+      if (i < B.min[0] || i > B.max[0] || j < B.min[1] || j > B.max[1] || k < B.min[2] || k > B.max[2])
+        continue;
+      if (B.keys.has(fineKey(i, j, k))) n++;
     }
-    return false;
+    return n;
   };
-  /** [u] [t] kadar gidince yerleşmiş bir birime değiyor mu. */
-  const blocked = (u: Unit, t: number): boolean => {
-    const move = u.dir.clone().multiplyScalar(t);
-    const box = u.box
-      .clone()
-      .translate(move)
-      .expandByScalar(grid.fine * 2);
-    for (const v of live) {
-      if (v === u || !v.placed) continue;
-      const other = v.dir.clone().multiplyScalar(v.t);
-      if (!box.intersectsBox(v.box.clone().translate(other))) continue;
-      for (const a of u.members) {
-        const offA = move.clone().add(a.shift);
-        for (const b of v.members) {
-          if (touch(a.shape, offA, b.shape, other.clone().add(b.shift))) return true;
-        }
+  const home = new Map<string, number>();
+  const ZERO = new THREE.Vector3();
+  const before = (a: number, b: number) => {
+    const key = `${a}|${b}`;
+    let n = home.get(key);
+    if (n === undefined) {
+      n = overlap(shapes[a], ZERO, shapes[b], ZERO);
+      home.set(key, n);
+    }
+    return n;
+  };
+  const clean = (moves: THREE.Vector3[]) => {
+    const boxes = shapes.map((s, n) => s.box.clone().translate(moves[n]).expandByScalar(grid.fine));
+    for (let a = 0; a < shapes.length; a++) {
+      for (let b = a + 1; b < shapes.length; b++) {
+        if (!boxes[a].intersectsBox(boxes[b])) continue;
+        const base = before(a, b);
+        if (overlap(shapes[a], moves[a], shapes[b], moves[b]) - base >= 2 + 0.06 * base) return false;
       }
     }
-    return false;
+    return true;
   };
-  /**
-   * [inner], [outer]'ın içinde mi: aynı yöne gidiyorlar, toplu hâlde dıştaki
-   * o yönde daha ileride ve gidiş yönüne dik izdüşümleri büyük ölçüde örtüşüyor.
-   */
-  const covers = (outer: Unit, inner: Unit) => {
-    if (!outer.dir.equals(inner.dir)) return false;
-    let shared = 1;
-    let small = 1;
-    for (let a = 0; a < 3; a++) {
-      if (outer.dir.getComponent(a) !== 0) continue;
-      const lo = Math.max(outer.core.min.getComponent(a), inner.core.min.getComponent(a));
-      const hi = Math.min(outer.core.max.getComponent(a), inner.core.max.getComponent(a));
-      if (hi <= lo) return false;
-      shared *= hi - lo;
-      small *= Math.min(
-        outer.core.max.getComponent(a) - outer.core.min.getComponent(a),
-        inner.core.max.getComponent(a) - inner.core.min.getComponent(a),
-      );
-    }
-    return shared >= 0.5 * small;
-  };
-  const step = longest * 0.01;
 
-  // Kat sırası: aynı yöne giden ve izdüşümleri örtüşen iki birimden,
-  // örtüşen sütunların çoğunda o yönde daha ileride olanı dış kattır
-  // (kaput motorun, kasa döşemenin dışında).
-  const columns = new Map<Unit, Map<number, number>>();
-  const columnsOf = (u: Unit) => {
-    let map = columns.get(u);
-    if (map) return map;
-    map = new Map();
-    const a = u.dir.x !== 0 ? 0 : u.dir.y !== 0 ? 1 : 2;
-    const [p, q] = a === 0 ? [1, 2] : a === 1 ? [0, 2] : [0, 1];
-    const sign = u.dir.getComponent(a);
-    for (const m of u.members) {
-      const shift = fineOff(m.shift);
-      const cells = [m.shape.fine.i, m.shape.fine.j, m.shape.fine.k];
-      for (let n = 0; n < cells[0].length; n++) {
-        const key = (cells[p][n] + shift[p] + 2048) * 4096 + cells[q][n] + shift[q] + 2048;
-        const value = sign * (cells[a][n] + shift[a]);
-        const was = map.get(key);
-        if (was === undefined || value > was) map.set(key, value);
+  // En küçük k: 0,1'den 4'e 0,05 adımla taranır (değme k ile tek yönlü
+  // değişmiyor: palet tekerlekleri bir k'da paletin dışında, daha büyüğünde
+  // yeniden içinde kalabiliyor). 4'te bile değen kalırsa s iki katına çıkar.
+  let s = longest * 0.03;
+  let k = 4;
+  search: for (let attempt = 0; attempt < 10; attempt++, s *= 2) {
+    for (let step = 0; step <= 78; step++) {
+      const candidate = 0.1 + step * 0.05;
+      if (clean(offsets(candidate, s))) {
+        k = candidate;
+        break search;
       }
     }
-    columns.set(u, map);
-    return map;
-  };
-  /** [a]'nın kutusu [b]'nin kutusunun büyük ölçüde içinde mi (izdüşümde de olabilir). */
-  const within = (a: THREE.Box3, b: THREE.Box3, axis = -1) => {
-    let shared = 1;
-    let own = 1;
-    for (let c = 0; c < 3; c++) {
-      if (c === axis) continue;
-      const lo = Math.max(a.min.getComponent(c), b.min.getComponent(c));
-      const hi = Math.min(a.max.getComponent(c), b.max.getComponent(c));
-      if (hi <= lo) return false;
-      shared *= hi - lo;
-      own *= Math.max(a.max.getComponent(c) - a.min.getComponent(c), 1e-9);
-    }
-    return shared >= 0.7 * own;
-  };
-  /**
-   * [u], [v]'nin dışında mı. Önce kutular: içine alan dıştadır (kasa
-   * döşemenin). Sonra izdüşüm: biri öbürünün izdüşümünde kalıyorsa o yönde
-   * ucu ileride olan dıştadır (kaput motorun; modelde motor kaputu biraz
-   * delse de).
-   * Yoksa örtüşen sütunların çoğunda o yönde ileride olan.
-   */
-  const beyond = (u: Unit, v: Unit) => {
-    const a = u.dir.x !== 0 ? 0 : u.dir.y !== 0 ? 1 : 2;
-    const sign = u.dir.getComponent(a);
-    const bigger = volume(u.core) >= volume(v.core);
-    // İçine alma: küçüğün kutusu büyüğünkünün içinde ve o yönde dışarı
-    // taşmıyor (kadronun içinden çıkan sele taşar, sayılmaz).
-    const far = (b: THREE.Box3) => (sign > 0 ? b.max.getComponent(a) : -b.min.getComponent(a));
-    if (bigger && within(v.core, u.core) && far(v.core) <= far(u.core)) return true;
-    if (!bigger && within(u.core, v.core) && far(u.core) <= far(v.core)) return false;
-    // Biri öbürünün izdüşümünde kalıyorsa o yönde ucu ileride olan dıştadır:
-    // kaput motorun, sele kadronun, kanopi kokpitin üstünde.
-    const ahead =
-      far(u.core) - far(v.core) ||
-      sign *
-        (u.core.getCenter(new THREE.Vector3()).getComponent(a) -
-          v.core.getCenter(new THREE.Vector3()).getComponent(a));
-    if (within(v.core, u.core, a) || within(u.core, v.core, a)) return ahead > 0;
-    const cu = columnsOf(u);
-    const cv = columnsOf(v);
-    let more = 0;
-    let less = 0;
-    for (const [key, value] of cu) {
-      const other = cv.get(key);
-      if (other === undefined) continue;
-      if (value > other) more++;
-      else if (value < other) less++;
-    }
-    return more > less || (more === less && u.key > v.key);
-  };
-  const inner = new Map<Unit, Unit[]>(live.map((u) => [u, []]));
-  for (let x = 0; x < live.length; x++) {
-    for (let y = x + 1; y < live.length; y++) {
-      const u = live[x];
-      const v = live[y];
-      if (!covers(u, v)) continue;
-      if (beyond(u, v)) inner.get(u)!.push(v);
-      else inner.get(v)!.push(u);
-    }
   }
+  const moves = offsets(k, s);
 
-  // İçten dışa: içteki kat yerinde kalır ya da ancak kendinden içtekilerden
-  // kurtulacak kadar gider. Dıştaki kat, içindekinden az gidemez (sıra
-  // bozulmasın) ve içerdekilerin hepsinden kurtulana kadar ilerler. Kasa
-  // böylece en üste çıkar, taban yerde kalır.
-  const order: Unit[] = [];
-  const waiting = new Set(live);
-  while (waiting.size > 0) {
-    let next: Unit | null = null;
-    for (const u of waiting) {
-      if (inner.get(u)!.some((v) => waiting.has(v))) continue;
-      if (!next || u.key < next.key) next = u;
-    }
-    // Döngü varsa (birbirini kısmen örten iki parça) en içteki seçilir.
-    if (!next) next = [...waiting].reduce((a, b) => (b.key < a.key ? b : a));
-    waiting.delete(next);
-    order.push(next);
-  }
-  for (const u of order) {
-    let t = 0;
-    for (const v of inner.get(u)!) if (v.placed) t = Math.max(t, v.t);
-    if (blocked(u, t)) {
-      let low = t;
-      while (t < longest * 3 && blocked(u, t)) {
-        low = t;
-        t += step;
-      }
-      // İnceltme: değmediği en yakın yer, bir ince hücre duyarlılıkla.
-      while (t - low > grid.fine) {
-        const mid = (low + t) / 2;
-        if (blocked(u, mid)) low = mid;
-        else t = mid;
-      }
-    }
-    u.t = t;
-    u.placed = true;
-  }
-  // İç içe döngü yüzünden sırası bozulan çift kaldıysa dıştakini ileri al:
-  // dış kat içindekinden az gidemez.
-  for (let round = 0; round < 20; round++) {
-    let changed = false;
-    for (const u of order) {
-      let t = u.t;
-      for (const v of inner.get(u)!) t = Math.max(t, v.t);
-      if (t === u.t) continue;
-      while (t < longest * 3 && blocked(u, t)) t += grid.fine;
-      u.t = t;
-      changed = true;
-    }
-    if (!changed) break;
-  }
-  order.reverse();
+  // Zemin: bütün açılmış parçalar birlikte, en alttaki zemine oturacak kadar
+  // kaydırılır; doğrular arasındaki ilişki bozulmaz.
+  const lowest = Math.min(...shapes.map((shape, n) => shape.box.min.y + moves[n].y));
+  // Kayma ince hücrenin katı: hücreye yuvarlanınca parçalar arasındaki
+  // ilişki değişmesin.
+  const lift = new THREE.Vector3(0, Math.ceil((model.min.y - lowest) / grid.fine) * grid.fine, 0);
 
-  // Zamanlama: dıştakiler önce kalkar.
-  const spread = 0.45;
-  order.forEach((u, n) => {
-    const start = order.length > 1 ? (spread * n) / (order.length - 1) : 0;
-    const move = u.dir.clone().multiplyScalar(u.t);
-    for (const m of u.members) {
-      const offset = move.clone().add(m.shift);
-      const stage = stages.get(m.shape.id)!;
-      stage.offset.copy(offset);
-      if (offset.lengthSq() === 0) continue;
-      const points = [new THREE.Vector3()];
-      if (m.shift.lengthSq() > 0 && u.t > 0) points.push(move.clone());
-      points.push(offset);
-      stage.moves.push({ start, end: start + (1 - spread), points });
-    }
+  shapes.forEach((shape, n) => {
+    const offset = moves[n].clone().add(lift);
+    const stage = stages.get(shape.id)!;
+    stage.offset.copy(offset);
+    stage.moves.push({ start: 0, end: 1, points: [new THREE.Vector3(), offset] });
   });
-  return { stages, layers: 7 };
-}
-
-/** İki parça toplu hâlde birbirine değiyor mu (bir ince hücre payla). */
-function touches(a: Shape, b: Shape): boolean {
-  if (b.fine.i.length < a.fine.i.length) return touches(b, a);
-  for (let q = 0; q < a.fine.i.length; q++) {
-    const i = a.fine.i[q];
-    const j = a.fine.j[q];
-    const k = a.fine.k[q];
-    for (let x = -1; x <= 1; x++) {
-      for (let y = -1; y <= 1; y++) {
-        for (let z = -1; z <= 1; z++) if (b.fine.keys.has(fineKey(i + x, j + y, k + z))) return true;
-      }
-    }
-  }
-  return false;
-}
-
-function union(list: Shape[]): THREE.Box3 {
-  return list.reduce((a, s) => a.union(s.box), new THREE.Box3());
-}
-
-/** En büyük üyesi grubun kutusunun büyük kısmını kaplıyorsa grup bir arada duruyor. */
-function compact(list: Shape[]): boolean {
-  const all = union(list);
-  return Math.max(...list.map((s) => diagonal(s.box))) >= 0.6 * diagonal(all);
+  return { stages, layers: 7, factor: k, spacing: s / longest };
 }
 
 /** [value] ilerlemesinde parçanın yer değiştirmesi. */

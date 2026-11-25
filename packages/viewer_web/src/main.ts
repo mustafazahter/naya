@@ -91,7 +91,7 @@ window.addEventListener("message", (e: MessageEvent<ViewerCommand>) => {
   const command = e.data;
   switch (command?.type) {
     case "load":
-      void viewer.load(command.url, command.map);
+      void viewer.load(command.url);
       break;
     case "scan":
       partBox.hidden = true;
@@ -149,7 +149,7 @@ function progress(fraction: number): void {
 }
 
 viewer
-  .load(model, params.get("map") ?? undefined, progress)
+  .load(model, progress)
   .then(async (parts) => {
     status.textContent = `${parts.length} parça · sürükle: döndür · tekerlek/iki parmak: yakınlaş`;
     send({ type: "ready" });
