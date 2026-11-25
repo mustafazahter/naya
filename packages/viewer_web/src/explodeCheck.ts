@@ -4,8 +4,10 @@ import { FINE, fineKey } from "./explode";
 
 /**
  * Geliştirirken parçalara ayırmayı denetler: parçaların yüzeyini ince
- * hücrelere çevirir, ayırmanın birkaç anında hangi parçaların birbirine
- * girdiğini sayar. Tarayıcı konsolunda `explodeReport()` ile çalışır.
+ * hücrelere çevirir, açılmış hâlde (ya da verilen anlarda) hangi parçaların
+ * birbirine girdiğini sayar. Tarayıcı konsolunda `explodeReport()` ile
+ * çalışır. Animasyon sırasında parçalar birbirinin içinden geçebilir;
+ * varsayılan yalnız sonu denetler.
  *
  * Yalnız toplu hâle göre yeni olan değmeler sayılır: modelde zaten birbirine
  * dayanan iki parça (koltuk ve halı) yerinde kaldıkça çakışma sayılmaz;
@@ -28,11 +30,7 @@ export interface Clash {
   cells: number;
 }
 
-export function explodeReport(
-  parts: CheckedPart[],
-  level: THREE.Object3D,
-  moments = Array.from({ length: 20 }, (_, i) => (i + 1) / 20),
-): Clash[] {
+export function explodeReport(parts: CheckedPart[], level: THREE.Object3D, moments = [1]): Clash[] {
   // Ölçüm toplu hâlde yapılır.
   const saved = parts.map((p) => p.node.position.clone());
   for (const p of parts) p.node.position.copy(p.home);
