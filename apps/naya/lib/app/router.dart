@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../entities/product/product_library.dart';
 import '../pages/data_module/data_module_page.dart';
 import '../pages/history/history_page.dart';
+import '../pages/import/import_page.dart';
 import '../pages/library/library_page.dart';
 import '../pages/not_found/not_found_page.dart';
 import '../pages/part/part_page.dart';
@@ -18,6 +19,7 @@ abstract final class AppRoutes {
   static const library = '/';
   static const signIn = '/giris';
   static const settings = '/ayarlar';
+  static const import = '/ice-aktar';
 
   /// Sorgu parametreleri çalışma alanında ne açılacağını söyler:
   /// `teshis` (geçmiş teşhis), `sohbet` (kayıtlı sohbet), `sor` (parça).
@@ -58,11 +60,23 @@ GoRouter buildRouter({String initialLocation = AppRoutes.library}) {
             onOpen: (product) => context.go(AppRoutes.workspace(product.id)),
             onOpenSettings: () => context.push(AppRoutes.settings),
             onSignIn: () => context.push(AppRoutes.signIn),
+            onImport: () => context.push(AppRoutes.import),
           ),
         ),
         // İç içe tanımlı: adresten doğrudan açılsa da geri düğmesi
         // kütüphaneye döner.
         routes: [
+          GoRoute(
+            path: 'ice-aktar',
+            pageBuilder: (context, state) => _page(
+              state,
+              ImportPage(
+                onOpen: (product) =>
+                    context.go(AppRoutes.workspace(product.id)),
+                onSignIn: () => context.push(AppRoutes.signIn),
+              ),
+            ),
+          ),
           GoRoute(
             path: 'giris',
             pageBuilder: (context, state) =>

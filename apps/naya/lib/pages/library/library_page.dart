@@ -5,7 +5,9 @@ import '../../entities/product/product.dart';
 import '../../entities/product/product_card.dart';
 import '../../entities/product/product_library.dart';
 import '../../entities/session/session.dart';
+import '../../features/export_naya/file_actions.dart';
 import '../../features/search_library/library_search.dart';
+import '../../shared/api/api_client.dart';
 import '../../shared/ui/components.dart';
 import '../../shared/ui/naya_emblem.dart';
 import '../../shared/ui/theme.dart';
@@ -21,10 +23,14 @@ class LibraryPage extends ConsumerWidget {
     required this.onOpen,
     this.onOpenSettings,
     this.onSignIn,
+    this.onImport,
   });
 
   final ValueChanged<Product> onOpen;
   final VoidCallback? onOpenSettings;
+
+  /// İçe aktarma sihirbazı.
+  final VoidCallback? onImport;
 
   /// Misafirken avatara dokunulunca.
   final VoidCallback? onSignIn;
@@ -127,9 +133,13 @@ class LibraryPage extends ConsumerWidget {
         children: [
           const SectionHeader(label: 'Senin', title: 'Dosyalarım'),
           const SizedBox(height: NayaSpace.lg),
-          for (final file in library.userFiles) _FileRow(file),
-          const SizedBox(height: NayaSpace.md),
-          const _ImportTile(),
+          for (final file in library.userFiles)
+            Padding(
+              padding: const EdgeInsets.only(bottom: NayaSpace.sm),
+              child: _FileRow(file, onOpen: () => onOpen(file)),
+            ),
+          const SizedBox(height: NayaSpace.sm),
+          _ImportTile(onTap: onImport),
         ],
       ),
     ];
@@ -153,10 +163,10 @@ abstract final class _LoadingGrid {
   );
 }
 
-void _showComingSoon(BuildContext context, String what) {
+void _showMessage(BuildContext context, String message) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
-    ..showSnackBar(SnackBar(content: Text('$what yakında geliyor.')));
+    ..showSnackBar(SnackBar(content: Text(message)));
 }
 
 class _Header extends ConsumerWidget {
@@ -240,18 +250,83 @@ class _Hero extends StatelessWidget {
   }
 }
 
-class _FileRow extends StatelessWidget {
-  const _FileRow(this.file);
+enum _FileAction { open, export, delete }
+
+class _FileRow extends ConsumerWidget {
+  const _FileRow(this.file, {required this.onOpen});
 
   final Product file;
+  final VoidCallback onOpen;
+
+  Future<void> _act(
+    BuildContext context,
+    WidgetRef ref,
+    _FileAction action,
+  ) async {
+    final api = ref.read(apiClientProvider);
+    switch (action) {
+      case _FileAction.open:
+        onOpen();
+      case _FileAction.export:
+        try {
+          final saved = await exportNaya(api, file);
+          if (saved && context.mounted) {
+            _showMessage(context, '${nayaFileName(file.title)} kaydedildi.');
+          }
+        } on ApiException catch (e) {
+          if (context.mounted) _showMessage(context, e.message);
+        }
+      case _FileAction.delete:
+        final sure = await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Dosya silinsin mi?'),
+            content: Text(
+              '“${file.title}” kütüphanenden kalkar. Geri almak için '
+              '.naya olarak indirdiysen yeniden içe aktarabilirsin.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('Vazgeç'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text('Sil'),
+              ),
+            ],
+          ),
+        );
+        if (sure != true) return;
+        try {
+          await deleteUserFile(api, file);
+          ref.invalidate(productLibraryProvider);
+        } on ApiException catch (e) {
+          if (context.mounted) _showMessage(context, e.message);
+        }
+    }
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final c = context.colors;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onOpen,
+        borderRadius: const BorderRadius.all(NayaRadius.md),
+        child: _row(context, ref, c),
+      ),
+    );
+  }
+
+  Widget _row(BuildContext context, WidgetRef ref, NayaColors c) {
     return Panel(
-      padding: const EdgeInsets.symmetric(
-        horizontal: NayaSpace.lg,
-        vertical: NayaSpace.md,
+      padding: const EdgeInsets.fromLTRB(
+        NayaSpace.lg,
+        NayaSpace.md,
+        NayaSpace.xs,
+        NayaSpace.md,
       ),
       child: Row(
         children: [
@@ -282,8 +357,19 @@ class _FileRow extends StatelessWidget {
             ),
           ),
           TechLabel('${file.moduleCount} DM'),
-          const SizedBox(width: NayaSpace.sm),
-          Icon(Icons.more_horiz, color: c.textMuted),
+          PopupMenuButton<_FileAction>(
+            tooltip: 'Dosya işlemleri',
+            icon: Icon(Icons.more_horiz, color: c.textMuted),
+            onSelected: (action) => _act(context, ref, action),
+            itemBuilder: (context) => const [
+              PopupMenuItem(value: _FileAction.open, child: Text('Aç')),
+              PopupMenuItem(
+                value: _FileAction.export,
+                child: Text('.naya olarak indir'),
+              ),
+              PopupMenuItem(value: _FileAction.delete, child: Text('Sil')),
+            ],
+          ),
         ],
       ),
     );
@@ -291,13 +377,15 @@ class _FileRow extends StatelessWidget {
 }
 
 class _ImportTile extends StatelessWidget {
-  const _ImportTile();
+  const _ImportTile({this.onTap});
+
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
     return InkWell(
-      onTap: () => _showComingSoon(context, 'İçe aktarma'),
+      onTap: onTap,
       borderRadius: const BorderRadius.all(NayaRadius.md),
       child: CustomPaint(
         painter: _DashedBorder(c.lineStrong),

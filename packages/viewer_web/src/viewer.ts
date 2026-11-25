@@ -258,12 +258,24 @@ export class NayaViewer {
 
   private readonly sun: THREE.DirectionalLight;
 
+  /**
+   * Model isteğine eklenecek `Authorization` başlığı. Android'de oturum
+   * çerezde değil token'da; kullanıcının kendi dosyasının modeli onsuz
+   * 404 verir. Web'de boş kalır, çerez kendiliğinden gider.
+   */
+  private authorization: string | null = null;
+
+  setAuthorization(token: string | null): void {
+    this.authorization = token ? `Bearer ${token}` : null;
+  }
+
   /** Modeli yükler; parçalara ayırma planı da burada kurulur. */
   async load(url: string, onProgress?: (fraction: number) => void): Promise<string[] | null> {
     // Sıra numarası indirmeden önce alınır: en son istenen model kazanır.
     const token = ++this.loads;
     const draco = new DRACOLoader().setDecoderPath(new URL("./draco/", document.baseURI).href);
     const loader = new GLTFLoader().setDRACOLoader(draco).setMeshoptDecoder(MeshoptDecoder);
+    if (this.authorization) loader.setRequestHeader({ Authorization: this.authorization });
     const gltf = await loader.loadAsync(url, (e) => {
       // Sunucu boyut vermezse ilerleme bilinmez; çağıran tahmin eder.
       if (e.lengthComputable && e.total > 0) onProgress?.(e.loaded / e.total);

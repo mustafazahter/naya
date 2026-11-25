@@ -574,7 +574,10 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
             : '${data.parts.parts.length} parça · sürükle ve döndür',
         viewerQuery:
             'embed&model=${Uri.encodeQueryComponent('$model')}'
-            '&map=${Uri.encodeQueryComponent('$map')}',
+            '&map=${Uri.encodeQueryComponent('$map')}'
+            // Kullanıcının kendi dosyası: Android'de model isteği oturum
+            // token'ını başlıkta taşır. Adres cihazdaki yerel sunucuda kalır.
+            '${!product.isTemplate && api.token != null ? '&auth=${Uri.encodeQueryComponent(api.token!)}' : ''}',
         controller: _viewer,
         onPartTap: _onNodeTap,
         partLabel: (node) => data?.nodeLabel(node) ?? node,

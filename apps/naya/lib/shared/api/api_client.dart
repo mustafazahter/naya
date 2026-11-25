@@ -48,6 +48,28 @@ class ApiClient {
           if (token != null) 'authorization': 'Bearer $token',
         };
 
+  /// `Image.network` gibi kendi isteğini atan yerler için oturum başlığı.
+  /// Android'de kullanıcının kendi dosyasındaki çizimler onsuz 404 verir;
+  /// web'de çerez kendiliğinden gider, boş döner.
+  Map<String, String> get authHeaders =>
+      kIsWeb || token == null ? const {} : {'authorization': 'Bearer $token'};
+
+  /// Ham baytlı POST (`.naya` ya da zip yükleme); cevap JSON nesnesi.
+  Future<Map<String, Object?>> postBytes(
+    String path,
+    List<int> bytes, {
+    String contentType = 'application/octet-stream',
+  }) async {
+    final response = await _check(
+      () => _http.post(
+        uri(path),
+        headers: {..._headers, 'content-type': contentType},
+        body: bytes,
+      ),
+    );
+    return _decodeObject(response.bodyBytes);
+  }
+
   /// JSON gövdeli POST; cevap JSON nesnesi.
   Future<Map<String, Object?>> postJson(
     String path,
