@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 import 'package:drift/drift.dart';
 import 'package:naya_format/naya_format.dart';
+import 'package:naya_import/naya_import.dart';
 import 'package:path/path.dart' as p;
 
 import '../ai/dm_search.dart';
@@ -32,6 +34,14 @@ class LibraryListing {
 
   final List<LibraryItemRow> templates;
   final List<LibraryItemRow> userFiles;
+}
+
+/// İçe aktarılıp eklenen öğe ve taramanın raporu.
+class ImportedItem {
+  const ImportedItem(this.item, this.report);
+
+  final LibraryItemRow item;
+  final ImportReport report;
 }
 
 /// `.naya` dosyalarını diskte saklar, bilgilerini veritabanında tutar.
@@ -178,6 +188,20 @@ class LibraryService {
     await _db.into(_db.libraryItems).insert(row);
     await search?.index(id, file);
     return row;
+  }
+
+  /// S1000D zip'ini `.naya`'ya çevirip kullanıcının dosyası olarak ekler.
+  ///
+  /// Çeviri yüzlerce XML okuyabilir; sunucunun öteki istekleri beklemesin
+  /// diye ayrı isolate'te. Zip okunamazsa ya da içinde DM yoksa
+  /// [ImportException], oluşan dosya sınırları aşarsa [LibraryException].
+  Future<ImportedItem> importZip(AuthUser owner, Uint8List zip) async {
+    final (bytes, report) = await Isolate.run(() {
+      final result = importS1000dZip(zip);
+      return (result.file.encode(), result.report);
+    });
+    final item = await addUserFile(owner, bytes);
+    return ImportedItem(item, report);
   }
 
   /// Şablonu ekler; aynı manifest `id`'li şablon varsa ve dosya değiştiyse

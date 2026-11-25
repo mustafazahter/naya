@@ -1,0 +1,16 @@
+name: naya_import
+description: Dağınık S1000D dosyalarını (zip) .naya dosyasına çevirir.
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ^3.13.0
+
+dependencies:
+  archive: ^4.0.0
+  naya_format: any
+  naya_s1000d: any
+  xml: ^6.6.0
+
+dev_dependencies:
+  test: ^1.29.0

@@ -9,6 +9,7 @@ environment:
 dependencies:
   args: ^2.7.0
   naya_format: any
+  naya_import: any
   naya_s1000d: any
 
 executables:

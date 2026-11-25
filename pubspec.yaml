@@ -10,6 +10,7 @@ workspace:
   - packages/naya_format
   - packages/naya_s1000d
   - packages/naya_diagnosis
+  - packages/naya_import
   - tools/naya_cli
 
 dev_dependencies:

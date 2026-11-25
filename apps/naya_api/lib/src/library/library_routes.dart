@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:naya_format/naya_format.dart';
+import 'package:naya_import/naya_import.dart';
 import 'package:path/path.dart' as p;
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -18,6 +19,7 @@ import 'library_service.dart';
 /// - `GET  /<id>/file`            `.naya` dosyasının kendisi
 /// - `GET  /<id>/entries/<yol>`   dosyanın içinden tek bir kayıt
 /// - `POST /`                     `.naya` yükleme (gövde ham dosya)
+/// - `POST /import`               S1000D zip'ini `.naya`'ya çevirip ekler
 /// - `DELETE /<id>`               silme
 class LibraryRoutes {
   LibraryRoutes(this._library);
@@ -27,6 +29,7 @@ class LibraryRoutes {
   Router get router => Router()
     ..get('/', _list)
     ..post('/', _upload)
+    ..post('/import', _import)
     ..get('/<id>', _item)
     ..delete('/<id>', _delete)
     ..get('/<id>/file', _download)
@@ -99,18 +102,47 @@ class LibraryRoutes {
       final item = await _library.addUserFile(user, bytes);
       return jsonOk(itemJson(item), status: 201);
     } on LibraryException catch (e) {
-      return jsonOk(
-        {
-          'error': {
-            'code': e.code,
-            'message': e.message,
-            if (e.problems.isNotEmpty) 'problems': e.problems,
-          },
-        },
-        status: e.code == 'too_large' || e.code == 'quota_exceeded' ? 413 : 422,
-      );
+      return _libraryError(e);
     }
   }
+
+  /// Gövde S1000D dosyalarının zip'i. Çevrilip kullanıcının dosyası olarak
+  /// eklenir; cevapta öğe ve taramanın raporu var. Önce önizleme yok:
+  /// zip telefondan iki kez yüklenmesin, beğenilmezse silinir.
+  Future<Response> _import(Request request) async {
+    final user = userOf(request);
+    if (user == null) return unauthorized();
+
+    final declared = request.contentLength;
+    if (declared != null && declared > LibraryService.maxFileBytes) {
+      return _tooLarge();
+    }
+    final bytes = await _readBody(request);
+    if (bytes == null) return _tooLarge();
+    if (bytes.isEmpty) {
+      return jsonError(400, 'bad_request', 'Gövdede bir zip dosyası yok.');
+    }
+
+    try {
+      final imported = await _library.importZip(user, bytes);
+      return jsonOk({
+        'item': itemJson(imported.item),
+        'report': imported.report.toJson(),
+      }, status: 201);
+    } on ImportException catch (e) {
+      return jsonError(422, e.code, e.message);
+    } on LibraryException catch (e) {
+      return _libraryError(e);
+    }
+  }
+
+  static Response _libraryError(LibraryException e) => jsonOk({
+    'error': {
+      'code': e.code,
+      'message': e.message,
+      if (e.problems.isNotEmpty) 'problems': e.problems,
+    },
+  }, status: e.code == 'too_large' || e.code == 'quota_exceeded' ? 413 : 422);
 
   Future<Response> _delete(Request request, String id) async {
     final user = userOf(request);
