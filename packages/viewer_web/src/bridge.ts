@@ -16,6 +16,8 @@ export type ViewerCommand =
   | { type: "focus"; part: string }
   | { type: "isolate"; part: string | null }
   | { type: "xray"; enabled: boolean }
+  /** Uygulamanın modelin üstüne çizdiği düğmelerin kapladığı kenarlar (CSS px). */
+  | { type: "insets"; top: number; right: number; bottom: number; left: number }
   | { type: "reset" };
 
 export type ViewerEvent =
