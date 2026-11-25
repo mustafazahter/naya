@@ -43,15 +43,23 @@ COPY --from=viewer /src/apps/naya/assets/viewer apps/naya/assets/viewer
 RUN flutter pub get
 # API adresi boş: uygulama açıldığı adresle konuşur (aynı servis).
 RUN cd apps/naya && flutter build web --release --dart-define=NAYA_API_URL=
-# Komuta'nın önündeki önbellek .js dosyalarını tarayıcıda saatlerce tutuyor;
-# index.html önbelleğe girmez. Her derlemede değişen bir sürüm eki, yeni
-# yayının kodunun hemen gelmesini sağlar.
+# Komuta'nın önündeki önbellek .js ve resim dosyalarını tarayıcıda saatlerce
+# tutuyor; index.html önbelleğe girmez. Derlemenin bütün dosyalarından bir
+# sürüm üretilir: bootstrap ve main.dart.js sürüm ekiyle istenir, assets/
+# klasörünün bir kopyası v<sürüm>/assets altına konur ve Flutter
+# (assetBase) resimleri, fontları oradan yükler. Her imaj sıfırdan
+# derlendiği için içinde yalnız o sürümün tek kopyası olur, birikmez.
+# assets/ eski yerinde de kalır: gömülü viewer o yoldan açılıyor.
 RUN cd apps/naya/build/web \
- && v="$(cat main.dart.js flutter_bootstrap.js | sha1sum | cut -c1-10)" \
+ && v="$(find . -type f ! -name index.html -print0 | sort -z | xargs -0 sha1sum | sha1sum | cut -c1-10)" \
+ && mkdir "v$v" && cp -r assets "v$v/assets" \
  && sed -i "s/flutter_bootstrap\.js/flutter_bootstrap.js?v=$v/" index.html \
  && sed -i "s/\"main\.dart\.js\"/\"main.dart.js?v=$v\"/g" flutter_bootstrap.js \
+ && sed -i "s|_flutter.loader.load({|_flutter.loader.load({ config: { assetBase: \"v$v/\" },|" flutter_bootstrap.js \
  && grep -q "flutter_bootstrap.js?v=$v" index.html \
- && grep -q "main.dart.js?v=$v" flutter_bootstrap.js
+ && grep -q "main.dart.js?v=$v" flutter_bootstrap.js \
+ && grep -q "assetBase: \"v$v/\"" flutter_bootstrap.js \
+ && test -f "v$v/assets/AssetManifest.bin.json"
 RUN mkdir -p /out/templates \
  && for template in templates/src/*/; do \
       name="$(basename "$template")"; \
