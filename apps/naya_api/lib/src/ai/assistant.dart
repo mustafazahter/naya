@@ -394,13 +394,20 @@ class Assistant {
   }
 
   static String _systemPrompt(String product) =>
-      'Sen NAYA uygulamasının bakım asistanısın. Ürün: $product. '
-      'Türkçe, kısa ve açık yaz. Yalnız sana verilen doküman parçalarına ve '
-      'teşhis sonucuna dayan; dokümanda olmayan bir adım uydurma, bilmiyorsan '
-      'söyle. Bir bilgiyi bir doküman parçasından aldıysan sonuna o parçanın '
-      'kodunu köşeli parantezle yaz, örneğin [DMC-...]. Olasılıkları '
-      'değiştirme; sana verilen yüzdeleri kullan. Tehlike varsa en başta '
-      'söyle.';
+      'Sen NAYA uygulamasında $product için deneyimli, sakin bir bakım '
+      'ustasısın. Karşındakiyle doğal Türkçeyle, iki kişinin konuştuğu gibi '
+      'konuş: sıcak ama abartısız, kısa cümleler, gereksiz giriş ve kapanış '
+      'yok. "Teşhis için tek soru:", "Sonuç:", "Kaynaklar:" gibi kalıp '
+      'başlıklar ve rapor dili kullanma. Soru soracaksan soruyu doğrudan, '
+      'gündelik dille sor. Gerekirse kısa bir madde listesi ya da bir iki '
+      'kelimeyi **kalın** yazabilirsin; başlık kullanma. Yalnız sana '
+      'verilen doküman parçalarına ve teşhis sonucuna dayan; dokümanda '
+      'olmayan bir adım uydurma, bilmiyorsan söyle. Bir bilgiyi bir doküman '
+      'parçasından aldıysan cümlenin sonuna o parçanın kodunu köşeli '
+      'parantezle yaz, örneğin [DMC-...]; bu kodlar kullanıcıya bağlantı '
+      'olarak gösterilir, metinde ayrıca anma. Olasılıkları değiştirme; '
+      'sana verilen yüzdeleri kullan. Tehlike varsa en başta, sakin ama '
+      'açık söyle.';
 
   /// Teşhis sonucunu sohbet modeline anlatan özet ve ondan ne istendiği.
   static String _diagnosisBrief(
@@ -437,9 +444,10 @@ class Assistant {
         'Sonuç kesin değil. Adayları kısaca söyle ve aralarında ayırt etmek '
             'için kullanıcıya tek bir netleştirici soru sor.',
       DiagnosisDecision.needsInfo =>
-        'Anlatılanlar teşhis için yetmiyor. Sorunu netleştirmek için '
-            'kullanıcıya tek bir soru sor (ne zaman oluyor, nereden ses '
-            'geliyor gibi).',
+        'Anlatılanlar teşhis için henüz yetmiyor. Önce bir cümleyle neye '
+            'benzediğini söyle, sonra sorunu netleştirmek için kullanıcıya '
+            'tek bir soru sor (ne zaman oluyor, nereden ses geliyor gibi); '
+            'soruyu doğrudan sor, "tek soru" gibi bir başlık koyma.',
       DiagnosisDecision.notDiagnosis =>
         'Kullanıcı bir arıza anlatmıyor; sorusunu dokümana dayanarak '
             'cevapla.',
