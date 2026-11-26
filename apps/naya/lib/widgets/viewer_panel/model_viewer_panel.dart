@@ -164,8 +164,14 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
             onScanDone: _controller.scanFinished,
             onProgress: (value) => setState(() => _progress = value),
             onReady: () {
-              _controller.markReady();
               setState(() => _ready = true);
+              // Sayfa her yüklenişte (yeni odak, yeni model) viewer'ın
+              // boşlukları sıfırlanıyor: yeniden gönderilsin. Bekleyen
+              // komutlardan (ayırma, tarama) önce gitsin ki ilk kadraj
+              // boşlukları hesaba katsın.
+              _sentInsets = null;
+              _reportInsets();
+              _controller.markReady();
             },
             onLoadFailed: () => setState(() => _failed = true),
             // Üstte parça kartı ya da başka bir pencere açıksa model dokunuşu
