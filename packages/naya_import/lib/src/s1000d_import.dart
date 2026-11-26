@@ -154,7 +154,12 @@ ImportResult importS1000dFiles(
           ),
           entries: {
             for (final e in files.entries)
-              'csdb/${e.key}': Uint8List.fromList(e.value),
+              // Zip'ten gelen zaten Uint8List; büyük paketi bir daha
+              // kopyalamayalım.
+              'csdb/${e.key}': switch (e.value) {
+                final Uint8List b => b,
+                final other => Uint8List.fromList(other),
+              },
             'model/product.glb': schematicGlb(built),
           },
         )
@@ -213,8 +218,7 @@ String _titleOf(Csdb csdb, String modelIdentCode) {
   }
   final general = csdb.dataModules.where(
     (dm) =>
-        RegExp(r'0+$').hasMatch(dm.code.systemCode) &&
-        dm.code.infoCode.startsWith('0'),
+        dm.code.systemCode.endsWith('00') && dm.code.infoCode.startsWith('0'),
   );
   for (final dm in general) {
     if (dm.techName.trim().isNotEmpty) return dm.techName.trim();

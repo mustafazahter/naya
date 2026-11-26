@@ -206,6 +206,19 @@ void main() {
       );
     });
 
+    test('sınırlar: dosya sayısı, toplam ve tek dosya boyutu', () {
+      final zip = _zip({
+        _name('DA1-00-00', '040'): _dm('DA1-00-00', '040', 'Fren'),
+        _name('DA1-10-00', '040'): _dm('DA1-10-00', '040', 'Zincir'),
+      });
+      Matcher code(String c) =>
+          throwsA(isA<ImportException>().having((e) => e.code, 'code', c));
+      expect(() => readZip(zip, maxFiles: 1), code('too_many_files'));
+      expect(() => readZip(zip, maxBytes: 100), code('too_large'));
+      expect(() => readZip(zip, maxEntryBytes: 100), code('too_large'));
+      expect(readZip(zip).files, hasLength(2));
+    });
+
     test('okunamayan DM rapora yazılıyor, diğerleri alınıyor', () {
       final result = importS1000dFiles({
         _name('DA1-00-00', '040'): _dm('DA1-00-00', '040', 'Fren'),

@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:args/command_runner.dart';
+import 'package:naya_format/naya_format.dart';
 import 'package:naya_import/naya_import.dart';
 
 /// `naya import <paket.zip> -o <dosya.naya>`
@@ -37,8 +39,16 @@ class ImportCommand extends Command<void> {
       exitCode = 1;
       return;
     }
+    final Uint8List bytes;
+    try {
+      result.file.validate();
+      bytes = result.file.encode();
+    } on NayaFormatException catch (e) {
+      stderr.writeln('Oluşan dosya geçersiz: $e');
+      exitCode = 1;
+      return;
+    }
     final out = File(args.option('output')!);
-    final bytes = result.file.encode();
     out.writeAsBytesSync(bytes);
 
     final r = result.report;

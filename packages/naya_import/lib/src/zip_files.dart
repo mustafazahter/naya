@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:archive/archive.dart';
 
 import 'import_exception.dart';
@@ -7,7 +9,7 @@ class ZipFiles {
   const ZipFiles(this.files, this.skipped);
 
   /// Dosya adı (klasörsüz) → içerik.
-  final Map<String, List<int>> files;
+  final Map<String, Uint8List> files;
 
   /// S1000D dosyası olmadığı ya da aynı adla ikinci kez geçtiği için
   /// alınmayanlar, zip içindeki yollarıyla.
@@ -17,13 +19,15 @@ class ZipFiles {
 /// Zip'i açar ve S1000D dosyalarını (`DMC-`, `PMC-`, `DML-`, `ICN-`)
 /// klasörlerinden bağımsız olarak toplar.
 ///
-/// Dışarıdan gelen dosya olduğu için sınırlıdır: en çok [maxFiles] kayıt ve
-/// açılmış halde toplam [maxBytes]. Böylece küçük ama açılınca devleşen bir
-/// zip sunucuyu kilitleyemez.
+/// Dışarıdan gelen dosya olduğu için sınırlıdır: en çok [maxFiles] kayıt,
+/// açılmış halde toplam [maxBytes] ve dosya başına [maxEntryBytes]. Deflate
+/// 1000'e 1'e yakın sıkıştırabildiği için toplam sınır, oluşacak `.naya`'nın
+/// sınırının (50 MB) iki katı; içerik bellekte birkaç kez tutuluyor.
 ZipFiles readZip(
   List<int> bytes, {
   int maxFiles = 5000,
-  int maxBytes = 300 * 1024 * 1024,
+  int maxBytes = 100 * 1024 * 1024,
+  int maxEntryBytes = 50 * 1024 * 1024,
 }) {
   const invalid = ImportException(
     'invalid_zip',
@@ -48,6 +52,12 @@ ZipFiles readZip(
   }
   var total = 0;
   for (final f in entries) {
+    if (f.size > maxEntryBytes) {
+      throw ImportException(
+        'too_large',
+        '${f.name} açılınca ${maxEntryBytes ~/ (1024 * 1024)} MB’ı geçiyor.',
+      );
+    }
     total += f.size;
   }
   if (total > maxBytes) {
@@ -57,7 +67,7 @@ ZipFiles readZip(
     );
   }
 
-  final files = <String, List<int>>{};
+  final files = <String, Uint8List>{};
   final skipped = <String>[];
   final sorted = entries.toList()..sort((a, b) => a.name.compareTo(b.name));
   for (final entry in sorted) {
@@ -68,7 +78,15 @@ ZipFiles readZip(
       skipped.add(entry.name);
       continue;
     }
-    files[name] = entry.content;
+    // Bozuk sıkıştırma ya da CRC hatası burada çıkar.
+    try {
+      files[name] = entry.content;
+    } on Object {
+      throw ImportException(
+        'invalid_zip',
+        'Zip içindeki ${entry.name} açılamadı; dosya bozuk.',
+      );
+    }
   }
   return ZipFiles(files, skipped);
 }
