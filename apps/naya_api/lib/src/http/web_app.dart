@@ -20,9 +20,12 @@ Handler withWebApp(Handler api, String webDir) {
 
     final response = await files(request);
     if (response.statusCode != 404) return _withCaching(response);
-    // Uzantısı olan bir dosya gerçekten yoksa 404 kalsın; yoksa eksik bir
-    // betik HTML olarak gelir ve hata anlaşılmaz olur.
-    if (p.url.extension(path).isNotEmpty) return response;
+    // Eksik bir dosya (betik, çizim, model) 404 kalsın; yoksa HTML olarak
+    // gelir ve hata anlaşılmaz olur. Yalnız bilinen uzantılar: parça adında
+    // nokta olabilir (`/urun/x/parca/Wheel.001`), o adres sayfadır.
+    if (_fileExtensions.contains(p.url.extension(path).toLowerCase())) {
+      return response;
+    }
     return Response.ok(
       request.method == 'HEAD' ? null : index.openRead(),
       headers: {
@@ -32,6 +35,33 @@ Handler withWebApp(Handler api, String webDir) {
     );
   };
 }
+
+const _fileExtensions = {
+  '.js',
+  '.mjs',
+  '.css',
+  '.map',
+  '.json',
+  '.wasm',
+  '.html',
+  '.txt',
+  '.xml',
+  '.png',
+  '.jpg',
+  '.jpeg',
+  '.webp',
+  '.gif',
+  '.svg',
+  '.ico',
+  '.glb',
+  '.gltf',
+  '.bin',
+  '.ttf',
+  '.otf',
+  '.woff',
+  '.woff2',
+  '.naya',
+};
 
 /// Yeni sürüm yayınlanınca tarayıcı eski uygulamada kalmasın: her dosya
 /// her açılışta yeniden doğrulanır (değişmediyse sunucu 304 döner, dosya

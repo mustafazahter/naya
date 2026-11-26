@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../entities/diagnosis/diagnosis.dart';
 import '../../entities/product/product.dart';
 import '../../entities/product/product_content.dart';
+import '../../entities/session/session.dart';
 import '../../features/ask_ai/ask_ai.dart';
 import '../../features/diagnose/request_diagnosis.dart';
 import '../../shared/api/api_client.dart';
@@ -250,12 +251,17 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
     }
   }
 
+  /// "Giriş yap" uyarısı tek nesne: giriş yapılınca bu uyarı kalkar, öteki
+  /// uyarılar (anahtar yok, ağ hatası) yerinde durur.
+  late final _signInNotice = ChatNotice(
+    'Yapay zekâyı kullanmak için giriş yapmalısın.',
+    actionLabel: 'Giriş yap',
+    // Üst bileşen yeni bir geri çağırma verirse o çalışsın.
+    onAction: widget.onSignIn == null ? null : () => widget.onSignIn?.call(),
+  );
+
   ChatNotice _noticeFor(Object error) => switch (error) {
-    ApiException(statusCode: 401) => ChatNotice(
-      'Yapay zekâyı kullanmak için giriş yapmalısın.',
-      actionLabel: 'Giriş yap',
-      onAction: widget.onSignIn,
-    ),
+    ApiException(statusCode: 401) => _signInNotice,
     ApiException(code: 'no_key' || 'invalid_key', :final message) => ChatNotice(
       message,
       actionLabel: 'Ayarlara git',
@@ -557,6 +563,14 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Giriş sayfasından dönünce "giriş yapmalısın" uyarısı ekranda
+    // kalıyordu; oturum açılınca kalkar. Cevapsız mesaj yerinde durur,
+    // yeniden yazılan onun yerine geçer.
+    ref.listen(sessionProvider, (previous, next) {
+      if (next.value != null && identical(_notice, _signInNotice)) {
+        setState(() => _notice = null);
+      }
+    });
     final content = ref.watch(productContentProvider(product.id));
     final api = ref.watch(apiClientProvider);
     final data = content.value;
