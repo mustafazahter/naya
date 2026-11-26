@@ -14,17 +14,26 @@ class _ModelServer {
   final requests = <HttpHeaders>[];
   var status = HttpStatus.ok;
 
+  /// GLB yerine bu baytlar gönderilir (araya giren bir sayfa gibi).
+  List<int>? replacement;
+
   /// Her parçadan sonra beklenir; viewer inerken okuyabiliyor mu diye.
   Completer<void>? gate;
 
-  static final body = List<int>.generate(300 * 1024, (i) => i % 251);
+  /// GLB imzasıyla başlayan sahte model.
+  static final body = [
+    ...'glTF'.codeUnits,
+    ...List<int>.generate(300 * 1024 - 4, (i) => i % 251),
+  ];
 
   Future<void> start() async {
     server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
     server.listen((request) async {
       requests.add(request.headers);
       final response = request.response..statusCode = status;
-      if (status == HttpStatus.ok) {
+      if (status == HttpStatus.ok && replacement != null) {
+        response.add(replacement!);
+      } else if (status == HttpStatus.ok) {
         response.contentLength = body.length;
         const chunk = 64 * 1024;
         for (var i = 0; i < body.length; i += chunk) {
@@ -135,6 +144,27 @@ void main() {
     expect(File('${dir.path}/${id()}-eeee.part').existsSync(), isFalse);
     expect(File('${dir.path}/${id()}-eeee.glb').existsSync(), isFalse);
   });
+
+  test('GLB olmayan cevap saklanmaz', () async {
+    remote.replacement = '<html>uyanıyor</html>'.codeUnits;
+    await _get(localUrl('ffff')).catchError((_) => <int>[]);
+    await Future<void>.delayed(const Duration(milliseconds: 200));
+    final dir = Directory('${Directory.systemTemp.path}/models');
+    expect(File('${dir.path}/${id()}-ffff.glb').existsSync(), isFalse);
+    expect(File('${dir.path}/${id()}-ffff.part').existsSync(), isFalse);
+  });
+
+  test(
+    'önceden indirme kuyrukta beklerken açılan model bir kez iner',
+    () async {
+      // Kuyruğun dosya denetimi beklerken viewer açılıyor.
+      cache.prefetch(api, id(), '/model.glb?v=gggg', version: 'gggg');
+      final reading = _get(localUrl('gggg'));
+      expect(await reading, _ModelServer.body);
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      expect(remote.requests, hasLength(1));
+    },
+  );
 
   test('sürüm yoksa önbellek devreye girmez', () {
     expect(cache.localPath(api, id(), '/model.glb', version: null), isNull);

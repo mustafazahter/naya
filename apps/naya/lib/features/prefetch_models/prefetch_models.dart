@@ -17,13 +17,16 @@ void prefetchModel(ApiClient api, Product product) {
   );
 }
 
-/// Kütüphane açılınca: Android'de bütün modeller sırayla arka planda
-/// iner ve diskte kalır, sonraki açılışlar ağsız. Web'de hepsini indirmek
-/// yavaş bağlantıda (~10 MB'lık ilk açılışın üstüne) sayfayı boğar; orada
-/// yalnız fare kartın üstüne gelince ([prefetchModel]).
+/// Kütüphane açılınca: Android'de şablonların modelleri sırayla arka planda
+/// iner ve diskte kalır, sonraki açılışlar ağsız. Kullanıcı dosyaları
+/// yalnız açılınca iner: sayısı ve boyu sınırsız, önbelleğin 200 MB'ını
+/// aşınca her açılışta silinip yeniden iniyor, mobil veri harcıyordu.
+/// Web'de hepsini indirmek yavaş bağlantıda (~10 MB'lık ilk açılışın
+/// üstüne) sayfayı boğar; orada yalnız fare kartın üstüne gelince
+/// ([prefetchModel]).
 void prefetchLibraryModels(ApiClient api, Iterable<Product> products) {
   if (kIsWeb) return;
-  for (final product in products) {
+  for (final product in products.where((p) => p.isTemplate)) {
     prefetchModel(api, product);
   }
 }

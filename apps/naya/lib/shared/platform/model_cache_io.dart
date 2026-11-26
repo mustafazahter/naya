@@ -59,9 +59,11 @@ class ModelCache {
     if (key == null || !_requested.add(key)) return;
     _sources[key] = _Source(api, path);
     _queue = _queue.then((_) async {
-      if (_downloads.containsKey(key) || await _file(key).exists()) return;
+      if (await _file(key).exists()) return;
       try {
-        await _start(key).done.future;
+        // Beklerken viewer aynı modeli açmış olabilir: o indirmeye katıl,
+        // ikincisini başlatma (iki indirme aynı .part'a yazıyordu).
+        await (_downloads[key] ?? _start(key)).done.future;
       } on Object {
         _requested.remove(key);
         // Arka plan indirmesi sessizce düşer; açılınca yeniden denenir.
@@ -124,18 +126,33 @@ class ModelCache {
       if (response.statusCode != HttpStatus.ok) {
         throw HttpException('Model indirilemedi (${response.statusCode})');
       }
+      // Araya giren bir sayfa (uyku/uyandırma HTML'i) model diye saklanmasın.
+      if (response.headers.contentType?.mimeType == 'text/html') {
+        throw const HttpException('Model yerine sayfa geldi');
+      }
       download.total = response.contentLength >= 0
           ? response.contentLength
           : null;
       out = await download.part.open(mode: FileMode.write);
       download.headers.complete();
+      final magic = <int>[];
       await for (final chunk in response) {
+        if (magic.length < 4) magic.addAll(chunk.take(4 - magic.length));
         await out.writeFrom(chunk);
         download.received += chunk.length;
         download.tick();
       }
       await out.close();
       out = null;
+      // Yarım ya da GLB olmayan dosya sürümlü adla kalıcı olarak saklanırsa
+      // sürüm değişene dek model bozuk kalır.
+      final total = download.total;
+      if (total != null && download.received != total) {
+        throw const HttpException('Model yarım indi');
+      }
+      if (String.fromCharCodes(magic) != 'glTF') {
+        throw const HttpException('İnen dosya bir GLB değil');
+      }
       // Okuyucular kalanı okuyup dosyayı kapatsın; açık dosyanın adı her
       // sistemde değiştirilemiyor (Windows).
       await download.markWritten();
@@ -163,6 +180,15 @@ class ModelCache {
           .where((e) => e is File && e.path.endsWith('.glb'))
           .cast<File>()
           .toList();
+      // Uygulama indirme sırasında kapanırsa .part dosyaları kalıyordu.
+      await for (final e in _dir.list()) {
+        if (e is! File || !e.path.endsWith('.part')) continue;
+        final name = e.uri.pathSegments.last;
+        final key = name.substring(0, name.length - '.part'.length);
+        if (!_downloads.containsKey(key)) {
+          await e.delete().catchError((_) => e);
+        }
+      }
       for (final f in files) {
         final name = f.uri.pathSegments.last;
         if (name != '$keptKey.glb' && name.startsWith('$product-')) {
@@ -235,7 +261,12 @@ class _Download {
     _written = true;
     _ticks.add(null);
     if (_readers == 0) return Future.value();
-    return (_idle = Completer<void>()).future;
+    // Okumayı bırakmış bir WebView bağlantısı indirmeyi sonsuza dek
+    // bekletmesin; Android'de açık dosyanın adı değiştirilebiliyor.
+    return (_idle = Completer<void>()).future.timeout(
+      const Duration(seconds: 5),
+      onTimeout: () {},
+    );
   }
 
   void finish() {

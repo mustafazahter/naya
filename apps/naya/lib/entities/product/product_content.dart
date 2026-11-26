@@ -332,8 +332,14 @@ final productContentProvider = FutureProvider.family<ProductContent, String>((
   final api = ref.watch(apiClientProvider);
   // Sürüm kütüphaneden; kütüphane yenilense de içerik yeniden istenmesin
   // diye `read`. Ürün kütüphanede yoksa adresler sürümsüz.
-  final library = await ref.read(productLibraryProvider.future);
-  final version = library.byId(productId)?.version;
+  // Kütüphane gelmezse içerik yine açılsın, sürümsüz (kısa önbellek).
+  String? version;
+  try {
+    final library = await ref.read(productLibraryProvider.future);
+    version = library.byId(productId)?.version;
+  } on Object {
+    version = null;
+  }
   String entry(String path) =>
       productEntryPath(productId, path, version: version);
   final (manifest, parts, faults) = await (
