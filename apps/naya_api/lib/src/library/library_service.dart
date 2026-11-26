@@ -1,10 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 import 'package:drift/drift.dart';
 import 'package:naya_format/naya_format.dart';
+import 'package:naya_import/naya_import.dart';
 import 'package:path/path.dart' as p;
 
 import '../ai/dm_search.dart';
@@ -32,6 +35,14 @@ class LibraryListing {
 
   final List<LibraryItemRow> templates;
   final List<LibraryItemRow> userFiles;
+}
+
+/// İçe aktarılıp eklenen öğe ve taramanın raporu.
+class ImportedItem {
+  const ImportedItem(this.item, this.report);
+
+  final LibraryItemRow item;
+  final ImportReport report;
 }
 
 /// `.naya` dosyalarını diskte saklar, bilgilerini veritabanında tutar.
@@ -179,6 +190,45 @@ class LibraryService {
     await search?.index(id, file);
     return row;
   }
+
+  /// S1000D zip'ini `.naya`'ya çevirip kullanıcının dosyası olarak ekler.
+  ///
+  /// Çeviri yüzlerce XML okuyabilir; sunucunun öteki istekleri beklemesin
+  /// diye ayrı isolate'te. Zip okunamazsa ya da içinde DM yoksa
+  /// [ImportException], oluşan dosya sınırları aşarsa [LibraryException].
+  Future<ImportedItem> importZip(AuthUser owner, Uint8List zip) async {
+    // Kotası dolu kullanıcı pahalı çeviriyi boşuna tetiklemesin. Kesin
+    // denetim, dosya oluşunca [addUserFile]'da.
+    if (!owner.isAdmin) {
+      final used = await _usedBytes(owner.id);
+      if (used >= maxBytesPerUser) {
+        throw LibraryException(
+          'quota_exceeded',
+          'Yükleme sınırına ulaştınız: kişi başına en fazla '
+              '${maxBytesPerUser ~/ (1024 * 1024)} MB. Eski dosyalarınızdan '
+              'birini silin.',
+        );
+      }
+    }
+    // Açılan zip bellekte birkaç kez tutuluyor ve isolate'ler aynı belleği
+    // paylaşıyor: aynı anda tek çeviri.
+    final previous = _importQueue;
+    final done = Completer<void>();
+    _importQueue = done.future;
+    try {
+      await previous;
+      final (bytes, report) = await Isolate.run(() {
+        final result = importS1000dZip(zip);
+        return (result.file.encode(), result.report);
+      });
+      final item = await addUserFile(owner, bytes);
+      return ImportedItem(item, report);
+    } finally {
+      done.complete();
+    }
+  }
+
+  Future<void> _importQueue = Future.value();
 
   /// Şablonu ekler; aynı manifest `id`'li şablon varsa ve dosya değiştiyse
   /// onun yerine geçer. Kimliği korunur, böylece uygulamadaki adresler

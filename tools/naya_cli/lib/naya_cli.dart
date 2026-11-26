@@ -1,7 +1,7 @@
 import 'package:args/command_runner.dart';
 
+import 'src/import_command.dart';
 import 'src/pack_command.dart';
-import 'src/pending_command.dart';
 import 'src/unpack_command.dart';
 import 'src/validate_command.dart';
 
@@ -15,7 +15,5 @@ CommandRunner<void> buildRunner() {
     ..addCommand(PackCommand())
     ..addCommand(UnpackCommand())
     ..addCommand(ValidateCommand())
-    ..addCommand(
-      PendingCommand('import', 'S1000D zip dosyasını .naya dosyasına çevirir.'),
-    );
+    ..addCommand(ImportCommand());
 }

@@ -34,7 +34,7 @@ class DmFigureView extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: NayaSpace.sm),
             child: GestureDetector(
-              onTap: () => _zoom(context, url),
+              onTap: () => _zoom(context, url, api.authHeaders),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(NayaRadius.md),
                 child: DecoratedBox(
@@ -47,6 +47,7 @@ class DmFigureView extends ConsumerWidget {
                     aspectRatio: 4 / 3,
                     child: Image.network(
                       url,
+                      headers: api.authHeaders,
                       fit: BoxFit.contain,
                       semanticLabel: figure.title,
                       loadingBuilder: (context, child, progress) =>
@@ -75,7 +76,7 @@ class DmFigureView extends ConsumerWidget {
     );
   }
 
-  void _zoom(BuildContext context, String url) {
+  void _zoom(BuildContext context, String url, Map<String, String> headers) {
     showDialog<void>(
       context: context,
       barrierColor: Colors.black87,
@@ -83,7 +84,9 @@ class DmFigureView extends ConsumerWidget {
         onTap: () => Navigator.of(context).pop(),
         child: InteractiveViewer(
           maxScale: 5,
-          child: Center(child: Image.network(url, fit: BoxFit.contain)),
+          child: Center(
+            child: Image.network(url, headers: headers, fit: BoxFit.contain),
+          ),
         ),
       ),
     );

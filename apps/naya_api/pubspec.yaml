@@ -13,6 +13,7 @@ dependencies:
   http: ^1.6.0
   naya_diagnosis: any
   naya_format: any
+  naya_import: any
   naya_s1000d: any
   path: ^1.9.1
   shelf: ^1.4.2
@@ -21,6 +22,7 @@ dependencies:
   sqlite3: ^3.9.1
 
 dev_dependencies:
+  archive: ^4.0.0
   build_runner: ^2.16.1
   drift_dev: ^2.35.3
   naya_cli: any
