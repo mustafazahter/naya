@@ -11,6 +11,7 @@ import '../../entities/session/session.dart';
 import '../../features/ask_ai/ask_ai.dart';
 import '../../features/diagnose/request_diagnosis.dart';
 import '../../shared/api/api_client.dart';
+import '../../shared/platform/model_cache.dart';
 import '../../shared/ui/components.dart';
 import '../../shared/ui/theme.dart';
 import '../../shared/ui/tokens.dart';
@@ -579,19 +580,31 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
     final modelPath = product.modelPath;
     if (isModelFrameSupported && modelPath != null) {
       // Model ve montaj ağacı sunucudan; viewer'ın kendisi uygulamada gömülü.
-      final model = productEntryUri(api, product.id, modelPath);
-      final map = productEntryUri(api, product.id, 'map/parts.json');
+      // Android'de model cihazdaki önbellekten (yerel sunucu); oturum
+      // token'ı gerekiyorsa indirirken uygulama ekler, WebView'e gitmez.
+      final version = product.version;
+      final model =
+          ModelCache.instance.localPath(
+            api,
+            product.id,
+            productEntryPath(product.id, modelPath, version: version),
+            version: version,
+          ) ??
+          '${productEntryUri(api, product.id, modelPath, version: version)}';
+      final map = productEntryUri(
+        api,
+        product.id,
+        'map/parts.json',
+        version: version,
+      );
       viewer = ModelViewerPanel(
         productTitle: product.title,
         subtitle: data == null
             ? 'Yükleniyor…'
             : '${data.parts.parts.length} parça · sürükle ve döndür',
         viewerQuery:
-            'embed&model=${Uri.encodeQueryComponent('$model')}'
-            '&map=${Uri.encodeQueryComponent('$map')}'
-            // Kullanıcının kendi dosyası: Android'de model isteği oturum
-            // token'ını başlıkta taşır. Adres cihazdaki yerel sunucuda kalır.
-            '${!product.isTemplate && api.token != null ? '&auth=${Uri.encodeQueryComponent(api.token!)}' : ''}',
+            'embed&model=${Uri.encodeQueryComponent(model)}'
+            '&map=${Uri.encodeQueryComponent('$map')}',
         controller: _viewer,
         onPartTap: _onNodeTap,
         partLabel: (node) => data?.nodeLabel(node) ?? node,

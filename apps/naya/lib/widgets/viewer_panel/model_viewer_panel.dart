@@ -157,26 +157,35 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
     return Stack(
       children: [
         Positioned.fill(
-          child: ModelFrame(
-            query: _query,
-            controller: _controller,
-            onPartTap: _onPartTap,
-            onScanDone: _controller.scanFinished,
-            onProgress: (value) => setState(() => _progress = value),
-            onReady: () {
-              setState(() => _ready = true);
-              // Sayfa her yüklenişte (yeni odak, yeni model) viewer'ın
-              // boşlukları sıfırlanıyor: yeniden gönderilsin. Bekleyen
-              // komutlardan (ayırma, tarama) önce gitsin ki ilk kadraj
-              // boşlukları hesaba katsın.
-              _sentInsets = null;
-              _reportInsets();
-              _controller.markReady();
-            },
-            onLoadFailed: () => setState(() => _failed = true),
-            // Üstte parça kartı ya da başka bir pencere açıksa model dokunuşu
-            // almasın.
-            interactive: ModalRoute.isCurrentOf(context) ?? true,
+          // WebView'in içini ekran okuyucu göremez; ne olduğunu ve seçili
+          // parçayı burada söyleriz. Parçalar sohbetten ve kartlardan da
+          // açılabildiği için modele dokunmak zorunlu değil.
+          child: Semantics(
+            image: true,
+            label:
+                '${widget.productTitle}, 3D model'
+                '${_selected == null ? '' : '. Seçili: ${widget.partLabel?.call(_selected!) ?? _selected}'}',
+            child: ModelFrame(
+              query: _query,
+              controller: _controller,
+              onPartTap: _onPartTap,
+              onScanDone: _controller.scanFinished,
+              onProgress: (value) => setState(() => _progress = value),
+              onReady: () {
+                setState(() => _ready = true);
+                // Sayfa her yüklenişte (yeni odak, yeni model) viewer'ın
+                // boşlukları sıfırlanıyor: yeniden gönderilsin. Bekleyen
+                // komutlardan (ayırma, tarama) önce gitsin ki ilk kadraj
+                // boşlukları hesaba katsın.
+                _sentInsets = null;
+                _reportInsets();
+                _controller.markReady();
+              },
+              onLoadFailed: () => setState(() => _failed = true),
+              // Üstte parça kartı ya da başka bir pencere açıksa model dokunuşu
+              // almasın.
+              interactive: ModalRoute.isCurrentOf(context) ?? true,
+            ),
           ),
         ),
         if (_loading)
@@ -319,7 +328,7 @@ class _ModelViewerPanelState extends State<ModelViewerPanel> {
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.end,
                       style: context.text.small.copyWith(
-                        fontSize: 10,
+                        fontSize: 11,
                         color: c.textMuted,
                       ),
                     ),

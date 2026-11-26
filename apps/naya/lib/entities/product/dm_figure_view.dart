@@ -24,7 +24,7 @@ class DmFigureView extends ConsumerWidget {
     final urls = [
       for (final icn in figure.icns)
         if (content?.icnPath(icn) case final path?)
-          productEntryUri(api, productId, path).toString(),
+          api.uri(content!.entryPath(path)).toString(),
     ];
     if (urls.isEmpty) return const SizedBox.shrink();
     return Column(
@@ -33,29 +33,36 @@ class DmFigureView extends ConsumerWidget {
         for (final url in urls)
           Padding(
             padding: const EdgeInsets.only(bottom: NayaSpace.sm),
-            child: GestureDetector(
-              onTap: () => _zoom(context, url, api.authHeaders),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(NayaRadius.md),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: c.line),
-                    borderRadius: const BorderRadius.all(NayaRadius.md),
-                  ),
-                  child: AspectRatio(
-                    aspectRatio: 4 / 3,
-                    child: Image.network(
-                      url,
-                      headers: api.authHeaders,
-                      fit: BoxFit.contain,
-                      semanticLabel: figure.title,
-                      loadingBuilder: (context, child, progress) =>
-                          progress == null ? child : const SkeletonBlock(),
-                      errorBuilder: (context, _, _) => Center(
-                        child: Icon(
-                          Icons.broken_image_outlined,
-                          color: c.textMuted,
+            // Ekran okuyucu bunun büyütülebilen bir şekil olduğunu söylesin.
+            child: Semantics(
+              button: true,
+              label: figure.title.isEmpty
+                  ? 'Şekli büyüt'
+                  : 'Şekli büyüt: ${figure.title}',
+              child: GestureDetector(
+                onTap: () => _zoom(context, url, api.authHeaders),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(NayaRadius.md),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: c.line),
+                      borderRadius: const BorderRadius.all(NayaRadius.md),
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: 4 / 3,
+                      child: Image.network(
+                        url,
+                        headers: api.authHeaders,
+                        fit: BoxFit.contain,
+                        semanticLabel: figure.title,
+                        loadingBuilder: (context, child, progress) =>
+                            progress == null ? child : const SkeletonBlock(),
+                        errorBuilder: (context, _, _) => Center(
+                          child: Icon(
+                            Icons.broken_image_outlined,
+                            color: c.textMuted,
+                          ),
                         ),
                       ),
                     ),

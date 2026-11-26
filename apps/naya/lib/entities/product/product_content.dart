@@ -3,6 +3,7 @@ import 'package:naya_format/naya_format.dart';
 import 'package:naya_s1000d/naya_s1000d.dart';
 
 import '../../shared/api/api_client.dart';
+import 'product_library.dart';
 
 /// Bir ürünün çalışma alanında kullanılan içeriği: parça haritası, arızalar
 /// ve `.naya` içindeki DM ve çizimlerin yolları.
@@ -14,6 +15,7 @@ class ProductContent {
     required this.productId,
     required this.parts,
     this.faults,
+    this.version,
     Iterable<String> entryNames = const [],
   }) {
     // Sıralı gezilince aynı DM'in sonraki sayısı (`_002-00`) sonra gelir
@@ -65,6 +67,13 @@ class ProductContent {
   final String productId;
   final PartsFile parts;
   final FaultsFile? faults;
+
+  /// Ürünün sürümü ([Product.version]); kayıt adresleri bununla kurulur.
+  final String? version;
+
+  /// `.naya` içindeki bir kaydın sunucudaki yolu, sürümüyle.
+  String entryPath(String path) =>
+      productEntryPath(productId, path, version: version);
 
   final _dmPaths = <String, String>{};
   final _icnPaths = <String, String>{};
@@ -293,14 +302,25 @@ class ProductContent {
 }
 
 /// `.naya` içindeki bir kaydın sunucudaki adresi: çizimler, model.
-Uri productEntryUri(ApiClient api, String productId, String path) =>
-    api.uri(productEntryPath(productId, path));
+Uri productEntryUri(
+  ApiClient api,
+  String productId,
+  String path, {
+  String? version,
+}) => api.uri(productEntryPath(productId, path, version: version));
 
 /// Kayıt adresinin yolu. Dosya adındaki `#`, `?` gibi işaretler adresi
 /// bozmasın diye her parça ayrı kodlanır; sunucu bir kez çözer.
-String productEntryPath(String productId, String path) {
+///
+/// [version] ([Product.version]) verilirse `?v=` olarak eklenir; sunucu o
+/// adresi bir yıl `immutable` önbellekletir. Dosya güncellenince sürüm,
+/// dolayısıyla adres de değişir; eski önbellek yanlış içerik vermez.
+String productEntryPath(String productId, String path, {String? version}) {
   final encoded = path.split('/').map(Uri.encodeComponent).join('/');
-  return '/api/library/$productId/entries/$encoded';
+  final query = version == null
+      ? ''
+      : '?v=${Uri.encodeQueryComponent(version)}';
+  return '/api/library/$productId/entries/$encoded$query';
 }
 
 /// Ürünün parça haritası ve arızaları. `naya.json`'daki bütünlük listesi
@@ -310,11 +330,22 @@ final productContentProvider = FutureProvider.family<ProductContent, String>((
   productId,
 ) async {
   final api = ref.watch(apiClientProvider);
-  final base = '/api/library/$productId/entries';
+  // Sürüm kütüphaneden; kütüphane yenilense de içerik yeniden istenmesin
+  // diye `read`. Ürün kütüphanede yoksa adresler sürümsüz.
+  // Kütüphane gelmezse içerik yine açılsın, sürümsüz (kısa önbellek).
+  String? version;
+  try {
+    final library = await ref.read(productLibraryProvider.future);
+    version = library.byId(productId)?.version;
+  } on Object {
+    version = null;
+  }
+  String entry(String path) =>
+      productEntryPath(productId, path, version: version);
   final (manifest, parts, faults) = await (
-    api.getJson('$base/naya.json'),
-    api.getJson('$base/map/parts.json'),
-    _optional(api.getJson('$base/map/faults.json')),
+    api.getJson(entry('naya.json')),
+    api.getJson(entry('map/parts.json')),
+    _optional(api.getJson(entry('map/faults.json'))),
   ).wait;
   final integrity = manifest['integrity'];
   final files = integrity is Map ? integrity['files'] : null;
@@ -322,6 +353,7 @@ final productContentProvider = FutureProvider.family<ProductContent, String>((
     productId: productId,
     parts: PartsFile.fromJson(parts),
     faults: faults == null ? null : FaultsFile.fromJson(faults),
+    version: version,
     entryNames: files is Map ? files.keys.cast<String>() : const [],
   );
 }, retry: (_, _) => null);
@@ -341,7 +373,7 @@ final dataModuleProvider =
       }
       final xml = await ref
           .watch(apiClientProvider)
-          .getText(productEntryPath(key.productId, path));
+          .getText(content.entryPath(path));
       return DmDocument.parse(xml, file: path);
     }, retry: (_, _) => null);
 

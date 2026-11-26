@@ -6,6 +6,7 @@ import '../../entities/product/product_card.dart';
 import '../../entities/product/product_library.dart';
 import '../../entities/session/session.dart';
 import '../../features/export_naya/file_actions.dart';
+import '../../features/prefetch_models/prefetch_models.dart';
 import '../../features/search_library/library_search.dart';
 import '../../shared/api/api_client.dart';
 import '../../shared/ui/components.dart';
@@ -38,6 +39,15 @@ class LibraryPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final library = ref.watch(filteredLibraryProvider);
+    // Kütüphane gelince modeller arka planda iner (Android). Önce
+    // şablonlar, sonra kullanıcının dosyaları. Her yeniden çizimde
+    // çağrılabilir; istenmiş model yeniden kuyruğa girmez.
+    if (ref.watch(productLibraryProvider).value case final all?) {
+      prefetchLibraryModels(ref.read(apiClientProvider), [
+        ...all.templates,
+        ...all.userFiles,
+      ]);
+    }
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, box) {
@@ -82,7 +92,12 @@ class LibraryPage extends ConsumerWidget {
                         ),
                       ),
                     ],
-                    data: (data) => _contentSlivers(context, data, columns),
+                    data: (data) => _contentSlivers(
+                      context,
+                      data,
+                      columns,
+                      ref.read(apiClientProvider),
+                    ),
                   ),
                 ),
               ),
@@ -97,6 +112,7 @@ class LibraryPage extends ConsumerWidget {
     BuildContext context,
     ProductLibrary library,
     int columns,
+    ApiClient api,
   ) {
     if (library.templates.isEmpty && library.userFiles.isEmpty) {
       return const [
@@ -125,6 +141,7 @@ class LibraryPage extends ConsumerWidget {
             product: library.templates[i],
             index: i,
             onOpen: () => onOpen(library.templates[i]),
+            onHover: () => prefetchModel(api, library.templates[i]),
           ),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: NayaSpace.xxxl)),
@@ -338,9 +355,12 @@ class _FileRow extends ConsumerWidget {
               color: c.surfaceRaised,
               borderRadius: const BorderRadius.all(NayaRadius.sm),
             ),
-            child: Text(
-              '.naya',
-              style: context.text.label.copyWith(fontSize: 9),
+            // Süs; ekran okuyucu satırın adını okusun, rozeti değil.
+            child: ExcludeSemantics(
+              child: Text(
+                '.naya',
+                style: context.text.label.copyWith(fontSize: 9),
+              ),
             ),
           ),
           const SizedBox(width: NayaSpace.lg),

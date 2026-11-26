@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 
+import 'model_cache_io.dart';
+
 /// Gömülü viewer'ı (`assets/viewer`) Android WebView'e sunan küçük bir
 /// HTTP sunucusu.
 ///
@@ -35,6 +37,13 @@ class ViewerAssetServer {
   static Future<void> _handle(AssetBundle bundle, HttpRequest request) async {
     final response = request.response;
     var path = request.uri.path;
+    // Önbellekteki modeller (ModelCache); anahtar yalnız güvenli
+    // karakterler, klasör dışına çıkamaz.
+    final cached = RegExp(r'^/cached/([A-Za-z0-9_-]+)$').firstMatch(path);
+    if (cached != null) {
+      await ModelCache.instance.serve(cached[1]!, response);
+      return;
+    }
     if (path == '/' || path.isEmpty) path = '/index.html';
     try {
       final data = await bundle.load('assets/viewer$path');

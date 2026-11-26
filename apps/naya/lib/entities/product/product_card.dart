@@ -13,11 +13,15 @@ class ProductCard extends StatefulWidget {
     required this.product,
     required this.index,
     required this.onOpen,
+    this.onHover,
   });
 
   final Product product;
   final int index;
   final VoidCallback onOpen;
+
+  /// Fare kartın üstüne gelince (web); modeli önceden indirmek için.
+  final VoidCallback? onHover;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -36,7 +40,10 @@ class _ProductCardState extends State<ProductCard> {
       button: true,
       label: '${p.title} şablonunu aç',
       child: MouseRegion(
-        onEnter: (_) => setState(() => _hovered = true),
+        onEnter: (_) {
+          widget.onHover?.call();
+          setState(() => _hovered = true);
+        },
         onExit: (_) => setState(() => _hovered = false),
         child: GestureDetector(
           onTap: widget.onOpen,

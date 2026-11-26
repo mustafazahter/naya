@@ -29,6 +29,7 @@ class Product {
     this.isTemplate = true,
     this.modelPath,
     this.credits = const [],
+    this.version,
   });
 
   /// `/api/library` cevabındaki bir öğe.
@@ -46,6 +47,7 @@ class Product {
       moduleCount: (json['moduleCount'] as num?)?.toInt() ?? 0,
       isTemplate: json['isTemplate'] == true,
       modelPath: hasModel && model is Map ? model['main'] as String? : null,
+      version: json['version'] as String?,
       credits: [
         for (final credit in json['credits'] as List<Object?>? ?? const [])
           if (credit is Map<String, Object?>) Credit.fromJson(credit),
@@ -74,6 +76,11 @@ class Product {
 
   /// Model ve görseller için atıflar (CC BY).
   final List<Credit> credits;
+
+  /// Dosyanın sürümü (özetinin başı). Kayıt adreslerine `?v=` olarak
+  /// eklenir; sunucu o adresleri uzun süre önbellekte tutturur. Eski sunucu
+  /// göndermezse null, adres sürümsüz kalır.
+  final String? version;
 
   /// Gerçek modelin render'ı. Yoksa kartta teknik çizim gösterilir.
   String? get thumbnail => _thumbnails[key];

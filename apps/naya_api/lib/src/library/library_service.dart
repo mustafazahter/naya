@@ -243,7 +243,9 @@ class LibraryService {
     if (existing != null && existing.sha256 == digest) return existing;
 
     final id = existing?.id ?? _newId();
-    final fileName = '$id.naya';
+    // Dosya adı içeriğe bağlı: yenisi yazılırken eski satırı okuyan bir
+    // istek yeni içeriği eski sürümlü adreste (`immutable`) vermesin.
+    final fileName = '$id-${digest.substring(0, 16)}.naya';
     await _writeFile(fileName, bytes);
     final now = _clock();
     final row = _rowFor(
@@ -257,6 +259,10 @@ class LibraryService {
       updatedAt: now,
     );
     await _db.into(_db.libraryItems).insertOnConflictUpdate(row);
+    if (existing != null && existing.fileName != fileName) {
+      final old = fileOf(existing);
+      if (await old.exists()) await old.delete();
+    }
     _openFiles.removeWhere((cacheKey, _) => cacheKey.startsWith('$id:'));
     await search?.index(id, file);
     return row;
