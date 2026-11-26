@@ -130,7 +130,9 @@ class LibraryRoutes {
         'report': imported.report.toJson(),
       }, status: 201);
     } on ImportException catch (e) {
-      return jsonError(422, e.code, e.message);
+      // Boyut ve dosya sayısı sınırları yüklemedeki gibi 413.
+      final tooBig = e.code == 'too_large' || e.code == 'too_many_files';
+      return jsonError(tooBig ? 413 : 422, e.code, e.message);
     } on LibraryException catch (e) {
       return _libraryError(e);
     }

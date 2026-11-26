@@ -65,9 +65,12 @@ class _ImportPageState extends ConsumerState<ImportPage> {
     }
     if (package == null || !mounted) return;
     setState(() => _stage = _Working(package!));
+    // Yükleme sürerken sayfadan çıkılırsa `ref` kullanılamaz; kütüphane yine
+    // yenilensin diye kapsayıcı baştan alınır.
+    final container = ProviderScope.containerOf(context, listen: false);
     try {
       final outcome = await uploadPackage(ref.read(apiClientProvider), package);
-      ref.invalidate(productLibraryProvider);
+      container.invalidate(productLibraryProvider);
       if (mounted) setState(() => _stage = _Done(outcome));
     } on ImportFailure catch (e) {
       if (mounted) setState(() => _stage = _Failed(e.message));
@@ -77,9 +80,10 @@ class _ImportPageState extends ConsumerState<ImportPage> {
   /// Rapor beğenilmediyse eklenen dosya geri alınır.
   Future<void> _remove(Product product) async {
     setState(() => _removing = true);
+    final container = ProviderScope.containerOf(context, listen: false);
     try {
       await deleteUserFile(ref.read(apiClientProvider), product);
-      ref.invalidate(productLibraryProvider);
+      container.invalidate(productLibraryProvider);
       if (mounted) setState(() => _stage = const _Choosing());
     } on ApiException catch (e) {
       if (mounted) setState(() => _stage = _Failed(e.message));
