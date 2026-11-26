@@ -35,6 +35,8 @@ void main() {
       '/urun/bisiklet',
       '/urun/bisiklet/gecmis',
       '/ayarlar',
+      // Parça adında nokta olabilir (Blender düğümü).
+      '/urun/x/parca/Wheel.001',
     ]) {
       final response = await server.send('GET', path);
       expect(response.statusCode, 200, reason: path);

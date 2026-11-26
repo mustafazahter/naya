@@ -256,7 +256,8 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage> {
   late final _signInNotice = ChatNotice(
     'Yapay zekâyı kullanmak için giriş yapmalısın.',
     actionLabel: 'Giriş yap',
-    onAction: widget.onSignIn,
+    // Üst bileşen yeni bir geri çağırma verirse o çalışsın.
+    onAction: widget.onSignIn == null ? null : () => widget.onSignIn?.call(),
   );
 
   ChatNotice _noticeFor(Object error) => switch (error) {
