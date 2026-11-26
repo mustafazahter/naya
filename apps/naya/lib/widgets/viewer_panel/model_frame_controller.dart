@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/painting.dart' show EdgeInsets;
 
 /// Viewer'a komut göndermek için. Komutların biçimi
 /// `packages/viewer_web/src/bridge.ts` içindeki `ViewerCommand` ile aynı.
@@ -60,6 +61,17 @@ class ModelFrameController {
   }
 
   void xray(bool enabled) => _send?.call({'type': 'xray', 'enabled': enabled});
+
+  /// Modelin üstüne çizilen düğme ve yazıların kapladığı kenarlar
+  /// (mantıksal piksel). Viewer kadrajı bunlara göre ayarlar; parçalar
+  /// ayrılınca başlığın ya da düğmelerin altına girmez.
+  void insets(EdgeInsets insets) => _send?.call({
+    'type': 'insets',
+    'top': insets.top,
+    'right': insets.right,
+    'bottom': insets.bottom,
+    'left': insets.left,
+  });
 
   void focus(String part) => _send?.call({'type': 'focus', 'part': part});
 

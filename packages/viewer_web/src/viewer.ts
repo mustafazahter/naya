@@ -352,12 +352,47 @@ export class NayaViewer {
     this.finishIntro();
     this.explodeTarget = target;
     if (this.isolated || !this.model) return;
-    void this.controls.fitToBox(this.boxAt(target), true, {
-      paddingTop: 0.1,
-      paddingBottom: 0.1,
-      paddingLeft: 0.1,
-      paddingRight: 0.1,
-    });
+    const box = this.boxAt(target);
+    void this.controls.fitToBox(box, true, this.paddingFor(box));
+  }
+
+  /** Uygulamanın tuvalin üstüne çizdiği düğme ve yazıların kapladığı kenarlar (CSS px). */
+  private insets = { top: 0, right: 0, bottom: 0, left: 0 };
+
+  setInsets(insets: { top: number; right: number; bottom: number; left: number }): void {
+    const px = (v: number) => (Number.isFinite(v) ? Math.max(0, v) : 0);
+    this.insets = {
+      top: px(insets.top),
+      right: px(insets.right),
+      bottom: px(insets.bottom),
+      left: px(insets.left),
+    };
+  }
+
+  /**
+   * fitToBox'ın payları dünya biriminde; kenarlardaki düğmelerin piksel
+   * payları modelin boyuna oranlanır. Böylece dar telefon ekranında ayrılmış
+   * parçalar başlığın ve sağdaki düğmelerin altına girmez.
+   * fitToBox kamerayı en yakın eksene çevirdiği için genişlik o eksenden alınır.
+   */
+  private paddingFor(box: THREE.Box3) {
+    const margin = 0.1;
+    const { clientWidth: w, clientHeight: h } = this.renderer.domElement;
+    const size = box.getSize(new THREE.Vector3());
+    const sideView = Math.round(this.controls.azimuthAngle / (Math.PI / 2)) % 2 !== 0;
+    const width = sideView ? size.z : size.x;
+    const { top, right, bottom, left } = this.insets;
+    const freeH = h - top - bottom;
+    const freeW = w - left - right;
+    if (!w || !h || freeH < h * 0.3 || freeW < w * 0.3) {
+      return { paddingTop: margin, paddingBottom: margin, paddingLeft: margin, paddingRight: margin };
+    }
+    return {
+      paddingTop: margin + (size.y * top) / freeH,
+      paddingBottom: margin + (size.y * bottom) / freeH,
+      paddingLeft: margin + (width * left) / freeW,
+      paddingRight: margin + (width * right) / freeW,
+    };
   }
 
   /** Parçalar [amount] kadar açıkken modelin kapladığı kutu. */
